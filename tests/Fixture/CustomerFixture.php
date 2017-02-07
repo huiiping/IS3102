@@ -61,7 +61,7 @@ class CustomerFixture extends TestFixture
             'email' => 'Lorem ipsum dolor sit amet',
             'shippingAddress' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
             'contact' => 1,
-            'dateJoined' => '2017-02-07 03:50:13',
+            'dateJoined' => '2017-02-07 05:13:38',
             'activationStatus' => 1,
             'membershipStatus' => 'Lorem ipsum dolor sit amet',
             'loyaltyPoints' => 1
