@@ -1,0 +1,113 @@
+CREATE TABLE retaileracctypes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    numOfUsers INT,
+    numOfWarehouses INT,
+    numOfStores INT,
+    numOfProdTypes INT,
+    created DATETIME,
+    modified DATETIME
+);
+
+CREATE TABLE retailers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    company_name VARCHAR(255) NOT NULL,
+    company_desc TEXT,
+    last_name VARCHAR(255),
+    activation_status BOOLEAN,
+    payment_term VARCHAR(255),
+    loyalty_points INT,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    contact INT NOT NULL,
+    contractStartDate DATETIME NOT NULL,
+    contractEndDate DATETIME NOT NULL,
+    created DATETIME,
+    modified DATETIME,
+    retaileracctype_id INT NOT NULL,
+    FOREIGN KEY (retaileracctype_id) REFERENCES retaileracctypes(id)
+);
+
+CREATE TABLE intrasysemployees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    activation_status BOOLEAN,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    contact INT NOT NULL,
+    created DATETIME,
+    modified DATETIME
+);
+
+CREATE TABLE employeeroles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    role_name VARCHAR(255) UNIQUE,
+    role_desc TEXT,
+    created DATETIME,
+    modified DATETIME
+);
+
+CREATE TABLE announcements (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    message VARCHAR(255) NOT NULL,
+    remarks VARCHAR(255),
+    created DATETIME,
+    modified DATETIME
+);
+
+CREATE TABLE intrasysemployees_employeeroles (
+    intrasysemployee_id INT NOT NULL,
+    employeerole_id INT NOT NULL,
+    PRIMARY KEY (intrasysemployee_id, employeerole_id),
+    FOREIGN KEY (intrasysemployee_id) REFERENCES intrasysemployees(id),
+    FOREIGN KEY (employeerole_id) REFERENCES employeeroles(id)
+);
+
+CREATE TABLE intrasysemployees_announcements (
+    intrasysemployee_id INT NOT NULL,
+    announcement_id INT NOT NULL,
+    PRIMARY KEY (intrasysemployee_id, announcement_id),
+    FOREIGN KEY (intrasysemployee_id) REFERENCES intrasysemployees(id),
+    FOREIGN KEY (announcement_id) REFERENCES announcements(id)
+);
+
+/*
+    user_id INT NOT NULL,
+    client_id INT NOT NULL,
+    category_id INT NOT NULL,
+    title VARCHAR(50),
+    description TEXT,
+    url TEXT,
+    launch DATETIME,
+    created DATETIME,
+    modified DATETIME,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (category_id) REFERENCES categories(id),
+    FOREIGN KEY (client_id) REFERENCES clients(id)
+);
+
+CREATE TABLE notes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    project_id INT NOT NULL,
+    user_id INT NOT NULL,
+    title VARCHAR(255),
+    body TEXT,
+    created DATETIME,
+    modified DATETIME,
+    FOREIGN KEY (project_id) REFERENCES projects(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE tags (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    created DATETIME,
+    modified DATETIME
+);
+*/
