@@ -280,6 +280,20 @@ return [
             //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
             'url' => env('DATABASE_TEST_URL', null),
         ],
+		'elastic' => [
+        'className' => 'Cake\ElasticSearch\Datasource\Connection',
+        'driver' => 'Cake\ElasticSearch\Datasource\Connection',
+        'host' => '127.0.0.1',
+        'port' => 9200,
+        'index' => 'index',
+		],
+		'auditlog_elastic' => [
+        'className' => 'Cake\ElasticSearch\Datasource\Connection',
+        'driver' => 'Cake\ElasticSearch\Datasource\Connection',
+        'host' => '127.0.0.1', // server where elasticsearch is running
+        'port' => 9200,
+        'index' => 'audit-logs%s', // Just add a %s at the end
+		],
     ],
 
     /**

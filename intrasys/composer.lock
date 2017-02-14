@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea3c478c2ccdb8d48fac10fdee52b565",
+    "content-hash": "5a3330f46bef48fb8de7c25787edc459",
     "packages": [
         {
             "name": "aura/installer-default",
@@ -255,6 +255,53 @@
             "time": "2017-01-09T02:11:45+00:00"
         },
         {
+            "name": "cakephp/elastic-search",
+            "version": "0.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cakephp/elastic-search.git",
+                "reference": "aa334dcb50d1d2e48978f7710c925f78eb88de93"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cakephp/elastic-search/zipball/aa334dcb50d1d2e48978f7710c925f78eb88de93",
+                "reference": "aa334dcb50d1d2e48978f7710c925f78eb88de93",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "~3.1",
+                "ruflin/elastica": "~2.2"
+            },
+            "require-dev": {
+                "cakephp/cakephp-codesniffer": "dev-master",
+                "phpunit/phpunit": "~4.0",
+                "psr/log": "~1.0"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Cake\\ElasticSearch\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "CakePHP Community",
+                    "homepage": "https://github.com/cakephp/elastic-search/graphs/contributors"
+                }
+            ],
+            "description": "An Elastic Search datasource and data mapper for CakePHP 3.0",
+            "homepage": "https://github.com/cakephp/elastic-search",
+            "keywords": [
+                "cakephp",
+                "elasticsearch"
+            ],
+            "time": "2016-11-13T08:05:36+00:00"
+        },
+        {
             "name": "cakephp/migrations",
             "version": "1.6.7",
             "source": {
@@ -343,6 +390,48 @@
             ],
             "description": "A composer installer for CakePHP 3.0+ plugins.",
             "time": "2016-04-28T03:01:34+00:00"
+        },
+        {
+            "name": "lorenzo/audit-stash",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lorenzo/audit-stash.git",
+                "reference": "5d35a299ad99903a91e2cadac8f1080dc7e05e1d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lorenzo/audit-stash/zipball/5d35a299ad99903a91e2cadac8f1080dc7e05e1d",
+                "reference": "5d35a299ad99903a91e2cadac8f1080dc7e05e1d",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/orm": "~3.0",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "cakephp/cakephp": "~3.0",
+                "cakephp/elastic-search": "~0.1",
+                "friendsofcake/process-mq": "dev-master",
+                "phpunit/phpunit": "*"
+            },
+            "suggest": {
+                "cakephp/elastic-search": "The default persister engine for audit-stash is elastic search and requires this plugin",
+                "friendsofcake/crud": "audit-stash provide Crud Action classes for displaying audit logs",
+                "friendsofcake/process-mq": "Use this package if you prefer sending the audit events to RabbitMQ"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "AuditStash\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Flexible and rock solid audit log tracking plugin for cakephp",
+            "time": "2016-09-12T13:12:17+00:00"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -560,6 +649,63 @@
                 "phinx"
             ],
             "time": "2016-10-27T10:16:12+00:00"
+        },
+        {
+            "name": "ruflin/elastica",
+            "version": "2.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ruflin/Elastica.git",
+                "reference": "0df1d7b513960ba11d3075652dcd71fcab8dd37a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ruflin/Elastica/zipball/0df1d7b513960ba11d3075652dcd71fcab8dd37a",
+                "reference": "0df1d7b513960ba11d3075652dcd71fcab8dd37a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "psr/log": "~1.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "5.3.*",
+                "munkie/elasticsearch-thrift-php": "1.4.*"
+            },
+            "suggest": {
+                "egeloen/http-adapter": "Allow using httpadapter transport",
+                "guzzlehttp/guzzle": "Allow using guzzle 5.3.x as the http transport (Requires php 5.4)",
+                "monolog/monolog": "Logging request",
+                "munkie/elasticsearch-thrift-php": "Allow using thrift transport"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Elastica\\": "lib/Elastica/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Ruflin",
+                    "homepage": "http://ruflin.com/"
+                }
+            ],
+            "description": "Elasticsearch Client",
+            "homepage": "http://elastica.io/",
+            "keywords": [
+                "client",
+                "search"
+            ],
+            "time": "2015-10-19T07:09:10+00:00"
         },
         {
             "name": "symfony/config",
