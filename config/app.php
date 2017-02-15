@@ -64,7 +64,7 @@ return [
      *   You should treat it as extremely sensitive data.
      */
     'Security' => [
-        'salt' => env('SECURITY_SALT', '685dbfd5a8011090a90096256efbd7d377afca5798c502444d014f618ac296a2'),
+        'salt' => env('SECURITY_SALT', 'a3d24449f4101c94e7575470b14ce93d6b8dae61237b36a9630120e3aef0c3bf'),
     ],
 
     /**
@@ -231,7 +231,7 @@ return [
             //'port' => 'non_standard_port_number',
             'username' => 'root',
             'password' => 'joy',
-            'database' => 'is3102',
+            'database' => 'retailerdb',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'flags' => [],
@@ -260,6 +260,22 @@ return [
             'url' => env('DATABASE_URL', null),
         ],
 
+        'intrasysdb' => [
+            'className' => 'Cake\Database\Connection',
+            'driver' => 'Cake\Database\Driver\Mysql',
+            'persistent' => false,
+            'host' => 'localhost',
+            //'port' => 'nonstandard_port_number',
+            'username' => 'root',
+            'password' => 'joy',
+            'database' => 'intrasysdb', // This is my second database
+            'encoding' => 'utf8',
+            'timezone' => 'UTC',
+            'cacheMetadata' => true,
+            'quoteIdentifiers' => false,
+        //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
+        ],
+
         /**
          * The test connection is used during the test suite.
          */
@@ -280,20 +296,6 @@ return [
             //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
             'url' => env('DATABASE_TEST_URL', null),
         ],
-		'elastic' => [
-        'className' => 'Cake\ElasticSearch\Datasource\Connection',
-        'driver' => 'Cake\ElasticSearch\Datasource\Connection',
-        'host' => '127.0.0.1',
-        'port' => 9200,
-        'index' => 'index',
-		],
-		'auditlog_elastic' => [
-        'className' => 'Cake\ElasticSearch\Datasource\Connection',
-        'driver' => 'Cake\ElasticSearch\Datasource\Connection',
-        'host' => '127.0.0.1', // server where elasticsearch is running
-        'port' => 9200,
-        'index' => 'audit-logs%s', // Just add a %s at the end
-		],
     ],
 
     /**
