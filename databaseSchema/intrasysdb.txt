@@ -1,0 +1,79 @@
+CREATE TABLE retaileracctypes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    numOfUsers INT,
+    numOfWarehouses INT,
+    numOfStores INT,
+    numOfProdTypes INT,
+    created DATETIME,
+    modified DATETIME
+);
+
+CREATE TABLE retailers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    companyName VARCHAR(255) NOT NULL,
+    companyDesc TEXT,
+    lastName VARCHAR(255),
+    activationStatus BOOLEAN,
+    paymentTerm VARCHAR(255),
+    loyaltyPoints INT,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    contact INT NOT NULL,
+    contractStartDate DATETIME NOT NULL,
+    contractEndDate DATETIME NOT NULL,
+    created DATETIME,
+    modified DATETIME,
+    retailerAccType_id INT NOT NULL,
+    FOREIGN KEY (retaileracctype_id) REFERENCES retaileracctypes(id)
+);
+
+CREATE TABLE intrasysemployees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    firstName VARCHAR(255) NOT NULL,
+    lastName VARCHAR(255) NOT NULL,
+    activationStatus BOOLEAN,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    contact INT NOT NULL,
+    created DATETIME,
+    modified DATETIME
+);
+
+CREATE TABLE employeeroles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    roleName VARCHAR(255) UNIQUE,
+    roleDesc TEXT,
+    created DATETIME,
+    modified DATETIME
+);
+
+CREATE TABLE announcements (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    message VARCHAR(255) NOT NULL,
+    remarks VARCHAR(255),
+    created DATETIME,
+    modified DATETIME
+);
+
+CREATE TABLE intrasysemployees_employeeroles (
+    intrasysEmployee_id INT NOT NULL,
+    employeeRole_id INT NOT NULL,
+    PRIMARY KEY (intrasysEmployee_id, employeeRole_id),
+    FOREIGN KEY (intrasysEmployee_id) REFERENCES intrasysemployees(id),
+    FOREIGN KEY (employeeRole_id) REFERENCES employeeroles(id)
+);
+
+CREATE TABLE intrasysemployees_announcements (
+    intrasysEmployee_id INT NOT NULL,
+    announcement_id INT NOT NULL,
+    PRIMARY KEY (intrasysEmployee_id, announcement_id),
+    FOREIGN KEY (intrasysEmployee_id) REFERENCES intrasysemployees(id),
+    FOREIGN KEY (announcement_id) REFERENCES announcements(id)
+);
+

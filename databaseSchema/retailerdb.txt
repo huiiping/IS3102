@@ -1,0 +1,363 @@
+CREATE TABLE custmembershiptiers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    teirName VARCHAR(255) NOT NULL,
+    validityPeriod INT NOT NULL,
+    minSpending DOUBLE,
+    membershipFee DOUBLE,
+    membershipPts DOUBLE,
+    redemptionPts INT,
+    discountRate DOUBLE,
+    birthdayRate DOUBLE,
+    description TEXT, 
+    created DATETIME,
+    modified DATETIME
+);
+
+CREATE TABLE customers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    contact INT NOT NULL,
+    created DATETIME,
+    modified DATETIME,
+    firstName VARCHAR(100) NOT NULL,
+    lastName VARCHAR(100) NOT NULL,
+    activationStatus BOOLEAN,
+    mailingList BOOLEAN,
+    custMembershipTier_id INT NOT NULL,
+    FOREIGN KEY (custMembershipTier_id) REFERENCES custmembershiptiers(id)
+);
+
+CREATE TABLE membershippoints (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    points INT,
+    addition BOOLEAN,
+    created DATETIME,
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
+
+CREATE TABLE suppliers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    contact INT NOT NULL,
+    created DATETIME,
+    modified DATETIME,
+    supplierName VARCHAR(255),
+    country VARCHAR(255),
+    activationStatus BOOLEAN,
+    bankAcc INT
+);
+
+CREATE TABLE suppliermemos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    remarks VARCHAR(255),
+    created DATETIME,
+    supplier_id INT,
+    FOREIGN KEY (supplier_id) REFERENCES suppliers(id)
+);
+
+CREATE TABLE employeeroles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    roleName VARCHAR(255) NOT NULL,
+    roleDesc TEXT
+);
+
+CREATE TABLE locations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    address VARCHAR(255),
+    contact INT,
+    type VARCHAR(100)
+);
+
+CREATE TABLE retaileremployees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    contact INT NOT NULL,
+    created DATETIME,
+    modified DATETIME,
+    firstName VARCHAR(100) NOT NULL,
+    lastName VARCHAR(100) NOT NULL,
+    activationStatus BOOLEAN,
+    location_id INT,
+    FOREIGN KEY (location_id) REFERENCES locations(id)
+);
+
+CREATE TABLE messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    dateCreated DATETIME,
+    message TEXT,
+    receiver INT,
+    sender INT,
+    status BOOLEAN,
+    reference_id VARCHAR(100),
+    employee_id INT,
+    FOREIGN KEY (employee_id) REFERENCES retaileremployees(id)
+);
+
+CREATE TABLE promotions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    startDate DATETIME,
+    endDate DATETIME,
+    promoDesc TEXT,
+    item1_id INT,
+    item2_id INT,
+    prodType1_id INT,
+    prodType2_id INT,
+    firstVouherNo VARCHAR(100),
+    lastVoucherNo VARCHAR(100),
+    discountRate DOUBLE,
+    creditCardType VARCHAR(100),
+    prodCat_id INT,
+    employee_id INT,
+    FOREIGN KEY (employee_id) REFERENCES retaileremployees(id)
+);
+
+CREATE TABLE purchaseorders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    created DATETIME,
+    totalPrice DOUBLE,
+    deliveryStatus BOOLEAN,
+    supplier_id INT,
+    FOREIGN KEY (supplier_id) REFERENCES suppliers(id),
+    employee_id INT,
+    FOREIGN KEY (employee_id) REFERENCES retaileremployees(id)
+);
+
+CREATE TABLE purchaseorderitems (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    productTypeID INT,
+    itemDesc TEXT,
+    quantity INT,
+    unitPrice DOUBLE,
+    subTotalPrice DOUBLE,
+    purchaseOrder_id INT,
+    FOREIGN KEY (purchaseOrder_id) REFERENCES purchaseorders(id)
+);
+
+CREATE TABLE sections (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    secName VARCHAR(100),
+    spcaeLimit INT,
+    reserve BOOLEAN,
+    item_id INT,
+    location_id INT,
+    FOREIGN KEY (location_id) REFERENCES locations(id)
+);
+
+CREATE TABLE prodcats (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    catName VARCHAR(100),
+    catDesc TEXT,
+    employee_id INT,
+    FOREIGN KEY (employee_id) REFERENCES retaileremployees(id)
+);
+
+CREATE TABLE prodtypes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    prodName VARCHAR(100),
+    prodDesc TEXT,
+    colour VARCHAR(100),
+    dimension VARCHAR(255),
+    storeUnitPrice DOUBLE,
+    webStoreUnitPrice DOUBLE,
+    SKU VARCHAR(100),
+    employee_id INT,
+    FOREIGN KEY (employee_id) REFERENCES retaileremployees(id),
+    prodCat_id INT,
+    FOREIGN KEY (prodCat_id) REFERENCES prodcats(id)
+);
+
+CREATE TABLE items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    itemName VARCHAR(255),
+    itemDesc TEXT,
+    EPC VARCHAR(255),
+    barcode VARCHAR(255),
+    itemStatus VARCHAR(100),
+    defective BOOLEAN,
+    location_id INT,
+    FOREIGN KEY (location_id) REFERENCES locations(id),
+    prodType_id INT,
+    FOREIGN KEY (prodType_id) REFERENCES prodtypes(id),
+    section_id INT,
+    FOREIGN KEY (section_id) REFERENCES sections(id)
+);
+
+CREATE TABLE stocklevels (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    minThresholdLevel INT,
+    triggered BOOLEAN,
+    notificationMsg TEXT,
+    receiver VARCHAR(100),
+    location_id INT,
+    FOREIGN KEY (location_id) REFERENCES locations(id),
+    prodType_id INT,
+    FOREIGN KEY (prodType_id) REFERENCES prodtypes(id)
+);
+
+CREATE TABLE transactions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    transactionStatus VARCHAR(100),
+    dateCreated DATETIME,
+    totalAmt DOUBLE,
+    remarks TEXT,
+    referenceID INT,
+    location_id INT,
+    FOREIGN KEY (location_id) REFERENCES locations(id),
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
+
+CREATE TABLE transactionitems (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    transactionStatus VARCHAR(100),
+    item_id INT,
+    itemDesc TEXT,
+    quantity INT,
+    unitPrice DOUBLE,
+    transaction_id INT,
+    FOREIGN KEY (transaction_id) REFERENCES transactions(id)
+);
+
+CREATE TABLE transferorders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    locationFrom INT NOT NULL,
+    locationTo INT NOT NULL,
+    trasnferStatus VARCHAR(100),
+    trasferDate DATETIME,
+    remarks TEXT,
+    locationFrom_id INT,
+    FOREIGN KEY (locationFrom_id) REFERENCES locations(id),
+    locationTo_id INT,
+    FOREIGN KEY (locationTo_id) REFERENCES locations(id)
+);
+
+CREATE TABLE transferorderitems (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    item_id INT,
+    ECP VARCHAR(255),
+    barcode VARCHAR(255),
+    quantity INT,
+    transferOrder_id INT,
+    FOREIGN KEY (transferOrder_id) REFERENCES transferorders(id),
+    promotion_id INT,
+    FOREIGN KEY (promotion_id) REFERENCES promotions(id)
+);
+
+CREATE TABLE deliveryorders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    deliveryStatus VARCHAR(100),
+    deliveryCharge DOUBLE,
+    expectedDeliveryDate DATETIME,
+    actualDeliveryDate DATETIME,
+    deliverer VARCHAR (100),
+    transaction_id INT,
+    FOREIGN KEY (transaction_id) REFERENCES transactions(id)
+);
+
+CREATE TABLE deliveryorderitems (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    item_id INT,
+    ECP VARCHAR(255),
+    barcode VARCHAR(255),
+    quantity INT,
+    deliveryOrder_id INT,
+    FOREIGN KEY (deliveryOrder_id) REFERENCES deliveryorders(id)
+);
+
+CREATE TABLE incidentreports (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    dateCreated DATETIME,
+    status BOOLEAN,
+    reference_id INT,
+    employee_id INT,
+    FOREIGN KEY (employee_id) REFERENCES retaileremployees(id)
+);
+
+CREATE TABLE promotionemails (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    employee_id INT,
+    FOREIGN KEY (employee_id) REFERENCES retaileremployees(id)
+);
+
+CREATE TABLE loggings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    type VARCHAR(100),
+    entity_id INT
+);
+
+CREATE TABLE custmembershiptiers_retaileremployees (
+    custMembershipTier_id INT NOT NULL,
+    retailerEmployee_id INT NOT NULL,
+    PRIMARY KEY (custMembershipTier_id, retailerEmployee_id),
+    FOREIGN KEY (custMembershipTier_id) REFERENCES custmembershiptiers(id),
+    FOREIGN KEY (retailerEmployee_id) REFERENCES retaileremployees(id)
+);
+
+CREATE TABLE customers_promotionemails (
+    customer_id INT NOT NULL,
+    promotionEmail_id INT NOT NULL,
+    PRIMARY KEY (customer_id, promotionEmail_id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id),
+    FOREIGN KEY (promotionEmail_id) REFERENCES promotionemails(id)
+);
+
+CREATE TABLE customers_retaileremployees (
+    customer_id INT NOT NULL,
+    employee_id INT NOT NULL,
+    PRIMARY KEY (customer_id, employee_id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id),
+    FOREIGN KEY (employee_id) REFERENCES retaileremployees(id)
+);
+
+CREATE TABLE retaileremployees_suppliermemos (
+    retailerEmployee_id INT NOT NULL,
+    supplierMemo_id INT NOT NULL,
+    PRIMARY KEY (retailerEmployee_id, supplierMemo_id),
+    FOREIGN KEY (retailerEmployee_id) REFERENCES retaileremployees(id),
+    FOREIGN KEY (supplierMemo_id) REFERENCES suppliermemos(id)
+);
+
+CREATE TABLE retaileremployees_employeeroles (
+    retailerEmployee_id INT NOT NULL,
+    employeeRole_id INT NOT NULL,
+    PRIMARY KEY (retailerEmployee_id, employeeRole_id),
+    FOREIGN KEY (retailerEmployee_id) REFERENCES retaileremployees(id),
+    FOREIGN KEY (employeeRole_id) REFERENCES employeeroles(id)
+);
+
+CREATE TABLE retaileremployees_transactions (
+    retailerEmployee_id INT NOT NULL,
+    transaction_id INT NOT NULL,
+    PRIMARY KEY (retailerEmployee_id, transaction_id),
+    FOREIGN KEY (retailerEmployee_id) REFERENCES retaileremployees(id),
+    FOREIGN KEY (transaction_id) REFERENCES transactions(id)
+);
+
+CREATE TABLE retaileremployees_transferorders (
+    retailerEmployee_id INT NOT NULL,
+    transferOrder_id INT NOT NULL,
+    PRIMARY KEY (retailerEmployee_id, transferOrder_id),
+    FOREIGN KEY (retailerEmployee_id) REFERENCES retaileremployees(id),
+    FOREIGN KEY (transferOrder_id) REFERENCES transferorders(id)
+);
+
+CREATE TABLE locations_promotions (
+    location_id INT NOT NULL,
+    promotion_id INT NOT NULL,
+    PRIMARY KEY (location_id, promotion_id),
+    FOREIGN KEY (location_id) REFERENCES locations(id),
+    FOREIGN KEY (promotion_id) REFERENCES promotions(id)
+);
