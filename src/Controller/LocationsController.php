@@ -11,6 +11,9 @@ use App\Controller\AppController;
 class LocationsController extends AppController
 {
 
+    public $components = array(
+        'Search.Prg'
+    );
     /**
      * Index method
      *
@@ -18,10 +21,18 @@ class LocationsController extends AppController
      */
     public function index()
     {
+        $this->Prg->commonProcess();
+
+        $this->Paginator->settings['conditions'] = $this->Items->parseCriteria($this->Prg->parsedParams());
+        $this->set('items', $this->Paginator->paginate());
+
+
+        /*
         $locations = $this->paginate($this->Locations);
 
         $this->set(compact('locations'));
         $this->set('_serialize', ['locations']);
+        */
     }
 
     /**

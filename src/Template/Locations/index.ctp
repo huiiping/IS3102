@@ -5,6 +5,8 @@
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
+
+
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Location'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Items'), ['controller' => 'Items', 'action' => 'index']) ?></li>
@@ -21,7 +23,15 @@
         <li><?= $this->Html->link(__('New Promotion'), ['controller' => 'Promotions', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="locations index large-9 medium-8 columns content">
+
+
+
+
+
+
+
+
+<div class="locations large-9 medium-8 columns content">
     <h3><?= __('Locations') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
@@ -33,8 +43,21 @@
                 <th scope="col"><?= $this->Paginator->sort('type') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
+            <tr>
+            <?= $this->Form->create($this); ?>
+            <th scope="col"> </th>
+            <th scope="col"><?php echo $this->Form->input('name');?></th>
+            <th scope="col"> <?php echo $this->Form->input('address');?></th>
+            <th scope="col"> <?php echo $this->Form->input('contact');?></th>
+            <th scope="col"> <?php echo $this->Form->input('type');?></th>
+            <th scope="col"> <?= $this->Form->button(__('Submit')) ?></th>
+            <?= $this->Form->end() ?>
+            </tr>
         </thead>
         <tbody>
+
+
+
             <?php foreach ($locations as $location): ?>
             <tr>
                 <td><?= $this->Number->format($location->id) ?></td>
@@ -50,7 +73,13 @@
             </tr>
             <?php endforeach; ?>
         </tbody>
+
+
+
     </table>
+
+
+
     <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->first('<< ' . __('first')) ?>

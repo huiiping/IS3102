@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7fb6653820861a122b16d02933fd3b4a",
+    "content-hash": "86a275073a56b7f6bb02b028f61587ba",
     "packages": [
         {
             "name": "aura/intl",
@@ -51,6 +51,57 @@
                 "localization"
             ],
             "time": "2017-01-20T05:00:11+00:00"
+        },
+        {
+            "name": "cakedc/search",
+            "version": "3.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CakeDC/search.git",
+                "reference": "39acc19a70a524100c797b4eb66c75a7f03be818"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CakeDC/search/zipball/39acc19a70a524100c797b4eb66c75a7f03be818",
+                "reference": "39acc19a70a524100c797b4eb66c75a7f03be818",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/plugin-installer": "*",
+                "php": ">=5.4.16"
+            },
+            "require-dev": {
+                "cakephp/cakephp": "~3.0",
+                "phpunit/phpunit": "*"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Search\\": "src",
+                    "Search\\Test\\": "tests"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cake Development Corporation",
+                    "email": "team@cakedc.com",
+                    "homepage": "http://cakedc.com"
+                }
+            ],
+            "description": "Search Plugin for CakePHP",
+            "homepage": "http://github.com/CakeDC/search",
+            "keywords": [
+                "cakephp",
+                "filter",
+                "post-redirect-get",
+                "prg",
+                "search"
+            ],
+            "time": "2016-07-27 14:09:20"
         },
         {
             "name": "cakephp/cakephp",
@@ -1906,6 +1957,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "cakedc/search": 20,
         "psy/psysh": 0
     },
     "prefer-stable": true,

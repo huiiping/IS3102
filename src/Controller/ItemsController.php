@@ -11,6 +11,9 @@ use App\Controller\AppController;
 class ItemsController extends AppController
 {
 
+    public $components = array(
+        'Search.Prg'
+    );
     /**
      * Index method
      *
@@ -18,13 +21,20 @@ class ItemsController extends AppController
      */
     public function index()
     {
+
+        $this->Prg->commonProcess();
+        $this->set('items', $this->paginate($this->Items->find('searchable', $this->Prg->parsedParams())));
+
+
         $this->paginate = [
             'contain' => ['Locations', 'Prodtypes']
         ];
+        /*
         $items = $this->paginate($this->Items);
 
         $this->set(compact('items'));
         $this->set('_serialize', ['items']);
+*/
     }
 
     /**

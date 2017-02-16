@@ -28,6 +28,49 @@ use Cake\Validation\Validator;
 class ItemsTable extends Table
 {
 
+
+    public $filterArgs = array(
+        'id' => array(
+            'type' => 'like',
+            'field' => 'id'
+        ),
+        'itemName' => array(
+            'type' => 'like',
+            'field' => 'itemName'
+        ),
+        'itemDesc' => array(
+            'type' => 'like',
+            'field' => 'itemDesc'
+        ),
+        'EPC' => array(
+            'type' => 'like',
+            'field' => 'EPC'
+        ),
+        'barcode' => array(
+            'type' => 'like',
+            'field' => 'barcode'
+        ),
+        'itemStatus' => array(
+            'type' => 'like',
+            'field' => 'itemStatus'
+        ),
+        'defective' => array(
+            'type' => 'like',
+            'field' => 'defective'
+        ),
+        'location_id' => array(
+            'type' => 'like',
+            'field' => 'location_id'
+        ),
+        'prodType_id' => array(
+            'type' => 'like',
+            'field' => 'prodType_id'
+        ),
+        'section_id' => array(
+            'type' => 'like',
+            'field' => 'section_id'
+        ));
+
     /**
      * Initialize method
      *
@@ -63,6 +106,8 @@ class ItemsTable extends Table
         $this->hasMany('Transferorderitems', [
             'foreignKey' => 'item_id'
         ]);
+
+        $this->addBehavior('Search.Searchable');
     }
 
     /**
