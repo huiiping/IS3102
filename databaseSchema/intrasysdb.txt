@@ -13,6 +13,7 @@ CREATE TABLE retailers (
     id INT AUTO_INCREMENT PRIMARY KEY,
     companyName VARCHAR(255) NOT NULL,
     companyDesc TEXT,
+    firstName VARCHAR(255),
     lastName VARCHAR(255),
     activationStatus BOOLEAN,
     paymentTerm VARCHAR(255),
@@ -21,13 +22,13 @@ CREATE TABLE retailers (
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
-    contact INT NOT NULL,
+    contact VARCHAR(100) NOT NULL,
     contractStartDate DATETIME NOT NULL,
     contractEndDate DATETIME NOT NULL,
     created DATETIME,
     modified DATETIME,
     retailerAccType_id INT NOT NULL,
-    FOREIGN KEY (retaileracctype_id) REFERENCES retaileracctypes(id)
+    FOREIGN KEY (retailerAccType_id) REFERENCES retaileracctypes(id)
 );
 
 CREATE TABLE intrasysemployees (
@@ -39,12 +40,12 @@ CREATE TABLE intrasysemployees (
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
-    contact INT NOT NULL,
+    contact VARCHAR(100) NOT NULL,
     created DATETIME,
     modified DATETIME
 );
 
-CREATE TABLE employeeroles (
+CREATE TABLE intrasysemployeeroles (
     id INT AUTO_INCREMENT PRIMARY KEY,
     roleName VARCHAR(255) UNIQUE,
     roleDesc TEXT,
@@ -61,19 +62,10 @@ CREATE TABLE announcements (
     modified DATETIME
 );
 
-CREATE TABLE intrasysemployees_employeeroles (
+CREATE TABLE intrasysemployees_intrasysemployeeroles (
     intrasysEmployee_id INT NOT NULL,
-    employeeRole_id INT NOT NULL,
-    PRIMARY KEY (intrasysEmployee_id, employeeRole_id),
+    intrasysEmployeeRole_id INT NOT NULL,
+    PRIMARY KEY (intrasysEmployee_id, intrasysEmployeeRole_id),
     FOREIGN KEY (intrasysEmployee_id) REFERENCES intrasysemployees(id),
-    FOREIGN KEY (employeeRole_id) REFERENCES employeeroles(id)
+    FOREIGN KEY (intrasysEmployeeRole_id) REFERENCES intrasysemployeeroles(id)
 );
-
-CREATE TABLE intrasysemployees_announcements (
-    intrasysEmployee_id INT NOT NULL,
-    announcement_id INT NOT NULL,
-    PRIMARY KEY (intrasysEmployee_id, announcement_id),
-    FOREIGN KEY (intrasysEmployee_id) REFERENCES intrasysemployees(id),
-    FOREIGN KEY (announcement_id) REFERENCES announcements(id)
-);
-
