@@ -21,10 +21,12 @@ class LocationsController extends AppController
      */
     public function index()
     {
-        $this->Prg->commonProcess();
 
-        $this->Paginator->settings['conditions'] = $this->Items->parseCriteria($this->Prg->parsedParams());
-        $this->set('items', $this->Paginator->paginate());
+        $this->Prg->commonProcess();
+        $this->set('locations', $this->paginate($this->Locations->find('searchable', $this->Prg->parsedParams())));
+
+
+
 
 
         /*

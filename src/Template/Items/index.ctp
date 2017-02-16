@@ -37,22 +37,23 @@
                 <th scope="col"><?= $this->Paginator->sort('section_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <tr>
-                <?= $this->Form->create($this); ?>
-                <th scope="col"></th>
-                <th scope="col"><?php echo $this->Form->input('itemName') ?></th>
-                <th scope="col"><?php echo $this->Form->input('EPC') ?></th>
-                <th scope="col"><?php echo $this->Form->input('barcode') ?></th>
-                <th scope="col"><?php echo $this->Form->input('itemStatus') ?></th>
-                <th scope="col"><?php echo $this->Form->input('defective') ?></th>
-                <th scope="col"><?php echo $this->Form->input('location_id') ?></th>
-                <th scope="col"><?php echo $this->Form->input('prodType_id') ?></th>
-                <th scope="col"><?php echo $this->Form->input('section_id') ?></th>
-                <th scope="col"> <?= $this->Form->button(__('Submit')) ?></th>
-                <?= $this->Form->end() ?>
-            </tr>
+
         </thead>
         <tbody>
+        <tr>
+            <?= $this->Form->create($this); ?>
+            <th scope="col"></th>
+            <th scope="col"><?php echo $this->Form->input('itemName') ?></th>
+            <th scope="col"><?php echo $this->Form->input('EPC') ?></th>
+            <th scope="col"><?php echo $this->Form->input('barcode') ?></th>
+            <th scope="col"><?php echo $this->Form->input('itemStatus') ?></th>
+            <th scope="col"><?php echo $this->Form->input('defective') ?></th>
+            <th scope="col"><?php echo $this->Form->input('location_id') ?></th>
+            <th scope="col"><?php echo $this->Form->input('prodType_id') ?></th>
+            <th scope="col"><?php echo $this->Form->input('section_id') ?></th>
+            <th scope="col"> <?= $this->Form->button(__('Submit')) ?></th>
+            <?= $this->Form->end() ?>
+        </tr>
             <?php foreach ($items as $item): ?>
             <tr>
                 <td><?= $this->Number->format($item->id) ?></td>
