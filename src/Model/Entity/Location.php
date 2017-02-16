@@ -12,12 +12,8 @@ use Cake\ORM\Entity;
  * @property int $contact
  * @property string $type
  *
- * @property \App\Model\Entity\Item[] $items
  * @property \App\Model\Entity\Retaileremployee[] $retaileremployees
  * @property \App\Model\Entity\Section[] $sections
- * @property \App\Model\Entity\Stocklevel[] $stocklevels
- * @property \App\Model\Entity\Transaction[] $transactions
- * @property \App\Model\Entity\Promotion[] $promotions
  */
 class Location extends Entity
 {

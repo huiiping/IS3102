@@ -21,11 +21,10 @@ use Cake\Validation\Validator;
  */
 class RetaileracctypesTable extends Table
 {
-
-    public static function defaultConnectionName() {
+    public static function defaultConnectionName()
+    {
         return 'intrasysdb';
     }
-    
     /**
      * Initialize method
      *

@@ -14,11 +14,10 @@ use Cake\ORM\Entity;
  * @property float $storeUnitPrice
  * @property float $webStoreUnitPrice
  * @property string $SKU
- * @property int $employee_id
  * @property int $prodCat_id
  *
- * @property \App\Model\Entity\Retaileremployee $retaileremployee
  * @property \App\Model\Entity\Prodcat $prodcat
+ * @property \App\Model\Entity\Promotion[] $promotions
  */
 class Prodtype extends Entity
 {

@@ -9,14 +9,8 @@
         <li><?= $this->Html->link(__('New Customer'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Custmembershiptiers'), ['controller' => 'Custmembershiptiers', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Custmembershiptier'), ['controller' => 'Custmembershiptiers', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Membershippoints'), ['controller' => 'Membershippoints', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Membershippoint'), ['controller' => 'Membershippoints', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Transactions'), ['controller' => 'Transactions', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Transaction'), ['controller' => 'Transactions', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Promotionemails'), ['controller' => 'Promotionemails', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Promotionemail'), ['controller' => 'Promotionemails', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployees'), ['controller' => 'Retaileremployees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retaileremployee'), ['controller' => 'Retaileremployees', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Promotions'), ['controller' => 'Promotions', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Promotion'), ['controller' => 'Promotions', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="customers index large-9 medium-8 columns content">
@@ -34,7 +28,7 @@
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('firstName') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('lastName') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('activationStatus') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('accountStatus') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('mailingList') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('custMembershipTier_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -48,12 +42,12 @@
                 <td><?= h($customer->password) ?></td>
                 <td><?= h($customer->email) ?></td>
                 <td><?= h($customer->address) ?></td>
-                <td><?= $this->Number->format($customer->contact) ?></td>
+                <td><?= h($customer->contact) ?></td>
                 <td><?= h($customer->created) ?></td>
                 <td><?= h($customer->modified) ?></td>
                 <td><?= h($customer->firstName) ?></td>
                 <td><?= h($customer->lastName) ?></td>
-                <td><?= h($customer->activationStatus) ?></td>
+                <td><?= h($customer->accountStatus) ?></td>
                 <td><?= h($customer->mailingList) ?></td>
                 <td><?= $customer->has('custmembershiptier') ? $this->Html->link($customer->custmembershiptier->id, ['controller' => 'Custmembershiptiers', 'action' => 'view', $customer->custmembershiptier->id]) : '' ?></td>
                 <td class="actions">

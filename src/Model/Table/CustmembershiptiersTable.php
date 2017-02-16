@@ -9,8 +9,6 @@ use Cake\Validation\Validator;
 /**
  * Custmembershiptiers Model
  *
- * @property \Cake\ORM\Association\BelongsToMany $Retaileremployees
- *
  * @method \App\Model\Entity\Custmembershiptier get($primaryKey, $options = [])
  * @method \App\Model\Entity\Custmembershiptier newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Custmembershiptier[] newEntities(array $data, array $options = [])
@@ -39,12 +37,6 @@ class CustmembershiptiersTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
-
-        $this->belongsToMany('Retaileremployees', [
-            'foreignKey' => 'custmembershiptier_id',
-            'targetForeignKey' => 'retaileremployee_id',
-            'joinTable' => 'custmembershiptiers_retaileremployees'
-        ]);
     }
 
     /**
@@ -60,8 +52,8 @@ class CustmembershiptiersTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('teirName', 'create')
-            ->notEmpty('teirName');
+            ->requirePresence('tierName', 'create')
+            ->notEmpty('tierName');
 
         $validator
             ->integer('validityPeriod')
@@ -69,15 +61,13 @@ class CustmembershiptiersTable extends Table
             ->notEmpty('validityPeriod');
 
         $validator
-            ->numeric('minSpending')
             ->allowEmpty('minSpending');
 
         $validator
-            ->numeric('membershipFee')
             ->allowEmpty('membershipFee');
 
         $validator
-            ->numeric('membershipPts')
+            ->integer('membershipPts')
             ->allowEmpty('membershipPts');
 
         $validator
@@ -85,11 +75,9 @@ class CustmembershiptiersTable extends Table
             ->allowEmpty('redemptionPts');
 
         $validator
-            ->numeric('discountRate')
             ->allowEmpty('discountRate');
 
         $validator
-            ->numeric('birthdayRate')
             ->allowEmpty('birthdayRate');
 
         $validator

@@ -20,7 +20,7 @@
         <?php
             echo $this->Form->input('remarks');
             echo $this->Form->input('supplier_id', ['options' => $suppliers, 'empty' => true]);
-            echo $this->Form->input('retaileremployees._ids', ['options' => $retaileremployees]);
+            echo $this->Form->input('retailerEmployee_id', ['options' => $retaileremployees, 'empty' => true]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

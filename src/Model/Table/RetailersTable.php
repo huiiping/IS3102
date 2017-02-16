@@ -23,11 +23,10 @@ use Cake\Validation\Validator;
  */
 class RetailersTable extends Table
 {
-
-    public static function defaultConnectionName() {
+    public static function defaultConnectionName()
+    {
         return 'intrasysdb';
     }
-
     /**
      * Initialize method
      *
@@ -70,11 +69,13 @@ class RetailersTable extends Table
             ->allowEmpty('companyDesc');
 
         $validator
+            ->allowEmpty('firstName');
+
+        $validator
             ->allowEmpty('lastName');
 
         $validator
-            ->boolean('activationStatus')
-            ->allowEmpty('activationStatus');
+            ->allowEmpty('accountStatus');
 
         $validator
             ->allowEmpty('paymentTerm');
@@ -102,7 +103,6 @@ class RetailersTable extends Table
             ->notEmpty('address');
 
         $validator
-            ->integer('contact')
             ->requirePresence('contact', 'create')
             ->notEmpty('contact');
 

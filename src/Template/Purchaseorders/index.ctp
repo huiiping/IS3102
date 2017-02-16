@@ -23,7 +23,7 @@
                 <th scope="col"><?= $this->Paginator->sort('totalPrice') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('deliveryStatus') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('supplier_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('employee_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('retailerEmployee_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>

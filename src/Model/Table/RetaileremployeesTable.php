@@ -10,12 +10,8 @@ use Cake\Validation\Validator;
  * Retaileremployees Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Locations
- * @property \Cake\ORM\Association\BelongsToMany $Custmembershiptiers
- * @property \Cake\ORM\Association\BelongsToMany $Customers
- * @property \Cake\ORM\Association\BelongsToMany $Employeeroles
- * @property \Cake\ORM\Association\BelongsToMany $Suppliermemos
- * @property \Cake\ORM\Association\BelongsToMany $Transactions
- * @property \Cake\ORM\Association\BelongsToMany $Transferorders
+ * @property \Cake\ORM\Association\BelongsToMany $Messages
+ * @property \Cake\ORM\Association\BelongsToMany $Retaileremployeeroles
  *
  * @method \App\Model\Entity\Retaileremployee get($primaryKey, $options = [])
  * @method \App\Model\Entity\Retaileremployee newEntity($data = null, array $options = [])
@@ -49,35 +45,15 @@ class RetaileremployeesTable extends Table
         $this->belongsTo('Locations', [
             'foreignKey' => 'location_id'
         ]);
-        $this->belongsToMany('Custmembershiptiers', [
+        $this->belongsToMany('Messages', [
             'foreignKey' => 'retaileremployee_id',
-            'targetForeignKey' => 'custmembershiptier_id',
-            'joinTable' => 'custmembershiptiers_retaileremployees'
+            'targetForeignKey' => 'message_id',
+            'joinTable' => 'retaileremployees_messages'
         ]);
-        $this->belongsToMany('Customers', [
+        $this->belongsToMany('Retaileremployeeroles', [
             'foreignKey' => 'retaileremployee_id',
-            'targetForeignKey' => 'customer_id',
-            'joinTable' => 'customers_retaileremployees'
-        ]);
-        $this->belongsToMany('Employeeroles', [
-            'foreignKey' => 'retaileremployee_id',
-            'targetForeignKey' => 'employeerole_id',
-            'joinTable' => 'retaileremployees_employeeroles'
-        ]);
-        $this->belongsToMany('Suppliermemos', [
-            'foreignKey' => 'retaileremployee_id',
-            'targetForeignKey' => 'suppliermemo_id',
-            'joinTable' => 'retaileremployees_suppliermemos'
-        ]);
-        $this->belongsToMany('Transactions', [
-            'foreignKey' => 'retaileremployee_id',
-            'targetForeignKey' => 'transaction_id',
-            'joinTable' => 'retaileremployees_transactions'
-        ]);
-        $this->belongsToMany('Transferorders', [
-            'foreignKey' => 'retaileremployee_id',
-            'targetForeignKey' => 'transferorder_id',
-            'joinTable' => 'retaileremployees_transferorders'
+            'targetForeignKey' => 'retaileremployeerole_id',
+            'joinTable' => 'retaileremployees_retaileremployeeroles'
         ]);
     }
 
@@ -112,7 +88,6 @@ class RetaileremployeesTable extends Table
             ->notEmpty('address');
 
         $validator
-            ->integer('contact')
             ->requirePresence('contact', 'create')
             ->notEmpty('contact');
 
@@ -125,8 +100,7 @@ class RetaileremployeesTable extends Table
             ->notEmpty('lastName');
 
         $validator
-            ->boolean('activationStatus')
-            ->allowEmpty('activationStatus');
+            ->allowEmpty('accountStatus');
 
         return $validator;
     }

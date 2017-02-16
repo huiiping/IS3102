@@ -36,6 +36,10 @@
             <td><?= h($supplier->address) ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Contact') ?></th>
+            <td><?= h($supplier->contact) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('SupplierName') ?></th>
             <td><?= h($supplier->supplierName) ?></td>
         </tr>
@@ -44,16 +48,16 @@
             <td><?= h($supplier->country) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($supplier->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Contact') ?></th>
-            <td><?= $this->Number->format($supplier->contact) ?></td>
+            <th scope="row"><?= __('AccountStatus') ?></th>
+            <td><?= h($supplier->accountStatus) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('BankAcc') ?></th>
-            <td><?= $this->Number->format($supplier->bankAcc) ?></td>
+            <td><?= h($supplier->bankAcc) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Id') ?></th>
+            <td><?= $this->Number->format($supplier->id) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Created') ?></th>
@@ -62,10 +66,6 @@
         <tr>
             <th scope="row"><?= __('Modified') ?></th>
             <td><?= h($supplier->modified) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('ActivationStatus') ?></th>
-            <td><?= $supplier->activationStatus ? __('Yes') : __('No'); ?></td>
         </tr>
     </table>
     <div class="related">
@@ -78,7 +78,7 @@
                 <th scope="col"><?= __('TotalPrice') ?></th>
                 <th scope="col"><?= __('DeliveryStatus') ?></th>
                 <th scope="col"><?= __('Supplier Id') ?></th>
-                <th scope="col"><?= __('Employee Id') ?></th>
+                <th scope="col"><?= __('RetailerEmployee Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($supplier->purchaseorders as $purchaseorders): ?>
@@ -88,7 +88,7 @@
                 <td><?= h($purchaseorders->totalPrice) ?></td>
                 <td><?= h($purchaseorders->deliveryStatus) ?></td>
                 <td><?= h($purchaseorders->supplier_id) ?></td>
-                <td><?= h($purchaseorders->employee_id) ?></td>
+                <td><?= h($purchaseorders->retailerEmployee_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Purchaseorders', 'action' => 'view', $purchaseorders->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Purchaseorders', 'action' => 'edit', $purchaseorders->id]) ?>
@@ -108,6 +108,7 @@
                 <th scope="col"><?= __('Remarks') ?></th>
                 <th scope="col"><?= __('Created') ?></th>
                 <th scope="col"><?= __('Supplier Id') ?></th>
+                <th scope="col"><?= __('RetailerEmployee Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($supplier->suppliermemos as $suppliermemos): ?>
@@ -116,6 +117,7 @@
                 <td><?= h($suppliermemos->remarks) ?></td>
                 <td><?= h($suppliermemos->created) ?></td>
                 <td><?= h($suppliermemos->supplier_id) ?></td>
+                <td><?= h($suppliermemos->retailerEmployee_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Suppliermemos', 'action' => 'view', $suppliermemos->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Suppliermemos', 'action' => 'edit', $suppliermemos->id]) ?>

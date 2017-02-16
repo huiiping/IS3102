@@ -17,7 +17,8 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('productTypeID') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('itemID') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('itemName') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('quantity') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('unitPrice') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('subTotalPrice') ?></th>
@@ -29,7 +30,8 @@
             <?php foreach ($purchaseorderitems as $purchaseorderitem): ?>
             <tr>
                 <td><?= $this->Number->format($purchaseorderitem->id) ?></td>
-                <td><?= $this->Number->format($purchaseorderitem->productTypeID) ?></td>
+                <td><?= $this->Number->format($purchaseorderitem->itemID) ?></td>
+                <td><?= h($purchaseorderitem->itemName) ?></td>
                 <td><?= $this->Number->format($purchaseorderitem->quantity) ?></td>
                 <td><?= $this->Number->format($purchaseorderitem->unitPrice) ?></td>
                 <td><?= $this->Number->format($purchaseorderitem->subTotalPrice) ?></td>

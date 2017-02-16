@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Application Controller
@@ -27,6 +28,14 @@ use Cake\Event\Event;
  */
 class AppController extends Controller
 {
+    /**
+    public function beforeFilter(Event $event) {
+        parent::beforeFilter($event);
+
+        ConnectionManager::drop('conn1'); 
+        ConnectionManager::config('conn1', 'intrasys');
+        ConnectionManager::alias('conn1', 'default');
+    }
 
     /**
      * Initialization hook method.

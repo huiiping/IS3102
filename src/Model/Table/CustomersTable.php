@@ -10,10 +10,7 @@ use Cake\Validation\Validator;
  * Customers Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Custmembershiptiers
- * @property \Cake\ORM\Association\HasMany $Membershippoints
- * @property \Cake\ORM\Association\HasMany $Transactions
- * @property \Cake\ORM\Association\BelongsToMany $Promotionemails
- * @property \Cake\ORM\Association\BelongsToMany $Retaileremployees
+ * @property \Cake\ORM\Association\BelongsToMany $Promotions
  *
  * @method \App\Model\Entity\Customer get($primaryKey, $options = [])
  * @method \App\Model\Entity\Customer newEntity($data = null, array $options = [])
@@ -48,21 +45,10 @@ class CustomersTable extends Table
             'foreignKey' => 'custMembershipTier_id',
             'joinType' => 'INNER'
         ]);
-        $this->hasMany('Membershippoints', [
-            'foreignKey' => 'customer_id'
-        ]);
-        $this->hasMany('Transactions', [
-            'foreignKey' => 'customer_id'
-        ]);
-        $this->belongsToMany('Promotionemails', [
+        $this->belongsToMany('Promotions', [
             'foreignKey' => 'customer_id',
-            'targetForeignKey' => 'promotionemail_id',
-            'joinTable' => 'customers_promotionemails'
-        ]);
-        $this->belongsToMany('Retaileremployees', [
-            'foreignKey' => 'customer_id',
-            'targetForeignKey' => 'retaileremployee_id',
-            'joinTable' => 'customers_retaileremployees'
+            'targetForeignKey' => 'promotion_id',
+            'joinTable' => 'customers_promotions'
         ]);
     }
 
@@ -97,7 +83,6 @@ class CustomersTable extends Table
             ->notEmpty('address');
 
         $validator
-            ->integer('contact')
             ->requirePresence('contact', 'create')
             ->notEmpty('contact');
 
@@ -110,8 +95,7 @@ class CustomersTable extends Table
             ->notEmpty('lastName');
 
         $validator
-            ->boolean('activationStatus')
-            ->allowEmpty('activationStatus');
+            ->allowEmpty('accountStatus');
 
         $validator
             ->boolean('mailingList')

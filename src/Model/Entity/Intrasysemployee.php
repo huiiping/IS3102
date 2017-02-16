@@ -9,17 +9,16 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $firstName
  * @property string $lastName
- * @property bool $activationStatus
+ * @property string $accountStatus
  * @property string $username
  * @property string $email
  * @property string $password
  * @property string $address
- * @property int $contact
+ * @property string $contact
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  *
- * @property \App\Model\Entity\Announcement[] $announcements
- * @property \App\Model\Entity\Employeerole[] $employeeroles
+ * @property \App\Model\Entity\Intrasysemployeerole[] $intrasysemployeeroles
  */
 class Intrasysemployee extends Entity
 {

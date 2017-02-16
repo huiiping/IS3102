@@ -11,21 +11,17 @@ use Cake\ORM\Entity;
  * @property string $password
  * @property string $email
  * @property string $address
- * @property int $contact
+ * @property string $contact
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  * @property string $firstName
  * @property string $lastName
- * @property bool $activationStatus
+ * @property string $accountStatus
  * @property int $location_id
  *
  * @property \App\Model\Entity\Location $location
- * @property \App\Model\Entity\Custmembershiptier[] $custmembershiptiers
- * @property \App\Model\Entity\Customer[] $customers
- * @property \App\Model\Entity\Employeerole[] $employeeroles
- * @property \App\Model\Entity\Suppliermemo[] $suppliermemos
- * @property \App\Model\Entity\Transaction[] $transactions
- * @property \App\Model\Entity\Transferorder[] $transferorders
+ * @property \App\Model\Entity\Message[] $messages
+ * @property \App\Model\Entity\Retaileremployeerole[] $retaileremployeeroles
  */
 class Retaileremployee extends Entity
 {

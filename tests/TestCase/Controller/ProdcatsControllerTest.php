@@ -16,29 +16,7 @@ class ProdcatsControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.prodcats',
-        'app.retaileremployees',
-        'app.locations',
-        'app.items',
-        'app.sections',
-        'app.stocklevels',
-        'app.transactions',
-        'app.retaileremployees_transactions',
-        'app.promotions',
-        'app.locations_promotions',
-        'app.custmembershiptiers',
-        'app.custmembershiptiers_retaileremployees',
-        'app.customers',
-        'app.membershippoints',
-        'app.promotionemails',
-        'app.customers_promotionemails',
-        'app.customers_retaileremployees',
-        'app.employeeroles',
-        'app.retaileremployees_employeeroles',
-        'app.suppliermemos',
-        'app.retaileremployees_suppliermemos',
-        'app.transferorders',
-        'app.retaileremployees_transferorders'
+        'app.prodcats'
     ];
 
     /**

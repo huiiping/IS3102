@@ -9,9 +9,7 @@ use Cake\Validation\Validator;
 /**
  * Sections Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Items
  * @property \Cake\ORM\Association\BelongsTo $Locations
- * @property \Cake\ORM\Association\HasMany $Items
  *
  * @method \App\Model\Entity\Section get($primaryKey, $options = [])
  * @method \App\Model\Entity\Section newEntity($data = null, array $options = [])
@@ -38,14 +36,8 @@ class SectionsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('Items', [
-            'foreignKey' => 'item_id'
-        ]);
         $this->belongsTo('Locations', [
             'foreignKey' => 'location_id'
-        ]);
-        $this->hasMany('Items', [
-            'foreignKey' => 'section_id'
         ]);
     }
 
@@ -65,8 +57,8 @@ class SectionsTable extends Table
             ->allowEmpty('secName');
 
         $validator
-            ->integer('spcaeLimit')
-            ->allowEmpty('spcaeLimit');
+            ->integer('spaceLimit')
+            ->allowEmpty('spaceLimit');
 
         $validator
             ->boolean('reserve')
@@ -84,7 +76,6 @@ class SectionsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['item_id'], 'Items'));
         $rules->add($rules->existsIn(['location_id'], 'Locations'));
 
         return $rules;

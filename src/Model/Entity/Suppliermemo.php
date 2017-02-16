@@ -10,10 +10,10 @@ use Cake\ORM\Entity;
  * @property string $remarks
  * @property \Cake\I18n\Time $created
  * @property int $supplier_id
+ * @property int $retailerEmployee_id
  *
- * @property \App\Model\Entity\RetaileremployeesSuppliermemo[] $retaileremployees_suppliermemos
- * @property \App\Model\Entity\Retaileremployee[] $retaileremployees
  * @property \App\Model\Entity\Supplier $supplier
+ * @property \App\Model\Entity\Retaileremployee $retaileremployee
  */
 class Suppliermemo extends Entity
 {

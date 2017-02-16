@@ -18,8 +18,9 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('companyName') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('firstName') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('lastName') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('activationStatus') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('accountStatus') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('paymentTerm') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('loyaltyPoints') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('username') ?></th>
@@ -40,15 +41,16 @@
             <tr>
                 <td><?= $this->Number->format($retailer->id) ?></td>
                 <td><?= h($retailer->companyName) ?></td>
+                <td><?= h($retailer->firstName) ?></td>
                 <td><?= h($retailer->lastName) ?></td>
-                <td><?= h($retailer->activationStatus) ?></td>
+                <td><?= h($retailer->accountStatus) ?></td>
                 <td><?= h($retailer->paymentTerm) ?></td>
                 <td><?= $this->Number->format($retailer->loyaltyPoints) ?></td>
                 <td><?= h($retailer->username) ?></td>
                 <td><?= h($retailer->email) ?></td>
                 <td><?= h($retailer->password) ?></td>
                 <td><?= h($retailer->address) ?></td>
-                <td><?= $this->Number->format($retailer->contact) ?></td>
+                <td><?= h($retailer->contact) ?></td>
                 <td><?= h($retailer->contractStartDate) ?></td>
                 <td><?= h($retailer->contractEndDate) ?></td>
                 <td><?= h($retailer->created) ?></td>

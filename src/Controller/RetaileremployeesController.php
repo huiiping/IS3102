@@ -37,7 +37,7 @@ class RetaileremployeesController extends AppController
     public function view($id = null)
     {
         $retaileremployee = $this->Retaileremployees->get($id, [
-            'contain' => ['Locations', 'Custmembershiptiers', 'Customers', 'Employeeroles', 'Suppliermemos', 'Transactions', 'Transferorders']
+            'contain' => ['Locations', 'Messages', 'Retaileremployeeroles']
         ]);
 
         $this->set('retaileremployee', $retaileremployee);
@@ -62,13 +62,9 @@ class RetaileremployeesController extends AppController
             $this->Flash->error(__('The retaileremployee could not be saved. Please, try again.'));
         }
         $locations = $this->Retaileremployees->Locations->find('list', ['limit' => 200]);
-        $custmembershiptiers = $this->Retaileremployees->Custmembershiptiers->find('list', ['limit' => 200]);
-        $customers = $this->Retaileremployees->Customers->find('list', ['limit' => 200]);
-        $employeeroles = $this->Retaileremployees->Employeeroles->find('list', ['limit' => 200]);
-        $suppliermemos = $this->Retaileremployees->Suppliermemos->find('list', ['limit' => 200]);
-        $transactions = $this->Retaileremployees->Transactions->find('list', ['limit' => 200]);
-        $transferorders = $this->Retaileremployees->Transferorders->find('list', ['limit' => 200]);
-        $this->set(compact('retaileremployee', 'locations', 'custmembershiptiers', 'customers', 'employeeroles', 'suppliermemos', 'transactions', 'transferorders'));
+        $messages = $this->Retaileremployees->Messages->find('list', ['limit' => 200]);
+        $retaileremployeeroles = $this->Retaileremployees->Retaileremployeeroles->find('list', ['limit' => 200]);
+        $this->set(compact('retaileremployee', 'locations', 'messages', 'retaileremployeeroles'));
         $this->set('_serialize', ['retaileremployee']);
     }
 
@@ -82,7 +78,7 @@ class RetaileremployeesController extends AppController
     public function edit($id = null)
     {
         $retaileremployee = $this->Retaileremployees->get($id, [
-            'contain' => ['Custmembershiptiers', 'Customers', 'Employeeroles', 'Suppliermemos', 'Transactions', 'Transferorders']
+            'contain' => ['Messages', 'Retaileremployeeroles']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $retaileremployee = $this->Retaileremployees->patchEntity($retaileremployee, $this->request->data);
@@ -94,13 +90,9 @@ class RetaileremployeesController extends AppController
             $this->Flash->error(__('The retaileremployee could not be saved. Please, try again.'));
         }
         $locations = $this->Retaileremployees->Locations->find('list', ['limit' => 200]);
-        $custmembershiptiers = $this->Retaileremployees->Custmembershiptiers->find('list', ['limit' => 200]);
-        $customers = $this->Retaileremployees->Customers->find('list', ['limit' => 200]);
-        $employeeroles = $this->Retaileremployees->Employeeroles->find('list', ['limit' => 200]);
-        $suppliermemos = $this->Retaileremployees->Suppliermemos->find('list', ['limit' => 200]);
-        $transactions = $this->Retaileremployees->Transactions->find('list', ['limit' => 200]);
-        $transferorders = $this->Retaileremployees->Transferorders->find('list', ['limit' => 200]);
-        $this->set(compact('retaileremployee', 'locations', 'custmembershiptiers', 'customers', 'employeeroles', 'suppliermemos', 'transactions', 'transferorders'));
+        $messages = $this->Retaileremployees->Messages->find('list', ['limit' => 200]);
+        $retaileremployeeroles = $this->Retaileremployees->Retaileremployeeroles->find('list', ['limit' => 200]);
+        $this->set(compact('retaileremployee', 'locations', 'messages', 'retaileremployeeroles'));
         $this->set('_serialize', ['retaileremployee']);
     }
 

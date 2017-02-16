@@ -25,7 +25,17 @@ class PurchaseorderitemsTableTest extends TestCase
      */
     public $fixtures = [
         'app.purchaseorderitems',
-        'app.purchaseorders'
+        'app.purchaseorders',
+        'app.suppliers',
+        'app.suppliermemos',
+        'app.retaileremployees',
+        'app.locations',
+        'app.sections',
+        'app.messages',
+        'app.references',
+        'app.retaileremployees_messages',
+        'app.retaileremployeeroles',
+        'app.retaileremployees_retaileremployeeroles'
     ];
 
     /**

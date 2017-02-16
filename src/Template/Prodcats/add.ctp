@@ -7,8 +7,6 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('List Prodcats'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployees'), ['controller' => 'Retaileremployees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retaileremployee'), ['controller' => 'Retaileremployees', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="prodcats form large-9 medium-8 columns content">
@@ -18,7 +16,6 @@
         <?php
             echo $this->Form->input('catName');
             echo $this->Form->input('catDesc');
-            echo $this->Form->input('employee_id', ['options' => $retaileremployees, 'empty' => true]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

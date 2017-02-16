@@ -80,7 +80,6 @@ class SuppliersTable extends Table
             ->notEmpty('address');
 
         $validator
-            ->integer('contact')
             ->requirePresence('contact', 'create')
             ->notEmpty('contact');
 
@@ -91,11 +90,9 @@ class SuppliersTable extends Table
             ->allowEmpty('country');
 
         $validator
-            ->boolean('activationStatus')
-            ->allowEmpty('activationStatus');
+            ->allowEmpty('accountStatus');
 
         $validator
-            ->integer('bankAcc')
             ->allowEmpty('bankAcc');
 
         return $validator;

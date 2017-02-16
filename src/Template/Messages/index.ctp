@@ -19,11 +19,9 @@
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('title') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('dateCreated') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('receiver') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('sender') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('status') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('reference_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('employee_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('sender_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -33,11 +31,9 @@
                 <td><?= $this->Number->format($message->id) ?></td>
                 <td><?= h($message->title) ?></td>
                 <td><?= h($message->dateCreated) ?></td>
-                <td><?= $this->Number->format($message->receiver) ?></td>
-                <td><?= $this->Number->format($message->sender) ?></td>
                 <td><?= h($message->status) ?></td>
                 <td><?= h($message->reference_id) ?></td>
-                <td><?= $message->has('retaileremployee') ? $this->Html->link($message->retaileremployee->id, ['controller' => 'Retaileremployees', 'action' => 'view', $message->retaileremployee->id]) : '' ?></td>
+                <td><?= $this->Number->format($message->sender_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $message->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $message->id]) ?>

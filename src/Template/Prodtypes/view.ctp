@@ -10,10 +10,10 @@
         <li><?= $this->Form->postLink(__('Delete Prodtype'), ['action' => 'delete', $prodtype->id], ['confirm' => __('Are you sure you want to delete # {0}?', $prodtype->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Prodtypes'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Prodtype'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Retaileremployees'), ['controller' => 'Retaileremployees', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Retaileremployee'), ['controller' => 'Retaileremployees', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Prodcats'), ['controller' => 'Prodcats', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Prodcat'), ['controller' => 'Prodcats', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Promotions'), ['controller' => 'Promotions', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Promotion'), ['controller' => 'Promotions', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="prodtypes view large-9 medium-8 columns content">
@@ -36,10 +36,6 @@
             <td><?= h($prodtype->SKU) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Retaileremployee') ?></th>
-            <td><?= $prodtype->has('retaileremployee') ? $this->Html->link($prodtype->retaileremployee->id, ['controller' => 'Retaileremployees', 'action' => 'view', $prodtype->retaileremployee->id]) : '' ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Prodcat') ?></th>
             <td><?= $prodtype->has('prodcat') ? $this->Html->link($prodtype->prodcat->id, ['controller' => 'Prodcats', 'action' => 'view', $prodtype->prodcat->id]) : '' ?></td>
         </tr>
@@ -59,5 +55,42 @@
     <div class="row">
         <h4><?= __('ProdDesc') ?></h4>
         <?= $this->Text->autoParagraph(h($prodtype->prodDesc)); ?>
+    </div>
+    <div class="related">
+        <h4><?= __('Related Promotions') ?></h4>
+        <?php if (!empty($prodtype->promotions)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('StartDate') ?></th>
+                <th scope="col"><?= __('EndDate') ?></th>
+                <th scope="col"><?= __('PromoDesc') ?></th>
+                <th scope="col"><?= __('FirstVouherNo') ?></th>
+                <th scope="col"><?= __('LastVoucherNo') ?></th>
+                <th scope="col"><?= __('DiscountRate') ?></th>
+                <th scope="col"><?= __('CreditCardType') ?></th>
+                <th scope="col"><?= __('RetailerEmployee Id') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($prodtype->promotions as $promotions): ?>
+            <tr>
+                <td><?= h($promotions->id) ?></td>
+                <td><?= h($promotions->startDate) ?></td>
+                <td><?= h($promotions->endDate) ?></td>
+                <td><?= h($promotions->promoDesc) ?></td>
+                <td><?= h($promotions->firstVouherNo) ?></td>
+                <td><?= h($promotions->lastVoucherNo) ?></td>
+                <td><?= h($promotions->discountRate) ?></td>
+                <td><?= h($promotions->creditCardType) ?></td>
+                <td><?= h($promotions->retailerEmployee_id) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Promotions', 'action' => 'view', $promotions->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Promotions', 'action' => 'edit', $promotions->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Promotions', 'action' => 'delete', $promotions->id], ['confirm' => __('Are you sure you want to delete # {0}?', $promotions->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
     </div>
 </div>

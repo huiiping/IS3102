@@ -27,7 +27,7 @@
             echo $this->Form->input('totalPrice');
             echo $this->Form->input('deliveryStatus');
             echo $this->Form->input('supplier_id', ['options' => $suppliers, 'empty' => true]);
-            echo $this->Form->input('employee_id', ['options' => $retaileremployees, 'empty' => true]);
+            echo $this->Form->input('retailerEmployee_id', ['options' => $retaileremployees, 'empty' => true]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

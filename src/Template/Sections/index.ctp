@@ -9,8 +9,6 @@
         <li><?= $this->Html->link(__('New Section'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Locations'), ['controller' => 'Locations', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Location'), ['controller' => 'Locations', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Items'), ['controller' => 'Items', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Item'), ['controller' => 'Items', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="sections index large-9 medium-8 columns content">
@@ -20,9 +18,8 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('secName') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('spcaeLimit') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('spaceLimit') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('reserve') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('item_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('location_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -32,9 +29,8 @@
             <tr>
                 <td><?= $this->Number->format($section->id) ?></td>
                 <td><?= h($section->secName) ?></td>
-                <td><?= $this->Number->format($section->spcaeLimit) ?></td>
+                <td><?= $this->Number->format($section->spaceLimit) ?></td>
                 <td><?= h($section->reserve) ?></td>
-                <td><?= $this->Number->format($section->item_id) ?></td>
                 <td><?= $section->has('location') ? $this->Html->link($section->location->name, ['controller' => 'Locations', 'action' => 'view', $section->location->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $section->id]) ?>

@@ -48,8 +48,8 @@ class RetaileracctypesFixture extends TestFixture
             'numOfWarehouses' => 1,
             'numOfStores' => 1,
             'numOfProdTypes' => 1,
-            'created' => '2017-02-15 03:48:32',
-            'modified' => '2017-02-15 03:48:32'
+            'created' => '2017-02-16 19:27:20',
+            'modified' => '2017-02-16 19:27:20'
         ],
     ];
 }

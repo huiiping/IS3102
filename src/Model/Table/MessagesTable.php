@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $References
  * @property \Cake\ORM\Association\BelongsTo $Retaileremployees
+ * @property \Cake\ORM\Association\BelongsToMany $Retaileremployees
  *
  * @method \App\Model\Entity\Message get($primaryKey, $options = [])
  * @method \App\Model\Entity\Message newEntity($data = null, array $options = [])
@@ -41,7 +42,12 @@ class MessagesTable extends Table
             'foreignKey' => 'reference_id'
         ]);
         $this->belongsTo('Retaileremployees', [
-            'foreignKey' => 'employee_id'
+            'foreignKey' => 'sender_id'
+        ]);
+        $this->belongsToMany('Retaileremployees', [
+            'foreignKey' => 'message_id',
+            'targetForeignKey' => 'retaileremployee_id',
+            'joinTable' => 'retaileremployees_messages'
         ]);
     }
 
@@ -68,14 +74,6 @@ class MessagesTable extends Table
             ->allowEmpty('message');
 
         $validator
-            ->integer('receiver')
-            ->allowEmpty('receiver');
-
-        $validator
-            ->integer('sender')
-            ->allowEmpty('sender');
-
-        $validator
             ->boolean('status')
             ->allowEmpty('status');
 
@@ -92,7 +90,7 @@ class MessagesTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['reference_id'], 'References'));
-        $rules->add($rules->existsIn(['employee_id'], 'Retaileremployees'));
+        $rules->add($rules->existsIn(['sender_id'], 'Retaileremployees'));
 
         return $rules;
     }

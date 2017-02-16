@@ -54,8 +54,11 @@ class PurchaseorderitemsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->integer('productTypeID')
-            ->allowEmpty('productTypeID');
+            ->integer('itemID')
+            ->allowEmpty('itemID');
+
+        $validator
+            ->allowEmpty('itemName');
 
         $validator
             ->allowEmpty('itemDesc');

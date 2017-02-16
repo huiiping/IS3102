@@ -9,9 +9,6 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $catName
  * @property string $catDesc
- * @property int $employee_id
- *
- * @property \App\Model\Entity\Retaileremployee $retaileremployee
  */
 class Prodcat extends Entity
 {

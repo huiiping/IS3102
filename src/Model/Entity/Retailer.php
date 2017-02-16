@@ -9,15 +9,16 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $companyName
  * @property string $companyDesc
+ * @property string $firstName
  * @property string $lastName
- * @property bool $activationStatus
+ * @property string $accountStatus
  * @property string $paymentTerm
  * @property int $loyaltyPoints
  * @property string $username
  * @property string $email
  * @property string $password
  * @property string $address
- * @property int $contact
+ * @property string $contact
  * @property \Cake\I18n\Time $contractStartDate
  * @property \Cake\I18n\Time $contractEndDate
  * @property \Cake\I18n\Time $created

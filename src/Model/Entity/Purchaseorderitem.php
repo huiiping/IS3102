@@ -7,7 +7,8 @@ use Cake\ORM\Entity;
  * Purchaseorderitem Entity
  *
  * @property int $id
- * @property int $productTypeID
+ * @property int $itemID
+ * @property string $itemName
  * @property string $itemDesc
  * @property int $quantity
  * @property float $unitPrice

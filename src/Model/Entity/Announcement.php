@@ -12,8 +12,6 @@ use Cake\ORM\Entity;
  * @property string $remarks
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
- *
- * @property \App\Model\Entity\Intrasysemployee[] $intrasysemployees
  */
 class Announcement extends Entity
 {

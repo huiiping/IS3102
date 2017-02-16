@@ -10,8 +10,6 @@
         <li><?= $this->Form->postLink(__('Delete Prodcat'), ['action' => 'delete', $prodcat->id], ['confirm' => __('Are you sure you want to delete # {0}?', $prodcat->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Prodcats'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Prodcat'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Retaileremployees'), ['controller' => 'Retaileremployees', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Retaileremployee'), ['controller' => 'Retaileremployees', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="prodcats view large-9 medium-8 columns content">
@@ -20,10 +18,6 @@
         <tr>
             <th scope="row"><?= __('CatName') ?></th>
             <td><?= h($prodcat->catName) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Retaileremployee') ?></th>
-            <td><?= $prodcat->has('retaileremployee') ? $this->Html->link($prodcat->retaileremployee->id, ['controller' => 'Retaileremployees', 'action' => 'view', $prodcat->retaileremployee->id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Id') ?></th>

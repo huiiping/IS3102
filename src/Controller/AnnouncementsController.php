@@ -34,7 +34,7 @@ class AnnouncementsController extends AppController
     public function view($id = null)
     {
         $announcement = $this->Announcements->get($id, [
-            'contain' => ['Intrasysemployees']
+            'contain' => []
         ]);
 
         $this->set('announcement', $announcement);
@@ -58,8 +58,7 @@ class AnnouncementsController extends AppController
             }
             $this->Flash->error(__('The announcement could not be saved. Please, try again.'));
         }
-        $intrasysemployees = $this->Announcements->Intrasysemployees->find('list', ['limit' => 200]);
-        $this->set(compact('announcement', 'intrasysemployees'));
+        $this->set(compact('announcement'));
         $this->set('_serialize', ['announcement']);
     }
 
@@ -73,7 +72,7 @@ class AnnouncementsController extends AppController
     public function edit($id = null)
     {
         $announcement = $this->Announcements->get($id, [
-            'contain' => ['Intrasysemployees']
+            'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $announcement = $this->Announcements->patchEntity($announcement, $this->request->data);
@@ -84,8 +83,7 @@ class AnnouncementsController extends AppController
             }
             $this->Flash->error(__('The announcement could not be saved. Please, try again.'));
         }
-        $intrasysemployees = $this->Announcements->Intrasysemployees->find('list', ['limit' => 200]);
-        $this->set(compact('announcement', 'intrasysemployees'));
+        $this->set(compact('announcement'));
         $this->set('_serialize', ['announcement']);
     }
 

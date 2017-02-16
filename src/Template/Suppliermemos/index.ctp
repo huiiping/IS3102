@@ -22,6 +22,7 @@
                 <th scope="col"><?= $this->Paginator->sort('remarks') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('supplier_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('retailerEmployee_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -32,6 +33,7 @@
                 <td><?= h($suppliermemo->remarks) ?></td>
                 <td><?= h($suppliermemo->created) ?></td>
                 <td><?= $suppliermemo->has('supplier') ? $this->Html->link($suppliermemo->supplier->id, ['controller' => 'Suppliers', 'action' => 'view', $suppliermemo->supplier->id]) : '' ?></td>
+                <td><?= $suppliermemo->has('retaileremployee') ? $this->Html->link($suppliermemo->retaileremployee->id, ['controller' => 'Retaileremployees', 'action' => 'view', $suppliermemo->retaileremployee->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $suppliermemo->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $suppliermemo->id]) ?>

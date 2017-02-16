@@ -9,14 +9,9 @@ use Cake\Validation\Validator;
 /**
  * Promotions Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Item1s
- * @property \Cake\ORM\Association\BelongsTo $Item2s
- * @property \Cake\ORM\Association\BelongsTo $ProdType1s
- * @property \Cake\ORM\Association\BelongsTo $ProdType2s
- * @property \Cake\ORM\Association\BelongsTo $ProdCats
  * @property \Cake\ORM\Association\BelongsTo $Retaileremployees
- * @property \Cake\ORM\Association\HasMany $Transferorderitems
- * @property \Cake\ORM\Association\BelongsToMany $Locations
+ * @property \Cake\ORM\Association\BelongsToMany $Customers
+ * @property \Cake\ORM\Association\BelongsToMany $Prodtypes
  *
  * @method \App\Model\Entity\Promotion get($primaryKey, $options = [])
  * @method \App\Model\Entity\Promotion newEntity($data = null, array $options = [])
@@ -43,31 +38,18 @@ class PromotionsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('Item1s', [
-            'foreignKey' => 'item1_id'
-        ]);
-        $this->belongsTo('Item2s', [
-            'foreignKey' => 'item2_id'
-        ]);
-        $this->belongsTo('ProdType1s', [
-            'foreignKey' => 'prodType1_id'
-        ]);
-        $this->belongsTo('ProdType2s', [
-            'foreignKey' => 'prodType2_id'
-        ]);
-        $this->belongsTo('ProdCats', [
-            'foreignKey' => 'prodCat_id'
-        ]);
         $this->belongsTo('Retaileremployees', [
-            'foreignKey' => 'employee_id'
+            'foreignKey' => 'retailerEmployee_id'
         ]);
-        $this->hasMany('Transferorderitems', [
-            'foreignKey' => 'promotion_id'
-        ]);
-        $this->belongsToMany('Locations', [
+        $this->belongsToMany('Customers', [
             'foreignKey' => 'promotion_id',
-            'targetForeignKey' => 'location_id',
-            'joinTable' => 'locations_promotions'
+            'targetForeignKey' => 'customer_id',
+            'joinTable' => 'customers_promotions'
+        ]);
+        $this->belongsToMany('Prodtypes', [
+            'foreignKey' => 'promotion_id',
+            'targetForeignKey' => 'prodtype_id',
+            'joinTable' => 'promotions_prodtypes'
         ]);
     }
 
@@ -119,12 +101,7 @@ class PromotionsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['item1_id'], 'Item1s'));
-        $rules->add($rules->existsIn(['item2_id'], 'Item2s'));
-        $rules->add($rules->existsIn(['prodType1_id'], 'ProdType1s'));
-        $rules->add($rules->existsIn(['prodType2_id'], 'ProdType2s'));
-        $rules->add($rules->existsIn(['prodCat_id'], 'ProdCats'));
-        $rules->add($rules->existsIn(['employee_id'], 'Retaileremployees'));
+        $rules->add($rules->existsIn(['retailerEmployee_id'], 'Retaileremployees'));
 
         return $rules;
     }

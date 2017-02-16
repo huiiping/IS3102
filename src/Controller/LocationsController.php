@@ -11,9 +11,6 @@ use App\Controller\AppController;
 class LocationsController extends AppController
 {
 
-    public $components = array(
-        'Search.Prg'
-    );
     /**
      * Index method
      *
@@ -21,20 +18,10 @@ class LocationsController extends AppController
      */
     public function index()
     {
-
-        $this->Prg->commonProcess();
-        $this->set('locations', $this->paginate($this->Locations->find('searchable', $this->Prg->parsedParams())));
-
-
-
-
-
-        /*
         $locations = $this->paginate($this->Locations);
 
         $this->set(compact('locations'));
         $this->set('_serialize', ['locations']);
-        */
     }
 
     /**
@@ -47,7 +34,7 @@ class LocationsController extends AppController
     public function view($id = null)
     {
         $location = $this->Locations->get($id, [
-            'contain' => ['Promotions', 'Items', 'Retaileremployees', 'Sections', 'Stocklevels', 'Transactions']
+            'contain' => ['Retaileremployees', 'Sections']
         ]);
 
         $this->set('location', $location);
@@ -71,8 +58,7 @@ class LocationsController extends AppController
             }
             $this->Flash->error(__('The location could not be saved. Please, try again.'));
         }
-        $promotions = $this->Locations->Promotions->find('list', ['limit' => 200]);
-        $this->set(compact('location', 'promotions'));
+        $this->set(compact('location'));
         $this->set('_serialize', ['location']);
     }
 
@@ -86,7 +72,7 @@ class LocationsController extends AppController
     public function edit($id = null)
     {
         $location = $this->Locations->get($id, [
-            'contain' => ['Promotions']
+            'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $location = $this->Locations->patchEntity($location, $this->request->data);
@@ -97,8 +83,7 @@ class LocationsController extends AppController
             }
             $this->Flash->error(__('The location could not be saved. Please, try again.'));
         }
-        $promotions = $this->Locations->Promotions->find('list', ['limit' => 200]);
-        $this->set(compact('location', 'promotions'));
+        $this->set(compact('location'));
         $this->set('_serialize', ['location']);
     }
 

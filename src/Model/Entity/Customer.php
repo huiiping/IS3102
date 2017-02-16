@@ -11,20 +11,17 @@ use Cake\ORM\Entity;
  * @property string $password
  * @property string $email
  * @property string $address
- * @property int $contact
+ * @property string $contact
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  * @property string $firstName
  * @property string $lastName
- * @property bool $activationStatus
+ * @property string $accountStatus
  * @property bool $mailingList
  * @property int $custMembershipTier_id
  *
  * @property \App\Model\Entity\Custmembershiptier $custmembershiptier
- * @property \App\Model\Entity\Membershippoint[] $membershippoints
- * @property \App\Model\Entity\Transaction[] $transactions
- * @property \App\Model\Entity\Promotionemail[] $promotionemails
- * @property \App\Model\Entity\Retaileremployee[] $retaileremployees
+ * @property \App\Model\Entity\Promotion[] $promotions
  */
 class Customer extends Entity
 {

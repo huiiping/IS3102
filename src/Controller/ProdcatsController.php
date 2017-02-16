@@ -18,9 +18,6 @@ class ProdcatsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Retaileremployees']
-        ];
         $prodcats = $this->paginate($this->Prodcats);
 
         $this->set(compact('prodcats'));
@@ -37,7 +34,7 @@ class ProdcatsController extends AppController
     public function view($id = null)
     {
         $prodcat = $this->Prodcats->get($id, [
-            'contain' => ['Retaileremployees']
+            'contain' => []
         ]);
 
         $this->set('prodcat', $prodcat);
@@ -61,8 +58,7 @@ class ProdcatsController extends AppController
             }
             $this->Flash->error(__('The prodcat could not be saved. Please, try again.'));
         }
-        $retaileremployees = $this->Prodcats->Retaileremployees->find('list', ['limit' => 200]);
-        $this->set(compact('prodcat', 'retaileremployees'));
+        $this->set(compact('prodcat'));
         $this->set('_serialize', ['prodcat']);
     }
 
@@ -87,8 +83,7 @@ class ProdcatsController extends AppController
             }
             $this->Flash->error(__('The prodcat could not be saved. Please, try again.'));
         }
-        $retaileremployees = $this->Prodcats->Retaileremployees->find('list', ['limit' => 200]);
-        $this->set(compact('prodcat', 'retaileremployees'));
+        $this->set(compact('prodcat'));
         $this->set('_serialize', ['prodcat']);
     }
 

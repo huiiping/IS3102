@@ -37,7 +37,7 @@ class SectionsController extends AppController
     public function view($id = null)
     {
         $section = $this->Sections->get($id, [
-            'contain' => ['Locations', 'Items']
+            'contain' => ['Locations']
         ]);
 
         $this->set('section', $section);

@@ -9,8 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Prodtypes Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Retaileremployees
  * @property \Cake\ORM\Association\BelongsTo $Prodcats
+ * @property \Cake\ORM\Association\BelongsToMany $Promotions
  *
  * @method \App\Model\Entity\Prodtype get($primaryKey, $options = [])
  * @method \App\Model\Entity\Prodtype newEntity($data = null, array $options = [])
@@ -37,11 +37,13 @@ class ProdtypesTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('Retaileremployees', [
-            'foreignKey' => 'employee_id'
-        ]);
         $this->belongsTo('Prodcats', [
             'foreignKey' => 'prodCat_id'
+        ]);
+        $this->belongsToMany('Promotions', [
+            'foreignKey' => 'prodtype_id',
+            'targetForeignKey' => 'promotion_id',
+            'joinTable' => 'promotions_prodtypes'
         ]);
     }
 
@@ -92,7 +94,6 @@ class ProdtypesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['employee_id'], 'Retaileremployees'));
         $rules->add($rules->existsIn(['prodCat_id'], 'Prodcats'));
 
         return $rules;

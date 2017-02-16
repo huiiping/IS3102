@@ -7,19 +7,17 @@ use Cake\ORM\Entity;
  * Custmembershiptier Entity
  *
  * @property int $id
- * @property string $teirName
+ * @property string $tierName
  * @property int $validityPeriod
- * @property float $minSpending
- * @property float $membershipFee
- * @property float $membershipPts
+ * @property string $minSpending
+ * @property string $membershipFee
+ * @property int $membershipPts
  * @property int $redemptionPts
- * @property float $discountRate
- * @property float $birthdayRate
+ * @property string $discountRate
+ * @property string $birthdayRate
  * @property string $description
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
- *
- * @property \App\Model\Entity\Retaileremployee[] $retaileremployees
  */
 class Custmembershiptier extends Entity
 {

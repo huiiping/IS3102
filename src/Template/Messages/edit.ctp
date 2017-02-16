@@ -25,11 +25,10 @@
             echo $this->Form->input('title');
             echo $this->Form->input('dateCreated', ['empty' => true]);
             echo $this->Form->input('message');
-            echo $this->Form->input('receiver');
-            echo $this->Form->input('sender');
             echo $this->Form->input('status');
             echo $this->Form->input('reference_id');
-            echo $this->Form->input('employee_id', ['options' => $retaileremployees, 'empty' => true]);
+            echo $this->Form->input('sender_id');
+            echo $this->Form->input('retaileremployees._ids', ['options' => $retaileremployees]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

@@ -17,38 +17,13 @@ class SectionsControllerTest extends IntegrationTestCase
      */
     public $fixtures = [
         'app.sections',
-        'app.items',
         'app.locations',
         'app.retaileremployees',
-        'app.custmembershiptiers',
-        'app.custmembershiptiers_retaileremployees',
-        'app.customers',
-        'app.membershippoints',
-        'app.transactions',
-        'app.retaileremployees_transactions',
-        'app.promotionemails',
-        'app.customers_promotionemails',
-        'app.customers_retaileremployees',
-        'app.employeeroles',
-        'app.retaileremployees_employeeroles',
-        'app.suppliermemos',
-        'app.retaileremployees_suppliermemos',
-        'app.transferorders',
-        'app.retaileremployees_transferorders',
-        'app.stocklevels',
-        'app.promotions',
-        'app.item1s',
-        'app.item2s',
-        'app.prod_type1s',
-        'app.prod_type2s',
-        'app.prod_cats',
-        'app.transferorderitems',
-        'app.locations_promotions',
-        'app.prodtypes',
-        'app.prodcats',
-        'app.deliveryorderitems',
-        'app.deliveryorders',
-        'app.transactionitems'
+        'app.messages',
+        'app.references',
+        'app.retaileremployees_messages',
+        'app.retaileremployeeroles',
+        'app.retaileremployees_retaileremployeeroles'
     ];
 
     /**

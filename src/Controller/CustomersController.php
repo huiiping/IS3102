@@ -37,7 +37,7 @@ class CustomersController extends AppController
     public function view($id = null)
     {
         $customer = $this->Customers->get($id, [
-            'contain' => ['Custmembershiptiers', 'Promotionemails', 'Retaileremployees', 'Membershippoints', 'Transactions']
+            'contain' => ['Custmembershiptiers', 'Promotions']
         ]);
 
         $this->set('customer', $customer);
@@ -62,9 +62,8 @@ class CustomersController extends AppController
             $this->Flash->error(__('The customer could not be saved. Please, try again.'));
         }
         $custmembershiptiers = $this->Customers->Custmembershiptiers->find('list', ['limit' => 200]);
-        $promotionemails = $this->Customers->Promotionemails->find('list', ['limit' => 200]);
-        $retaileremployees = $this->Customers->Retaileremployees->find('list', ['limit' => 200]);
-        $this->set(compact('customer', 'custmembershiptiers', 'promotionemails', 'retaileremployees'));
+        $promotions = $this->Customers->Promotions->find('list', ['limit' => 200]);
+        $this->set(compact('customer', 'custmembershiptiers', 'promotions'));
         $this->set('_serialize', ['customer']);
     }
 
@@ -78,7 +77,7 @@ class CustomersController extends AppController
     public function edit($id = null)
     {
         $customer = $this->Customers->get($id, [
-            'contain' => ['Promotionemails', 'Retaileremployees']
+            'contain' => ['Promotions']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $customer = $this->Customers->patchEntity($customer, $this->request->data);
@@ -90,9 +89,8 @@ class CustomersController extends AppController
             $this->Flash->error(__('The customer could not be saved. Please, try again.'));
         }
         $custmembershiptiers = $this->Customers->Custmembershiptiers->find('list', ['limit' => 200]);
-        $promotionemails = $this->Customers->Promotionemails->find('list', ['limit' => 200]);
-        $retaileremployees = $this->Customers->Retaileremployees->find('list', ['limit' => 200]);
-        $this->set(compact('customer', 'custmembershiptiers', 'promotionemails', 'retaileremployees'));
+        $promotions = $this->Customers->Promotions->find('list', ['limit' => 200]);
+        $this->set(compact('customer', 'custmembershiptiers', 'promotions'));
         $this->set('_serialize', ['customer']);
     }
 

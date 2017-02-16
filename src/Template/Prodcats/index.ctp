@@ -7,8 +7,6 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Prodcat'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployees'), ['controller' => 'Retaileremployees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retaileremployee'), ['controller' => 'Retaileremployees', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="prodcats index large-9 medium-8 columns content">
@@ -18,7 +16,6 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('catName') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('employee_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -27,7 +24,6 @@
             <tr>
                 <td><?= $this->Number->format($prodcat->id) ?></td>
                 <td><?= h($prodcat->catName) ?></td>
-                <td><?= $prodcat->has('retaileremployee') ? $this->Html->link($prodcat->retaileremployee->id, ['controller' => 'Retaileremployees', 'action' => 'view', $prodcat->retaileremployee->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $prodcat->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $prodcat->id]) ?>

@@ -26,31 +26,8 @@ class CustomersTableTest extends TestCase
     public $fixtures = [
         'app.customers',
         'app.custmembershiptiers',
-        'app.retaileremployees',
-        'app.locations',
-        'app.items',
-        'app.prodtypes',
-        'app.prodcats',
-        'app.sections',
-        'app.deliveryorderitems',
-        'app.transactionitems',
-        'app.transferorderitems',
-        'app.stocklevels',
-        'app.transactions',
         'app.promotions',
-        'app.locations_promotions',
-        'app.custmembershiptiers_retaileremployees',
-        'app.customers_retaileremployees',
-        'app.employeeroles',
-        'app.retaileremployees_employeeroles',
-        'app.suppliermemos',
-        'app.retaileremployees_suppliermemos',
-        'app.retaileremployees_transactions',
-        'app.transferorders',
-        'app.retaileremployees_transferorders',
-        'app.membershippoints',
-        'app.promotionemails',
-        'app.customers_promotionemails'
+        'app.customers_promotions'
     ];
 
     /**

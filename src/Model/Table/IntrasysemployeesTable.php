@@ -9,8 +9,7 @@ use Cake\Validation\Validator;
 /**
  * Intrasysemployees Model
  *
- * @property \Cake\ORM\Association\BelongsToMany $Announcements
- * @property \Cake\ORM\Association\BelongsToMany $Employeeroles
+ * @property \Cake\ORM\Association\BelongsToMany $Intrasysemployeeroles
  *
  * @method \App\Model\Entity\Intrasysemployee get($primaryKey, $options = [])
  * @method \App\Model\Entity\Intrasysemployee newEntity($data = null, array $options = [])
@@ -24,7 +23,10 @@ use Cake\Validation\Validator;
  */
 class IntrasysemployeesTable extends Table
 {
-
+    public static function defaultConnectionName()
+    {
+        return 'intrasysdb';
+    }
     /**
      * Initialize method
      *
@@ -41,15 +43,10 @@ class IntrasysemployeesTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsToMany('Announcements', [
+        $this->belongsToMany('Intrasysemployeeroles', [
             'foreignKey' => 'intrasysemployee_id',
-            'targetForeignKey' => 'announcement_id',
-            'joinTable' => 'intrasysemployees_announcements'
-        ]);
-        $this->belongsToMany('Employeeroles', [
-            'foreignKey' => 'intrasysemployee_id',
-            'targetForeignKey' => 'employeerole_id',
-            'joinTable' => 'intrasysemployees_employeeroles'
+            'targetForeignKey' => 'intrasysemployeerole_id',
+            'joinTable' => 'intrasysemployees_intrasysemployeeroles'
         ]);
     }
 
@@ -74,8 +71,7 @@ class IntrasysemployeesTable extends Table
             ->notEmpty('lastName');
 
         $validator
-            ->boolean('activationStatus')
-            ->allowEmpty('activationStatus');
+            ->allowEmpty('accountStatus');
 
         $validator
             ->requirePresence('username', 'create')
@@ -96,7 +92,6 @@ class IntrasysemployeesTable extends Table
             ->notEmpty('address');
 
         $validator
-            ->integer('contact')
             ->requirePresence('contact', 'create')
             ->notEmpty('contact');
 

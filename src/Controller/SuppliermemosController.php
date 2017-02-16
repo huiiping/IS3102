@@ -19,7 +19,7 @@ class SuppliermemosController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Suppliers']
+            'contain' => ['Suppliers', 'Retaileremployees']
         ];
         $suppliermemos = $this->paginate($this->Suppliermemos);
 
@@ -77,7 +77,7 @@ class SuppliermemosController extends AppController
     public function edit($id = null)
     {
         $suppliermemo = $this->Suppliermemos->get($id, [
-            'contain' => ['Retaileremployees']
+            'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $suppliermemo = $this->Suppliermemos->patchEntity($suppliermemo, $this->request->data);

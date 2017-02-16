@@ -17,29 +17,20 @@ class ProdtypesControllerTest extends IntegrationTestCase
      */
     public $fixtures = [
         'app.prodtypes',
+        'app.prodcats',
+        'app.promotions',
         'app.retaileremployees',
         'app.locations',
-        'app.items',
         'app.sections',
-        'app.stocklevels',
-        'app.transactions',
-        'app.retaileremployees_transactions',
-        'app.promotions',
-        'app.locations_promotions',
-        'app.custmembershiptiers',
-        'app.custmembershiptiers_retaileremployees',
+        'app.messages',
+        'app.references',
+        'app.retaileremployees_messages',
+        'app.retaileremployeeroles',
+        'app.retaileremployees_retaileremployeeroles',
         'app.customers',
-        'app.membershippoints',
-        'app.promotionemails',
-        'app.customers_promotionemails',
-        'app.customers_retaileremployees',
-        'app.employeeroles',
-        'app.retaileremployees_employeeroles',
-        'app.suppliermemos',
-        'app.retaileremployees_suppliermemos',
-        'app.transferorders',
-        'app.retaileremployees_transferorders',
-        'app.prodcats'
+        'app.custmembershiptiers',
+        'app.customers_promotions',
+        'app.promotions_prodtypes'
     ];
 
     /**

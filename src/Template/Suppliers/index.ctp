@@ -28,7 +28,7 @@
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('supplierName') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('country') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('activationStatus') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('accountStatus') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('bankAcc') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -41,13 +41,13 @@
                 <td><?= h($supplier->password) ?></td>
                 <td><?= h($supplier->email) ?></td>
                 <td><?= h($supplier->address) ?></td>
-                <td><?= $this->Number->format($supplier->contact) ?></td>
+                <td><?= h($supplier->contact) ?></td>
                 <td><?= h($supplier->created) ?></td>
                 <td><?= h($supplier->modified) ?></td>
                 <td><?= h($supplier->supplierName) ?></td>
                 <td><?= h($supplier->country) ?></td>
-                <td><?= h($supplier->activationStatus) ?></td>
-                <td><?= $this->Number->format($supplier->bankAcc) ?></td>
+                <td><?= h($supplier->accountStatus) ?></td>
+                <td><?= h($supplier->bankAcc) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $supplier->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $supplier->id]) ?>

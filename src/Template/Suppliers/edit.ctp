@@ -31,7 +31,7 @@
             echo $this->Form->input('contact');
             echo $this->Form->input('supplierName');
             echo $this->Form->input('country');
-            echo $this->Form->input('activationStatus');
+            echo $this->Form->input('accountStatus');
             echo $this->Form->input('bankAcc');
         ?>
     </fieldset>

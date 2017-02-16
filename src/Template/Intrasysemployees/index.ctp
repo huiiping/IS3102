@@ -7,10 +7,8 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Intrasysemployee'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Announcements'), ['controller' => 'Announcements', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Announcement'), ['controller' => 'Announcements', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Employeeroles'), ['controller' => 'Employeeroles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Employeerole'), ['controller' => 'Employeeroles', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Intrasysemployeeroles'), ['controller' => 'Intrasysemployeeroles', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Intrasysemployeerole'), ['controller' => 'Intrasysemployeeroles', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="intrasysemployees index large-9 medium-8 columns content">
@@ -21,7 +19,7 @@
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('firstName') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('lastName') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('activationStatus') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('accountStatus') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('username') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('email') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('password') ?></th>
@@ -38,12 +36,12 @@
                 <td><?= $this->Number->format($intrasysemployee->id) ?></td>
                 <td><?= h($intrasysemployee->firstName) ?></td>
                 <td><?= h($intrasysemployee->lastName) ?></td>
-                <td><?= h($intrasysemployee->activationStatus) ?></td>
+                <td><?= h($intrasysemployee->accountStatus) ?></td>
                 <td><?= h($intrasysemployee->username) ?></td>
                 <td><?= h($intrasysemployee->email) ?></td>
                 <td><?= h($intrasysemployee->password) ?></td>
                 <td><?= h($intrasysemployee->address) ?></td>
-                <td><?= $this->Number->format($intrasysemployee->contact) ?></td>
+                <td><?= h($intrasysemployee->contact) ?></td>
                 <td><?= h($intrasysemployee->created) ?></td>
                 <td><?= h($intrasysemployee->modified) ?></td>
                 <td class="actions">

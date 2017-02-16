@@ -24,8 +24,9 @@
         <?php
             echo $this->Form->input('companyName');
             echo $this->Form->input('companyDesc');
+            echo $this->Form->input('firstName');
             echo $this->Form->input('lastName');
-            echo $this->Form->input('activationStatus');
+            echo $this->Form->input('accountStatus');
             echo $this->Form->input('paymentTerm');
             echo $this->Form->input('loyaltyPoints');
             echo $this->Form->input('username');

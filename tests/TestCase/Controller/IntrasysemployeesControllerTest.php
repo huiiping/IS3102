@@ -17,10 +17,8 @@ class IntrasysemployeesControllerTest extends IntegrationTestCase
      */
     public $fixtures = [
         'app.intrasysemployees',
-        'app.announcements',
-        'app.intrasysemployees_announcements',
-        'app.employeeroles',
-        'app.intrasysemployees_employeeroles'
+        'app.intrasysemployeeroles',
+        'app.intrasysemployees_intrasysemployeeroles'
     ];
 
     /**

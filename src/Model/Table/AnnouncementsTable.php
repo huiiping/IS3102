@@ -9,8 +9,6 @@ use Cake\Validation\Validator;
 /**
  * Announcements Model
  *
- * @property \Cake\ORM\Association\BelongsToMany $Intrasysemployees
- *
  * @method \App\Model\Entity\Announcement get($primaryKey, $options = [])
  * @method \App\Model\Entity\Announcement newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Announcement[] newEntities(array $data, array $options = [])
@@ -23,7 +21,10 @@ use Cake\Validation\Validator;
  */
 class AnnouncementsTable extends Table
 {
-
+    public static function defaultConnectionName()
+    {
+        return 'intrasysdb';
+    }
     /**
      * Initialize method
      *
@@ -39,12 +40,6 @@ class AnnouncementsTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
-
-        $this->belongsToMany('Intrasysemployees', [
-            'foreignKey' => 'announcement_id',
-            'targetForeignKey' => 'intrasysemployee_id',
-            'joinTable' => 'intrasysemployees_announcements'
-        ]);
     }
 
     /**

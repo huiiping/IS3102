@@ -24,29 +24,7 @@ class ProdcatsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.prodcats',
-        'app.retaileremployees',
-        'app.locations',
-        'app.items',
-        'app.sections',
-        'app.stocklevels',
-        'app.transactions',
-        'app.promotions',
-        'app.locations_promotions',
-        'app.custmembershiptiers',
-        'app.custmembershiptiers_retaileremployees',
-        'app.customers',
-        'app.membershippoints',
-        'app.promotionemails',
-        'app.customers_promotionemails',
-        'app.customers_retaileremployees',
-        'app.employeeroles',
-        'app.retaileremployees_employeeroles',
-        'app.suppliermemos',
-        'app.retaileremployees_suppliermemos',
-        'app.retaileremployees_transactions',
-        'app.transferorders',
-        'app.retaileremployees_transferorders'
+        'app.prodcats'
     ];
 
     /**
@@ -89,16 +67,6 @@ class ProdcatsTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

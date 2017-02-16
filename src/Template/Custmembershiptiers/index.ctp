@@ -7,8 +7,6 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Custmembershiptier'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployees'), ['controller' => 'Retaileremployees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retaileremployee'), ['controller' => 'Retaileremployees', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="custmembershiptiers index large-9 medium-8 columns content">
@@ -17,7 +15,7 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('teirName') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('tierName') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('validityPeriod') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('minSpending') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('membershipFee') ?></th>
@@ -34,14 +32,14 @@
             <?php foreach ($custmembershiptiers as $custmembershiptier): ?>
             <tr>
                 <td><?= $this->Number->format($custmembershiptier->id) ?></td>
-                <td><?= h($custmembershiptier->teirName) ?></td>
+                <td><?= h($custmembershiptier->tierName) ?></td>
                 <td><?= $this->Number->format($custmembershiptier->validityPeriod) ?></td>
-                <td><?= $this->Number->format($custmembershiptier->minSpending) ?></td>
-                <td><?= $this->Number->format($custmembershiptier->membershipFee) ?></td>
+                <td><?= h($custmembershiptier->minSpending) ?></td>
+                <td><?= h($custmembershiptier->membershipFee) ?></td>
                 <td><?= $this->Number->format($custmembershiptier->membershipPts) ?></td>
                 <td><?= $this->Number->format($custmembershiptier->redemptionPts) ?></td>
-                <td><?= $this->Number->format($custmembershiptier->discountRate) ?></td>
-                <td><?= $this->Number->format($custmembershiptier->birthdayRate) ?></td>
+                <td><?= h($custmembershiptier->discountRate) ?></td>
+                <td><?= h($custmembershiptier->birthdayRate) ?></td>
                 <td><?= h($custmembershiptier->created) ?></td>
                 <td><?= h($custmembershiptier->modified) ?></td>
                 <td class="actions">

@@ -24,7 +24,7 @@ CREATE TABLE customers (
     modified DATETIME,
     firstName VARCHAR(255) NOT NULL,
     lastName VARCHAR(255) NOT NULL,
-    activationStatus BOOLEAN,
+    accountStatus VARCHAR(100),
     mailingList BOOLEAN,
     custMembershipTier_id INT NOT NULL,
     FOREIGN KEY (custMembershipTier_id) REFERENCES custmembershiptiers(id)
@@ -55,7 +55,7 @@ CREATE TABLE retaileremployees (
     modified DATETIME,
     firstName VARCHAR(100) NOT NULL,
     lastName VARCHAR(100) NOT NULL,
-    activationStatus BOOLEAN,
+    accountStatus VARCHAR(100),
     location_id INT,
     FOREIGN KEY (location_id) REFERENCES locations(id)
 );
@@ -71,7 +71,7 @@ CREATE TABLE suppliers (
     modified DATETIME,
     supplierName VARCHAR(255),
     country VARCHAR(255),
-    activationStatus BOOLEAN,
+    accountStatus VARCHAR(100),
     bankAcc VARCHAR(255)
 );
 

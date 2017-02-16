@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
  * Suppliermemos Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Suppliers
- * @property \Cake\ORM\Association\BelongsToMany $Retaileremployees
+ * @property \Cake\ORM\Association\BelongsTo $Retaileremployees
  *
  * @method \App\Model\Entity\Suppliermemo get($primaryKey, $options = [])
  * @method \App\Model\Entity\Suppliermemo newEntity($data = null, array $options = [])
@@ -44,10 +44,8 @@ class SuppliermemosTable extends Table
         $this->belongsTo('Suppliers', [
             'foreignKey' => 'supplier_id'
         ]);
-        $this->belongsToMany('Retaileremployees', [
-            'foreignKey' => 'suppliermemo_id',
-            'targetForeignKey' => 'retaileremployee_id',
-            'joinTable' => 'retaileremployees_suppliermemos'
+        $this->belongsTo('Retaileremployees', [
+            'foreignKey' => 'retailerEmployee_id'
         ]);
     }
 
@@ -79,6 +77,7 @@ class SuppliermemosTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['supplier_id'], 'Suppliers'));
+        $rules->add($rules->existsIn(['retailerEmployee_id'], 'Retaileremployees'));
 
         return $rules;
     }

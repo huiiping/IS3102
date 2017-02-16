@@ -19,7 +19,7 @@ class MessagesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['References', 'Retaileremployees']
+            'contain' => ['References']
         ];
         $messages = $this->paginate($this->Messages);
 
@@ -77,7 +77,7 @@ class MessagesController extends AppController
     public function edit($id = null)
     {
         $message = $this->Messages->get($id, [
-            'contain' => []
+            'contain' => ['Retaileremployees']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $message = $this->Messages->patchEntity($message, $this->request->data);

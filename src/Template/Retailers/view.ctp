@@ -22,8 +22,16 @@
             <td><?= h($retailer->companyName) ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('FirstName') ?></th>
+            <td><?= h($retailer->firstName) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('LastName') ?></th>
             <td><?= h($retailer->lastName) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('AccountStatus') ?></th>
+            <td><?= h($retailer->accountStatus) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('PaymentTerm') ?></th>
@@ -46,6 +54,10 @@
             <td><?= h($retailer->address) ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Contact') ?></th>
+            <td><?= h($retailer->contact) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Retaileracctype') ?></th>
             <td><?= $retailer->has('retaileracctype') ? $this->Html->link($retailer->retaileracctype->name, ['controller' => 'Retaileracctypes', 'action' => 'view', $retailer->retaileracctype->id]) : '' ?></td>
         </tr>
@@ -56,10 +68,6 @@
         <tr>
             <th scope="row"><?= __('LoyaltyPoints') ?></th>
             <td><?= $this->Number->format($retailer->loyaltyPoints) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Contact') ?></th>
-            <td><?= $this->Number->format($retailer->contact) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('ContractStartDate') ?></th>
@@ -76,10 +84,6 @@
         <tr>
             <th scope="row"><?= __('Modified') ?></th>
             <td><?= h($retailer->modified) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('ActivationStatus') ?></th>
-            <td><?= $retailer->activationStatus ? __('Yes') : __('No'); ?></td>
         </tr>
     </table>
     <div class="row">

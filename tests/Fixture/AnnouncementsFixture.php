@@ -44,8 +44,8 @@ class AnnouncementsFixture extends TestFixture
             'title' => 'Lorem ipsum dolor sit amet',
             'message' => 'Lorem ipsum dolor sit amet',
             'remarks' => 'Lorem ipsum dolor sit amet',
-            'created' => '2017-02-15 03:50:31',
-            'modified' => '2017-02-15 03:50:31'
+            'created' => '2017-02-16 19:27:54',
+            'modified' => '2017-02-16 19:27:54'
         ],
     ];
 }

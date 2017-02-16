@@ -22,7 +22,8 @@
     <fieldset>
         <legend><?= __('Edit Purchaseorderitem') ?></legend>
         <?php
-            echo $this->Form->input('productTypeID');
+            echo $this->Form->input('itemID');
+            echo $this->Form->input('itemName');
             echo $this->Form->input('itemDesc');
             echo $this->Form->input('quantity');
             echo $this->Form->input('unitPrice');

@@ -10,26 +10,15 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\Time $startDate
  * @property \Cake\I18n\Time $endDate
  * @property string $promoDesc
- * @property int $item1_id
- * @property int $item2_id
- * @property int $prodType1_id
- * @property int $prodType2_id
  * @property string $firstVouherNo
  * @property string $lastVoucherNo
  * @property float $discountRate
  * @property string $creditCardType
- * @property int $prodCat_id
- * @property int $employee_id
+ * @property int $retailerEmployee_id
  *
- * @property \App\Model\Entity\LocationsPromotion[] $locations_promotions
- * @property \App\Model\Entity\Location[] $locations
- * @property \App\Model\Entity\Item1 $item1
- * @property \App\Model\Entity\Item2 $item2
- * @property \App\Model\Entity\ProdType1 $prod_type1
- * @property \App\Model\Entity\ProdType2 $prod_type2
- * @property \App\Model\Entity\Prodcat $prod_cat
  * @property \App\Model\Entity\Retaileremployee $retaileremployee
- * @property \App\Model\Entity\Transferorderitem[] $transferorderitems
+ * @property \App\Model\Entity\Customer[] $customers
+ * @property \App\Model\Entity\Prodtype[] $prodtypes
  */
 class Promotion extends Entity
 {

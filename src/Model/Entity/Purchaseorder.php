@@ -11,7 +11,7 @@ use Cake\ORM\Entity;
  * @property float $totalPrice
  * @property bool $deliveryStatus
  * @property int $supplier_id
- * @property int $employee_id
+ * @property int $retailerEmployee_id
  *
  * @property \App\Model\Entity\Supplier $supplier
  * @property \App\Model\Entity\Retaileremployee $retaileremployee

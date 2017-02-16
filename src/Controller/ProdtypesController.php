@@ -19,7 +19,7 @@ class ProdtypesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Retaileremployees', 'Prodcats']
+            'contain' => ['Prodcats']
         ];
         $prodtypes = $this->paginate($this->Prodtypes);
 
@@ -37,7 +37,7 @@ class ProdtypesController extends AppController
     public function view($id = null)
     {
         $prodtype = $this->Prodtypes->get($id, [
-            'contain' => ['Retaileremployees', 'Prodcats']
+            'contain' => ['Prodcats', 'Promotions']
         ]);
 
         $this->set('prodtype', $prodtype);
@@ -61,9 +61,9 @@ class ProdtypesController extends AppController
             }
             $this->Flash->error(__('The prodtype could not be saved. Please, try again.'));
         }
-        $retaileremployees = $this->Prodtypes->Retaileremployees->find('list', ['limit' => 200]);
         $prodcats = $this->Prodtypes->Prodcats->find('list', ['limit' => 200]);
-        $this->set(compact('prodtype', 'retaileremployees', 'prodcats'));
+        $promotions = $this->Prodtypes->Promotions->find('list', ['limit' => 200]);
+        $this->set(compact('prodtype', 'prodcats', 'promotions'));
         $this->set('_serialize', ['prodtype']);
     }
 
@@ -77,7 +77,7 @@ class ProdtypesController extends AppController
     public function edit($id = null)
     {
         $prodtype = $this->Prodtypes->get($id, [
-            'contain' => []
+            'contain' => ['Promotions']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $prodtype = $this->Prodtypes->patchEntity($prodtype, $this->request->data);
@@ -88,9 +88,9 @@ class ProdtypesController extends AppController
             }
             $this->Flash->error(__('The prodtype could not be saved. Please, try again.'));
         }
-        $retaileremployees = $this->Prodtypes->Retaileremployees->find('list', ['limit' => 200]);
         $prodcats = $this->Prodtypes->Prodcats->find('list', ['limit' => 200]);
-        $this->set(compact('prodtype', 'retaileremployees', 'prodcats'));
+        $promotions = $this->Prodtypes->Promotions->find('list', ['limit' => 200]);
+        $this->set(compact('prodtype', 'prodcats', 'promotions'));
         $this->set('_serialize', ['prodtype']);
     }
 

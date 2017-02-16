@@ -34,7 +34,7 @@ class IntrasysemployeesController extends AppController
     public function view($id = null)
     {
         $intrasysemployee = $this->Intrasysemployees->get($id, [
-            'contain' => ['Announcements', 'Employeeroles']
+            'contain' => ['Intrasysemployeeroles']
         ]);
 
         $this->set('intrasysemployee', $intrasysemployee);
@@ -58,9 +58,8 @@ class IntrasysemployeesController extends AppController
             }
             $this->Flash->error(__('The intrasysemployee could not be saved. Please, try again.'));
         }
-        $announcements = $this->Intrasysemployees->Announcements->find('list', ['limit' => 200]);
-        $employeeroles = $this->Intrasysemployees->Employeeroles->find('list', ['limit' => 200]);
-        $this->set(compact('intrasysemployee', 'announcements', 'employeeroles'));
+        $intrasysemployeeroles = $this->Intrasysemployees->Intrasysemployeeroles->find('list', ['limit' => 200]);
+        $this->set(compact('intrasysemployee', 'intrasysemployeeroles'));
         $this->set('_serialize', ['intrasysemployee']);
     }
 
@@ -74,7 +73,7 @@ class IntrasysemployeesController extends AppController
     public function edit($id = null)
     {
         $intrasysemployee = $this->Intrasysemployees->get($id, [
-            'contain' => ['Announcements', 'Employeeroles']
+            'contain' => ['Intrasysemployeeroles']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $intrasysemployee = $this->Intrasysemployees->patchEntity($intrasysemployee, $this->request->data);
@@ -85,9 +84,8 @@ class IntrasysemployeesController extends AppController
             }
             $this->Flash->error(__('The intrasysemployee could not be saved. Please, try again.'));
         }
-        $announcements = $this->Intrasysemployees->Announcements->find('list', ['limit' => 200]);
-        $employeeroles = $this->Intrasysemployees->Employeeroles->find('list', ['limit' => 200]);
-        $this->set(compact('intrasysemployee', 'announcements', 'employeeroles'));
+        $intrasysemployeeroles = $this->Intrasysemployees->Intrasysemployeeroles->find('list', ['limit' => 200]);
+        $this->set(compact('intrasysemployee', 'intrasysemployeeroles'));
         $this->set('_serialize', ['intrasysemployee']);
     }
 

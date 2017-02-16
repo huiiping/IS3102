@@ -18,6 +18,10 @@
     <h3><?= h($purchaseorderitem->id) ?></h3>
     <table class="vertical-table">
         <tr>
+            <th scope="row"><?= __('ItemName') ?></th>
+            <td><?= h($purchaseorderitem->itemName) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Purchaseorder') ?></th>
             <td><?= $purchaseorderitem->has('purchaseorder') ? $this->Html->link($purchaseorderitem->purchaseorder->id, ['controller' => 'Purchaseorders', 'action' => 'view', $purchaseorderitem->purchaseorder->id]) : '' ?></td>
         </tr>
@@ -26,8 +30,8 @@
             <td><?= $this->Number->format($purchaseorderitem->id) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('ProductTypeID') ?></th>
-            <td><?= $this->Number->format($purchaseorderitem->productTypeID) ?></td>
+            <th scope="row"><?= __('ItemID') ?></th>
+            <td><?= $this->Number->format($purchaseorderitem->itemID) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Quantity') ?></th>

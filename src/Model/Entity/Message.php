@@ -10,14 +10,12 @@ use Cake\ORM\Entity;
  * @property string $title
  * @property \Cake\I18n\Time $dateCreated
  * @property string $message
- * @property int $receiver
- * @property int $sender
  * @property bool $status
  * @property string $reference_id
- * @property int $employee_id
+ * @property int $sender_id
  *
  * @property \App\Model\Entity\Reference $reference
- * @property \App\Model\Entity\Retaileremployee $retaileremployee
+ * @property \App\Model\Entity\Retaileremployee[] $retaileremployees
  */
 class Message extends Entity
 {

@@ -11,13 +11,13 @@ use Cake\ORM\Entity;
  * @property string $password
  * @property string $email
  * @property string $address
- * @property int $contact
+ * @property string $contact
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  * @property string $supplierName
  * @property string $country
- * @property bool $activationStatus
- * @property int $bankAcc
+ * @property string $accountStatus
+ * @property string $bankAcc
  *
  * @property \App\Model\Entity\Purchaseorder[] $purchaseorders
  * @property \App\Model\Entity\Suppliermemo[] $suppliermemos

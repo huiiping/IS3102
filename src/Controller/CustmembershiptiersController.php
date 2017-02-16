@@ -34,7 +34,7 @@ class CustmembershiptiersController extends AppController
     public function view($id = null)
     {
         $custmembershiptier = $this->Custmembershiptiers->get($id, [
-            'contain' => ['Retaileremployees']
+            'contain' => []
         ]);
 
         $this->set('custmembershiptier', $custmembershiptier);
@@ -58,8 +58,7 @@ class CustmembershiptiersController extends AppController
             }
             $this->Flash->error(__('The custmembershiptier could not be saved. Please, try again.'));
         }
-        $retaileremployees = $this->Custmembershiptiers->Retaileremployees->find('list', ['limit' => 200]);
-        $this->set(compact('custmembershiptier', 'retaileremployees'));
+        $this->set(compact('custmembershiptier'));
         $this->set('_serialize', ['custmembershiptier']);
     }
 
@@ -73,7 +72,7 @@ class CustmembershiptiersController extends AppController
     public function edit($id = null)
     {
         $custmembershiptier = $this->Custmembershiptiers->get($id, [
-            'contain' => ['Retaileremployees']
+            'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $custmembershiptier = $this->Custmembershiptiers->patchEntity($custmembershiptier, $this->request->data);
@@ -84,8 +83,7 @@ class CustmembershiptiersController extends AppController
             }
             $this->Flash->error(__('The custmembershiptier could not be saved. Please, try again.'));
         }
-        $retaileremployees = $this->Custmembershiptiers->Retaileremployees->find('list', ['limit' => 200]);
-        $this->set(compact('custmembershiptier', 'retaileremployees'));
+        $this->set(compact('custmembershiptier'));
         $this->set('_serialize', ['custmembershiptier']);
     }
 
