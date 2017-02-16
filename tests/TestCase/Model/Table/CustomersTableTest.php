@@ -26,12 +26,19 @@ class CustomersTableTest extends TestCase
     public $fixtures = [
         'app.customers',
         'app.custmembershiptiers',
-        'app.membershippoints',
-        'app.transactions',
-        'app.promotionemails',
-        'app.customers_promotionemails',
         'app.retaileremployees',
         'app.locations',
+        'app.items',
+        'app.prodtypes',
+        'app.prodcats',
+        'app.sections',
+        'app.deliveryorderitems',
+        'app.transactionitems',
+        'app.transferorderitems',
+        'app.stocklevels',
+        'app.transactions',
+        'app.promotions',
+        'app.locations_promotions',
         'app.custmembershiptiers_retaileremployees',
         'app.customers_retaileremployees',
         'app.employeeroles',
@@ -40,7 +47,10 @@ class CustomersTableTest extends TestCase
         'app.retaileremployees_suppliermemos',
         'app.retaileremployees_transactions',
         'app.transferorders',
-        'app.retaileremployees_transferorders'
+        'app.retaileremployees_transferorders',
+        'app.membershippoints',
+        'app.promotionemails',
+        'app.customers_promotionemails'
     ];
 
     /**
