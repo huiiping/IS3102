@@ -14,11 +14,43 @@ class IntrasysemployeesController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
+        $this->loadcomponent('Auth', [
+                'authenticate' => [
+                    'Form' => [
+                        'userModel' => 'Intrasysemployees',
+                        'fields' => [
+                            'username' => 'username',
+                            'password' => 'password'
+                        ],
+                    ]
+                ],
+                'loginAction' => [
+                    'controller' => 'Intrasysemployees',
+                    'action' => 'login'
+                ]
+            ]);
         // Allow users to register and logout.
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
         $this->Auth->allow(['add', 'logout']);
     }
+/*
+    public function initialize()
+    {
+        //parent::initialize();
+
+        $this->loadcomponent('Auth', [
+                'authenticate' => [
+                    'Form' => [
+                        'userModel' => 'Intrasysemployees',
+                        'fields' => [
+                            'username' => 'username',
+                            'password' => 'password'
+                        ]
+                        ]
+                        ]
+                        ]
+                        );}*/
 
     /**
      * Index method

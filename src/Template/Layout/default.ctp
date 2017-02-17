@@ -59,7 +59,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       <li><?= $this->Html->link(__('Account Types'), ['controller' => 'retaileracctypes', 'action' => 'index']); ?></li>
     </ul>
       <?php else :?>
-        <li><?= $this->Html->link(__('Login'), ['controller' => 'users', 'action' => 'login']); ?></li>
+        <li><?= $this->Html->link(__('Login For Intrasys'), ['controller' => 'intrasysemployees', 'action' => 'login']); ?></li>
+        <li><?= $this->Html->link(__('Login For Retailer'), ['controller' => 'retaileremployees', 'action' => 'login']); ?></li>
       <?php endif; ?> 
   </section>
 </nav>

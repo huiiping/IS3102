@@ -28,8 +28,9 @@ Router::defaultRouteClass(DashedRoute::class);
 Router::scope('/', function (RouteBuilder $routes) {
     
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+   // $routes->connect('/', ['controller' => 'intrasysemployees', 'action' => 'login']);
 
-    $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
+    //$routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 
     $routes->fallbacks(DashedRoute::class);
 });

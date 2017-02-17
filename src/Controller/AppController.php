@@ -65,7 +65,8 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-        $this->loadcomponent('Auth', [
+        //$this->loadComponent('Auth');
+        /*$this->loadcomponent('Auth', [
                 'authenticate' => [
                     'Form' => [
                         'userModel' => 'Intrasysemployees',
@@ -79,7 +80,7 @@ class AppController extends Controller
                     'controller' => 'Intrasysemployees',
                     'action' => 'login'
                 ]
-            ]);
+            ]);*/
         /*
          * Enable the following components for recommended CakePHP security settings.
          * see http://book.cakephp.org/3.0/en/controllers/components/security.html
@@ -87,7 +88,7 @@ class AppController extends Controller
         //$this->loadComponent('Security');
         //$this->loadComponent('Csrf');
     }
-
+    
     //Both intrasys & retailers DB master accounts can do all actions
     public function isAuthorized($user)
     {
@@ -113,7 +114,7 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
-
+        
         //check login
         if($this->request->session()->read('Auth.User')){
             $this->set('loggedIn', true);
