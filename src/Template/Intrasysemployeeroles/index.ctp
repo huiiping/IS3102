@@ -4,12 +4,7 @@
   */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Intrasysemployeerole'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Intrasysemployees'), ['controller' => 'Intrasysemployees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Intrasysemployee'), ['controller' => 'Intrasysemployees', 'action' => 'add']) ?></li>
-    </ul>
+    <?= $this->Element('sideBar', array('type' => 'Role', 'typePlural' => 'roles')); ?>
 </nav>
 <div class="intrasysemployeeroles index large-9 medium-8 columns content">
     <h3><?= __('Intrasysemployeeroles') ?></h3>

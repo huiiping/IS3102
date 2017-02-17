@@ -4,10 +4,7 @@
   */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Retaileracctypes'), ['action' => 'index']) ?></li>
-    </ul>
+    <?= $this->Element('sideBar', array('type' => 'Account Type', 'typePlural' => 'Account types')); ?>
 </nav>
 <div class="retaileracctypes form large-9 medium-8 columns content">
     <?= $this->Form->create($retaileracctype) ?>

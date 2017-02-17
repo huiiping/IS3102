@@ -108,4 +108,21 @@ class IntrasysemployeesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function login(){
+        if($this->request->is('post')){
+            $intrasysemployee = $this->Auth->identify();
+            if($intrasysemployee){
+                $this->Auth->setUser($intrasysemployee);
+                return $this->redirect(['controller' => 'retailers', 'action' => 'index']);
+                //return $this->redirect($this->Auth->redirectUrl());            
+            }
+            $this->Flash->error('Incorrect Login');   
+        }
+    }
+
+    public function logout(){
+        $this->Flash->success('You are now logged out');
+        return $this->redirect($this->Auth->logout());
+    }
 }

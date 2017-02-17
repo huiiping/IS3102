@@ -4,12 +4,7 @@
   */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Retailer'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Retaileracctypes'), ['controller' => 'Retaileracctypes', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retaileracctype'), ['controller' => 'Retaileracctypes', 'action' => 'add']) ?></li>
-    </ul>
+    <?= $this->Element('sideBar', array('type' => 'Retailer', 'typePlural' => 'retailers')); ?>
 </nav>
 <div class="retailers index large-9 medium-8 columns content">
     <h3><?= __('Retailers') ?></h3>

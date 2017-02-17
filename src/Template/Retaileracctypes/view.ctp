@@ -5,12 +5,7 @@
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Retaileracctype'), ['action' => 'edit', $retaileracctype->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Retaileracctype'), ['action' => 'delete', $retaileracctype->id], ['confirm' => __('Are you sure you want to delete # {0}?', $retaileracctype->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Retaileracctypes'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Retaileracctype'), ['action' => 'add']) ?> </li>
-    </ul>
+       <?= $this->Element('sideBar', array('type' => 'Account Type', 'typePlural' => 'Account types')); ?>
 </nav>
 <div class="retaileracctypes view large-9 medium-8 columns content">
     <h3><?= h($retaileracctype->name) ?></h3>

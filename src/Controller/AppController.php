@@ -33,7 +33,20 @@ class AppController extends Controller
         parent::beforeFilter($event);
 
         ConnectionManager::drop('conn1'); 
-        ConnectionManager::config('conn1', 'intrasys');
+
+        ConnectionManager::config('conn1', [
+            'className' => 'Cake\Database\Connection',
+            'driver' => 'Cake\Database\Driver\Mysql',
+            'persistent' => true,
+            'host' => $databaseDetails['res_host'],
+            'username' => $databaseDetails['res_login'],
+            'password' => $databaseDetails['res_password'],
+            'database' => $databaseDetails['res_database'],
+            'encoding' => 'utf8',
+            'timezone' => 'UTC',
+            'cacheMetadata' => false,
+
+        ]);
         ConnectionManager::alias('conn1', 'default');
     }
 
@@ -52,7 +65,21 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-
+        $this->loadcomponent('Auth', [
+                'authenticate' => [
+                    'Form' => [
+                        'userModel' => 'Intrasysemployees',
+                        'fields' => [
+                            'username' => 'username',
+                            'password' => 'password'
+                        ],
+                    ]
+                ],
+                'loginAction' => [
+                    'controller' => 'Intrasysemployees',
+                    'action' => 'login'
+                ]
+            ]);
         /*
          * Enable the following components for recommended CakePHP security settings.
          * see http://book.cakephp.org/3.0/en/controllers/components/security.html
@@ -73,6 +100,13 @@ class AppController extends Controller
             in_array($this->response->type(), ['application/json', 'application/xml'])
         ) {
             $this->set('_serialize', true);
+        }
+
+        //check login
+        if($this->request->session()->read('Auth.User')){
+            $this->set('loggedIn', true);
+        } else {
+            $this->set('loggedIn', false);
         }
     }
 }

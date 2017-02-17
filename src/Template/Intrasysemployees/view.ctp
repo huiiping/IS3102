@@ -4,15 +4,7 @@
   */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Intrasysemployee'), ['action' => 'edit', $intrasysemployee->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Intrasysemployee'), ['action' => 'delete', $intrasysemployee->id], ['confirm' => __('Are you sure you want to delete # {0}?', $intrasysemployee->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Intrasysemployees'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Intrasysemployee'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Intrasysemployeeroles'), ['controller' => 'Intrasysemployeeroles', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Intrasysemployeerole'), ['controller' => 'Intrasysemployeeroles', 'action' => 'add']) ?> </li>
-    </ul>
+    <?= $this->Element('sideBar', array('type' => 'Employee', 'typePlural' => 'employees')); ?>
 </nav>
 <div class="intrasysemployees view large-9 medium-8 columns content">
     <h3><?= h($intrasysemployee->id) ?></h3>
