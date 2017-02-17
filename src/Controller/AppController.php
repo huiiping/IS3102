@@ -88,6 +88,18 @@ class AppController extends Controller
         //$this->loadComponent('Csrf');
     }
 
+    //Both intrasys & retailers DB master accounts can do all actions
+    public function isAuthorized($user)
+    {
+        // Admin can access every action
+        if (isset($user['role']) && $user['role'] === 'master account') {
+            return true;
+        }
+
+        // Default deny
+        return false;
+    }
+
     /**
      * Before render callback.
      *

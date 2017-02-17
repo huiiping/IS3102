@@ -44,8 +44,8 @@ class IntrasysemployeerolesController extends AppController
     /**
      * Add method
      *
-     * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
-     */
+     * Can't create new roles! - Gwen
+     
     public function add()
     {
         $intrasysemployeerole = $this->Intrasysemployeeroles->newEntity();
@@ -61,7 +61,7 @@ class IntrasysemployeerolesController extends AppController
         $intrasysemployees = $this->Intrasysemployeeroles->Intrasysemployees->find('list', ['limit' => 200]);
         $this->set(compact('intrasysemployeerole', 'intrasysemployees'));
         $this->set('_serialize', ['intrasysemployeerole']);
-    }
+    }*/
 
     /**
      * Edit method

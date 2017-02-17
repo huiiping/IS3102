@@ -4,17 +4,21 @@
   */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <?= $this->Element('sideBar', array('type' => 'Role', 'typePlural' => 'roles')); ?>
+    <ul class="side-nav">
+    <!--<?= $this->Element('sideBar', array('type' => 'Role', 'typePlural' => 'roles')); ?>-->
+        <li class="heading"><?= __('Actions') ?></li>
+        <li><?= $this->Html->link(__('List Role'), ['action' => 'index']) ?></li>
 </nav>
 <div class="intrasysemployeeroles index large-9 medium-8 columns content">
-    <h3><?= __('Intrasysemployeeroles') ?></h3>
+    <h3><?= __('Intrasys Employee Roles') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('roleName') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Role Name') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Role Description') ?></th>
+                <!--<th scope="col"><?= $this->Paginator->sort('created') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('modified') ?></th>-->
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -23,8 +27,9 @@
             <tr>
                 <td><?= $this->Number->format($intrasysemployeerole->id) ?></td>
                 <td><?= h($intrasysemployeerole->roleName) ?></td>
-                <td><?= h($intrasysemployeerole->created) ?></td>
-                <td><?= h($intrasysemployeerole->modified) ?></td>
+                <td><?= h($intrasysemployeerole->roleDesc) ?></td>                
+                <!--<td><?= h($intrasysemployeerole->created) ?></td>
+                <td><?= h($intrasysemployeerole->modified) ?></td>-->
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $intrasysemployeerole->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $intrasysemployeerole->id]) ?>
