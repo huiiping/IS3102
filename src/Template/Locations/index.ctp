@@ -13,6 +13,29 @@
         <li><?= $this->Html->link(__('New Section'), ['controller' => 'Sections', 'action' => 'add']) ?></li>
     </ul>
 </nav>
+
+<div class="locations index large-9 medium-8 columns content">
+    <h3><?= __('Search') ?></h3>
+    <table cellpadding="0" cellspacing="0">
+        <thead>
+        <tr><?php
+            echo $this->Form->create(null);?>
+            <th scope="col"><?= $this->Form->input('name'); ?></th>
+            <th scope="col"><?= $this->Form->input('address'); ?></th>
+
+            <th scope="col"><?= $this->Form->input('contact'); ?></th>
+            <th scope="col"><?= $this->Form->input('type'); ?></th>
+
+            <th scope="col" class="actions"><?= $this->Form->submit(__('Submit')); ?></th>
+            <?php echo $this->Form->end();?>
+        </tr>
+
+        </thead>
+    </table>
+</div>
+
+
+
 <div class="locations index large-9 medium-8 columns content">
     <h3><?= __('Locations') ?></h3>
     <table cellpadding="0" cellspacing="0">

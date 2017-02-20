@@ -11,11 +11,26 @@ use App\Controller\AppController;
 class LocationsController extends AppController
 {
 
+
+
+    public $components = array(
+        'Search.Prg'
+    );
+
+    public function index() {
+        $this->Prg->commonProcess();
+        $this->set('locations', $this->paginate($this->Locations->find('searchable', $this->Prg->parsedParams())));
+        $this->set(compact('locations'));
+        $this->set('_serialize', ['locations']);
+    }
+
+
     /**
      * Index method
      *
      * @return \Cake\Network\Response|null
      */
+/*
     public function index()
     {
         $locations = $this->paginate($this->Locations);
@@ -23,7 +38,7 @@ class LocationsController extends AppController
         $this->set(compact('locations'));
         $this->set('_serialize', ['locations']);
     }
-
+*/
     /**
      * View method
      *
