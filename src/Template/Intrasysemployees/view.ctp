@@ -63,18 +63,18 @@
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Created') ?></th>
-                        <td><?= h($intrasysEmployee->created) ?></td>
+                        <td><?= $this->Time->format(h($intrasysEmployee->created), 'd MMM YYYY, hh:mm') ?></td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Modified') ?></th>
-                        <td><?= h($intrasysEmployee->modified) ?></td>
+                        <td><?= $this->Time->format(h($intrasysEmployee->modified), 'd MMM YYYY, hh:mm') ?></td>
                     </tr>
                 </table>
                 <br>
 
                 <div class="related">
-                    <h4><?= __('Intrasys Employee Roles') ?></h4>
                     <?php if (!empty($intrasysEmployee->intrasys_employee_roles)): ?>
+                    <h4><?= __('Intrasys Employee Roles') ?></h4>
                     <table cellpadding="0" cellspacing="0">
                         <tr>
                             <!--<th scope="col"><?= __('Id') ?></th>-->

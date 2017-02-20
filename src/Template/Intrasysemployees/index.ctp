@@ -49,8 +49,8 @@
                 <!--<td><?= h($intrasysEmployee->password) ?></td>
                 <td><?= h($intrasysEmployee->address) ?></td>
                 <td><?= h($intrasysEmployee->contact) ?></td>-->
-                <td><?= h($intrasysEmployee->created) ?></td>
-                <td><?= h($intrasysEmployee->modified) ?></td>
+                <td><?= $this->Time->format(h($intrasysEmployee->created), 'd MMM YYYY, hh:mm') ?></td>
+                <td><?= $this->Time->format(h($intrasysEmployee->modified), 'd MMM YYYY, hh:mm') ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View | '), ['action' => 'view', $intrasysEmployee->id]) ?>
                     <?= $this->Html->link(__('Edit | '), ['action' => 'edit', $intrasysEmployee->id]) ?>

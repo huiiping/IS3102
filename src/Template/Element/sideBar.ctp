@@ -9,7 +9,6 @@
   <ul class="treeview-menu">
     <li><p class="indent"><?= $this->Html->link(__($type.' Index'), ['controller' => $typePlural, 'action' => 'index']) ?></p></li>
   	<li><p class="indent"><?= $this->Html->link(__('Create New'), ['controller' => $typePlural, 'action' => 'add']) ?></p></li>
-  	<li><p class="indent"><?= $this->Html->link(__('Search'), ['controller' => $typePlural, 'action' => 'search']) ?></p></li>
     <li><p class="indent"></p></li>
   </ul>
 </li><!-- end -->

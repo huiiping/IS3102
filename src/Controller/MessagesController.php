@@ -19,7 +19,7 @@ class MessagesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['References']
+            'contain' => ['RetailerEmployees']
         ];
         $messages = $this->paginate($this->Messages);
 
