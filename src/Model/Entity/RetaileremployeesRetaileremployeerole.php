@@ -4,15 +4,15 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * RetaileremployeesRetaileremployeerole Entity
+ * RetailerEmployeesRetailerEmployeeRole Entity
  *
- * @property int $retailerEmployee_id
- * @property int $retailerEmployeeRoles_id
+ * @property int $retailer_employee_id
+ * @property int $retailer_employee_role_id
  *
- * @property \App\Model\Entity\Retaileremployee $retaileremployee
- * @property \App\Model\Entity\Retaileremployeerole $retaileremployeerole
+ * @property \App\Model\Entity\RetailerEmployee $retailer_employee
+ * @property \App\Model\Entity\RetailerEmployeeRole $retailer_employee_role
  */
-class RetaileremployeesRetaileremployeerole extends Entity
+class RetailerEmployeesRetailerEmployeeRole extends Entity
 {
 
     /**
@@ -26,7 +26,7 @@ class RetaileremployeesRetaileremployeerole extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'retailerEmployee_id' => false,
-        'retailerEmployeeRoles_id' => false
+        'retailer_employee_id' => false,
+        'retailer_employee_role_id' => false
     ];
 }

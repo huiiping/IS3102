@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\CustmembershiptiersTable;
+use App\Model\Table\CustMembershipTiersTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\CustmembershiptiersTable Test Case
+ * App\Model\Table\CustMembershipTiersTable Test Case
  */
-class CustmembershiptiersTableTest extends TestCase
+class CustMembershipTiersTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\CustmembershiptiersTable
+     * @var \App\Model\Table\CustMembershipTiersTable
      */
-    public $Custmembershiptiers;
+    public $CustMembershipTiers;
 
     /**
      * Fixtures
@@ -24,7 +24,8 @@ class CustmembershiptiersTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.custmembershiptiers'
+        'app.cust_membership_tiers',
+        'app.customers'
     ];
 
     /**
@@ -35,8 +36,8 @@ class CustmembershiptiersTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Custmembershiptiers') ? [] : ['className' => 'App\Model\Table\CustmembershiptiersTable'];
-        $this->Custmembershiptiers = TableRegistry::get('Custmembershiptiers', $config);
+        $config = TableRegistry::exists('CustMembershipTiers') ? [] : ['className' => 'App\Model\Table\CustMembershipTiersTable'];
+        $this->CustMembershipTiers = TableRegistry::get('CustMembershipTiers', $config);
     }
 
     /**
@@ -46,7 +47,7 @@ class CustmembershiptiersTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Custmembershiptiers);
+        unset($this->CustMembershipTiers);
 
         parent::tearDown();
     }

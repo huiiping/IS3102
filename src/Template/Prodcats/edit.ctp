@@ -8,20 +8,22 @@
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Form->postLink(
                 __('Delete'),
-                ['action' => 'delete', $prodcat->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $prodcat->id)]
+                ['action' => 'delete', $prodCat->id],
+                ['confirm' => __('Are you sure you want to delete # {0}?', $prodCat->id)]
             )
         ?></li>
-        <li><?= $this->Html->link(__('List Prodcats'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Prod Cats'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Prod Types'), ['controller' => 'ProdTypes', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Prod Type'), ['controller' => 'ProdTypes', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="prodcats form large-9 medium-8 columns content">
-    <?= $this->Form->create($prodcat) ?>
+<div class="prodCats form large-9 medium-8 columns content">
+    <?= $this->Form->create($prodCat) ?>
     <fieldset>
-        <legend><?= __('Edit Prodcat') ?></legend>
+        <legend><?= __('Edit Prod Cat') ?></legend>
         <?php
-            echo $this->Form->input('catName');
-            echo $this->Form->input('catDesc');
+            echo $this->Form->input('cat_name');
+            echo $this->Form->input('cat_desc');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

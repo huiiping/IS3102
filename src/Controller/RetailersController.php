@@ -19,7 +19,7 @@ class RetailersController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Retaileracctypes']
+            'contain' => ['RetailerAccTypes']
         ];
         $retailers = $this->paginate($this->Retailers);
 
@@ -37,7 +37,7 @@ class RetailersController extends AppController
     public function view($id = null)
     {
         $retailer = $this->Retailers->get($id, [
-            'contain' => ['Retaileracctypes']
+            'contain' => ['RetailerAccTypes']
         ]);
 
         $this->set('retailer', $retailer);
@@ -61,8 +61,8 @@ class RetailersController extends AppController
             }
             $this->Flash->error(__('The retailer could not be saved. Please, try again.'));
         }
-        $retaileracctypes = $this->Retailers->Retaileracctypes->find('list', ['limit' => 200]);
-        $this->set(compact('retailer', 'retaileracctypes'));
+        $retailerAccTypes = $this->Retailers->RetailerAccTypes->find('list', ['limit' => 200]);
+        $this->set(compact('retailer', 'retailerAccTypes'));
         $this->set('_serialize', ['retailer']);
     }
 
@@ -87,8 +87,8 @@ class RetailersController extends AppController
             }
             $this->Flash->error(__('The retailer could not be saved. Please, try again.'));
         }
-        $retaileracctypes = $this->Retailers->Retaileracctypes->find('list', ['limit' => 200]);
-        $this->set(compact('retailer', 'retaileracctypes'));
+        $retailerAccTypes = $this->Retailers->RetailerAccTypes->find('list', ['limit' => 200]);
+        $this->set(compact('retailer', 'retailerAccTypes'));
         $this->set('_serialize', ['retailer']);
     }
 

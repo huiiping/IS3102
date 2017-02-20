@@ -4,20 +4,20 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Purchaseorderitem Entity
+ * PurchaseOrderItem Entity
  *
  * @property int $id
- * @property int $itemID
- * @property string $itemName
- * @property string $itemDesc
+ * @property int $item_ID
+ * @property string $item_name
+ * @property string $item_desc
  * @property int $quantity
- * @property float $unitPrice
- * @property float $subTotalPrice
- * @property int $purchaseOrder_id
+ * @property float $unit_price
+ * @property float $sub_total_price
+ * @property int $purchase_order_id
  *
- * @property \App\Model\Entity\Purchaseorder $purchaseorder
+ * @property \App\Model\Entity\PurchaseOrder $purchase_order
  */
-class Purchaseorderitem extends Entity
+class PurchaseOrderItem extends Entity
 {
 
     /**

@@ -18,8 +18,8 @@
     <h3><?= h($section->id) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('SecName') ?></th>
-            <td><?= h($section->secName) ?></td>
+            <th scope="row"><?= __('Sec Name') ?></th>
+            <td><?= h($section->sec_name) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Location') ?></th>
@@ -30,8 +30,8 @@
             <td><?= $this->Number->format($section->id) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('SpaceLimit') ?></th>
-            <td><?= $this->Number->format($section->spaceLimit) ?></td>
+            <th scope="row"><?= __('Space Limit') ?></th>
+            <td><?= $this->Number->format($section->space_limit) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Reserve') ?></th>

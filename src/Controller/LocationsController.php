@@ -2,8 +2,6 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\Controller\Component;
-
 
 /**
  * Locations Controller
@@ -13,35 +11,11 @@ use Cake\Controller\Component;
 class LocationsController extends AppController
 {
 
-/*
-    public function initialize()
-    {
-        parent::initialize();
-        $this->loadComponent('Search.Prg');
-    }
-*/
-
-
-    public function index() {
-
-
-        $this->loadComponent('Prg');
-        $this->Prg->commonProcess();
-        $this->set('locations', $this->paginate($this->Locations->find('searchable', $this->Prg->parsedParams())));
-        $this->set(compact('locations'));
-        $this->set('_serialize', ['locations']);
-    }
-    public $components = array(
-        'Prg'
-    );
-
-
     /**
      * Index method
      *
      * @return \Cake\Network\Response|null
      */
-/*
     public function index()
     {
         $locations = $this->paginate($this->Locations);
@@ -49,7 +23,7 @@ class LocationsController extends AppController
         $this->set(compact('locations'));
         $this->set('_serialize', ['locations']);
     }
-*/
+
     /**
      * View method
      *
@@ -60,7 +34,7 @@ class LocationsController extends AppController
     public function view($id = null)
     {
         $location = $this->Locations->get($id, [
-            'contain' => ['Retaileremployees', 'Sections']
+            'contain' => ['RetailerEmployees', 'Sections']
         ]);
 
         $this->set('location', $location);

@@ -6,26 +6,26 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Promotions Prodtype'), ['action' => 'edit', $promotionsProdtype->promotion_id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Promotions Prodtype'), ['action' => 'delete', $promotionsProdtype->promotion_id], ['confirm' => __('Are you sure you want to delete # {0}?', $promotionsProdtype->promotion_id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Promotions Prodtypes'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Promotions Prodtype'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('Edit Promotions Prod Type'), ['action' => 'edit', $promotionsProdType->promotion_id]) ?> </li>
+        <li><?= $this->Form->postLink(__('Delete Promotions Prod Type'), ['action' => 'delete', $promotionsProdType->promotion_id], ['confirm' => __('Are you sure you want to delete # {0}?', $promotionsProdType->promotion_id)]) ?> </li>
+        <li><?= $this->Html->link(__('List Promotions Prod Types'), ['action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Promotions Prod Type'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Promotions'), ['controller' => 'Promotions', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Promotion'), ['controller' => 'Promotions', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Prodtypes'), ['controller' => 'Prodtypes', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Prodtype'), ['controller' => 'Prodtypes', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Prod Types'), ['controller' => 'ProdTypes', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Prod Type'), ['controller' => 'ProdTypes', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="promotionsProdtypes view large-9 medium-8 columns content">
-    <h3><?= h($promotionsProdtype->promotion_id) ?></h3>
+<div class="promotionsProdTypes view large-9 medium-8 columns content">
+    <h3><?= h($promotionsProdType->promotion_id) ?></h3>
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Promotion') ?></th>
-            <td><?= $promotionsProdtype->has('promotion') ? $this->Html->link($promotionsProdtype->promotion->id, ['controller' => 'Promotions', 'action' => 'view', $promotionsProdtype->promotion->id]) : '' ?></td>
+            <td><?= $promotionsProdType->has('promotion') ? $this->Html->link($promotionsProdType->promotion->id, ['controller' => 'Promotions', 'action' => 'view', $promotionsProdType->promotion->id]) : '' ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Prodtype') ?></th>
-            <td><?= $promotionsProdtype->has('prodtype') ? $this->Html->link($promotionsProdtype->prodtype->id, ['controller' => 'Prodtypes', 'action' => 'view', $promotionsProdtype->prodtype->id]) : '' ?></td>
+            <th scope="row"><?= __('Prod Type') ?></th>
+            <td><?= $promotionsProdType->has('prod_type') ? $this->Html->link($promotionsProdType->prod_type->id, ['controller' => 'ProdTypes', 'action' => 'view', $promotionsProdType->prod_type->id]) : '' ?></td>
         </tr>
     </table>
 </div>

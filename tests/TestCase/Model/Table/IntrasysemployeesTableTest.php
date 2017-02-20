@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\IntrasysemployeesTable;
+use App\Model\Table\IntrasysEmployeesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\IntrasysemployeesTable Test Case
+ * App\Model\Table\IntrasysEmployeesTable Test Case
  */
-class IntrasysemployeesTableTest extends TestCase
+class IntrasysEmployeesTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\IntrasysemployeesTable
+     * @var \App\Model\Table\IntrasysEmployeesTable
      */
-    public $Intrasysemployees;
+    public $IntrasysEmployees;
 
     /**
      * Fixtures
@@ -24,9 +24,9 @@ class IntrasysemployeesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.intrasysemployees',
-        'app.intrasysemployeeroles',
-        'app.intrasysemployees_intrasysemployeeroles'
+        'app.intrasys_employees',
+        'app.intrasys_employee_roles',
+        'app.intrasys_employees_intrasys_employee_roles'
     ];
 
     /**
@@ -37,8 +37,8 @@ class IntrasysemployeesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Intrasysemployees') ? [] : ['className' => 'App\Model\Table\IntrasysemployeesTable'];
-        $this->Intrasysemployees = TableRegistry::get('Intrasysemployees', $config);
+        $config = TableRegistry::exists('IntrasysEmployees') ? [] : ['className' => 'App\Model\Table\IntrasysEmployeesTable'];
+        $this->IntrasysEmployees = TableRegistry::get('IntrasysEmployees', $config);
     }
 
     /**
@@ -48,9 +48,19 @@ class IntrasysemployeesTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Intrasysemployees);
+        unset($this->IntrasysEmployees);
 
         parent::tearDown();
+    }
+
+    /**
+     * Test defaultConnectionName method
+     *
+     * @return void
+     */
+    public function testDefaultConnectionName()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
     }
 
     /**

@@ -37,7 +37,7 @@ class MessagesController extends AppController
     public function view($id = null)
     {
         $message = $this->Messages->get($id, [
-            'contain' => ['References', 'Retaileremployees']
+            'contain' => ['References', 'RetailerEmployees']
         ]);
 
         $this->set('message', $message);
@@ -62,8 +62,8 @@ class MessagesController extends AppController
             $this->Flash->error(__('The message could not be saved. Please, try again.'));
         }
         $references = $this->Messages->References->find('list', ['limit' => 200]);
-        $retaileremployees = $this->Messages->Retaileremployees->find('list', ['limit' => 200]);
-        $this->set(compact('message', 'references', 'retaileremployees'));
+        $retailerEmployees = $this->Messages->RetailerEmployees->find('list', ['limit' => 200]);
+        $this->set(compact('message', 'references', 'retailerEmployees'));
         $this->set('_serialize', ['message']);
     }
 
@@ -77,7 +77,7 @@ class MessagesController extends AppController
     public function edit($id = null)
     {
         $message = $this->Messages->get($id, [
-            'contain' => ['Retaileremployees']
+            'contain' => ['RetailerEmployees']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $message = $this->Messages->patchEntity($message, $this->request->data);
@@ -89,8 +89,8 @@ class MessagesController extends AppController
             $this->Flash->error(__('The message could not be saved. Please, try again.'));
         }
         $references = $this->Messages->References->find('list', ['limit' => 200]);
-        $retaileremployees = $this->Messages->Retaileremployees->find('list', ['limit' => 200]);
-        $this->set(compact('message', 'references', 'retaileremployees'));
+        $retailerEmployees = $this->Messages->RetailerEmployees->find('list', ['limit' => 200]);
+        $this->set(compact('message', 'references', 'retailerEmployees'));
         $this->set('_serialize', ['message']);
     }
 

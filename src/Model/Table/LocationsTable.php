@@ -9,7 +9,7 @@ use Cake\Validation\Validator;
 /**
  * Locations Model
  *
- * @property \Cake\ORM\Association\HasMany $Retaileremployees
+ * @property \Cake\ORM\Association\HasMany $RetailerEmployees
  * @property \Cake\ORM\Association\HasMany $Sections
  *
  * @method \App\Model\Entity\Location get($primaryKey, $options = [])
@@ -23,39 +23,13 @@ use Cake\Validation\Validator;
 class LocationsTable extends Table
 {
 
-    public $filterArgs = array(
-        'id' => array(
-            'type' => 'like',
-            'field' => 'id'
-        ),
-        'name' => array(
-            'type' => 'like',
-            'field' => 'name'
-        ),
-        'address' => array(
-            'type' => 'like',
-            'field' => 'address'
-        ),
-        'contact' => array(
-            'type' => 'like',
-            'field' => 'contact'
-        ),
-        'type' => array(
-            'type' => 'type'
-        )
-    );
-/*
-    public function initialize(array $config = []) {
-        $this->addBehavior('Search.Searchable');
-    }
-*/
     /**
      * Initialize method
      *
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config=[])
+    public function initialize(array $config)
     {
         parent::initialize($config);
 
@@ -63,13 +37,12 @@ class LocationsTable extends Table
         $this->displayField('name');
         $this->primaryKey('id');
 
-        $this->hasMany('Retaileremployees', [
+        $this->hasMany('RetailerEmployees', [
             'foreignKey' => 'location_id'
         ]);
         $this->hasMany('Sections', [
             'foreignKey' => 'location_id'
         ]);
-        $this->addBehavior('Searchable');
     }
 
     /**

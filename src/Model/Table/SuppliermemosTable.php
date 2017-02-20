@@ -7,22 +7,22 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Suppliermemos Model
+ * SupplierMemos Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Suppliers
- * @property \Cake\ORM\Association\BelongsTo $Retaileremployees
+ * @property \Cake\ORM\Association\BelongsTo $RetailerEmployees
  *
- * @method \App\Model\Entity\Suppliermemo get($primaryKey, $options = [])
- * @method \App\Model\Entity\Suppliermemo newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Suppliermemo[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Suppliermemo|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Suppliermemo patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Suppliermemo[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Suppliermemo findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\SupplierMemo get($primaryKey, $options = [])
+ * @method \App\Model\Entity\SupplierMemo newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\SupplierMemo[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\SupplierMemo|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\SupplierMemo patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\SupplierMemo[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\SupplierMemo findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class SuppliermemosTable extends Table
+class SupplierMemosTable extends Table
 {
 
     /**
@@ -35,7 +35,7 @@ class SuppliermemosTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('suppliermemos');
+        $this->table('supplier_memos');
         $this->displayField('id');
         $this->primaryKey('id');
 
@@ -44,8 +44,8 @@ class SuppliermemosTable extends Table
         $this->belongsTo('Suppliers', [
             'foreignKey' => 'supplier_id'
         ]);
-        $this->belongsTo('Retaileremployees', [
-            'foreignKey' => 'retailerEmployee_id'
+        $this->belongsTo('RetailerEmployees', [
+            'foreignKey' => 'retailer_employee_id'
         ]);
     }
 
@@ -77,7 +77,7 @@ class SuppliermemosTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['supplier_id'], 'Suppliers'));
-        $rules->add($rules->existsIn(['retailerEmployee_id'], 'Retaileremployees'));
+        $rules->add($rules->existsIn(['retailer_employee_id'], 'RetailerEmployees'));
 
         return $rules;
     }

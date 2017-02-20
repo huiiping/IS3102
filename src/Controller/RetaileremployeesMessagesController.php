@@ -4,11 +4,11 @@ namespace App\Controller;
 use App\Controller\AppController;
 
 /**
- * RetaileremployeesMessages Controller
+ * RetailerEmployeesMessages Controller
  *
- * @property \App\Model\Table\RetaileremployeesMessagesTable $RetaileremployeesMessages
+ * @property \App\Model\Table\RetailerEmployeesMessagesTable $RetailerEmployeesMessages
  */
-class RetaileremployeesMessagesController extends AppController
+class RetailerEmployeesMessagesController extends AppController
 {
 
     /**
@@ -19,29 +19,29 @@ class RetaileremployeesMessagesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Retaileremployees', 'Messages']
+            'contain' => ['RetailerEmployees', 'Messages']
         ];
-        $retaileremployeesMessages = $this->paginate($this->RetaileremployeesMessages);
+        $retailerEmployeesMessages = $this->paginate($this->RetailerEmployeesMessages);
 
-        $this->set(compact('retaileremployeesMessages'));
-        $this->set('_serialize', ['retaileremployeesMessages']);
+        $this->set(compact('retailerEmployeesMessages'));
+        $this->set('_serialize', ['retailerEmployeesMessages']);
     }
 
     /**
      * View method
      *
-     * @param string|null $id Retaileremployees Message id.
+     * @param string|null $id Retailer Employees Message id.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $retaileremployeesMessage = $this->RetaileremployeesMessages->get($id, [
-            'contain' => ['Retaileremployees', 'Messages']
+        $retailerEmployeesMessage = $this->RetailerEmployeesMessages->get($id, [
+            'contain' => ['RetailerEmployees', 'Messages']
         ]);
 
-        $this->set('retaileremployeesMessage', $retaileremployeesMessage);
-        $this->set('_serialize', ['retaileremployeesMessage']);
+        $this->set('retailerEmployeesMessage', $retailerEmployeesMessage);
+        $this->set('_serialize', ['retailerEmployeesMessage']);
     }
 
     /**
@@ -51,64 +51,64 @@ class RetaileremployeesMessagesController extends AppController
      */
     public function add()
     {
-        $retaileremployeesMessage = $this->RetaileremployeesMessages->newEntity();
+        $retailerEmployeesMessage = $this->RetailerEmployeesMessages->newEntity();
         if ($this->request->is('post')) {
-            $retaileremployeesMessage = $this->RetaileremployeesMessages->patchEntity($retaileremployeesMessage, $this->request->data);
-            if ($this->RetaileremployeesMessages->save($retaileremployeesMessage)) {
-                $this->Flash->success(__('The retaileremployees message has been saved.'));
+            $retailerEmployeesMessage = $this->RetailerEmployeesMessages->patchEntity($retailerEmployeesMessage, $this->request->data);
+            if ($this->RetailerEmployeesMessages->save($retailerEmployeesMessage)) {
+                $this->Flash->success(__('The retailer employees message has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The retaileremployees message could not be saved. Please, try again.'));
+            $this->Flash->error(__('The retailer employees message could not be saved. Please, try again.'));
         }
-        $retaileremployees = $this->RetaileremployeesMessages->Retaileremployees->find('list', ['limit' => 200]);
-        $messages = $this->RetaileremployeesMessages->Messages->find('list', ['limit' => 200]);
-        $this->set(compact('retaileremployeesMessage', 'retaileremployees', 'messages'));
-        $this->set('_serialize', ['retaileremployeesMessage']);
+        $retailerEmployees = $this->RetailerEmployeesMessages->RetailerEmployees->find('list', ['limit' => 200]);
+        $messages = $this->RetailerEmployeesMessages->Messages->find('list', ['limit' => 200]);
+        $this->set(compact('retailerEmployeesMessage', 'retailerEmployees', 'messages'));
+        $this->set('_serialize', ['retailerEmployeesMessage']);
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Retaileremployees Message id.
+     * @param string|null $id Retailer Employees Message id.
      * @return \Cake\Network\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {
-        $retaileremployeesMessage = $this->RetaileremployeesMessages->get($id, [
+        $retailerEmployeesMessage = $this->RetailerEmployeesMessages->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $retaileremployeesMessage = $this->RetaileremployeesMessages->patchEntity($retaileremployeesMessage, $this->request->data);
-            if ($this->RetaileremployeesMessages->save($retaileremployeesMessage)) {
-                $this->Flash->success(__('The retaileremployees message has been saved.'));
+            $retailerEmployeesMessage = $this->RetailerEmployeesMessages->patchEntity($retailerEmployeesMessage, $this->request->data);
+            if ($this->RetailerEmployeesMessages->save($retailerEmployeesMessage)) {
+                $this->Flash->success(__('The retailer employees message has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The retaileremployees message could not be saved. Please, try again.'));
+            $this->Flash->error(__('The retailer employees message could not be saved. Please, try again.'));
         }
-        $retaileremployees = $this->RetaileremployeesMessages->Retaileremployees->find('list', ['limit' => 200]);
-        $messages = $this->RetaileremployeesMessages->Messages->find('list', ['limit' => 200]);
-        $this->set(compact('retaileremployeesMessage', 'retaileremployees', 'messages'));
-        $this->set('_serialize', ['retaileremployeesMessage']);
+        $retailerEmployees = $this->RetailerEmployeesMessages->RetailerEmployees->find('list', ['limit' => 200]);
+        $messages = $this->RetailerEmployeesMessages->Messages->find('list', ['limit' => 200]);
+        $this->set(compact('retailerEmployeesMessage', 'retailerEmployees', 'messages'));
+        $this->set('_serialize', ['retailerEmployeesMessage']);
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id Retaileremployees Message id.
+     * @param string|null $id Retailer Employees Message id.
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $retaileremployeesMessage = $this->RetaileremployeesMessages->get($id);
-        if ($this->RetaileremployeesMessages->delete($retaileremployeesMessage)) {
-            $this->Flash->success(__('The retaileremployees message has been deleted.'));
+        $retailerEmployeesMessage = $this->RetailerEmployeesMessages->get($id);
+        if ($this->RetailerEmployeesMessages->delete($retailerEmployeesMessage)) {
+            $this->Flash->success(__('The retailer employees message has been deleted.'));
         } else {
-            $this->Flash->error(__('The retaileremployees message could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The retailer employees message could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);

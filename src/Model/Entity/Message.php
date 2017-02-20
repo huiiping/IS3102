@@ -8,14 +8,14 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $title
- * @property \Cake\I18n\Time $dateCreated
+ * @property \Cake\I18n\Time $date_created
  * @property string $message
  * @property bool $status
  * @property string $reference_id
  * @property int $sender_id
  *
  * @property \App\Model\Entity\Reference $reference
- * @property \App\Model\Entity\Retaileremployee[] $retaileremployees
+ * @property \App\Model\Entity\RetailerEmployee[] $retailer_employees
  */
 class Message extends Entity
 {

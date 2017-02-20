@@ -6,19 +6,19 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployeeroles'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployees'), ['controller' => 'Retaileremployees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retaileremployee'), ['controller' => 'Retaileremployees', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Retailer Employee Roles'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Retailer Employees'), ['controller' => 'RetailerEmployees', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Retailer Employee'), ['controller' => 'RetailerEmployees', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="retaileremployeeroles form large-9 medium-8 columns content">
-    <?= $this->Form->create($retaileremployeerole) ?>
+<div class="retailerEmployeeRoles form large-9 medium-8 columns content">
+    <?= $this->Form->create($retailerEmployeeRole) ?>
     <fieldset>
-        <legend><?= __('Add Retaileremployeerole') ?></legend>
+        <legend><?= __('Add Retailer Employee Role') ?></legend>
         <?php
-            echo $this->Form->input('roleName');
-            echo $this->Form->input('roleDesc');
-            echo $this->Form->input('retaileremployees._ids', ['options' => $retaileremployees]);
+            echo $this->Form->input('role_name');
+            echo $this->Form->input('role_desc');
+            echo $this->Form->input('retailer_employees._ids', ['options' => $retailerEmployees]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

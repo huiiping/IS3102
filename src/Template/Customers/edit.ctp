@@ -13,8 +13,8 @@
             )
         ?></li>
         <li><?= $this->Html->link(__('List Customers'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Custmembershiptiers'), ['controller' => 'Custmembershiptiers', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Custmembershiptier'), ['controller' => 'Custmembershiptiers', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Cust Membership Tiers'), ['controller' => 'CustMembershipTiers', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Cust Membership Tier'), ['controller' => 'CustMembershipTiers', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Promotions'), ['controller' => 'Promotions', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Promotion'), ['controller' => 'Promotions', 'action' => 'add']) ?></li>
     </ul>
@@ -29,11 +29,11 @@
             echo $this->Form->input('email');
             echo $this->Form->input('address');
             echo $this->Form->input('contact');
-            echo $this->Form->input('firstName');
-            echo $this->Form->input('lastName');
-            echo $this->Form->input('accountStatus');
-            echo $this->Form->input('mailingList');
-            echo $this->Form->input('custMembershipTier_id', ['options' => $custmembershiptiers]);
+            echo $this->Form->input('first_name');
+            echo $this->Form->input('last_name');
+            echo $this->Form->input('account_status');
+            echo $this->Form->input('mailing_list');
+            echo $this->Form->input('cust_membership_tier_id', ['options' => $custMembershipTiers]);
             echo $this->Form->input('promotions._ids', ['options' => $promotions]);
         ?>
     </fieldset>

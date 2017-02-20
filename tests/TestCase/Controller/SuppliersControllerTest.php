@@ -17,8 +17,23 @@ class SuppliersControllerTest extends IntegrationTestCase
      */
     public $fixtures = [
         'app.suppliers',
-        'app.purchaseorders',
-        'app.suppliermemos'
+        'app.purchase_orders',
+        'app.retailer_employees',
+        'app.locations',
+        'app.sections',
+        'app.promotions',
+        'app.customers',
+        'app.cust_membership_tiers',
+        'app.customers_promotions',
+        'app.prod_types',
+        'app.prod_cats',
+        'app.promotions_prod_types',
+        'app.retailer_employees_retailer_employeer_roles',
+        'app.supplier_memos',
+        'app.messages',
+        'app.references',
+        'app.retailer_employees_messages',
+        'app.purchase_order_items'
     ];
 
     /**

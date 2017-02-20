@@ -8,21 +8,21 @@
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Form->postLink(
                 __('Delete'),
-                ['action' => 'delete', $retaileremployeesMessage->retailerEmployee_id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $retaileremployeesMessage->retailerEmployee_id)]
+                ['action' => 'delete', $retailerEmployeesMessage->retailer_employee_id],
+                ['confirm' => __('Are you sure you want to delete # {0}?', $retailerEmployeesMessage->retailer_employee_id)]
             )
         ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployees Messages'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployees'), ['controller' => 'Retaileremployees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retaileremployee'), ['controller' => 'Retaileremployees', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Retailer Employees Messages'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Retailer Employees'), ['controller' => 'RetailerEmployees', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Retailer Employee'), ['controller' => 'RetailerEmployees', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Messages'), ['controller' => 'Messages', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Message'), ['controller' => 'Messages', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="retaileremployeesMessages form large-9 medium-8 columns content">
-    <?= $this->Form->create($retaileremployeesMessage) ?>
+<div class="retailerEmployeesMessages form large-9 medium-8 columns content">
+    <?= $this->Form->create($retailerEmployeesMessage) ?>
     <fieldset>
-        <legend><?= __('Edit Retaileremployees Message') ?></legend>
+        <legend><?= __('Edit Retailer Employees Message') ?></legend>
         <?php
         ?>
     </fieldset>

@@ -6,28 +6,30 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Prodcat'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New Prod Cat'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Prod Types'), ['controller' => 'ProdTypes', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Prod Type'), ['controller' => 'ProdTypes', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="prodcats index large-9 medium-8 columns content">
-    <h3><?= __('Prodcats') ?></h3>
+<div class="prodCats index large-9 medium-8 columns content">
+    <h3><?= __('Prod Cats') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('catName') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('cat_name') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($prodcats as $prodcat): ?>
+            <?php foreach ($prodCats as $prodCat): ?>
             <tr>
-                <td><?= $this->Number->format($prodcat->id) ?></td>
-                <td><?= h($prodcat->catName) ?></td>
+                <td><?= $this->Number->format($prodCat->id) ?></td>
+                <td><?= h($prodCat->cat_name) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $prodcat->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $prodcat->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $prodcat->id], ['confirm' => __('Are you sure you want to delete # {0}?', $prodcat->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $prodCat->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $prodCat->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $prodCat->id], ['confirm' => __('Are you sure you want to delete # {0}?', $prodCat->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

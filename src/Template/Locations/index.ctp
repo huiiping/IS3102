@@ -7,35 +7,12 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Location'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployees'), ['controller' => 'Retaileremployees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retaileremployee'), ['controller' => 'Retaileremployees', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Retailer Employees'), ['controller' => 'RetailerEmployees', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Retailer Employee'), ['controller' => 'RetailerEmployees', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Sections'), ['controller' => 'Sections', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Section'), ['controller' => 'Sections', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-
-<div class="locations index large-9 medium-8 columns content">
-    <h3><?= __('Search') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-        <tr><?php
-            echo $this->Form->create(null);?>
-            <th scope="col"><?= $this->Form->input('name'); ?></th>
-            <th scope="col"><?= $this->Form->input('address'); ?></th>
-
-            <th scope="col"><?= $this->Form->input('contact'); ?></th>
-            <th scope="col"><?= $this->Form->input('type'); ?></th>
-
-            <th scope="col" class="actions"><?= $this->Form->submit(__('Submit')); ?></th>
-            <?php echo $this->Form->end();?>
-        </tr>
-
-        </thead>
-    </table>
-</div>
-
-
-
 <div class="locations index large-9 medium-8 columns content">
     <h3><?= __('Locations') ?></h3>
     <table cellpadding="0" cellspacing="0">

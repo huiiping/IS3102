@@ -14,13 +14,13 @@ use Cake\ORM\Entity;
  * @property string $contact
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
- * @property string $firstName
- * @property string $lastName
- * @property string $accountStatus
- * @property bool $mailingList
- * @property int $custMembershipTier_id
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $account_status
+ * @property bool $mailing_list
+ * @property int $cust_membership_tier_id
  *
- * @property \App\Model\Entity\Custmembershiptier $custmembershiptier
+ * @property \App\Model\Entity\CustMembershipTier $cust_membership_tier
  * @property \App\Model\Entity\Promotion[] $promotions
  */
 class Customer extends Entity

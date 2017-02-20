@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\PurchaseordersTable;
+use App\Model\Table\PurchaseOrdersTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\PurchaseordersTable Test Case
+ * App\Model\Table\PurchaseOrdersTable Test Case
  */
-class PurchaseordersTableTest extends TestCase
+class PurchaseOrdersTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\PurchaseordersTable
+     * @var \App\Model\Table\PurchaseOrdersTable
      */
-    public $Purchaseorders;
+    public $PurchaseOrders;
 
     /**
      * Fixtures
@@ -24,17 +24,10 @@ class PurchaseordersTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.purchaseorders',
+        'app.purchase_orders',
         'app.suppliers',
-        'app.suppliermemos',
-        'app.retaileremployees',
-        'app.locations',
-        'app.sections',
-        'app.messages',
-        'app.references',
-        'app.retaileremployees_messages',
-        'app.retaileremployeeroles',
-        'app.retaileremployees_retaileremployeeroles'
+        'app.retailer_employees',
+        'app.purchase_order_items'
     ];
 
     /**
@@ -45,8 +38,8 @@ class PurchaseordersTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Purchaseorders') ? [] : ['className' => 'App\Model\Table\PurchaseordersTable'];
-        $this->Purchaseorders = TableRegistry::get('Purchaseorders', $config);
+        $config = TableRegistry::exists('PurchaseOrders') ? [] : ['className' => 'App\Model\Table\PurchaseOrdersTable'];
+        $this->PurchaseOrders = TableRegistry::get('PurchaseOrders', $config);
     }
 
     /**
@@ -56,7 +49,7 @@ class PurchaseordersTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Purchaseorders);
+        unset($this->PurchaseOrders);
 
         parent::tearDown();
     }

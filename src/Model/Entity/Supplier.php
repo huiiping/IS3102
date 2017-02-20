@@ -14,13 +14,13 @@ use Cake\ORM\Entity;
  * @property string $contact
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
- * @property string $supplierName
+ * @property string $supplier_name
  * @property string $country
- * @property string $accountStatus
- * @property string $bankAcc
+ * @property string $account_status
+ * @property string $bank_acc
  *
- * @property \App\Model\Entity\Purchaseorder[] $purchaseorders
- * @property \App\Model\Entity\Suppliermemo[] $suppliermemos
+ * @property \App\Model\Entity\PurchaseOrder[] $purchase_orders
+ * @property \App\Model\Entity\SupplierMemo[] $supplier_memos
  */
 class Supplier extends Entity
 {

@@ -10,53 +10,53 @@
         <li><?= $this->Form->postLink(__('Delete Promotion'), ['action' => 'delete', $promotion->id], ['confirm' => __('Are you sure you want to delete # {0}?', $promotion->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Promotions'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Promotion'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Retaileremployees'), ['controller' => 'Retaileremployees', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Retaileremployee'), ['controller' => 'Retaileremployees', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Retailer Employees'), ['controller' => 'RetailerEmployees', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Retailer Employee'), ['controller' => 'RetailerEmployees', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Customers'), ['controller' => 'Customers', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Customer'), ['controller' => 'Customers', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Prodtypes'), ['controller' => 'Prodtypes', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Prodtype'), ['controller' => 'Prodtypes', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Prod Types'), ['controller' => 'ProdTypes', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Prod Type'), ['controller' => 'ProdTypes', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="promotions view large-9 medium-8 columns content">
     <h3><?= h($promotion->id) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('FirstVouherNo') ?></th>
-            <td><?= h($promotion->firstVouherNo) ?></td>
+            <th scope="row"><?= __('First Vouher Num') ?></th>
+            <td><?= h($promotion->first_vouher_num) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('LastVoucherNo') ?></th>
-            <td><?= h($promotion->lastVoucherNo) ?></td>
+            <th scope="row"><?= __('Last Voucher Num') ?></th>
+            <td><?= h($promotion->last_voucher_num) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('CreditCardType') ?></th>
-            <td><?= h($promotion->creditCardType) ?></td>
+            <th scope="row"><?= __('Credit Card Type') ?></th>
+            <td><?= h($promotion->credit_card_type) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Retaileremployee') ?></th>
-            <td><?= $promotion->has('retaileremployee') ? $this->Html->link($promotion->retaileremployee->id, ['controller' => 'Retaileremployees', 'action' => 'view', $promotion->retaileremployee->id]) : '' ?></td>
+            <th scope="row"><?= __('Retailer Employee') ?></th>
+            <td><?= $promotion->has('retailer_employee') ? $this->Html->link($promotion->retailer_employee->id, ['controller' => 'RetailerEmployees', 'action' => 'view', $promotion->retailer_employee->id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Id') ?></th>
             <td><?= $this->Number->format($promotion->id) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('DiscountRate') ?></th>
-            <td><?= $this->Number->format($promotion->discountRate) ?></td>
+            <th scope="row"><?= __('Discount Rate') ?></th>
+            <td><?= $this->Number->format($promotion->discount_rate) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('StartDate') ?></th>
-            <td><?= h($promotion->startDate) ?></td>
+            <th scope="row"><?= __('Start Date') ?></th>
+            <td><?= h($promotion->start_date) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('EndDate') ?></th>
-            <td><?= h($promotion->endDate) ?></td>
+            <th scope="row"><?= __('End Date') ?></th>
+            <td><?= h($promotion->end_date) ?></td>
         </tr>
     </table>
     <div class="row">
-        <h4><?= __('PromoDesc') ?></h4>
-        <?= $this->Text->autoParagraph(h($promotion->promoDesc)); ?>
+        <h4><?= __('Promo Desc') ?></h4>
+        <?= $this->Text->autoParagraph(h($promotion->promo_desc)); ?>
     </div>
     <div class="related">
         <h4><?= __('Related Customers') ?></h4>
@@ -71,11 +71,11 @@
                 <th scope="col"><?= __('Contact') ?></th>
                 <th scope="col"><?= __('Created') ?></th>
                 <th scope="col"><?= __('Modified') ?></th>
-                <th scope="col"><?= __('FirstName') ?></th>
-                <th scope="col"><?= __('LastName') ?></th>
-                <th scope="col"><?= __('AccountStatus') ?></th>
-                <th scope="col"><?= __('MailingList') ?></th>
-                <th scope="col"><?= __('CustMembershipTier Id') ?></th>
+                <th scope="col"><?= __('First Name') ?></th>
+                <th scope="col"><?= __('Last Name') ?></th>
+                <th scope="col"><?= __('Account Status') ?></th>
+                <th scope="col"><?= __('Mailing List') ?></th>
+                <th scope="col"><?= __('Cust Membership Tier Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($promotion->customers as $customers): ?>
@@ -88,11 +88,11 @@
                 <td><?= h($customers->contact) ?></td>
                 <td><?= h($customers->created) ?></td>
                 <td><?= h($customers->modified) ?></td>
-                <td><?= h($customers->firstName) ?></td>
-                <td><?= h($customers->lastName) ?></td>
-                <td><?= h($customers->accountStatus) ?></td>
-                <td><?= h($customers->mailingList) ?></td>
-                <td><?= h($customers->custMembershipTier_id) ?></td>
+                <td><?= h($customers->first_name) ?></td>
+                <td><?= h($customers->last_name) ?></td>
+                <td><?= h($customers->account_status) ?></td>
+                <td><?= h($customers->mailing_list) ?></td>
+                <td><?= h($customers->cust_membership_tier_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Customers', 'action' => 'view', $customers->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Customers', 'action' => 'edit', $customers->id]) ?>
@@ -104,36 +104,36 @@
         <?php endif; ?>
     </div>
     <div class="related">
-        <h4><?= __('Related Prodtypes') ?></h4>
-        <?php if (!empty($promotion->prodtypes)): ?>
+        <h4><?= __('Related Prod Types') ?></h4>
+        <?php if (!empty($promotion->prod_types)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('ProdName') ?></th>
-                <th scope="col"><?= __('ProdDesc') ?></th>
+                <th scope="col"><?= __('Prod Name') ?></th>
+                <th scope="col"><?= __('Prod Desc') ?></th>
                 <th scope="col"><?= __('Colour') ?></th>
                 <th scope="col"><?= __('Dimension') ?></th>
-                <th scope="col"><?= __('StoreUnitPrice') ?></th>
-                <th scope="col"><?= __('WebStoreUnitPrice') ?></th>
+                <th scope="col"><?= __('Store Unit Price') ?></th>
+                <th scope="col"><?= __('Web Store Unit Price') ?></th>
                 <th scope="col"><?= __('SKU') ?></th>
-                <th scope="col"><?= __('ProdCat Id') ?></th>
+                <th scope="col"><?= __('Prod Cat Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($promotion->prodtypes as $prodtypes): ?>
+            <?php foreach ($promotion->prod_types as $prodTypes): ?>
             <tr>
-                <td><?= h($prodtypes->id) ?></td>
-                <td><?= h($prodtypes->prodName) ?></td>
-                <td><?= h($prodtypes->prodDesc) ?></td>
-                <td><?= h($prodtypes->colour) ?></td>
-                <td><?= h($prodtypes->dimension) ?></td>
-                <td><?= h($prodtypes->storeUnitPrice) ?></td>
-                <td><?= h($prodtypes->webStoreUnitPrice) ?></td>
-                <td><?= h($prodtypes->SKU) ?></td>
-                <td><?= h($prodtypes->prodCat_id) ?></td>
+                <td><?= h($prodTypes->id) ?></td>
+                <td><?= h($prodTypes->prod_name) ?></td>
+                <td><?= h($prodTypes->prod_desc) ?></td>
+                <td><?= h($prodTypes->colour) ?></td>
+                <td><?= h($prodTypes->dimension) ?></td>
+                <td><?= h($prodTypes->store_unit_price) ?></td>
+                <td><?= h($prodTypes->web_store_unit_price) ?></td>
+                <td><?= h($prodTypes->SKU) ?></td>
+                <td><?= h($prodTypes->prod_cat_id) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Prodtypes', 'action' => 'view', $prodtypes->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Prodtypes', 'action' => 'edit', $prodtypes->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Prodtypes', 'action' => 'delete', $prodtypes->id], ['confirm' => __('Are you sure you want to delete # {0}?', $prodtypes->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['controller' => 'ProdTypes', 'action' => 'view', $prodTypes->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'ProdTypes', 'action' => 'edit', $prodTypes->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'ProdTypes', 'action' => 'delete', $prodTypes->id], ['confirm' => __('Are you sure you want to delete # {0}?', $prodTypes->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

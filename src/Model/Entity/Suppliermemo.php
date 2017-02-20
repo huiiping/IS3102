@@ -4,18 +4,18 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Suppliermemo Entity
+ * SupplierMemo Entity
  *
  * @property int $id
  * @property string $remarks
  * @property \Cake\I18n\Time $created
  * @property int $supplier_id
- * @property int $retailerEmployee_id
+ * @property int $retailer_employee_id
  *
  * @property \App\Model\Entity\Supplier $supplier
- * @property \App\Model\Entity\Retaileremployee $retaileremployee
+ * @property \App\Model\Entity\RetailerEmployee $retailer_employee
  */
-class Suppliermemo extends Entity
+class SupplierMemo extends Entity
 {
 
     /**

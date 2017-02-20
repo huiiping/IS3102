@@ -2,55 +2,14 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\Event\Event;
+
 /**
- * Intrasysemployees Controller
+ * IntrasysEmployees Controller
  *
- * @property \App\Model\Table\IntrasysemployeesTable $Intrasysemployees
+ * @property \App\Model\Table\IntrasysEmployeesTable $IntrasysEmployees
  */
-class IntrasysemployeesController extends AppController
+class IntrasysEmployeesController extends AppController
 {
-
-    public function beforeFilter(Event $event)
-    {
-        parent::beforeFilter($event);
-        $this->loadcomponent('Auth', [
-                'authenticate' => [
-                    'Form' => [
-                        'userModel' => 'Intrasysemployees',
-                        'fields' => [
-                            'username' => 'username',
-                            'password' => 'password'
-                        ],
-                    ]
-                ],
-                'loginAction' => [
-                    'controller' => 'Intrasysemployees',
-                    'action' => 'login'
-                ]
-            ]);
-        // Allow users to register and logout.
-        // You should not add the "login" action to allow list. Doing so would
-        // cause problems with normal functioning of AuthComponent.
-        $this->Auth->allow(['add', 'logout']);
-    }
-/*
-    public function initialize()
-    {
-        //parent::initialize();
-
-        $this->loadcomponent('Auth', [
-                'authenticate' => [
-                    'Form' => [
-                        'userModel' => 'Intrasysemployees',
-                        'fields' => [
-                            'username' => 'username',
-                            'password' => 'password'
-                        ]
-                        ]
-                        ]
-                        ]
-                        );}*/
 
     /**
      * Index method
@@ -59,27 +18,27 @@ class IntrasysemployeesController extends AppController
      */
     public function index()
     {
-        $intrasysemployees = $this->paginate($this->Intrasysemployees);
+        $intrasysEmployees = $this->paginate($this->IntrasysEmployees);
 
-        $this->set(compact('intrasysemployees'));
-        $this->set('_serialize', ['intrasysemployees']);
+        $this->set(compact('intrasysEmployees'));
+        $this->set('_serialize', ['intrasysEmployees']);
     }
 
     /**
      * View method
      *
-     * @param string|null $id Intrasysemployee id.
+     * @param string|null $id Intrasys Employee id.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $intrasysemployee = $this->Intrasysemployees->get($id, [
-            'contain' => ['Intrasysemployeeroles']
+        $intrasysEmployee = $this->IntrasysEmployees->get($id, [
+            'contain' => ['IntrasysEmployeeRoles']
         ]);
 
-        $this->set('intrasysemployee', $intrasysemployee);
-        $this->set('_serialize', ['intrasysemployee']);
+        $this->set('intrasysEmployee', $intrasysEmployee);
+        $this->set('_serialize', ['intrasysEmployee']);
     }
 
     /**
@@ -89,81 +48,64 @@ class IntrasysemployeesController extends AppController
      */
     public function add()
     {
-        $intrasysemployee = $this->Intrasysemployees->newEntity();
+        $intrasysEmployee = $this->IntrasysEmployees->newEntity();
         if ($this->request->is('post')) {
-            $intrasysemployee = $this->Intrasysemployees->patchEntity($intrasysemployee, $this->request->data);
-            if ($this->Intrasysemployees->save($intrasysemployee)) {
-                $this->Flash->success(__('The intrasysemployee has been saved.'));
+            $intrasysEmployee = $this->IntrasysEmployees->patchEntity($intrasysEmployee, $this->request->data);
+            if ($this->IntrasysEmployees->save($intrasysEmployee)) {
+                $this->Flash->success(__('The intrasys employee has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The intrasysemployee could not be saved. Please, try again.'));
+            $this->Flash->error(__('The intrasys employee could not be saved. Please, try again.'));
         }
-        $intrasysemployeeroles = $this->Intrasysemployees->Intrasysemployeeroles->find('list', ['limit' => 200]);
-        $this->set(compact('intrasysemployee', 'intrasysemployeeroles'));
-        $this->set('_serialize', ['intrasysemployee']);
+        $intrasysEmployeeRoles = $this->IntrasysEmployees->IntrasysEmployeeRoles->find('list', ['limit' => 200]);
+        $this->set(compact('intrasysEmployee', 'intrasysEmployeeRoles'));
+        $this->set('_serialize', ['intrasysEmployee']);
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Intrasysemployee id.
+     * @param string|null $id Intrasys Employee id.
      * @return \Cake\Network\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {
-        $intrasysemployee = $this->Intrasysemployees->get($id, [
-            'contain' => ['Intrasysemployeeroles']
+        $intrasysEmployee = $this->IntrasysEmployees->get($id, [
+            'contain' => ['IntrasysEmployeeRoles']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $intrasysemployee = $this->Intrasysemployees->patchEntity($intrasysemployee, $this->request->data);
-            if ($this->Intrasysemployees->save($intrasysemployee)) {
-                $this->Flash->success(__('The intrasysemployee has been saved.'));
+            $intrasysEmployee = $this->IntrasysEmployees->patchEntity($intrasysEmployee, $this->request->data);
+            if ($this->IntrasysEmployees->save($intrasysEmployee)) {
+                $this->Flash->success(__('The intrasys employee has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The intrasysemployee could not be saved. Please, try again.'));
+            $this->Flash->error(__('The intrasys employee could not be saved. Please, try again.'));
         }
-        $intrasysemployeeroles = $this->Intrasysemployees->Intrasysemployeeroles->find('list', ['limit' => 200]);
-        $this->set(compact('intrasysemployee', 'intrasysemployeeroles'));
-        $this->set('_serialize', ['intrasysemployee']);
+        $intrasysEmployeeRoles = $this->IntrasysEmployees->IntrasysEmployeeRoles->find('list', ['limit' => 200]);
+        $this->set(compact('intrasysEmployee', 'intrasysEmployeeRoles'));
+        $this->set('_serialize', ['intrasysEmployee']);
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id Intrasysemployee id.
+     * @param string|null $id Intrasys Employee id.
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $intrasysemployee = $this->Intrasysemployees->get($id);
-        if ($this->Intrasysemployees->delete($intrasysemployee)) {
-            $this->Flash->success(__('The intrasysemployee has been deleted.'));
+        $intrasysEmployee = $this->IntrasysEmployees->get($id);
+        if ($this->IntrasysEmployees->delete($intrasysEmployee)) {
+            $this->Flash->success(__('The intrasys employee has been deleted.'));
         } else {
-            $this->Flash->error(__('The intrasysemployee could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The intrasys employee could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);
-    }
-
-    public function login(){
-        if($this->request->is('post')){
-            $intrasysemployee = $this->Auth->identify();
-            if($intrasysemployee){
-                $this->Auth->setUser($intrasysemployee);
-                return $this->redirect(['controller' => 'retailers', 'action' => 'index']);
-                //return $this->redirect($this->Auth->redirectUrl());            
-            }
-            $this->Flash->error('Incorrect Login');   
-        }
-    }
-
-    public function logout(){
-        $this->Flash->success('You are now logged out');
-        return $this->redirect($this->Auth->logout());
     }
 }

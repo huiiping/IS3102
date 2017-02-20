@@ -54,11 +54,11 @@ class SectionsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('secName');
+            ->allowEmpty('sec_name');
 
         $validator
-            ->integer('spaceLimit')
-            ->allowEmpty('spaceLimit');
+            ->integer('space_limit')
+            ->allowEmpty('space_limit');
 
         $validator
             ->boolean('reserve')

@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\SuppliermemosTable;
+use App\Model\Table\SupplierMemosTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\SuppliermemosTable Test Case
+ * App\Model\Table\SupplierMemosTable Test Case
  */
-class SuppliermemosTableTest extends TestCase
+class SupplierMemosTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\SuppliermemosTable
+     * @var \App\Model\Table\SupplierMemosTable
      */
-    public $Suppliermemos;
+    public $SupplierMemos;
 
     /**
      * Fixtures
@@ -24,16 +24,24 @@ class SuppliermemosTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.suppliermemos',
+        'app.supplier_memos',
         'app.suppliers',
-        'app.purchaseorders',
-        'app.retaileremployees',
+        'app.purchase_orders',
+        'app.retailer_employees',
         'app.locations',
         'app.sections',
+        'app.promotions',
+        'app.customers',
+        'app.cust_membership_tiers',
+        'app.customers_promotions',
+        'app.prod_types',
+        'app.prod_cats',
+        'app.promotions_prod_types',
+        'app.retailer_employees_retailer_employeer_roles',
         'app.messages',
-        'app.retaileremployees_messages',
-        'app.retaileremployeeroles',
-        'app.retaileremployees_retaileremployeeroles'
+        'app.references',
+        'app.retailer_employees_messages',
+        'app.purchase_order_items'
     ];
 
     /**
@@ -44,8 +52,8 @@ class SuppliermemosTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Suppliermemos') ? [] : ['className' => 'App\Model\Table\SuppliermemosTable'];
-        $this->Suppliermemos = TableRegistry::get('Suppliermemos', $config);
+        $config = TableRegistry::exists('SupplierMemos') ? [] : ['className' => 'App\Model\Table\SupplierMemosTable'];
+        $this->SupplierMemos = TableRegistry::get('SupplierMemos', $config);
     }
 
     /**
@@ -55,7 +63,7 @@ class SuppliermemosTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Suppliermemos);
+        unset($this->SupplierMemos);
 
         parent::tearDown();
     }

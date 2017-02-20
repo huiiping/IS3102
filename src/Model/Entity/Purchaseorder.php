@@ -4,19 +4,20 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Purchaseorder Entity
+ * PurchaseOrder Entity
  *
  * @property int $id
  * @property \Cake\I18n\Time $created
- * @property float $totalPrice
- * @property bool $deliveryStatus
+ * @property float $total_price
+ * @property bool $delivery_status
  * @property int $supplier_id
- * @property int $retailerEmployee_id
+ * @property int $retailer_employee_id
  *
  * @property \App\Model\Entity\Supplier $supplier
- * @property \App\Model\Entity\Retaileremployee $retaileremployee
+ * @property \App\Model\Entity\RetailerEmployee $retailer_employee
+ * @property \App\Model\Entity\PurchaseOrderItem[] $purchase_order_items
  */
-class Purchaseorder extends Entity
+class PurchaseOrder extends Entity
 {
 
     /**

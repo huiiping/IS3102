@@ -10,8 +10,8 @@
         <li><?= $this->Form->postLink(__('Delete Customer'), ['action' => 'delete', $customer->id], ['confirm' => __('Are you sure you want to delete # {0}?', $customer->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Customers'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Customer'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Custmembershiptiers'), ['controller' => 'Custmembershiptiers', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Custmembershiptier'), ['controller' => 'Custmembershiptiers', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Cust Membership Tiers'), ['controller' => 'CustMembershipTiers', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Cust Membership Tier'), ['controller' => 'CustMembershipTiers', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Promotions'), ['controller' => 'Promotions', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Promotion'), ['controller' => 'Promotions', 'action' => 'add']) ?> </li>
     </ul>
@@ -40,20 +40,20 @@
             <td><?= h($customer->contact) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('FirstName') ?></th>
-            <td><?= h($customer->firstName) ?></td>
+            <th scope="row"><?= __('First Name') ?></th>
+            <td><?= h($customer->first_name) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('LastName') ?></th>
-            <td><?= h($customer->lastName) ?></td>
+            <th scope="row"><?= __('Last Name') ?></th>
+            <td><?= h($customer->last_name) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('AccountStatus') ?></th>
-            <td><?= h($customer->accountStatus) ?></td>
+            <th scope="row"><?= __('Account Status') ?></th>
+            <td><?= h($customer->account_status) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Custmembershiptier') ?></th>
-            <td><?= $customer->has('custmembershiptier') ? $this->Html->link($customer->custmembershiptier->id, ['controller' => 'Custmembershiptiers', 'action' => 'view', $customer->custmembershiptier->id]) : '' ?></td>
+            <th scope="row"><?= __('Cust Membership Tier') ?></th>
+            <td><?= $customer->has('cust_membership_tier') ? $this->Html->link($customer->cust_membership_tier->id, ['controller' => 'CustMembershipTiers', 'action' => 'view', $customer->cust_membership_tier->id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Id') ?></th>
@@ -68,8 +68,8 @@
             <td><?= h($customer->modified) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('MailingList') ?></th>
-            <td><?= $customer->mailingList ? __('Yes') : __('No'); ?></td>
+            <th scope="row"><?= __('Mailing List') ?></th>
+            <td><?= $customer->mailing_list ? __('Yes') : __('No'); ?></td>
         </tr>
     </table>
     <div class="related">
@@ -78,27 +78,27 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('StartDate') ?></th>
-                <th scope="col"><?= __('EndDate') ?></th>
-                <th scope="col"><?= __('PromoDesc') ?></th>
-                <th scope="col"><?= __('FirstVouherNo') ?></th>
-                <th scope="col"><?= __('LastVoucherNo') ?></th>
-                <th scope="col"><?= __('DiscountRate') ?></th>
-                <th scope="col"><?= __('CreditCardType') ?></th>
-                <th scope="col"><?= __('RetailerEmployee Id') ?></th>
+                <th scope="col"><?= __('Start Date') ?></th>
+                <th scope="col"><?= __('End Date') ?></th>
+                <th scope="col"><?= __('Promo Desc') ?></th>
+                <th scope="col"><?= __('First Vouher Num') ?></th>
+                <th scope="col"><?= __('Last Voucher Num') ?></th>
+                <th scope="col"><?= __('Discount Rate') ?></th>
+                <th scope="col"><?= __('Credit Card Type') ?></th>
+                <th scope="col"><?= __('Retailer Employee Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($customer->promotions as $promotions): ?>
             <tr>
                 <td><?= h($promotions->id) ?></td>
-                <td><?= h($promotions->startDate) ?></td>
-                <td><?= h($promotions->endDate) ?></td>
-                <td><?= h($promotions->promoDesc) ?></td>
-                <td><?= h($promotions->firstVouherNo) ?></td>
-                <td><?= h($promotions->lastVoucherNo) ?></td>
-                <td><?= h($promotions->discountRate) ?></td>
-                <td><?= h($promotions->creditCardType) ?></td>
-                <td><?= h($promotions->retailerEmployee_id) ?></td>
+                <td><?= h($promotions->start_date) ?></td>
+                <td><?= h($promotions->end_date) ?></td>
+                <td><?= h($promotions->promo_desc) ?></td>
+                <td><?= h($promotions->first_vouher_num) ?></td>
+                <td><?= h($promotions->last_voucher_num) ?></td>
+                <td><?= h($promotions->discount_rate) ?></td>
+                <td><?= h($promotions->credit_card_type) ?></td>
+                <td><?= h($promotions->retailer_employee_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Promotions', 'action' => 'view', $promotions->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Promotions', 'action' => 'edit', $promotions->id]) ?>

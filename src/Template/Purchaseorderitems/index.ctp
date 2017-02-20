@@ -6,40 +6,40 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Purchaseorderitem'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Purchaseorders'), ['controller' => 'Purchaseorders', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Purchaseorder'), ['controller' => 'Purchaseorders', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New Purchase Order Item'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Purchase Orders'), ['controller' => 'PurchaseOrders', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Purchase Order'), ['controller' => 'PurchaseOrders', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="purchaseorderitems index large-9 medium-8 columns content">
-    <h3><?= __('Purchaseorderitems') ?></h3>
+<div class="purchaseOrderItems index large-9 medium-8 columns content">
+    <h3><?= __('Purchase Order Items') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('itemID') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('itemName') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('item_ID') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('item_name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('quantity') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('unitPrice') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('subTotalPrice') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('purchaseOrder_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('unit_price') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('sub_total_price') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('purchase_order_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($purchaseorderitems as $purchaseorderitem): ?>
+            <?php foreach ($purchaseOrderItems as $purchaseOrderItem): ?>
             <tr>
-                <td><?= $this->Number->format($purchaseorderitem->id) ?></td>
-                <td><?= $this->Number->format($purchaseorderitem->itemID) ?></td>
-                <td><?= h($purchaseorderitem->itemName) ?></td>
-                <td><?= $this->Number->format($purchaseorderitem->quantity) ?></td>
-                <td><?= $this->Number->format($purchaseorderitem->unitPrice) ?></td>
-                <td><?= $this->Number->format($purchaseorderitem->subTotalPrice) ?></td>
-                <td><?= $purchaseorderitem->has('purchaseorder') ? $this->Html->link($purchaseorderitem->purchaseorder->id, ['controller' => 'Purchaseorders', 'action' => 'view', $purchaseorderitem->purchaseorder->id]) : '' ?></td>
+                <td><?= $this->Number->format($purchaseOrderItem->id) ?></td>
+                <td><?= $this->Number->format($purchaseOrderItem->item_ID) ?></td>
+                <td><?= h($purchaseOrderItem->item_name) ?></td>
+                <td><?= $this->Number->format($purchaseOrderItem->quantity) ?></td>
+                <td><?= $this->Number->format($purchaseOrderItem->unit_price) ?></td>
+                <td><?= $this->Number->format($purchaseOrderItem->sub_total_price) ?></td>
+                <td><?= $purchaseOrderItem->has('purchase_order') ? $this->Html->link($purchaseOrderItem->purchase_order->id, ['controller' => 'PurchaseOrders', 'action' => 'view', $purchaseOrderItem->purchase_order->id]) : '' ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $purchaseorderitem->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $purchaseorderitem->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $purchaseorderitem->id], ['confirm' => __('Are you sure you want to delete # {0}?', $purchaseorderitem->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $purchaseOrderItem->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $purchaseOrderItem->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $purchaseOrderItem->id], ['confirm' => __('Are you sure you want to delete # {0}?', $purchaseOrderItem->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

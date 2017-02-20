@@ -10,8 +10,8 @@
         <li><?= $this->Form->postLink(__('Delete Location'), ['action' => 'delete', $location->id], ['confirm' => __('Are you sure you want to delete # {0}?', $location->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Locations'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Location'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Retaileremployees'), ['controller' => 'Retaileremployees', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Retaileremployee'), ['controller' => 'Retaileremployees', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Retailer Employees'), ['controller' => 'RetailerEmployees', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Retailer Employee'), ['controller' => 'RetailerEmployees', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Sections'), ['controller' => 'Sections', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Section'), ['controller' => 'Sections', 'action' => 'add']) ?> </li>
     </ul>
@@ -41,8 +41,8 @@
         </tr>
     </table>
     <div class="related">
-        <h4><?= __('Related Retaileremployees') ?></h4>
-        <?php if (!empty($location->retaileremployees)): ?>
+        <h4><?= __('Related Retailer Employees') ?></h4>
+        <?php if (!empty($location->retailer_employees)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
@@ -53,30 +53,30 @@
                 <th scope="col"><?= __('Contact') ?></th>
                 <th scope="col"><?= __('Created') ?></th>
                 <th scope="col"><?= __('Modified') ?></th>
-                <th scope="col"><?= __('FirstName') ?></th>
-                <th scope="col"><?= __('LastName') ?></th>
-                <th scope="col"><?= __('AccountStatus') ?></th>
+                <th scope="col"><?= __('First Name') ?></th>
+                <th scope="col"><?= __('Last Name') ?></th>
+                <th scope="col"><?= __('Account Status') ?></th>
                 <th scope="col"><?= __('Location Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($location->retaileremployees as $retaileremployees): ?>
+            <?php foreach ($location->retailer_employees as $retailerEmployees): ?>
             <tr>
-                <td><?= h($retaileremployees->id) ?></td>
-                <td><?= h($retaileremployees->username) ?></td>
-                <td><?= h($retaileremployees->password) ?></td>
-                <td><?= h($retaileremployees->email) ?></td>
-                <td><?= h($retaileremployees->address) ?></td>
-                <td><?= h($retaileremployees->contact) ?></td>
-                <td><?= h($retaileremployees->created) ?></td>
-                <td><?= h($retaileremployees->modified) ?></td>
-                <td><?= h($retaileremployees->firstName) ?></td>
-                <td><?= h($retaileremployees->lastName) ?></td>
-                <td><?= h($retaileremployees->accountStatus) ?></td>
-                <td><?= h($retaileremployees->location_id) ?></td>
+                <td><?= h($retailerEmployees->id) ?></td>
+                <td><?= h($retailerEmployees->username) ?></td>
+                <td><?= h($retailerEmployees->password) ?></td>
+                <td><?= h($retailerEmployees->email) ?></td>
+                <td><?= h($retailerEmployees->address) ?></td>
+                <td><?= h($retailerEmployees->contact) ?></td>
+                <td><?= h($retailerEmployees->created) ?></td>
+                <td><?= h($retailerEmployees->modified) ?></td>
+                <td><?= h($retailerEmployees->first_name) ?></td>
+                <td><?= h($retailerEmployees->last_name) ?></td>
+                <td><?= h($retailerEmployees->account_status) ?></td>
+                <td><?= h($retailerEmployees->location_id) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Retaileremployees', 'action' => 'view', $retaileremployees->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Retaileremployees', 'action' => 'edit', $retaileremployees->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Retaileremployees', 'action' => 'delete', $retaileremployees->id], ['confirm' => __('Are you sure you want to delete # {0}?', $retaileremployees->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['controller' => 'RetailerEmployees', 'action' => 'view', $retailerEmployees->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'RetailerEmployees', 'action' => 'edit', $retailerEmployees->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'RetailerEmployees', 'action' => 'delete', $retailerEmployees->id], ['confirm' => __('Are you sure you want to delete # {0}?', $retailerEmployees->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -89,8 +89,8 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('SecName') ?></th>
-                <th scope="col"><?= __('SpaceLimit') ?></th>
+                <th scope="col"><?= __('Sec Name') ?></th>
+                <th scope="col"><?= __('Space Limit') ?></th>
                 <th scope="col"><?= __('Reserve') ?></th>
                 <th scope="col"><?= __('Location Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -98,8 +98,8 @@
             <?php foreach ($location->sections as $sections): ?>
             <tr>
                 <td><?= h($sections->id) ?></td>
-                <td><?= h($sections->secName) ?></td>
-                <td><?= h($sections->spaceLimit) ?></td>
+                <td><?= h($sections->sec_name) ?></td>
+                <td><?= h($sections->space_limit) ?></td>
                 <td><?= h($sections->reserve) ?></td>
                 <td><?= h($sections->location_id) ?></td>
                 <td class="actions">

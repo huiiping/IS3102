@@ -4,7 +4,10 @@
   */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <?= $this->Element('sideBar', array('type' => 'Announcement', 'typePlural' => 'announcements')); ?>
+    <ul class="side-nav">
+        <li class="heading"><?= __('Actions') ?></li>
+        <li><?= $this->Html->link(__('New Announcement'), ['action' => 'add']) ?></li>
+    </ul>
 </nav>
 <div class="announcements index large-9 medium-8 columns content">
     <h3><?= __('Announcements') ?></h3>

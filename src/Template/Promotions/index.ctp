@@ -7,12 +7,12 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Promotion'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployees'), ['controller' => 'Retaileremployees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retaileremployee'), ['controller' => 'Retaileremployees', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Retailer Employees'), ['controller' => 'RetailerEmployees', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Retailer Employee'), ['controller' => 'RetailerEmployees', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Customers'), ['controller' => 'Customers', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Customer'), ['controller' => 'Customers', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Prodtypes'), ['controller' => 'Prodtypes', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Prodtype'), ['controller' => 'Prodtypes', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Prod Types'), ['controller' => 'ProdTypes', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Prod Type'), ['controller' => 'ProdTypes', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="promotions index large-9 medium-8 columns content">
@@ -21,13 +21,13 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('startDate') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('endDate') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('firstVouherNo') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('lastVoucherNo') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('discountRate') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('creditCardType') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('retailerEmployee_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('start_date') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('end_date') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('first_vouher_num') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('last_voucher_num') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('discount_rate') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('credit_card_type') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('retailer_employee_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -35,13 +35,13 @@
             <?php foreach ($promotions as $promotion): ?>
             <tr>
                 <td><?= $this->Number->format($promotion->id) ?></td>
-                <td><?= h($promotion->startDate) ?></td>
-                <td><?= h($promotion->endDate) ?></td>
-                <td><?= h($promotion->firstVouherNo) ?></td>
-                <td><?= h($promotion->lastVoucherNo) ?></td>
-                <td><?= $this->Number->format($promotion->discountRate) ?></td>
-                <td><?= h($promotion->creditCardType) ?></td>
-                <td><?= $promotion->has('retaileremployee') ? $this->Html->link($promotion->retaileremployee->id, ['controller' => 'Retaileremployees', 'action' => 'view', $promotion->retaileremployee->id]) : '' ?></td>
+                <td><?= h($promotion->start_date) ?></td>
+                <td><?= h($promotion->end_date) ?></td>
+                <td><?= h($promotion->first_vouher_num) ?></td>
+                <td><?= h($promotion->last_voucher_num) ?></td>
+                <td><?= $this->Number->format($promotion->discount_rate) ?></td>
+                <td><?= h($promotion->credit_card_type) ?></td>
+                <td><?= $promotion->has('retailer_employee') ? $this->Html->link($promotion->retailer_employee->id, ['controller' => 'RetailerEmployees', 'action' => 'view', $promotion->retailer_employee->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $promotion->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $promotion->id]) ?>

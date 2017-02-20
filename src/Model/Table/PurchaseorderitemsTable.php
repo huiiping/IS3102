@@ -7,19 +7,19 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Purchaseorderitems Model
+ * PurchaseOrderItems Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Purchaseorders
+ * @property \Cake\ORM\Association\BelongsTo $PurchaseOrders
  *
- * @method \App\Model\Entity\Purchaseorderitem get($primaryKey, $options = [])
- * @method \App\Model\Entity\Purchaseorderitem newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Purchaseorderitem[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Purchaseorderitem|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Purchaseorderitem patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Purchaseorderitem[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Purchaseorderitem findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\PurchaseOrderItem get($primaryKey, $options = [])
+ * @method \App\Model\Entity\PurchaseOrderItem newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\PurchaseOrderItem[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\PurchaseOrderItem|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\PurchaseOrderItem patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\PurchaseOrderItem[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\PurchaseOrderItem findOrCreate($search, callable $callback = null, $options = [])
  */
-class PurchaseorderitemsTable extends Table
+class PurchaseOrderItemsTable extends Table
 {
 
     /**
@@ -32,12 +32,12 @@ class PurchaseorderitemsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('purchaseorderitems');
+        $this->table('purchase_order_items');
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('Purchaseorders', [
-            'foreignKey' => 'purchaseOrder_id'
+        $this->belongsTo('PurchaseOrders', [
+            'foreignKey' => 'purchase_order_id'
         ]);
     }
 
@@ -54,26 +54,26 @@ class PurchaseorderitemsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->integer('itemID')
-            ->allowEmpty('itemID');
+            ->integer('item_ID')
+            ->allowEmpty('item_ID');
 
         $validator
-            ->allowEmpty('itemName');
+            ->allowEmpty('item_name');
 
         $validator
-            ->allowEmpty('itemDesc');
+            ->allowEmpty('item_desc');
 
         $validator
             ->integer('quantity')
             ->allowEmpty('quantity');
 
         $validator
-            ->numeric('unitPrice')
-            ->allowEmpty('unitPrice');
+            ->numeric('unit_price')
+            ->allowEmpty('unit_price');
 
         $validator
-            ->numeric('subTotalPrice')
-            ->allowEmpty('subTotalPrice');
+            ->numeric('sub_total_price')
+            ->allowEmpty('sub_total_price');
 
         return $validator;
     }
@@ -87,7 +87,7 @@ class PurchaseorderitemsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['purchaseOrder_id'], 'Purchaseorders'));
+        $rules->add($rules->existsIn(['purchase_order_id'], 'PurchaseOrders'));
 
         return $rules;
     }

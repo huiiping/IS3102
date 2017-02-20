@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\RetaileremployeesTable;
+use App\Model\Table\RetailerEmployeesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\RetaileremployeesTable Test Case
+ * App\Model\Table\RetailerEmployeesTable Test Case
  */
-class RetaileremployeesTableTest extends TestCase
+class RetailerEmployeesTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\RetaileremployeesTable
+     * @var \App\Model\Table\RetailerEmployeesTable
      */
-    public $Retaileremployees;
+    public $RetailerEmployees;
 
     /**
      * Fixtures
@@ -24,13 +24,25 @@ class RetaileremployeesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.retaileremployees',
+        'app.retailer_employees',
         'app.locations',
         'app.sections',
+        'app.promotions',
+        'app.customers',
+        'app.cust_membership_tiers',
+        'app.customers_promotions',
+        'app.prod_types',
+        'app.prod_cats',
+        'app.promotions_prod_types',
+        'app.purchase_orders',
+        'app.suppliers',
+        'app.supplier_memos',
+        'app.purchase_order_items',
         'app.messages',
-        'app.retaileremployees_messages',
-        'app.retaileremployeeroles',
-        'app.retaileremployees_retaileremployeeroles'
+        'app.references',
+        'app.retailer_employees_messages',
+        'app.retailer_employee_roles',
+        'app.retailer_employees_retailer_employee_roles'
     ];
 
     /**
@@ -41,8 +53,8 @@ class RetaileremployeesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Retaileremployees') ? [] : ['className' => 'App\Model\Table\RetaileremployeesTable'];
-        $this->Retaileremployees = TableRegistry::get('Retaileremployees', $config);
+        $config = TableRegistry::exists('RetailerEmployees') ? [] : ['className' => 'App\Model\Table\RetailerEmployeesTable'];
+        $this->RetailerEmployees = TableRegistry::get('RetailerEmployees', $config);
     }
 
     /**
@@ -52,7 +64,7 @@ class RetaileremployeesTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Retaileremployees);
+        unset($this->RetailerEmployees);
 
         parent::tearDown();
     }

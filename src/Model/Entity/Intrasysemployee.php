@@ -2,15 +2,14 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
-use Cake\Auth\DefaultPasswordHasher;
 
 /**
- * Intrasysemployee Entity
+ * IntrasysEmployee Entity
  *
  * @property int $id
- * @property string $firstName
- * @property string $lastName
- * @property string $accountStatus
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $account_status
  * @property string $username
  * @property string $email
  * @property string $password
@@ -19,9 +18,9 @@ use Cake\Auth\DefaultPasswordHasher;
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  *
- * @property \App\Model\Entity\Intrasysemployeerole[] $intrasysemployeeroles
+ * @property \App\Model\Entity\IntrasysEmployeeRole[] $intrasys_employee_roles
  */
-class Intrasysemployee extends Entity
+class IntrasysEmployee extends Entity
 {
 
     /**
@@ -46,8 +45,4 @@ class Intrasysemployee extends Entity
     protected $_hidden = [
         'password'
     ];
-
-    protected function _setPassword($password){
-        return (new DefaultPasswordHasher)->hash($password);
-    }
 }

@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\RetaileracctypesTable;
+use App\Model\Table\RetailerAccTypesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\RetaileracctypesTable Test Case
+ * App\Model\Table\RetailerAccTypesTable Test Case
  */
-class RetaileracctypesTableTest extends TestCase
+class RetailerAccTypesTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\RetaileracctypesTable
+     * @var \App\Model\Table\RetailerAccTypesTable
      */
-    public $Retaileracctypes;
+    public $RetailerAccTypes;
 
     /**
      * Fixtures
@@ -24,7 +24,8 @@ class RetaileracctypesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.retaileracctypes'
+        'app.retailer_acc_types',
+        'app.retailers'
     ];
 
     /**
@@ -35,8 +36,8 @@ class RetaileracctypesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Retaileracctypes') ? [] : ['className' => 'App\Model\Table\RetaileracctypesTable'];
-        $this->Retaileracctypes = TableRegistry::get('Retaileracctypes', $config);
+        $config = TableRegistry::exists('RetailerAccTypes') ? [] : ['className' => 'App\Model\Table\RetailerAccTypesTable'];
+        $this->RetailerAccTypes = TableRegistry::get('RetailerAccTypes', $config);
     }
 
     /**
@@ -46,9 +47,19 @@ class RetaileracctypesTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Retaileracctypes);
+        unset($this->RetailerAccTypes);
 
         parent::tearDown();
+    }
+
+    /**
+     * Test defaultConnectionName method
+     *
+     * @return void
+     */
+    public function testDefaultConnectionName()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
     }
 
     /**

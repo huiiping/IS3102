@@ -17,7 +17,7 @@ class LocationsControllerTest extends IntegrationTestCase
      */
     public $fixtures = [
         'app.locations',
-        'app.retaileremployees',
+        'app.retailer_employees',
         'app.sections'
     ];
 

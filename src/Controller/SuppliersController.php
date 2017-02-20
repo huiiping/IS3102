@@ -34,7 +34,7 @@ class SuppliersController extends AppController
     public function view($id = null)
     {
         $supplier = $this->Suppliers->get($id, [
-            'contain' => ['Purchaseorders', 'Suppliermemos']
+            'contain' => ['PurchaseOrders', 'SupplierMemos']
         ]);
 
         $this->set('supplier', $supplier);

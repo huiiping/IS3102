@@ -7,17 +7,19 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Prodcats Model
+ * ProdCats Model
  *
- * @method \App\Model\Entity\Prodcat get($primaryKey, $options = [])
- * @method \App\Model\Entity\Prodcat newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Prodcat[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Prodcat|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Prodcat patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Prodcat[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Prodcat findOrCreate($search, callable $callback = null, $options = [])
+ * @property \Cake\ORM\Association\HasMany $ProdTypes
+ *
+ * @method \App\Model\Entity\ProdCat get($primaryKey, $options = [])
+ * @method \App\Model\Entity\ProdCat newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\ProdCat[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\ProdCat|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\ProdCat patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\ProdCat[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\ProdCat findOrCreate($search, callable $callback = null, $options = [])
  */
-class ProdcatsTable extends Table
+class ProdCatsTable extends Table
 {
 
     /**
@@ -30,9 +32,13 @@ class ProdcatsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('prodcats');
+        $this->table('prod_cats');
         $this->displayField('id');
         $this->primaryKey('id');
+
+        $this->hasMany('ProdTypes', [
+            'foreignKey' => 'prod_cat_id'
+        ]);
     }
 
     /**
@@ -48,10 +54,10 @@ class ProdcatsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('catName');
+            ->allowEmpty('cat_name');
 
         $validator
-            ->allowEmpty('catDesc');
+            ->allowEmpty('cat_desc');
 
         return $validator;
     }

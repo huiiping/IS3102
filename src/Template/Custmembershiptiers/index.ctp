@@ -6,46 +6,48 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Custmembershiptier'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New Cust Membership Tier'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Customers'), ['controller' => 'Customers', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Customer'), ['controller' => 'Customers', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="custmembershiptiers index large-9 medium-8 columns content">
-    <h3><?= __('Custmembershiptiers') ?></h3>
+<div class="custMembershipTiers index large-9 medium-8 columns content">
+    <h3><?= __('Cust Membership Tiers') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('tierName') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('validityPeriod') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('minSpending') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('membershipFee') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('membershipPts') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('redemptionPts') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('discountRate') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('birthdayRate') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('tier_name') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('validity_period') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('min_spending') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('membership_fee') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('membership_pts') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('redemption_pts') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('discount_rate') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('birthday_rate') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($custmembershiptiers as $custmembershiptier): ?>
+            <?php foreach ($custMembershipTiers as $custMembershipTier): ?>
             <tr>
-                <td><?= $this->Number->format($custmembershiptier->id) ?></td>
-                <td><?= h($custmembershiptier->tierName) ?></td>
-                <td><?= $this->Number->format($custmembershiptier->validityPeriod) ?></td>
-                <td><?= h($custmembershiptier->minSpending) ?></td>
-                <td><?= h($custmembershiptier->membershipFee) ?></td>
-                <td><?= $this->Number->format($custmembershiptier->membershipPts) ?></td>
-                <td><?= $this->Number->format($custmembershiptier->redemptionPts) ?></td>
-                <td><?= h($custmembershiptier->discountRate) ?></td>
-                <td><?= h($custmembershiptier->birthdayRate) ?></td>
-                <td><?= h($custmembershiptier->created) ?></td>
-                <td><?= h($custmembershiptier->modified) ?></td>
+                <td><?= $this->Number->format($custMembershipTier->id) ?></td>
+                <td><?= h($custMembershipTier->tier_name) ?></td>
+                <td><?= $this->Number->format($custMembershipTier->validity_period) ?></td>
+                <td><?= h($custMembershipTier->min_spending) ?></td>
+                <td><?= h($custMembershipTier->membership_fee) ?></td>
+                <td><?= $this->Number->format($custMembershipTier->membership_pts) ?></td>
+                <td><?= $this->Number->format($custMembershipTier->redemption_pts) ?></td>
+                <td><?= h($custMembershipTier->discount_rate) ?></td>
+                <td><?= h($custMembershipTier->birthday_rate) ?></td>
+                <td><?= h($custMembershipTier->created) ?></td>
+                <td><?= h($custMembershipTier->modified) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $custmembershiptier->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $custmembershiptier->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $custmembershiptier->id], ['confirm' => __('Are you sure you want to delete # {0}?', $custmembershiptier->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $custMembershipTier->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $custMembershipTier->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $custMembershipTier->id], ['confirm' => __('Are you sure you want to delete # {0}?', $custMembershipTier->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

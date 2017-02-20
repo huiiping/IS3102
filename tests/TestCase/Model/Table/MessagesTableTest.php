@@ -26,12 +26,22 @@ class MessagesTableTest extends TestCase
     public $fixtures = [
         'app.messages',
         'app.references',
-        'app.retaileremployees',
+        'app.retailer_employees',
         'app.locations',
         'app.sections',
-        'app.retaileremployees_messages',
-        'app.retaileremployeeroles',
-        'app.retaileremployees_retaileremployeeroles'
+        'app.promotions',
+        'app.customers',
+        'app.cust_membership_tiers',
+        'app.customers_promotions',
+        'app.prod_types',
+        'app.prod_cats',
+        'app.promotions_prod_types',
+        'app.purchase_orders',
+        'app.suppliers',
+        'app.supplier_memos',
+        'app.purchase_order_items',
+        'app.retailer_employees_retailer_employeer_roles',
+        'app.retailer_employees_messages'
     ];
 
     /**

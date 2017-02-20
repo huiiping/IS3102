@@ -17,7 +17,7 @@ class RetailersControllerTest extends IntegrationTestCase
      */
     public $fixtures = [
         'app.retailers',
-        'app.retaileracctypes'
+        'app.retailer_acc_types'
     ];
 
     /**

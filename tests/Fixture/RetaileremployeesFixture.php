@@ -4,10 +4,10 @@ namespace App\Test\Fixture;
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * RetaileremployeesFixture
+ * RetailerEmployeesFixture
  *
  */
-class RetaileremployeesFixture extends TestFixture
+class RetailerEmployeesFixture extends TestFixture
 {
 
     /**
@@ -25,9 +25,9 @@ class RetaileremployeesFixture extends TestFixture
         'contact' => ['type' => 'string', 'length' => 100, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
-        'firstName' => ['type' => 'string', 'length' => 100, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
-        'lastName' => ['type' => 'string', 'length' => 100, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
-        'accountStatus' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'first_name' => ['type' => 'string', 'length' => 100, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'last_name' => ['type' => 'string', 'length' => 100, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'account_status' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'location_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         '_indexes' => [
             'location_id' => ['type' => 'index', 'columns' => ['location_id'], 'length' => []],
@@ -35,7 +35,7 @@ class RetaileremployeesFixture extends TestFixture
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
             'username' => ['type' => 'unique', 'columns' => ['username'], 'length' => []],
-            'retaileremployees_ibfk_1' => ['type' => 'foreign', 'columns' => ['location_id'], 'references' => ['locations', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'retailer_employees_ibfk_1' => ['type' => 'foreign', 'columns' => ['location_id'], 'references' => ['locations', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -57,11 +57,11 @@ class RetaileremployeesFixture extends TestFixture
             'email' => 'Lorem ipsum dolor sit amet',
             'address' => 'Lorem ipsum dolor sit amet',
             'contact' => 'Lorem ipsum dolor sit amet',
-            'created' => '2017-02-16 19:22:52',
-            'modified' => '2017-02-16 19:22:52',
-            'firstName' => 'Lorem ipsum dolor sit amet',
-            'lastName' => 'Lorem ipsum dolor sit amet',
-            'accountStatus' => 'Lorem ipsum dolor sit amet',
+            'created' => '2017-02-20 03:52:01',
+            'modified' => '2017-02-20 03:52:01',
+            'first_name' => 'Lorem ipsum dolor sit amet',
+            'last_name' => 'Lorem ipsum dolor sit amet',
+            'account_status' => 'Lorem ipsum dolor sit amet',
             'location_id' => 1
         ],
     ];

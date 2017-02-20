@@ -2,39 +2,14 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\Event\Event;
+
 /**
- * Retaileremployees Controller
+ * RetailerEmployees Controller
  *
- * @property \App\Model\Table\RetaileremployeesTable $Retaileremployees
+ * @property \App\Model\Table\RetailerEmployeesTable $RetailerEmployees
  */
-class RetaileremployeesController extends AppController
+class RetailerEmployeesController extends AppController
 {
-
-    public function beforeFilter(Event $event)
-    {
-        parent::beforeFilter($event);
-        $this->loadcomponent('Auth', [
-                'authenticate' => [
-                    'Form' => [
-                        'userModel' => 'Retaileremployees',
-                        'fields' => [
-                            'username' => 'username',
-                            'password' => 'password'
-                        ],
-                    ]
-                ],
-                'loginAction' => [
-                    'controller' => 'Retaileremployees',
-                    'action' => 'login'
-                ]
-            ]);
-        // Allow users to register and logout.
-        // You should not add the "login" action to allow list. Doing so would
-        // cause problems with normal functioning of AuthComponent.
-        $this->Auth->allow(['add', 'logout']);
-    }
-
 
     /**
      * Index method
@@ -46,27 +21,27 @@ class RetaileremployeesController extends AppController
         $this->paginate = [
             'contain' => ['Locations']
         ];
-        $retaileremployees = $this->paginate($this->Retaileremployees);
+        $retailerEmployees = $this->paginate($this->RetailerEmployees);
 
-        $this->set(compact('retaileremployees'));
-        $this->set('_serialize', ['retaileremployees']);
+        $this->set(compact('retailerEmployees'));
+        $this->set('_serialize', ['retailerEmployees']);
     }
 
     /**
      * View method
      *
-     * @param string|null $id Retaileremployee id.
+     * @param string|null $id Retailer Employee id.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $retaileremployee = $this->Retaileremployees->get($id, [
-            'contain' => ['Locations', 'Messages', 'Retaileremployeeroles']
+        $retailerEmployee = $this->RetailerEmployees->get($id, [
+            'contain' => ['Locations', 'Messages', 'RetailerEmployeeRoles', 'Promotions', 'PurchaseOrders', 'SupplierMemos']
         ]);
 
-        $this->set('retaileremployee', $retaileremployee);
-        $this->set('_serialize', ['retaileremployee']);
+        $this->set('retailerEmployee', $retailerEmployee);
+        $this->set('_serialize', ['retailerEmployee']);
     }
 
     /**
@@ -76,80 +51,68 @@ class RetaileremployeesController extends AppController
      */
     public function add()
     {
-        $retaileremployee = $this->Retaileremployees->newEntity();
+        $retailerEmployee = $this->RetailerEmployees->newEntity();
         if ($this->request->is('post')) {
-            $retaileremployee = $this->Retaileremployees->patchEntity($retaileremployee, $this->request->data);
-            if ($this->Retaileremployees->save($retaileremployee)) {
-                $this->Flash->success(__('The retaileremployee has been saved.'));
+            $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
+            if ($this->RetailerEmployees->save($retailerEmployee)) {
+                $this->Flash->success(__('The retailer employee has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The retaileremployee could not be saved. Please, try again.'));
+            $this->Flash->error(__('The retailer employee could not be saved. Please, try again.'));
         }
-        $locations = $this->Retaileremployees->Locations->find('list', ['limit' => 200]);
-        $messages = $this->Retaileremployees->Messages->find('list', ['limit' => 200]);
-        $retaileremployeeroles = $this->Retaileremployees->Retaileremployeeroles->find('list', ['limit' => 200]);
-        $this->set(compact('retaileremployee', 'locations', 'messages', 'retaileremployeeroles'));
-        $this->set('_serialize', ['retaileremployee']);
+        $locations = $this->RetailerEmployees->Locations->find('list', ['limit' => 200]);
+        $messages = $this->RetailerEmployees->Messages->find('list', ['limit' => 200]);
+        $retailerEmployeeRoles = $this->RetailerEmployees->RetailerEmployeeRoles->find('list', ['limit' => 200]);
+        $this->set(compact('retailerEmployee', 'locations', 'messages', 'retailerEmployeeRoles'));
+        $this->set('_serialize', ['retailerEmployee']);
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Retaileremployee id.
+     * @param string|null $id Retailer Employee id.
      * @return \Cake\Network\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {
-        $retaileremployee = $this->Retaileremployees->get($id, [
-            'contain' => ['Messages', 'Retaileremployeeroles']
+        $retailerEmployee = $this->RetailerEmployees->get($id, [
+            'contain' => ['Messages', 'RetailerEmployeeRoles']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $retaileremployee = $this->Retaileremployees->patchEntity($retaileremployee, $this->request->data);
-            if ($this->Retaileremployees->save($retaileremployee)) {
-                $this->Flash->success(__('The retaileremployee has been saved.'));
+            $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
+            if ($this->RetailerEmployees->save($retailerEmployee)) {
+                $this->Flash->success(__('The retailer employee has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The retaileremployee could not be saved. Please, try again.'));
+            $this->Flash->error(__('The retailer employee could not be saved. Please, try again.'));
         }
-        $locations = $this->Retaileremployees->Locations->find('list', ['limit' => 200]);
-        $messages = $this->Retaileremployees->Messages->find('list', ['limit' => 200]);
-        $retaileremployeeroles = $this->Retaileremployees->Retaileremployeeroles->find('list', ['limit' => 200]);
-        $this->set(compact('retaileremployee', 'locations', 'messages', 'retaileremployeeroles'));
-        $this->set('_serialize', ['retaileremployee']);
+        $locations = $this->RetailerEmployees->Locations->find('list', ['limit' => 200]);
+        $messages = $this->RetailerEmployees->Messages->find('list', ['limit' => 200]);
+        $retailerEmployeeRoles = $this->RetailerEmployees->RetailerEmployeeRoles->find('list', ['limit' => 200]);
+        $this->set(compact('retailerEmployee', 'locations', 'messages', 'retailerEmployeeRoles'));
+        $this->set('_serialize', ['retailerEmployee']);
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id Retaileremployee id.
+     * @param string|null $id Retailer Employee id.
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $retaileremployee = $this->Retaileremployees->get($id);
-        if ($this->Retaileremployees->delete($retaileremployee)) {
-            $this->Flash->success(__('The retaileremployee has been deleted.'));
+        $retailerEmployee = $this->RetailerEmployees->get($id);
+        if ($this->RetailerEmployees->delete($retailerEmployee)) {
+            $this->Flash->success(__('The retailer employee has been deleted.'));
         } else {
-            $this->Flash->error(__('The retaileremployee could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The retailer employee could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);
-    }
-
-        public function login(){
-        if($this->request->is('post')){
-            $retaileremployee = $this->Auth->identify();
-            if($retaileremployee){
-                $this->Auth->setUser($retaileremployee);
-                return $this->redirect(['controller' => 'retaileremployees', 'action' => 'index']);
-                //return $this->redirect($this->Auth->redirectUrl());            
-            }
-            $this->Flash->error('Incorrect Login');   
-        }
     }
 }

@@ -7,19 +7,19 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Retaileremployeeroles Model
+ * RetailerEmployeeRoles Model
  *
- * @property \Cake\ORM\Association\BelongsToMany $Retaileremployees
+ * @property \Cake\ORM\Association\BelongsToMany $RetailerEmployees
  *
- * @method \App\Model\Entity\Retaileremployeerole get($primaryKey, $options = [])
- * @method \App\Model\Entity\Retaileremployeerole newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Retaileremployeerole[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Retaileremployeerole|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Retaileremployeerole patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Retaileremployeerole[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Retaileremployeerole findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\RetailerEmployeeRole get($primaryKey, $options = [])
+ * @method \App\Model\Entity\RetailerEmployeeRole newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\RetailerEmployeeRole[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\RetailerEmployeeRole|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\RetailerEmployeeRole patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\RetailerEmployeeRole[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\RetailerEmployeeRole findOrCreate($search, callable $callback = null, $options = [])
  */
-class RetaileremployeerolesTable extends Table
+class RetailerEmployeeRolesTable extends Table
 {
 
     /**
@@ -32,14 +32,14 @@ class RetaileremployeerolesTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('retaileremployeeroles');
+        $this->table('retailer_employee_roles');
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsToMany('Retaileremployees', [
-            'foreignKey' => 'retaileremployeerole_id',
-            'targetForeignKey' => 'retaileremployee_id',
-            'joinTable' => 'retaileremployees_retaileremployeeroles'
+        $this->belongsToMany('RetailerEmployees', [
+            'foreignKey' => 'retailer_employee_role_id',
+            'targetForeignKey' => 'retailer_employee_id',
+            'joinTable' => 'retailer_employees_retailer_employee_roles'
         ]);
     }
 
@@ -56,11 +56,11 @@ class RetaileremployeerolesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('roleName', 'create')
-            ->notEmpty('roleName');
+            ->requirePresence('role_name', 'create')
+            ->notEmpty('role_name');
 
         $validator
-            ->allowEmpty('roleDesc');
+            ->allowEmpty('role_desc');
 
         return $validator;
     }

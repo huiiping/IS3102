@@ -10,8 +10,8 @@ use Cake\Validation\Validator;
  * Messages Model
  *
  * @property \Cake\ORM\Association\BelongsTo $References
- * @property \Cake\ORM\Association\BelongsTo $Retaileremployees
- * @property \Cake\ORM\Association\BelongsToMany $Retaileremployees
+ * @property \Cake\ORM\Association\BelongsTo $RetailerEmployees
+ * @property \Cake\ORM\Association\BelongsToMany $RetailerEmployees
  *
  * @method \App\Model\Entity\Message get($primaryKey, $options = [])
  * @method \App\Model\Entity\Message newEntity($data = null, array $options = [])
@@ -41,13 +41,13 @@ class MessagesTable extends Table
         $this->belongsTo('References', [
             'foreignKey' => 'reference_id'
         ]);
-        $this->belongsTo('Retaileremployees', [
+        $this->belongsTo('RetailerEmployees', [
             'foreignKey' => 'sender_id'
         ]);
-        $this->belongsToMany('Retaileremployees', [
+        $this->belongsToMany('RetailerEmployees', [
             'foreignKey' => 'message_id',
-            'targetForeignKey' => 'retaileremployee_id',
-            'joinTable' => 'retaileremployees_messages'
+            'targetForeignKey' => 'retailer_employee_id',
+            'joinTable' => 'retailer_employees_messages'
         ]);
     }
 
@@ -67,8 +67,8 @@ class MessagesTable extends Table
             ->allowEmpty('title');
 
         $validator
-            ->dateTime('dateCreated')
-            ->allowEmpty('dateCreated');
+            ->dateTime('date_created')
+            ->allowEmpty('date_created');
 
         $validator
             ->allowEmpty('message');
@@ -90,7 +90,7 @@ class MessagesTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['reference_id'], 'References'));
-        $rules->add($rules->existsIn(['sender_id'], 'Retaileremployees'));
+        $rules->add($rules->existsIn(['sender_id'], 'RetailerEmployees'));
 
         return $rules;
     }

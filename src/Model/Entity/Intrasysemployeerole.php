@@ -4,17 +4,17 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Intrasysemployeerole Entity
+ * IntrasysEmployeeRole Entity
  *
  * @property int $id
- * @property string $roleName
- * @property string $roleDesc
+ * @property string $role_name
+ * @property string $role_desc
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  *
- * @property \App\Model\Entity\Intrasysemployee[] $intrasysemployees
+ * @property \App\Model\Entity\IntrasysEmployee[] $intrasys_employees
  */
-class Intrasysemployeerole extends Entity
+class IntrasysEmployeeRole extends Entity
 {
 
     /**

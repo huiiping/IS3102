@@ -7,22 +7,23 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Purchaseorders Model
+ * PurchaseOrders Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Suppliers
- * @property \Cake\ORM\Association\BelongsTo $Retaileremployees
+ * @property \Cake\ORM\Association\BelongsTo $RetailerEmployees
+ * @property \Cake\ORM\Association\HasMany $PurchaseOrderItems
  *
- * @method \App\Model\Entity\Purchaseorder get($primaryKey, $options = [])
- * @method \App\Model\Entity\Purchaseorder newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Purchaseorder[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Purchaseorder|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Purchaseorder patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Purchaseorder[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Purchaseorder findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\PurchaseOrder get($primaryKey, $options = [])
+ * @method \App\Model\Entity\PurchaseOrder newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\PurchaseOrder[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\PurchaseOrder|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\PurchaseOrder patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\PurchaseOrder[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\PurchaseOrder findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class PurchaseordersTable extends Table
+class PurchaseOrdersTable extends Table
 {
 
     /**
@@ -35,7 +36,7 @@ class PurchaseordersTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('purchaseorders');
+        $this->table('purchase_orders');
         $this->displayField('id');
         $this->primaryKey('id');
 
@@ -44,8 +45,11 @@ class PurchaseordersTable extends Table
         $this->belongsTo('Suppliers', [
             'foreignKey' => 'supplier_id'
         ]);
-        $this->belongsTo('Retaileremployees', [
-            'foreignKey' => 'retailerEmployee_id'
+        $this->belongsTo('RetailerEmployees', [
+            'foreignKey' => 'retailer_employee_id'
+        ]);
+        $this->hasMany('PurchaseOrderItems', [
+            'foreignKey' => 'purchase_order_id'
         ]);
     }
 
@@ -62,12 +66,12 @@ class PurchaseordersTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->numeric('totalPrice')
-            ->allowEmpty('totalPrice');
+            ->numeric('total_price')
+            ->allowEmpty('total_price');
 
         $validator
-            ->boolean('deliveryStatus')
-            ->allowEmpty('deliveryStatus');
+            ->boolean('delivery_status')
+            ->allowEmpty('delivery_status');
 
         return $validator;
     }
@@ -82,7 +86,7 @@ class PurchaseordersTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['supplier_id'], 'Suppliers'));
-        $rules->add($rules->existsIn(['retailerEmployee_id'], 'Retaileremployees'));
+        $rules->add($rules->existsIn(['retailer_employee_id'], 'RetailerEmployees'));
 
         return $rules;
     }

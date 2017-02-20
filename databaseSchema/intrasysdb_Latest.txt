@@ -1,0 +1,71 @@
+CREATE TABLE retailer_acc_types (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    num_of_users INT,
+    num_of_warehouses INT,
+    num_of_stores INT,
+    num_of_prod_types INT,
+    created DATETIME,
+    modified DATETIME
+);
+
+CREATE TABLE retailers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    company_name VARCHAR(255) NOT NULL,
+    company_desc TEXT,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    account_status VARCHAR(100),
+    payment_term VARCHAR(255),
+    loyalty_points INT,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    contact VARCHAR(100) NOT NULL,
+    contract_start_date DATETIME NOT NULL,
+    contract_end_date DATETIME NOT NULL,
+    created DATETIME,
+    modified DATETIME,
+    retailer_acc_type_id INT NOT NULL,
+    FOREIGN KEY (retailer_acc_type_id) REFERENCES retailer_acc_types(id)
+);
+
+CREATE TABLE intrasys_employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    account_status VARCHAR(100),
+    username VARCHAR(255) UNIQUE NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    contact VARCHAR(100) NOT NULL,
+    created DATETIME,
+    modified DATETIME
+);
+
+CREATE TABLE intrasys_employee_roles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    role_name VARCHAR(255) UNIQUE,
+    role_desc TEXT,
+    created DATETIME,
+    modified DATETIME
+);
+
+CREATE TABLE announcements (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    message VARCHAR(255) NOT NULL,
+    remarks VARCHAR(255),
+    created DATETIME,
+    modified DATETIME
+);
+
+CREATE TABLE intrasys_employees_intrasys_employee_roles (
+    intrasys_employee_id INT NOT NULL,
+    intrasys_employee_role_id INT NOT NULL,
+    PRIMARY KEY (intrasys_employee_id, intrasys_employee_role_id),
+    FOREIGN KEY (intrasys_employee_id) REFERENCES intrasys_employees(id),
+    FOREIGN KEY (intrasys_employee_role_id) REFERENCES intrasys_employee_roles(id)
+);

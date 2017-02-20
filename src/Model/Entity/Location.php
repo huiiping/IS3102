@@ -12,7 +12,7 @@ use Cake\ORM\Entity;
  * @property int $contact
  * @property string $type
  *
- * @property \App\Model\Entity\Retaileremployee[] $retaileremployees
+ * @property \App\Model\Entity\RetailerEmployee[] $retailer_employees
  * @property \App\Model\Entity\Section[] $sections
  */
 class Location extends Entity

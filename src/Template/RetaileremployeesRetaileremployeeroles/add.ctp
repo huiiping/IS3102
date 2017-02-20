@@ -6,17 +6,17 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployees Retaileremployeeroles'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployees'), ['controller' => 'Retaileremployees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retaileremployee'), ['controller' => 'Retaileremployees', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployeeroles'), ['controller' => 'Retaileremployeeroles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retaileremployeerole'), ['controller' => 'Retaileremployeeroles', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Retailer Employees Retailer Employee Roles'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Retailer Employees'), ['controller' => 'RetailerEmployees', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Retailer Employee'), ['controller' => 'RetailerEmployees', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Retailer Employee Roles'), ['controller' => 'RetailerEmployeeRoles', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Retailer Employee Role'), ['controller' => 'RetailerEmployeeRoles', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="retaileremployeesRetaileremployeeroles form large-9 medium-8 columns content">
-    <?= $this->Form->create($retaileremployeesRetaileremployeerole) ?>
+<div class="retailerEmployeesRetailerEmployeeRoles form large-9 medium-8 columns content">
+    <?= $this->Form->create($retailerEmployeesRetailerEmployeeRole) ?>
     <fieldset>
-        <legend><?= __('Add Retaileremployees Retaileremployeerole') ?></legend>
+        <legend><?= __('Add Retailer Employees Retailer Employee Role') ?></legend>
         <?php
         ?>
     </fieldset>

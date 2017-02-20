@@ -6,15 +6,15 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Suppliermemo'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New Supplier Memo'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Suppliers'), ['controller' => 'Suppliers', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Supplier'), ['controller' => 'Suppliers', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployees'), ['controller' => 'Retaileremployees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retaileremployee'), ['controller' => 'Retaileremployees', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Retailer Employees'), ['controller' => 'RetailerEmployees', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Retailer Employee'), ['controller' => 'RetailerEmployees', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="suppliermemos index large-9 medium-8 columns content">
-    <h3><?= __('Suppliermemos') ?></h3>
+<div class="supplierMemos index large-9 medium-8 columns content">
+    <h3><?= __('Supplier Memos') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -22,22 +22,22 @@
                 <th scope="col"><?= $this->Paginator->sort('remarks') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('supplier_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('retailerEmployee_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('retailer_employee_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($suppliermemos as $suppliermemo): ?>
+            <?php foreach ($supplierMemos as $supplierMemo): ?>
             <tr>
-                <td><?= $this->Number->format($suppliermemo->id) ?></td>
-                <td><?= h($suppliermemo->remarks) ?></td>
-                <td><?= h($suppliermemo->created) ?></td>
-                <td><?= $suppliermemo->has('supplier') ? $this->Html->link($suppliermemo->supplier->id, ['controller' => 'Suppliers', 'action' => 'view', $suppliermemo->supplier->id]) : '' ?></td>
-                <td><?= $suppliermemo->has('retaileremployee') ? $this->Html->link($suppliermemo->retaileremployee->id, ['controller' => 'Retaileremployees', 'action' => 'view', $suppliermemo->retaileremployee->id]) : '' ?></td>
+                <td><?= $this->Number->format($supplierMemo->id) ?></td>
+                <td><?= h($supplierMemo->remarks) ?></td>
+                <td><?= h($supplierMemo->created) ?></td>
+                <td><?= $supplierMemo->has('supplier') ? $this->Html->link($supplierMemo->supplier->id, ['controller' => 'Suppliers', 'action' => 'view', $supplierMemo->supplier->id]) : '' ?></td>
+                <td><?= $supplierMemo->has('retailer_employee') ? $this->Html->link($supplierMemo->retailer_employee->id, ['controller' => 'RetailerEmployees', 'action' => 'view', $supplierMemo->retailer_employee->id]) : '' ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $suppliermemo->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $suppliermemo->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $suppliermemo->id], ['confirm' => __('Are you sure you want to delete # {0}?', $suppliermemo->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $supplierMemo->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $supplierMemo->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $supplierMemo->id], ['confirm' => __('Are you sure you want to delete # {0}?', $supplierMemo->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

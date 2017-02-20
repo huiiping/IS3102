@@ -16,8 +16,8 @@
     <fieldset>
         <legend><?= __('Add Section') ?></legend>
         <?php
-            echo $this->Form->input('secName');
-            echo $this->Form->input('spaceLimit');
+            echo $this->Form->input('sec_name');
+            echo $this->Form->input('space_limit');
             echo $this->Form->input('reserve');
             echo $this->Form->input('location_id', ['options' => $locations, 'empty' => true]);
         ?>

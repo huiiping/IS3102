@@ -7,25 +7,26 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * IntrasysemployeesIntrasysemployeeroles Model
+ * IntrasysEmployeesIntrasysEmployeeRoles Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Intrasysemployees
- * @property \Cake\ORM\Association\BelongsTo $Intrasysemployeeroles
+ * @property \Cake\ORM\Association\BelongsTo $IntrasysEmployees
+ * @property \Cake\ORM\Association\BelongsTo $IntrasysEmployeeRoles
  *
- * @method \App\Model\Entity\IntrasysemployeesIntrasysemployeerole get($primaryKey, $options = [])
- * @method \App\Model\Entity\IntrasysemployeesIntrasysemployeerole newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\IntrasysemployeesIntrasysemployeerole[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\IntrasysemployeesIntrasysemployeerole|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\IntrasysemployeesIntrasysemployeerole patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\IntrasysemployeesIntrasysemployeerole[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\IntrasysemployeesIntrasysemployeerole findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\IntrasysEmployeesIntrasysEmployeeRole get($primaryKey, $options = [])
+ * @method \App\Model\Entity\IntrasysEmployeesIntrasysEmployeeRole newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\IntrasysEmployeesIntrasysEmployeeRole[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\IntrasysEmployeesIntrasysEmployeeRole|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\IntrasysEmployeesIntrasysEmployeeRole patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\IntrasysEmployeesIntrasysEmployeeRole[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\IntrasysEmployeesIntrasysEmployeeRole findOrCreate($search, callable $callback = null, $options = [])
  */
-class IntrasysemployeesIntrasysemployeerolesTable extends Table
+class IntrasysEmployeesIntrasysEmployeeRolesTable extends Table
 {
-    public static function defaultConnectionName()
-    {
+    public static function defaultConnectionName() {
         return 'intrasysdb';
     }
+
+
     /**
      * Initialize method
      *
@@ -36,16 +37,16 @@ class IntrasysemployeesIntrasysemployeerolesTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('intrasysemployees_intrasysemployeeroles');
-        $this->displayField('intrasysEmployee_id');
-        $this->primaryKey(['intrasysEmployee_id', 'intrasysEmployeeRole_id']);
+        $this->table('intrasys_employees_intrasys_employee_roles');
+        $this->displayField('intrasys_employee_id');
+        $this->primaryKey(['intrasys_employee_id', 'intrasys_employee_role_id']);
 
-        $this->belongsTo('Intrasysemployees', [
-            'foreignKey' => 'intrasysEmployee_id',
+        $this->belongsTo('IntrasysEmployees', [
+            'foreignKey' => 'intrasys_employee_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Intrasysemployeeroles', [
-            'foreignKey' => 'intrasysEmployeeRole_id',
+        $this->belongsTo('IntrasysEmployeeRoles', [
+            'foreignKey' => 'intrasys_employee_role_id',
             'joinType' => 'INNER'
         ]);
     }
@@ -59,8 +60,8 @@ class IntrasysemployeesIntrasysemployeerolesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['intrasysEmployee_id'], 'Intrasysemployees'));
-        $rules->add($rules->existsIn(['intrasysEmployeeRole_id'], 'Intrasysemployeeroles'));
+        $rules->add($rules->existsIn(['intrasys_employee_id'], 'IntrasysEmployees'));
+        $rules->add($rules->existsIn(['intrasys_employee_role_id'], 'IntrasysEmployeeRoles'));
 
         return $rules;
     }

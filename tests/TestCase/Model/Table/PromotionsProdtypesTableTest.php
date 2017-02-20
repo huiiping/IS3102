@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\PromotionsProdtypesTable;
+use App\Model\Table\PromotionsProdTypesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\PromotionsProdtypesTable Test Case
+ * App\Model\Table\PromotionsProdTypesTable Test Case
  */
-class PromotionsProdtypesTableTest extends TestCase
+class PromotionsProdTypesTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\PromotionsProdtypesTable
+     * @var \App\Model\Table\PromotionsProdTypesTable
      */
-    public $PromotionsProdtypes;
+    public $PromotionsProdTypes;
 
     /**
      * Fixtures
@@ -24,21 +24,14 @@ class PromotionsProdtypesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.promotions_prodtypes',
+        'app.promotions_prod_types',
         'app.promotions',
-        'app.retaileremployees',
-        'app.locations',
-        'app.sections',
-        'app.messages',
-        'app.references',
-        'app.retaileremployees_messages',
-        'app.retaileremployeeroles',
-        'app.retaileremployees_retaileremployeeroles',
+        'app.retailer_employees',
         'app.customers',
-        'app.custmembershiptiers',
+        'app.cust_membership_tiers',
         'app.customers_promotions',
-        'app.prodtypes',
-        'app.prodcats'
+        'app.prod_types',
+        'app.prod_cats'
     ];
 
     /**
@@ -49,8 +42,8 @@ class PromotionsProdtypesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('PromotionsProdtypes') ? [] : ['className' => 'App\Model\Table\PromotionsProdtypesTable'];
-        $this->PromotionsProdtypes = TableRegistry::get('PromotionsProdtypes', $config);
+        $config = TableRegistry::exists('PromotionsProdTypes') ? [] : ['className' => 'App\Model\Table\PromotionsProdTypesTable'];
+        $this->PromotionsProdTypes = TableRegistry::get('PromotionsProdTypes', $config);
     }
 
     /**
@@ -60,7 +53,7 @@ class PromotionsProdtypesTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->PromotionsProdtypes);
+        unset($this->PromotionsProdTypes);
 
         parent::tearDown();
     }

@@ -19,7 +19,7 @@ class PromotionsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Retaileremployees']
+            'contain' => ['RetailerEmployees']
         ];
         $promotions = $this->paginate($this->Promotions);
 
@@ -37,7 +37,7 @@ class PromotionsController extends AppController
     public function view($id = null)
     {
         $promotion = $this->Promotions->get($id, [
-            'contain' => ['Retaileremployees', 'Customers', 'Prodtypes']
+            'contain' => ['RetailerEmployees', 'Customers', 'ProdTypes']
         ]);
 
         $this->set('promotion', $promotion);
@@ -61,10 +61,10 @@ class PromotionsController extends AppController
             }
             $this->Flash->error(__('The promotion could not be saved. Please, try again.'));
         }
-        $retaileremployees = $this->Promotions->Retaileremployees->find('list', ['limit' => 200]);
+        $retailerEmployees = $this->Promotions->RetailerEmployees->find('list', ['limit' => 200]);
         $customers = $this->Promotions->Customers->find('list', ['limit' => 200]);
-        $prodtypes = $this->Promotions->Prodtypes->find('list', ['limit' => 200]);
-        $this->set(compact('promotion', 'retaileremployees', 'customers', 'prodtypes'));
+        $prodTypes = $this->Promotions->ProdTypes->find('list', ['limit' => 200]);
+        $this->set(compact('promotion', 'retailerEmployees', 'customers', 'prodTypes'));
         $this->set('_serialize', ['promotion']);
     }
 
@@ -78,7 +78,7 @@ class PromotionsController extends AppController
     public function edit($id = null)
     {
         $promotion = $this->Promotions->get($id, [
-            'contain' => ['Customers', 'Prodtypes']
+            'contain' => ['Customers', 'ProdTypes']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $promotion = $this->Promotions->patchEntity($promotion, $this->request->data);
@@ -89,10 +89,10 @@ class PromotionsController extends AppController
             }
             $this->Flash->error(__('The promotion could not be saved. Please, try again.'));
         }
-        $retaileremployees = $this->Promotions->Retaileremployees->find('list', ['limit' => 200]);
+        $retailerEmployees = $this->Promotions->RetailerEmployees->find('list', ['limit' => 200]);
         $customers = $this->Promotions->Customers->find('list', ['limit' => 200]);
-        $prodtypes = $this->Promotions->Prodtypes->find('list', ['limit' => 200]);
-        $this->set(compact('promotion', 'retaileremployees', 'customers', 'prodtypes'));
+        $prodTypes = $this->Promotions->ProdTypes->find('list', ['limit' => 200]);
+        $this->set(compact('promotion', 'retailerEmployees', 'customers', 'prodTypes'));
         $this->set('_serialize', ['promotion']);
     }
 

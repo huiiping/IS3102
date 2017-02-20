@@ -7,23 +7,26 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Retaileremployees Model
+ * RetailerEmployees Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Locations
+ * @property \Cake\ORM\Association\HasMany $Promotions
+ * @property \Cake\ORM\Association\HasMany $PurchaseOrders
+ * @property \Cake\ORM\Association\HasMany $SupplierMemos
  * @property \Cake\ORM\Association\BelongsToMany $Messages
- * @property \Cake\ORM\Association\BelongsToMany $Retaileremployeeroles
+ * @property \Cake\ORM\Association\BelongsToMany $RetailerEmployeeRoles
  *
- * @method \App\Model\Entity\Retaileremployee get($primaryKey, $options = [])
- * @method \App\Model\Entity\Retaileremployee newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Retaileremployee[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Retaileremployee|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Retaileremployee patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Retaileremployee[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Retaileremployee findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\RetailerEmployee get($primaryKey, $options = [])
+ * @method \App\Model\Entity\RetailerEmployee newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\RetailerEmployee[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\RetailerEmployee|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\RetailerEmployee patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\RetailerEmployee[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\RetailerEmployee findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class RetaileremployeesTable extends Table
+class RetailerEmployeesTable extends Table
 {
 
     /**
@@ -36,7 +39,7 @@ class RetaileremployeesTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('retaileremployees');
+        $this->table('retailer_employees');
         $this->displayField('id');
         $this->primaryKey('id');
 
@@ -45,15 +48,24 @@ class RetaileremployeesTable extends Table
         $this->belongsTo('Locations', [
             'foreignKey' => 'location_id'
         ]);
-        $this->belongsToMany('Messages', [
-            'foreignKey' => 'retaileremployee_id',
-            'targetForeignKey' => 'message_id',
-            'joinTable' => 'retaileremployees_messages'
+        $this->hasMany('Promotions', [
+            'foreignKey' => 'retailer_employee_id'
         ]);
-        $this->belongsToMany('Retaileremployeeroles', [
-            'foreignKey' => 'retaileremployee_id',
-            'targetForeignKey' => 'retaileremployeerole_id',
-            'joinTable' => 'retaileremployees_retaileremployeeroles'
+        $this->hasMany('PurchaseOrders', [
+            'foreignKey' => 'retailer_employee_id'
+        ]);
+        $this->hasMany('SupplierMemos', [
+            'foreignKey' => 'retailer_employee_id'
+        ]);
+        $this->belongsToMany('Messages', [
+            'foreignKey' => 'retailer_employee_id',
+            'targetForeignKey' => 'message_id',
+            'joinTable' => 'retailer_employees_messages'
+        ]);
+        $this->belongsToMany('RetailerEmployeeRoles', [
+            'foreignKey' => 'retailer_employee_id',
+            'targetForeignKey' => 'retailer_employee_role_id',
+            'joinTable' => 'retailer_employees_retailer_employee_roles'
         ]);
     }
 
@@ -92,15 +104,15 @@ class RetaileremployeesTable extends Table
             ->notEmpty('contact');
 
         $validator
-            ->requirePresence('firstName', 'create')
-            ->notEmpty('firstName');
+            ->requirePresence('first_name', 'create')
+            ->notEmpty('first_name');
 
         $validator
-            ->requirePresence('lastName', 'create')
-            ->notEmpty('lastName');
+            ->requirePresence('last_name', 'create')
+            ->notEmpty('last_name');
 
         $validator
-            ->allowEmpty('accountStatus');
+            ->allowEmpty('account_status');
 
         return $validator;
     }

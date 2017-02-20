@@ -26,12 +26,22 @@ class SectionsTableTest extends TestCase
     public $fixtures = [
         'app.sections',
         'app.locations',
-        'app.retaileremployees',
+        'app.retailer_employees',
+        'app.promotions',
+        'app.customers',
+        'app.cust_membership_tiers',
+        'app.customers_promotions',
+        'app.prod_types',
+        'app.prod_cats',
+        'app.promotions_prod_types',
+        'app.purchase_orders',
+        'app.suppliers',
+        'app.purchase_order_items',
+        'app.retailer_employees_retailer_employeer_roles',
+        'app.supplier_memos',
         'app.messages',
         'app.references',
-        'app.retaileremployees_messages',
-        'app.retaileremployeeroles',
-        'app.retaileremployees_retaileremployeeroles'
+        'app.retailer_employees_messages'
     ];
 
     /**

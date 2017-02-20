@@ -4,11 +4,11 @@ namespace App\Controller;
 use App\Controller\AppController;
 
 /**
- * Suppliermemos Controller
+ * SupplierMemos Controller
  *
- * @property \App\Model\Table\SuppliermemosTable $Suppliermemos
+ * @property \App\Model\Table\SupplierMemosTable $SupplierMemos
  */
-class SuppliermemosController extends AppController
+class SupplierMemosController extends AppController
 {
 
     /**
@@ -19,29 +19,29 @@ class SuppliermemosController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Suppliers', 'Retaileremployees']
+            'contain' => ['Suppliers', 'RetailerEmployees']
         ];
-        $suppliermemos = $this->paginate($this->Suppliermemos);
+        $supplierMemos = $this->paginate($this->SupplierMemos);
 
-        $this->set(compact('suppliermemos'));
-        $this->set('_serialize', ['suppliermemos']);
+        $this->set(compact('supplierMemos'));
+        $this->set('_serialize', ['supplierMemos']);
     }
 
     /**
      * View method
      *
-     * @param string|null $id Suppliermemo id.
+     * @param string|null $id Supplier Memo id.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $suppliermemo = $this->Suppliermemos->get($id, [
-            'contain' => ['Suppliers', 'Retaileremployees']
+        $supplierMemo = $this->SupplierMemos->get($id, [
+            'contain' => ['Suppliers', 'RetailerEmployees']
         ]);
 
-        $this->set('suppliermemo', $suppliermemo);
-        $this->set('_serialize', ['suppliermemo']);
+        $this->set('supplierMemo', $supplierMemo);
+        $this->set('_serialize', ['supplierMemo']);
     }
 
     /**
@@ -51,64 +51,64 @@ class SuppliermemosController extends AppController
      */
     public function add()
     {
-        $suppliermemo = $this->Suppliermemos->newEntity();
+        $supplierMemo = $this->SupplierMemos->newEntity();
         if ($this->request->is('post')) {
-            $suppliermemo = $this->Suppliermemos->patchEntity($suppliermemo, $this->request->data);
-            if ($this->Suppliermemos->save($suppliermemo)) {
-                $this->Flash->success(__('The suppliermemo has been saved.'));
+            $supplierMemo = $this->SupplierMemos->patchEntity($supplierMemo, $this->request->data);
+            if ($this->SupplierMemos->save($supplierMemo)) {
+                $this->Flash->success(__('The supplier memo has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The suppliermemo could not be saved. Please, try again.'));
+            $this->Flash->error(__('The supplier memo could not be saved. Please, try again.'));
         }
-        $suppliers = $this->Suppliermemos->Suppliers->find('list', ['limit' => 200]);
-        $retaileremployees = $this->Suppliermemos->Retaileremployees->find('list', ['limit' => 200]);
-        $this->set(compact('suppliermemo', 'suppliers', 'retaileremployees'));
-        $this->set('_serialize', ['suppliermemo']);
+        $suppliers = $this->SupplierMemos->Suppliers->find('list', ['limit' => 200]);
+        $retailerEmployees = $this->SupplierMemos->RetailerEmployees->find('list', ['limit' => 200]);
+        $this->set(compact('supplierMemo', 'suppliers', 'retailerEmployees'));
+        $this->set('_serialize', ['supplierMemo']);
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Suppliermemo id.
+     * @param string|null $id Supplier Memo id.
      * @return \Cake\Network\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {
-        $suppliermemo = $this->Suppliermemos->get($id, [
+        $supplierMemo = $this->SupplierMemos->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $suppliermemo = $this->Suppliermemos->patchEntity($suppliermemo, $this->request->data);
-            if ($this->Suppliermemos->save($suppliermemo)) {
-                $this->Flash->success(__('The suppliermemo has been saved.'));
+            $supplierMemo = $this->SupplierMemos->patchEntity($supplierMemo, $this->request->data);
+            if ($this->SupplierMemos->save($supplierMemo)) {
+                $this->Flash->success(__('The supplier memo has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The suppliermemo could not be saved. Please, try again.'));
+            $this->Flash->error(__('The supplier memo could not be saved. Please, try again.'));
         }
-        $suppliers = $this->Suppliermemos->Suppliers->find('list', ['limit' => 200]);
-        $retaileremployees = $this->Suppliermemos->Retaileremployees->find('list', ['limit' => 200]);
-        $this->set(compact('suppliermemo', 'suppliers', 'retaileremployees'));
-        $this->set('_serialize', ['suppliermemo']);
+        $suppliers = $this->SupplierMemos->Suppliers->find('list', ['limit' => 200]);
+        $retailerEmployees = $this->SupplierMemos->RetailerEmployees->find('list', ['limit' => 200]);
+        $this->set(compact('supplierMemo', 'suppliers', 'retailerEmployees'));
+        $this->set('_serialize', ['supplierMemo']);
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id Suppliermemo id.
+     * @param string|null $id Supplier Memo id.
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $suppliermemo = $this->Suppliermemos->get($id);
-        if ($this->Suppliermemos->delete($suppliermemo)) {
-            $this->Flash->success(__('The suppliermemo has been deleted.'));
+        $supplierMemo = $this->SupplierMemos->get($id);
+        if ($this->SupplierMemos->delete($supplierMemo)) {
+            $this->Flash->success(__('The supplier memo has been deleted.'));
         } else {
-            $this->Flash->error(__('The suppliermemo could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The supplier memo could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);

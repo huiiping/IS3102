@@ -17,8 +17,8 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('secName') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('spaceLimit') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('sec_name') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('space_limit') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('reserve') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('location_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -28,8 +28,8 @@
             <?php foreach ($sections as $section): ?>
             <tr>
                 <td><?= $this->Number->format($section->id) ?></td>
-                <td><?= h($section->secName) ?></td>
-                <td><?= $this->Number->format($section->spaceLimit) ?></td>
+                <td><?= h($section->sec_name) ?></td>
+                <td><?= $this->Number->format($section->space_limit) ?></td>
                 <td><?= h($section->reserve) ?></td>
                 <td><?= $section->has('location') ? $this->Html->link($section->location->name, ['controller' => 'Locations', 'action' => 'view', $section->location->id]) : '' ?></td>
                 <td class="actions">

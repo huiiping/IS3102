@@ -8,35 +8,41 @@
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Form->postLink(
                 __('Delete'),
-                ['action' => 'delete', $retaileremployee->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $retaileremployee->id)]
+                ['action' => 'delete', $retailerEmployee->id],
+                ['confirm' => __('Are you sure you want to delete # {0}?', $retailerEmployee->id)]
             )
         ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployees'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Retailer Employees'), ['action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('List Locations'), ['controller' => 'Locations', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Location'), ['controller' => 'Locations', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Promotions'), ['controller' => 'Promotions', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Promotion'), ['controller' => 'Promotions', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Purchase Orders'), ['controller' => 'PurchaseOrders', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Purchase Order'), ['controller' => 'PurchaseOrders', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Supplier Memos'), ['controller' => 'SupplierMemos', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Supplier Memo'), ['controller' => 'SupplierMemos', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Messages'), ['controller' => 'Messages', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Message'), ['controller' => 'Messages', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployeeroles'), ['controller' => 'Retaileremployeeroles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retaileremployeerole'), ['controller' => 'Retaileremployeeroles', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Retailer Employee Roles'), ['controller' => 'RetailerEmployeeRoles', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Retailer Employee Role'), ['controller' => 'RetailerEmployeeRoles', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="retaileremployees form large-9 medium-8 columns content">
-    <?= $this->Form->create($retaileremployee) ?>
+<div class="retailerEmployees form large-9 medium-8 columns content">
+    <?= $this->Form->create($retailerEmployee) ?>
     <fieldset>
-        <legend><?= __('Edit Retaileremployee') ?></legend>
+        <legend><?= __('Edit Retailer Employee') ?></legend>
         <?php
             echo $this->Form->input('username');
             echo $this->Form->input('password');
             echo $this->Form->input('email');
             echo $this->Form->input('address');
             echo $this->Form->input('contact');
-            echo $this->Form->input('firstName');
-            echo $this->Form->input('lastName');
-            echo $this->Form->input('accountStatus');
+            echo $this->Form->input('first_name');
+            echo $this->Form->input('last_name');
+            echo $this->Form->input('account_status');
             echo $this->Form->input('location_id', ['options' => $locations, 'empty' => true]);
             echo $this->Form->input('messages._ids', ['options' => $messages]);
-            echo $this->Form->input('retaileremployeeroles._ids', ['options' => $retaileremployeeroles]);
+            echo $this->Form->input('retailer_employee_roles._ids', ['options' => $retailerEmployeeRoles]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

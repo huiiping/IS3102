@@ -7,8 +7,8 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Message'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployees'), ['controller' => 'Retaileremployees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retaileremployee'), ['controller' => 'Retaileremployees', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Retailer Employees'), ['controller' => 'RetailerEmployees', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Retailer Employee'), ['controller' => 'RetailerEmployees', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="messages index large-9 medium-8 columns content">
@@ -18,7 +18,7 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('title') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('dateCreated') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('date_created') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('status') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('reference_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('sender_id') ?></th>
@@ -30,7 +30,7 @@
             <tr>
                 <td><?= $this->Number->format($message->id) ?></td>
                 <td><?= h($message->title) ?></td>
-                <td><?= h($message->dateCreated) ?></td>
+                <td><?= h($message->date_created) ?></td>
                 <td><?= h($message->status) ?></td>
                 <td><?= h($message->reference_id) ?></td>
                 <td><?= $this->Number->format($message->sender_id) ?></td>

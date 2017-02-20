@@ -4,15 +4,15 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Retaileremployeerole Entity
+ * RetailerEmployeeRole Entity
  *
  * @property int $id
- * @property string $roleName
- * @property string $roleDesc
+ * @property string $role_name
+ * @property string $role_desc
  *
- * @property \App\Model\Entity\Retaileremployee[] $retaileremployees
+ * @property \App\Model\Entity\RetailerEmployee[] $retailer_employees
  */
-class Retaileremployeerole extends Entity
+class RetailerEmployeeRole extends Entity
 {
 
     /**

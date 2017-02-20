@@ -4,17 +4,22 @@
   */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
-   <?= $this->Element('sideBar', array('type' => 'Employee', 'typePlural' => 'employees')); ?>
+    <ul class="side-nav">
+        <li class="heading"><?= __('Actions') ?></li>
+        <li><?= $this->Html->link(__('New Intrasys Employee'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Intrasys Employee Roles'), ['controller' => 'IntrasysEmployeeRoles', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Intrasys Employee Role'), ['controller' => 'IntrasysEmployeeRoles', 'action' => 'add']) ?></li>
+    </ul>
 </nav>
-<div class="intrasysemployees index large-9 medium-8 columns content">
-    <h3><?= __('Intrasysemployees') ?></h3>
+<div class="intrasysEmployees index large-9 medium-8 columns content">
+    <h3><?= __('Intrasys Employees') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('firstName') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('lastName') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('accountStatus') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('first_name') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('last_name') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('account_status') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('username') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('email') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('password') ?></th>
@@ -26,23 +31,23 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($intrasysemployees as $intrasysemployee): ?>
+            <?php foreach ($intrasysEmployees as $intrasysEmployee): ?>
             <tr>
-                <td><?= $this->Number->format($intrasysemployee->id) ?></td>
-                <td><?= h($intrasysemployee->firstName) ?></td>
-                <td><?= h($intrasysemployee->lastName) ?></td>
-                <td><?= h($intrasysemployee->accountStatus) ?></td>
-                <td><?= h($intrasysemployee->username) ?></td>
-                <td><?= h($intrasysemployee->email) ?></td>
-                <td><?= h($intrasysemployee->password) ?></td>
-                <td><?= h($intrasysemployee->address) ?></td>
-                <td><?= h($intrasysemployee->contact) ?></td>
-                <td><?= h($intrasysemployee->created) ?></td>
-                <td><?= h($intrasysemployee->modified) ?></td>
+                <td><?= $this->Number->format($intrasysEmployee->id) ?></td>
+                <td><?= h($intrasysEmployee->first_name) ?></td>
+                <td><?= h($intrasysEmployee->last_name) ?></td>
+                <td><?= h($intrasysEmployee->account_status) ?></td>
+                <td><?= h($intrasysEmployee->username) ?></td>
+                <td><?= h($intrasysEmployee->email) ?></td>
+                <td><?= h($intrasysEmployee->password) ?></td>
+                <td><?= h($intrasysEmployee->address) ?></td>
+                <td><?= h($intrasysEmployee->contact) ?></td>
+                <td><?= h($intrasysEmployee->created) ?></td>
+                <td><?= h($intrasysEmployee->modified) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $intrasysemployee->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $intrasysemployee->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $intrasysemployee->id], ['confirm' => __('Are you sure you want to delete # {0}?', $intrasysemployee->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $intrasysEmployee->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $intrasysEmployee->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $intrasysEmployee->id], ['confirm' => __('Are you sure you want to delete # {0}?', $intrasysEmployee->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

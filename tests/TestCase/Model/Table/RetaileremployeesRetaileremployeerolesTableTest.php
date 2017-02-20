@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\RetaileremployeesRetaileremployeerolesTable;
+use App\Model\Table\RetailerEmployeesRetailerEmployeeRolesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\RetaileremployeesRetaileremployeerolesTable Test Case
+ * App\Model\Table\RetailerEmployeesRetailerEmployeeRolesTable Test Case
  */
-class RetaileremployeesRetaileremployeerolesTableTest extends TestCase
+class RetailerEmployeesRetailerEmployeeRolesTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\RetaileremployeesRetaileremployeerolesTable
+     * @var \App\Model\Table\RetailerEmployeesRetailerEmployeeRolesTable
      */
-    public $RetaileremployeesRetaileremployeeroles;
+    public $RetailerEmployeesRetailerEmployeeRoles;
 
     /**
      * Fixtures
@@ -24,14 +24,25 @@ class RetaileremployeesRetaileremployeerolesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.retaileremployees_retaileremployeeroles',
-        'app.retaileremployees',
+        'app.retailer_employees_retailer_employee_roles',
+        'app.retailer_employees',
         'app.locations',
         'app.sections',
+        'app.promotions',
+        'app.customers',
+        'app.cust_membership_tiers',
+        'app.customers_promotions',
+        'app.prod_types',
+        'app.prod_cats',
+        'app.promotions_prod_types',
+        'app.purchase_orders',
+        'app.suppliers',
+        'app.supplier_memos',
+        'app.purchase_order_items',
         'app.messages',
         'app.references',
-        'app.retaileremployees_messages',
-        'app.retaileremployeeroles'
+        'app.retailer_employees_messages',
+        'app.retailer_employee_roles'
     ];
 
     /**
@@ -42,8 +53,8 @@ class RetaileremployeesRetaileremployeerolesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('RetaileremployeesRetaileremployeeroles') ? [] : ['className' => 'App\Model\Table\RetaileremployeesRetaileremployeerolesTable'];
-        $this->RetaileremployeesRetaileremployeeroles = TableRegistry::get('RetaileremployeesRetaileremployeeroles', $config);
+        $config = TableRegistry::exists('RetailerEmployeesRetailerEmployeeRoles') ? [] : ['className' => 'App\Model\Table\RetailerEmployeesRetailerEmployeeRolesTable'];
+        $this->RetailerEmployeesRetailerEmployeeRoles = TableRegistry::get('RetailerEmployeesRetailerEmployeeRoles', $config);
     }
 
     /**
@@ -53,7 +64,7 @@ class RetaileremployeesRetaileremployeerolesTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->RetaileremployeesRetaileremployeeroles);
+        unset($this->RetailerEmployeesRetailerEmployeeRoles);
 
         parent::tearDown();
     }

@@ -1,13 +1,13 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\RetaileremployeesRetaileremployeerolesController;
+use App\Controller\RetailerEmployeesRetailerEmployeeRolesController;
 use Cake\TestSuite\IntegrationTestCase;
 
 /**
- * App\Controller\RetaileremployeesRetaileremployeerolesController Test Case
+ * App\Controller\RetailerEmployeesRetailerEmployeeRolesController Test Case
  */
-class RetaileremployeesRetaileremployeerolesControllerTest extends IntegrationTestCase
+class RetailerEmployeesRetailerEmployeeRolesControllerTest extends IntegrationTestCase
 {
 
     /**
@@ -16,14 +16,25 @@ class RetaileremployeesRetaileremployeerolesControllerTest extends IntegrationTe
      * @var array
      */
     public $fixtures = [
-        'app.retaileremployees_retaileremployeeroles',
-        'app.retaileremployees',
+        'app.retailer_employees_retailer_employee_roles',
+        'app.retailer_employees',
         'app.locations',
         'app.sections',
+        'app.promotions',
+        'app.customers',
+        'app.cust_membership_tiers',
+        'app.customers_promotions',
+        'app.prod_types',
+        'app.prod_cats',
+        'app.promotions_prod_types',
+        'app.purchase_orders',
+        'app.suppliers',
+        'app.supplier_memos',
+        'app.purchase_order_items',
         'app.messages',
         'app.references',
-        'app.retaileremployees_messages',
-        'app.retaileremployeeroles'
+        'app.retailer_employees_messages',
+        'app.retailer_employee_roles'
     ];
 
     /**

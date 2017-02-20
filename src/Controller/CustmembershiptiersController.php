@@ -4,11 +4,11 @@ namespace App\Controller;
 use App\Controller\AppController;
 
 /**
- * Custmembershiptiers Controller
+ * CustMembershipTiers Controller
  *
- * @property \App\Model\Table\CustmembershiptiersTable $Custmembershiptiers
+ * @property \App\Model\Table\CustMembershipTiersTable $CustMembershipTiers
  */
-class CustmembershiptiersController extends AppController
+class CustMembershipTiersController extends AppController
 {
 
     /**
@@ -18,27 +18,27 @@ class CustmembershiptiersController extends AppController
      */
     public function index()
     {
-        $custmembershiptiers = $this->paginate($this->Custmembershiptiers);
+        $custMembershipTiers = $this->paginate($this->CustMembershipTiers);
 
-        $this->set(compact('custmembershiptiers'));
-        $this->set('_serialize', ['custmembershiptiers']);
+        $this->set(compact('custMembershipTiers'));
+        $this->set('_serialize', ['custMembershipTiers']);
     }
 
     /**
      * View method
      *
-     * @param string|null $id Custmembershiptier id.
+     * @param string|null $id Cust Membership Tier id.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $custmembershiptier = $this->Custmembershiptiers->get($id, [
-            'contain' => []
+        $custMembershipTier = $this->CustMembershipTiers->get($id, [
+            'contain' => ['Customers']
         ]);
 
-        $this->set('custmembershiptier', $custmembershiptier);
-        $this->set('_serialize', ['custmembershiptier']);
+        $this->set('custMembershipTier', $custMembershipTier);
+        $this->set('_serialize', ['custMembershipTier']);
     }
 
     /**
@@ -48,60 +48,60 @@ class CustmembershiptiersController extends AppController
      */
     public function add()
     {
-        $custmembershiptier = $this->Custmembershiptiers->newEntity();
+        $custMembershipTier = $this->CustMembershipTiers->newEntity();
         if ($this->request->is('post')) {
-            $custmembershiptier = $this->Custmembershiptiers->patchEntity($custmembershiptier, $this->request->data);
-            if ($this->Custmembershiptiers->save($custmembershiptier)) {
-                $this->Flash->success(__('The custmembershiptier has been saved.'));
+            $custMembershipTier = $this->CustMembershipTiers->patchEntity($custMembershipTier, $this->request->data);
+            if ($this->CustMembershipTiers->save($custMembershipTier)) {
+                $this->Flash->success(__('The cust membership tier has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The custmembershiptier could not be saved. Please, try again.'));
+            $this->Flash->error(__('The cust membership tier could not be saved. Please, try again.'));
         }
-        $this->set(compact('custmembershiptier'));
-        $this->set('_serialize', ['custmembershiptier']);
+        $this->set(compact('custMembershipTier'));
+        $this->set('_serialize', ['custMembershipTier']);
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Custmembershiptier id.
+     * @param string|null $id Cust Membership Tier id.
      * @return \Cake\Network\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {
-        $custmembershiptier = $this->Custmembershiptiers->get($id, [
+        $custMembershipTier = $this->CustMembershipTiers->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $custmembershiptier = $this->Custmembershiptiers->patchEntity($custmembershiptier, $this->request->data);
-            if ($this->Custmembershiptiers->save($custmembershiptier)) {
-                $this->Flash->success(__('The custmembershiptier has been saved.'));
+            $custMembershipTier = $this->CustMembershipTiers->patchEntity($custMembershipTier, $this->request->data);
+            if ($this->CustMembershipTiers->save($custMembershipTier)) {
+                $this->Flash->success(__('The cust membership tier has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The custmembershiptier could not be saved. Please, try again.'));
+            $this->Flash->error(__('The cust membership tier could not be saved. Please, try again.'));
         }
-        $this->set(compact('custmembershiptier'));
-        $this->set('_serialize', ['custmembershiptier']);
+        $this->set(compact('custMembershipTier'));
+        $this->set('_serialize', ['custMembershipTier']);
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id Custmembershiptier id.
+     * @param string|null $id Cust Membership Tier id.
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $custmembershiptier = $this->Custmembershiptiers->get($id);
-        if ($this->Custmembershiptiers->delete($custmembershiptier)) {
-            $this->Flash->success(__('The custmembershiptier has been deleted.'));
+        $custMembershipTier = $this->CustMembershipTiers->get($id);
+        if ($this->CustMembershipTiers->delete($custMembershipTier)) {
+            $this->Flash->success(__('The cust membership tier has been deleted.'));
         } else {
-            $this->Flash->error(__('The custmembershiptier could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The cust membership tier could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);

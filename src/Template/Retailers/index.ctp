@@ -4,7 +4,12 @@
   */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <?= $this->Element('sideBar', array('type' => 'Retailer', 'typePlural' => 'retailers')); ?>
+    <ul class="side-nav">
+        <li class="heading"><?= __('Actions') ?></li>
+        <li><?= $this->Html->link(__('New Retailer'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Retailer Acc Types'), ['controller' => 'RetailerAccTypes', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Retailer Acc Type'), ['controller' => 'RetailerAccTypes', 'action' => 'add']) ?></li>
+    </ul>
 </nav>
 <div class="retailers index large-9 medium-8 columns content">
     <h3><?= __('Retailers') ?></h3>
@@ -12,22 +17,22 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('companyName') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('firstName') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('lastName') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('accountStatus') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('paymentTerm') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('loyaltyPoints') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('company_name') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('first_name') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('last_name') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('account_status') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('payment_term') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('loyalty_points') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('username') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('email') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('password') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('address') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('contact') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('contractStartDate') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('contractEndDate') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('contract_start_date') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('contract_end_date') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('retailerAccType_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('retailer_acc_type_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -35,22 +40,22 @@
             <?php foreach ($retailers as $retailer): ?>
             <tr>
                 <td><?= $this->Number->format($retailer->id) ?></td>
-                <td><?= h($retailer->companyName) ?></td>
-                <td><?= h($retailer->firstName) ?></td>
-                <td><?= h($retailer->lastName) ?></td>
-                <td><?= h($retailer->accountStatus) ?></td>
-                <td><?= h($retailer->paymentTerm) ?></td>
-                <td><?= $this->Number->format($retailer->loyaltyPoints) ?></td>
+                <td><?= h($retailer->company_name) ?></td>
+                <td><?= h($retailer->first_name) ?></td>
+                <td><?= h($retailer->last_name) ?></td>
+                <td><?= h($retailer->account_status) ?></td>
+                <td><?= h($retailer->payment_term) ?></td>
+                <td><?= $this->Number->format($retailer->loyalty_points) ?></td>
                 <td><?= h($retailer->username) ?></td>
                 <td><?= h($retailer->email) ?></td>
                 <td><?= h($retailer->password) ?></td>
                 <td><?= h($retailer->address) ?></td>
                 <td><?= h($retailer->contact) ?></td>
-                <td><?= h($retailer->contractStartDate) ?></td>
-                <td><?= h($retailer->contractEndDate) ?></td>
+                <td><?= h($retailer->contract_start_date) ?></td>
+                <td><?= h($retailer->contract_end_date) ?></td>
                 <td><?= h($retailer->created) ?></td>
                 <td><?= h($retailer->modified) ?></td>
-                <td><?= $retailer->has('retaileracctype') ? $this->Html->link($retailer->retaileracctype->name, ['controller' => 'Retaileracctypes', 'action' => 'view', $retailer->retaileracctype->id]) : '' ?></td>
+                <td><?= $retailer->has('retailer_acc_type') ? $this->Html->link($retailer->retailer_acc_type->name, ['controller' => 'RetailerAccTypes', 'action' => 'view', $retailer->retailer_acc_type->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $retailer->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $retailer->id]) ?>

@@ -64,7 +64,7 @@ return [
      *   You should treat it as extremely sensitive data.
      */
     'Security' => [
-        'salt' => env('SECURITY_SALT', 'a3d24449f4101c94e7575470b14ce93d6b8dae61237b36a9630120e3aef0c3bf'),
+        'salt' => env('SECURITY_SALT', '674230650528c0eed2ebecd0059119e9cf754ecd1f9f5549f6b7f784eded0ebb'),
     ],
 
     /**
@@ -237,7 +237,6 @@ return [
             'flags' => [],
             'cacheMetadata' => true,
             'log' => false,
-
             /**
              * Set identifier quoting to true if you are using reserved words or
              * special characters in your table or column names. Enabling this

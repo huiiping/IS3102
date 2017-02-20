@@ -7,20 +7,20 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Prodtypes Model
+ * ProdTypes Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Prodcats
+ * @property \Cake\ORM\Association\BelongsTo $ProdCats
  * @property \Cake\ORM\Association\BelongsToMany $Promotions
  *
- * @method \App\Model\Entity\Prodtype get($primaryKey, $options = [])
- * @method \App\Model\Entity\Prodtype newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Prodtype[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Prodtype|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Prodtype patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Prodtype[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Prodtype findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\ProdType get($primaryKey, $options = [])
+ * @method \App\Model\Entity\ProdType newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\ProdType[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\ProdType|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\ProdType patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\ProdType[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\ProdType findOrCreate($search, callable $callback = null, $options = [])
  */
-class ProdtypesTable extends Table
+class ProdTypesTable extends Table
 {
 
     /**
@@ -33,17 +33,17 @@ class ProdtypesTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('prodtypes');
+        $this->table('prod_types');
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('Prodcats', [
-            'foreignKey' => 'prodCat_id'
+        $this->belongsTo('ProdCats', [
+            'foreignKey' => 'prod_cat_id'
         ]);
         $this->belongsToMany('Promotions', [
-            'foreignKey' => 'prodtype_id',
+            'foreignKey' => 'prod_type_id',
             'targetForeignKey' => 'promotion_id',
-            'joinTable' => 'promotions_prodtypes'
+            'joinTable' => 'promotions_prod_types'
         ]);
     }
 
@@ -60,10 +60,10 @@ class ProdtypesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('prodName');
+            ->allowEmpty('prod_name');
 
         $validator
-            ->allowEmpty('prodDesc');
+            ->allowEmpty('prod_desc');
 
         $validator
             ->allowEmpty('colour');
@@ -72,12 +72,12 @@ class ProdtypesTable extends Table
             ->allowEmpty('dimension');
 
         $validator
-            ->numeric('storeUnitPrice')
-            ->allowEmpty('storeUnitPrice');
+            ->numeric('store_unit_price')
+            ->allowEmpty('store_unit_price');
 
         $validator
-            ->numeric('webStoreUnitPrice')
-            ->allowEmpty('webStoreUnitPrice');
+            ->numeric('web_store_unit_price')
+            ->allowEmpty('web_store_unit_price');
 
         $validator
             ->allowEmpty('SKU');
@@ -94,7 +94,7 @@ class ProdtypesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['prodCat_id'], 'Prodcats'));
+        $rules->add($rules->existsIn(['prod_cat_id'], 'ProdCats'));
 
         return $rules;
     }

@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\IntrasysemployeesIntrasysemployeerolesTable;
+use App\Model\Table\IntrasysEmployeesIntrasysEmployeeRolesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\IntrasysemployeesIntrasysemployeerolesTable Test Case
+ * App\Model\Table\IntrasysEmployeesIntrasysEmployeeRolesTable Test Case
  */
-class IntrasysemployeesIntrasysemployeerolesTableTest extends TestCase
+class IntrasysEmployeesIntrasysEmployeeRolesTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\IntrasysemployeesIntrasysemployeerolesTable
+     * @var \App\Model\Table\IntrasysEmployeesIntrasysEmployeeRolesTable
      */
-    public $IntrasysemployeesIntrasysemployeeroles;
+    public $IntrasysEmployeesIntrasysEmployeeRoles;
 
     /**
      * Fixtures
@@ -24,9 +24,9 @@ class IntrasysemployeesIntrasysemployeerolesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.intrasysemployees_intrasysemployeeroles',
-        'app.intrasysemployees',
-        'app.intrasysemployeeroles'
+        'app.intrasys_employees_intrasys_employee_roles',
+        'app.intrasys_employees',
+        'app.intrasys_employee_roles'
     ];
 
     /**
@@ -37,8 +37,8 @@ class IntrasysemployeesIntrasysemployeerolesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('IntrasysemployeesIntrasysemployeeroles') ? [] : ['className' => 'App\Model\Table\IntrasysemployeesIntrasysemployeerolesTable'];
-        $this->IntrasysemployeesIntrasysemployeeroles = TableRegistry::get('IntrasysemployeesIntrasysemployeeroles', $config);
+        $config = TableRegistry::exists('IntrasysEmployeesIntrasysEmployeeRoles') ? [] : ['className' => 'App\Model\Table\IntrasysEmployeesIntrasysEmployeeRolesTable'];
+        $this->IntrasysEmployeesIntrasysEmployeeRoles = TableRegistry::get('IntrasysEmployeesIntrasysEmployeeRoles', $config);
     }
 
     /**
@@ -48,7 +48,7 @@ class IntrasysemployeesIntrasysemployeerolesTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->IntrasysemployeesIntrasysemployeeroles);
+        unset($this->IntrasysEmployeesIntrasysEmployeeRoles);
 
         parent::tearDown();
     }

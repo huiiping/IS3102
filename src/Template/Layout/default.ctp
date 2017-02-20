@@ -34,36 +34,34 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <nav class="top-bar" data-topbar role="navigation">
-        <ul class="title-area">
+    <nav class="top-bar expanded" data-topbar role="navigation">
+        <ul class="title-area large-3 medium-4 columns">
             <li class="name">
-            <h1><a href="#">Intrasys</a></h1>
-    </li>
-     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-  </ul>
-
-  <section class="top-bar-section">
+                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
+            </li>
+        </ul>
+        <section class="top-bar-section">
     <!-- Right Nav Section -->
     <ul class="right">
-      <?php if($loggedIn): ?>
-      <li><?= $this->Html->link(__('Logout'), ['controller' => 'intrasysemployees', 'action' => 'logout']); ?></li>
+      <!-- php if($loggedIn): ?> -->
+      <li><?= $this->Html->link(__('Logout'), ['controller' => 'intrasys_employees', 'action' => 'logout']); ?></li>
     </ul>
 
     <!-- Left Nav Section -->
     <ul class="left">
       <li><?= $this->Html->link(__('Retailers'), ['controller' => 'retailers', 'action' => 'index']); ?></li>
-      <li><?= $this->Html->link(__('Employees'), ['controller' => 'intrasysemployees', 'action' => 'index']); ?></li>
+      <li><?= $this->Html->link(__('Employees'), ['controller' => 'intrasys_employees', 'action' => 'index']); ?></li>
       <li><?= $this->Html->link(__('Announcements'), ['controller' => 'announcements', 'action' => 'index']); ?></li>
-      <li><?= $this->Html->link(__('Roles'), ['controller' => 'intrasysemployeeroles', 'action' => 'index']); ?></li>
-      <li><?= $this->Html->link(__('Account Types'), ['controller' => 'retaileracctypes', 'action' => 'index']); ?></li>
+      <li><?= $this->Html->link(__('Roles'), ['controller' => 'intrasys_employee_roles', 'action' => 'index']); ?></li>
+      <li><?= $this->Html->link(__('Account Types'), ['controller' => 'retailer_acc_types', 'action' => 'index']); ?></li>
+    <!-- </ul>
+       php else :?> -->
+        <li><?= $this->Html->link(__('Login For Intrasys'), ['controller' => 'intrasys_employees', 'action' => 'login']); ?></li>
+        <li><?= $this->Html->link(__('Login For Retailer'), ['controller' => 'retailer_employees', 'action' => 'login']); ?></li>
     </ul>
-      <?php else :?>
-        <li><?= $this->Html->link(__('Login For Intrasys'), ['controller' => 'intrasysemployees', 'action' => 'login']); ?></li>
-        <li><?= $this->Html->link(__('Login For Retailer'), ['controller' => 'retaileremployees', 'action' => 'login']); ?></li>
-      <?php endif; ?> 
+      <!-- php endif; ?> --> 
   </section>
-</nav>
+    </nav>
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
         <?= $this->fetch('content') ?>

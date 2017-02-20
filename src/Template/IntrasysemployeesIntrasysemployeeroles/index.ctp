@@ -6,32 +6,32 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Intrasysemployees Intrasysemployeerole'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Intrasysemployees'), ['controller' => 'Intrasysemployees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Intrasysemployee'), ['controller' => 'Intrasysemployees', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Intrasysemployeeroles'), ['controller' => 'Intrasysemployeeroles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Intrasysemployeerole'), ['controller' => 'Intrasysemployeeroles', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New Intrasys Employees Intrasys Employee Role'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Intrasys Employees'), ['controller' => 'IntrasysEmployees', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Intrasys Employee'), ['controller' => 'IntrasysEmployees', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Intrasys Employee Roles'), ['controller' => 'IntrasysEmployeeRoles', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Intrasys Employee Role'), ['controller' => 'IntrasysEmployeeRoles', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="intrasysemployeesIntrasysemployeeroles index large-9 medium-8 columns content">
-    <h3><?= __('Intrasysemployees Intrasysemployeeroles') ?></h3>
+<div class="intrasysEmployeesIntrasysEmployeeRoles index large-9 medium-8 columns content">
+    <h3><?= __('Intrasys Employees Intrasys Employee Roles') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('intrasysEmployee_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('intrasysEmployeeRole_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('intrasys_employee_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('intrasys_employee_role_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($intrasysemployeesIntrasysemployeeroles as $intrasysemployeesIntrasysemployeerole): ?>
+            <?php foreach ($intrasysEmployeesIntrasysEmployeeRoles as $intrasysEmployeesIntrasysEmployeeRole): ?>
             <tr>
-                <td><?= $intrasysemployeesIntrasysemployeerole->has('intrasysemployee') ? $this->Html->link($intrasysemployeesIntrasysemployeerole->intrasysemployee->id, ['controller' => 'Intrasysemployees', 'action' => 'view', $intrasysemployeesIntrasysemployeerole->intrasysemployee->id]) : '' ?></td>
-                <td><?= $intrasysemployeesIntrasysemployeerole->has('intrasysemployeerole') ? $this->Html->link($intrasysemployeesIntrasysemployeerole->intrasysemployeerole->id, ['controller' => 'Intrasysemployeeroles', 'action' => 'view', $intrasysemployeesIntrasysemployeerole->intrasysemployeerole->id]) : '' ?></td>
+                <td><?= $intrasysEmployeesIntrasysEmployeeRole->has('intrasys_employee') ? $this->Html->link($intrasysEmployeesIntrasysEmployeeRole->intrasys_employee->id, ['controller' => 'IntrasysEmployees', 'action' => 'view', $intrasysEmployeesIntrasysEmployeeRole->intrasys_employee->id]) : '' ?></td>
+                <td><?= $intrasysEmployeesIntrasysEmployeeRole->has('intrasys_employee_role') ? $this->Html->link($intrasysEmployeesIntrasysEmployeeRole->intrasys_employee_role->id, ['controller' => 'IntrasysEmployeeRoles', 'action' => 'view', $intrasysEmployeesIntrasysEmployeeRole->intrasys_employee_role->id]) : '' ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $intrasysemployeesIntrasysemployeerole->intrasysEmployee_id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $intrasysemployeesIntrasysemployeerole->intrasysEmployee_id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $intrasysemployeesIntrasysemployeerole->intrasysEmployee_id], ['confirm' => __('Are you sure you want to delete # {0}?', $intrasysemployeesIntrasysemployeerole->intrasysEmployee_id)]) ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $intrasysEmployeesIntrasysEmployeeRole->intrasys_employee_id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $intrasysEmployeesIntrasysEmployeeRole->intrasys_employee_id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $intrasysEmployeesIntrasysEmployeeRole->intrasys_employee_id], ['confirm' => __('Are you sure you want to delete # {0}?', $intrasysEmployeesIntrasysEmployeeRole->intrasys_employee_id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

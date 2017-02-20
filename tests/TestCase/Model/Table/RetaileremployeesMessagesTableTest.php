@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\RetaileremployeesMessagesTable;
+use App\Model\Table\RetailerEmployeesMessagesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\RetaileremployeesMessagesTable Test Case
+ * App\Model\Table\RetailerEmployeesMessagesTable Test Case
  */
-class RetaileremployeesMessagesTableTest extends TestCase
+class RetailerEmployeesMessagesTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\RetaileremployeesMessagesTable
+     * @var \App\Model\Table\RetailerEmployeesMessagesTable
      */
-    public $RetaileremployeesMessages;
+    public $RetailerEmployeesMessages;
 
     /**
      * Fixtures
@@ -24,14 +24,24 @@ class RetaileremployeesMessagesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.retaileremployees_messages',
-        'app.retaileremployees',
+        'app.retailer_employees_messages',
+        'app.retailer_employees',
         'app.locations',
         'app.sections',
+        'app.promotions',
+        'app.customers',
+        'app.cust_membership_tiers',
+        'app.customers_promotions',
+        'app.prod_types',
+        'app.prod_cats',
+        'app.promotions_prod_types',
+        'app.purchase_orders',
+        'app.suppliers',
+        'app.supplier_memos',
+        'app.purchase_order_items',
+        'app.retailer_employees_retailer_employeer_roles',
         'app.messages',
-        'app.references',
-        'app.retaileremployeeroles',
-        'app.retaileremployees_retaileremployeeroles'
+        'app.references'
     ];
 
     /**
@@ -42,8 +52,8 @@ class RetaileremployeesMessagesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('RetaileremployeesMessages') ? [] : ['className' => 'App\Model\Table\RetaileremployeesMessagesTable'];
-        $this->RetaileremployeesMessages = TableRegistry::get('RetaileremployeesMessages', $config);
+        $config = TableRegistry::exists('RetailerEmployeesMessages') ? [] : ['className' => 'App\Model\Table\RetailerEmployeesMessagesTable'];
+        $this->RetailerEmployeesMessages = TableRegistry::get('RetailerEmployeesMessages', $config);
     }
 
     /**
@@ -53,7 +63,7 @@ class RetaileremployeesMessagesTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->RetaileremployeesMessages);
+        unset($this->RetailerEmployeesMessages);
 
         parent::tearDown();
     }

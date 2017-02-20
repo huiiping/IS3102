@@ -4,11 +4,11 @@ namespace App\Controller;
 use App\Controller\AppController;
 
 /**
- * Prodcats Controller
+ * ProdCats Controller
  *
- * @property \App\Model\Table\ProdcatsTable $Prodcats
+ * @property \App\Model\Table\ProdCatsTable $ProdCats
  */
-class ProdcatsController extends AppController
+class ProdCatsController extends AppController
 {
 
     /**
@@ -18,27 +18,27 @@ class ProdcatsController extends AppController
      */
     public function index()
     {
-        $prodcats = $this->paginate($this->Prodcats);
+        $prodCats = $this->paginate($this->ProdCats);
 
-        $this->set(compact('prodcats'));
-        $this->set('_serialize', ['prodcats']);
+        $this->set(compact('prodCats'));
+        $this->set('_serialize', ['prodCats']);
     }
 
     /**
      * View method
      *
-     * @param string|null $id Prodcat id.
+     * @param string|null $id Prod Cat id.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $prodcat = $this->Prodcats->get($id, [
-            'contain' => []
+        $prodCat = $this->ProdCats->get($id, [
+            'contain' => ['ProdTypes']
         ]);
 
-        $this->set('prodcat', $prodcat);
-        $this->set('_serialize', ['prodcat']);
+        $this->set('prodCat', $prodCat);
+        $this->set('_serialize', ['prodCat']);
     }
 
     /**
@@ -48,60 +48,60 @@ class ProdcatsController extends AppController
      */
     public function add()
     {
-        $prodcat = $this->Prodcats->newEntity();
+        $prodCat = $this->ProdCats->newEntity();
         if ($this->request->is('post')) {
-            $prodcat = $this->Prodcats->patchEntity($prodcat, $this->request->data);
-            if ($this->Prodcats->save($prodcat)) {
-                $this->Flash->success(__('The prodcat has been saved.'));
+            $prodCat = $this->ProdCats->patchEntity($prodCat, $this->request->data);
+            if ($this->ProdCats->save($prodCat)) {
+                $this->Flash->success(__('The prod cat has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The prodcat could not be saved. Please, try again.'));
+            $this->Flash->error(__('The prod cat could not be saved. Please, try again.'));
         }
-        $this->set(compact('prodcat'));
-        $this->set('_serialize', ['prodcat']);
+        $this->set(compact('prodCat'));
+        $this->set('_serialize', ['prodCat']);
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Prodcat id.
+     * @param string|null $id Prod Cat id.
      * @return \Cake\Network\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {
-        $prodcat = $this->Prodcats->get($id, [
+        $prodCat = $this->ProdCats->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $prodcat = $this->Prodcats->patchEntity($prodcat, $this->request->data);
-            if ($this->Prodcats->save($prodcat)) {
-                $this->Flash->success(__('The prodcat has been saved.'));
+            $prodCat = $this->ProdCats->patchEntity($prodCat, $this->request->data);
+            if ($this->ProdCats->save($prodCat)) {
+                $this->Flash->success(__('The prod cat has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The prodcat could not be saved. Please, try again.'));
+            $this->Flash->error(__('The prod cat could not be saved. Please, try again.'));
         }
-        $this->set(compact('prodcat'));
-        $this->set('_serialize', ['prodcat']);
+        $this->set(compact('prodCat'));
+        $this->set('_serialize', ['prodCat']);
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id Prodcat id.
+     * @param string|null $id Prod Cat id.
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $prodcat = $this->Prodcats->get($id);
-        if ($this->Prodcats->delete($prodcat)) {
-            $this->Flash->success(__('The prodcat has been deleted.'));
+        $prodCat = $this->ProdCats->get($id);
+        if ($this->ProdCats->delete($prodCat)) {
+            $this->Flash->success(__('The prod cat has been deleted.'));
         } else {
-            $this->Flash->error(__('The prodcat could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The prod cat could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);

@@ -1,13 +1,13 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\IntrasysemployeerolesController;
+use App\Controller\IntrasysEmployeeRolesController;
 use Cake\TestSuite\IntegrationTestCase;
 
 /**
- * App\Controller\IntrasysemployeerolesController Test Case
+ * App\Controller\IntrasysEmployeeRolesController Test Case
  */
-class IntrasysemployeerolesControllerTest extends IntegrationTestCase
+class IntrasysEmployeeRolesControllerTest extends IntegrationTestCase
 {
 
     /**
@@ -16,9 +16,9 @@ class IntrasysemployeerolesControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.intrasysemployeeroles',
-        'app.intrasysemployees',
-        'app.intrasysemployees_intrasysemployeeroles'
+        'app.intrasys_employee_roles',
+        'app.intrasys_employees',
+        'app.intrasys_employees_intrasys_employee_roles'
     ];
 
     /**

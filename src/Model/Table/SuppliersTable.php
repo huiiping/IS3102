@@ -9,8 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Suppliers Model
  *
- * @property \Cake\ORM\Association\HasMany $Purchaseorders
- * @property \Cake\ORM\Association\HasMany $Suppliermemos
+ * @property \Cake\ORM\Association\HasMany $PurchaseOrders
+ * @property \Cake\ORM\Association\HasMany $SupplierMemos
  *
  * @method \App\Model\Entity\Supplier get($primaryKey, $options = [])
  * @method \App\Model\Entity\Supplier newEntity($data = null, array $options = [])
@@ -41,10 +41,10 @@ class SuppliersTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->hasMany('Purchaseorders', [
+        $this->hasMany('PurchaseOrders', [
             'foreignKey' => 'supplier_id'
         ]);
-        $this->hasMany('Suppliermemos', [
+        $this->hasMany('SupplierMemos', [
             'foreignKey' => 'supplier_id'
         ]);
     }
@@ -84,16 +84,16 @@ class SuppliersTable extends Table
             ->notEmpty('contact');
 
         $validator
-            ->allowEmpty('supplierName');
+            ->allowEmpty('supplier_name');
 
         $validator
             ->allowEmpty('country');
 
         $validator
-            ->allowEmpty('accountStatus');
+            ->allowEmpty('account_status');
 
         $validator
-            ->allowEmpty('bankAcc');
+            ->allowEmpty('bank_acc');
 
         return $validator;
     }

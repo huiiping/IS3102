@@ -8,21 +8,21 @@
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Form->postLink(
                 __('Delete'),
-                ['action' => 'delete', $intrasysemployeesIntrasysemployeerole->intrasysEmployee_id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $intrasysemployeesIntrasysemployeerole->intrasysEmployee_id)]
+                ['action' => 'delete', $intrasysEmployeesIntrasysEmployeeRole->intrasys_employee_id],
+                ['confirm' => __('Are you sure you want to delete # {0}?', $intrasysEmployeesIntrasysEmployeeRole->intrasys_employee_id)]
             )
         ?></li>
-        <li><?= $this->Html->link(__('List Intrasysemployees Intrasysemployeeroles'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Intrasysemployees'), ['controller' => 'Intrasysemployees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Intrasysemployee'), ['controller' => 'Intrasysemployees', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Intrasysemployeeroles'), ['controller' => 'Intrasysemployeeroles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Intrasysemployeerole'), ['controller' => 'Intrasysemployeeroles', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Intrasys Employees Intrasys Employee Roles'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Intrasys Employees'), ['controller' => 'IntrasysEmployees', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Intrasys Employee'), ['controller' => 'IntrasysEmployees', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Intrasys Employee Roles'), ['controller' => 'IntrasysEmployeeRoles', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Intrasys Employee Role'), ['controller' => 'IntrasysEmployeeRoles', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="intrasysemployeesIntrasysemployeeroles form large-9 medium-8 columns content">
-    <?= $this->Form->create($intrasysemployeesIntrasysemployeerole) ?>
+<div class="intrasysEmployeesIntrasysEmployeeRoles form large-9 medium-8 columns content">
+    <?= $this->Form->create($intrasysEmployeesIntrasysEmployeeRole) ?>
     <fieldset>
-        <legend><?= __('Edit Intrasysemployees Intrasysemployeerole') ?></legend>
+        <legend><?= __('Edit Intrasys Employees Intrasys Employee Role') ?></legend>
         <?php
         ?>
     </fieldset>

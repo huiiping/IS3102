@@ -7,24 +7,27 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Retaileracctypes Model
+ * RetailerAccTypes Model
  *
- * @method \App\Model\Entity\Retaileracctype get($primaryKey, $options = [])
- * @method \App\Model\Entity\Retaileracctype newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Retaileracctype[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Retaileracctype|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Retaileracctype patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Retaileracctype[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Retaileracctype findOrCreate($search, callable $callback = null, $options = [])
+ * @property \Cake\ORM\Association\HasMany $Retailers
+ *
+ * @method \App\Model\Entity\RetailerAccType get($primaryKey, $options = [])
+ * @method \App\Model\Entity\RetailerAccType newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\RetailerAccType[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\RetailerAccType|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\RetailerAccType patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\RetailerAccType[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\RetailerAccType findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class RetaileracctypesTable extends Table
+class RetailerAccTypesTable extends Table
 {
-    public static function defaultConnectionName()
-    {
+
+    public static function defaultConnectionName() {
         return 'intrasysdb';
     }
+
     /**
      * Initialize method
      *
@@ -35,11 +38,15 @@ class RetaileracctypesTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('retaileracctypes');
+        $this->table('retailer_acc_types');
         $this->displayField('name');
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->hasMany('Retailers', [
+            'foreignKey' => 'retailer_acc_type_id'
+        ]);
     }
 
     /**
@@ -58,20 +65,20 @@ class RetaileracctypesTable extends Table
             ->allowEmpty('name');
 
         $validator
-            ->integer('numOfUsers')
-            ->allowEmpty('numOfUsers');
+            ->integer('num_of_users')
+            ->allowEmpty('num_of_users');
 
         $validator
-            ->integer('numOfWarehouses')
-            ->allowEmpty('numOfWarehouses');
+            ->integer('num_of_warehouses')
+            ->allowEmpty('num_of_warehouses');
 
         $validator
-            ->integer('numOfStores')
-            ->allowEmpty('numOfStores');
+            ->integer('num_of_stores')
+            ->allowEmpty('num_of_stores');
 
         $validator
-            ->integer('numOfProdTypes')
-            ->allowEmpty('numOfProdTypes');
+            ->integer('num_of_prod_types')
+            ->allowEmpty('num_of_prod_types');
 
         return $validator;
     }

@@ -4,11 +4,11 @@ namespace App\Controller;
 use App\Controller\AppController;
 
 /**
- * Purchaseorderitems Controller
+ * PurchaseOrderItems Controller
  *
- * @property \App\Model\Table\PurchaseorderitemsTable $Purchaseorderitems
+ * @property \App\Model\Table\PurchaseOrderItemsTable $PurchaseOrderItems
  */
-class PurchaseorderitemsController extends AppController
+class PurchaseOrderItemsController extends AppController
 {
 
     /**
@@ -19,29 +19,29 @@ class PurchaseorderitemsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Purchaseorders']
+            'contain' => ['PurchaseOrders']
         ];
-        $purchaseorderitems = $this->paginate($this->Purchaseorderitems);
+        $purchaseOrderItems = $this->paginate($this->PurchaseOrderItems);
 
-        $this->set(compact('purchaseorderitems'));
-        $this->set('_serialize', ['purchaseorderitems']);
+        $this->set(compact('purchaseOrderItems'));
+        $this->set('_serialize', ['purchaseOrderItems']);
     }
 
     /**
      * View method
      *
-     * @param string|null $id Purchaseorderitem id.
+     * @param string|null $id Purchase Order Item id.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $purchaseorderitem = $this->Purchaseorderitems->get($id, [
-            'contain' => ['Purchaseorders']
+        $purchaseOrderItem = $this->PurchaseOrderItems->get($id, [
+            'contain' => ['PurchaseOrders']
         ]);
 
-        $this->set('purchaseorderitem', $purchaseorderitem);
-        $this->set('_serialize', ['purchaseorderitem']);
+        $this->set('purchaseOrderItem', $purchaseOrderItem);
+        $this->set('_serialize', ['purchaseOrderItem']);
     }
 
     /**
@@ -51,62 +51,62 @@ class PurchaseorderitemsController extends AppController
      */
     public function add()
     {
-        $purchaseorderitem = $this->Purchaseorderitems->newEntity();
+        $purchaseOrderItem = $this->PurchaseOrderItems->newEntity();
         if ($this->request->is('post')) {
-            $purchaseorderitem = $this->Purchaseorderitems->patchEntity($purchaseorderitem, $this->request->data);
-            if ($this->Purchaseorderitems->save($purchaseorderitem)) {
-                $this->Flash->success(__('The purchaseorderitem has been saved.'));
+            $purchaseOrderItem = $this->PurchaseOrderItems->patchEntity($purchaseOrderItem, $this->request->data);
+            if ($this->PurchaseOrderItems->save($purchaseOrderItem)) {
+                $this->Flash->success(__('The purchase order item has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The purchaseorderitem could not be saved. Please, try again.'));
+            $this->Flash->error(__('The purchase order item could not be saved. Please, try again.'));
         }
-        $purchaseorders = $this->Purchaseorderitems->Purchaseorders->find('list', ['limit' => 200]);
-        $this->set(compact('purchaseorderitem', 'purchaseorders'));
-        $this->set('_serialize', ['purchaseorderitem']);
+        $purchaseOrders = $this->PurchaseOrderItems->PurchaseOrders->find('list', ['limit' => 200]);
+        $this->set(compact('purchaseOrderItem', 'purchaseOrders'));
+        $this->set('_serialize', ['purchaseOrderItem']);
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Purchaseorderitem id.
+     * @param string|null $id Purchase Order Item id.
      * @return \Cake\Network\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {
-        $purchaseorderitem = $this->Purchaseorderitems->get($id, [
+        $purchaseOrderItem = $this->PurchaseOrderItems->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $purchaseorderitem = $this->Purchaseorderitems->patchEntity($purchaseorderitem, $this->request->data);
-            if ($this->Purchaseorderitems->save($purchaseorderitem)) {
-                $this->Flash->success(__('The purchaseorderitem has been saved.'));
+            $purchaseOrderItem = $this->PurchaseOrderItems->patchEntity($purchaseOrderItem, $this->request->data);
+            if ($this->PurchaseOrderItems->save($purchaseOrderItem)) {
+                $this->Flash->success(__('The purchase order item has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The purchaseorderitem could not be saved. Please, try again.'));
+            $this->Flash->error(__('The purchase order item could not be saved. Please, try again.'));
         }
-        $purchaseorders = $this->Purchaseorderitems->Purchaseorders->find('list', ['limit' => 200]);
-        $this->set(compact('purchaseorderitem', 'purchaseorders'));
-        $this->set('_serialize', ['purchaseorderitem']);
+        $purchaseOrders = $this->PurchaseOrderItems->PurchaseOrders->find('list', ['limit' => 200]);
+        $this->set(compact('purchaseOrderItem', 'purchaseOrders'));
+        $this->set('_serialize', ['purchaseOrderItem']);
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id Purchaseorderitem id.
+     * @param string|null $id Purchase Order Item id.
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $purchaseorderitem = $this->Purchaseorderitems->get($id);
-        if ($this->Purchaseorderitems->delete($purchaseorderitem)) {
-            $this->Flash->success(__('The purchaseorderitem has been deleted.'));
+        $purchaseOrderItem = $this->PurchaseOrderItems->get($id);
+        if ($this->PurchaseOrderItems->delete($purchaseOrderItem)) {
+            $this->Flash->success(__('The purchase order item has been deleted.'));
         } else {
-            $this->Flash->error(__('The purchaseorderitem could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The purchase order item could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);

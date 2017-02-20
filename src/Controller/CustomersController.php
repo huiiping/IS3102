@@ -11,39 +11,21 @@ use App\Controller\AppController;
 class CustomersController extends AppController
 {
 
-
-
-    public $components = array(
-        'Search.Prg'
-    );
-
-    public function index() {
-        $this->Prg->commonProcess();
-        $this->paginate = [
-            'contain' => ['Custmembershiptiers']
-        ];
-        $this->set('customers', $this->paginate($this->Customers->find('searchable', $this->Prg->parsedParams())));
-        $this->set(compact('customers'));
-        $this->set('_serialize', ['customers']);
-    }
-
     /**
      * Index method
      *
      * @return \Cake\Network\Response|null
      */
-    /*
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Custmembershiptiers']
+            'contain' => ['CustMembershipTiers']
         ];
         $customers = $this->paginate($this->Customers);
 
         $this->set(compact('customers'));
         $this->set('_serialize', ['customers']);
     }
-    */
 
     /**
      * View method
@@ -55,7 +37,7 @@ class CustomersController extends AppController
     public function view($id = null)
     {
         $customer = $this->Customers->get($id, [
-            'contain' => ['Custmembershiptiers', 'Promotions']
+            'contain' => ['CustMembershipTiers', 'Promotions']
         ]);
 
         $this->set('customer', $customer);
@@ -79,9 +61,9 @@ class CustomersController extends AppController
             }
             $this->Flash->error(__('The customer could not be saved. Please, try again.'));
         }
-        $custmembershiptiers = $this->Customers->Custmembershiptiers->find('list', ['limit' => 200]);
+        $custMembershipTiers = $this->Customers->CustMembershipTiers->find('list', ['limit' => 200]);
         $promotions = $this->Customers->Promotions->find('list', ['limit' => 200]);
-        $this->set(compact('customer', 'custmembershiptiers', 'promotions'));
+        $this->set(compact('customer', 'custMembershipTiers', 'promotions'));
         $this->set('_serialize', ['customer']);
     }
 
@@ -106,9 +88,9 @@ class CustomersController extends AppController
             }
             $this->Flash->error(__('The customer could not be saved. Please, try again.'));
         }
-        $custmembershiptiers = $this->Customers->Custmembershiptiers->find('list', ['limit' => 200]);
+        $custMembershipTiers = $this->Customers->CustMembershipTiers->find('list', ['limit' => 200]);
         $promotions = $this->Customers->Promotions->find('list', ['limit' => 200]);
-        $this->set(compact('customer', 'custmembershiptiers', 'promotions'));
+        $this->set(compact('customer', 'custMembershipTiers', 'promotions'));
         $this->set('_serialize', ['customer']);
     }
 

@@ -7,20 +7,20 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * RetaileremployeesMessages Model
+ * RetailerEmployeesMessages Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Retaileremployees
+ * @property \Cake\ORM\Association\BelongsTo $RetailerEmployees
  * @property \Cake\ORM\Association\BelongsTo $Messages
  *
- * @method \App\Model\Entity\RetaileremployeesMessage get($primaryKey, $options = [])
- * @method \App\Model\Entity\RetaileremployeesMessage newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\RetaileremployeesMessage[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\RetaileremployeesMessage|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\RetaileremployeesMessage patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\RetaileremployeesMessage[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\RetaileremployeesMessage findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\RetailerEmployeesMessage get($primaryKey, $options = [])
+ * @method \App\Model\Entity\RetailerEmployeesMessage newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\RetailerEmployeesMessage[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\RetailerEmployeesMessage|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\RetailerEmployeesMessage patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\RetailerEmployeesMessage[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\RetailerEmployeesMessage findOrCreate($search, callable $callback = null, $options = [])
  */
-class RetaileremployeesMessagesTable extends Table
+class RetailerEmployeesMessagesTable extends Table
 {
 
     /**
@@ -33,12 +33,12 @@ class RetaileremployeesMessagesTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('retaileremployees_messages');
-        $this->displayField('retailerEmployee_id');
-        $this->primaryKey(['retailerEmployee_id', 'message_id']);
+        $this->table('retailer_employees_messages');
+        $this->displayField('retailer_employee_id');
+        $this->primaryKey(['retailer_employee_id', 'message_id']);
 
-        $this->belongsTo('Retaileremployees', [
-            'foreignKey' => 'retailerEmployee_id',
+        $this->belongsTo('RetailerEmployees', [
+            'foreignKey' => 'retailer_employee_id',
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('Messages', [
@@ -56,7 +56,7 @@ class RetaileremployeesMessagesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['retailerEmployee_id'], 'Retaileremployees'));
+        $rules->add($rules->existsIn(['retailer_employee_id'], 'RetailerEmployees'));
         $rules->add($rules->existsIn(['message_id'], 'Messages'));
 
         return $rules;

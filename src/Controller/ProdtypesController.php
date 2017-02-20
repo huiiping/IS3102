@@ -4,11 +4,11 @@ namespace App\Controller;
 use App\Controller\AppController;
 
 /**
- * Prodtypes Controller
+ * ProdTypes Controller
  *
- * @property \App\Model\Table\ProdtypesTable $Prodtypes
+ * @property \App\Model\Table\ProdTypesTable $ProdTypes
  */
-class ProdtypesController extends AppController
+class ProdTypesController extends AppController
 {
 
     /**
@@ -19,29 +19,29 @@ class ProdtypesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Prodcats']
+            'contain' => ['ProdCats']
         ];
-        $prodtypes = $this->paginate($this->Prodtypes);
+        $prodTypes = $this->paginate($this->ProdTypes);
 
-        $this->set(compact('prodtypes'));
-        $this->set('_serialize', ['prodtypes']);
+        $this->set(compact('prodTypes'));
+        $this->set('_serialize', ['prodTypes']);
     }
 
     /**
      * View method
      *
-     * @param string|null $id Prodtype id.
+     * @param string|null $id Prod Type id.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $prodtype = $this->Prodtypes->get($id, [
-            'contain' => ['Prodcats', 'Promotions']
+        $prodType = $this->ProdTypes->get($id, [
+            'contain' => ['ProdCats', 'Promotions']
         ]);
 
-        $this->set('prodtype', $prodtype);
-        $this->set('_serialize', ['prodtype']);
+        $this->set('prodType', $prodType);
+        $this->set('_serialize', ['prodType']);
     }
 
     /**
@@ -51,64 +51,64 @@ class ProdtypesController extends AppController
      */
     public function add()
     {
-        $prodtype = $this->Prodtypes->newEntity();
+        $prodType = $this->ProdTypes->newEntity();
         if ($this->request->is('post')) {
-            $prodtype = $this->Prodtypes->patchEntity($prodtype, $this->request->data);
-            if ($this->Prodtypes->save($prodtype)) {
-                $this->Flash->success(__('The prodtype has been saved.'));
+            $prodType = $this->ProdTypes->patchEntity($prodType, $this->request->data);
+            if ($this->ProdTypes->save($prodType)) {
+                $this->Flash->success(__('The prod type has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The prodtype could not be saved. Please, try again.'));
+            $this->Flash->error(__('The prod type could not be saved. Please, try again.'));
         }
-        $prodcats = $this->Prodtypes->Prodcats->find('list', ['limit' => 200]);
-        $promotions = $this->Prodtypes->Promotions->find('list', ['limit' => 200]);
-        $this->set(compact('prodtype', 'prodcats', 'promotions'));
-        $this->set('_serialize', ['prodtype']);
+        $prodCats = $this->ProdTypes->ProdCats->find('list', ['limit' => 200]);
+        $promotions = $this->ProdTypes->Promotions->find('list', ['limit' => 200]);
+        $this->set(compact('prodType', 'prodCats', 'promotions'));
+        $this->set('_serialize', ['prodType']);
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Prodtype id.
+     * @param string|null $id Prod Type id.
      * @return \Cake\Network\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {
-        $prodtype = $this->Prodtypes->get($id, [
+        $prodType = $this->ProdTypes->get($id, [
             'contain' => ['Promotions']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $prodtype = $this->Prodtypes->patchEntity($prodtype, $this->request->data);
-            if ($this->Prodtypes->save($prodtype)) {
-                $this->Flash->success(__('The prodtype has been saved.'));
+            $prodType = $this->ProdTypes->patchEntity($prodType, $this->request->data);
+            if ($this->ProdTypes->save($prodType)) {
+                $this->Flash->success(__('The prod type has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The prodtype could not be saved. Please, try again.'));
+            $this->Flash->error(__('The prod type could not be saved. Please, try again.'));
         }
-        $prodcats = $this->Prodtypes->Prodcats->find('list', ['limit' => 200]);
-        $promotions = $this->Prodtypes->Promotions->find('list', ['limit' => 200]);
-        $this->set(compact('prodtype', 'prodcats', 'promotions'));
-        $this->set('_serialize', ['prodtype']);
+        $prodCats = $this->ProdTypes->ProdCats->find('list', ['limit' => 200]);
+        $promotions = $this->ProdTypes->Promotions->find('list', ['limit' => 200]);
+        $this->set(compact('prodType', 'prodCats', 'promotions'));
+        $this->set('_serialize', ['prodType']);
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id Prodtype id.
+     * @param string|null $id Prod Type id.
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $prodtype = $this->Prodtypes->get($id);
-        if ($this->Prodtypes->delete($prodtype)) {
-            $this->Flash->success(__('The prodtype has been deleted.'));
+        $prodType = $this->ProdTypes->get($id);
+        if ($this->ProdTypes->delete($prodType)) {
+            $this->Flash->success(__('The prod type has been deleted.'));
         } else {
-            $this->Flash->error(__('The prodtype could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The prod type could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);

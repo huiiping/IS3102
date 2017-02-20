@@ -4,18 +4,20 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Retaileracctype Entity
+ * RetailerAccType Entity
  *
  * @property int $id
  * @property string $name
- * @property int $numOfUsers
- * @property int $numOfWarehouses
- * @property int $numOfStores
- * @property int $numOfProdTypes
+ * @property int $num_of_users
+ * @property int $num_of_warehouses
+ * @property int $num_of_stores
+ * @property int $num_of_prod_types
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
+ *
+ * @property \App\Model\Entity\Retailer[] $retailers
  */
-class Retaileracctype extends Entity
+class RetailerAccType extends Entity
 {
 
     /**

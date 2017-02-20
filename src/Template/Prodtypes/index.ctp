@@ -6,44 +6,44 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Prodtype'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Prodcats'), ['controller' => 'Prodcats', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Prodcat'), ['controller' => 'Prodcats', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New Prod Type'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Prod Cats'), ['controller' => 'ProdCats', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Prod Cat'), ['controller' => 'ProdCats', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Promotions'), ['controller' => 'Promotions', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Promotion'), ['controller' => 'Promotions', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="prodtypes index large-9 medium-8 columns content">
-    <h3><?= __('Prodtypes') ?></h3>
+<div class="prodTypes index large-9 medium-8 columns content">
+    <h3><?= __('Prod Types') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('prodName') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('prod_name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('colour') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('dimension') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('storeUnitPrice') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('webStoreUnitPrice') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('store_unit_price') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('web_store_unit_price') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('SKU') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('prodCat_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('prod_cat_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($prodtypes as $prodtype): ?>
+            <?php foreach ($prodTypes as $prodType): ?>
             <tr>
-                <td><?= $this->Number->format($prodtype->id) ?></td>
-                <td><?= h($prodtype->prodName) ?></td>
-                <td><?= h($prodtype->colour) ?></td>
-                <td><?= h($prodtype->dimension) ?></td>
-                <td><?= $this->Number->format($prodtype->storeUnitPrice) ?></td>
-                <td><?= $this->Number->format($prodtype->webStoreUnitPrice) ?></td>
-                <td><?= h($prodtype->SKU) ?></td>
-                <td><?= $prodtype->has('prodcat') ? $this->Html->link($prodtype->prodcat->id, ['controller' => 'Prodcats', 'action' => 'view', $prodtype->prodcat->id]) : '' ?></td>
+                <td><?= $this->Number->format($prodType->id) ?></td>
+                <td><?= h($prodType->prod_name) ?></td>
+                <td><?= h($prodType->colour) ?></td>
+                <td><?= h($prodType->dimension) ?></td>
+                <td><?= $this->Number->format($prodType->store_unit_price) ?></td>
+                <td><?= $this->Number->format($prodType->web_store_unit_price) ?></td>
+                <td><?= h($prodType->SKU) ?></td>
+                <td><?= $prodType->has('prod_cat') ? $this->Html->link($prodType->prod_cat->id, ['controller' => 'ProdCats', 'action' => 'view', $prodType->prod_cat->id]) : '' ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $prodtype->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $prodtype->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $prodtype->id], ['confirm' => __('Are you sure you want to delete # {0}?', $prodtype->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $prodType->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $prodType->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $prodType->id], ['confirm' => __('Are you sure you want to delete # {0}?', $prodType->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\PurchaseorderitemsTable;
+use App\Model\Table\PurchaseOrderItemsTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\PurchaseorderitemsTable Test Case
+ * App\Model\Table\PurchaseOrderItemsTable Test Case
  */
-class PurchaseorderitemsTableTest extends TestCase
+class PurchaseOrderItemsTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\PurchaseorderitemsTable
+     * @var \App\Model\Table\PurchaseOrderItemsTable
      */
-    public $Purchaseorderitems;
+    public $PurchaseOrderItems;
 
     /**
      * Fixtures
@@ -24,18 +24,10 @@ class PurchaseorderitemsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.purchaseorderitems',
-        'app.purchaseorders',
+        'app.purchase_order_items',
+        'app.purchase_orders',
         'app.suppliers',
-        'app.suppliermemos',
-        'app.retaileremployees',
-        'app.locations',
-        'app.sections',
-        'app.messages',
-        'app.references',
-        'app.retaileremployees_messages',
-        'app.retaileremployeeroles',
-        'app.retaileremployees_retaileremployeeroles'
+        'app.retailer_employees'
     ];
 
     /**
@@ -46,8 +38,8 @@ class PurchaseorderitemsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Purchaseorderitems') ? [] : ['className' => 'App\Model\Table\PurchaseorderitemsTable'];
-        $this->Purchaseorderitems = TableRegistry::get('Purchaseorderitems', $config);
+        $config = TableRegistry::exists('PurchaseOrderItems') ? [] : ['className' => 'App\Model\Table\PurchaseOrderItemsTable'];
+        $this->PurchaseOrderItems = TableRegistry::get('PurchaseOrderItems', $config);
     }
 
     /**
@@ -57,7 +49,7 @@ class PurchaseorderitemsTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Purchaseorderitems);
+        unset($this->PurchaseOrderItems);
 
         parent::tearDown();
     }

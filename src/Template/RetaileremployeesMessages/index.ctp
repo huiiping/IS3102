@@ -6,32 +6,32 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Retaileremployees Message'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployees'), ['controller' => 'Retaileremployees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retaileremployee'), ['controller' => 'Retaileremployees', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New Retailer Employees Message'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Retailer Employees'), ['controller' => 'RetailerEmployees', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Retailer Employee'), ['controller' => 'RetailerEmployees', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Messages'), ['controller' => 'Messages', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Message'), ['controller' => 'Messages', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="retaileremployeesMessages index large-9 medium-8 columns content">
-    <h3><?= __('Retaileremployees Messages') ?></h3>
+<div class="retailerEmployeesMessages index large-9 medium-8 columns content">
+    <h3><?= __('Retailer Employees Messages') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('retailerEmployee_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('retailer_employee_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('message_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($retaileremployeesMessages as $retaileremployeesMessage): ?>
+            <?php foreach ($retailerEmployeesMessages as $retailerEmployeesMessage): ?>
             <tr>
-                <td><?= $retaileremployeesMessage->has('retaileremployee') ? $this->Html->link($retaileremployeesMessage->retaileremployee->id, ['controller' => 'Retaileremployees', 'action' => 'view', $retaileremployeesMessage->retaileremployee->id]) : '' ?></td>
-                <td><?= $retaileremployeesMessage->has('message') ? $this->Html->link($retaileremployeesMessage->message->title, ['controller' => 'Messages', 'action' => 'view', $retaileremployeesMessage->message->id]) : '' ?></td>
+                <td><?= $retailerEmployeesMessage->has('retailer_employee') ? $this->Html->link($retailerEmployeesMessage->retailer_employee->id, ['controller' => 'RetailerEmployees', 'action' => 'view', $retailerEmployeesMessage->retailer_employee->id]) : '' ?></td>
+                <td><?= $retailerEmployeesMessage->has('message') ? $this->Html->link($retailerEmployeesMessage->message->title, ['controller' => 'Messages', 'action' => 'view', $retailerEmployeesMessage->message->id]) : '' ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $retaileremployeesMessage->retailerEmployee_id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $retaileremployeesMessage->retailerEmployee_id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $retaileremployeesMessage->retailerEmployee_id], ['confirm' => __('Are you sure you want to delete # {0}?', $retaileremployeesMessage->retailerEmployee_id)]) ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $retailerEmployeesMessage->retailer_employee_id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $retailerEmployeesMessage->retailer_employee_id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $retailerEmployeesMessage->retailer_employee_id], ['confirm' => __('Are you sure you want to delete # {0}?', $retailerEmployeesMessage->retailer_employee_id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

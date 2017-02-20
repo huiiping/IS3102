@@ -8,27 +8,27 @@
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Form->postLink(
                 __('Delete'),
-                ['action' => 'delete', $purchaseorderitem->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $purchaseorderitem->id)]
+                ['action' => 'delete', $purchaseOrderItem->id],
+                ['confirm' => __('Are you sure you want to delete # {0}?', $purchaseOrderItem->id)]
             )
         ?></li>
-        <li><?= $this->Html->link(__('List Purchaseorderitems'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Purchaseorders'), ['controller' => 'Purchaseorders', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Purchaseorder'), ['controller' => 'Purchaseorders', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Purchase Order Items'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Purchase Orders'), ['controller' => 'PurchaseOrders', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Purchase Order'), ['controller' => 'PurchaseOrders', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="purchaseorderitems form large-9 medium-8 columns content">
-    <?= $this->Form->create($purchaseorderitem) ?>
+<div class="purchaseOrderItems form large-9 medium-8 columns content">
+    <?= $this->Form->create($purchaseOrderItem) ?>
     <fieldset>
-        <legend><?= __('Edit Purchaseorderitem') ?></legend>
+        <legend><?= __('Edit Purchase Order Item') ?></legend>
         <?php
-            echo $this->Form->input('itemID');
-            echo $this->Form->input('itemName');
-            echo $this->Form->input('itemDesc');
+            echo $this->Form->input('item_ID');
+            echo $this->Form->input('item_name');
+            echo $this->Form->input('item_desc');
             echo $this->Form->input('quantity');
-            echo $this->Form->input('unitPrice');
-            echo $this->Form->input('subTotalPrice');
-            echo $this->Form->input('purchaseOrder_id', ['options' => $purchaseorders, 'empty' => true]);
+            echo $this->Form->input('unit_price');
+            echo $this->Form->input('sub_total_price');
+            echo $this->Form->input('purchase_order_id', ['options' => $purchaseOrders, 'empty' => true]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

@@ -8,21 +8,21 @@
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Form->postLink(
                 __('Delete'),
-                ['action' => 'delete', $promotionsProdtype->promotion_id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $promotionsProdtype->promotion_id)]
+                ['action' => 'delete', $promotionsProdType->promotion_id],
+                ['confirm' => __('Are you sure you want to delete # {0}?', $promotionsProdType->promotion_id)]
             )
         ?></li>
-        <li><?= $this->Html->link(__('List Promotions Prodtypes'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Promotions Prod Types'), ['action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('List Promotions'), ['controller' => 'Promotions', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Promotion'), ['controller' => 'Promotions', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Prodtypes'), ['controller' => 'Prodtypes', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Prodtype'), ['controller' => 'Prodtypes', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Prod Types'), ['controller' => 'ProdTypes', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Prod Type'), ['controller' => 'ProdTypes', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="promotionsProdtypes form large-9 medium-8 columns content">
-    <?= $this->Form->create($promotionsProdtype) ?>
+<div class="promotionsProdTypes form large-9 medium-8 columns content">
+    <?= $this->Form->create($promotionsProdType) ?>
     <fieldset>
-        <legend><?= __('Edit Promotions Prodtype') ?></legend>
+        <legend><?= __('Edit Promotions Prod Type') ?></legend>
         <?php
         ?>
     </fieldset>

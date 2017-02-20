@@ -4,11 +4,11 @@ namespace App\Controller;
 use App\Controller\AppController;
 
 /**
- * RetaileremployeesRetaileremployeeroles Controller
+ * RetailerEmployeesRetailerEmployeeRoles Controller
  *
- * @property \App\Model\Table\RetaileremployeesRetaileremployeerolesTable $RetaileremployeesRetaileremployeeroles
+ * @property \App\Model\Table\RetailerEmployeesRetailerEmployeeRolesTable $RetailerEmployeesRetailerEmployeeRoles
  */
-class RetaileremployeesRetaileremployeerolesController extends AppController
+class RetailerEmployeesRetailerEmployeeRolesController extends AppController
 {
 
     /**
@@ -19,29 +19,29 @@ class RetaileremployeesRetaileremployeerolesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Retaileremployees', 'Retaileremployeeroles']
+            'contain' => ['RetailerEmployees', 'RetailerEmployeeRoles']
         ];
-        $retaileremployeesRetaileremployeeroles = $this->paginate($this->RetaileremployeesRetaileremployeeroles);
+        $retailerEmployeesRetailerEmployeeRoles = $this->paginate($this->RetailerEmployeesRetailerEmployeeRoles);
 
-        $this->set(compact('retaileremployeesRetaileremployeeroles'));
-        $this->set('_serialize', ['retaileremployeesRetaileremployeeroles']);
+        $this->set(compact('retailerEmployeesRetailerEmployeeRoles'));
+        $this->set('_serialize', ['retailerEmployeesRetailerEmployeeRoles']);
     }
 
     /**
      * View method
      *
-     * @param string|null $id Retaileremployees Retaileremployeerole id.
+     * @param string|null $id Retailer Employees Retailer Employee Role id.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $retaileremployeesRetaileremployeerole = $this->RetaileremployeesRetaileremployeeroles->get($id, [
-            'contain' => ['Retaileremployees', 'Retaileremployeeroles']
+        $retailerEmployeesRetailerEmployeeRole = $this->RetailerEmployeesRetailerEmployeeRoles->get($id, [
+            'contain' => ['RetailerEmployees', 'RetailerEmployeeRoles']
         ]);
 
-        $this->set('retaileremployeesRetaileremployeerole', $retaileremployeesRetaileremployeerole);
-        $this->set('_serialize', ['retaileremployeesRetaileremployeerole']);
+        $this->set('retailerEmployeesRetailerEmployeeRole', $retailerEmployeesRetailerEmployeeRole);
+        $this->set('_serialize', ['retailerEmployeesRetailerEmployeeRole']);
     }
 
     /**
@@ -51,64 +51,64 @@ class RetaileremployeesRetaileremployeerolesController extends AppController
      */
     public function add()
     {
-        $retaileremployeesRetaileremployeerole = $this->RetaileremployeesRetaileremployeeroles->newEntity();
+        $retailerEmployeesRetailerEmployeeRole = $this->RetailerEmployeesRetailerEmployeeRoles->newEntity();
         if ($this->request->is('post')) {
-            $retaileremployeesRetaileremployeerole = $this->RetaileremployeesRetaileremployeeroles->patchEntity($retaileremployeesRetaileremployeerole, $this->request->data);
-            if ($this->RetaileremployeesRetaileremployeeroles->save($retaileremployeesRetaileremployeerole)) {
-                $this->Flash->success(__('The retaileremployees retaileremployeerole has been saved.'));
+            $retailerEmployeesRetailerEmployeeRole = $this->RetailerEmployeesRetailerEmployeeRoles->patchEntity($retailerEmployeesRetailerEmployeeRole, $this->request->data);
+            if ($this->RetailerEmployeesRetailerEmployeeRoles->save($retailerEmployeesRetailerEmployeeRole)) {
+                $this->Flash->success(__('The retailer employees retailer employee role has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The retaileremployees retaileremployeerole could not be saved. Please, try again.'));
+            $this->Flash->error(__('The retailer employees retailer employee role could not be saved. Please, try again.'));
         }
-        $retaileremployees = $this->RetaileremployeesRetaileremployeeroles->Retaileremployees->find('list', ['limit' => 200]);
-        $retaileremployeeroles = $this->RetaileremployeesRetaileremployeeroles->Retaileremployeeroles->find('list', ['limit' => 200]);
-        $this->set(compact('retaileremployeesRetaileremployeerole', 'retaileremployees', 'retaileremployeeroles'));
-        $this->set('_serialize', ['retaileremployeesRetaileremployeerole']);
+        $retailerEmployees = $this->RetailerEmployeesRetailerEmployeeRoles->RetailerEmployees->find('list', ['limit' => 200]);
+        $retailerEmployeeRoles = $this->RetailerEmployeesRetailerEmployeeRoles->RetailerEmployeeRoles->find('list', ['limit' => 200]);
+        $this->set(compact('retailerEmployeesRetailerEmployeeRole', 'retailerEmployees', 'retailerEmployeeRoles'));
+        $this->set('_serialize', ['retailerEmployeesRetailerEmployeeRole']);
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Retaileremployees Retaileremployeerole id.
+     * @param string|null $id Retailer Employees Retailer Employee Role id.
      * @return \Cake\Network\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {
-        $retaileremployeesRetaileremployeerole = $this->RetaileremployeesRetaileremployeeroles->get($id, [
+        $retailerEmployeesRetailerEmployeeRole = $this->RetailerEmployeesRetailerEmployeeRoles->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $retaileremployeesRetaileremployeerole = $this->RetaileremployeesRetaileremployeeroles->patchEntity($retaileremployeesRetaileremployeerole, $this->request->data);
-            if ($this->RetaileremployeesRetaileremployeeroles->save($retaileremployeesRetaileremployeerole)) {
-                $this->Flash->success(__('The retaileremployees retaileremployeerole has been saved.'));
+            $retailerEmployeesRetailerEmployeeRole = $this->RetailerEmployeesRetailerEmployeeRoles->patchEntity($retailerEmployeesRetailerEmployeeRole, $this->request->data);
+            if ($this->RetailerEmployeesRetailerEmployeeRoles->save($retailerEmployeesRetailerEmployeeRole)) {
+                $this->Flash->success(__('The retailer employees retailer employee role has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The retaileremployees retaileremployeerole could not be saved. Please, try again.'));
+            $this->Flash->error(__('The retailer employees retailer employee role could not be saved. Please, try again.'));
         }
-        $retaileremployees = $this->RetaileremployeesRetaileremployeeroles->Retaileremployees->find('list', ['limit' => 200]);
-        $retaileremployeeroles = $this->RetaileremployeesRetaileremployeeroles->Retaileremployeeroles->find('list', ['limit' => 200]);
-        $this->set(compact('retaileremployeesRetaileremployeerole', 'retaileremployees', 'retaileremployeeroles'));
-        $this->set('_serialize', ['retaileremployeesRetaileremployeerole']);
+        $retailerEmployees = $this->RetailerEmployeesRetailerEmployeeRoles->RetailerEmployees->find('list', ['limit' => 200]);
+        $retailerEmployeeRoles = $this->RetailerEmployeesRetailerEmployeeRoles->RetailerEmployeeRoles->find('list', ['limit' => 200]);
+        $this->set(compact('retailerEmployeesRetailerEmployeeRole', 'retailerEmployees', 'retailerEmployeeRoles'));
+        $this->set('_serialize', ['retailerEmployeesRetailerEmployeeRole']);
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id Retaileremployees Retaileremployeerole id.
+     * @param string|null $id Retailer Employees Retailer Employee Role id.
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $retaileremployeesRetaileremployeerole = $this->RetaileremployeesRetaileremployeeroles->get($id);
-        if ($this->RetaileremployeesRetaileremployeeroles->delete($retaileremployeesRetaileremployeerole)) {
-            $this->Flash->success(__('The retaileremployees retaileremployeerole has been deleted.'));
+        $retailerEmployeesRetailerEmployeeRole = $this->RetailerEmployeesRetailerEmployeeRoles->get($id);
+        if ($this->RetailerEmployeesRetailerEmployeeRoles->delete($retailerEmployeesRetailerEmployeeRole)) {
+            $this->Flash->success(__('The retailer employees retailer employee role has been deleted.'));
         } else {
-            $this->Flash->error(__('The retaileremployees retaileremployeerole could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The retailer employees retailer employee role could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);

@@ -6,17 +6,23 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Retaileremployee'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New Retailer Employee'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Locations'), ['controller' => 'Locations', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Location'), ['controller' => 'Locations', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Promotions'), ['controller' => 'Promotions', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Promotion'), ['controller' => 'Promotions', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Purchase Orders'), ['controller' => 'PurchaseOrders', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Purchase Order'), ['controller' => 'PurchaseOrders', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Supplier Memos'), ['controller' => 'SupplierMemos', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Supplier Memo'), ['controller' => 'SupplierMemos', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Messages'), ['controller' => 'Messages', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Message'), ['controller' => 'Messages', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployeeroles'), ['controller' => 'Retaileremployeeroles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retaileremployeerole'), ['controller' => 'Retaileremployeeroles', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Retailer Employee Roles'), ['controller' => 'RetailerEmployeeRoles', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Retailer Employee Role'), ['controller' => 'RetailerEmployeeRoles', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="retaileremployees index large-9 medium-8 columns content">
-    <h3><?= __('Retaileremployees') ?></h3>
+<div class="retailerEmployees index large-9 medium-8 columns content">
+    <h3><?= __('Retailer Employees') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -28,32 +34,32 @@
                 <th scope="col"><?= $this->Paginator->sort('contact') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('firstName') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('lastName') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('accountStatus') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('first_name') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('last_name') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('account_status') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('location_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($retaileremployees as $retaileremployee): ?>
+            <?php foreach ($retailerEmployees as $retailerEmployee): ?>
             <tr>
-                <td><?= $this->Number->format($retaileremployee->id) ?></td>
-                <td><?= h($retaileremployee->username) ?></td>
-                <td><?= h($retaileremployee->password) ?></td>
-                <td><?= h($retaileremployee->email) ?></td>
-                <td><?= h($retaileremployee->address) ?></td>
-                <td><?= h($retaileremployee->contact) ?></td>
-                <td><?= h($retaileremployee->created) ?></td>
-                <td><?= h($retaileremployee->modified) ?></td>
-                <td><?= h($retaileremployee->firstName) ?></td>
-                <td><?= h($retaileremployee->lastName) ?></td>
-                <td><?= h($retaileremployee->accountStatus) ?></td>
-                <td><?= $retaileremployee->has('location') ? $this->Html->link($retaileremployee->location->name, ['controller' => 'Locations', 'action' => 'view', $retaileremployee->location->id]) : '' ?></td>
+                <td><?= $this->Number->format($retailerEmployee->id) ?></td>
+                <td><?= h($retailerEmployee->username) ?></td>
+                <td><?= h($retailerEmployee->password) ?></td>
+                <td><?= h($retailerEmployee->email) ?></td>
+                <td><?= h($retailerEmployee->address) ?></td>
+                <td><?= h($retailerEmployee->contact) ?></td>
+                <td><?= h($retailerEmployee->created) ?></td>
+                <td><?= h($retailerEmployee->modified) ?></td>
+                <td><?= h($retailerEmployee->first_name) ?></td>
+                <td><?= h($retailerEmployee->last_name) ?></td>
+                <td><?= h($retailerEmployee->account_status) ?></td>
+                <td><?= $retailerEmployee->has('location') ? $this->Html->link($retailerEmployee->location->name, ['controller' => 'Locations', 'action' => 'view', $retailerEmployee->location->id]) : '' ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $retaileremployee->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $retaileremployee->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $retaileremployee->id], ['confirm' => __('Are you sure you want to delete # {0}?', $retaileremployee->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $retailerEmployee->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $retailerEmployee->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $retailerEmployee->id], ['confirm' => __('Are you sure you want to delete # {0}?', $retailerEmployee->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

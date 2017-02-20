@@ -4,11 +4,11 @@ namespace App\Controller;
 use App\Controller\AppController;
 
 /**
- * Retaileracctypes Controller
+ * RetailerAccTypes Controller
  *
- * @property \App\Model\Table\RetaileracctypesTable $Retaileracctypes
+ * @property \App\Model\Table\RetailerAccTypesTable $RetailerAccTypes
  */
-class RetaileracctypesController extends AppController
+class RetailerAccTypesController extends AppController
 {
 
     /**
@@ -18,27 +18,27 @@ class RetaileracctypesController extends AppController
      */
     public function index()
     {
-        $retaileracctypes = $this->paginate($this->Retaileracctypes);
+        $retailerAccTypes = $this->paginate($this->RetailerAccTypes);
 
-        $this->set(compact('retaileracctypes'));
-        $this->set('_serialize', ['retaileracctypes']);
+        $this->set(compact('retailerAccTypes'));
+        $this->set('_serialize', ['retailerAccTypes']);
     }
 
     /**
      * View method
      *
-     * @param string|null $id Retaileracctype id.
+     * @param string|null $id Retailer Acc Type id.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $retaileracctype = $this->Retaileracctypes->get($id, [
-            'contain' => []
+        $retailerAccType = $this->RetailerAccTypes->get($id, [
+            'contain' => ['Retailers']
         ]);
 
-        $this->set('retaileracctype', $retaileracctype);
-        $this->set('_serialize', ['retaileracctype']);
+        $this->set('retailerAccType', $retailerAccType);
+        $this->set('_serialize', ['retailerAccType']);
     }
 
     /**
@@ -48,60 +48,60 @@ class RetaileracctypesController extends AppController
      */
     public function add()
     {
-        $retaileracctype = $this->Retaileracctypes->newEntity();
+        $retailerAccType = $this->RetailerAccTypes->newEntity();
         if ($this->request->is('post')) {
-            $retaileracctype = $this->Retaileracctypes->patchEntity($retaileracctype, $this->request->data);
-            if ($this->Retaileracctypes->save($retaileracctype)) {
-                $this->Flash->success(__('The retaileracctype has been saved.'));
+            $retailerAccType = $this->RetailerAccTypes->patchEntity($retailerAccType, $this->request->data);
+            if ($this->RetailerAccTypes->save($retailerAccType)) {
+                $this->Flash->success(__('The retailer acc type has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The retaileracctype could not be saved. Please, try again.'));
+            $this->Flash->error(__('The retailer acc type could not be saved. Please, try again.'));
         }
-        $this->set(compact('retaileracctype'));
-        $this->set('_serialize', ['retaileracctype']);
+        $this->set(compact('retailerAccType'));
+        $this->set('_serialize', ['retailerAccType']);
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Retaileracctype id.
+     * @param string|null $id Retailer Acc Type id.
      * @return \Cake\Network\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {
-        $retaileracctype = $this->Retaileracctypes->get($id, [
+        $retailerAccType = $this->RetailerAccTypes->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $retaileracctype = $this->Retaileracctypes->patchEntity($retaileracctype, $this->request->data);
-            if ($this->Retaileracctypes->save($retaileracctype)) {
-                $this->Flash->success(__('The retaileracctype has been saved.'));
+            $retailerAccType = $this->RetailerAccTypes->patchEntity($retailerAccType, $this->request->data);
+            if ($this->RetailerAccTypes->save($retailerAccType)) {
+                $this->Flash->success(__('The retailer acc type has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The retaileracctype could not be saved. Please, try again.'));
+            $this->Flash->error(__('The retailer acc type could not be saved. Please, try again.'));
         }
-        $this->set(compact('retaileracctype'));
-        $this->set('_serialize', ['retaileracctype']);
+        $this->set(compact('retailerAccType'));
+        $this->set('_serialize', ['retailerAccType']);
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id Retaileracctype id.
+     * @param string|null $id Retailer Acc Type id.
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $retaileracctype = $this->Retaileracctypes->get($id);
-        if ($this->Retaileracctypes->delete($retaileracctype)) {
-            $this->Flash->success(__('The retaileracctype has been deleted.'));
+        $retailerAccType = $this->RetailerAccTypes->get($id);
+        if ($this->RetailerAccTypes->delete($retailerAccType)) {
+            $this->Flash->success(__('The retailer acc type has been deleted.'));
         } else {
-            $this->Flash->error(__('The retaileracctype could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The retailer acc type could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);

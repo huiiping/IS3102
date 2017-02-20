@@ -7,18 +7,18 @@ use Cake\ORM\Entity;
  * Promotion Entity
  *
  * @property int $id
- * @property \Cake\I18n\Time $startDate
- * @property \Cake\I18n\Time $endDate
- * @property string $promoDesc
- * @property string $firstVouherNo
- * @property string $lastVoucherNo
- * @property float $discountRate
- * @property string $creditCardType
- * @property int $retailerEmployee_id
+ * @property \Cake\I18n\Time $start_date
+ * @property \Cake\I18n\Time $end_date
+ * @property string $promo_desc
+ * @property string $first_vouher_num
+ * @property string $last_voucher_num
+ * @property float $discount_rate
+ * @property string $credit_card_type
+ * @property int $retailer_employee_id
  *
- * @property \App\Model\Entity\Retaileremployee $retaileremployee
+ * @property \App\Model\Entity\RetailerEmployee $retailer_employee
  * @property \App\Model\Entity\Customer[] $customers
- * @property \App\Model\Entity\Prodtype[] $prodtypes
+ * @property \App\Model\Entity\ProdType[] $prod_types
  */
 class Promotion extends Entity
 {

@@ -7,26 +7,26 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Intrasysemployees Model
+ * IntrasysEmployees Model
  *
- * @property \Cake\ORM\Association\BelongsToMany $Intrasysemployeeroles
+ * @property \Cake\ORM\Association\BelongsToMany $IntrasysEmployeeRoles
  *
- * @method \App\Model\Entity\Intrasysemployee get($primaryKey, $options = [])
- * @method \App\Model\Entity\Intrasysemployee newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Intrasysemployee[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Intrasysemployee|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Intrasysemployee patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Intrasysemployee[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Intrasysemployee findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\IntrasysEmployee get($primaryKey, $options = [])
+ * @method \App\Model\Entity\IntrasysEmployee newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\IntrasysEmployee[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\IntrasysEmployee|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\IntrasysEmployee patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\IntrasysEmployee[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\IntrasysEmployee findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class IntrasysemployeesTable extends Table
+class IntrasysEmployeesTable extends Table
 {
-    public static function defaultConnectionName()
-    {
+    public static function defaultConnectionName() {
         return 'intrasysdb';
     }
+
     /**
      * Initialize method
      *
@@ -37,16 +37,16 @@ class IntrasysemployeesTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('intrasysemployees');
+        $this->table('intrasys_employees');
         $this->displayField('id');
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsToMany('Intrasysemployeeroles', [
-            'foreignKey' => 'intrasysemployee_id',
-            'targetForeignKey' => 'intrasysemployeerole_id',
-            'joinTable' => 'intrasysemployees_intrasysemployeeroles'
+        $this->belongsToMany('IntrasysEmployeeRoles', [
+            'foreignKey' => 'intrasys_employee_id',
+            'targetForeignKey' => 'intrasys_employee_role_id',
+            'joinTable' => 'intrasys_employees_intrasys_employee_roles'
         ]);
     }
 
@@ -63,15 +63,15 @@ class IntrasysemployeesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('firstName', 'create')
-            ->notEmpty('firstName');
+            ->requirePresence('first_name', 'create')
+            ->notEmpty('first_name');
 
         $validator
-            ->requirePresence('lastName', 'create')
-            ->notEmpty('lastName');
+            ->requirePresence('last_name', 'create')
+            ->notEmpty('last_name');
 
         $validator
-            ->allowEmpty('accountStatus');
+            ->allowEmpty('account_status');
 
         $validator
             ->requirePresence('username', 'create')

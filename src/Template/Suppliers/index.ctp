@@ -7,10 +7,10 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Supplier'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Purchaseorders'), ['controller' => 'Purchaseorders', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Purchaseorder'), ['controller' => 'Purchaseorders', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Suppliermemos'), ['controller' => 'Suppliermemos', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Suppliermemo'), ['controller' => 'Suppliermemos', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Purchase Orders'), ['controller' => 'PurchaseOrders', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Purchase Order'), ['controller' => 'PurchaseOrders', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Supplier Memos'), ['controller' => 'SupplierMemos', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Supplier Memo'), ['controller' => 'SupplierMemos', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="suppliers index large-9 medium-8 columns content">
@@ -26,10 +26,10 @@
                 <th scope="col"><?= $this->Paginator->sort('contact') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('supplierName') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('supplier_name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('country') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('accountStatus') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('bankAcc') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('account_status') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('bank_acc') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -44,10 +44,10 @@
                 <td><?= h($supplier->contact) ?></td>
                 <td><?= h($supplier->created) ?></td>
                 <td><?= h($supplier->modified) ?></td>
-                <td><?= h($supplier->supplierName) ?></td>
+                <td><?= h($supplier->supplier_name) ?></td>
                 <td><?= h($supplier->country) ?></td>
-                <td><?= h($supplier->accountStatus) ?></td>
-                <td><?= h($supplier->bankAcc) ?></td>
+                <td><?= h($supplier->account_status) ?></td>
+                <td><?= h($supplier->bank_acc) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $supplier->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $supplier->id]) ?>

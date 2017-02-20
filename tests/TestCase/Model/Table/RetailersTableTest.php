@@ -25,7 +25,7 @@ class RetailersTableTest extends TestCase
      */
     public $fixtures = [
         'app.retailers',
-        'app.retaileracctypes'
+        'app.retailer_acc_types'
     ];
 
     /**

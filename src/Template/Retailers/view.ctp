@@ -4,30 +4,38 @@
   */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <?= $this->Element('sideBar', array('type' => 'Retailer', 'typePlural' => 'retailers')); ?>
+    <ul class="side-nav">
+        <li class="heading"><?= __('Actions') ?></li>
+        <li><?= $this->Html->link(__('Edit Retailer'), ['action' => 'edit', $retailer->id]) ?> </li>
+        <li><?= $this->Form->postLink(__('Delete Retailer'), ['action' => 'delete', $retailer->id], ['confirm' => __('Are you sure you want to delete # {0}?', $retailer->id)]) ?> </li>
+        <li><?= $this->Html->link(__('List Retailers'), ['action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Retailer'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Retailer Acc Types'), ['controller' => 'RetailerAccTypes', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Retailer Acc Type'), ['controller' => 'RetailerAccTypes', 'action' => 'add']) ?> </li>
+    </ul>
 </nav>
 <div class="retailers view large-9 medium-8 columns content">
     <h3><?= h($retailer->id) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('CompanyName') ?></th>
-            <td><?= h($retailer->companyName) ?></td>
+            <th scope="row"><?= __('Company Name') ?></th>
+            <td><?= h($retailer->company_name) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('FirstName') ?></th>
-            <td><?= h($retailer->firstName) ?></td>
+            <th scope="row"><?= __('First Name') ?></th>
+            <td><?= h($retailer->first_name) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('LastName') ?></th>
-            <td><?= h($retailer->lastName) ?></td>
+            <th scope="row"><?= __('Last Name') ?></th>
+            <td><?= h($retailer->last_name) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('AccountStatus') ?></th>
-            <td><?= h($retailer->accountStatus) ?></td>
+            <th scope="row"><?= __('Account Status') ?></th>
+            <td><?= h($retailer->account_status) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('PaymentTerm') ?></th>
-            <td><?= h($retailer->paymentTerm) ?></td>
+            <th scope="row"><?= __('Payment Term') ?></th>
+            <td><?= h($retailer->payment_term) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Username') ?></th>
@@ -50,24 +58,24 @@
             <td><?= h($retailer->contact) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Retaileracctype') ?></th>
-            <td><?= $retailer->has('retaileracctype') ? $this->Html->link($retailer->retaileracctype->name, ['controller' => 'Retaileracctypes', 'action' => 'view', $retailer->retaileracctype->id]) : '' ?></td>
+            <th scope="row"><?= __('Retailer Acc Type') ?></th>
+            <td><?= $retailer->has('retailer_acc_type') ? $this->Html->link($retailer->retailer_acc_type->name, ['controller' => 'RetailerAccTypes', 'action' => 'view', $retailer->retailer_acc_type->id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Id') ?></th>
             <td><?= $this->Number->format($retailer->id) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('LoyaltyPoints') ?></th>
-            <td><?= $this->Number->format($retailer->loyaltyPoints) ?></td>
+            <th scope="row"><?= __('Loyalty Points') ?></th>
+            <td><?= $this->Number->format($retailer->loyalty_points) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('ContractStartDate') ?></th>
-            <td><?= h($retailer->contractStartDate) ?></td>
+            <th scope="row"><?= __('Contract Start Date') ?></th>
+            <td><?= h($retailer->contract_start_date) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('ContractEndDate') ?></th>
-            <td><?= h($retailer->contractEndDate) ?></td>
+            <th scope="row"><?= __('Contract End Date') ?></th>
+            <td><?= h($retailer->contract_end_date) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Created') ?></th>
@@ -79,7 +87,7 @@
         </tr>
     </table>
     <div class="row">
-        <h4><?= __('CompanyDesc') ?></h4>
-        <?= $this->Text->autoParagraph(h($retailer->companyDesc)); ?>
+        <h4><?= __('Company Desc') ?></h4>
+        <?= $this->Text->autoParagraph(h($retailer->company_desc)); ?>
     </div>
 </div>

@@ -10,10 +10,10 @@
         <li><?= $this->Form->postLink(__('Delete Supplier'), ['action' => 'delete', $supplier->id], ['confirm' => __('Are you sure you want to delete # {0}?', $supplier->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Suppliers'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Supplier'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Purchaseorders'), ['controller' => 'Purchaseorders', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Purchaseorder'), ['controller' => 'Purchaseorders', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Suppliermemos'), ['controller' => 'Suppliermemos', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Suppliermemo'), ['controller' => 'Suppliermemos', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Purchase Orders'), ['controller' => 'PurchaseOrders', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Purchase Order'), ['controller' => 'PurchaseOrders', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Supplier Memos'), ['controller' => 'SupplierMemos', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Supplier Memo'), ['controller' => 'SupplierMemos', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="suppliers view large-9 medium-8 columns content">
@@ -40,20 +40,20 @@
             <td><?= h($supplier->contact) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('SupplierName') ?></th>
-            <td><?= h($supplier->supplierName) ?></td>
+            <th scope="row"><?= __('Supplier Name') ?></th>
+            <td><?= h($supplier->supplier_name) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Country') ?></th>
             <td><?= h($supplier->country) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('AccountStatus') ?></th>
-            <td><?= h($supplier->accountStatus) ?></td>
+            <th scope="row"><?= __('Account Status') ?></th>
+            <td><?= h($supplier->account_status) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('BankAcc') ?></th>
-            <td><?= h($supplier->bankAcc) ?></td>
+            <th scope="row"><?= __('Bank Acc') ?></th>
+            <td><?= h($supplier->bank_acc) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Id') ?></th>
@@ -69,30 +69,30 @@
         </tr>
     </table>
     <div class="related">
-        <h4><?= __('Related Purchaseorders') ?></h4>
-        <?php if (!empty($supplier->purchaseorders)): ?>
+        <h4><?= __('Related Purchase Orders') ?></h4>
+        <?php if (!empty($supplier->purchase_orders)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Created') ?></th>
-                <th scope="col"><?= __('TotalPrice') ?></th>
-                <th scope="col"><?= __('DeliveryStatus') ?></th>
+                <th scope="col"><?= __('Total Price') ?></th>
+                <th scope="col"><?= __('Delivery Status') ?></th>
                 <th scope="col"><?= __('Supplier Id') ?></th>
-                <th scope="col"><?= __('RetailerEmployee Id') ?></th>
+                <th scope="col"><?= __('Retailer Employee Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($supplier->purchaseorders as $purchaseorders): ?>
+            <?php foreach ($supplier->purchase_orders as $purchaseOrders): ?>
             <tr>
-                <td><?= h($purchaseorders->id) ?></td>
-                <td><?= h($purchaseorders->created) ?></td>
-                <td><?= h($purchaseorders->totalPrice) ?></td>
-                <td><?= h($purchaseorders->deliveryStatus) ?></td>
-                <td><?= h($purchaseorders->supplier_id) ?></td>
-                <td><?= h($purchaseorders->retailerEmployee_id) ?></td>
+                <td><?= h($purchaseOrders->id) ?></td>
+                <td><?= h($purchaseOrders->created) ?></td>
+                <td><?= h($purchaseOrders->total_price) ?></td>
+                <td><?= h($purchaseOrders->delivery_status) ?></td>
+                <td><?= h($purchaseOrders->supplier_id) ?></td>
+                <td><?= h($purchaseOrders->retailer_employee_id) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Purchaseorders', 'action' => 'view', $purchaseorders->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Purchaseorders', 'action' => 'edit', $purchaseorders->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Purchaseorders', 'action' => 'delete', $purchaseorders->id], ['confirm' => __('Are you sure you want to delete # {0}?', $purchaseorders->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['controller' => 'PurchaseOrders', 'action' => 'view', $purchaseOrders->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'PurchaseOrders', 'action' => 'edit', $purchaseOrders->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'PurchaseOrders', 'action' => 'delete', $purchaseOrders->id], ['confirm' => __('Are you sure you want to delete # {0}?', $purchaseOrders->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -100,28 +100,28 @@
         <?php endif; ?>
     </div>
     <div class="related">
-        <h4><?= __('Related Suppliermemos') ?></h4>
-        <?php if (!empty($supplier->suppliermemos)): ?>
+        <h4><?= __('Related Supplier Memos') ?></h4>
+        <?php if (!empty($supplier->supplier_memos)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Remarks') ?></th>
                 <th scope="col"><?= __('Created') ?></th>
                 <th scope="col"><?= __('Supplier Id') ?></th>
-                <th scope="col"><?= __('RetailerEmployee Id') ?></th>
+                <th scope="col"><?= __('Retailer Employee Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($supplier->suppliermemos as $suppliermemos): ?>
+            <?php foreach ($supplier->supplier_memos as $supplierMemos): ?>
             <tr>
-                <td><?= h($suppliermemos->id) ?></td>
-                <td><?= h($suppliermemos->remarks) ?></td>
-                <td><?= h($suppliermemos->created) ?></td>
-                <td><?= h($suppliermemos->supplier_id) ?></td>
-                <td><?= h($suppliermemos->retailerEmployee_id) ?></td>
+                <td><?= h($supplierMemos->id) ?></td>
+                <td><?= h($supplierMemos->remarks) ?></td>
+                <td><?= h($supplierMemos->created) ?></td>
+                <td><?= h($supplierMemos->supplier_id) ?></td>
+                <td><?= h($supplierMemos->retailer_employee_id) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Suppliermemos', 'action' => 'view', $suppliermemos->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Suppliermemos', 'action' => 'edit', $suppliermemos->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Suppliermemos', 'action' => 'delete', $suppliermemos->id], ['confirm' => __('Are you sure you want to delete # {0}?', $suppliermemos->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['controller' => 'SupplierMemos', 'action' => 'view', $supplierMemos->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'SupplierMemos', 'action' => 'edit', $supplierMemos->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'SupplierMemos', 'action' => 'delete', $supplierMemos->id], ['confirm' => __('Are you sure you want to delete # {0}?', $supplierMemos->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

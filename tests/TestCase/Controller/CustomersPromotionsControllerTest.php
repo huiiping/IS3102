@@ -18,19 +18,8 @@ class CustomersPromotionsControllerTest extends IntegrationTestCase
     public $fixtures = [
         'app.customers_promotions',
         'app.customers',
-        'app.custmembershiptiers',
-        'app.promotions',
-        'app.retaileremployees',
-        'app.locations',
-        'app.sections',
-        'app.messages',
-        'app.references',
-        'app.retaileremployees_messages',
-        'app.retaileremployeeroles',
-        'app.retaileremployees_retaileremployeeroles',
-        'app.prodtypes',
-        'app.prodcats',
-        'app.promotions_prodtypes'
+        'app.cust_membership_tiers',
+        'app.promotions'
     ];
 
     /**

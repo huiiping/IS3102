@@ -7,8 +7,8 @@ use Cake\ORM\Entity;
  * Section Entity
  *
  * @property int $id
- * @property string $secName
- * @property int $spaceLimit
+ * @property string $sec_name
+ * @property int $space_limit
  * @property bool $reserve
  * @property int $location_id
  *

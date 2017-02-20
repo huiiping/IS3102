@@ -16,7 +16,6 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
-use Cake\Datasource\ConnectionManager;
 
 /**
  * Application Controller
@@ -28,27 +27,6 @@ use Cake\Datasource\ConnectionManager;
  */
 class AppController extends Controller
 {
-    /**
-    public function beforeFilter(Event $event) {
-        parent::beforeFilter($event);
-
-        ConnectionManager::drop('conn1'); 
-
-        ConnectionManager::config('conn1', [
-            'className' => 'Cake\Database\Connection',
-            'driver' => 'Cake\Database\Driver\Mysql',
-            'persistent' => true,
-            'host' => $databaseDetails['res_host'],
-            'username' => $databaseDetails['res_login'],
-            'password' => $databaseDetails['res_password'],
-            'database' => $databaseDetails['res_database'],
-            'encoding' => 'utf8',
-            'timezone' => 'UTC',
-            'cacheMetadata' => false,
-
-        ]);
-        ConnectionManager::alias('conn1', 'default');
-    }
 
     /**
      * Initialization hook method.
@@ -65,40 +43,13 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-        //$this->loadComponent('Auth');
-        /*$this->loadcomponent('Auth', [
-                'authenticate' => [
-                    'Form' => [
-                        'userModel' => 'Intrasysemployees',
-                        'fields' => [
-                            'username' => 'username',
-                            'password' => 'password'
-                        ],
-                    ]
-                ],
-                'loginAction' => [
-                    'controller' => 'Intrasysemployees',
-                    'action' => 'login'
-                ]
-            ]);*/
+
         /*
          * Enable the following components for recommended CakePHP security settings.
          * see http://book.cakephp.org/3.0/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
         //$this->loadComponent('Csrf');
-    }
-    
-    //Both intrasys & retailers DB master accounts can do all actions
-    public function isAuthorized($user)
-    {
-        // Admin can access every action
-        if (isset($user['role']) && $user['role'] === 'master account') {
-            return true;
-        }
-
-        // Default deny
-        return false;
     }
 
     /**
@@ -113,13 +64,6 @@ class AppController extends Controller
             in_array($this->response->type(), ['application/json', 'application/xml'])
         ) {
             $this->set('_serialize', true);
-        }
-        
-        //check login
-        if($this->request->session()->read('Auth.User')){
-            $this->set('loggedIn', true);
-        } else {
-            $this->set('loggedIn', false);
         }
     }
 }

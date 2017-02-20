@@ -4,15 +4,15 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * PromotionsProdtype Entity
+ * PromotionsProdType Entity
  *
  * @property int $promotion_id
- * @property int $prodtype_id
+ * @property int $prod_type_id
  *
  * @property \App\Model\Entity\Promotion $promotion
- * @property \App\Model\Entity\Prodtype $prodtype
+ * @property \App\Model\Entity\ProdType $prod_type
  */
-class PromotionsProdtype extends Entity
+class PromotionsProdType extends Entity
 {
 
     /**
@@ -27,6 +27,6 @@ class PromotionsProdtype extends Entity
     protected $_accessible = [
         '*' => true,
         'promotion_id' => false,
-        'prodtype_id' => false
+        'prod_type_id' => false
     ];
 }

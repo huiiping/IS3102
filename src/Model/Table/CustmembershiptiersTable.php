@@ -7,19 +7,21 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Custmembershiptiers Model
+ * CustMembershipTiers Model
  *
- * @method \App\Model\Entity\Custmembershiptier get($primaryKey, $options = [])
- * @method \App\Model\Entity\Custmembershiptier newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Custmembershiptier[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Custmembershiptier|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Custmembershiptier patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Custmembershiptier[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Custmembershiptier findOrCreate($search, callable $callback = null, $options = [])
+ * @property \Cake\ORM\Association\HasMany $Customers
+ *
+ * @method \App\Model\Entity\CustMembershipTier get($primaryKey, $options = [])
+ * @method \App\Model\Entity\CustMembershipTier newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\CustMembershipTier[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\CustMembershipTier|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\CustMembershipTier patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\CustMembershipTier[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\CustMembershipTier findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class CustmembershiptiersTable extends Table
+class CustMembershipTiersTable extends Table
 {
 
     /**
@@ -32,11 +34,15 @@ class CustmembershiptiersTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('custmembershiptiers');
+        $this->table('cust_membership_tiers');
         $this->displayField('id');
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->hasMany('Customers', [
+            'foreignKey' => 'cust_membership_tier_id'
+        ]);
     }
 
     /**
@@ -52,33 +58,33 @@ class CustmembershiptiersTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('tierName', 'create')
-            ->notEmpty('tierName');
+            ->requirePresence('tier_name', 'create')
+            ->notEmpty('tier_name');
 
         $validator
-            ->integer('validityPeriod')
-            ->requirePresence('validityPeriod', 'create')
-            ->notEmpty('validityPeriod');
+            ->integer('validity_period')
+            ->requirePresence('validity_period', 'create')
+            ->notEmpty('validity_period');
 
         $validator
-            ->allowEmpty('minSpending');
+            ->allowEmpty('min_spending');
 
         $validator
-            ->allowEmpty('membershipFee');
+            ->allowEmpty('membership_fee');
 
         $validator
-            ->integer('membershipPts')
-            ->allowEmpty('membershipPts');
+            ->integer('membership_pts')
+            ->allowEmpty('membership_pts');
 
         $validator
-            ->integer('redemptionPts')
-            ->allowEmpty('redemptionPts');
+            ->integer('redemption_pts')
+            ->allowEmpty('redemption_pts');
 
         $validator
-            ->allowEmpty('discountRate');
+            ->allowEmpty('discount_rate');
 
         $validator
-            ->allowEmpty('birthdayRate');
+            ->allowEmpty('birthday_rate');
 
         $validator
             ->allowEmpty('description');

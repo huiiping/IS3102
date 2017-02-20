@@ -6,17 +6,17 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployees Messages'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Retaileremployees'), ['controller' => 'Retaileremployees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retaileremployee'), ['controller' => 'Retaileremployees', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Retailer Employees Messages'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Retailer Employees'), ['controller' => 'RetailerEmployees', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Retailer Employee'), ['controller' => 'RetailerEmployees', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Messages'), ['controller' => 'Messages', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Message'), ['controller' => 'Messages', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="retaileremployeesMessages form large-9 medium-8 columns content">
-    <?= $this->Form->create($retaileremployeesMessage) ?>
+<div class="retailerEmployeesMessages form large-9 medium-8 columns content">
+    <?= $this->Form->create($retailerEmployeesMessage) ?>
     <fieldset>
-        <legend><?= __('Add Retaileremployees Message') ?></legend>
+        <legend><?= __('Add Retailer Employees Message') ?></legend>
         <?php
         ?>
     </fieldset>

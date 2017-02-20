@@ -7,26 +7,28 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Intrasysemployeeroles Model
+ * IntrasysEmployeeRoles Model
  *
- * @property \Cake\ORM\Association\BelongsToMany $Intrasysemployees
+ * @property \Cake\ORM\Association\BelongsToMany $IntrasysEmployees
  *
- * @method \App\Model\Entity\Intrasysemployeerole get($primaryKey, $options = [])
- * @method \App\Model\Entity\Intrasysemployeerole newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Intrasysemployeerole[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Intrasysemployeerole|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Intrasysemployeerole patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Intrasysemployeerole[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Intrasysemployeerole findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\IntrasysEmployeeRole get($primaryKey, $options = [])
+ * @method \App\Model\Entity\IntrasysEmployeeRole newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\IntrasysEmployeeRole[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\IntrasysEmployeeRole|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\IntrasysEmployeeRole patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\IntrasysEmployeeRole[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\IntrasysEmployeeRole findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class IntrasysemployeerolesTable extends Table
+class IntrasysEmployeeRolesTable extends Table
 {
-    public static function defaultConnectionName()
-    {
+
+    public static function defaultConnectionName() {
         return 'intrasysdb';
     }
+
+
     /**
      * Initialize method
      *
@@ -37,16 +39,16 @@ class IntrasysemployeerolesTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('intrasysemployeeroles');
-        $this->displayField('id');
+        $this->table('intrasys_employee_roles');
+        $this->displayField('role_name');
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsToMany('Intrasysemployees', [
-            'foreignKey' => 'intrasysemployeerole_id',
-            'targetForeignKey' => 'intrasysemployee_id',
-            'joinTable' => 'intrasysemployees_intrasysemployeeroles'
+        $this->belongsToMany('IntrasysEmployees', [
+            'foreignKey' => 'intrasys_employee_role_id',
+            'targetForeignKey' => 'intrasys_employee_id',
+            'joinTable' => 'intrasys_employees_intrasys_employee_roles'
         ]);
     }
 
@@ -63,11 +65,11 @@ class IntrasysemployeerolesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('roleName')
-            ->add('roleName', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->allowEmpty('role_name')
+            ->add('role_name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
-            ->allowEmpty('roleDesc');
+            ->allowEmpty('role_desc');
 
         return $validator;
     }
@@ -81,7 +83,7 @@ class IntrasysemployeerolesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['roleName']));
+        $rules->add($rules->isUnique(['role_name']));
 
         return $rules;
     }

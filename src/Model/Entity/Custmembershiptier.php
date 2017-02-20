@@ -4,22 +4,24 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Custmembershiptier Entity
+ * CustMembershipTier Entity
  *
  * @property int $id
- * @property string $tierName
- * @property int $validityPeriod
- * @property string $minSpending
- * @property string $membershipFee
- * @property int $membershipPts
- * @property int $redemptionPts
- * @property string $discountRate
- * @property string $birthdayRate
+ * @property string $tier_name
+ * @property int $validity_period
+ * @property string $min_spending
+ * @property string $membership_fee
+ * @property int $membership_pts
+ * @property int $redemption_pts
+ * @property string $discount_rate
+ * @property string $birthday_rate
  * @property string $description
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
+ *
+ * @property \App\Model\Entity\Customer[] $customers
  */
-class Custmembershiptier extends Entity
+class CustMembershipTier extends Entity
 {
 
     /**

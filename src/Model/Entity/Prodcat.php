@@ -4,13 +4,15 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Prodcat Entity
+ * ProdCat Entity
  *
  * @property int $id
- * @property string $catName
- * @property string $catDesc
+ * @property string $cat_name
+ * @property string $cat_desc
+ *
+ * @property \App\Model\Entity\ProdType[] $prod_types
  */
-class Prodcat extends Entity
+class ProdCat extends Entity
 {
 
     /**

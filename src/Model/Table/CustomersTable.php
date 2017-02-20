@@ -9,7 +9,7 @@ use Cake\Validation\Validator;
 /**
  * Customers Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Custmembershiptiers
+ * @property \Cake\ORM\Association\BelongsTo $CustMembershipTiers
  * @property \Cake\ORM\Association\BelongsToMany $Promotions
  *
  * @method \App\Model\Entity\Customer get($primaryKey, $options = [])
@@ -25,53 +25,6 @@ use Cake\Validation\Validator;
 class CustomersTable extends Table
 {
 
-
-    public $filterArgs = array(
-        'id' => array(
-            'type' => 'like',
-            'field' => 'id'
-        ),
-        'username' => array(
-            'type' => 'like',
-            'field' => 'username'
-        ),
-        'password' => array(
-            'type' => 'like',
-            'field' => 'password'
-        ),
-        'email' => array(
-            'type' => 'like',
-            'field' => 'email'
-        ),
-        'address' => array(
-            'type' => 'like',
-            'field' => 'address'
-        ),
-        'contact' => array(
-            'type' => 'like',
-            'field' => 'contact'
-        ),
-        'created' => array(
-            'type' => 'like',
-            'field' => 'created'
-        ),
-        'modified' => array(
-            'type' => 'like',
-            'field' => 'modified'
-        ),
-        'firstName' => array(
-            'type' => 'like',
-            'field' => 'firstName'
-        ),
-        'lastName' => array(
-            'type' => 'like',
-            'field' => 'lastName'
-        ),
-        'accountStatus' => array(
-            'type' => 'like',
-            'field' => 'accountStatus'
-        )
-    );
     /**
      * Initialize method
      *
@@ -88,8 +41,8 @@ class CustomersTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Custmembershiptiers', [
-            'foreignKey' => 'custMembershipTier_id',
+        $this->belongsTo('CustMembershipTiers', [
+            'foreignKey' => 'cust_membership_tier_id',
             'joinType' => 'INNER'
         ]);
         $this->belongsToMany('Promotions', [
@@ -97,7 +50,6 @@ class CustomersTable extends Table
             'targetForeignKey' => 'promotion_id',
             'joinTable' => 'customers_promotions'
         ]);
-        $this->addBehavior('Search.Searchable');
     }
 
     /**
@@ -135,19 +87,19 @@ class CustomersTable extends Table
             ->notEmpty('contact');
 
         $validator
-            ->requirePresence('firstName', 'create')
-            ->notEmpty('firstName');
+            ->requirePresence('first_name', 'create')
+            ->notEmpty('first_name');
 
         $validator
-            ->requirePresence('lastName', 'create')
-            ->notEmpty('lastName');
+            ->requirePresence('last_name', 'create')
+            ->notEmpty('last_name');
 
         $validator
-            ->allowEmpty('accountStatus');
+            ->allowEmpty('account_status');
 
         $validator
-            ->boolean('mailingList')
-            ->allowEmpty('mailingList');
+            ->boolean('mailing_list')
+            ->allowEmpty('mailing_list');
 
         return $validator;
     }
@@ -163,7 +115,7 @@ class CustomersTable extends Table
     {
         $rules->add($rules->isUnique(['username']));
         $rules->add($rules->isUnique(['email']));
-        $rules->add($rules->existsIn(['custMembershipTier_id'], 'Custmembershiptiers'));
+        $rules->add($rules->existsIn(['cust_membership_tier_id'], 'CustMembershipTiers'));
 
         return $rules;
     }

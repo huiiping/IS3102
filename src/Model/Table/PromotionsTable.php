@@ -9,9 +9,9 @@ use Cake\Validation\Validator;
 /**
  * Promotions Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Retaileremployees
+ * @property \Cake\ORM\Association\BelongsTo $RetailerEmployees
  * @property \Cake\ORM\Association\BelongsToMany $Customers
- * @property \Cake\ORM\Association\BelongsToMany $Prodtypes
+ * @property \Cake\ORM\Association\BelongsToMany $ProdTypes
  *
  * @method \App\Model\Entity\Promotion get($primaryKey, $options = [])
  * @method \App\Model\Entity\Promotion newEntity($data = null, array $options = [])
@@ -38,18 +38,18 @@ class PromotionsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('Retaileremployees', [
-            'foreignKey' => 'retailerEmployee_id'
+        $this->belongsTo('RetailerEmployees', [
+            'foreignKey' => 'retailer_employee_id'
         ]);
         $this->belongsToMany('Customers', [
             'foreignKey' => 'promotion_id',
             'targetForeignKey' => 'customer_id',
             'joinTable' => 'customers_promotions'
         ]);
-        $this->belongsToMany('Prodtypes', [
+        $this->belongsToMany('ProdTypes', [
             'foreignKey' => 'promotion_id',
-            'targetForeignKey' => 'prodtype_id',
-            'joinTable' => 'promotions_prodtypes'
+            'targetForeignKey' => 'prod_type_id',
+            'joinTable' => 'promotions_prod_types'
         ]);
     }
 
@@ -66,28 +66,28 @@ class PromotionsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->dateTime('startDate')
-            ->allowEmpty('startDate');
+            ->dateTime('start_date')
+            ->allowEmpty('start_date');
 
         $validator
-            ->dateTime('endDate')
-            ->allowEmpty('endDate');
+            ->dateTime('end_date')
+            ->allowEmpty('end_date');
 
         $validator
-            ->allowEmpty('promoDesc');
+            ->allowEmpty('promo_desc');
 
         $validator
-            ->allowEmpty('firstVouherNo');
+            ->allowEmpty('first_vouher_num');
 
         $validator
-            ->allowEmpty('lastVoucherNo');
+            ->allowEmpty('last_voucher_num');
 
         $validator
-            ->numeric('discountRate')
-            ->allowEmpty('discountRate');
+            ->numeric('discount_rate')
+            ->allowEmpty('discount_rate');
 
         $validator
-            ->allowEmpty('creditCardType');
+            ->allowEmpty('credit_card_type');
 
         return $validator;
     }
@@ -101,7 +101,7 @@ class PromotionsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['retailerEmployee_id'], 'Retaileremployees'));
+        $rules->add($rules->existsIn(['retailer_employee_id'], 'RetailerEmployees'));
 
         return $rules;
     }

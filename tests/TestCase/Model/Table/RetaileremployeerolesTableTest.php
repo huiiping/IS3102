@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\RetaileremployeerolesTable;
+use App\Model\Table\RetailerEmployeeRolesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\RetaileremployeerolesTable Test Case
+ * App\Model\Table\RetailerEmployeeRolesTable Test Case
  */
-class RetaileremployeerolesTableTest extends TestCase
+class RetailerEmployeeRolesTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\RetaileremployeerolesTable
+     * @var \App\Model\Table\RetailerEmployeeRolesTable
      */
-    public $Retaileremployeeroles;
+    public $RetailerEmployeeRoles;
 
     /**
      * Fixtures
@@ -24,13 +24,25 @@ class RetaileremployeerolesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.retaileremployeeroles',
-        'app.retaileremployees',
+        'app.retailer_employee_roles',
+        'app.retailer_employees',
         'app.locations',
         'app.sections',
+        'app.promotions',
+        'app.customers',
+        'app.cust_membership_tiers',
+        'app.customers_promotions',
+        'app.prod_types',
+        'app.prod_cats',
+        'app.promotions_prod_types',
+        'app.purchase_orders',
+        'app.suppliers',
+        'app.supplier_memos',
+        'app.purchase_order_items',
         'app.messages',
-        'app.retaileremployees_messages',
-        'app.retaileremployees_retaileremployeeroles'
+        'app.references',
+        'app.retailer_employees_messages',
+        'app.retailer_employees_retailer_employee_roles'
     ];
 
     /**
@@ -41,8 +53,8 @@ class RetaileremployeerolesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Retaileremployeeroles') ? [] : ['className' => 'App\Model\Table\RetaileremployeerolesTable'];
-        $this->Retaileremployeeroles = TableRegistry::get('Retaileremployeeroles', $config);
+        $config = TableRegistry::exists('RetailerEmployeeRoles') ? [] : ['className' => 'App\Model\Table\RetailerEmployeeRolesTable'];
+        $this->RetailerEmployeeRoles = TableRegistry::get('RetailerEmployeeRoles', $config);
     }
 
     /**
@@ -52,7 +64,7 @@ class RetaileremployeerolesTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Retaileremployeeroles);
+        unset($this->RetailerEmployeeRoles);
 
         parent::tearDown();
     }
