@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * RetailerEmployees Controller
@@ -16,6 +17,31 @@ class RetailerEmployeesController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->loadcomponent('Auth', [
+                'authenticate' => [
+                    'Form' => [
+                        'userModel' => 'RetailerEmployees',
+                        'fields' => [
+                            'username' => 'username',
+                            'password' => 'password'
+                        ],
+                    ]
+                ],
+                'loginAction' => [
+                    'controller' => 'RetailerEmployees',
+                    'action' => 'login'
+                ]
+            ]);
+        // Allow users to register and logout.
+        // You should not add the "login" action to allow list. Doing so would
+        // cause problems with normal functioning of AuthComponent.
+        $this->Auth->allow(['add', 'logout']);
+    }
+
     public function index()
     {
         $this->paginate = [
@@ -114,5 +140,17 @@ class RetailerEmployeesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function login(){
+    if($this->request->is('post')){
+        $retaileremployee = $this->Auth->identify();
+        if($retaileremployee){
+            $this->Auth->setUser($retaileremployee);
+            return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'index']);
+            //return $this->redirect($this->Auth->redirectUrl());            
+        }
+            $this->Flash->error('Incorrect Login');   
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Application Controller
@@ -64,6 +65,13 @@ class AppController extends Controller
             in_array($this->response->type(), ['application/json', 'application/xml'])
         ) {
             $this->set('_serialize', true);
+        }
+
+        //check login
+        if($this->request->session()->read('Auth.User')){
+            $this->set('loggedIn', true);
+        } else {
+            $this->set('loggedIn', false);
         }
     }
 }

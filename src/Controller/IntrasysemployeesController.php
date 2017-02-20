@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * IntrasysEmployees Controller
@@ -16,6 +17,31 @@ class IntrasysEmployeesController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->loadcomponent('Auth', [
+                'authenticate' => [
+                    'Form' => [
+                        'userModel' => 'IntrasysEmployees',
+                        'fields' => [
+                            'username' => 'username',
+                            'password' => 'password'
+                        ],
+                    ]
+                ],
+                'loginAction' => [
+                    'controller' => 'IntrasysEmployees',
+                    'action' => 'login'
+                ]
+            ]);
+        // Allow users to register and logout.
+        // You should not add the "login" action to allow list. Doing so would
+        // cause problems with normal functioning of AuthComponent.
+        $this->Auth->allow(['add', 'logout']);
+    }
+
     public function index()
     {
         $intrasysEmployees = $this->paginate($this->IntrasysEmployees);
@@ -107,5 +133,23 @@ class IntrasysEmployeesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function login(){
+        if($this->request->is('post')){
+            $intrasysemployee = $this->Auth->identify();
+            if($intrasysemployee){
+                $this->Auth->setUser($intrasysemployee);
+                return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'index']);
+                //return $this->redirect($this->Auth->redirectUrl());            
+            }
+            $this->Flash->error('Incorrect Login');   
+        }
+    }
+
+    public function logout(){
+        $this->Flash->success('You are now logged out');
+        $this->Auth->logout();
+        return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
     }
 }
