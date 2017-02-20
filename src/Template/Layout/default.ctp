@@ -341,9 +341,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
               <ul class="dropdown-menu">
                 <!-- User image -->
                 <li class="user-header">
-                  <img src="/IS3102_Finalp/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                  <img src="/IS3102_Final/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                   <p>
-                    <?= $_SESSION['Auth']['User']['first_name'] ?> <?= $_SESSION['Auth']['User']['last_name'] ?> - Administrator
+                    <?= $_SESSION['Auth']['User']['first_name'] ?> <?= $_SESSION['Auth']['User']['last_name'] ?> 
                     <small>Joined since <?= $this->Time->format($_SESSION['Auth']['User']['created'], 'd MMM YYYY') ?></small>
                   </p>
                 </li>
