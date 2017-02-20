@@ -11,11 +11,28 @@ use App\Controller\AppController;
 class CustomersController extends AppController
 {
 
+
+
+    public $components = array(
+        'Search.Prg'
+    );
+
+    public function index() {
+        $this->Prg->commonProcess();
+        $this->paginate = [
+            'contain' => ['Custmembershiptiers']
+        ];
+        $this->set('customers', $this->paginate($this->Customers->find('searchable', $this->Prg->parsedParams())));
+        $this->set(compact('customers'));
+        $this->set('_serialize', ['customers']);
+    }
+
     /**
      * Index method
      *
      * @return \Cake\Network\Response|null
      */
+    /*
     public function index()
     {
         $this->paginate = [
@@ -26,6 +43,7 @@ class CustomersController extends AppController
         $this->set(compact('customers'));
         $this->set('_serialize', ['customers']);
     }
+    */
 
     /**
      * View method

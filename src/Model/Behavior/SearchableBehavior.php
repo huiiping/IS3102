@@ -8,7 +8,7 @@
  * @copyright Copyright 2009 - 2014, Cake Development Corporation (http://cakedc.com)
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
  */
-namespace Search\Model\Behavior;
+namespace App\Model\Behavior;
 
 use Cake\Core\Configure;
 use Cake\ORM\Behavior;

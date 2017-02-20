@@ -69,7 +69,7 @@ class LocationsTable extends Table
         $this->hasMany('Sections', [
             'foreignKey' => 'location_id'
         ]);
-        $this->addBehavior('Search.Searchable');
+        $this->addBehavior('Searchable');
     }
 
     /**

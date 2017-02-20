@@ -8,13 +8,14 @@
  * @copyright Copyright 2009 - 2014, Cake Development Corporation (http://cakedc.com)
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
  */
-namespace Search\Controller\Component;
+namespace App\Controller\Component;
 
 use Cake\Controller\Component;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Routing\Router;
 use Cake\Utility\Hash;
+
 
 /**
  * Post-Redirect-Get: Transfers POST Requests to GET Requests

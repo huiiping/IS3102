@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Controller\Component;
+
 
 /**
  * Locations Controller
@@ -11,18 +13,27 @@ use App\Controller\AppController;
 class LocationsController extends AppController
 {
 
+/*
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Search.Prg');
+    }
+*/
 
-
-    public $components = array(
-        'Search.Prg'
-    );
 
     public function index() {
+
+
+        $this->loadComponent('Prg');
         $this->Prg->commonProcess();
         $this->set('locations', $this->paginate($this->Locations->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('locations'));
         $this->set('_serialize', ['locations']);
     }
+    public $components = array(
+        'Prg'
+    );
 
 
     /**
