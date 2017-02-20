@@ -149,7 +149,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     <li><!-- start message -->
                       <a href="#">
                         <div class="pull-left">
-                          <img src="/test_app/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                          <img src="/IS3102_Final/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                         </div>
                         <h4>
                           Support Team
@@ -161,7 +161,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     <li><!-- start message -->
                       <a href="#">
                         <div class="pull-left">
-                          <img src="/test_app/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                          <img src="/IS3102_Final/img/user3-128x128.jpg" class="img-circle" alt="User Image">
                         </div>
                         <h4>
                           AdminLTE Design Team
@@ -173,7 +173,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     <li><!-- start message -->
                       <a href="#">
                         <div class="pull-left">
-                          <img src="/test_app/img/user4-128x128.jpg" class="img-circle" alt="User Image">
+                          <img src="/IS3102_Final/img/user4-128x128.jpg" class="img-circle" alt="User Image">
                         </div>
                         <h4>
                           Developers
@@ -185,7 +185,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     <li><!-- start message -->
                       <a href="#">
                         <div class="pull-left">
-                          <img src="/test_app/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                          <img src="/IS3102_Final/img/user3-128x128.jpg" class="img-circle" alt="User Image">
                         </div>
                         <h4>
                           Sales Department
@@ -197,7 +197,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     <li><!-- start message -->
                       <a href="#">
                         <div class="pull-left">
-                          <img src="/test_app/img/user4-128x128.jpg" class="img-circle" alt="User Image">
+                          <img src="/IS3102_Final/img/user4-128x128.jpg" class="img-circle" alt="User Image">
                         </div>
                         <h4>
                           Reviewers
@@ -335,13 +335,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <!-- Start User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <img src="/test_app/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                <img src="/IS3102_Final/img/user2-160x160.jpg" class="user-image" alt="User Image">
                 <span class="hidden-xs"><?= $_SESSION['Auth']['User']['first_name'] ?></span>
               </a>
               <ul class="dropdown-menu">
                 <!-- User image -->
                 <li class="user-header">
-                  <img src="/test_app/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                  <img src="/IS3102_Finalp/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                   <p>
                     <?= $_SESSION['Auth']['User']['first_name'] ?> <?= $_SESSION['Auth']['User']['last_name'] ?> - Administrator
                     <small>Joined since <?= $this->Time->format($_SESSION['Auth']['User']['created'], 'd MMM YYYY') ?></small>
@@ -373,7 +373,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <div class="wrapper">
     <header class="main-header">
       <nav class="navbar navbar-static-top">
-        <a href="/test_app/" class="logo">
+        <a href="/IS3102_Final/" class="logo">
           <span class="logo-lg"><b>Intrasys</b></span>
         </a>
         <div class="navbar-custom-menu">
