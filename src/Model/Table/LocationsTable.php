@@ -23,6 +23,27 @@ use Cake\Validation\Validator;
 class LocationsTable extends Table
 {
 
+    public $filterArgs = array(
+        'id' => array(
+            'type' => 'like',
+            'field' => 'id'
+        ),
+        'name' => array(
+            'type' => 'like',
+            'field' => 'name'
+        ),
+        'address' => array(
+            'type' => 'like',
+            'field' => 'address'
+        ),
+        'contact' => array(
+            'type' => 'like',
+            'field' => 'contact'
+        ),
+        'type' => array(
+            'type' => 'type'
+        )
+    );
     /**
      * Initialize method
      *
@@ -43,6 +64,7 @@ class LocationsTable extends Table
         $this->hasMany('Sections', [
             'foreignKey' => 'location_id'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

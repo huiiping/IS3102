@@ -13,6 +13,46 @@
         <li><?= $this->Html->link(__('New Promotion'), ['controller' => 'Promotions', 'action' => 'add']) ?></li>
     </ul>
 </nav>
+
+<div class="customers index large-9 medium-8 columns content">
+    <h3><?= __('Search') ?></h3>
+    <table cellpadding="0" cellspacing="0">
+        <thead>
+        <tr><?php
+            echo $this->Form->create(null);?>
+            <th scope="col"><?= $this->Form->input('useername'); ?></th>
+            <th scope="col"><?= $this->Form->input('email'); ?></th>
+            <th scope="col"><?= $this->Form->input('address'); ?></th>
+            <th scope="col"><?= $this->Form->input('contact'); ?></th>
+        </tr>
+        <tr>
+            <th scope="col"><?= $this->Form->input('created'); ?></th>
+            <th scope="col"><?= $this->Form->input('modified'); ?></th>
+            <th scope="col"><?= $this->Form->input('first_name'); ?></th>
+            <th scope="col"><?= $this->Form->input('last_name'); ?></th>
+        </tr>
+        <tr>
+            <th scope="col"><?= $this->Form->input('account_status'); ?></th>
+            <th scope="col"><?= $this->Form->input('mailing_list'); ?></th>
+            <th scope="col"><?= $this->Form->input('cust_membership_tier_id'); ?></th>
+
+
+            <th scope="col" class="actions"><?= $this->Form->submit(__('Submit')); ?></th>
+            <?php echo $this->Form->end();?>
+        </tr>
+
+
+
+        </thead>
+    </table>
+</div>
+
+
+
+
+
+
+
 <div class="customers index large-9 medium-8 columns content">
     <h3><?= __('Customers') ?></h3>
     <table cellpadding="0" cellspacing="0">

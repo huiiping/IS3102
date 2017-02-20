@@ -16,6 +16,7 @@ class CustomersController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
+    /*
     public function index()
     {
         $this->paginate = [
@@ -26,6 +27,29 @@ class CustomersController extends AppController
         $this->set(compact('customers'));
         $this->set('_serialize', ['customers']);
     }
+*/
+
+    public function index() {
+
+
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+
+        $this->set('customers', $this->paginate($this->Customers->find('searchable', $this->Prg->parsedParams())));
+        $this->paginate = [
+            'contain' => ['CustMembershipTiers']
+        ];
+        $this->set(compact('customers'));
+        $this->set('_serialize', ['customers']);
+    }
+    public $components = array(
+        'Prg'
+    );
+
+
+
+
+
 
     /**
      * View method

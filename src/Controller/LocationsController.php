@@ -16,13 +16,18 @@ class LocationsController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
-    {
-        $locations = $this->paginate($this->Locations);
+    public function index() {
 
+
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+        $this->set('locations', $this->paginate($this->Locations->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('locations'));
         $this->set('_serialize', ['locations']);
     }
+    public $components = array(
+        'Prg'
+    );
 
     /**
      * View method
