@@ -24,8 +24,8 @@
             <td><?= $this->Number->format($logging->id) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Entity Id') ?></th>
-            <td><?= $this->Number->format($logging->entity_id) ?></td>
+            <th scope="row"><?= __('Entity Num') ?></th>
+            <td><?= $this->Number->format($logging->entity_num) ?></td>
         </tr>
     </table>
 </div>

@@ -163,7 +163,7 @@ CREATE TABLE prod_types (
 CREATE TABLE loggings (
     id INT AUTO_INCREMENT PRIMARY KEY,
     type VARCHAR(100),
-    entity_id INT
+    entity_num INT
 );
 
 CREATE TABLE customers_promotions (

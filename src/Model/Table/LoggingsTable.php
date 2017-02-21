@@ -9,8 +9,6 @@ use Cake\Validation\Validator;
 /**
  * Loggings Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Entities
- *
  * @method \App\Model\Entity\Logging get($primaryKey, $options = [])
  * @method \App\Model\Entity\Logging newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Logging[] newEntities(array $data, array $options = [])
@@ -35,10 +33,6 @@ class LoggingsTable extends Table
         $this->table('loggings');
         $this->displayField('id');
         $this->primaryKey('id');
-
-        $this->belongsTo('Entities', [
-            'foreignKey' => 'entity_id'
-        ]);
     }
 
     /**
@@ -56,20 +50,10 @@ class LoggingsTable extends Table
         $validator
             ->allowEmpty('type');
 
+        $validator
+            ->integer('entity_num')
+            ->allowEmpty('entity_num');
+
         return $validator;
-    }
-
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
-    public function buildRules(RulesChecker $rules)
-    {
-        $rules->add($rules->existsIn(['entity_id'], 'Entities'));
-
-        return $rules;
     }
 }

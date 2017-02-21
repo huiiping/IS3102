@@ -31,7 +31,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Sender Id') ?></th>
-            <td><?= $this->Number->format($message->sender_id) ?></td>
+            <td><?= $this->Number->format($message->intrasys_employee_id) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Date Created') ?></th>
