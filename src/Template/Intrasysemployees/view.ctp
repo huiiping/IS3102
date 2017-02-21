@@ -87,7 +87,9 @@
                         <?php foreach ($intrasysEmployee->intrasys_employee_roles as $intrasysEmployeeRoles): ?>
                         <tr>
                             <!--<td><?= h($intrasysEmployeeRoles->id) ?></td>-->
-                            <td><?= h($intrasysEmployeeRoles->role_name) ?></td>
+                            <td>
+                                <?= $this->Html->link(__(h($intrasysEmployeeRoles->role_name)), ['controller' => 'IntrasysEmployeeRoles', 'action' => 'view', $intrasysEmployeeRoles->id]) ?>
+                            </td>
                             <!--<td><?= h($intrasysEmployeeRoles->role_desc) ?></td>
                             <td><?= h($intrasysEmployeeRoles->created) ?></td>
                             <td><?= h($intrasysEmployeeRoles->modified) ?></td>

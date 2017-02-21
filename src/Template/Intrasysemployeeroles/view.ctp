@@ -49,10 +49,11 @@
                     <h4><?= __('Intrasys Employees') ?></h4>
                     <table cellpadding="0" cellspacing="0">
                         <tr>
-                            <!--<th scope="col"><?= __('Id') ?></th>-->
+                            <th scope="col"><?= __('Employee Name') ?>
+                            <!--<th scope="col"><?= __('Id') ?></th>
                             <th scope="col"><?= __('First Name') ?></th>
                             <th scope="col"><?= __('Last Name') ?></th>
-                            <!--<th scope="col"><?= __('Account Status') ?></th>
+                            <th scope="col"><?= __('Account Status') ?></th>
                             <th scope="col"><?= __('Username') ?></th>
                             <th scope="col"><?= __('Email') ?></th>
                             <th scope="col"><?= __('Password') ?></th>
@@ -64,10 +65,13 @@
                         </tr>
                         <?php foreach ($intrasysEmployeeRole->intrasys_employees as $intrasysEmployees): ?>
                         <tr>
-                            <!--<td><?= h($intrasysEmployees->id) ?></td>-->
+                            <td>
+                                <?= $this->Html->link(__(h($intrasysEmployees->first_name).' '.h($intrasysEmployees->last_name)), ['controller' => 'IntrasysEmployees', 'action' => 'view', $intrasysEmployees->id]) ?>
+                            </td>
+                            <!--<td><?= h($intrasysEmployees->id) ?></td>
                             <td><?= h($intrasysEmployees->first_name) ?></td>
                             <td><?= h($intrasysEmployees->last_name) ?></td>
-                            <!--<td><?= h($intrasysEmployees->account_status) ?></td>
+                            <td><?= h($intrasysEmployees->account_status) ?></td>
                             <td><?= h($intrasysEmployees->username) ?></td>
                             <td><?= h($intrasysEmployees->email) ?></td>
                             <td><?= h($intrasysEmployees->password) ?></td>
