@@ -18,9 +18,9 @@ class LoggingsController extends AppController
      */
     public function index()
     {
-        /*$this->paginate = [
+        $this->paginate = [
             'contain' => ['Entities']
-        ];*/
+        ];
         $loggings = $this->paginate($this->Loggings);
 
         $this->set(compact('loggings'));

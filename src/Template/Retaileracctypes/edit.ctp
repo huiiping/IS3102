@@ -3,39 +3,32 @@
   * @var \App\View\AppView $this
   */
 ?>
-
-<?= $this->Element('intrasysLeftSideBar'); ?>
-
-<!-- Main Content -->
-<div class="content-wrapper">
-  <!-- Content Header -->
-  <section class="content-header">
-  </section>
-  <!-- Main content -->
-  <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title"><?= __('Edit Retailer Account Type') ?></h3>
-            </div>
-            <div class="box-body">
-                <?= $this->Form->create($retailerAccType) ?>
-                <fieldset>
-                    <?php
-                        echo $this->Form->input('name');
-                        echo $this->Form->input(('num_of_users'), ['label' => 'No. of Users']);
-                        echo $this->Form->input(('num_of_warehouses'), ['label' => 'No. of Warehouses']);
-                        echo $this->Form->input(('num_of_stores'), ['label' => 'No. of Stores']);
-                        echo $this->Form->input(('num_of_prod_types'), ['label' => 'No. of Product Types']);
-                    ?>
-                </fieldset>
-                <br>
-                <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
-                <?= $this->Form->end() ?>
-            </div>
-          </div>
-        </div>
-      </div>
-  </section>
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
+    <ul class="side-nav">
+        <li class="heading"><?= __('Actions') ?></li>
+        <li><?= $this->Form->postLink(
+                __('Delete'),
+                ['action' => 'delete', $retailerAccType->id],
+                ['confirm' => __('Are you sure you want to delete # {0}?', $retailerAccType->id)]
+            )
+        ?></li>
+        <li><?= $this->Html->link(__('List Retailer Acc Types'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Retailers'), ['controller' => 'Retailers', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Retailer'), ['controller' => 'Retailers', 'action' => 'add']) ?></li>
+    </ul>
+</nav>
+<div class="retailerAccTypes form large-9 medium-8 columns content">
+    <?= $this->Form->create($retailerAccType) ?>
+    <fieldset>
+        <legend><?= __('Edit Retailer Acc Type') ?></legend>
+        <?php
+            echo $this->Form->input('name');
+            echo $this->Form->input('num_of_users');
+            echo $this->Form->input('num_of_warehouses');
+            echo $this->Form->input('num_of_stores');
+            echo $this->Form->input('num_of_prod_types');
+        ?>
+    </fieldset>
+    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->end() ?>
 </div>

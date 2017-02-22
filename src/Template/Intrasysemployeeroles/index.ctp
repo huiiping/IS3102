@@ -23,7 +23,7 @@
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                      <th scope="col"><?= $this->Paginator->sort(('id'), ['label' => 'ID']) ?></th>
+                      <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                       <th scope="col"><?= $this->Paginator->sort('role_name') ?></th>
                       <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                       <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
@@ -38,9 +38,9 @@
                       <td><?= $this->Time->format(h($intrasysEmployeeRole->created), 'd MMM YYYY, hh:mm') ?></td>
                       <td><?= $this->Time->format(h($intrasysEmployeeRole->modified), 'd MMM YYYY, hh:mm') ?></td>
                       <td class="actions">
-                          <?= $this->Html->link(__('View'), ['action' => 'view', $intrasysEmployeeRole->id]) ?>
-                          <!--<?= $this->Html->link(__('Edit'), ['action' => 'edit', $intrasysEmployeeRole->id]) ?>
-                          <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $intrasysEmployeeRole->id], ['confirm' => __('Are you sure you want to delete # {0}?', $intrasysEmployeeRole->id)]) ?>-->
+                          <?= $this->Html->link(__('View |'), ['action' => 'view', $intrasysEmployeeRole->id]) ?>
+                          <!--<?= $this->Html->link(__('Edit |'), ['action' => 'edit', $intrasysEmployeeRole->id]) ?>-->
+                          <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $intrasysEmployeeRole->id], ['confirm' => __('Are you sure you want to delete # {0}?', $intrasysEmployeeRole->id)]) ?>
                       </td>
                   </tr>
                   <?php endforeach; ?>

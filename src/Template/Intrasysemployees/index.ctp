@@ -23,7 +23,7 @@
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                      <th scope="col"><?= $this->Paginator->sort(('id'), ['label' => 'ID']) ?></th>
+                      <th scope="col"><?= $this->Paginator->sort('ID') ?></th>
                       <th scope="col"><?= $this->Paginator->sort('first_name') ?></th>
                       <th scope="col"><?= $this->Paginator->sort('last_name') ?></th>
                       <th scope="col"><?= $this->Paginator->sort('account_status') ?></th>
