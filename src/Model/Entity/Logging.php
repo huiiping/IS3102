@@ -8,9 +8,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $type
- * @property int $entity_num
- *
- * @property \App\Model\Entity\Entity $entity
+ * @property int $entity_id
  */
 class Logging extends Entity
 {

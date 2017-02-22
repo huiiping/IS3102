@@ -5,10 +5,14 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-
+use Cake\ORM\TableRegistry;
+use Cake\ORM\Entity;
+use Cake\Network\Exception\NotFoundException;
+use Cake\Datasource\ConnectionManager; // This line is required
 /**
  * Locations Model
  *
+ * @property \Cake\ORM\Association\HasMany $Inventory
  * @property \Cake\ORM\Association\HasMany $RetailerEmployees
  * @property \Cake\ORM\Association\HasMany $Sections
  *
@@ -22,28 +26,10 @@ use Cake\Validation\Validator;
  */
 class LocationsTable extends Table
 {
-
-    public $filterArgs = array(
-        'id' => array(
-            'type' => 'like',
-            'field' => 'id'
-        ),
-        'name' => array(
-            'type' => 'like',
-            'field' => 'name'
-        ),
-        'address' => array(
-            'type' => 'like',
-            'field' => 'address'
-        ),
-        'contact' => array(
-            'type' => 'like',
-            'field' => 'contact'
-        ),
-        'type' => array(
-            'type' => 'type'
-        )
-    );
+    public static function defaultConnectionName()
+    {
+        return 'retailerdb';
+    }
     /**
      * Initialize method
      *
@@ -52,19 +38,22 @@ class LocationsTable extends Table
      */
     public function initialize(array $config)
     {
+
         parent::initialize($config);
 
         $this->table('locations');
         $this->displayField('name');
         $this->primaryKey('id');
 
-        $this->hasMany('RetailerEmployees', [
+        $this->hasMany('Inventory', [
             'foreignKey' => 'location_id'
+        ]);
+        $this->hasMany('RetailerEmployees', [
+            'foreignKey' => 'retailer_employee__id'
         ]);
         $this->hasMany('Sections', [
-            'foreignKey' => 'location_id'
+            'foreignKey' => 'section_id'
         ]);
-        $this->addBehavior('Searchable');
     }
 
     /**

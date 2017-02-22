@@ -2,10 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\ORM\TableRegistry;
-use Cake\Error\Debugger;
 use Cake\Datasource\ConnectionManager;
-use Cake\Utility\Hash;
 
 /**
  * Locations Controller
@@ -20,18 +17,15 @@ class LocationsController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-    public function index() {
+    public function index()
+    {
 
+     //   $this->Locations->setDataSource('retailerdb');
+        $locations = $this->paginate($this->Locations);
 
-        $this->loadComponent('Prg');
-        $this->Prg->commonProcess();
-        $this->set('locations', $this->paginate($this->Locations->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('locations'));
         $this->set('_serialize', ['locations']);
     }
-    public $components = array(
-        'Prg'
-    );
 
     /**
      * View method
@@ -60,58 +54,15 @@ class LocationsController extends AppController
         $location = $this->Locations->newEntity();
         if ($this->request->is('post')) {
             $location = $this->Locations->patchEntity($location, $this->request->data);
-            $type = $location['type'];
-            if ($this->withinLimit($type)) {
-                if ($this->Locations->save($location)) {
-                    $this->Flash->success(__('The location has been saved.'));
+            if ($this->Locations->save($location)) {
+                $this->Flash->success(__('The location has been saved.'));
 
-                    return $this->redirect(['action' => 'index']);
-                }
-            }
-            else {
-                $this->Flash->error(__('You have reached your maximum number of '.$type.'s! Please contact Intrasys to upgrade your account.'));
+                return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The location could not be saved. Please, try again.'));
         }
         $this->set(compact('location'));
         $this->set('_serialize', ['location']);
-    }
-
-    private function withinLimit($type)
-    {   
-        $session = $this->request->session();
-        $retailer = $session->read('retailer');
-
-        //counting the retailer's existing number of locations of a certain type
-        $query = $this->Locations->find()->where(['type' => $type]);
-        $count = $query->count();
-        /*$locations = TableRegistry::get('Locations');
-        $query = $locations->find('all')->where(['type' => $type]);
-        $count = $query->count();*/
-
-        //obtaining the retailer's limit on the number of locations of a certain type
-        $conn = ConnectionManager::get('intrasysdb');
-        $acctTypeID = $conn
-            ->newQuery()
-            ->select('retailer_acc_type_id')
-            ->from('retailers')
-            ->where(['company_name' => $retailer])
-            ->execute()
-            ->fetchAll('assoc');
-        
-        $limit = $conn
-            ->newQuery()
-            ->select('num_of_'.$type.'s')
-            ->from('retailer_acc_types')
-            ->where(['id' => $acctTypeID[0]], ['id' => 'integer[]'])
-            ->execute()
-            ->fetchAll('assoc');
-        $limit = Hash::extract($limit, '{n}.num_of_'.$type.'s');
-
-        if ($count >= $limit[0]) {
-            return false;
-        }
-        return true;
     }
 
     /**

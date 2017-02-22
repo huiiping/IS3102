@@ -22,6 +22,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\CustMembershipTier $cust_membership_tier
  * @property \App\Model\Entity\Promotion[] $promotions
+ * @property \App\Model\Entity\CustomersPromotion[] $customers_promotions
  */
 class Customer extends Entity
 {

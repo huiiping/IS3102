@@ -17,7 +17,7 @@ use Cake\ORM\Entity;
  */
 class Location extends Entity
 {
-
+    public $useDbConfig = 'retailerdb';
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *

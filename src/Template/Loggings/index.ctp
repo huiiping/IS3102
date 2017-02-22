@@ -16,7 +16,7 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('type') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('entity_num') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('entity_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -25,7 +25,7 @@
             <tr>
                 <td><?= $this->Number->format($logging->id) ?></td>
                 <td><?= h($logging->type) ?></td>
-                <td><?= $this->Number->format($logging->entity_num) ?></td>
+                <td><?= $this->Number->format($logging->entity_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $logging->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $logging->id]) ?>

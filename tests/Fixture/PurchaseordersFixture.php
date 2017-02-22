@@ -47,7 +47,7 @@ class PurchaseOrdersFixture extends TestFixture
     public $records = [
         [
             'id' => 1,
-            'created' => '2017-02-20 02:28:50',
+            'created' => '2017-02-22 08:07:34',
             'total_price' => 1,
             'delivery_status' => 1,
             'supplier_id' => 1,

@@ -16,6 +16,30 @@ class RetailerEmployeeRolesController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->loadcomponent('Auth', [
+            'authenticate' => [
+                'Form' => [
+                    'userModel' => 'RetailerEmployees',
+                    'fields' => [
+                        'username' => 'username',
+                        'password' => 'password'
+                    ],
+                ]
+            ],
+            'loginAction' => [
+                'controller' => 'RetailerEmployees',
+                'action' => 'login'
+            ]
+        ]);
+        // Allow users to register and logout.
+        // You should not add the "login" action to allow list. Doing so would
+        // cause problems with normal functioning of AuthComponent.
+        $this->Auth->allow(['add', 'logout']);
+    }
     public function index()
     {
         $retailerEmployeeRoles = $this->paginate($this->RetailerEmployeeRoles);

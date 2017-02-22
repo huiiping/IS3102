@@ -31,7 +31,7 @@
                 <td><?= h($section->sec_name) ?></td>
                 <td><?= $this->Number->format($section->space_limit) ?></td>
                 <td><?= h($section->reserve) ?></td>
-                <td><?= $section->has('location') ? $this->Html->link($section->location->name, ['controller' => 'Locations', 'action' => 'view', $section->location->id]) : '' ?></td>
+           //    <td><?= $section->has('location') ? $this->Html->link($section->location->name, ['controller' => 'Locations', 'action' => 'view', $section->location->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $section->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $section->id]) ?>

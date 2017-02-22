@@ -24,7 +24,10 @@ use Cake\Validation\Validator;
  */
 class SupplierMemosTable extends Table
 {
-
+    public static function defaultConnectionName()
+    {
+        return 'retailerdb';
+    }
     /**
      * Initialize method
      *

@@ -22,7 +22,10 @@ use Cake\Validation\Validator;
  */
 class CustomersPromotionsTable extends Table
 {
-
+    public static function defaultConnectionName()
+    {
+        return 'retailerdb';
+    }
     /**
      * Initialize method
      *

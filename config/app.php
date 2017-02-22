@@ -274,6 +274,21 @@ return [
             'quoteIdentifiers' => false,
         //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
         ],
+        'retailerdb' => [
+            'className' => 'Cake\Database\Connection',
+            'driver' => 'Cake\Database\Driver\Mysql',
+            'persistent' => false,
+            'host' => 'localhost',
+            //'port' => 'nonstandard_port_number',
+            'username' => 'root',
+            'password' => 'joy',
+            'database' => 'retailerdb', // This is my second database
+            'encoding' => 'utf8',
+            'timezone' => 'UTC',
+            'cacheMetadata' => true,
+            'quoteIdentifiers' => false,
+            //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
+        ],
 
         /**
          * The test connection is used during the test suite.

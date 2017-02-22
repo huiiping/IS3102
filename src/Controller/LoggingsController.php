@@ -18,9 +18,6 @@ class LoggingsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Entities']
-        ];
         $loggings = $this->paginate($this->Loggings);
 
         $this->set(compact('loggings'));
@@ -37,7 +34,7 @@ class LoggingsController extends AppController
     public function view($id = null)
     {
         $logging = $this->Loggings->get($id, [
-            'contain' => ['Entities']
+            'contain' => []
         ]);
 
         $this->set('logging', $logging);
@@ -61,8 +58,7 @@ class LoggingsController extends AppController
             }
             $this->Flash->error(__('The logging could not be saved. Please, try again.'));
         }
-        $entities = $this->Loggings->Entities->find('list', ['limit' => 200]);
-        $this->set(compact('logging', 'entities'));
+        $this->set(compact('logging'));
         $this->set('_serialize', ['logging']);
     }
 
@@ -87,8 +83,7 @@ class LoggingsController extends AppController
             }
             $this->Flash->error(__('The logging could not be saved. Please, try again.'));
         }
-        $entities = $this->Loggings->Entities->find('list', ['limit' => 200]);
-        $this->set(compact('logging', 'entities'));
+        $this->set(compact('logging'));
         $this->set('_serialize', ['logging']);
     }
 

@@ -47,7 +47,7 @@ class SupplierMemosFixture extends TestFixture
         [
             'id' => 1,
             'remarks' => 'Lorem ipsum dolor sit amet',
-            'created' => '2017-02-20 02:29:48',
+            'created' => '2017-02-22 08:07:36',
             'supplier_id' => 1,
             'retailer_employee_id' => 1
         ],

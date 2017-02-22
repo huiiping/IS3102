@@ -28,11 +28,11 @@ class SuppliersControllerTest extends IntegrationTestCase
         'app.prod_types',
         'app.prod_cats',
         'app.promotions_prod_types',
-        'app.retailer_employees_retailer_employeer_roles',
         'app.supplier_memos',
         'app.messages',
-        'app.references',
         'app.retailer_employees_messages',
+        'app.retailer_employee_roles',
+        'app.retailer_employees_retailer_employee_roles',
         'app.purchase_order_items'
     ];
 

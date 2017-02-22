@@ -29,7 +29,7 @@
             echo $this->Form->input('credit_card_type');
             echo $this->Form->input('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
             echo $this->Form->input('customers._ids', ['options' => $customers]);
-            echo $this->Form->input('product_types._ids', ['options' => $prodTypes]);
+            echo $this->Form->input('prod_types._ids', ['options' => $prodTypes]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

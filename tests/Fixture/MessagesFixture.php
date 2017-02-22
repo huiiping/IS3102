@@ -47,7 +47,7 @@ class MessagesFixture extends TestFixture
         [
             'id' => 1,
             'title' => 'Lorem ipsum dolor sit amet',
-            'date_created' => '2017-02-20 02:39:25',
+            'date_created' => '2017-02-22 08:07:31',
             'message' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
             'status' => 1,
             'reference_id' => 'Lorem ipsum dolor sit amet',

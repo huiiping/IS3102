@@ -48,8 +48,8 @@ class PromotionsFixture extends TestFixture
     public $records = [
         [
             'id' => 1,
-            'start_date' => '2017-02-20 02:28:39',
-            'end_date' => '2017-02-20 02:28:39',
+            'start_date' => '2017-02-22 08:07:32',
+            'end_date' => '2017-02-22 08:07:32',
             'promo_desc' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
             'first_vouher_num' => 'Lorem ipsum dolor sit amet',
             'last_voucher_num' => 'Lorem ipsum dolor sit amet',

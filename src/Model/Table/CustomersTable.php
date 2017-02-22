@@ -25,61 +25,10 @@ use Cake\Validation\Validator;
 class CustomersTable extends Table
 {
 
-
-    public $filterArgs = array(
-        'id' => array(
-            'type' => 'like',
-            'field' => 'id'
-        ),
-        'username' => array(
-            'type' => 'like',
-            'field' => 'username'
-        ),
-        'password' => array(
-            'type' => 'like',
-            'field' => 'password'
-        ),
-        'email' => array(
-            'type' => 'like',
-            'field' => 'email'
-        ),
-        'address' => array(
-            'type' => 'like',
-            'field' => 'address'
-        ),
-        'contact' => array(
-            'type' => 'like',
-            'field' => 'contact'
-        ),
-        'created' => array(
-            'type' => 'like',
-            'field' => 'created'
-        ),
-        'modified' => array(
-            'type' => 'like',
-            'field' => 'modified'
-        ),
-        'first_name' => array(
-            'type' => 'like',
-            'field' => 'first_name'
-        ),
-        'last_name' => array(
-            'type' => 'like',
-            'field' => 'last_name'
-        ),
-        'account_status' => array(
-            'type' => 'like',
-            'field' => 'account_status'
-        ),
-        'mailing_list' => array(
-            'type' => 'like',
-            'field' => 'mailing_list'
-        ),
-        'cust_membership_tier_id' => array(
-            'type' => 'cust_membership_tier_id'
-        )
-    );
-
+    public static function defaultConnectionName()
+    {
+        return 'retailerdb';
+    }
     /**
      * Initialize method
      *
@@ -105,7 +54,6 @@ class CustomersTable extends Table
             'targetForeignKey' => 'promotion_id',
             'joinTable' => 'customers_promotions'
         ]);
-        $this->addBehavior('Searchable');
     }
 
     /**

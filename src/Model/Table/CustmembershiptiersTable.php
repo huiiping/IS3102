@@ -23,8 +23,10 @@ use Cake\Validation\Validator;
  */
 class CustMembershipTiersTable extends Table
 {
-
-    /**
+    public static function defaultConnectionName()
+    {
+        return 'retailerdb';
+    }    /**
      * Initialize method
      *
      * @param array $config The configuration for the Table.

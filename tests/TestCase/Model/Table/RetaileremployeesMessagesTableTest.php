@@ -39,9 +39,9 @@ class RetailerEmployeesMessagesTableTest extends TestCase
         'app.suppliers',
         'app.supplier_memos',
         'app.purchase_order_items',
-        'app.retailer_employees_retailer_employeer_roles',
         'app.messages',
-        'app.references'
+        'app.retailer_employee_roles',
+        'app.retailer_employees_retailer_employee_roles'
     ];
 
     /**

@@ -15,7 +15,7 @@
         <legend><?= __('Add Logging') ?></legend>
         <?php
             echo $this->Form->input('type');
-            echo $this->Form->input('entity_num');
+            echo $this->Form->input('entity_id');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

@@ -24,7 +24,10 @@ use Cake\Validation\Validator;
  */
 class SuppliersTable extends Table
 {
-
+    public static function defaultConnectionName()
+    {
+        return 'retailerdb';
+    }
     /**
      * Initialize method
      *

@@ -19,6 +19,8 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\RetailerEmployee $retailer_employee
  * @property \App\Model\Entity\Customer[] $customers
  * @property \App\Model\Entity\ProdType[] $prod_types
+ * @property \App\Model\Entity\CustomersPromotion[] $customers_promotions
+ * @property \App\Model\Entity\PromotionsProdType[] $promotions_prod_types
  */
 class Promotion extends Entity
 {
