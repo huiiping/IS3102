@@ -144,9 +144,14 @@ class RetailerEmployeesController extends AppController
 
     public function login(){
     if($this->request->is('post')){
+        $session = $this->request->session();
+        $retailer = $_POST['retailer'];
+        $database = $_POST['retailer']."db";
+        $session->write('database', $database);
         $retaileremployee = $this->Auth->identify();
         if($retaileremployee){
             $this->Auth->setUser($retaileremployee);
+            $session->write('retailer', $retailer); 
             return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'index']);
             //return $this->redirect($this->Auth->redirectUrl());            
         }

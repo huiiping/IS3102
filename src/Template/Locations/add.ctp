@@ -21,7 +21,9 @@
             echo $this->Form->input('name');
             echo $this->Form->input('address');
             echo $this->Form->input('contact');
-            echo $this->Form->input('type');
+            echo $this->Form->select('type', ['options' => [
+                'warehouse' => 'Warehouse',
+                'store' => 'Store']]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
