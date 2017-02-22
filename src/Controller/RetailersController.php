@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Datasource\ConnectionManager;
+use Cake\Event\Event;
 
 /**
  * Retailers Controller
@@ -10,6 +12,11 @@ use App\Controller\AppController;
  */
 class RetailersController extends AppController
 {
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->loadComponent('CreateTable');
+    }
 
     /**
      * Index method
@@ -56,6 +63,16 @@ class RetailersController extends AppController
             $retailer = $this->Retailers->patchEntity($retailer, $this->request->data);
             if ($this->Retailers->save($retailer)) {
                 $this->Flash->success(__('The retailer has been saved.'));
+
+               //Use the 'default' connection to create a new database
+                $conn = ConnectionManager::get('default');
+                $database = $retailer['company_name']."db";
+                $conn->query("Create Database $database");
+                
+                //TODO: UPDATE the commands accordingly to the OS
+                $scriptpath = $this->CreateTable->SCHEMA_FOLDER . "retailerdb_For 1SR_Latest.txt";
+                exec("C:/xampp/mysql/bin/mysql -uroot -pjoy -D$database < \"$scriptpath\"");
+                //---------------------------------------------------
 
                 return $this->redirect(['action' => 'index']);
             }
