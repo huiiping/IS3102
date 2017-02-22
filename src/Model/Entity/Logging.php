@@ -8,7 +8,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $type
- * @property int $entity_id
+ * @property int $entity_num
  *
  * @property \App\Model\Entity\Entity $entity
  */

@@ -38,9 +38,9 @@ class MessagesTable extends Table
         $this->displayField('title');
         $this->primaryKey('id');
 
-        $this->belongsTo('References', [
+       /* $this->belongsTo('References', [
             'foreignKey' => 'reference_id'
-        ]);
+        ]);*/
         $this->belongsTo('RetailerEmployees', [
             'foreignKey' => 'sender_id'
         ]);
@@ -89,7 +89,7 @@ class MessagesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['reference_id'], 'References'));
+        //$rules->add($rules->existsIn(['reference_id'], 'References'));
         $rules->add($rules->existsIn(['sender_id'], 'RetailerEmployees'));
 
         return $rules;

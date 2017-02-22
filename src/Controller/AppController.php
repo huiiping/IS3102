@@ -28,7 +28,27 @@ use Cake\Datasource\ConnectionManager;
  */
 class AppController extends Controller
 {
+    public function beforeFilter(Event $event) 
+    {
+        parent::beforeFilter($event);
+        $session = $this->request->session();
+        $database = $session->read('database');
+        ConnectionManager::drop('conn1'); 
+        ConnectionManager::config('conn1', [
+                'className' => 'Cake\Database\Connection',
+                'driver' => 'Cake\Database\Driver\Mysql',
+                'persistent' => false,
+                'host' => 'localhost',
+                'username' => 'root',
+                'password' => 'joy',
+                'database' => $database,
+                'encoding' => 'utf8',
+                'timezone' => 'UTC',
+                'cacheMetadata' => true,
 
+            ]);
+        ConnectionManager::alias('conn1', 'default');
+    }
     /**
      * Initialization hook method.
      *
@@ -44,7 +64,6 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-
         /*
          * Enable the following components for recommended CakePHP security settings.
          * see http://book.cakephp.org/3.0/en/controllers/components/security.html
