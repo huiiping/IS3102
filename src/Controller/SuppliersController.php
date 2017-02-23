@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Datasource\ConnectionManager;
+use Cake\Event\Event;
 
 /**
  * Suppliers Controller
@@ -10,6 +12,29 @@ use App\Controller\AppController;
  */
 class SuppliersController extends AppController
 {
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->loadcomponent('Auth', [
+                'authenticate' => [
+                    'Form' => [
+                        'userModel' => 'Suppliers',
+                        'fields' => [
+                            'username' => 'username',
+                            'password' => 'password'
+                        ],
+                    ]
+                ],
+                'loginAction' => [
+                    'controller' => 'Suppliers',
+                    'action' => 'login'
+                ]
+            ]);
+        // Allow users to register and logout.
+        // You should not add the "login" action to allow list. Doing so would
+        // cause problems with normal functioning of AuthComponent.
+        $this->Auth->allow(['add', 'logout']);
+    }
 
     /**
      * Index method
@@ -105,5 +130,47 @@ class SuppliersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function login(){
+    if($this->request->is('post')){
+        $session = $this->request->session();
+        $retailer = $_POST['retailer'];
+        $database = $_POST['retailer']."db";
+        $session->write('database', $database);
+
+        ConnectionManager::drop('conn1'); 
+        ConnectionManager::config('conn1', [
+            'className' => 'Cake\Database\Connection',
+            'driver' => 'Cake\Database\Driver\Mysql',
+            'persistent' => false,
+            'host' => 'localhost',
+            'username' => 'root',
+            'password' => 'joy',
+            'database' => $database,
+            'encoding' => 'utf8',
+            'timezone' => 'UTC',
+            'cacheMetadata' => true,
+
+            ]);
+        ConnectionManager::alias('conn1', 'default');
+
+        $supplier = $this->Auth->identify();
+        if($supplier){
+            $this->Auth->setUser($supplier);
+            $session->write('supplier', $supplier); 
+            return $this->redirect(['controller' => 'Suppliers', 'action' => 'index']);
+            //return $this->redirect($this->Auth->redirectUrl());            
+        }
+            $this->Flash->error('Incorrect Login');   
+        }
+    }
+
+    public function logout(){
+        $this->Flash->success('You are now logged out');
+        $this->Auth->logout();
+        $session = $this->request->session();
+        $session->destroy();
+        return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
     }
 }

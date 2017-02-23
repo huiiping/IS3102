@@ -17,10 +17,11 @@ class RetailerInfoController extends AppController
      * @return \Cake\Network\Response|null
      */
     public function index()
-    {
+    {   
+        /*
         $this->paginate = [
             'contain' => ['Retailers']
-        ];
+        ];*/
         $retailerInfo = $this->paginate($this->RetailerInfo);
 
         $this->set(compact('retailerInfo'));
@@ -35,10 +36,11 @@ class RetailerInfoController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
-    {
+    {   
+        /*
         $retailerInfo = $this->RetailerInfo->get($id, [
             'contain' => ['Retailers']
-        ]);
+        ]);*/
 
         $this->set('retailerInfo', $retailerInfo);
         $this->set('_serialize', ['retailerInfo']);
@@ -61,8 +63,9 @@ class RetailerInfoController extends AppController
             }
             $this->Flash->error(__('The retailer info could not be saved. Please, try again.'));
         }
+        /*
         $retailers = $this->RetailerInfo->Retailers->find('list', ['limit' => 200]);
-        $this->set(compact('retailerInfo', 'retailers'));
+        $this->set(compact('retailerInfo', 'retailers'));*/
         $this->set('_serialize', ['retailerInfo']);
     }
 
@@ -87,8 +90,9 @@ class RetailerInfoController extends AppController
             }
             $this->Flash->error(__('The retailer info could not be saved. Please, try again.'));
         }
+        /*
         $retailers = $this->RetailerInfo->Retailers->find('list', ['limit' => 200]);
-        $this->set(compact('retailerInfo', 'retailers'));
+        $this->set(compact('retailerInfo', 'retailers'));*/
         $this->set('_serialize', ['retailerInfo']);
     }
 

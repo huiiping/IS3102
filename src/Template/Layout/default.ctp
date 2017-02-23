@@ -390,6 +390,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             </li>
           </ul>
         </div>
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <li class="dropdown messages-menu">
+              <?= $this->Html->link(__('Login For Supplier'), ['controller' => 'Suppliers', 'action' => 'login'], array( 'class' => 'navbartopright')); ?>
+            </li>
+          </ul>
+        </div>
       </nav>  
     </header>
 

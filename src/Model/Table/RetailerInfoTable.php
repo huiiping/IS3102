@@ -35,11 +35,11 @@ class RetailerInfoTable extends Table
         $this->table('retailer_info');
         $this->displayField('retailer_id');
         $this->primaryKey('retailer_id');
-
+        /*
         $this->belongsTo('Retailers', [
             'foreignKey' => 'retailer_id',
             'joinType' => 'INNER'
-        ]);
+        ]);*/
     }
 
     /**
@@ -80,9 +80,10 @@ class RetailerInfoTable extends Table
      * @return \Cake\ORM\RulesChecker
      */
     public function buildRules(RulesChecker $rules)
-    {
+    {   
+        /*
         $rules->add($rules->existsIn(['retailer_id'], 'Retailers'));
 
-        return $rules;
+        return $rules;*/
     }
 }

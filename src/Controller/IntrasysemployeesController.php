@@ -137,7 +137,6 @@ class IntrasysEmployeesController extends AppController
     public function login(){
         if($this->request->is('post')){
             $intrasysemployee = $this->Auth->identify();
-            //echo $intrasysemployee;
             if($intrasysemployee){
                 $this->Auth->setUser($intrasysemployee);
                 return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'index']);
