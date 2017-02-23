@@ -24,7 +24,10 @@ use Cake\Validation\Validator;
  */
 class RetailersTable extends Table
 {
-
+    public static function defaultConnectionName() {
+        return 'intrasysdb';
+    }
+    
     /**
      * Initialize method
      *
