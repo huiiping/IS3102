@@ -3,35 +3,48 @@
   * @var \App\View\AppView $this
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Retailers'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Retailer Acc Types'), ['controller' => 'RetailerAccTypes', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retailer Acc Type'), ['controller' => 'RetailerAccTypes', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="retailers form large-9 medium-8 columns content">
-    <?= $this->Form->create($retailer) ?>
-    <fieldset>
-        <legend><?= __('Add Retailer') ?></legend>
-        <?php
-            echo $this->Form->input('retailer_name');
-            echo $this->Form->input('retailer_desc');
-            echo $this->Form->input('account_status');
-            echo $this->Form->input('payment_term');
-            echo $this->Form->input('retailer_email');
-            echo $this->Form->input('address');
-            echo $this->Form->input('contact');
-            echo $this->Form->input('contract_start_date');
-            echo $this->Form->input('contract_end_date');
-            echo $this->Form->input('num_of_users');
-            echo $this->Form->input('num_of_warehouses');
-            echo $this->Form->input('num_of_stores');
-            echo $this->Form->input('num_of_product_types');
-            echo $this->Form->input('retailer_acc_type_id', ['options' => $retailerAccTypes]);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+
+<?= $this->Element('intrasysLeftSideBar'); ?>
+
+<!-- Main Content -->
+<div class="content-wrapper">
+  <!-- Content Header -->
+  <section class="content-header">
+  </section>
+  <!-- Main content -->
+  <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title"><?= __('Create New Retailer') ?></h3>
+            </div>
+            <div class="box-body">
+                <?= $this->Form->create($retailer) ?>
+                <fieldset>
+                    <?php
+                        echo $this->Form->input('retailer_name');
+                        echo $this->Form->input('retailer_desc');
+                        echo $this->Form->input('account_status');
+                        echo $this->Form->input('payment_term');
+                        echo $this->Form->input('retailer_email');
+                        echo $this->Form->input('address');
+                        echo $this->Form->input('contact');
+                        echo $this->Form->input('contract_start_date');
+                        echo $this->Form->input('contract_end_date');
+                        echo $this->Form->input('num_of_users');
+                        echo $this->Form->input('num_of_warehouses');
+                        echo $this->Form->input('num_of_stores');
+                        echo $this->Form->input('num_of_product_types');
+                        echo $this->Form->input('retailer_acc_type_id', ['options' => $retailerAccTypes]);
+                    ?>
+                </fieldset>
+                <br>
+                <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
+                <?= $this->Form->end() ?>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
 </div>
