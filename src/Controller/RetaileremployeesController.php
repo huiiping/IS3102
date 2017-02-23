@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * RetailerEmployees Controller
@@ -11,11 +13,29 @@ use App\Controller\AppController;
 class RetailerEmployeesController extends AppController
 {
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->loadcomponent('Auth', [
+                'authenticate' => [
+                    'Form' => [
+                        'userModel' => 'RetailerEmployees',
+                        'fields' => [
+                            'username' => 'username',
+                            'password' => 'password'
+                        ],
+                    ]
+                ],
+                'loginAction' => [
+                    'controller' => 'RetailerEmployees',
+                    'action' => 'login'
+                ]
+            ]);
+        // Allow users to register and logout.
+        // You should not add the "login" action to allow list. Doing so would
+        // cause problems with normal functioning of AuthComponent.
+        $this->Auth->allow(['add', 'logout']);
+    }
     public function index()
     {
         $this->paginate = [
@@ -117,20 +137,42 @@ class RetailerEmployeesController extends AppController
     }
 
     public function login(){
-        if($this->request->is('post')){
-            $retaileremployee = $this->Auth->identify();
-            if($retaileremployee){
-                $this->Auth->setUser($retaileremployee);
-                return $this->redirect(['controller' => 'RetailerEmployee', 'action' => 'index']);
-                //return $this->redirect($this->Auth->redirectUrl());
-            }
-            $this->Flash->error('Incorrect Login');
+    if($this->request->is('post')){
+        $session = $this->request->session();
+        $retailer = $_POST['retailer'];
+        $database = $_POST['retailer']."db";
+        $session->write('database', $database);
+
+        ConnectionManager::drop('conn1'); 
+        ConnectionManager::config('conn1', [
+            'className' => 'Cake\Database\Connection',
+            'driver' => 'Cake\Database\Driver\Mysql',
+            'persistent' => false,
+            'host' => 'localhost',
+            'username' => 'root',
+            'password' => 'joy',
+            'database' => $database,
+            'encoding' => 'utf8',
+            'timezone' => 'UTC',
+            'cacheMetadata' => true,
+
+            ]);
+        ConnectionManager::alias('conn1', 'default');
+
+        $retaileremployee = $this->Auth->identify();
+        if($retaileremployee){
+            $this->Auth->setUser($retaileremployee);
+            $session->write('retailer', $retailer); 
+            return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'index']);
+            //return $this->redirect($this->Auth->redirectUrl());            
+        }
+            $this->Flash->error('Incorrect Login');   
         }
     }
 
-    public function logout(){
+    /*public function logout(){
         $this->Flash->success('You are now logged out');
         $this->Auth->logout();
         return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
-    }
+    }*/
 }

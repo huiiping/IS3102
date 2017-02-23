@@ -25,10 +25,6 @@ use Cake\Validation\Validator;
 class CustomersTable extends Table
 {
 
-    public static function defaultConnectionName()
-    {
-        return 'retailerdb';
-    }
     /**
      * Initialize method
      *
@@ -99,7 +95,16 @@ class CustomersTable extends Table
             ->notEmpty('last_name');
 
         $validator
-            ->allowEmpty('account_status');
+            ->allowEmpty('activation_status');
+
+        $validator
+            ->allowEmpty('activation_token');
+
+        $validator
+            ->allowEmpty('recovery_status');
+
+        $validator
+            ->allowEmpty('recovery_token');
 
         $validator
             ->boolean('mailing_list')

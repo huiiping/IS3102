@@ -33,7 +33,10 @@
             echo $this->Form->input('contact');
             echo $this->Form->input('first_name');
             echo $this->Form->input('last_name');
-            echo $this->Form->input('account_status');
+            echo $this->Form->input('activation_status');
+            echo $this->Form->input('activation_token');
+            echo $this->Form->input('recovery_status');
+            echo $this->Form->input('recovery_token');
             echo $this->Form->input('location_id', ['options' => $locations, 'empty' => true]);
             echo $this->Form->input('messages._ids', ['options' => $messages]);
             echo $this->Form->input('retailer_employee_roles._ids', ['options' => $retailerEmployeeRoles]);

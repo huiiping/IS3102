@@ -28,7 +28,10 @@
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('first_name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('last_name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('account_status') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('activation_status') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('activation_token') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('recovery_status') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('recovery_token') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('mailing_list') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('cust_membership_tier_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -47,7 +50,10 @@
                 <td><?= h($customer->modified) ?></td>
                 <td><?= h($customer->first_name) ?></td>
                 <td><?= h($customer->last_name) ?></td>
-                <td><?= h($customer->account_status) ?></td>
+                <td><?= h($customer->activation_status) ?></td>
+                <td><?= h($customer->activation_token) ?></td>
+                <td><?= h($customer->recovery_status) ?></td>
+                <td><?= h($customer->recovery_token) ?></td>
                 <td><?= h($customer->mailing_list) ?></td>
                 <td><?= $customer->has('cust_membership_tier') ? $this->Html->link($customer->cust_membership_tier->id, ['controller' => 'CustMembershipTiers', 'action' => 'view', $customer->cust_membership_tier->id]) : '' ?></td>
                 <td class="actions">

@@ -11,7 +11,7 @@ use Cake\ORM\Entity;
  * @property int $num_of_users
  * @property int $num_of_warehouses
  * @property int $num_of_stores
- * @property int $num_of_prod_types
+ * @property int $num_of_product_types
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  *

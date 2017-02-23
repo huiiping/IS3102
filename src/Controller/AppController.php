@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Datasource\ConnectionManager;
+use Cake\Error\Debugger;
 
 /**
  * Application Controller
@@ -28,27 +29,6 @@ use Cake\Datasource\ConnectionManager;
  */
 class AppController extends Controller
 {
-    public function beforeFilter(Event $event) 
-    {
-        parent::beforeFilter($event);
-        $session = $this->request->session();
-        $database = $session->read('database');
-        ConnectionManager::drop('conn1'); 
-        ConnectionManager::config('conn1', [
-                'className' => 'Cake\Database\Connection',
-                'driver' => 'Cake\Database\Driver\Mysql',
-                'persistent' => false,
-                'host' => 'localhost',
-                'username' => 'root',
-                'password' => 'joy',
-                'database' => $database,
-                'encoding' => 'utf8',
-                'timezone' => 'UTC',
-                'cacheMetadata' => true,
-
-            ]);
-        ConnectionManager::alias('conn1', 'default');
-    }
     /**
      * Initialization hook method.
      *
@@ -70,6 +50,29 @@ class AppController extends Controller
          */
         //$this->loadComponent('Security');
         //$this->loadComponent('Csrf');
+
+        //Setting the database connection
+        $session = $this->request->session();
+        $database = $session->read('database');
+        //$session->destroy();
+        debugger::dump($database);
+        if ($database != NULL) {
+            ConnectionManager::drop('conn1'); 
+            ConnectionManager::config('conn1', [
+                'className' => 'Cake\Database\Connection',
+                'driver' => 'Cake\Database\Driver\Mysql',
+                'persistent' => false,
+                'host' => 'localhost',
+                'username' => 'root',
+                'password' => 'joy',
+                'database' => $database,
+                'encoding' => 'utf8',
+                'timezone' => 'UTC',
+                'cacheMetadata' => true,
+
+            ]);
+            ConnectionManager::alias('conn1', 'default');
+        }
     }
 
     /**

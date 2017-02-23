@@ -1,34 +1,44 @@
 CREATE TABLE retailer_acc_types (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255),
+    name VARCHAR(255) UNIQUE NOT NULL,
     num_of_users INT,
     num_of_warehouses INT,
     num_of_stores INT,
-    num_of_prod_types INT,
+    num_of_product_types INT,
     created DATETIME,
     modified DATETIME
 );
 
 CREATE TABLE retailers (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    company_name VARCHAR(255) NOT NULL,
-    company_desc TEXT,
-    first_name VARCHAR(255),
-    last_name VARCHAR(255),
+    retailer_name VARCHAR(255) NOT NULL,
+    retailer_desc TEXT,
     account_status VARCHAR(100),
     payment_term VARCHAR(255),
-    loyalty_points INT,
-    username VARCHAR(255) UNIQUE NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    retailer_email VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
     contact VARCHAR(100) NOT NULL,
     contract_start_date DATETIME NOT NULL,
     contract_end_date DATETIME NOT NULL,
+    num_of_users INT,
+    num_of_warehouses INT,
+    num_of_stores INT,
+    num_of_product_types INT,    
     created DATETIME,
     modified DATETIME,
     retailer_acc_type_id INT NOT NULL,
     FOREIGN KEY (retailer_acc_type_id) REFERENCES retailer_acc_types(id)
+);
+
+CREATE TABLE retailer_loyalty_points (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    loyalty_pts INT,
+    redemption_pts INT,
+    remarks TEXT, 
+    created DATETIME,
+    modified DATETIME,
+    retailer_id INT NOT NULL,
+    FOREIGN KEY (retailer_id) REFERENCES retailers(id)
 );
 
 CREATE TABLE intrasys_employees (

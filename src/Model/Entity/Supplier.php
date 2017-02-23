@@ -16,7 +16,10 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\Time $modified
  * @property string $supplier_name
  * @property string $country
- * @property string $account_status
+ * @property string $activation_status
+ * @property string $activation_token
+ * @property string $recovery_status
+ * @property string $recovery_token
  * @property string $bank_acc
  *
  * @property \App\Model\Entity\PurchaseOrder[] $purchase_orders

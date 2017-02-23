@@ -18,7 +18,6 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\ProdCat $prod_cat
  * @property \App\Model\Entity\Promotion[] $promotions
- * @property \App\Model\Entity\PromotionsProdType[] $promotions_prod_types
  */
 class ProdType extends Entity
 {

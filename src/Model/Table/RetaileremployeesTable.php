@@ -28,10 +28,7 @@ use Cake\Validation\Validator;
  */
 class RetailerEmployeesTable extends Table
 {
-    public static function defaultConnectionName()
-    {
-        return 'retailerdb';
-    }
+
     /**
      * Initialize method
      *
@@ -115,7 +112,16 @@ class RetailerEmployeesTable extends Table
             ->notEmpty('last_name');
 
         $validator
-            ->allowEmpty('account_status');
+            ->allowEmpty('activation_status');
+
+        $validator
+            ->allowEmpty('activation_token');
+
+        $validator
+            ->allowEmpty('recovery_status');
+
+        $validator
+            ->allowEmpty('recovery_token');
 
         return $validator;
     }

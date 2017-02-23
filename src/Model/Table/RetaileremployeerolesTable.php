@@ -21,10 +21,7 @@ use Cake\Validation\Validator;
  */
 class RetailerEmployeeRolesTable extends Table
 {
-    public static function defaultConnectionName()
-    {
-        return 'retailerdb';
-    }
+
     /**
      * Initialize method
      *

@@ -36,12 +36,12 @@ class SectionsTableTest extends TestCase
         'app.promotions_prod_types',
         'app.purchase_orders',
         'app.suppliers',
-        'app.supplier_memos',
         'app.purchase_order_items',
+        'app.retailer_employees_retailer_employeer_roles',
+        'app.supplier_memos',
         'app.messages',
-        'app.retailer_employees_messages',
-        'app.retailer_employee_roles',
-        'app.retailer_employees_retailer_employee_roles'
+        'app.references',
+        'app.retailer_employees_messages'
     ];
 
     /**

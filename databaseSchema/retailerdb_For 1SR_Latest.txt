@@ -24,7 +24,10 @@ CREATE TABLE customers (
     modified DATETIME,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
-    account_status VARCHAR(100),
+    activation_status VARCHAR(100),
+    activation_token VARCHAR(100),
+    recovery_status VARCHAR(100),
+    recovery_token VARCHAR(100),
     mailing_list BOOLEAN,
     cust_membership_tier_id INT NOT NULL,
     FOREIGN KEY (cust_membership_tier_id) REFERENCES cust_membership_tiers(id)
@@ -36,6 +39,15 @@ CREATE TABLE locations (
     address VARCHAR(255),
     contact INT,
     type VARCHAR(100)
+);
+
+CREATE TABLE retailer_info (
+    retailer_id INT PRIMARY KEY,
+    retailer_name VARCHAR(255) NOT NULL,
+    retailer_desc TEXT,
+    retailer_email VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    contact VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE retailer_employee_roles (
@@ -55,7 +67,10 @@ CREATE TABLE retailer_employees (
     modified DATETIME,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
-    account_status VARCHAR(100),
+    activation_status VARCHAR(100),
+    activation_token VARCHAR(100),
+    recovery_status VARCHAR(100),
+    recovery_token VARCHAR(100),
     location_id INT,
     FOREIGN KEY (location_id) REFERENCES locations(id)
 );

@@ -14,6 +14,7 @@ use Cake\ORM\Entity;
  * @property string $reference_id
  * @property int $sender_id
  *
+ * @property \App\Model\Entity\Reference $reference
  * @property \App\Model\Entity\RetailerEmployee[] $retailer_employees
  */
 class Message extends Entity

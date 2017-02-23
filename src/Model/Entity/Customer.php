@@ -16,13 +16,15 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\Time $modified
  * @property string $first_name
  * @property string $last_name
- * @property string $account_status
+ * @property string $activation_status
+ * @property string $activation_token
+ * @property string $recovery_status
+ * @property string $recovery_token
  * @property bool $mailing_list
  * @property int $cust_membership_tier_id
  *
  * @property \App\Model\Entity\CustMembershipTier $cust_membership_tier
  * @property \App\Model\Entity\Promotion[] $promotions
- * @property \App\Model\Entity\CustomersPromotion[] $customers_promotions
  */
 class Customer extends Entity
 {

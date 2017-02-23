@@ -2,26 +2,24 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
-use Cake\Auth\DefaultPasswordHasher;
 
 /**
  * Retailer Entity
  *
  * @property int $id
- * @property string $company_name
- * @property string $company_desc
- * @property string $first_name
- * @property string $last_name
+ * @property string $retailer_name
+ * @property string $retailer_desc
  * @property string $account_status
  * @property string $payment_term
- * @property int $loyalty_points
- * @property string $username
- * @property string $email
- * @property string $password
+ * @property string $retailer_email
  * @property string $address
  * @property string $contact
  * @property \Cake\I18n\Time $contract_start_date
  * @property \Cake\I18n\Time $contract_end_date
+ * @property int $num_of_users
+ * @property int $num_of_warehouses
+ * @property int $num_of_stores
+ * @property int $num_of_product_types
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  * @property int $retailer_acc_type_id
@@ -44,17 +42,4 @@ class Retailer extends Entity
         '*' => true,
         'id' => false
     ];
-
-    /**
-     * Fields that are excluded from JSON versions of the entity.
-     *
-     * @var array
-     */
-    protected $_hidden = [
-        'password'
-    ];
-
-    protected function _setPassword($password){
-        return (new DefaultPasswordHasher)->hash($password);
-    }
 }

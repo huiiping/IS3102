@@ -22,8 +22,8 @@
     <h3><?= h($promotion->id) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('First Vouher Num') ?></th>
-            <td><?= h($promotion->first_vouher_num) ?></td>
+            <th scope="row"><?= __('First Voucher Num') ?></th>
+            <td><?= h($promotion->first_voucher_num) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Last Voucher Num') ?></th>
@@ -73,7 +73,10 @@
                 <th scope="col"><?= __('Modified') ?></th>
                 <th scope="col"><?= __('First Name') ?></th>
                 <th scope="col"><?= __('Last Name') ?></th>
-                <th scope="col"><?= __('Account Status') ?></th>
+                <th scope="col"><?= __('Activation Status') ?></th>
+                <th scope="col"><?= __('Activation Token') ?></th>
+                <th scope="col"><?= __('Recovery Status') ?></th>
+                <th scope="col"><?= __('Recovery Token') ?></th>
                 <th scope="col"><?= __('Mailing List') ?></th>
                 <th scope="col"><?= __('Cust Membership Tier Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -90,7 +93,10 @@
                 <td><?= h($customers->modified) ?></td>
                 <td><?= h($customers->first_name) ?></td>
                 <td><?= h($customers->last_name) ?></td>
-                <td><?= h($customers->account_status) ?></td>
+                <td><?= h($customers->activation_status) ?></td>
+                <td><?= h($customers->activation_token) ?></td>
+                <td><?= h($customers->recovery_status) ?></td>
+                <td><?= h($customers->recovery_token) ?></td>
                 <td><?= h($customers->mailing_list) ?></td>
                 <td><?= h($customers->cust_membership_tier_id) ?></td>
                 <td class="actions">

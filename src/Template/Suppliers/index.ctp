@@ -28,7 +28,10 @@
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('supplier_name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('country') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('account_status') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('activation_status') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('activation_token') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('recovery_status') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('recovery_token') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('bank_acc') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -46,7 +49,10 @@
                 <td><?= h($supplier->modified) ?></td>
                 <td><?= h($supplier->supplier_name) ?></td>
                 <td><?= h($supplier->country) ?></td>
-                <td><?= h($supplier->account_status) ?></td>
+                <td><?= h($supplier->activation_status) ?></td>
+                <td><?= h($supplier->activation_token) ?></td>
+                <td><?= h($supplier->recovery_status) ?></td>
+                <td><?= h($supplier->recovery_token) ?></td>
                 <td><?= h($supplier->bank_acc) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $supplier->id]) ?>

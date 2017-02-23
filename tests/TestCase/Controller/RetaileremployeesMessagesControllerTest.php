@@ -31,9 +31,9 @@ class RetailerEmployeesMessagesControllerTest extends IntegrationTestCase
         'app.suppliers',
         'app.supplier_memos',
         'app.purchase_order_items',
+        'app.retailer_employees_retailer_employeer_roles',
         'app.messages',
-        'app.retailer_employee_roles',
-        'app.retailer_employees_retailer_employee_roles'
+        'app.references'
     ];
 
     /**

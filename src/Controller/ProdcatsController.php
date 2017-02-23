@@ -10,10 +10,7 @@ use App\Controller\AppController;
  */
 class ProdCatsController extends AppController
 {
-    public static function defaultConnectionName()
-    {
-        return 'retailerdb';
-    }
+
     /**
      * Index method
      *

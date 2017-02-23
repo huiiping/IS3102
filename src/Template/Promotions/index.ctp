@@ -23,7 +23,7 @@
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('start_date') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('end_date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('first_vouher_num') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('first_voucher_num') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('last_voucher_num') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('discount_rate') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('credit_card_type') ?></th>
@@ -37,7 +37,7 @@
                 <td><?= $this->Number->format($promotion->id) ?></td>
                 <td><?= h($promotion->start_date) ?></td>
                 <td><?= h($promotion->end_date) ?></td>
-                <td><?= h($promotion->first_vouher_num) ?></td>
+                <td><?= h($promotion->first_voucher_num) ?></td>
                 <td><?= h($promotion->last_voucher_num) ?></td>
                 <td><?= $this->Number->format($promotion->discount_rate) ?></td>
                 <td><?= h($promotion->credit_card_type) ?></td>

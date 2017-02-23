@@ -11,7 +11,6 @@ use Cake\ORM\Entity;
  * @property string $role_desc
  *
  * @property \App\Model\Entity\RetailerEmployee[] $retailer_employees
- * @property \App\Model\Entity\RetailerEmployeesRetailerEmployeeRole[] $retailer_employees_retailer_employee_roles
  */
 class RetailerEmployeeRole extends Entity
 {

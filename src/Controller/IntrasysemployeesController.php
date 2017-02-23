@@ -1,9 +1,9 @@
 <?php
 namespace App\Controller;
 
+
 use App\Controller\AppController;
 use Cake\Event\Event;
-
 
 /**
  * IntrasysEmployees Controller
@@ -12,13 +12,6 @@ use Cake\Event\Event;
  */
 class IntrasysEmployeesController extends AppController
 {
-
-    /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
-
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
@@ -43,6 +36,11 @@ class IntrasysEmployeesController extends AppController
         $this->Auth->allow(['add', 'logout']);
     }
 
+    /**
+     * Index method
+     *
+     * @return \Cake\Network\Response|null
+     */
     public function index()
     {
         $intrasysEmployees = $this->paginate($this->IntrasysEmployees);
@@ -139,6 +137,7 @@ class IntrasysEmployeesController extends AppController
     public function login(){
         if($this->request->is('post')){
             $intrasysemployee = $this->Auth->identify();
+            //echo $intrasysemployee;
             if($intrasysemployee){
                 $this->Auth->setUser($intrasysemployee);
                 return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'index']);
@@ -151,6 +150,8 @@ class IntrasysEmployeesController extends AppController
     public function logout(){
         $this->Flash->success('You are now logged out');
         $this->Auth->logout();
+        $session = $this->request->session();
+        $session->destroy();
         return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
     }
 }

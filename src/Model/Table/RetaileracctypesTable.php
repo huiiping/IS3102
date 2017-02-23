@@ -24,10 +24,6 @@ use Cake\Validation\Validator;
 class RetailerAccTypesTable extends Table
 {
 
-    public static function defaultConnectionName() {
-        return 'intrasysdb';
-    }
-
     /**
      * Initialize method
      *
@@ -62,7 +58,9 @@ class RetailerAccTypesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('name');
+            ->requirePresence('name', 'create')
+            ->notEmpty('name')
+            ->add('name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->integer('num_of_users')
@@ -77,9 +75,23 @@ class RetailerAccTypesTable extends Table
             ->allowEmpty('num_of_stores');
 
         $validator
-            ->integer('num_of_prod_types')
-            ->allowEmpty('num_of_prod_types');
+            ->integer('num_of_product_types')
+            ->allowEmpty('num_of_product_types');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->isUnique(['name']));
+
+        return $rules;
     }
 }

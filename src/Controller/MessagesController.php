@@ -18,6 +18,9 @@ class MessagesController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'contain' => ['RetailerEmployees']
+        ];
         $messages = $this->paginate($this->Messages);
 
         $this->set(compact('messages'));
@@ -51,6 +54,7 @@ class MessagesController extends AppController
         $message = $this->Messages->newEntity();
         if ($this->request->is('post')) {
             $message = $this->Messages->patchEntity($message, $this->request->data);
+            $message->retailer_employee_id = $this->Auth->retaileremployee('id');    
             if ($this->Messages->save($message)) {
                 $this->Flash->success(__('The message has been saved.'));
 
@@ -58,7 +62,9 @@ class MessagesController extends AppController
             }
             $this->Flash->error(__('The message could not be saved. Please, try again.'));
         }
+       // $references = $this->Messages->References->find('list', ['limit' => 200]);
         $retailerEmployees = $this->Messages->RetailerEmployees->find('list', ['limit' => 200]);
+        //$this->set(compact('message', 'references', 'retailerEmployees'));
         $this->set(compact('message', 'retailerEmployees'));
         $this->set('_serialize', ['message']);
     }
@@ -84,8 +90,10 @@ class MessagesController extends AppController
             }
             $this->Flash->error(__('The message could not be saved. Please, try again.'));
         }
+        //$references = $this->Messages->References->find('list', ['limit' => 200]);
         $retailerEmployees = $this->Messages->RetailerEmployees->find('list', ['limit' => 200]);
-        $this->set(compact('message', 'retailerEmployees'));
+        //$this->set(compact('message', 'references', 'retailerEmployees'));
+            $this->set(compact('message', 'retailerEmployees'));
         $this->set('_serialize', ['message']);
     }
 

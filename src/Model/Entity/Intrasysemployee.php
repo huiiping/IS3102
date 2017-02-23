@@ -10,7 +10,10 @@ use Cake\Auth\DefaultPasswordHasher;
  * @property int $id
  * @property string $first_name
  * @property string $last_name
- * @property string $account_status
+ * @property string $activation_status
+ * @property string $activation_token
+ * @property string $recovery_status
+ * @property string $recovery_token
  * @property string $username
  * @property string $email
  * @property string $password

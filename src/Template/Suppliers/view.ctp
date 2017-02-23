@@ -48,8 +48,20 @@
             <td><?= h($supplier->country) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Account Status') ?></th>
-            <td><?= h($supplier->account_status) ?></td>
+            <th scope="row"><?= __('Activation Status') ?></th>
+            <td><?= h($supplier->activation_status) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Activation Token') ?></th>
+            <td><?= h($supplier->activation_token) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Recovery Status') ?></th>
+            <td><?= h($supplier->recovery_status) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Recovery Token') ?></th>
+            <td><?= h($supplier->recovery_token) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Bank Acc') ?></th>

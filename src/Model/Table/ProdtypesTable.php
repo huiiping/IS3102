@@ -10,7 +10,6 @@ use Cake\Validation\Validator;
  * ProdTypes Model
  *
  * @property \Cake\ORM\Association\BelongsTo $ProdCats
- * @property \Cake\ORM\Association\HasMany $Inventory
  * @property \Cake\ORM\Association\BelongsToMany $Promotions
  *
  * @method \App\Model\Entity\ProdType get($primaryKey, $options = [])
@@ -23,10 +22,7 @@ use Cake\Validation\Validator;
  */
 class ProdTypesTable extends Table
 {
-    public static function defaultConnectionName()
-    {
-        return 'retailerdb';
-    }
+
     /**
      * Initialize method
      *
@@ -43,9 +39,6 @@ class ProdTypesTable extends Table
 
         $this->belongsTo('ProdCats', [
             'foreignKey' => 'prod_cat_id'
-        ]);
-        $this->hasMany('Inventory', [
-            'foreignKey' => 'prod_type_id'
         ]);
         $this->belongsToMany('Promotions', [
             'foreignKey' => 'prod_type_id',

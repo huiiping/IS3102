@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\InventoryTable;
+use App\Model\Table\RetailerLoyaltyPointsTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\InventoryTable Test Case
+ * App\Model\Table\RetailerLoyaltyPointsTable Test Case
  */
-class InventoryTableTest extends TestCase
+class RetailerLoyaltyPointsTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\InventoryTable
+     * @var \App\Model\Table\RetailerLoyaltyPointsTable
      */
-    public $Inventory;
+    public $RetailerLoyaltyPoints;
 
     /**
      * Fixtures
@@ -24,25 +24,9 @@ class InventoryTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.inventory',
-        'app.prod_types',
-        'app.prod_cats',
-        'app.promotions',
-        'app.retailer_employees',
-        'app.locations',
-        'app.sections',
-        'app.purchase_orders',
-        'app.suppliers',
-        'app.supplier_memos',
-        'app.purchase_order_items',
-        'app.messages',
-        'app.retailer_employees_messages',
-        'app.retailer_employee_roles',
-        'app.retailer_employees_retailer_employee_roles',
-        'app.customers',
-        'app.cust_membership_tiers',
-        'app.customers_promotions',
-        'app.promotions_prod_types'
+        'app.retailer_loyalty_points',
+        'app.retailers',
+        'app.retailer_acc_types'
     ];
 
     /**
@@ -53,8 +37,8 @@ class InventoryTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Inventory') ? [] : ['className' => 'App\Model\Table\InventoryTable'];
-        $this->Inventory = TableRegistry::get('Inventory', $config);
+        $config = TableRegistry::exists('RetailerLoyaltyPoints') ? [] : ['className' => 'App\Model\Table\RetailerLoyaltyPointsTable'];
+        $this->RetailerLoyaltyPoints = TableRegistry::get('RetailerLoyaltyPoints', $config);
     }
 
     /**
@@ -64,7 +48,7 @@ class InventoryTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Inventory);
+        unset($this->RetailerLoyaltyPoints);
 
         parent::tearDown();
     }

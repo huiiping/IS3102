@@ -23,7 +23,7 @@
             echo $this->Form->input('start_date', ['empty' => true]);
             echo $this->Form->input('end_date', ['empty' => true]);
             echo $this->Form->input('promo_desc');
-            echo $this->Form->input('first_vouher_num');
+            echo $this->Form->input('first_voucher_num');
             echo $this->Form->input('last_voucher_num');
             echo $this->Form->input('discount_rate');
             echo $this->Form->input('credit_card_type');

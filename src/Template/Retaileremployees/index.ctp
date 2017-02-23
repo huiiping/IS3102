@@ -36,7 +36,10 @@
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('first_name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('last_name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('account_status') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('activation_status') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('activation_token') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('recovery_status') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('recovery_token') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('location_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -54,7 +57,10 @@
                 <td><?= h($retailerEmployee->modified) ?></td>
                 <td><?= h($retailerEmployee->first_name) ?></td>
                 <td><?= h($retailerEmployee->last_name) ?></td>
-                <td><?= h($retailerEmployee->account_status) ?></td>
+                <td><?= h($retailerEmployee->activation_status) ?></td>
+                <td><?= h($retailerEmployee->activation_token) ?></td>
+                <td><?= h($retailerEmployee->recovery_status) ?></td>
+                <td><?= h($retailerEmployee->recovery_token) ?></td>
                 <td><?= $retailerEmployee->has('location') ? $this->Html->link($retailerEmployee->location->name, ['controller' => 'Locations', 'action' => 'view', $retailerEmployee->location->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $retailerEmployee->id]) ?>

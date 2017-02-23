@@ -10,7 +10,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\Time $start_date
  * @property \Cake\I18n\Time $end_date
  * @property string $promo_desc
- * @property string $first_vouher_num
+ * @property string $first_voucher_num
  * @property string $last_voucher_num
  * @property float $discount_rate
  * @property string $credit_card_type
@@ -19,8 +19,6 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\RetailerEmployee $retailer_employee
  * @property \App\Model\Entity\Customer[] $customers
  * @property \App\Model\Entity\ProdType[] $prod_types
- * @property \App\Model\Entity\CustomersPromotion[] $customers_promotions
- * @property \App\Model\Entity\PromotionsProdType[] $promotions_prod_types
  */
 class Promotion extends Entity
 {

@@ -2,7 +2,6 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\Datasource\ConnectionManager;
 
 /**
  * Sections Controller
@@ -11,7 +10,6 @@ use Cake\Datasource\ConnectionManager;
  */
 class SectionsController extends AppController
 {
-
 
     /**
      * Index method

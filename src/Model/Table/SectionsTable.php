@@ -10,7 +10,6 @@ use Cake\Validation\Validator;
  * Sections Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Locations
- * @property \Cake\ORM\Association\HasMany $Inventory
  *
  * @method \App\Model\Entity\Section get($primaryKey, $options = [])
  * @method \App\Model\Entity\Section newEntity($data = null, array $options = [])
@@ -22,10 +21,7 @@ use Cake\Validation\Validator;
  */
 class SectionsTable extends Table
 {
-    public static function defaultConnectionName()
-    {
-        return 'retailerdb';
-    }
+
     /**
      * Initialize method
      *
@@ -42,9 +38,6 @@ class SectionsTable extends Table
 
         $this->belongsTo('Locations', [
             'foreignKey' => 'location_id'
-        ]);
-        $this->hasMany('Inventory', [
-            'foreignKey' => 'inventory_id'
         ]);
     }
 

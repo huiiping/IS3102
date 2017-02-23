@@ -23,9 +23,6 @@ use Cake\Validation\Validator;
  */
 class IntrasysEmployeesTable extends Table
 {
-    public static function defaultConnectionName() {
-        return 'intrasysdb';
-    }
 
     /**
      * Initialize method
@@ -71,7 +68,16 @@ class IntrasysEmployeesTable extends Table
             ->notEmpty('last_name');
 
         $validator
-            ->allowEmpty('account_status');
+            ->allowEmpty('activation_status');
+
+        $validator
+            ->allowEmpty('activation_token');
+
+        $validator
+            ->allowEmpty('recovery_status');
+
+        $validator
+            ->allowEmpty('recovery_token');
 
         $validator
             ->requirePresence('username', 'create')

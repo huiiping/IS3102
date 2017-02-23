@@ -4,20 +4,18 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Inventory Entity
+ * RetailerInfo Entity
  *
- * @property int $id
- * @property int $prod_type_id
- * @property string $SKU
- * @property int $quantity
- * @property int $section_id
- * @property int $location_id
+ * @property int $retailer_id
+ * @property string $retailer_name
+ * @property string $retailer_desc
+ * @property string $retailer_email
+ * @property string $address
+ * @property string $contact
  *
- * @property \App\Model\Entity\ProdType $prod_type
- * @property \App\Model\Entity\Section $section
- * @property \App\Model\Entity\Location $location
+ * @property \App\Model\Entity\Retailer $retailer
  */
-class Inventory extends Entity
+class RetailerInfo extends Entity
 {
 
     /**
@@ -31,6 +29,6 @@ class Inventory extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'id' => false
+        'retailer_id' => false
     ];
 }

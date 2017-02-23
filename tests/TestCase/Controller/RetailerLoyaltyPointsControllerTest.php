@@ -1,13 +1,13 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\InventoryController;
+use App\Controller\RetailerLoyaltyPointsController;
 use Cake\TestSuite\IntegrationTestCase;
 
 /**
- * App\Controller\InventoryController Test Case
+ * App\Controller\RetailerLoyaltyPointsController Test Case
  */
-class InventoryControllerTest extends IntegrationTestCase
+class RetailerLoyaltyPointsControllerTest extends IntegrationTestCase
 {
 
     /**
@@ -16,25 +16,9 @@ class InventoryControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.inventory',
-        'app.prod_types',
-        'app.prod_cats',
-        'app.promotions',
-        'app.retailer_employees',
-        'app.locations',
-        'app.sections',
-        'app.purchase_orders',
-        'app.suppliers',
-        'app.supplier_memos',
-        'app.purchase_order_items',
-        'app.messages',
-        'app.retailer_employees_messages',
-        'app.retailer_employee_roles',
-        'app.retailer_employees_retailer_employee_roles',
-        'app.customers',
-        'app.cust_membership_tiers',
-        'app.customers_promotions',
-        'app.promotions_prod_types'
+        'app.retailer_loyalty_points',
+        'app.retailers',
+        'app.retailer_acc_types'
     ];
 
     /**

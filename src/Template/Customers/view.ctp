@@ -48,8 +48,20 @@
             <td><?= h($customer->last_name) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Account Status') ?></th>
-            <td><?= h($customer->account_status) ?></td>
+            <th scope="row"><?= __('Activation Status') ?></th>
+            <td><?= h($customer->activation_status) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Activation Token') ?></th>
+            <td><?= h($customer->activation_token) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Recovery Status') ?></th>
+            <td><?= h($customer->recovery_status) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Recovery Token') ?></th>
+            <td><?= h($customer->recovery_token) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Cust Membership Tier') ?></th>
@@ -81,7 +93,7 @@
                 <th scope="col"><?= __('Start Date') ?></th>
                 <th scope="col"><?= __('End Date') ?></th>
                 <th scope="col"><?= __('Promo Desc') ?></th>
-                <th scope="col"><?= __('First Vouher Num') ?></th>
+                <th scope="col"><?= __('First Voucher Num') ?></th>
                 <th scope="col"><?= __('Last Voucher Num') ?></th>
                 <th scope="col"><?= __('Discount Rate') ?></th>
                 <th scope="col"><?= __('Credit Card Type') ?></th>
@@ -94,7 +106,7 @@
                 <td><?= h($promotions->start_date) ?></td>
                 <td><?= h($promotions->end_date) ?></td>
                 <td><?= h($promotions->promo_desc) ?></td>
-                <td><?= h($promotions->first_vouher_num) ?></td>
+                <td><?= h($promotions->first_voucher_num) ?></td>
                 <td><?= h($promotions->last_voucher_num) ?></td>
                 <td><?= h($promotions->discount_rate) ?></td>
                 <td><?= h($promotions->credit_card_type) ?></td>

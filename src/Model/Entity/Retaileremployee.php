@@ -2,6 +2,7 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\Auth\DefaultPasswordHasher;
 
 /**
  * RetailerEmployee Entity
@@ -16,7 +17,10 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\Time $modified
  * @property string $first_name
  * @property string $last_name
- * @property string $account_status
+ * @property string $activation_status
+ * @property string $activation_token
+ * @property string $recovery_status
+ * @property string $recovery_token
  * @property int $location_id
  *
  * @property \App\Model\Entity\Location $location
@@ -25,8 +29,6 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\SupplierMemo[] $supplier_memos
  * @property \App\Model\Entity\Message[] $messages
  * @property \App\Model\Entity\RetailerEmployeeRole[] $retailer_employee_roles
- * @property \App\Model\Entity\RetailerEmployeesMessage[] $retailer_employees_messages
- * @property \App\Model\Entity\RetailerEmployeesRetailerEmployeeRole[] $retailer_employees_retailer_employee_roles
  */
 class RetailerEmployee extends Entity
 {
@@ -53,6 +55,7 @@ class RetailerEmployee extends Entity
     protected $_hidden = [
         'password'
     ];
+
     protected function _setPassword($password){
         return (new DefaultPasswordHasher)->hash($password);
     }

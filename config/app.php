@@ -176,15 +176,15 @@ return [
      * appropriate file to src/Mailer/Transport. Transports should be named
      * 'YourTransport.php', where 'Your' is the name of the transport.
      */
-    'EmailTransport' => [
+'EmailTransport' => [
         'default' => [
-            'className' => 'Mail',
+            'className' => 'Smtp',
             // The following keys are used in SMTP transports
-            'host' => 'localhost',
-            'port' => 25,
+            'host' => 'in-v3.mailjet.com',
+            'port' => 587,
             'timeout' => 30,
-            'username' => 'user',
-            'password' => 'secret',
+            'username' => '86b677af65add5a9ccdf9da1035ff660',
+            'password' => 'eef2c47229e7616b0996ade8a6f49d34',
             'client' => null,
             'tls' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
@@ -203,7 +203,7 @@ return [
     'Email' => [
         'default' => [
             'transport' => 'default',
-            'from' => 'you@localhost',
+            'from' => 'tanyongming90@gmail.com',
             //'charset' => 'utf-8',
             //'headerCharset' => 'utf-8',
         ],
@@ -231,7 +231,7 @@ return [
             //'port' => 'non_standard_port_number',
             'username' => 'root',
             'password' => 'joy',
-            'database' => 'retailerdb',
+            'database' => 'intrasysdb',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'flags' => [],
@@ -273,21 +273,6 @@ return [
             'cacheMetadata' => true,
             'quoteIdentifiers' => false,
         //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
-        ],
-        'retailerdb' => [
-            'className' => 'Cake\Database\Connection',
-            'driver' => 'Cake\Database\Driver\Mysql',
-            'persistent' => false,
-            'host' => 'localhost',
-            //'port' => 'nonstandard_port_number',
-            'username' => 'root',
-            'password' => 'joy',
-            'database' => 'retailerdb', // This is my second database
-            'encoding' => 'utf8',
-            'timezone' => 'UTC',
-            'cacheMetadata' => true,
-            'quoteIdentifiers' => false,
-            //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
         ],
 
         /**

@@ -23,10 +23,7 @@ use Cake\Validation\Validator;
  */
 class PromotionsTable extends Table
 {
-    public static function defaultConnectionName()
-    {
-        return 'retailerdb';
-    }
+
     /**
      * Initialize method
      *
@@ -80,7 +77,7 @@ class PromotionsTable extends Table
             ->allowEmpty('promo_desc');
 
         $validator
-            ->allowEmpty('first_vouher_num');
+            ->allowEmpty('first_voucher_num');
 
         $validator
             ->allowEmpty('last_voucher_num');

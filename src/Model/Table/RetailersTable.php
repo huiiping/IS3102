@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
  * Retailers Model
  *
  * @property \Cake\ORM\Association\BelongsTo $RetailerAccTypes
+ * @property \Cake\ORM\Association\HasMany $RetailerLoyaltyPoints
  *
  * @method \App\Model\Entity\Retailer get($primaryKey, $options = [])
  * @method \App\Model\Entity\Retailer newEntity($data = null, array $options = [])
@@ -23,10 +24,6 @@ use Cake\Validation\Validator;
  */
 class RetailersTable extends Table
 {
-
-    public static function defaultConnectionName() {
-        return 'intrasysdb';
-    }
 
     /**
      * Initialize method
@@ -48,6 +45,9 @@ class RetailersTable extends Table
             'foreignKey' => 'retailer_acc_type_id',
             'joinType' => 'INNER'
         ]);
+        $this->hasMany('RetailerLoyaltyPoints', [
+            'foreignKey' => 'retailer_id'
+        ]);
     }
 
     /**
@@ -63,17 +63,11 @@ class RetailersTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('company_name', 'create')
-            ->notEmpty('company_name');
+            ->requirePresence('retailer_name', 'create')
+            ->notEmpty('retailer_name');
 
         $validator
-            ->allowEmpty('company_desc');
-
-        $validator
-            ->allowEmpty('first_name');
-
-        $validator
-            ->allowEmpty('last_name');
+            ->allowEmpty('retailer_desc');
 
         $validator
             ->allowEmpty('account_status');
@@ -82,22 +76,8 @@ class RetailersTable extends Table
             ->allowEmpty('payment_term');
 
         $validator
-            ->integer('loyalty_points')
-            ->allowEmpty('loyalty_points');
-
-        $validator
-            ->requirePresence('username', 'create')
-            ->notEmpty('username')
-            ->add('username', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
-
-        $validator
-            ->email('email')
-            ->requirePresence('email', 'create')
-            ->notEmpty('email');
-
-        $validator
-            ->requirePresence('password', 'create')
-            ->notEmpty('password');
+            ->requirePresence('retailer_email', 'create')
+            ->notEmpty('retailer_email');
 
         $validator
             ->requirePresence('address', 'create')
@@ -117,6 +97,22 @@ class RetailersTable extends Table
             ->requirePresence('contract_end_date', 'create')
             ->notEmpty('contract_end_date');
 
+        $validator
+            ->integer('num_of_users')
+            ->allowEmpty('num_of_users');
+
+        $validator
+            ->integer('num_of_warehouses')
+            ->allowEmpty('num_of_warehouses');
+
+        $validator
+            ->integer('num_of_stores')
+            ->allowEmpty('num_of_stores');
+
+        $validator
+            ->integer('num_of_product_types')
+            ->allowEmpty('num_of_product_types');
+
         return $validator;
     }
 
@@ -129,8 +125,6 @@ class RetailersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['username']));
-        $rules->add($rules->isUnique(['email']));
         $rules->add($rules->existsIn(['retailer_acc_type_id'], 'RetailerAccTypes'));
 
         return $rules;
