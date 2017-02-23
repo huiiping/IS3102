@@ -29,8 +29,9 @@
             echo $this->Form->input('credit_card_type');
             $session = $this->request->session();
             echo $this->Form->hidden('retailer_employee_id', ['value'=>$session->read('retailer_employee_id')]);
+            echo $this->Form->input('customer_tier');
             //echo $this->Form->input('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
-            echo $this->Form->input('customers._ids', ['options' => $customers]);
+            //echo $this->Form->input('customers._ids', ['options' => $customers]);
             echo $this->Form->input('prod_types._ids', ['options' => $prodTypes]);
         ?>
     </fieldset>

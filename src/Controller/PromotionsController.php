@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Mailer\Email;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Promotions Controller
@@ -56,6 +57,34 @@ class PromotionsController extends AppController
         if ($this->request->is('post')) {
             $promotion = $this->Promotions->patchEntity($promotion, $this->request->data);
             if ($this->Promotions->save($promotion)) {
+                
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+                $tier = $_POST['customer_tier'];
+                $conn = ConnectionManager::get('default');
+                $query = $conn
+                        ->execute('SELECT * FROM customers WHERE cust_membership_tier_id = :id', ['id' => $tier])
+                        ->fetchAll('assoc');
+
+                //echo $query[0]['username'];
+                $email = new Email('default');
+                $email->template('promotion');
+                $email->emailFormat('html');                
+                $email->to('secretariat@nuscomputing.com');
+                $email->subject('Intrasys');
+                $email->from('tanyongming90@gmail.com');
+                $email->replyTo('support@intrasys.com');
+                foreach ($query as $row):
+                    $email->to($row['email']);
+                    $email->send($row['username'].','.$retailer.','.$promotion['promo_desc'].','.$promotion['start_date'].','.$promotion['end_date'].','.$promotion['discount_rate'].','.$promotion['credit_card_type']);
+                endforeach;
+                /*
+                foreach($query as $row){
+                    echo $row;
+                    $email->addTo($row);
+                    $email->send($promotion['promo_desc'].','.$promotion['start_date'].','.$promotion['end_date'].','.$promotion['discount_rate'].','.$promotion['credit_card_type']);
+                } */               
+                
                 $this->Flash->success(__('The promotion has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
