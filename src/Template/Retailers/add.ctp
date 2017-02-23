@@ -24,7 +24,7 @@
                 <fieldset>
                     <?php
                         echo $this->Form->input('retailer_name');
-                        echo $this->Form->input('retailer_desc');
+                        echo $this->Form->input('retailer_desc', ['label'=>'Retailer Description']);
                         echo $this->Form->input('account_status');
                         echo $this->Form->input('payment_term');
                         echo $this->Form->input('retailer_email');
@@ -32,11 +32,11 @@
                         echo $this->Form->input('contact');
                         echo $this->Form->input('contract_start_date');
                         echo $this->Form->input('contract_end_date');
-                        echo $this->Form->input('num_of_users');
-                        echo $this->Form->input('num_of_warehouses');
-                        echo $this->Form->input('num_of_stores');
-                        echo $this->Form->input('num_of_product_types');
-                        echo $this->Form->input('retailer_acc_type_id', ['options' => $retailerAccTypes]);
+                        echo $this->Form->input('num_of_users', ['label'=>'No. of Users']);
+                        echo $this->Form->input('num_of_warehouses', ['label'=>'No. of Warehouses']);
+                        echo $this->Form->input('num_of_stores', ['label'=>'No. of Stores']);
+                        echo $this->Form->input('num_of_product_types', ['label'=>'No. of Product Types']);
+                        echo $this->Form->input('retailer_acc_type_id', ['label'=>'Retailer Account Type'], ['options' => $retailerAccTypes]);
                     ?>
                 </fieldset>
                 <br>

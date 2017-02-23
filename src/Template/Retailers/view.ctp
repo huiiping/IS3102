@@ -30,7 +30,7 @@
                         <td><?= h($retailer->retailer_name) ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Retailer Desc') ?></th>
+                        <th scope="row"><?= __('Retailer Description') ?></th>
                         <td><?= $this->Text->autoParagraph(h($retailer->retailer_desc)); ?></td>
                     </tr>
                     <tr>
@@ -54,32 +54,32 @@
                         <td><?= h($retailer->contact) ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Retailer Acc Type') ?></th>
+                        <th scope="row"><?= __('Retailer Account Type') ?></th>
                         <td><?= $retailer->has('retailer_acc_type') ? $this->Html->link($retailer->retailer_acc_type->name, ['controller' => 'RetailerAccTypes', 'action' => 'view', $retailer->retailer_acc_type->id]) : '' ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Num Of Users') ?></th>
+                        <th scope="row"><?= __('No. Of Users') ?></th>
                         <td><?= $this->Number->format($retailer->num_of_users) ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Num Of Warehouses') ?></th>
+                        <th scope="row"><?= __('No. Of Warehouses') ?></th>
                         <td><?= $this->Number->format($retailer->num_of_warehouses) ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Num Of Stores') ?></th>
+                        <th scope="row"><?= __('No. Of Stores') ?></th>
                         <td><?= $this->Number->format($retailer->num_of_stores) ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Num Of Product Types') ?></th>
+                        <th scope="row"><?= __('No. Of Product Types') ?></th>
                         <td><?= $this->Number->format($retailer->num_of_product_types) ?></td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Contract Start Date') ?></th>
-                        <td><?= $this->Time->format(h($retailer->contract_start_date), 'd MMM YYYY, hh:mm') ?></td>
+                        <td><?= $this->Time->format(h($retailer->contract_start_date), 'd MMM YYYY') ?></td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Contract End Date') ?></th>
-                        <td><?= $this->Time->format(h($retailer->contract_end_date), 'd MMM YYYY, hh:mm') ?></td>
+                        <td><?= $this->Time->format(h($retailer->contract_end_date), 'd MMM YYYY') ?></td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Id') ?></th>

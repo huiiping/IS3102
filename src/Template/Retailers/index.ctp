@@ -28,7 +28,7 @@
                         <!--<th scope="col"><?= $this->Paginator->sort('account_status') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('payment_term') ?></th>-->
                         <th scope="col"><?= $this->Paginator->sort('retailer_email') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('retailer_acc_type_id') ?></th>
+                        <th scope="col"><?= $this->Paginator->sort('retailer_acc_type_id', ['label'=>'Retailer Account Type']) ?></th>
                         <!--<th scope="col"><?= $this->Paginator->sort('address') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('contact') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('contract_start_date') ?></th>

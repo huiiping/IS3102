@@ -22,6 +22,7 @@
       <?= $this->Element('sideBar2', array('type' => 'Employee Roles', 'typePlural' => 'IntrasysEmployeeRoles')); ?>
       <?= $this->Element('sideBar', array('type' => 'Retailers', 'typePlural' => 'retailers')); ?>
       <?= $this->Element('sideBar', array('type' => 'Retailer Account Types', 'typePlural' => 'RetailerAccTypes')); ?>
+      <?= $this->Element('sideBar', array('type' => 'Retailer Loyalty Points', 'typePlural' => 'RetailerLoyaltyPoints')); ?>
       <?= $this->Element('sideBar', array('type' => 'System Announcements', 'typePlural' => 'Announcements')); ?>
 
       <li class="treeview"><!-- start -->
