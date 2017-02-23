@@ -71,7 +71,10 @@ CREATE TABLE suppliers (
     modified DATETIME,
     supplier_name VARCHAR(255),
     country VARCHAR(255),
-    account_status VARCHAR(100),
+    activation_status VARCHAR(100),
+    activation_token VARCHAR(100),
+    recovery_status VARCHAR(100),
+    recovery_token VARCHAR(100),
     bank_acc VARCHAR(255)
 );
 
@@ -101,7 +104,7 @@ CREATE TABLE promotions (
     start_date DATETIME,
     end_date DATETIME,
     promo_desc TEXT,
-    first_vouher_num VARCHAR(100),
+    first_voucher_num VARCHAR(100),
     last_voucher_num VARCHAR(100),
     discount_rate DOUBLE,
     credit_card_type VARCHAR(100),
