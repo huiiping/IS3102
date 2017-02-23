@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Mailer\Email;
 
 /**
  * Promotions Controller
@@ -114,5 +115,19 @@ class PromotionsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function email($id = null){
+
+        $promotion = $this->Promotions->get($id);
+        $retailerEmployees = $this->Promotions->RetailerEmployees->find('list', ['limit' => 200]);
+        $email = new Email('default');
+        $email->template('default');
+        $email->emailFormat('both');
+        $email->to('secretariat@nuscomputing.com');
+        $email->subject('Intrasys');
+        $email->from('tanyongming90@gmail.com');
+        $email->replyTo('support@intrasys.com');
+        $email->send($retailerEmployees['username'].','.$promotion['promo_desc'].','.$promotion['start_date'].','.$promotion['end_date'].','.$promotion['discount_rate'].','.$promotion['credit_card_type']); 
     }
 }

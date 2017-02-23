@@ -27,7 +27,9 @@
             echo $this->Form->input('last_voucher_num');
             echo $this->Form->input('discount_rate');
             echo $this->Form->input('credit_card_type');
-            echo $this->Form->input('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
+            $session = $this->request->session();
+            echo $this->Form->hidden('retailer_employee_id', ['value'=>$session->read('retailer_employee_id')]);
+            //echo $this->Form->input('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
             echo $this->Form->input('customers._ids', ['options' => $customers]);
             echo $this->Form->input('prod_types._ids', ['options' => $prodTypes]);
         ?>

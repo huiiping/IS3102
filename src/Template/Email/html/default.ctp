@@ -14,9 +14,8 @@
  */
 ?>
 <?php
-$content = explode("\n", $content);
+$content = explode(',', $content);
 
-foreach ($content as $line):
-    echo '<p> ' . $line . "</p>\n";
-endforeach;
+echo 'Welcome to CLRMS'.', '.$content[0];
+
 ?>

@@ -163,6 +163,7 @@ class RetailerEmployeesController extends AppController
         if($retaileremployee){
             $this->Auth->setUser($retaileremployee);
             $session->write('retailer', $retailer); 
+            $session->write('retailer_employee_id',$retaileremployee['id']);
             return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'index']);
             //return $this->redirect($this->Auth->redirectUrl());            
         }
