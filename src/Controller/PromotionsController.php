@@ -4,6 +4,8 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Mailer\Email;
 use Cake\Datasource\ConnectionManager;
+use Cake\I18n\Time;
+use Cake\I18n\Date;
 
 /**
  * Promotions Controller
@@ -110,6 +112,18 @@ class PromotionsController extends AppController
         $promotion = $this->Promotions->get($id, [
             'contain' => ['Customers', 'ProdTypes']
         ]);
+
+        //Check if the promotion has already started or ended
+        $now = new Date();
+        if ($now > $promotion['end_date']){
+            $this->Flash->error(_('The promotion has already ended.'));
+            return $this->redirect(['action' => 'index']);
+        } else if ($now > $promotion['start_date']) {
+            $this->Flash->error(_('The promotion has already begun. It can not be deleted once it has started.'));
+            return $this->redirect(['action' => 'index']);
+        }
+        // ---------------------------------------------------
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $promotion = $this->Promotions->patchEntity($promotion, $this->request->data);
             if ($this->Promotions->save($promotion)) {
@@ -137,7 +151,14 @@ class PromotionsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $promotion = $this->Promotions->get($id);
-        if ($this->Promotions->delete($promotion)) {
+
+        // Check if the promomtion has started or ended before allowing the deletion of the promotion.
+        $now = new Date();
+        if ($now > $promotion['end_date']){
+            $this->Flash->error(_('The promotion has already ended.'));
+        } else if ($now > $promotion['start_date']) {
+            $this->Flash->error(_('The promotion has already begun. It can not be deleted once it has started.'));
+        } else if($this->Promotions->delete($promotion)) {
             $this->Flash->success(__('The promotion has been deleted.'));
         } else {
             $this->Flash->error(__('The promotion could not be deleted. Please, try again.'));
