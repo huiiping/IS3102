@@ -22,10 +22,6 @@ use Cake\Validation\Validator;
  */
 class IntrasysEmployeesIntrasysEmployeeRolesTable extends Table
 {
-    public static function defaultConnectionName() {
-        return 'intrasysdb';
-    }
-
 
     /**
      * Initialize method
