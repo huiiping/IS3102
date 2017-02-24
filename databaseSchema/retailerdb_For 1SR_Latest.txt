@@ -178,7 +178,7 @@ CREATE TABLE prod_types (
     FOREIGN KEY (prod_cat_id) REFERENCES prod_cats(id)
 );
 
-CREATE TABLE loggings (
+CREATE TABLE retailer_loggings (
     id INT AUTO_INCREMENT PRIMARY KEY,
     action VARCHAR(100),
     entity VARCHAR(100),
