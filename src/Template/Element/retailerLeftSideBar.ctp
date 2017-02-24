@@ -17,7 +17,8 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
       <li class="header">MAIN NAVIGATION</li>
-        
+      
+      <?= $this->Element('sideBar', array('type' => 'Retailer Details', 'typePlural' => 'RetailerDetails')); ?>
       <?= $this->Element('sideBar', array('type' => 'Employees', 'typePlural' => 'RetailerEmployees')); ?>
       <?= $this->Element('sideBar2', array('type' => 'Employee Roles', 'typePlural' => 'RetailerEmployeeRoles')); ?>
       <?= $this->Element('sideBar', array('type' => 'Customers', 'typePlural' => 'Customers')); ?>
@@ -32,10 +33,10 @@
       <?= $this->Element('sideBar', array('type' => 'Purchase Orders', 'typePlural' => 'PurchaseOrders')); ?>
       <?= $this->Element('sideBar', array('type' => 'Promotions', 'typePlural' => 'Promotions')); ?>
       <?= $this->Element('sideBar', array('type' => 'Messages', 'typePlural' => 'Messages')); ?>
-      <?= $this->Element('sideBar', array('type' => 'Loggings', 'typePlural' => 'Loggings')); ?>
+      <?= $this->Element('sideBar2', array('type' => 'Loggings', 'typePlural' => 'RetailerLoggings')); ?>
 
 
-      <li class="treeview"><!-- start -->
+      <!--<li class="treeview">
         <a href="">
           <i class="fa fa-table"></i>
           <span>Reports</span>
@@ -48,7 +49,7 @@
                 <li><p class="indent">Retailer System Usage Report</p></li>
                 <li><p class="indent"></p></li>
         </ul>
-      </li><!-- end -->
+      </li>-->
 
     </ul>
   </section>

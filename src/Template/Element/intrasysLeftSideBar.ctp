@@ -24,8 +24,9 @@
       <?= $this->Element('sideBar', array('type' => 'Retailer Account Types', 'typePlural' => 'RetailerAccTypes')); ?>
       <?= $this->Element('sideBar', array('type' => 'Retailer Loyalty Points', 'typePlural' => 'RetailerLoyaltyPoints')); ?>
       <?= $this->Element('sideBar', array('type' => 'System Announcements', 'typePlural' => 'Announcements')); ?>
+      <?= $this->Element('sideBar2', array('type' => 'Loggings', 'typePlural' => 'IntrasysLoggings')); ?>
 
-      <li class="treeview"><!-- start -->
+      <!--<li class="treeview">
         <a href="">
           <i class="fa fa-table"></i>
           <span>Reports</span>
@@ -38,7 +39,7 @@
                 <li><p class="indent">Retailer System Usage Report</p></li>
                 <li><p class="indent"></p></li>
         </ul>
-      </li><!-- end -->
+      </li>-->
 
     </ul>
   </section>
