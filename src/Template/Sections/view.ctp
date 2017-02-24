@@ -38,4 +38,37 @@
             <td><?= $section->reserve ? __('Yes') : __('No'); ?></td>
         </tr>
     </table>
+	    <div class="related">
+        <h4><?= __('Related Inventory') ?></h4>
+        <?php if (!empty($section->inventory)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('Prod Type') ?></th>
+                <th scope="col"><?= __('SKU') ?></th>
+                <th scope="col"><?= __('Quantity') ?></th>
+                <th scope="col"><?= __('Section Id') ?></th>
+                <th scope="col"><?= __('Location Id') ?></th>
+
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($section->inventory as $inventory): ?>
+            <tr>
+                <td><?= h($inventory->id) ?></td>
+                <td><?= h($inventory->prod_type_id) ?></td>
+                <td><?= h($inventory->SKU) ?></td>
+                <td><?= h($inventory->quantity) ?></td>
+                <td><?= h($inventory->section_id) ?></td>
+                <td><?= h($inventory->lcoation_id) ?></td>
+
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Inventory', 'action' => 'view', $inventory->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Inventory', 'action' => 'edit', $inventory->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Inventory', 'action' => 'delete', $inventory->id], ['confirm' => __('Are you sure you want to delete # {0}?', $inventory->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
 </div>

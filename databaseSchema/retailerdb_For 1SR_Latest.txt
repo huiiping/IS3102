@@ -219,3 +219,11 @@ CREATE TABLE promotions_prod_types (
     FOREIGN KEY (promotion_id) REFERENCES promotions(id),
     FOREIGN KEY (prod_type_id) REFERENCES prod_types(id)
 );
+CREATE TABLE `inventory` (
+  `id` int(11) NOT NULL,
+  `prod_type_id` int(11) NOT NULL,
+  `SKU` varchar(100) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `section_id` int(11) NOT NULL,
+  `location_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
