@@ -41,8 +41,8 @@ CREATE TABLE locations (
     type VARCHAR(100)
 );
 
-CREATE TABLE retailer_info (
-    retailer_id INT PRIMARY KEY,
+CREATE TABLE retailer_details (
+    retailerid INT PRIMARY KEY,
     retailer_name VARCHAR(255) NOT NULL,
     retailer_desc TEXT,
     retailer_email VARCHAR(255) NOT NULL,
@@ -180,8 +180,12 @@ CREATE TABLE prod_types (
 
 CREATE TABLE loggings (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    type VARCHAR(100),
-    entity_num INT
+    action VARCHAR(100),
+    entity VARCHAR(100),
+    entityid INT,
+    retailer_employee_id INT NOT NULL,
+    created DATETIME,
+    FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id)
 );
 
 CREATE TABLE customers_promotions (

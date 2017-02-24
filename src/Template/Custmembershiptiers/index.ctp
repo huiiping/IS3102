@@ -12,7 +12,7 @@
     </ul>
 </nav>
 <div class="custMembershipTiers index large-9 medium-8 columns content">
-    <h3><?= __('Cust Membership Tiers') ?></h3>
+    <h3><?= __('Customer Membership Tiers') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>

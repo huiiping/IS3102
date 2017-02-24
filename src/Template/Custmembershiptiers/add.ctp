@@ -14,18 +14,19 @@
 <div class="custMembershipTiers form large-9 medium-8 columns content">
     <?= $this->Form->create($custMembershipTier) ?>
     <fieldset>
-        <legend><?= __('Add Cust Membership Tier') ?></legend>
+        <legend><?= __('Add Membership Tier') ?></legend>
         <?php
-            echo $this->Form->input('tier_name');
-            echo $this->Form->input('validity_period');
-            echo $this->Form->input('min_spending');
-            echo $this->Form->input('membership_fee');
-            echo $this->Form->input('membership_pts');
-            echo $this->Form->input('redemption_pts');
-            echo $this->Form->input('discount_rate');
-            echo $this->Form->input('birthday_rate');
+            echo $this->Form->input('tier_name', array('label' => 'Name'));
+            echo $this->Form->input('validity_period', array('label' => 'Renewal Cycle (days)'));
+            echo $this->Form->input('min_spending', array('label' => 'Minimum Spending'));
+            echo $this->Form->input('membership_fee', array('label' => 'Membership Fee'));
+            echo $this->Form->input('membership_pts', array('label' => 'Membership Points Earned Per $1 Spent'));
+            echo $this->Form->input('redemption_pts', array('label' => 'Redemption Points Exchange Rate For $1 Discount'));
+            echo $this->Form->input('discount_rate', array('label' => 'Discount Rate (%)'));
+            echo $this->Form->input('birthday_rate', array('label' => 'Birthday Discount Rate (%)'));
             echo $this->Form->input('description');
         ?>
+    <br />
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
