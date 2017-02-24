@@ -1,27 +1,28 @@
 INSERT INTO intrasys_employee_roles (role_name, role_desc)
-VALUES ('User (Retailer_Accounts_
-View/Search)','Able to view and search retailer accounts');
+VALUES ('Retailer Accounts User','View/Search Retailer Accounts');
 
 INSERT INTO intrasys_employee_roles (role_name, role_desc)
-VALUES ('Manager (Manage_Retailer_
-Accounts)','Able to manage retailer accounts');
+VALUES ('Retailer Accounts Manager','Manage Retailer
+Accounts');
 
 INSERT INTO intrasys_employee_roles (role_name, role_desc)
-VALUES ('Admin (Manage_System_
-Announcements)','Create/Edit/Delete Announcements');
+VALUES ('Retailer Accounts Admin','Create/Edit Retailer Accounts, Edit Loyalty Points');
 
 INSERT INTO intrasys_employee_roles (role_name, role_desc)
-VALUES ('User (System_Announcements_View/Search)','View/Search Announcements');
+VALUES ('Announcements Manager','Manage Announcements');
 
 INSERT INTO intrasys_employee_roles (role_name, role_desc)
-VALUES ('Manager (Manage_Employee_Acc)','Create/Edit/Delete/Reset Password');
+VALUES ('Announcements User','View/Search Announcements');
 
 INSERT INTO intrasys_employee_roles (role_name, role_desc)
-VALUES ('Admin (Manage_Own_Acc)','Edit own account');
+VALUES ('Employees Accounts Manager','Manage Employees Accounts');
 
 INSERT INTO intrasys_employee_roles (role_name, role_desc)
-VALUES ('User (View_Employees_Acc)','View User Accounts');
+VALUES ('Normal User','Manage Own Account');
 
 INSERT INTO intrasys_employee_roles (role_name, role_desc)
-VALUES ('Master Account','Can do all actions');
+VALUES ('Employee Accounts User','View/Search Employee Accounts');
+
+INSERT INTO intrasys_employee_roles (role_name, role_desc)
+VALUES ('Master Account','All Actions');
 
