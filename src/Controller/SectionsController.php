@@ -16,16 +16,22 @@ class SectionsController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
-    {
+    public function index() {
+
+
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
         $this->paginate = [
             'contain' => ['Locations']
         ];
-        $sections = $this->paginate($this->Sections);
+        $this->set('sections', $this->paginate($this->Sections->find('searchable', $this->Prg->parsedParams())));
 
-        $this->set(compact('sections'));
+        $this->set(compact('sections', 'locations'));
         $this->set('_serialize', ['sections']);
     }
+    public $components = array(
+        'Prg'
+    );
 
     /**
      * View method

@@ -12,8 +12,24 @@
         <li><?= $this->Html->link(__('List Supplier Memos'), ['controller' => 'SupplierMemos', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Supplier Memo'), ['controller' => 'SupplierMemos', 'action' => 'add']) ?></li>
     </ul>
-</nav>
-<div class="suppliers index large-9 medium-8 columns content">
+</nav><div class="suppliers index large-9 medium-8 columns content">
+    <h3><?= __('Search') ?></h3>
+    <table cellpadding="0" cellspacing="0">
+        <thead>
+        <tr><?php
+            echo $this->Form->create(null);?>
+            <th scope="col"><?= $this->Form->input('supplier_name'); ?></th>
+            <th scope="col"><?= $this->Form->input('country'); ?></th>
+
+            <th scope="col"><?= $this->Form->input('username'); ?></th>
+            <th scope="col"><?= $this->Form->input('address'); ?></th>
+
+            <th scope="col" class="actions"><?= $this->Form->submit(__('Submit')); ?></th>
+            <?php echo $this->Form->end();?>
+        </tr>
+
+        </thead>
+
     <h3><?= __('Suppliers') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

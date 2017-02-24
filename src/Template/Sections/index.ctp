@@ -12,6 +12,20 @@
     </ul>
 </nav>
 <div class="sections index large-9 medium-8 columns content">
+    <h3><?= __('Search') ?></h3>
+    <table cellpadding="0" cellspacing="0">
+        <thead>
+        <tr><?php
+            echo $this->Form->create(null);?>
+            <th scope="col"><?= $this->Form->input('sec_name'); ?></th>
+
+
+            <th scope="col" class="actions"><?= $this->Form->submit(__('Submit')); ?></th>
+            <?php echo $this->Form->end();?>
+        </tr>
+
+        </thead>
+    </table>
     <h3><?= __('Sections') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

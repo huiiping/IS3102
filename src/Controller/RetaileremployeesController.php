@@ -36,17 +36,21 @@ class RetailerEmployeesController extends AppController
         // cause problems with normal functioning of AuthComponent.
         $this->Auth->allow(['add', 'logout']);
     }
-    public function index()
-    {
+    public function index() {
+
+
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
         $this->paginate = [
             'contain' => ['Locations']
         ];
-        $retailerEmployees = $this->paginate($this->RetailerEmployees);
-
+        $this->set('retailerEmployees', $this->paginate($this->RetailerEmployees->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('retailerEmployees'));
         $this->set('_serialize', ['retailerEmployees']);
     }
-
+    public $components = array(
+        'Prg'
+    );
     /**
      * View method
      *

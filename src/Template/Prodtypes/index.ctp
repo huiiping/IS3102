@@ -13,7 +13,30 @@
         <li><?= $this->Html->link(__('New Promotion'), ['controller' => 'Promotions', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="prodTypes index large-9 medium-8 columns content">
+<div class="locations index large-9 medium-8 columns content">
+    <h3><?= __('Search') ?></h3>
+    <table cellpadding="0" cellspacing="0">
+        <thead>
+        <tr><?php
+            echo $this->Form->create(null);?>
+            <th scope="col"><?= $this->Form->input('prod_name'); ?></th>
+            <th scope="col"><?= $this->Form->input('prod_desc'); ?></th>
+
+            <th scope="col"><?= $this->Form->input('colour'); ?></th>
+        </tr><tr>
+            <th scope="col"><?= $this->Form->input('SKU'); ?></th>
+
+            <th scope="col"><?= $this->Form->input('store_unit_price'); ?></th>
+            <th scope="col"><?= $this->Form->input('web_store_unit_price'); ?></th>
+
+
+            <th scope="col" class="actions"><?= $this->Form->submit(__('Submit')); ?></th>
+            <?php echo $this->Form->end();?>
+        </tr>
+
+        </thead>
+    </table>
+
     <h3><?= __('Prod Types') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

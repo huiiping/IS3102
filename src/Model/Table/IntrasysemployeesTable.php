@@ -26,7 +26,20 @@ class IntrasysEmployeesTable extends Table
     public static function defaultConnectionName() {
         return 'intrasysdb';
     }
-    
+    public $filterArgs = array(
+        'id' => array(
+            'type' => 'like',
+            'field' => 'id'
+        ),
+        'first_name' => array(
+            'type' => 'like',
+            'field' => 'first_name'
+        ),
+        'last_name' => array(
+            'type' => 'like',
+            'field' => 'last_name'
+        )
+    );
     /**
      * Initialize method
      *
@@ -48,6 +61,7 @@ class IntrasysEmployeesTable extends Table
             'targetForeignKey' => 'intrasys_employee_role_id',
             'joinTable' => 'intrasys_employees_intrasys_employee_roles'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

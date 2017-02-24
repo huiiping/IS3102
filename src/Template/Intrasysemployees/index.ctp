@@ -13,6 +13,21 @@
   </section>
   <!-- Main content -->
   <section class="content">
+      <div class="intrasysEmployees index large-9 medium-8 columns content">
+          <h3><?= __('Search') ?></h3>
+          <table cellpadding="0" cellspacing="0">
+              <thead>
+              <tr><?php
+                  echo $this->Form->create(null);?>
+                  <th scope="col"><?= $this->Form->input('first_name'); ?></th>
+                  <th scope="col"><?= $this->Form->input('last_name'); ?></th>
+
+
+                  <th scope="col" class="actions"><?= $this->Form->submit(__('Submit')); ?></th>
+                  <?php echo $this->Form->end();?>
+              </tr>
+
+              </thead>
       <div class="row">
         <div class="col-xs-12">
           <div class="box box-primary">
@@ -78,6 +93,7 @@
                 </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
   </section>

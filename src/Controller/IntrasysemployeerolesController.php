@@ -16,13 +16,19 @@ class IntrasysEmployeeRolesController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
-    {
-        $intrasysEmployeeRoles = $this->paginate($this->IntrasysEmployeeRoles);
+    public function index() {
 
+
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+        $this->set('intrasysEmployeeRoles', $this->paginate($this->IntrasysEmployeeRoles->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('intrasysEmployeeRoles'));
         $this->set('_serialize', ['intrasysEmployeeRoles']);
     }
+    public $components = array(
+        'Prg'
+    );
+
 
     /**
      * View method

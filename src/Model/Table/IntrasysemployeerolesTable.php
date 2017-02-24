@@ -28,7 +28,16 @@ class IntrasysEmployeeRolesTable extends Table
         return 'intrasysdb';
     }
 
-
+    public $filterArgs = array(
+        'id' => array(
+            'type' => 'like',
+            'field' => 'id'
+        ),
+        'role_name' => array(
+            'type' => 'like',
+            'field' => 'role_name'
+        )
+    );
     /**
      * Initialize method
      *
@@ -50,6 +59,7 @@ class IntrasysEmployeeRolesTable extends Table
             'targetForeignKey' => 'intrasys_employee_id',
             'joinTable' => 'intrasys_employees_intrasys_employee_roles'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

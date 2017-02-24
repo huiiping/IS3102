@@ -22,7 +22,44 @@ use Cake\Validation\Validator;
  */
 class ProdTypesTable extends Table
 {
-
+    public $filterArgs = array(
+        'id' => array(
+            'type' => 'like',
+            'field' => 'id'
+        ),
+        'prod_name' => array(
+            'type' => 'like',
+            'field' => 'prod_name'
+        ),
+        'prod_desc' => array(
+            'type' => 'like',
+            'field' => 'prod_desc'
+        ),
+        'colour' => array(
+            'type' => 'like',
+            'field' => 'colour'
+        ),
+        'store_unit_price' => array(
+            'type' => 'like',
+            'field' => 'store_unit_price'
+        ),
+        'web_store_unit_price' => array(
+            'type' => 'like',
+            'field' => 'web_store_unit_price'
+        ),
+        'SKU' => array(
+            'type' => 'like',
+            'field' => 'SKU'
+        ),
+        'prod_cat_id' => array(
+            'type' => 'like',
+            'field' => 'prod_cat_id'
+        ),
+        'dimension' => array(
+            'type' => 'type',
+            'field' => 'dimension'
+        )
+    );
     /**
      * Initialize method
      *
@@ -45,6 +82,7 @@ class ProdTypesTable extends Table
             'targetForeignKey' => 'promotion_id',
             'joinTable' => 'promotions_prod_types'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

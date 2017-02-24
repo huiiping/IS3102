@@ -12,6 +12,21 @@
   <section class="content-header">
   </section>
   <!-- Main content -->
+    <div class="locations index large-9 medium-8 columns content">
+        <h3><?= __('Search') ?></h3>
+        <table cellpadding="0" cellspacing="0">
+            <thead>
+            <tr><?php
+                echo $this->Form->create(null);?>
+                <th scope="col"><?= $this->Form->input('role_name'); ?></th>
+
+
+                <th scope="col" class="actions"><?= $this->Form->submit(__('Submit')); ?></th>
+                <?php echo $this->Form->end();?>
+            </tr>
+
+            </thead>
+        </table>
   <section class="content">
       <div class="row">
         <div class="col-xs-12">

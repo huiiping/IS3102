@@ -41,13 +41,18 @@ class SuppliersController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
-    {
-        $suppliers = $this->paginate($this->Suppliers);
+    public function index() {
 
+
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+        $this->set('suppliers', $this->paginate($this->Suppliers->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('suppliers'));
         $this->set('_serialize', ['suppliers']);
     }
+    public $components = array(
+        'Prg'
+    );
 
     /**
      * View method

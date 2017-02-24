@@ -21,7 +21,35 @@ use Cake\Validation\Validator;
  */
 class SectionsTable extends Table
 {
-
+    public $filterArgs = array(
+        'id' => array(
+            'type' => 'like',
+            'field' => 'id'
+        ),
+        'sec_name' => array(
+            'type' => 'like',
+            'field' => 'sec_name'
+        ),
+        'available_space' => array(
+            'type' => 'like',
+            'field' => 'available_space'
+        ),
+        'space_limit' => array(
+            'type' => 'like',
+            'field' => 'space_limit'
+        ),
+        'reserve' => array(
+            'type' => 'like',
+            'field' => 'reserve'
+        ),
+        'location_id' => array(
+            'type' => 'like',
+            'field' => 'location_id'
+        ),
+        'type' => array(
+            'type' => 'type'
+        )
+    );
     /**
      * Initialize method
      *
@@ -39,6 +67,7 @@ class SectionsTable extends Table
         $this->belongsTo('Locations', [
             'foreignKey' => 'location_id'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

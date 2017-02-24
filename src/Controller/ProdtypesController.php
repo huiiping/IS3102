@@ -16,16 +16,24 @@ class ProdTypesController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
-    {
+    public function index() {
+
+
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
         $this->paginate = [
             'contain' => ['ProdCats']
         ];
-        $prodTypes = $this->paginate($this->ProdTypes);
+        $this->set('prodTypes', $this->paginate($this->ProdTypes->find('searchable', $this->Prg->parsedParams())));
 
         $this->set(compact('prodTypes'));
         $this->set('_serialize', ['prodTypes']);
     }
+    public $components = array(
+        'Prg'
+    );
+
+
 
     /**
      * View method

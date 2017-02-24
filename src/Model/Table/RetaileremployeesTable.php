@@ -28,7 +28,48 @@ use Cake\Validation\Validator;
  */
 class RetailerEmployeesTable extends Table
 {
-
+    public $filterArgs = array(
+        'id' => array(
+            'type' => 'like',
+            'field' => 'id'
+        ),
+        'username' => array(
+            'type' => 'like',
+            'field' => 'username'
+        ),
+        'email' => array(
+            'type' => 'like',
+            'field' => 'email'
+        ),
+        'address' => array(
+            'type' => 'like',
+            'field' => 'address'
+        ),
+        'created' => array(
+            'type' => 'like',
+            'field' => 'created'
+        ),
+        'modified' => array(
+            'type' => 'like',
+            'field' => 'modified'
+        ),
+        'first_name' => array(
+            'type' => 'like',
+            'field' => 'first_name'
+        ),
+        'last_name' => array(
+            'type' => 'like',
+            'field' => 'last_name'
+        ),
+        'account_status' => array(
+            'type' => 'like',
+            'field' => 'account_status'
+        ),
+        'location' => array(
+            'type' => 'like',
+            'field' => 'location_id'
+        )
+    );
     /**
      * Initialize method
      *
@@ -67,6 +108,7 @@ class RetailerEmployeesTable extends Table
             'targetForeignKey' => 'retailer_employee_role_id',
             'joinTable' => 'retailer_employees_retailer_employee_roles'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**
@@ -124,6 +166,7 @@ class RetailerEmployeesTable extends Table
             ->allowEmpty('recovery_token');
 
         return $validator;
+
     }
 
     /**

@@ -37,13 +37,19 @@ class IntrasysEmployeesController extends AppController
 		$this->Auth->allow(['add', 'logout', 'activate', 'recover']);
 	}
 
-	public function index()
-	{
-		$intrasysEmployees = $this->paginate($this->IntrasysEmployees);
+ public function index() {
 
-		$this->set(compact('intrasysEmployees'));
-		$this->set('_serialize', ['intrasysEmployees']);
-	}
+
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+        $this->set('intrasysEmployees', $this->paginate($this->IntrasysEmployees->find('searchable', $this->Prg->parsedParams())));
+        $this->set(compact('intrasysEmployees'));
+        $this->set('_serialize', ['intrasysEmployees']);
+    }
+    public $components = array(
+        'Prg'
+    );
+
 
     /**
      * View method
