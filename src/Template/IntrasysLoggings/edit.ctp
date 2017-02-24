@@ -26,7 +26,7 @@
             echo $this->Form->input('action');
             echo $this->Form->input('entity');
             echo $this->Form->input('entityid');
-            echo $this->Form->input('employee_id');
+            echo $this->Form->input('employeeid');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

@@ -21,7 +21,7 @@
                 <th scope="col"><?= $this->Paginator->sort('action') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('entity') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('entityid') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('employee_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('employeeid') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -34,7 +34,7 @@
                 <td><?= h($intrasysLogging->action) ?></td>
                 <td><?= h($intrasysLogging->entity) ?></td>
                 <td><?= $this->Number->format($intrasysLogging->entityid) ?></td>
-                <td><?= $this->Number->format($intrasysLogging->employee_id) ?></td>
+                <td><?= $this->Number->format($intrasysLogging->employeeid) ?></td>
                 <td><?= h($intrasysLogging->created) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $intrasysLogging->id]) ?>

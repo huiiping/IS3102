@@ -19,7 +19,7 @@ class IntrasysLoggingsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Retailers', 'Employees']
+            'contain' => ['Retailers']
         ];
         $intrasysLoggings = $this->paginate($this->IntrasysLoggings);
 
@@ -37,7 +37,7 @@ class IntrasysLoggingsController extends AppController
     public function view($id = null)
     {
         $intrasysLogging = $this->IntrasysLoggings->get($id, [
-            'contain' => ['Retailers', 'Employees']
+            'contain' => ['Retailers']
         ]);
 
         $this->set('intrasysLogging', $intrasysLogging);
@@ -62,8 +62,7 @@ class IntrasysLoggingsController extends AppController
             $this->Flash->error(__('The intrasys logging could not be saved. Please, try again.'));
         }
         $retailers = $this->IntrasysLoggings->Retailers->find('list', ['limit' => 200]);
-        $employees = $this->IntrasysLoggings->Employees->find('list', ['limit' => 200]);
-        $this->set(compact('intrasysLogging', 'retailers', 'employees'));
+        $this->set(compact('intrasysLogging', 'retailers'));
         $this->set('_serialize', ['intrasysLogging']);
     }
 
@@ -89,8 +88,7 @@ class IntrasysLoggingsController extends AppController
             $this->Flash->error(__('The intrasys logging could not be saved. Please, try again.'));
         }
         $retailers = $this->IntrasysLoggings->Retailers->find('list', ['limit' => 200]);
-        $employees = $this->IntrasysLoggings->Employees->find('list', ['limit' => 200]);
-        $this->set(compact('intrasysLogging', 'retailers', 'employees'));
+        $this->set(compact('intrasysLogging', 'retailers'));
         $this->set('_serialize', ['intrasysLogging']);
     }
 

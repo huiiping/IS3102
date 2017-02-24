@@ -10,7 +10,6 @@ use Cake\Validation\Validator;
  * IntrasysLoggings Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Retailers
- * @property \Cake\ORM\Association\BelongsTo $Employees
  *
  * @method \App\Model\Entity\IntrasysLogging get($primaryKey, $options = [])
  * @method \App\Model\Entity\IntrasysLogging newEntity($data = null, array $options = [])
@@ -31,6 +30,11 @@ class IntrasysLoggingsTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
+
+    public static function defaultConnectionName() {
+        return 'intrasysdb';
+    }
+    
     public function initialize(array $config)
     {
         parent::initialize($config);
@@ -43,10 +47,6 @@ class IntrasysLoggingsTable extends Table
 
         $this->belongsTo('Retailers', [
             'foreignKey' => 'retailer_id'
-        ]);
-        $this->belongsTo('Employees', [
-            'foreignKey' => 'employee_id',
-            'joinType' => 'INNER'
         ]);
     }
 
@@ -72,6 +72,11 @@ class IntrasysLoggingsTable extends Table
             ->integer('entityid')
             ->allowEmpty('entityid');
 
+        $validator
+            ->integer('employeeid')
+            ->requirePresence('employeeid', 'create')
+            ->notEmpty('employeeid');
+
         return $validator;
     }
 
@@ -85,7 +90,6 @@ class IntrasysLoggingsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['retailer_id'], 'Retailers'));
-        $rules->add($rules->existsIn(['employee_id'], 'Employees'));
 
         return $rules;
     }

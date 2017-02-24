@@ -22,7 +22,7 @@ class IntrasysLoggingsFixture extends TestFixture
         'action' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'entity' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'entityid' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'employee_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'employeeid' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         '_indexes' => [
             'retailer_id' => ['type' => 'index', 'columns' => ['retailer_id'], 'length' => []],
@@ -50,8 +50,8 @@ class IntrasysLoggingsFixture extends TestFixture
             'action' => 'Lorem ipsum dolor sit amet',
             'entity' => 'Lorem ipsum dolor sit amet',
             'entityid' => 1,
-            'employee_id' => 1,
-            'created' => '2017-02-24 09:34:12'
+            'employeeid' => 1,
+            'created' => '2017-02-24 19:04:24'
         ],
     ];
 }

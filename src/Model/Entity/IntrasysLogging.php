@@ -11,7 +11,7 @@ use Cake\ORM\Entity;
  * @property string $action
  * @property string $entity
  * @property int $entityid
- * @property int $employee_id
+ * @property int $employeeid
  * @property \Cake\I18n\Time $created
  *
  * @property \App\Model\Entity\Retailer $retailer

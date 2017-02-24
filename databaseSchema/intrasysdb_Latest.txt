@@ -36,7 +36,7 @@ CREATE TABLE intrasys_loggings (
     action VARCHAR(100),
     entity VARCHAR(100),
     entityid INT,
-    employee_id INT NOT NULL,
+    employeeid INT NOT NULL,
     created DATETIME,
     FOREIGN KEY (retailer_id) REFERENCES retailers(id)
 );
