@@ -14,104 +14,70 @@
   <!-- Main content -->
   <section class="content">
       <div class="row">
-        <div class="col-xs-12">
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title"><?= h($intrasysEmployee->first_name).' '.h($intrasysEmployee->last_name) ?></h3>
-              <div class="pull-right">
-                <?= $this->Html->link(__('Edit Intrasys Employee'), ['action' => 'edit', $intrasysEmployee->id]) ?>
-              </div>
-            </div>
-            <div class="box-body">
+        <div class="col-xs-4">
+          <div class="box box-primary" style="height: 100%;">
+            <div class="box-body box-profile">
+              <img class="profile-user-img img-responsive img-circle" src="/IS3102_Final/img/user2-160x160.jpg" alt="User profile picture">
 
-                <table class="vertical-table">
-                    <tr>
-                        <th scope="row"><?= __('First Name') ?></th>
-                        <td><?= h($intrasysEmployee->first_name) ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Last Name') ?></th>
-                        <td><?= h($intrasysEmployee->last_name) ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Activation Status') ?></th>
-                        <td><?= h($intrasysEmployee->activation_status) ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Activation Token') ?></th>
-                        <td><?= h($intrasysEmployee->activation_token) ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Recovery Status') ?></th>
-                        <td><?= h($intrasysEmployee->recovery_status) ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Recovery Token') ?></th>
-                        <td><?= h($intrasysEmployee->recovery_token) ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Username') ?></th>
-                        <td><?= h($intrasysEmployee->username) ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Email') ?></th>
-                        <td><?= h($intrasysEmployee->email) ?></td>
-                    </tr>
-                    <!--<tr>
-                        <th scope="row"><?= __('Password') ?></th>
-                        <td><?= h($intrasysEmployee->password) ?></td>
-                    </tr>-->
-                    <tr>
-                        <th scope="row"><?= __('Address') ?></th>
-                        <td><?= h($intrasysEmployee->address) ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Contact') ?></th>
-                        <td><?= h($intrasysEmployee->contact) ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Id') ?></th>
-                        <td><?= $this->Number->format($intrasysEmployee->id) ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Created') ?></th>
-                        <td><?= $this->Time->format(h($intrasysEmployee->created), 'd MMM YYYY, hh:mm') ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Modified') ?></th>
-                        <td><?= $this->Time->format(h($intrasysEmployee->modified), 'd MMM YYYY, hh:mm') ?></td>
-                    </tr>
-                </table>
-                <div class="related">
-                    <?php if (!empty($intrasysEmployee->intrasys_employee_roles)): ?>
-                    <h4><?= __('Related Intrasys Employee Roles') ?></h4>
-                    <table cellpadding="0" cellspacing="0">
+              <h3 class="profile-username text-center"><?= h($intrasysEmployee->first_name).' '.h($intrasysEmployee->last_name) ?></h3>
+
+              <?php if (!empty($intrasysEmployee->intrasys_employee_roles)): ?>
+              <?php foreach ($intrasysEmployee->intrasys_employee_roles as $intrasysEmployeeRoles): ?>
+                <p class="text-muted text-center">
+                    <?= $this->Html->link(__(h($intrasysEmployeeRoles->role_name)), ['controller' => 'IntrasysEmployeeRoles', 'action' => 'view', $intrasysEmployeeRoles->id]) ?>
+                </p>
+              <?php endforeach; ?>
+              <?php endif; ?> 
+
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <b><?= __('Activation Status') ?></b> 
+                  <div class="pull-right"><?= h($intrasysEmployee->activation_status) ?></div>
+                </li>
+              </ul>
+              <div class="btn btn-default btn-block"><?= $this->Html->link(__('Edit Employee'), ['action' => 'edit', $intrasysEmployee->id]) ?></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-8">  
+            <div class="box box-primary" style="height: 100%;">
+                <div class="box-body box-profile">
+                  <div class="box-header with-border">
+                    <h3 class="box-title"><?= __('Employee Profile') ?></h3>
+                  </div>
+                  <div class="box-body"><br>
+                    <table class="table table-bordered table-striped">
                         <tr>
-                            <!--<th scope="col"><?= __('Id') ?></th>-->
-                            <th scope="col"><?= __('Role Name') ?></th>
-                            <!--<th scope="col"><?= __('Role Desc') ?></th>
-                            <th scope="col"><?= __('Created') ?></th>
-                            <th scope="col"><?= __('Modified') ?></th>
-                            <th scope="col" class="actions"><?= __('Actions') ?></th>-->
+                            <th scope="row"><?= __('Username') ?></th>
+                            <td><?= h($intrasysEmployee->username) ?></td>
                         </tr>
-                        <?php foreach ($intrasysEmployee->intrasys_employee_roles as $intrasysEmployeeRoles): ?>
                         <tr>
-                            <!--<td><?= h($intrasysEmployeeRoles->id) ?></td>-->
-                            <td>
-                                <?= $this->Html->link(__(h($intrasysEmployeeRoles->role_name)), ['controller' => 'IntrasysEmployeeRoles', 'action' => 'view', $intrasysEmployeeRoles->id]) ?>
-                            </td>
-                            <!--<td><?= h($intrasysEmployeeRoles->role_desc) ?></td>
-                            <td><?= h($intrasysEmployeeRoles->created) ?></td>
-                            <td><?= h($intrasysEmployeeRoles->modified) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'IntrasysEmployeeRoles', 'action' => 'view', $intrasysEmployeeRoles->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'IntrasysEmployeeRoles', 'action' => 'edit', $intrasysEmployeeRoles->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'IntrasysEmployeeRoles', 'action' => 'delete', $intrasysEmployeeRoles->id], ['confirm' => __('Are you sure you want to delete # {0}?', $intrasysEmployeeRoles->id)]) ?>
-                            </td>-->
+                            <th scope="row"><?= __('Email') ?></th>
+                            <td><?= h($intrasysEmployee->email) ?></td>
                         </tr>
-                        <?php endforeach; ?>
+                        <tr>
+                            <th scope="row"><?= __('Contact') ?></th>
+                            <td><?= h($intrasysEmployee->contact) ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><?= __('Address') ?></th>
+                            <td><?= h($intrasysEmployee->address) ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><?= __('Id') ?></th>
+                            <td><?= $this->Number->format($intrasysEmployee->id) ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><?= __('Created') ?></th>
+                            <td><?= $this->Time->format(h($intrasysEmployee->created), 'd MMM YYYY, hh:mm') ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><?= __('Modified') ?></th>
+                            <td><?= $this->Time->format(h($intrasysEmployee->modified), 'd MMM YYYY, hh:mm') ?></td>
+                        </tr>
                     </table>
-                    <?php endif; ?>
+                  </div>
                 </div>
             </div>
         </div>

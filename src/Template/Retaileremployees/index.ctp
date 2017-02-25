@@ -15,34 +15,42 @@
 
   <section class="content">
       <div class="row">
-	  <div class="retailerEmployees index large-9 medium-8 columns content">
-    <h3><?= __('Search') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-        <tr><?php
-            echo $this->Form->create(null);?>
-            <th scope="col"><?= $this->Form->input('username'); ?></th>
-            <th scope="col"><?= $this->Form->input('email'); ?></th>
-
-            <th scope="col"><?= $this->Form->input('address'); ?></th>
-        </tr><tr>
-            <th scope="col"><?= $this->Form->input('first_name'); ?></th>
-            <th scope="col"><?= $this->Form->input('last_name'); ?></th>
-            <th scope="col"><?= $this->Form->input('account_status'); ?></th>
-
-
-            <th scope="col" class="actions"><?= $this->Form->submit(__('Submit')); ?></th>
-            <?php echo $this->Form->end();?>
-        </tr>
-
-        </thead>
-    </table>
         <div class="col-xs-12">
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title"><?= __('Retailer Employees') ?></h3>
+              <h3 class="box-title"><?= __('Search Employees') ?></h3>
             </div>
             <div class="box-body">
+
+                <br>
+                <!--<legend><h4><?= __('Search') ?></h4></legend>-->
+                <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                    <tr>
+                        <?php echo $this->Form->create(null);?>
+                        <th width="10"></th>
+                        <th scope="col"><?= $this->Form->input('username'); ?></th>
+                        <th width="60"></th>
+                        <th scope="col"><?= $this->Form->input('email'); ?></th>
+                        <th width="60"></th>
+                        <th scope="col"><?= $this->Form->input('address'); ?></th>
+                        <th width="30"></th>
+                        <th scope="col"></th>
+                        <th width="10"></th>
+                    </tr>
+                    <tr>
+                        <th width="10"></th>
+                        <th scope="col"><?= $this->Form->input('first_name'); ?></th>
+                        <th width="60"></th>
+                        <th scope="col"><?= $this->Form->input('last_name'); ?></th>
+                        <th width="60"></th>
+                        <th scope="col"><?= $this->Form->input('account_status'); ?></th>
+                        <th width="30"></th>
+                        <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+                        <th width="10"></th>
+                        <?php echo $this->Form->end();?>
+                    </tr>
+                </table>
+                <br>
               <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -104,7 +112,6 @@
             </div>
           </div>
         </div>
-      </div>
       </div>
   </section>
 </div>

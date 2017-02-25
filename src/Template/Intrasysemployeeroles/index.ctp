@@ -11,22 +11,7 @@
   <!-- Content Header -->
   <section class="content-header">
   </section>
-  <!-- Main content -->
-    <div class="locations index large-9 medium-8 columns content">
-        <h3><?= __('Search') ?></h3>
-        <table cellpadding="0" cellspacing="0">
-            <thead>
-            <tr><?php
-                echo $this->Form->create(null);?>
-                <th scope="col"><?= $this->Form->input('role_name'); ?></th>
-
-
-                <th scope="col" class="actions"><?= $this->Form->submit(__('Submit')); ?></th>
-                <?php echo $this->Form->end();?>
-            </tr>
-
-            </thead>
-        </table>
+  <!-- Main content -->       
   <section class="content">
       <div class="row">
         <div class="col-xs-12">
@@ -35,6 +20,24 @@
               <h3 class="box-title"><?= __('Intrasys Employee Roles') ?></h3>
             </div>
             <div class="box-body">
+
+              <legend><h4><?= __('Search') ?></h4></legend>
+              <table cellpadding="0" cellspacing="0">
+                  <thead>
+                  <tr><?php
+                      echo $this->Form->create(null);?>
+                      <th scope="col"><?= $this->Form->input('role_name'); ?></th>
+
+
+                      <th scope="col" class="actions"><?= $this->Form->submit(__('Submit')); ?></th>
+                      <?php echo $this->Form->end();?>
+                  </tr>
+
+                  </thead>
+              </table>
+
+              <br>
+
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
@@ -70,7 +73,6 @@
                     <?= $this->Paginator->last(__('last') . ' >>') ?>
                 </ul>
                 <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
-            </div>
             </div>
           </div>
         </div>

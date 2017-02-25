@@ -18,11 +18,11 @@
     <ul class="sidebar-menu">
       <li class="header">MAIN NAVIGATION</li>
       
-      <?= $this->Element('sideBar', array('type' => 'Retailer Details', 'typePlural' => 'RetailerDetails')); ?>
+      <?= $this->Element('sideBar2', array('type' => 'Retailer Details', 'typePlural' => 'RetailerDetails')); ?>
       <?= $this->Element('sideBar', array('type' => 'Employees', 'typePlural' => 'RetailerEmployees')); ?>
       <?= $this->Element('sideBar2', array('type' => 'Employee Roles', 'typePlural' => 'RetailerEmployeeRoles')); ?>
       <?= $this->Element('sideBar', array('type' => 'Customers', 'typePlural' => 'Customers')); ?>
-      <?= $this->Element('sideBar', array('type' => 'Customer Membership Tiers', 'typePlural' => 'CustMembershipTiers')); ?>
+      <?= $this->Element('sideBar', array('type' => 'Membership Tiers', 'typePlural' => 'CustMembershipTiers')); ?>
       <?= $this->Element('sideBar', array('type' => 'Promotions', 'typePlural' => 'Promotions')); ?>
       <?= $this->Element('sideBar', array('type' => 'Product Category', 'typePlural' => 'ProdCats')); ?>
       <?= $this->Element('sideBar', array('type' => 'Product Types', 'typePlural' => 'ProdTypes')); ?>

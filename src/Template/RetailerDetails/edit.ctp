@@ -3,30 +3,39 @@
   * @var \App\View\AppView $this
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $retailerDetail->retailerid],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $retailerDetail->retailerid)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Retailer Details'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="retailerDetails form large-9 medium-8 columns content">
-    <?= $this->Form->create($retailerDetail) ?>
-    <fieldset>
-        <legend><?= __('Edit Retailer Detail') ?></legend>
-        <?php
-            echo $this->Form->input('retailer_name');
-            echo $this->Form->input('retailer_desc');
-            echo $this->Form->input('retailer_email');
-            echo $this->Form->input('address');
-            echo $this->Form->input('contact');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+
+<?= $this->Element('retailerLeftSideBar'); ?>
+
+<!-- Main Content -->
+<div class="content-wrapper">
+  <!-- Content Header -->
+  <section class="content-header">
+  </section>
+  <!-- Main content -->
+  <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title"><?= __('Edit Retailer Detail') ?></h3>
+            </div>
+            <div class="box-body">
+                <?= $this->Form->create($retailerDetail) ?>
+                <fieldset>
+                    <?php
+                        echo $this->Form->input('retailer_name');
+                        echo $this->Form->input('retailer_desc');
+                        echo $this->Form->input('retailer_email');
+                        echo $this->Form->input('address');
+                        echo $this->Form->input('contact');
+                    ?>
+                </fieldset>
+                <br>
+                <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
+                <?= $this->Form->end() ?>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
 </div>
