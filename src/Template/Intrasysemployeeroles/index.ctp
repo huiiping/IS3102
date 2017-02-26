@@ -17,23 +17,21 @@
         <div class="col-xs-12">
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title"><?= __('Intrasys Employee Roles') ?></h3>
+              <h3 class="box-title"><?= __('Search Intrasys Employee Roles') ?></h3>
             </div>
             <div class="box-body">
-
-              <legend><h4><?= __('Search') ?></h4></legend>
-              <table cellpadding="0" cellspacing="0">
-                  <thead>
-                  <tr><?php
-                      echo $this->Form->create(null);?>
+            <br>
+              <!--<legend><h4><?= __('Search') ?></h4></legend>-->
+              <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                  <tr>
+                    <?php echo $this->Form->create(null);?>
+                      <th width="10"></th>
                       <th scope="col"><?= $this->Form->input('role_name'); ?></th>
-
-
-                      <th scope="col" class="actions"><?= $this->Form->submit(__('Submit')); ?></th>
+                      <th width="30"></th>
+                      <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+                      <th width="10"></th>
                       <?php echo $this->Form->end();?>
                   </tr>
-
-                  </thead>
               </table>
 
               <br>

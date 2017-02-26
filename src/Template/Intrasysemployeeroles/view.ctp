@@ -54,9 +54,9 @@
                             <th scope="col"><?= __('First Name') ?></th>
                             <th scope="col"><?= __('Last Name') ?></th>
                             <th scope="col"><?= __('Account Status') ?></th>
-                            <th scope="col"><?= __('Username') ?></th>
+                            <th scope="col"><?= __('Username') ?></th>-->
                             <th scope="col"><?= __('Email') ?></th>
-                            <th scope="col"><?= __('Password') ?></th>
+                            <!--<th scope="col"><?= __('Password') ?></th>
                             <th scope="col"><?= __('Address') ?></th>
                             <th scope="col"><?= __('Contact') ?></th>
                             <th scope="col"><?= __('Created') ?></th>
@@ -72,9 +72,9 @@
                             <td><?= h($intrasysEmployees->first_name) ?></td>
                             <td><?= h($intrasysEmployees->last_name) ?></td>
                             <td><?= h($intrasysEmployees->account_status) ?></td>
-                            <td><?= h($intrasysEmployees->username) ?></td>
+                            <td><?= h($intrasysEmployees->username) ?></td>-->
                             <td><?= h($intrasysEmployees->email) ?></td>
-                            <td><?= h($intrasysEmployees->password) ?></td>
+                            <!--<td><?= h($intrasysEmployees->password) ?></td>
                             <td><?= h($intrasysEmployees->address) ?></td>
                             <td><?= h($intrasysEmployees->contact) ?></td>
                             <td><?= h($intrasysEmployees->created) ?></td>

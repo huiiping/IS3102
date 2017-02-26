@@ -19,7 +19,7 @@
             <div class="box-header with-border">
               <h3 class="box-title"><?= h($retailerDetail->retailer_name) ?></h3>
               <div class="pull-right">
-                <?= $this->Html->link(__('Edit Retail Detail'), ['action' => 'edit', $retailerDetail->id]) ?>
+                <?= $this->Html->link(__('Edit Retailer Detail'), ['action' => 'edit', $retailerDetail->retailerid]) ?>
               </div>
             </div>
             <div class="box-body">
@@ -46,7 +46,7 @@
                         <td><?= h($retailerDetail->contact) ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Retailerid') ?></th>
+                        <th scope="row"><?= __('Retailer ID') ?></th>
                         <td><?= $this->Number->format($retailerDetail->retailerid) ?></td>
                     </tr>
                 </table>

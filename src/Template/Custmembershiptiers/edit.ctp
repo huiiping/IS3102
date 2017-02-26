@@ -3,36 +3,43 @@
   * @var \App\View\AppView $this
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $custMembershipTier->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $custMembershipTier->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Cust Membership Tiers'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Customers'), ['controller' => 'Customers', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Customer'), ['controller' => 'Customers', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="custMembershipTiers form large-9 medium-8 columns content">
-    <?= $this->Form->create($custMembershipTier) ?>
-    <fieldset>
-        <legend><?= __('Edit Cust Membership Tier') ?></legend>
-        <?php
-            echo $this->Form->input('tier_name');
-            echo $this->Form->input('validity_period');
-            echo $this->Form->input('min_spending');
-            echo $this->Form->input('membership_fee');
-            echo $this->Form->input('membership_pts');
-            echo $this->Form->input('redemption_pts');
-            echo $this->Form->input('discount_rate');
-            echo $this->Form->input('birthday_rate');
-            echo $this->Form->input('description');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+
+<?= $this->Element('retailerLeftSideBar'); ?>
+
+<!-- Main Content -->
+<div class="content-wrapper">
+  <!-- Content Header -->
+  <section class="content-header">
+  </section>
+  <!-- Main content -->
+  <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title"><?= __('Edit Customer Membership Tier') ?></h3>
+            </div>
+            <div class="box-body">
+                <?= $this->Form->create($custMembershipTier) ?>
+                <fieldset>
+                    <?php
+                        echo $this->Form->input('tier_name', array('label' => 'Name'));
+                        echo $this->Form->input('validity_period', array('label' => 'Renewal Cycle (days)'));
+                        echo $this->Form->input('min_spending', array('label' => 'Minimum Spending'));
+                        echo $this->Form->input('membership_fee', array('label' => 'Membership Fee'));
+                        echo $this->Form->input('membership_pts', array('label' => 'Membership Points Earned Per $1 Spent'));
+                        echo $this->Form->input('redemption_pts', array('label' => 'Redemption Points Exchange Rate For $1 Discount'));
+                        echo $this->Form->input('discount_rate', array('label' => 'Discount Rate (%)'));
+                        echo $this->Form->input('birthday_rate', array('label' => 'Birthday Discount Rate (%)'));
+                        echo $this->Form->input('description');
+                    ?>
+                </fieldset>
+                <br>
+                <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
+                <?= $this->Form->end() ?>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
 </div>

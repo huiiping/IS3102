@@ -18,7 +18,7 @@
         <div class="col-xs-12">
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title"><?= __('Search Employees') ?></h3>
+              <h3 class="box-title"><?= __('Search Retailer Employees') ?></h3>
             </div>
             <div class="box-body">
 

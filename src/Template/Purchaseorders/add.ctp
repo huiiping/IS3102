@@ -3,29 +3,38 @@
   * @var \App\View\AppView $this
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Purchase Orders'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Suppliers'), ['controller' => 'Suppliers', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Supplier'), ['controller' => 'Suppliers', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Retailer Employees'), ['controller' => 'RetailerEmployees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retailer Employee'), ['controller' => 'RetailerEmployees', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Purchase Order Items'), ['controller' => 'PurchaseOrderItems', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Purchase Order Item'), ['controller' => 'PurchaseOrderItems', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="purchaseOrders form large-9 medium-8 columns content">
-    <?= $this->Form->create($purchaseOrder) ?>
-    <fieldset>
-        <legend><?= __('Add Purchase Order') ?></legend>
-        <?php
-            echo $this->Form->input('total_price');
-            echo $this->Form->input('delivery_status');
-            echo $this->Form->input('supplier_id', ['options' => $suppliers, 'empty' => true]);
-            echo $this->Form->input('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+
+<?= $this->Element('retailerLeftSideBar'); ?>
+
+<!-- Main Content -->
+<div class="content-wrapper">
+  <!-- Content Header -->
+  <section class="content-header">
+  </section>
+  <!-- Main content -->
+  <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title"><?= __('Create New Purchase Order') ?></h3>
+            </div>
+            <div class="box-body">
+            <?= $this->Form->create($purchaseOrder) ?>
+            <fieldset>
+                <?php
+                    echo $this->Form->input('total_price');
+                    echo $this->Form->input('delivery_status');
+                    echo $this->Form->input('supplier_id', ['options' => $suppliers, 'empty' => true]);
+                    echo $this->Form->input('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
+                ?>
+            </fieldset>
+            <br>
+                <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
+                <?= $this->Form->end() ?>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
 </div>

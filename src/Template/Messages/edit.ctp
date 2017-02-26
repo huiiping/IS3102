@@ -3,34 +3,41 @@
   * @var \App\View\AppView $this
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $message->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $message->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Messages'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Retailer Employees'), ['controller' => 'RetailerEmployees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retailer Employee'), ['controller' => 'RetailerEmployees', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="messages form large-9 medium-8 columns content">
-    <?= $this->Form->create($message) ?>
-    <fieldset>
-        <legend><?= __('Edit Message') ?></legend>
-        <?php
-            echo $this->Form->input('title');
-            echo $this->Form->input('date_created', ['empty' => true]);
-            echo $this->Form->input('message');
-            echo $this->Form->input('status');
-            echo $this->Form->input('reference_id');
-            echo $this->Form->input('sender_id');
-            echo $this->Form->input('retailer_employees._ids', ['options' => $retailerEmployees]);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+
+<?= $this->Element('retailerLeftSideBar'); ?>
+
+<!-- Main Content -->
+<div class="content-wrapper">
+  <!-- Content Header -->
+  <section class="content-header">
+  </section>
+  <!-- Main content -->
+  <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title"><?= __('Edit Message') ?></h3>
+            </div>
+            <div class="box-body">
+                <?= $this->Form->create($message) ?>
+                <fieldset>
+                    <?php
+                        echo $this->Form->input('title');
+                        echo $this->Form->input('date_created', ['empty' => true]);
+                        echo $this->Form->input('message');
+                        echo $this->Form->input('status');
+                        echo $this->Form->input('reference_id');
+                        echo $this->Form->input('sender_id');
+                        echo $this->Form->input('retailer_employees._ids', ['options' => $retailerEmployees]);
+                    ?>
+                </fieldset>
+                <br>
+                <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
+                <?= $this->Form->end() ?>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
 </div>

@@ -3,35 +3,46 @@
   * @var \App\View\AppView $this
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Suppliers'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Purchase Orders'), ['controller' => 'PurchaseOrders', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Purchase Order'), ['controller' => 'PurchaseOrders', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Supplier Memos'), ['controller' => 'SupplierMemos', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Supplier Memo'), ['controller' => 'SupplierMemos', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="suppliers form large-9 medium-8 columns content">
-    <?= $this->Form->create($supplier) ?>
-    <fieldset>
-        <legend><?= __('Add Supplier') ?></legend>
-        <?php
-            echo $this->Form->input('username');
-            echo $this->Form->input('password');
-            echo $this->Form->input('email');
-            echo $this->Form->input('address');
-            echo $this->Form->input('contact');
-            echo $this->Form->input('supplier_name');
-            echo $this->Form->input('country');
-            echo $this->Form->input('activation_status');
-            echo $this->Form->input('activation_token');
-            echo $this->Form->input('recovery_status');
-            echo $this->Form->input('recovery_token');
-            echo $this->Form->input('bank_acc');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+
+<?= $this->Element('retailerLeftSideBar'); ?>
+
+<!-- Main Content -->
+<div class="content-wrapper">
+  <!-- Content Header -->
+  <section class="content-header">
+  </section>
+  <!-- Main content -->
+  <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title"><?= __('Create New Supplier') ?></h3>
+            </div>
+            <div class="box-body">
+                <?= $this->Form->create($supplier) ?>
+                <fieldset>
+                    <?php
+                        echo $this->Form->input('supplier_name');
+                        echo $this->Form->input('username');
+                        echo $this->Form->input('password');
+                        echo $this->Form->input('email');
+                        echo $this->Form->input('contact');
+                        echo $this->Form->input('address');
+                        echo $this->Form->input('country');
+                        /*echo $this->Form->input('activation_status');
+                        echo $this->Form->input('activation_token');
+                        echo $this->Form->input('recovery_status');
+                        echo $this->Form->input('recovery_token');*/
+                        echo $this->Form->input(('bank_acc'), ['label' => 'Bank Account']);
+                    ?>
+                </fieldset>
+                <br>
+                <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
+                <?= $this->Form->end() ?>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
 </div>

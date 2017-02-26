@@ -3,23 +3,36 @@
   * @var \App\View\AppView $this
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Prod Cats'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Prod Types'), ['controller' => 'ProdTypes', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Prod Type'), ['controller' => 'ProdTypes', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="prodCats form large-9 medium-8 columns content">
-    <?= $this->Form->create($prodCat) ?>
-    <fieldset>
-        <legend><?= __('Add Prod Cat') ?></legend>
-        <?php
-            echo $this->Form->input('cat_name');
-            echo $this->Form->input('cat_desc');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+
+<?= $this->Element('retailerLeftSideBar'); ?>
+
+<!-- Main Content -->
+<div class="content-wrapper">
+  <!-- Content Header -->
+  <section class="content-header">
+  </section>
+  <!-- Main content -->
+  <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title"><?= __('Create New Product Category') ?></h3>
+            </div>
+            <div class="box-body">
+                <?= $this->Form->create($prodCat) ?>
+                <fieldset>
+                    <?php
+                        echo $this->Form->input(('cat_name'), ['label' => 'Product Category Name']);
+                        echo $this->Form->input(('cat_desc'), ['label' => 'Product Category Description']);
+                    ?>
+                </fieldset>
+                <br>
+                <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
+                <?= $this->Form->end() ?>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
 </div>

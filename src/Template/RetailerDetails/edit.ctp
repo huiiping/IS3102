@@ -24,7 +24,7 @@
                 <fieldset>
                     <?php
                         echo $this->Form->input('retailer_name');
-                        echo $this->Form->input('retailer_desc');
+                        echo $this->Form->input(('retailer_desc'), ['label' => 'Retailer Description']);
                         echo $this->Form->input('retailer_email');
                         echo $this->Form->input('address');
                         echo $this->Form->input('contact');

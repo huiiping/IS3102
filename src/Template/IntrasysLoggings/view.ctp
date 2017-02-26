@@ -18,9 +18,6 @@
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title"><?= h($intrasysLogging->action) ?></h3>
-              <div class="pull-right">
-                <?= $this->Html->link(__('Edit '), ['action' => 'edit', $intrasysLogging->id]) ?>
-              </div>
             </div>
             <div class="box-body">
             
@@ -38,16 +35,16 @@
                         <td><?= h($intrasysLogging->entity) ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Id') ?></th>
-                        <td><?= $this->Number->format($intrasysLogging->id) ?></td>
-                    </tr>
-                    <tr>
                         <th scope="row"><?= __('Entityid') ?></th>
                         <td><?= $this->Number->format($intrasysLogging->entityid) ?></td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Employeeid') ?></th>
                         <td><?= $this->Number->format($intrasysLogging->employeeid) ?></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><?= __('Id') ?></th>
+                        <td><?= $this->Number->format($intrasysLogging->id) ?></td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Created') ?></th>
