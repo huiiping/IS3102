@@ -77,7 +77,8 @@
                         <td class="actions">
                             <?= $this->Html->link(__('View |'), ['action' => 'view', $intrasysEmployee->id]) ?>
                             <?= $this->Html->link(__('Edit |'), ['action' => 'edit', $intrasysEmployee->id]) ?>
-                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $intrasysEmployee->id], ['confirm' => __('Are you sure you want to delete # {0}?', $intrasysEmployee->id)]) ?>
+                            <?= $this->Form->postLink(__('Delete |'), ['action' => 'delete', $intrasysEmployee->id], ['confirm' => __('Are you sure you want to delete # {0}?', $intrasysEmployee->id)]) ?>
+                            <?= $this->Html->link(__('Manager Actions '), ['action' => 'managerActions', $intrasysEmployee->id]) ?>
                         </td>
                     </tr>
                     <?php endforeach; ?>

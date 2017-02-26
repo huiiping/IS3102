@@ -231,6 +231,26 @@ class IntrasysEmployeesController extends AppController
     	}
     }
 
+    public function managerActions($id = null)
+    {
+        $intrasysEmployee = $this->IntrasysEmployees->get($id, [
+            'contain' => ['IntrasysEmployeeRoles']
+        ]);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $intrasysEmployee = $this->IntrasysEmployees->patchEntity($intrasysEmployee, $this->request->data);
+            if ($this->IntrasysEmployees->save($intrasysEmployee)) {
+                $this->Flash->success(__('The intrasys employee has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The intrasys employee could not be saved. Please, try again.'));
+        }
+        $intrasysEmployeeRoles = $this->IntrasysEmployees->IntrasysEmployeeRoles->find('list', ['limit' => 200]);
+        $this->set(compact('intrasysEmployee', 'intrasysEmployeeRoles'));
+        $this->set('_serialize', ['intrasysEmployee']);
+    }
+
     public function recover(){
 
     	$email = $_POST['email'];
