@@ -24,5 +24,8 @@ INSERT INTO intrasys_employee_roles (role_name, role_desc)
 VALUES ('Employee Accounts User','View/Search Employee Accounts');
 
 INSERT INTO intrasys_employee_roles (role_name, role_desc)
+VALUES ('Employee Roles User','View/Search Employee Roles');
+
+INSERT INTO intrasys_employee_roles (role_name, role_desc)
 VALUES ('Master Account','All Actions');
 
