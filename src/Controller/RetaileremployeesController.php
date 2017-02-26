@@ -120,13 +120,6 @@ class RetailerEmployeesController extends AppController
         $this->set('_serialize', ['retailerEmployee']);
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Retailer Employee id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
@@ -173,6 +166,27 @@ class RetailerEmployeesController extends AppController
         }
             $this->Flash->error('Incorrect Login');   
         }
+    }
+
+    public function managerActions($id = null)
+    {
+        $retailerEmployee = $this->RetailerEmployees->get($id, [
+            'contain' => ['Messages', 'RetailerEmployeeRoles']
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
+            if ($this->RetailerEmployees->save($retailerEmployee)) {
+                $this->Flash->success(__('The retailer employee has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The retailer employee could not be saved. Please, try again.'));
+        }
+        $locations = $this->RetailerEmployees->Locations->find('list', ['limit' => 200]);
+        $messages = $this->RetailerEmployees->Messages->find('list', ['limit' => 200]);
+        $retailerEmployeeRoles = $this->RetailerEmployees->RetailerEmployeeRoles->find('list', ['limit' => 200]);
+        $this->set(compact('retailerEmployee', 'locations', 'messages', 'retailerEmployeeRoles'));
+        $this->set('_serialize', ['retailerEmployee']);
     }
 
     /*public function logout(){

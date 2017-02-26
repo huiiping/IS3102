@@ -23,22 +23,21 @@
                 <?= $this->Form->create($retailerEmployee) ?>
                 <fieldset>
                     <?php
-                        //echo $this->Form->input('username');
-                        //echo $this->Form->input('password');
-                        echo $this->Form->input('first_name');
-                        echo $this->Form->input('last_name');
-                        echo $this->Form->input('email');
-                        echo $this->Form->input('address');
-                        echo $this->Form->input('contact');
-                        echo $this->Form->input('activation_status');
+                        echo $this->Form->input('username', array('readonly'=> 'readonly'));
+                        echo $this->Form->input('password', array('readonly'=> 'readonly'));
+                        echo $this->Form->input('first_name', array('readonly'=> 'readonly'));
+                        echo $this->Form->input('last_name', array('readonly'=> 'readonly'));
+                        echo $this->Form->input('email', array('readonly'=> 'readonly'));
+                        echo $this->Form->input('address', array('readonly'=> 'readonly'));
+                        echo $this->Form->input('contact', array('readonly'=> 'readonly'));
+                        //echo $this->Form->input('activation_status');
                         //echo $this->Form->input('activation_token');
                         //echo $this->Form->input('recovery_status');
                         //echo $this->Form->input('recovery_token');
-                        /*Gwen: Comment this because only the manager can decide where is the employee posted to 
-                        echo $this->Form->input('location_id', ['options' => $locations, 'empty' => true]);*/
-                        echo $this->Form->input('messages._ids', ['options' => $messages]);
-                        /*Gwen: Comment this because only the manager can decide the employee's role
-                        echo $this->Form->input('retailer_employee_roles._ids', ['options' => $retailerEmployeeRoles]);*/
+                        echo $this->Form->input('location_id', ['options' => $locations, 'empty' => true]);
+                        //Gwen: Need to double check messages
+                        //echo $this->Form->input('messages._ids', ['options' => $messages]);
+                        echo $this->Form->input('retailer_employee_roles._ids', ['options' => $retailerEmployeeRoles]);
                     ?>
                 </fieldset>
                 <br>

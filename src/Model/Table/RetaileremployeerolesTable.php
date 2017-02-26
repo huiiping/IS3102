@@ -74,7 +74,7 @@ class RetailerEmployeeRolesTable extends Table
         parent::initialize($config);
 
         $this->table('retailer_employee_roles');
-        $this->displayField('id');
+        $this->displayField('role_name');
         $this->primaryKey('id');
 
         $this->belongsToMany('RetailerEmployees', [

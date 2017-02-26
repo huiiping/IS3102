@@ -93,7 +93,8 @@
                         <td class="actions">
                             <?= $this->Html->link(__('View |'), ['action' => 'view', $retailerEmployee->id]) ?>
                             <?= $this->Html->link(__('Edit |'), ['action' => 'edit', $retailerEmployee->id]) ?>
-                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $retailerEmployee->id], ['confirm' => __('Are you sure you want to delete # {0}?', $retailerEmployee->id)]) ?>
+                            <?= $this->Form->postLink(__('Delete |'), ['action' => 'delete', $retailerEmployee->id], ['confirm' => __('Are you sure you want to delete # {0}?', $retailerEmployee->id)]) ?>
+                            <?= $this->Html->link(__('Manager Actions'), ['action' => 'managerActions', $retailerEmployee->id]) ?>
                         </td>
                     </tr>
                     <?php endforeach; ?>
