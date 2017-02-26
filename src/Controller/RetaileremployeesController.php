@@ -104,6 +104,16 @@ class RetailerEmployeesController extends AppController
         $retailerEmployee = $this->RetailerEmployees->get($id, [
             'contain' => ['Messages', 'RetailerEmployeeRoles']
         ]);
+
+        //Getting the session user - ID
+        $sessionId = $this->request->session()->read('Auth.User.id');
+
+        //Only the employee themselves can edit their account
+        if($retailerEmployee['id'] != $sessionId) {
+             $this->redirect($this->referer());
+             $this->Flash->error(__('You are not authorzied to edit other employees.'));
+        }
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
             if ($this->RetailerEmployees->save($retailerEmployee)) {

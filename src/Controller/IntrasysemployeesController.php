@@ -182,6 +182,16 @@ class IntrasysEmployeesController extends AppController
     	$intrasysEmployee = $this->IntrasysEmployees->get($id, [
     		'contain' => ['IntrasysEmployeeRoles']
     		]);
+
+        //Getting the session user - ID
+        $sessionId = $this->request->session()->read('Auth.User.id');
+
+        //Only the employee themselves can edit their account
+        if($intrasysEmployee['id'] != $sessionId) {
+             $this->redirect($this->referer());
+             $this->Flash->error(__('You are not authorzied to edit other employees.'));
+        }
+
     	if ($this->request->is(['patch', 'post', 'put'])) {
     		$intrasysEmployee = $this->IntrasysEmployees->patchEntity($intrasysEmployee, $this->request->data);
     		if ($this->IntrasysEmployees->save($intrasysEmployee)) {
