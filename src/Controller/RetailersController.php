@@ -43,6 +43,13 @@ class RetailersController extends AppController
             'contain' => ['RetailerAccTypes']
         ]);
 
+        //$session = $this->request->session();
+        //$retailer = $session->read('retailer');
+
+        $this->loadComponent('Logging');
+        //$this->Logging->log($retailer['id']);
+        $this->Logging->iLog(null, $retailer['id']);
+
         $this->set('retailer', $retailer);
         $this->set('_serialize', ['retailer']);
     }
@@ -59,6 +66,13 @@ class RetailersController extends AppController
             $retailer = $this->Retailers->patchEntity($retailer, $this->request->data);
             if ($this->Retailers->save($retailer)) {
                 $this->Flash->success(__('The retailer has been saved.'));
+
+                //$session = $this->request->session();
+                //$retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                //$this->Logging->log($retailer['id']);
+                $this->Logging->iLog(null, $retailer['id']);
 
                 //Create new database for new retailer 
                 //Use the 'default' connection to create a new database
@@ -97,6 +111,13 @@ class RetailersController extends AppController
             if ($this->Retailers->save($retailer)) {
                 $this->Flash->success(__('The retailer has been saved.'));
 
+                //$session = $this->request->session();
+                //$retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                //$this->Logging->log($retailer['id']);
+                $this->Logging->iLog(null, $retailer['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The retailer could not be saved. Please, try again.'));
@@ -119,6 +140,14 @@ class RetailersController extends AppController
         $retailer = $this->Retailers->get($id);
         if ($this->Retailers->delete($retailer)) {
             $this->Flash->success(__('The retailer has been deleted.'));
+
+            //$session = $this->request->session();
+            //$retailer = $session->read('retailer');
+
+            $this->loadComponent('Logging');
+            //$this->Logging->log($retailer['id']);
+            $this->Logging->iLog(null, $retailer['id']);
+            
         } else {
             $this->Flash->error(__('The retailer could not be deleted. Please, try again.'));
         }

@@ -40,6 +40,13 @@ class CustomersController extends AppController
             'contain' => ['CustMembershipTiers', 'Promotions']
         ]);
 
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        $this->loadComponent('Logging');
+        $this->Logging->log($customer['id']);
+        $this->Logging->iLog($retailer, $customer['id']);
+
         $this->set('customer', $customer);
         $this->set('_serialize', ['customer']);
     }
@@ -56,6 +63,13 @@ class CustomersController extends AppController
             $customer = $this->Customers->patchEntity($customer, $this->request->data);
             if ($this->Customers->save($customer)) {
                 $this->Flash->success(__('The customer has been saved.'));
+
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($customer['id']);
+                $this->Logging->iLog($retailer, $customer['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -84,6 +98,13 @@ class CustomersController extends AppController
             if ($this->Customers->save($customer)) {
                 $this->Flash->success(__('The customer has been saved.'));
 
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($customer['id']);
+                $this->Logging->iLog($retailer, $customer['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The customer could not be saved. Please, try again.'));
@@ -107,6 +128,14 @@ class CustomersController extends AppController
         $customer = $this->Customers->get($id);
         if ($this->Customers->delete($customer)) {
             $this->Flash->success(__('The customer has been deleted.'));
+
+            $session = $this->request->session();
+            $retailer = $session->read('retailer'); 
+
+            $this->loadComponent('Logging');
+            $this->Logging->log($customer['id']);
+            $this->Logging->iLog($retailer, $customer['id']);
+            
         } else {
             $this->Flash->error(__('The customer could not be deleted. Please, try again.'));
         }

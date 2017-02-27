@@ -44,7 +44,14 @@ class PromotionsController extends AppController
             'contain' => ['RetailerEmployees', 'Customers', 'ProdTypes']
         ]);
 
-        $this->set('promotion', $promotion);
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        $this->loadComponent('Logging');
+        $this->Logging->log($promotion['id']);
+        $this->Logging->iLog($retailer, $promotion['id']);
+
+        $this->set('promotion', $promotion);    
         $this->set('_serialize', ['promotion']);
     }
 
@@ -89,6 +96,13 @@ class PromotionsController extends AppController
                 
                 $this->Flash->success(__('The promotion has been saved.'));
 
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($promotion['id']);
+                $this->Logging->iLog($retailer, $promotion['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The promotion could not be saved. Please, try again.'));
@@ -129,6 +143,13 @@ class PromotionsController extends AppController
             if ($this->Promotions->save($promotion)) {
                 $this->Flash->success(__('The promotion has been saved.'));
 
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($promotion['id']);
+                $this->Logging->iLog($retailer, $promotion['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The promotion could not be saved. Please, try again.'));
@@ -159,6 +180,14 @@ class PromotionsController extends AppController
         } else if ($now > $promotion['start_date']) {
             $this->Flash->error(_('The promotion has already begun. It can not be deleted once it has started.'));
         } else if($this->Promotions->delete($promotion)) {
+
+            $session = $this->request->session();
+            $retailer = $session->read('retailer');
+
+            $this->loadComponent('Logging');
+            $this->Logging->log($promotion['id']);
+            $this->Logging->iLog($retailer, $promotion['id']);
+
             $this->Flash->success(__('The promotion has been deleted.'));
         } else {
             $this->Flash->error(__('The promotion could not be deleted. Please, try again.'));
@@ -167,6 +196,9 @@ class PromotionsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+
+    // currently not in use
+    // KIV for future usage
     public function email($id = null){
 
         $promotion = $this->Promotions->get($id);

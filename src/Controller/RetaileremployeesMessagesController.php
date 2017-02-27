@@ -40,6 +40,13 @@ class RetailerEmployeesMessagesController extends AppController
             'contain' => ['RetailerEmployees', 'Messages']
         ]);
 
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        $this->loadComponent('Logging');
+        $this->Logging->log($retailerEmployeesMessage['id']);
+        $this->Logging->iLog($retailer, $retailerEmployeesMessage['id']);
+
         $this->set('retailerEmployeesMessage', $retailerEmployeesMessage);
         $this->set('_serialize', ['retailerEmployeesMessage']);
     }
@@ -56,6 +63,13 @@ class RetailerEmployeesMessagesController extends AppController
             $retailerEmployeesMessage = $this->RetailerEmployeesMessages->patchEntity($retailerEmployeesMessage, $this->request->data);
             if ($this->RetailerEmployeesMessages->save($retailerEmployeesMessage)) {
                 $this->Flash->success(__('The retailer employees message has been saved.'));
+
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($retailerEmployeesMessage['id']);
+                $this->Logging->iLog($retailer, $retailerEmployeesMessage['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -84,6 +98,13 @@ class RetailerEmployeesMessagesController extends AppController
             if ($this->RetailerEmployeesMessages->save($retailerEmployeesMessage)) {
                 $this->Flash->success(__('The retailer employees message has been saved.'));
 
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($retailerEmployeesMessage['id']);
+                $this->Logging->iLog($retailer, $retailerEmployeesMessage['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The retailer employees message could not be saved. Please, try again.'));
@@ -107,6 +128,14 @@ class RetailerEmployeesMessagesController extends AppController
         $retailerEmployeesMessage = $this->RetailerEmployeesMessages->get($id);
         if ($this->RetailerEmployeesMessages->delete($retailerEmployeesMessage)) {
             $this->Flash->success(__('The retailer employees message has been deleted.'));
+
+            $session = $this->request->session();
+            $retailer = $session->read('retailer');
+
+            $this->loadComponent('Logging');
+            $this->Logging->log($retailerEmployeesMessage['id']);
+            $this->Logging->iLog($retailer, $retailerEmployeesMessage['id']);
+        
         } else {
             $this->Flash->error(__('The retailer employees message could not be deleted. Please, try again.'));
         }

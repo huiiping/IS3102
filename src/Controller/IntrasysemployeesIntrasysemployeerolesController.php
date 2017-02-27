@@ -40,6 +40,10 @@ class IntrasysEmployeesIntrasysEmployeeRolesController extends AppController
             'contain' => ['IntrasysEmployees', 'IntrasysEmployeeRoles']
         ]);
 
+        $this->loadComponent('Logging');
+        //$this->Logging->log($customer['id']);
+        $this->Logging->iLog(null, $intrasysEmployeesIntrasysEmployeeRole['id']);
+
         $this->set('intrasysEmployeesIntrasysEmployeeRole', $intrasysEmployeesIntrasysEmployeeRole);
         $this->set('_serialize', ['intrasysEmployeesIntrasysEmployeeRole']);
     }
@@ -56,6 +60,10 @@ class IntrasysEmployeesIntrasysEmployeeRolesController extends AppController
             $intrasysEmployeesIntrasysEmployeeRole = $this->IntrasysEmployeesIntrasysEmployeeRoles->patchEntity($intrasysEmployeesIntrasysEmployeeRole, $this->request->data);
             if ($this->IntrasysEmployeesIntrasysEmployeeRoles->save($intrasysEmployeesIntrasysEmployeeRole)) {
                 $this->Flash->success(__('The intrasys employees intrasys employee role has been saved.'));
+
+                $this->loadComponent('Logging');
+                //$this->Logging->log($customer['id']);
+                $this->Logging->iLog(null, $intrasysEmployeesIntrasysEmployeeRole['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -84,6 +92,10 @@ class IntrasysEmployeesIntrasysEmployeeRolesController extends AppController
             if ($this->IntrasysEmployeesIntrasysEmployeeRoles->save($intrasysEmployeesIntrasysEmployeeRole)) {
                 $this->Flash->success(__('The intrasys employees intrasys employee role has been saved.'));
 
+                $this->loadComponent('Logging');
+                //$this->Logging->log($customer['id']);
+                $this->Logging->iLog(null, $intrasysEmployeesIntrasysEmployeeRole['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The intrasys employees intrasys employee role could not be saved. Please, try again.'));
@@ -106,6 +118,11 @@ class IntrasysEmployeesIntrasysEmployeeRolesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $intrasysEmployeesIntrasysEmployeeRole = $this->IntrasysEmployeesIntrasysEmployeeRoles->get($id);
         if ($this->IntrasysEmployeesIntrasysEmployeeRoles->delete($intrasysEmployeesIntrasysEmployeeRole)) {
+
+            $this->loadComponent('Logging');
+            //$this->Logging->log($customer['id']);
+            $this->Logging->iLog(null, $intrasysEmployeesIntrasysEmployeeRole['id']);
+
             $this->Flash->success(__('The intrasys employees intrasys employee role has been deleted.'));
         } else {
             $this->Flash->error(__('The intrasys employees intrasys employee role could not be deleted. Please, try again.'));

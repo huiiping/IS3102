@@ -64,6 +64,10 @@ class IntrasysEmployeesController extends AppController
     		'contain' => ['IntrasysEmployeeRoles']
     		]);
 
+        $this->loadComponent('Logging');
+        //$this->Logging->log($intrasysEmployee['id']);
+        $this->Logging->iLog(null, $intrasysemployee['id']);
+
     	$this->set('intrasysEmployee', $intrasysEmployee);
     	$this->set('_serialize', ['intrasysEmployee']);
     }
@@ -82,6 +86,10 @@ class IntrasysEmployeesController extends AppController
     		$intrasysEmployee->set('activation_status', 'Activated');
     		if ($this->IntrasysEmployees->save($intrasysEmployee)) {
     			$this->Flash->success(__('The intrasys employee has been saved.'));
+
+                $this->loadComponent('Logging');
+                //$this->Logging->log($intrasysEmployee['id']);
+                $this->Logging->iLog(null, $intrasysemployee['id']);
 
     			return $this->redirect(['action' => 'index']);
     		}
@@ -111,6 +119,10 @@ class IntrasysEmployeesController extends AppController
     			$this->__sendActivationEmail($intrasysEmployee['id']);
     			$this->Flash->success(__('The intrasys employee has been saved.'));
 
+                $this->loadComponent('Logging');
+                //$this->Logging->log($intrasysEmployee['id']);
+                $this->Logging->iLog(null, $intrasysemployee['id']);
+
     			return $this->redirect(['action' => 'index']);
     		}
     		$this->Flash->error(__('The intrasys employee could not be saved. Please, try again.'));
@@ -136,8 +148,6 @@ class IntrasysEmployeesController extends AppController
     	$email->subject('Please confirm your email address');
     	$email->from('tanyongming90@gmail.com');
 
-
-
     	return $email->send($user['first_name'] . ',' .
     		$user['username'] . ',' .
     		$this->password . ',' .
@@ -158,10 +168,13 @@ class IntrasysEmployeesController extends AppController
 
         if ($intrasysEmployee && $intrasysEmployee['activation_token'] == $token) {
 
-
-        	$intrasysEmployee->activation_status = 'Activated';
+            $intrasysEmployee->activation_status = 'Activated';
         	$intrasysEmployee->activation_token = NULL;
         	$this->IntrasysEmployees->save($intrasysEmployee);
+
+            $this->loadComponent('Logging');
+            //$this->Logging->log($intrasysEmployee['id']);
+            $this->Logging->iLog(null, $intrasysemployee['id']);
 
         	$this->Flash->success(__('Your account has been activated.'));
         	return $this->redirect(['action' => 'index']);
@@ -197,6 +210,10 @@ class IntrasysEmployeesController extends AppController
     		if ($this->IntrasysEmployees->save($intrasysEmployee)) {
     			$this->Flash->success(__('The intrasys employee has been saved.'));
 
+                $this->loadComponent('Logging');
+                //$this->Logging->log($intrasysEmployee['id']);
+                $this->Logging->iLog(null, $intrasysemployee['id']);
+
     			return $this->redirect(['action' => 'index']);
     		}
     		$this->Flash->error(__('The intrasys employee could not be saved. Please, try again.'));
@@ -219,6 +236,11 @@ class IntrasysEmployeesController extends AppController
     	$intrasysEmployee = $this->IntrasysEmployees->get($id);
     	if ($this->IntrasysEmployees->delete($intrasysEmployee)) {
     		$this->Flash->success(__('The intrasys employee has been deleted.'));
+
+            $this->loadComponent('Logging');
+            //$this->Logging->log($intrasysEmployee['id']);
+            $this->Logging->iLog(null, $intrasysemployee['id']);
+
     	} else {
     		$this->Flash->error(__('The intrasys employee could not be deleted. Please, try again.'));
     	}
@@ -228,11 +250,19 @@ class IntrasysEmployeesController extends AppController
 
     public function login(){
     	if($this->request->is('post')){
+            $session = $this->request->session();
+
     		$intrasysemployee = $this->Auth->identify();
     		if($intrasysemployee){
     			if($intrasysemployee['activation_status'] == 'Activated'){
     				$this->Auth->setUser($intrasysemployee);
+                    $session->write('employee_id',$intrasysemployee['id']);
+
+                    $this->loadComponent('Logging');            
+                    $this->Logging->iLog(null, $intrasysemployee['id']);
+
     				return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'index']);
+                    
     			}
     			$this->Flash->error('Your account has not been activated yet. Please check your email');
     			return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'index']);
@@ -251,6 +281,9 @@ class IntrasysEmployeesController extends AppController
             $intrasysEmployee = $this->IntrasysEmployees->patchEntity($intrasysEmployee, $this->request->data);
             if ($this->IntrasysEmployees->save($intrasysEmployee)) {
                 $this->Flash->success(__('The intrasys employee has been saved.'));
+
+                $this->loadComponent('Logging'); 
+                $this->Logging->iLog(null, $intrasysemployee['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -271,6 +304,10 @@ class IntrasysEmployeesController extends AppController
         //check if user exists based on email
     	if($query->count() == 0){
     		$this->Flash->error(__('Invalid email address'));
+
+            $this->loadComponent('Logging'); 
+            $this->Logging->iLog(null, $intrasysemployee['id']);
+
     		return $this->redirect(['action' => 'index']);
     	}
 
@@ -287,6 +324,10 @@ class IntrasysEmployeesController extends AppController
     	$this->Auth->logout();
     	$session = $this->request->session();
     	$session->destroy();
+
+        $this->loadComponent('Logging'); 
+        $this->Logging->iLog(null, $intrasysemployee['id']);
+        
     	return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
     }
 }

@@ -43,6 +43,10 @@ class IntrasysEmployeeRolesController extends AppController
             'contain' => ['IntrasysEmployees']
         ]);
 
+        $this->loadComponent('Logging');
+        //$this->Logging->log($intrasysEmployeeRole['id']);
+        $this->Logging->iLog(null, $intrasysEmployeeRole['id']);
+
         $this->set('intrasysEmployeeRole', $intrasysEmployeeRole);
         $this->set('_serialize', ['intrasysEmployeeRole']);
     }
@@ -59,7 +63,11 @@ class IntrasysEmployeeRolesController extends AppController
             $intrasysEmployeeRole = $this->IntrasysEmployeeRoles->patchEntity($intrasysEmployeeRole, $this->request->data);
             if ($this->IntrasysEmployeeRoles->save($intrasysEmployeeRole)) {
                 $this->Flash->success(__('The intrasys employee role has been saved.'));
-
+                
+                $this->loadComponent('Logging');
+                //$this->Logging->log($intrasysEmployeeRole['id']);
+                $this->Logging->iLog(null, $intrasysEmployeeRole['id']);
+                
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The intrasys employee role could not be saved. Please, try again.'));
@@ -86,6 +94,10 @@ class IntrasysEmployeeRolesController extends AppController
             if ($this->IntrasysEmployeeRoles->save($intrasysEmployeeRole)) {
                 $this->Flash->success(__('The intrasys employee role has been saved.'));
 
+                $this->loadComponent('Logging');
+                //$this->Logging->log($intrasysEmployeeRole['id']);
+                $this->Logging->iLog(null, $intrasysEmployeeRole['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The intrasys employee role could not be saved. Please, try again.'));
@@ -108,6 +120,11 @@ class IntrasysEmployeeRolesController extends AppController
         $intrasysEmployeeRole = $this->IntrasysEmployeeRoles->get($id);
         if ($this->IntrasysEmployeeRoles->delete($intrasysEmployeeRole)) {
             $this->Flash->success(__('The intrasys employee role has been deleted.'));
+
+            $this->loadComponent('Logging');
+            //$this->Logging->log($intrasysEmployeeRole['id']);
+            $this->Logging->iLog(null, $intrasysEmployeeRole['id']);
+            
         } else {
             $this->Flash->error(__('The intrasys employee role could not be deleted. Please, try again.'));
         }

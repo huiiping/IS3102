@@ -40,6 +40,13 @@ class MessagesController extends AppController
             'contain' => ['RetailerEmployees']
         ]);
 
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        $this->loadComponent('Logging');
+        $this->Logging->log($message['id']);
+        $this->Logging->iLog($retailer, $message['id']);
+
         $this->set('message', $message);
         $this->set('_serialize', ['message']);
     }
@@ -57,6 +64,13 @@ class MessagesController extends AppController
             $message->retailer_employee_id = $this->Auth->retaileremployee('id');    
             if ($this->Messages->save($message)) {
                 $this->Flash->success(__('The message has been saved.'));
+
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($message['id']);
+                $this->Logging->iLog($retailer, $message['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -86,6 +100,13 @@ class MessagesController extends AppController
             if ($this->Messages->save($message)) {
                 $this->Flash->success(__('The message has been saved.'));
 
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($message['id']);
+                $this->Logging->iLog($retailer, $message['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The message could not be saved. Please, try again.'));
@@ -110,6 +131,14 @@ class MessagesController extends AppController
         $message = $this->Messages->get($id);
         if ($this->Messages->delete($message)) {
             $this->Flash->success(__('The message has been deleted.'));
+
+            $session = $this->request->session();
+            $retailer = $session->read('retailer');
+
+            $this->loadComponent('Logging');
+            $this->Logging->log($message['id']);
+            $this->Logging->iLog($retailer, $message['id']);
+            
         } else {
             $this->Flash->error(__('The message could not be deleted. Please, try again.'));
         }

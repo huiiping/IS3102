@@ -37,6 +37,13 @@ class ProdCatsController extends AppController
             'contain' => ['ProdTypes']
         ]);
 
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        $this->loadComponent('Logging');
+        $this->Logging->log($prodCat['id']);
+        $this->Logging->iLog($retailer, $prodCat['id']);
+
         $this->set('prodCat', $prodCat);
         $this->set('_serialize', ['prodCat']);
     }
@@ -53,6 +60,13 @@ class ProdCatsController extends AppController
             $prodCat = $this->ProdCats->patchEntity($prodCat, $this->request->data);
             if ($this->ProdCats->save($prodCat)) {
                 $this->Flash->success(__('The prod cat has been saved.'));
+
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($prodCat['id']);
+                $this->Logging->iLog($retailer, $prodCat['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -79,6 +93,13 @@ class ProdCatsController extends AppController
             if ($this->ProdCats->save($prodCat)) {
                 $this->Flash->success(__('The prod cat has been saved.'));
 
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($prodCat['id']);
+                $this->Logging->iLog($retailer, $prodCat['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The prod cat could not be saved. Please, try again.'));
@@ -100,6 +121,14 @@ class ProdCatsController extends AppController
         $prodCat = $this->ProdCats->get($id);
         if ($this->ProdCats->delete($prodCat)) {
             $this->Flash->success(__('The prod cat has been deleted.'));
+
+            $session = $this->request->session();
+            $retailer = $session->read('retailer');
+
+            $this->loadComponent('Logging');
+            $this->Logging->log($prodCat['id']);
+            $this->Logging->iLog($retailer, $prodCat['id']);
+        
         } else {
             $this->Flash->error(__('The prod cat could not be deleted. Please, try again.'));
         }

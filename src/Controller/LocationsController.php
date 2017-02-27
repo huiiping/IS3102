@@ -46,6 +46,13 @@ class LocationsController extends AppController
             'contain' => ['RetailerEmployees', 'Sections']
         ]);
 
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        $this->loadComponent('Logging');
+        $this->Logging->log($location['id']);
+        $this->Logging->iLog($retailer, $location['id']);
+
         $this->set('location', $location);
         $this->set('_serialize', ['location']);
     }
@@ -64,6 +71,13 @@ class LocationsController extends AppController
             if ($this->withinLimit($type)) {
                 if ($this->Locations->save($location)) {
                     $this->Flash->success(__('The location has been saved.'));
+
+                    $session = $this->request->session();
+                    $retailer = $session->read('retailer');
+
+                    $this->loadComponent('Logging');
+                    $this->Logging->log($location['id']);
+                    $this->Logging->iLog($retailer, $location['id']);
 
                     return $this->redirect(['action' => 'index']);
                 }
@@ -95,7 +109,7 @@ class LocationsController extends AppController
             ->newQuery()
             ->select('retailer_acc_type_id')
             ->from('retailers')
-            ->where(['company_name' => $retailer])
+            ->where(['retailer_name' => $retailer])
             ->execute()
             ->fetchAll('assoc');
         
@@ -131,6 +145,13 @@ class LocationsController extends AppController
             if ($this->Locations->save($location)) {
                 $this->Flash->success(__('The location has been saved.'));
 
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($location['id']);
+                $this->Logging->iLog($retailer, $location['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The location could not be saved. Please, try again.'));
@@ -152,6 +173,14 @@ class LocationsController extends AppController
         $location = $this->Locations->get($id);
         if ($this->Locations->delete($location)) {
             $this->Flash->success(__('The location has been deleted.'));
+
+            $session = $this->request->session();
+            $retailer = $session->read('retailer');
+
+            $this->loadComponent('Logging');
+            $this->Logging->log($location['id']);
+            $this->Logging->iLog($retailer, $location['id']);
+
         } else {
             $this->Flash->error(__('The location could not be deleted. Please, try again.'));
         }

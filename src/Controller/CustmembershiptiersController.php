@@ -37,6 +37,13 @@ class CustMembershipTiersController extends AppController
             'contain' => ['Customers']
         ]);
 
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        $this->loadComponent('Logging');
+        $this->Logging->log($custMembershipTier['id']);
+        $this->Logging->iLog($retailer, $custMembershipTier['id']);
+
         $this->set('custMembershipTier', $custMembershipTier);
         $this->set('_serialize', ['custMembershipTier']);
     }
@@ -53,6 +60,13 @@ class CustMembershipTiersController extends AppController
             $custMembershipTier = $this->CustMembershipTiers->patchEntity($custMembershipTier, $this->request->data);
             if ($this->CustMembershipTiers->save($custMembershipTier)) {
                 $this->Flash->success(__('The cust membership tier has been saved.'));
+
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($custMembershipTier['id']);
+                $this->Logging->iLog($retailer, $custMembershipTier['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -79,6 +93,13 @@ class CustMembershipTiersController extends AppController
             if ($this->CustMembershipTiers->save($custMembershipTier)) {
                 $this->Flash->success(__('The cust membership tier has been saved.'));
 
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($custMembershipTier['id']);
+                $this->Logging->iLog($retailer, $custMembershipTier['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The cust membership tier could not be saved. Please, try again.'));
@@ -100,6 +121,14 @@ class CustMembershipTiersController extends AppController
         $custMembershipTier = $this->CustMembershipTiers->get($id);
         if ($this->CustMembershipTiers->delete($custMembershipTier)) {
             $this->Flash->success(__('The cust membership tier has been deleted.'));
+
+            $session = $this->request->session();
+            $retailer = $session->read('retailer');
+
+            $this->loadComponent('Logging');
+            $this->Logging->log($custMembershipTier['id']);
+            $this->Logging->iLog($retailer, $custMembershipTier['id']);
+
         } else {
             $this->Flash->error(__('The cust membership tier could not be deleted. Please, try again.'));
         }

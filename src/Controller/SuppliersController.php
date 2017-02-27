@@ -67,6 +67,13 @@ class SuppliersController extends AppController
             'contain' => ['PurchaseOrders', 'SupplierMemos']
         ]);
 
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        $this->loadComponent('Logging');
+        $this->Logging->log($supplier['id']);
+        $this->Logging->iLog($retailer, $supplier['id']);
+
         $this->set('supplier', $supplier);
         $this->set('_serialize', ['supplier']);
     }
@@ -83,6 +90,13 @@ class SuppliersController extends AppController
             $supplier = $this->Suppliers->patchEntity($supplier, $this->request->data);
             if ($this->Suppliers->save($supplier)) {
                 $this->Flash->success(__('The supplier has been saved.'));
+
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($supplier['id']);
+                $this->Logging->iLog($retailer, $supplier['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -109,6 +123,13 @@ class SuppliersController extends AppController
             if ($this->Suppliers->save($supplier)) {
                 $this->Flash->success(__('The supplier has been saved.'));
 
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($supplier['id']);
+                $this->Logging->iLog($retailer, $supplier['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The supplier could not be saved. Please, try again.'));
@@ -130,6 +151,14 @@ class SuppliersController extends AppController
         $supplier = $this->Suppliers->get($id);
         if ($this->Suppliers->delete($supplier)) {
             $this->Flash->success(__('The supplier has been deleted.'));
+
+            $session = $this->request->session();
+            $retailer = $session->read('retailer');
+
+            $this->loadComponent('Logging');
+            $this->Logging->log($supplier['id']);
+            $this->Logging->iLog($retailer, $supplier['id']);
+
         } else {
             $this->Flash->error(__('The supplier could not be deleted. Please, try again.'));
         }

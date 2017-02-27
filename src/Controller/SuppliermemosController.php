@@ -40,6 +40,13 @@ class SupplierMemosController extends AppController
             'contain' => ['Suppliers', 'RetailerEmployees']
         ]);
 
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        $this->loadComponent('Logging');
+        $this->Logging->log($supplierMemo['id']);
+        $this->Logging->iLog($retailer, $supplierMemo['id']);
+
         $this->set('supplierMemo', $supplierMemo);
         $this->set('_serialize', ['supplierMemo']);
     }
@@ -56,6 +63,13 @@ class SupplierMemosController extends AppController
             $supplierMemo = $this->SupplierMemos->patchEntity($supplierMemo, $this->request->data);
             if ($this->SupplierMemos->save($supplierMemo)) {
                 $this->Flash->success(__('The supplier memo has been saved.'));
+
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($supplierMemo['id']);
+                $this->Logging->iLog($retailer, $supplierMemo['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -84,6 +98,13 @@ class SupplierMemosController extends AppController
             if ($this->SupplierMemos->save($supplierMemo)) {
                 $this->Flash->success(__('The supplier memo has been saved.'));
 
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($supplierMemo['id']);
+                $this->Logging->iLog($retailer, $supplierMemo['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The supplier memo could not be saved. Please, try again.'));
@@ -107,6 +128,14 @@ class SupplierMemosController extends AppController
         $supplierMemo = $this->SupplierMemos->get($id);
         if ($this->SupplierMemos->delete($supplierMemo)) {
             $this->Flash->success(__('The supplier memo has been deleted.'));
+
+            $session = $this->request->session();
+            $retailer = $session->read('retailer');
+
+            $this->loadComponent('Logging');
+            $this->Logging->log($supplierMemo['id']);
+            $this->Logging->iLog($retailer, $supplierMemo['id']);
+        
         } else {
             $this->Flash->error(__('The supplier memo could not be deleted. Please, try again.'));
         }

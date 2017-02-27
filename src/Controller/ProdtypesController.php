@@ -48,6 +48,13 @@ class ProdTypesController extends AppController
             'contain' => ['ProdCats', 'Promotions']
         ]);
 
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        $this->loadComponent('Logging');
+        $this->Logging->log($prodType['id']);
+        $this->Logging->iLog($retailer, $prodType['id']);
+
         $this->set('prodType', $prodType);
         $this->set('_serialize', ['prodType']);
     }
@@ -64,6 +71,13 @@ class ProdTypesController extends AppController
             $prodType = $this->ProdTypes->patchEntity($prodType, $this->request->data);
             if ($this->ProdTypes->save($prodType)) {
                 $this->Flash->success(__('The prod type has been saved.'));
+
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($prodType['id']);
+                $this->Logging->iLog($retailer, $prodType['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -92,6 +106,13 @@ class ProdTypesController extends AppController
             if ($this->ProdTypes->save($prodType)) {
                 $this->Flash->success(__('The prod type has been saved.'));
 
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($prodType['id']);
+                $this->Logging->iLog($retailer, $prodType['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The prod type could not be saved. Please, try again.'));
@@ -115,6 +136,14 @@ class ProdTypesController extends AppController
         $prodType = $this->ProdTypes->get($id);
         if ($this->ProdTypes->delete($prodType)) {
             $this->Flash->success(__('The prod type has been deleted.'));
+
+            $session = $this->request->session();
+            $retailer = $session->read('retailer');
+
+            $this->loadComponent('Logging');
+            $this->Logging->log($prodType['id']);
+            $this->Logging->iLog($retailer, $prodType['id']);
+
         } else {
             $this->Flash->error(__('The prod type could not be deleted. Please, try again.'));
         }

@@ -40,6 +40,10 @@ class CustomersPromotionsController extends AppController
             'contain' => ['Customers', 'Promotions']
         ]);
 
+        $this->loadComponent('Logging');
+        $this->Logging->log($customersPromotion['id']);
+        $this->Logging->iLog($retailer, $customersPromotion['id']);
+
         $this->set('customersPromotion', $customersPromotion);
         $this->set('_serialize', ['customersPromotion']);
     }
@@ -56,6 +60,10 @@ class CustomersPromotionsController extends AppController
             $customersPromotion = $this->CustomersPromotions->patchEntity($customersPromotion, $this->request->data);
             if ($this->CustomersPromotions->save($customersPromotion)) {
                 $this->Flash->success(__('The customers promotion has been saved.'));
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($customersPromotion['id']);
+                $this->Logging->iLog($retailer, $customersPromotion['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -84,6 +92,10 @@ class CustomersPromotionsController extends AppController
             if ($this->CustomersPromotions->save($customersPromotion)) {
                 $this->Flash->success(__('The customers promotion has been saved.'));
 
+                $this->loadComponent('Logging');
+                $this->Logging->log($customersPromotion['id']);
+                $this->Logging->iLog($retailer, $customersPromotion['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The customers promotion could not be saved. Please, try again.'));
@@ -107,6 +119,11 @@ class CustomersPromotionsController extends AppController
         $customersPromotion = $this->CustomersPromotions->get($id);
         if ($this->CustomersPromotions->delete($customersPromotion)) {
             $this->Flash->success(__('The customers promotion has been deleted.'));
+
+            $this->loadComponent('Logging');
+            $this->Logging->log($customersPromotion['id']);
+            $this->Logging->iLog($retailer, $customersPromotion['id']);
+
         } else {
             $this->Flash->error(__('The customers promotion could not be deleted. Please, try again.'));
         }

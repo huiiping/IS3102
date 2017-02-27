@@ -40,6 +40,13 @@ class PromotionsProdTypesController extends AppController
             'contain' => ['Promotions', 'ProdTypes']
         ]);
 
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        $this->loadComponent('Logging');
+        $this->Logging->log($promotionsProdType['id']);
+        $this->Logging->iLog($retailer, $promotionsProdType['id']);
+
         $this->set('promotionsProdType', $promotionsProdType);
         $this->set('_serialize', ['promotionsProdType']);
     }
@@ -56,6 +63,13 @@ class PromotionsProdTypesController extends AppController
             $promotionsProdType = $this->PromotionsProdTypes->patchEntity($promotionsProdType, $this->request->data);
             if ($this->PromotionsProdTypes->save($promotionsProdType)) {
                 $this->Flash->success(__('The promotions prod type has been saved.'));
+
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($promotionsProdType['id']);
+                $this->Logging->iLog($retailer, $promotionsProdType['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -84,6 +98,13 @@ class PromotionsProdTypesController extends AppController
             if ($this->PromotionsProdTypes->save($promotionsProdType)) {
                 $this->Flash->success(__('The promotions prod type has been saved.'));
 
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($promotionsProdType['id']);
+                $this->Logging->iLog($retailer, $promotionsProdType['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The promotions prod type could not be saved. Please, try again.'));
@@ -107,6 +128,14 @@ class PromotionsProdTypesController extends AppController
         $promotionsProdType = $this->PromotionsProdTypes->get($id);
         if ($this->PromotionsProdTypes->delete($promotionsProdType)) {
             $this->Flash->success(__('The promotions prod type has been deleted.'));
+
+            $session = $this->request->session();
+            $retailer = $session->read('retailer');
+
+            $this->loadComponent('Logging');
+            $this->Logging->log($promotionsProdType['id']);
+            $this->Logging->iLog($retailer, $promotionsProdType['id']);
+            
         } else {
             $this->Flash->error(__('The promotions prod type could not be deleted. Please, try again.'));
         }

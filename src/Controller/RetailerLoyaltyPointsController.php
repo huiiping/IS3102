@@ -40,6 +40,13 @@ class RetailerLoyaltyPointsController extends AppController
             'contain' => ['Retailers']
         ]);
 
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        $this->loadComponent('Logging');
+        $this->Logging->log($retailerLoyaltyPoint['id']);
+        $this->Logging->iLog($retailer, $retailerLoyaltyPoint['id']);
+
         $this->set('retailerLoyaltyPoint', $retailerLoyaltyPoint);
         $this->set('_serialize', ['retailerLoyaltyPoint']);
     }
@@ -56,6 +63,13 @@ class RetailerLoyaltyPointsController extends AppController
             $retailerLoyaltyPoint = $this->RetailerLoyaltyPoints->patchEntity($retailerLoyaltyPoint, $this->request->data);
             if ($this->RetailerLoyaltyPoints->save($retailerLoyaltyPoint)) {
                 $this->Flash->success(__('The retailer loyalty point has been saved.'));
+
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($retailerLoyaltyPoint['id']);
+                $this->Logging->iLog($retailer, $retailerLoyaltyPoint['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -83,6 +97,13 @@ class RetailerLoyaltyPointsController extends AppController
             if ($this->RetailerLoyaltyPoints->save($retailerLoyaltyPoint)) {
                 $this->Flash->success(__('The retailer loyalty point has been saved.'));
 
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($retailerLoyaltyPoint['id']);
+                $this->Logging->iLog($retailer, $retailerLoyaltyPoint['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The retailer loyalty point could not be saved. Please, try again.'));
@@ -105,6 +126,14 @@ class RetailerLoyaltyPointsController extends AppController
         $retailerLoyaltyPoint = $this->RetailerLoyaltyPoints->get($id);
         if ($this->RetailerLoyaltyPoints->delete($retailerLoyaltyPoint)) {
             $this->Flash->success(__('The retailer loyalty point has been deleted.'));
+
+            $session = $this->request->session();
+            $retailer = $session->read('retailer');
+
+            $this->loadComponent('Logging');
+            $this->Logging->log($retailerLoyaltyPoint['id']);
+            $this->Logging->iLog($retailer, $retailerLoyaltyPoint['id']);
+            
         } else {
             $this->Flash->error(__('The retailer loyalty point could not be deleted. Please, try again.'));
         }

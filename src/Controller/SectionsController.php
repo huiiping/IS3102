@@ -46,6 +46,13 @@ class SectionsController extends AppController
             'contain' => ['Locations']
         ]);
 
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        $this->loadComponent('Logging');
+        $this->Logging->log($section['id']);
+        $this->Logging->iLog($retailer, $section['id']);
+
         $this->set('section', $section);
         $this->set('_serialize', ['section']);
     }
@@ -62,6 +69,13 @@ class SectionsController extends AppController
             $section = $this->Sections->patchEntity($section, $this->request->data);
             if ($this->Sections->save($section)) {
                 $this->Flash->success(__('The section has been saved.'));
+
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($section['id']);
+                $this->Logging->iLog($retailer, $section['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -89,6 +103,13 @@ class SectionsController extends AppController
             if ($this->Sections->save($section)) {
                 $this->Flash->success(__('The section has been saved.'));
 
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($section['id']);
+                $this->Logging->iLog($retailer, $section['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The section could not be saved. Please, try again.'));
@@ -111,6 +132,14 @@ class SectionsController extends AppController
         $section = $this->Sections->get($id);
         if ($this->Sections->delete($section)) {
             $this->Flash->success(__('The section has been deleted.'));
+
+            $session = $this->request->session();
+            $retailer = $session->read('retailer');
+
+            $this->loadComponent('Logging');
+            $this->Logging->log($section['id']);
+            $this->Logging->iLog($retailer, $section['id']);
+        
         } else {
             $this->Flash->error(__('The section could not be deleted. Please, try again.'));
         }

@@ -71,6 +71,7 @@ class RetailerEmployeesController extends AppController
         
         $this->loadComponent('Logging');
         $this->Logging->log($retailerEmployee['id']);
+        $this->Logging->iLog($retailer, $retailerEmployee['id']);
 
         $this->set('retailerEmployee', $retailerEmployee);
         $this->set('_serialize', ['retailerEmployee']);
@@ -91,6 +92,7 @@ class RetailerEmployeesController extends AppController
 
                 $this->loadComponent('Logging');
                 $this->Logging->log($retailerEmployee['id']);
+                $this->Logging->iLog($retailer, $retailerEmployee['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -134,6 +136,7 @@ class RetailerEmployeesController extends AppController
 
                 $this->loadComponent('Logging');
                 $this->Logging->log($retailerEmployee['id']);
+                $this->Logging->iLog($retailer, $retailerEmployee['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -156,6 +159,7 @@ class RetailerEmployeesController extends AppController
            
             $this->loadComponent('Logging');
             $this->Logging->log($retailerEmployee['id']);
+            $this->Logging->iLog($retailer, $retailerEmployee['id']);
 
             $this->Flash->success(__('The retailer employee has been deleted.'));
 
@@ -195,9 +199,10 @@ class RetailerEmployeesController extends AppController
             $session->write('retailer', $retailer); 
             $session->write('retailer_employee_id',$retaileremployee['id']);
 
-            $this->loadComponent('Logging');
+            $this->loadComponent('Logging');            
             $this->Logging->log($session->read('retailer_employee_id'));
-
+            $this->Logging->iLog($retailer, $session->read('retailer_employee_id'));
+            
             return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'index']);
             //return $this->redirect($this->Auth->redirectUrl());            
         }
@@ -214,6 +219,10 @@ class RetailerEmployeesController extends AppController
             $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
             if ($this->RetailerEmployees->save($retailerEmployee)) {
                 $this->Flash->success(__('The retailer employee has been saved.'));
+                
+                $this->loadComponent('Logging');            
+                $this->Logging->log($session->read('retailer_employee_id'));
+                $this->Logging->iLog($retailer, $session->read('retailer_employee_id'));
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -226,9 +235,16 @@ class RetailerEmployeesController extends AppController
         $this->set('_serialize', ['retailerEmployee']);
     }
 
-    /*public function logout(){
+    public function logout(){
         $this->Flash->success('You are now logged out');
         $this->Auth->logout();
+        $session = $this->request->session();
+        $session->destroy();
+
+        $this->loadComponent('Logging');             
+        $this->Logging->log($session->read('retailer_employee_id'));
+        $this->Logging->iLog($retailer, $session->read('retailer_employee_id'));
+        
         return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
-    }*/
+    }
 }

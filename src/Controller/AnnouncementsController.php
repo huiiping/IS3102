@@ -37,6 +37,10 @@ class AnnouncementsController extends AppController
             'contain' => []
         ]);
 
+        $this->loadComponent('Logging');
+        //$this->Logging->log($announcement['id']);
+        $this->Logging->iLog(null, $announcement['id']);
+
         $this->set('announcement', $announcement);
         $this->set('_serialize', ['announcement']);
     }
@@ -53,6 +57,10 @@ class AnnouncementsController extends AppController
             $announcement = $this->Announcements->patchEntity($announcement, $this->request->data);
             if ($this->Announcements->save($announcement)) {
                 $this->Flash->success(__('The announcement has been saved.'));
+                
+                $this->loadComponent('Logging');
+                //$this->Logging->log($announcement['id']);
+                $this->Logging->iLog(null, $announcement['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -79,6 +87,10 @@ class AnnouncementsController extends AppController
             if ($this->Announcements->save($announcement)) {
                 $this->Flash->success(__('The announcement has been saved.'));
 
+                $this->loadComponent('Logging');
+                //$this->Logging->log($announcement['id']);
+                $this->Logging->iLog(null, $announcement['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The announcement could not be saved. Please, try again.'));
@@ -100,6 +112,11 @@ class AnnouncementsController extends AppController
         $announcement = $this->Announcements->get($id);
         if ($this->Announcements->delete($announcement)) {
             $this->Flash->success(__('The announcement has been deleted.'));
+
+            $this->loadComponent('Logging');
+            //$this->Logging->log($announcement['id']);
+            $this->Logging->iLog(null, $announcement['id']);
+            
         } else {
             $this->Flash->error(__('The announcement could not be deleted. Please, try again.'));
         }

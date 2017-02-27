@@ -37,6 +37,13 @@ class RetailerDetailsController extends AppController
             'contain' => []
         ]);
 
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        $this->loadComponent('Logging');
+        $this->Logging->log($retailerDetail['id']);
+        $this->Logging->iLog($retailer, $retailerDetail['id']);
+
         $this->set('retailerDetail', $retailerDetail);
         $this->set('_serialize', ['retailerDetail']);
     }
@@ -53,6 +60,13 @@ class RetailerDetailsController extends AppController
             $retailerDetail = $this->RetailerDetails->patchEntity($retailerDetail, $this->request->data);
             if ($this->RetailerDetails->save($retailerDetail)) {
                 $this->Flash->success(__('The retailer detail has been saved.'));
+
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($retailerDetail['id']);
+                $this->Logging->iLog($retailer, $retailerDetail['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -79,6 +93,13 @@ class RetailerDetailsController extends AppController
             if ($this->RetailerDetails->save($retailerDetail)) {
                 $this->Flash->success(__('The retailer detail has been saved.'));
 
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($retailerDetail['id']);
+                $this->Logging->iLog($retailer, $retailerDetail['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The retailer detail could not be saved. Please, try again.'));
@@ -100,6 +121,14 @@ class RetailerDetailsController extends AppController
         $retailerDetail = $this->RetailerDetails->get($id);
         if ($this->RetailerDetails->delete($retailerDetail)) {
             $this->Flash->success(__('The retailer detail has been deleted.'));
+
+            $session = $this->request->session();
+            $retailer = $session->read('retailer');
+
+            $this->loadComponent('Logging');
+            $this->Logging->log($retailerDetail['id']);
+            $this->Logging->iLog($retailer, $retailerDetail['id']);
+            
         } else {
             $this->Flash->error(__('The retailer detail could not be deleted. Please, try again.'));
         }

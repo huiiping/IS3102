@@ -37,6 +37,13 @@ class RetailerAccTypesController extends AppController
             'contain' => ['Retailers']
         ]);
 
+        //$session = $this->request->session();
+        //$retailer = $session->read('retailer');
+
+        $this->loadComponent('Logging');
+        //$this->Logging->log($retailerAccType['id']);
+        $this->Logging->iLog(null, $retailerAccType['id']);
+
         $this->set('retailerAccType', $retailerAccType);
         $this->set('_serialize', ['retailerAccType']);
     }
@@ -53,6 +60,13 @@ class RetailerAccTypesController extends AppController
             $retailerAccType = $this->RetailerAccTypes->patchEntity($retailerAccType, $this->request->data);
             if ($this->RetailerAccTypes->save($retailerAccType)) {
                 $this->Flash->success(__('The retailer acc type has been saved.'));
+
+                //$session = $this->request->session();
+                //$retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                //$this->Logging->log($retailerAccType['id']);
+                $this->Logging->iLog(null, $retailerAccType['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -79,6 +93,13 @@ class RetailerAccTypesController extends AppController
             if ($this->RetailerAccTypes->save($retailerAccType)) {
                 $this->Flash->success(__('The retailer acc type has been saved.'));
 
+                //$session = $this->request->session();
+                //$retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                //$this->Logging->log($retailerAccType['id']);
+                $this->Logging->iLog(null, $retailerAccType['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The retailer acc type could not be saved. Please, try again.'));
@@ -100,6 +121,14 @@ class RetailerAccTypesController extends AppController
         $retailerAccType = $this->RetailerAccTypes->get($id);
         if ($this->RetailerAccTypes->delete($retailerAccType)) {
             $this->Flash->success(__('The retailer acc type has been deleted.'));
+
+            //$session = $this->request->session();
+            //$retailer = $session->read('retailer');
+
+            $this->loadComponent('Logging');
+            //$this->Logging->log($retailerAccType['id']);
+            $this->Logging->iLog(null, $retailerAccType['id']);
+        
         } else {
             $this->Flash->error(__('The retailer acc type could not be deleted. Please, try again.'));
         }

@@ -40,6 +40,13 @@ class PurchaseOrderItemsController extends AppController
             'contain' => ['PurchaseOrders']
         ]);
 
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        $this->loadComponent('Logging');
+        $this->Logging->log($purchaseOrderItem['id']);
+        $this->Logging->iLog($retailer, $purchaseOrderItem['id']);
+
         $this->set('purchaseOrderItem', $purchaseOrderItem);
         $this->set('_serialize', ['purchaseOrderItem']);
     }
@@ -56,6 +63,13 @@ class PurchaseOrderItemsController extends AppController
             $purchaseOrderItem = $this->PurchaseOrderItems->patchEntity($purchaseOrderItem, $this->request->data);
             if ($this->PurchaseOrderItems->save($purchaseOrderItem)) {
                 $this->Flash->success(__('The purchase order item has been saved.'));
+
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($purchaseOrderItem['id']);
+                $this->Logging->iLog($retailer, $purchaseOrderItem['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -83,6 +97,13 @@ class PurchaseOrderItemsController extends AppController
             if ($this->PurchaseOrderItems->save($purchaseOrderItem)) {
                 $this->Flash->success(__('The purchase order item has been saved.'));
 
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($purchaseOrderItem['id']);
+                $this->Logging->iLog($retailer, $purchaseOrderItem['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The purchase order item could not be saved. Please, try again.'));
@@ -105,6 +126,14 @@ class PurchaseOrderItemsController extends AppController
         $purchaseOrderItem = $this->PurchaseOrderItems->get($id);
         if ($this->PurchaseOrderItems->delete($purchaseOrderItem)) {
             $this->Flash->success(__('The purchase order item has been deleted.'));
+
+            $session = $this->request->session();
+            $retailer = $session->read('retailer');
+
+            $this->loadComponent('Logging');
+            $this->Logging->log($purchaseOrderItem['id']);
+            $this->Logging->iLog($retailer, $purchaseOrderItem['id']);
+            
         } else {
             $this->Flash->error(__('The purchase order item could not be deleted. Please, try again.'));
         }

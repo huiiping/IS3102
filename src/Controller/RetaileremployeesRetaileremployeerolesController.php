@@ -40,6 +40,13 @@ class RetailerEmployeesRetailerEmployeeRolesController extends AppController
             'contain' => ['RetailerEmployees', 'RetailerEmployeeRoles']
         ]);
 
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        $this->loadComponent('Logging');
+        $this->Logging->log($retailerEmployeesRetailerEmployeeRole['id']);
+        $this->Logging->iLog($retailer, $retailerEmployeesRetailerEmployeeRole['id']);
+
         $this->set('retailerEmployeesRetailerEmployeeRole', $retailerEmployeesRetailerEmployeeRole);
         $this->set('_serialize', ['retailerEmployeesRetailerEmployeeRole']);
     }
@@ -56,6 +63,13 @@ class RetailerEmployeesRetailerEmployeeRolesController extends AppController
             $retailerEmployeesRetailerEmployeeRole = $this->RetailerEmployeesRetailerEmployeeRoles->patchEntity($retailerEmployeesRetailerEmployeeRole, $this->request->data);
             if ($this->RetailerEmployeesRetailerEmployeeRoles->save($retailerEmployeesRetailerEmployeeRole)) {
                 $this->Flash->success(__('The retailer employees retailer employee role has been saved.'));
+
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($retailerEmployeesRetailerEmployeeRole['id']);
+                $this->Logging->iLog($retailer, $retailerEmployeesRetailerEmployeeRole['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -84,6 +98,13 @@ class RetailerEmployeesRetailerEmployeeRolesController extends AppController
             if ($this->RetailerEmployeesRetailerEmployeeRoles->save($retailerEmployeesRetailerEmployeeRole)) {
                 $this->Flash->success(__('The retailer employees retailer employee role has been saved.'));
 
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($retailerEmployeesRetailerEmployeeRole['id']);
+                $this->Logging->iLog($retailer, $retailerEmployeesRetailerEmployeeRole['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The retailer employees retailer employee role could not be saved. Please, try again.'));
@@ -107,6 +128,14 @@ class RetailerEmployeesRetailerEmployeeRolesController extends AppController
         $retailerEmployeesRetailerEmployeeRole = $this->RetailerEmployeesRetailerEmployeeRoles->get($id);
         if ($this->RetailerEmployeesRetailerEmployeeRoles->delete($retailerEmployeesRetailerEmployeeRole)) {
             $this->Flash->success(__('The retailer employees retailer employee role has been deleted.'));
+
+            $session = $this->request->session();
+            $retailer = $session->read('retailer');
+
+            $this->loadComponent('Logging');
+            $this->Logging->log($retailerEmployeesRetailerEmployeeRole['id']);
+            $this->Logging->iLog($retailer, $retailerEmployeesRetailerEmployeeRole['id']);
+        
         } else {
             $this->Flash->error(__('The retailer employees retailer employee role could not be deleted. Please, try again.'));
         }
