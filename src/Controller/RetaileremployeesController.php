@@ -4,6 +4,9 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\Datasource\ConnectionManager;
+use Cake\I18n\Time;
+use Cake\ORM\Entity;
+use Cake\ORM\TableRegistry;
 
 /**
  * RetailerEmployees Controller
@@ -12,9 +15,11 @@ use Cake\Datasource\ConnectionManager;
  */
 class RetailerEmployeesController extends AppController
 {
+    
 
     public function beforeFilter(Event $event)
     {
+
         parent::beforeFilter($event);
         $this->loadcomponent('Auth', [
                 'authenticate' => [
@@ -31,13 +36,13 @@ class RetailerEmployeesController extends AppController
                     'action' => 'login'
                 ]
             ]);
+        
         // Allow users to register and logout.
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
         $this->Auth->allow(['add', 'logout']);
     }
     public function index() {
-
 
         $this->loadComponent('Prg');
         $this->Prg->commonProcess();
@@ -63,6 +68,9 @@ class RetailerEmployeesController extends AppController
         $retailerEmployee = $this->RetailerEmployees->get($id, [
             'contain' => ['Locations', 'Messages', 'RetailerEmployeeRoles', 'Promotions', 'PurchaseOrders', 'SupplierMemos']
         ]);
+        
+        $this->loadComponent('Logging');
+        $this->Logging->log($retailerEmployee['id']);
 
         $this->set('retailerEmployee', $retailerEmployee);
         $this->set('_serialize', ['retailerEmployee']);
@@ -80,6 +88,9 @@ class RetailerEmployeesController extends AppController
             $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
             if ($this->RetailerEmployees->save($retailerEmployee)) {
                 $this->Flash->success(__('The retailer employee has been saved.'));
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($retailerEmployee['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -119,6 +130,11 @@ class RetailerEmployeesController extends AppController
             if ($this->RetailerEmployees->save($retailerEmployee)) {
                 $this->Flash->success(__('The retailer employee has been saved.'));
 
+                $session = $this->request->session();
+
+                $this->loadComponent('Logging');
+                $this->Logging->log($retailerEmployee['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The retailer employee could not be saved. Please, try again.'));
@@ -135,7 +151,14 @@ class RetailerEmployeesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $retailerEmployee = $this->RetailerEmployees->get($id);
         if ($this->RetailerEmployees->delete($retailerEmployee)) {
+            
+            $session = $this->request->session();
+           
+            $this->loadComponent('Logging');
+            $this->Logging->log($retailerEmployee['id']);
+
             $this->Flash->success(__('The retailer employee has been deleted.'));
+
         } else {
             $this->Flash->error(__('The retailer employee could not be deleted. Please, try again.'));
         }
@@ -171,6 +194,10 @@ class RetailerEmployeesController extends AppController
             $this->Auth->setUser($retaileremployee);
             $session->write('retailer', $retailer); 
             $session->write('retailer_employee_id',$retaileremployee['id']);
+
+            $this->loadComponent('Logging');
+            $this->Logging->log($session->read('retailer_employee_id'));
+
             return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'index']);
             //return $this->redirect($this->Auth->redirectUrl());            
         }
