@@ -17,7 +17,7 @@
         <div class="col-xs-12">
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title"><?= h($promotion->first_voucher_num).' '.h($promotion->last_voucher_num) ?></h3>
+              <h3 class="box-title"><?= 'Promotion ID '.h($promotion->id) ?></h3>
               <div class="pull-right">
                 <?= $this->Html->link(__('Edit Promotion'), ['action' => 'edit', $promotion->id]) ?>
               </div>
@@ -26,15 +26,15 @@
 
                 <table class="vertical-table">
                     <tr>
-                        <th scope="row"><?= __('First Voucher Num') ?></th>
+                        <th scope="row"><?= __('First Voucher Number') ?></th>
                         <td><?= h($promotion->first_voucher_num) ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Last Voucher Num') ?></th>
+                        <th scope="row"><?= __('Last Voucher Number') ?></th>
                         <td><?= h($promotion->last_voucher_num) ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Promo Description') ?></th>
+                        <th scope="row"><?= __('Promotion Description') ?></th>
                         <td><?= $this->Text->autoParagraph(h($promotion->promo_desc)); ?></td>
                     </tr>
                     <tr>
@@ -123,7 +123,7 @@
                     <table cellpadding="0" cellspacing="0">
                         <tr>
                             <!--<th scope="col"><?= __('Id') ?></th>-->
-                            <th scope="col"><?= __('Prod Name') ?></th>
+                            <th scope="col"><?= __('Product Name') ?></th>
                             <!--<th scope="col"><?= __('Prod Desc') ?></th>
                             <th scope="col"><?= __('Colour') ?></th>
                             <th scope="col"><?= __('Dimension') ?></th>

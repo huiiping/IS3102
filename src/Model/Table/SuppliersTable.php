@@ -69,7 +69,7 @@ class SuppliersTable extends Table
         parent::initialize($config);
 
         $this->table('suppliers');
-        $this->displayField('id');
+        $this->displayField('supplier_name');
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
