@@ -103,29 +103,30 @@
                         <tr>
                             <!--<th scope="col"><?= __('Id') ?></th>
                             <th scope="col"><?= __('Start Date') ?></th>
-                            <th scope="col"><?= __('End Date') ?></th>-->
+                            <th scope="col"><?= __('End Date') ?></th>
                             <th scope="col"><?= __('Promo Description') ?></th>
-                            <!--<th scope="col"><?= __('First Voucher Num') ?></th>
+                            <th scope="col"><?= __('First Voucher Num') ?></th>
                             <th scope="col"><?= __('Last Voucher Num') ?></th>
                             <th scope="col"><?= __('Discount Rate') ?></th>
                             <th scope="col"><?= __('Credit Card Type') ?></th>
                             <th scope="col"><?= __('Retailer Employee Id') ?></th>
                             <th scope="col" class="actions"><?= __('Actions') ?></th>-->
+                            <th scope="col"><?= __('Promotion') ?></th>
                         </tr>
                         <?php foreach ($retailerEmployee->promotions as $promotions): ?>
                         <tr>
                             <!--<td><?= h($promotions->id) ?></td>
                             <td><?= h($promotions->start_date) ?></td>
-                            <td><?= h($promotions->end_date) ?></td>-->
-                            <td>
-                                <?= $this->Html->link(__('Promotion ID '.h($promotions->id)), ['controller' => 'Promotions', 'action' => 'view', $promotions->id]) ?>
-                            </td>
-                            <!--<td><?= h($promotions->first_voucher_num) ?></td>
+                            <td><?= h($promotions->end_date) ?></td>
+                            <td><?= h($promotions->promo_desc) ?></td>
+                            <td><?= h($promotions->first_voucher_num) ?></td>
                             <td><?= h($promotions->last_voucher_num) ?></td>
                             <td><?= h($promotions->discount_rate) ?></td>
                             <td><?= h($promotions->credit_card_type) ?></td>
-                            <td><?= h($promotions->retailer_employee_id) ?></td>
-                            </td>-->
+                            <td><?= h($promotions->retailer_employee_id) ?></td>-->
+                            <td>
+                                <?= $this->Html->link(__('Promotion ID '.h($promotions->id)), ['controller' => 'Promotions', 'action' => 'view', $promotions->id]) ?>
+                            </td>
                         </tr>
                         <?php endforeach; ?>
                     </table>

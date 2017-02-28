@@ -140,7 +140,7 @@ class PromotionsController extends AppController
             $this->Flash->error(_('The promotion has already ended.'));
             return $this->redirect(['action' => 'index']);
         } else if ($now > $promotion['start_date']) {
-            $this->Flash->error(_('The promotion has already begun. It can not be deleted once it has started.'));
+            $this->Flash->error(_('The promotion has already begun. It can not be edited or deleted once it has started.'));
             return $this->redirect(['action' => 'index']);
         }
         // ---------------------------------------------------
