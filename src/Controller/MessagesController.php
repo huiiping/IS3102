@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\Error\Debugger;
+use Cake\ORM\TableRegistry;
 
 /**
  * Messages Controller
@@ -31,10 +33,18 @@ class MessagesController extends AppController
         $this->paginate = [
             'contain' => ['RetailerEmployees']
         ];
-        $messages = $this->paginate($this->Messages);
 
-        $this->set(compact('messages'));
-        $this->set('_serialize', ['messages']);
+        $retailerEmployeesMessages = TableRegistry::get('RetailerEmployeesMessages');
+        $msgIDs = $retailerEmployeesMessages->find()->where(['retailer_employee_id' => $id])->select('message_id');
+        $inboxMessages = $this->paginate($this->Messages->find()->where(['id' => $msgIDs], ['id' => 'integer[]']));
+
+        $this->set(compact('inboxMessages'));
+        $this->set('_serialize', ['inboxMessages']);
+
+        $sentMessages = $this->paginate($this->Messages->find()->where(['id' => $id]));
+
+        $this->set(compact('sentMessages'));
+        $this->set('_serialize', ['sentMessages']);
     }
 
     /**
