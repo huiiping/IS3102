@@ -35,7 +35,7 @@ class IntrasysEmployeesController extends AppController
         // Allow users to register and logout.
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
-		$this->Auth->allow(['add', 'logout', 'activate', 'recover']);
+		$this->Auth->allow(['add', 'logout', 'activate', 'recover', 'recoverActivate']);
 	}
 
  public function index() {
@@ -89,7 +89,7 @@ class IntrasysEmployeesController extends AppController
 
                 //$this->loadComponent('Logging');
                 //$this->Logging->log($intrasysEmployee['id']);
-                $this->Logging->iLog(null, $intrasysemployee['id']);
+                //$this->Logging->iLog(null, $intrasysemployee['id']);
 
     			return $this->redirect(['action' => 'index']);
     		}
@@ -121,7 +121,7 @@ class IntrasysEmployeesController extends AppController
 
                 //$this->loadComponent('Logging');
                 //$this->Logging->log($intrasysEmployee['id']);
-                $this->Logging->iLog(null, $intrasysemployee['id']);
+                //$this->Logging->iLog(null, $intrasysemployee['id']);
 
     			return $this->redirect(['action' => 'index']);
     		}
@@ -174,7 +174,7 @@ class IntrasysEmployeesController extends AppController
 
             //$this->loadComponent('Logging');
             //$this->Logging->log($intrasysEmployee['id']);
-            $this->Logging->iLog(null, $intrasysemployee['id']);
+            //$this->Logging->iLog(null, $intrasysemployee['id']);
 
         	$this->Flash->success(__('Your account has been activated.'));
         	return $this->redirect(['action' => 'index']);
@@ -239,7 +239,7 @@ class IntrasysEmployeesController extends AppController
 
             //$this->loadComponent('Logging');
             //$this->Logging->log($intrasysEmployee['id']);
-            $this->Logging->iLog(null, $intrasysemployee['id']);
+            //$this->Logging->iLog(null, $intrasysemployee['id']);
 
     	} else {
     		$this->Flash->error(__('The intrasys employee could not be deleted. Please, try again.'));
@@ -254,7 +254,18 @@ class IntrasysEmployeesController extends AppController
 
     		$intrasysemployee = $this->Auth->identify();
     		if($intrasysemployee){
-    			if($intrasysemployee['activation_status'] == 'Activated'){
+    			if($intrasysemployee['activation_status'] == 'Deactivated'){
+    				$this->Flash->error('Your account has not been activated yet. Please check your email');
+
+    				return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'index']);
+    			}
+
+    			if($intrasysemployee['recovery_status'] == 'Pending'){
+    				$this->Flash->error('Your account has not been recovered yet. Please check your email.');
+
+    				return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'index']);
+    			}
+    			
     				$this->Auth->setUser($intrasysemployee);
                     $session->write('employee_id',$intrasysemployee['id']);
 
@@ -263,9 +274,7 @@ class IntrasysEmployeesController extends AppController
 
     				return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'index']);
                     
-    			}
-    			$this->Flash->error('Your account has not been activated yet. Please check your email');
-    			return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'index']);
+    			
     		}
     		$this->Flash->error('Incorrect Login');   
     	}
@@ -296,6 +305,7 @@ class IntrasysEmployeesController extends AppController
 
     public function recover(){
 
+    	$this->loadComponent('Generator');
     	$email = $_POST['email'];
     	$query = $this->IntrasysEmployees->find('all', [
     		'conditions' => ['email' => $email],
@@ -314,9 +324,55 @@ class IntrasysEmployeesController extends AppController
     	$row = $query->first();
     	$intrasysemployee = $this->IntrasysEmployees->get($row['id']);
 
-    	$this->Flash->success(__('Password Reset Email Sent.'));
-    	return $this->redirect(['action' => 'index']);
+    	$newPass = $this->Generator->generateString();
+    	$intrasysemployee->password = $newPass;
+    	$intrasysemployee->recovery_status = 'Pending';
+    	$intrasysemployee->recovery_token = $this->Generator->generateString();
 
+    	if ($this->IntrasysEmployees->save($intrasysemployee)){
+
+
+    		$email = new Email('default');
+    		$email->template('recovery');
+    		$email->emailFormat('html');
+    		$email->to($intrasysemployee['email']);
+    		$email->subject('Password Recovery');
+    		$email->from('tanyongming90@gmail.com');
+
+    		$email->send($intrasysemployee['first_name'] . ',' .
+    			$intrasysemployee['username'] . ',' .
+    			$newPass . ',' .
+    			env('SERVER_NAME') . ',' . 
+    			$intrasysemployee['id'] . ',' . 
+    			$intrasysemployee['recovery_token']); 
+
+    		$this->Flash->success(__('Password Reset Email Sent, please check your email.'));
+    		return $this->redirect(['action' => 'index']);
+    	}
+
+    }
+
+    public function recoverActivate($id, $token){
+
+    	$intrasysEmployee = $this->IntrasysEmployees->get($id);
+    	if($intrasysEmployee['recovery_status'] == NULL){
+    		$this->Flash->success(__('Your account has already been recovered.'));
+    		return $this->redirect(['action' => 'index']);
+    	}
+
+    	if ($intrasysEmployee && $intrasysEmployee['recovery_token'] == $token) {
+
+
+    		$intrasysEmployee->recovery_status = NULL;
+    		$intrasysEmployee->recovery_token = NULL;
+    		$this->IntrasysEmployees->save($intrasysEmployee);
+
+    		$this->Flash->success(__('Your account has been recovered. Please log in using your new username and password.'));
+    		return $this->redirect(['action' => 'index']);
+
+    	}
+    	$this->Flash->error(__('There is something wrong with the activation link'));
+    	return $this->redirect(['action' => 'index']);
     }
 
     public function logout(){
