@@ -11,6 +11,13 @@ use App\Controller\AppController;
 class RetailerEmployeeRolesController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+
+        $this->loadComponent('Logging');
+        
+    }
+
     /**
      * Index method
      *
@@ -40,8 +47,8 @@ class RetailerEmployeeRolesController extends AppController
         $session = $this->request->session();
         $retailer = $session->read('retailer');
 
-        $this->loadComponent('Logging');
-        $this->Logging->log($retailerEmployeeRole['id']);
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($retailerEmployeeRole['id']);
         $this->Logging->iLog($retailer, $retailerEmployeeRole['id']);
 
         $this->set('retailerEmployeeRole', $retailerEmployeeRole);
@@ -64,8 +71,8 @@ class RetailerEmployeeRolesController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($retailerEmployeeRole['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($retailerEmployeeRole['id']);
                 $this->Logging->iLog($retailer, $retailerEmployeeRole['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -97,8 +104,8 @@ class RetailerEmployeeRolesController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($retailerEmployeeRole['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($retailerEmployeeRole['id']);
                 $this->Logging->iLog($retailer, $retailerEmployeeRole['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -127,8 +134,8 @@ class RetailerEmployeeRolesController extends AppController
             $session = $this->request->session();
             $retailer = $session->read('retailer');
 
-            $this->loadComponent('Logging');
-            $this->Logging->log($retailerEmployeeRole['id']);
+            //$this->loadComponent('Logging');
+            $this->Logging->rLog($retailerEmployeeRole['id']);
             $this->Logging->iLog($retailer, $retailerEmployeeRole['id']);
         
         } else {

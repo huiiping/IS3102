@@ -16,6 +16,7 @@ class IntrasysEmployeesController extends AppController
 	public function beforeFilter(Event $event)
 	{
 		parent::beforeFilter($event);
+        $this->loadComponent('Logging');
 		$this->loadcomponent('Auth', [
 			'authenticate' => [
 			'Form' => [
@@ -38,7 +39,6 @@ class IntrasysEmployeesController extends AppController
 	}
 
  public function index() {
-
 
         $this->loadComponent('Prg');
         $this->Prg->commonProcess();
@@ -64,7 +64,7 @@ class IntrasysEmployeesController extends AppController
     		'contain' => ['IntrasysEmployeeRoles']
     		]);
 
-        $this->loadComponent('Logging');
+        //$this->loadComponent('Logging');
         //$this->Logging->log($intrasysEmployee['id']);
         $this->Logging->iLog(null, $intrasysemployee['id']);
 
@@ -87,7 +87,7 @@ class IntrasysEmployeesController extends AppController
     		if ($this->IntrasysEmployees->save($intrasysEmployee)) {
     			$this->Flash->success(__('The intrasys employee has been saved.'));
 
-                $this->loadComponent('Logging');
+                //$this->loadComponent('Logging');
                 //$this->Logging->log($intrasysEmployee['id']);
                 $this->Logging->iLog(null, $intrasysemployee['id']);
 
@@ -119,7 +119,7 @@ class IntrasysEmployeesController extends AppController
     			$this->__sendActivationEmail($intrasysEmployee['id']);
     			$this->Flash->success(__('The intrasys employee has been saved.'));
 
-                $this->loadComponent('Logging');
+                //$this->loadComponent('Logging');
                 //$this->Logging->log($intrasysEmployee['id']);
                 $this->Logging->iLog(null, $intrasysemployee['id']);
 
@@ -172,7 +172,7 @@ class IntrasysEmployeesController extends AppController
         	$intrasysEmployee->activation_token = NULL;
         	$this->IntrasysEmployees->save($intrasysEmployee);
 
-            $this->loadComponent('Logging');
+            //$this->loadComponent('Logging');
             //$this->Logging->log($intrasysEmployee['id']);
             $this->Logging->iLog(null, $intrasysemployee['id']);
 
@@ -210,7 +210,7 @@ class IntrasysEmployeesController extends AppController
     		if ($this->IntrasysEmployees->save($intrasysEmployee)) {
     			$this->Flash->success(__('The intrasys employee has been saved.'));
 
-                $this->loadComponent('Logging');
+                //$this->loadComponent('Logging');
                 //$this->Logging->log($intrasysEmployee['id']);
                 $this->Logging->iLog(null, $intrasysemployee['id']);
 
@@ -237,7 +237,7 @@ class IntrasysEmployeesController extends AppController
     	if ($this->IntrasysEmployees->delete($intrasysEmployee)) {
     		$this->Flash->success(__('The intrasys employee has been deleted.'));
 
-            $this->loadComponent('Logging');
+            //$this->loadComponent('Logging');
             //$this->Logging->log($intrasysEmployee['id']);
             $this->Logging->iLog(null, $intrasysemployee['id']);
 
@@ -258,7 +258,7 @@ class IntrasysEmployeesController extends AppController
     				$this->Auth->setUser($intrasysemployee);
                     $session->write('employee_id',$intrasysemployee['id']);
 
-                    $this->loadComponent('Logging');            
+                    //$this->loadComponent('Logging');            
                     $this->Logging->iLog(null, $intrasysemployee['id']);
 
     				return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'index']);
@@ -282,7 +282,7 @@ class IntrasysEmployeesController extends AppController
             if ($this->IntrasysEmployees->save($intrasysEmployee)) {
                 $this->Flash->success(__('The intrasys employee has been saved.'));
 
-                $this->loadComponent('Logging'); 
+                //$this->loadComponent('Logging'); 
                 $this->Logging->iLog(null, $intrasysemployee['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -305,7 +305,7 @@ class IntrasysEmployeesController extends AppController
     	if($query->count() == 0){
     		$this->Flash->error(__('Invalid email address'));
 
-            $this->loadComponent('Logging'); 
+            //$this->loadComponent('Logging'); 
             $this->Logging->iLog(null, $intrasysemployee['id']);
 
     		return $this->redirect(['action' => 'index']);
@@ -325,7 +325,7 @@ class IntrasysEmployeesController extends AppController
     	$session = $this->request->session();
     	$session->destroy();
 
-        $this->loadComponent('Logging'); 
+        //$this->loadComponent('Logging'); 
         $this->Logging->iLog(null, $session->read('employee_id'));
         
     	return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));

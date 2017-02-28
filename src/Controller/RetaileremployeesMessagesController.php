@@ -11,6 +11,13 @@ use App\Controller\AppController;
 class RetailerEmployeesMessagesController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+
+        $this->loadComponent('Logging');
+        
+    }
+
     /**
      * Index method
      *
@@ -43,8 +50,8 @@ class RetailerEmployeesMessagesController extends AppController
         $session = $this->request->session();
         $retailer = $session->read('retailer');
 
-        $this->loadComponent('Logging');
-        $this->Logging->log($retailerEmployeesMessage['id']);
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($retailerEmployeesMessage['id']);
         $this->Logging->iLog($retailer, $retailerEmployeesMessage['id']);
 
         $this->set('retailerEmployeesMessage', $retailerEmployeesMessage);
@@ -67,8 +74,8 @@ class RetailerEmployeesMessagesController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($retailerEmployeesMessage['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($retailerEmployeesMessage['id']);
                 $this->Logging->iLog($retailer, $retailerEmployeesMessage['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -101,8 +108,8 @@ class RetailerEmployeesMessagesController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($retailerEmployeesMessage['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($retailerEmployeesMessage['id']);
                 $this->Logging->iLog($retailer, $retailerEmployeesMessage['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -132,8 +139,8 @@ class RetailerEmployeesMessagesController extends AppController
             $session = $this->request->session();
             $retailer = $session->read('retailer');
 
-            $this->loadComponent('Logging');
-            $this->Logging->log($retailerEmployeesMessage['id']);
+            //$this->loadComponent('Logging');
+            $this->Logging->rLog($retailerEmployeesMessage['id']);
             $this->Logging->iLog($retailer, $retailerEmployeesMessage['id']);
         
         } else {

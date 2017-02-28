@@ -11,6 +11,11 @@ use App\Controller\AppController;
 class IntrasysLoggingsController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+        $this->loadComponent('Logging');        
+    }
+
     /**
      * Index method
      *
@@ -40,6 +45,10 @@ class IntrasysLoggingsController extends AppController
             'contain' => ['Retailers']
         ]);
 
+        //$this->loadComponent('Logging');
+        //$this->Logging->rLog($intrasysLogging['id']);
+        $this->Logging->iLog($retailer, $intrasysLogging['id']);
+
         $this->set('intrasysLogging', $intrasysLogging);
         $this->set('_serialize', ['intrasysLogging']);
     }
@@ -56,6 +65,10 @@ class IntrasysLoggingsController extends AppController
             $intrasysLogging = $this->IntrasysLoggings->patchEntity($intrasysLogging, $this->request->data);
             if ($this->IntrasysLoggings->save($intrasysLogging)) {
                 $this->Flash->success(__('The intrasys logging has been saved.'));
+
+                //$this->loadComponent('Logging');
+                //$this->Logging->rLog($intrasysLogging['id']);
+                $this->Logging->iLog($retailer, $intrasysLogging['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -83,6 +96,10 @@ class IntrasysLoggingsController extends AppController
             if ($this->IntrasysLoggings->save($intrasysLogging)) {
                 $this->Flash->success(__('The intrasys logging has been saved.'));
 
+                //$this->loadComponent('Logging');
+                //$this->Logging->rLog($intrasysLogging['id']);
+                $this->Logging->iLog($retailer, $intrasysLogging['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The intrasys logging could not be saved. Please, try again.'));
@@ -105,6 +122,11 @@ class IntrasysLoggingsController extends AppController
         $intrasysLogging = $this->IntrasysLoggings->get($id);
         if ($this->IntrasysLoggings->delete($intrasysLogging)) {
             $this->Flash->success(__('The intrasys logging has been deleted.'));
+
+            //$this->loadComponent('Logging');
+            //$this->Logging->rLog($intrasysLogging['id']);
+            $this->Logging->iLog($retailer, $intrasysLogging['id']);
+            
         } else {
             $this->Flash->error(__('The intrasys logging could not be deleted. Please, try again.'));
         }

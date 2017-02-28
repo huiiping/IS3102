@@ -17,6 +17,7 @@ class RetailersController extends AppController
     {
         parent::beforeFilter($event);
         $this->loadcomponent('DbSchema');
+        $this->loadComponent('Logging');
     }
 
     public function index()
@@ -46,7 +47,7 @@ class RetailersController extends AppController
         //$session = $this->request->session();
         //$retailer = $session->read('retailer');
 
-        $this->loadComponent('Logging');
+        //$this->loadComponent('Logging');
         //$this->Logging->log($retailer['id']);
         $this->Logging->iLog(null, $retailer['id']);
 
@@ -70,7 +71,7 @@ class RetailersController extends AppController
                 //$session = $this->request->session();
                 //$retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
+                //$this->loadComponent('Logging');
                 //$this->Logging->log($retailer['id']);
                 $this->Logging->iLog(null, $retailer['id']);
 
@@ -114,7 +115,7 @@ class RetailersController extends AppController
                 //$session = $this->request->session();
                 //$retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
+                //$this->loadComponent('Logging');
                 //$this->Logging->log($retailer['id']);
                 $this->Logging->iLog(null, $retailer['id']);
 
@@ -144,7 +145,7 @@ class RetailersController extends AppController
             //$session = $this->request->session();
             //$retailer = $session->read('retailer');
 
-            $this->loadComponent('Logging');
+            //$this->loadComponent('Logging');
             //$this->Logging->log($retailer['id']);
             $this->Logging->iLog(null, $retailer['id']);
             

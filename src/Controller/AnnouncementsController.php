@@ -2,6 +2,11 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
+use Cake\Datasource\ConnectionManager;
+use Cake\I18n\Time;
+use Cake\ORM\Entity;
+use Cake\ORM\TableRegistry;
 
 /**
  * Announcements Controller
@@ -10,6 +15,14 @@ use App\Controller\AppController;
  */
 class AnnouncementsController extends AppController
 {
+
+
+    public function beforeFilter(Event $event)
+    {
+
+        $this->loadComponent('Logging');
+        
+    }
 
     /**
      * Index method
@@ -37,7 +50,7 @@ class AnnouncementsController extends AppController
             'contain' => []
         ]);
 
-        $this->loadComponent('Logging');
+        //$this->loadComponent('Logging');
         //$this->Logging->log($announcement['id']);
         $this->Logging->iLog(null, $announcement['id']);
 
@@ -58,7 +71,7 @@ class AnnouncementsController extends AppController
             if ($this->Announcements->save($announcement)) {
                 $this->Flash->success(__('The announcement has been saved.'));
                 
-                $this->loadComponent('Logging');
+                //$this->loadComponent('Logging');
                 //$this->Logging->log($announcement['id']);
                 $this->Logging->iLog(null, $announcement['id']);
 
@@ -87,7 +100,7 @@ class AnnouncementsController extends AppController
             if ($this->Announcements->save($announcement)) {
                 $this->Flash->success(__('The announcement has been saved.'));
 
-                $this->loadComponent('Logging');
+                //$this->loadComponent('Logging');
                 //$this->Logging->log($announcement['id']);
                 $this->Logging->iLog(null, $announcement['id']);
 
@@ -113,7 +126,7 @@ class AnnouncementsController extends AppController
         if ($this->Announcements->delete($announcement)) {
             $this->Flash->success(__('The announcement has been deleted.'));
 
-            $this->loadComponent('Logging');
+            //$this->loadComponent('Logging');
             //$this->Logging->log($announcement['id']);
             $this->Logging->iLog(null, $announcement['id']);
             

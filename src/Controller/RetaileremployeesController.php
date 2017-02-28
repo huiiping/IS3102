@@ -15,12 +15,14 @@ use Cake\ORM\TableRegistry;
  */
 class RetailerEmployeesController extends AppController
 {
-    
+
+    //$this->loadComponent('Logging');    
 
     public function beforeFilter(Event $event)
     {
 
         parent::beforeFilter($event);
+        $this->loadComponent('Logging');
         $this->loadcomponent('Auth', [
                 'authenticate' => [
                     'Form' => [
@@ -35,13 +37,14 @@ class RetailerEmployeesController extends AppController
                     'controller' => 'RetailerEmployees',
                     'action' => 'login'
                 ]
-            ]);
+        ]);
         
         // Allow users to register and logout.
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
         $this->Auth->allow(['add', 'logout']);
     }
+
     public function index() {
 
         $this->loadComponent('Prg');
@@ -69,8 +72,8 @@ class RetailerEmployeesController extends AppController
             'contain' => ['Locations', 'Messages', 'RetailerEmployeeRoles', 'Promotions', 'PurchaseOrders', 'SupplierMemos']
         ]);
         
-        $this->loadComponent('Logging');
-        $this->Logging->log($retailerEmployee['id']);
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($retailerEmployee['id']);
         $this->Logging->iLog($retailer, $retailerEmployee['id']);
 
         $this->set('retailerEmployee', $retailerEmployee);
@@ -90,8 +93,8 @@ class RetailerEmployeesController extends AppController
             if ($this->RetailerEmployees->save($retailerEmployee)) {
                 $this->Flash->success(__('The retailer employee has been saved.'));
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($retailerEmployee['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($retailerEmployee['id']);
                 $this->Logging->iLog($retailer, $retailerEmployee['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -134,8 +137,8 @@ class RetailerEmployeesController extends AppController
 
                 $session = $this->request->session();
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($retailerEmployee['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($retailerEmployee['id']);
                 $this->Logging->iLog($retailer, $retailerEmployee['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -157,8 +160,8 @@ class RetailerEmployeesController extends AppController
             
             $session = $this->request->session();
            
-            $this->loadComponent('Logging');
-            $this->Logging->log($retailerEmployee['id']);
+            //$this->loadComponent('Logging');
+            $this->Logging->rLog($retailerEmployee['id']);
             $this->Logging->iLog($retailer, $retailerEmployee['id']);
 
             $this->Flash->success(__('The retailer employee has been deleted.'));
@@ -199,8 +202,8 @@ class RetailerEmployeesController extends AppController
             $session->write('retailer', $retailer); 
             $session->write('retailer_employee_id',$retaileremployee['id']);
 
-            $this->loadComponent('Logging');            
-            $this->Logging->log($session->read('retailer_employee_id'));
+            //$this->loadComponent('Logging');            
+            $this->Logging->rLog($session->read('retailer_employee_id'));
             $this->Logging->iLog($retailer, $session->read('retailer_employee_id'));
             
             return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'index']);
@@ -220,8 +223,8 @@ class RetailerEmployeesController extends AppController
             if ($this->RetailerEmployees->save($retailerEmployee)) {
                 $this->Flash->success(__('The retailer employee has been saved.'));
                 
-                $this->loadComponent('Logging');            
-                $this->Logging->log($session->read('retailer_employee_id'));
+                //$this->loadComponent('Logging');            
+                $this->Logging->rLog($session->read('retailer_employee_id'));
                 $this->Logging->iLog($retailer, $session->read('retailer_employee_id'));
 
                 return $this->redirect(['action' => 'index']);
@@ -241,8 +244,8 @@ class RetailerEmployeesController extends AppController
         $session = $this->request->session();
         $session->destroy();
 
-        $this->loadComponent('Logging');             
-        $this->Logging->log($session->read('retailer_employee_id'));
+        //$this->loadComponent('Logging');             
+        $this->Logging->rLog($session->read('retailer_employee_id'));
         $this->Logging->iLog($retailer, $session->read('retailer_employee_id'));
         
         return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));

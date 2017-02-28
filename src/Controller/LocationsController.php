@@ -15,6 +15,13 @@ use Cake\Utility\Hash;
 class LocationsController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+
+        $this->loadComponent('Logging');
+        
+    }
+
     /**
      * Index method
      *
@@ -49,8 +56,8 @@ class LocationsController extends AppController
         $session = $this->request->session();
         $retailer = $session->read('retailer');
 
-        $this->loadComponent('Logging');
-        $this->Logging->log($location['id']);
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($location['id']);
         $this->Logging->iLog($retailer, $location['id']);
 
         $this->set('location', $location);
@@ -75,8 +82,8 @@ class LocationsController extends AppController
                     $session = $this->request->session();
                     $retailer = $session->read('retailer');
 
-                    $this->loadComponent('Logging');
-                    $this->Logging->log($location['id']);
+                    //$this->loadComponent('Logging');
+                    $this->Logging->rLog($location['id']);
                     $this->Logging->iLog($retailer, $location['id']);
 
                     return $this->redirect(['action' => 'index']);
@@ -148,8 +155,8 @@ class LocationsController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($location['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($location['id']);
                 $this->Logging->iLog($retailer, $location['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -177,8 +184,8 @@ class LocationsController extends AppController
             $session = $this->request->session();
             $retailer = $session->read('retailer');
 
-            $this->loadComponent('Logging');
-            $this->Logging->log($location['id']);
+            //$this->loadComponent('Logging');
+            $this->Logging->rLog($location['id']);
             $this->Logging->iLog($retailer, $location['id']);
 
         } else {

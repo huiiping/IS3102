@@ -11,6 +11,13 @@ use App\Controller\AppController;
 class CustMembershipTiersController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+
+        $this->loadComponent('Logging');
+        
+    }
+
     /**
      * Index method
      *
@@ -40,8 +47,8 @@ class CustMembershipTiersController extends AppController
         $session = $this->request->session();
         $retailer = $session->read('retailer');
 
-        $this->loadComponent('Logging');
-        $this->Logging->log($custMembershipTier['id']);
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($custMembershipTier['id']);
         $this->Logging->iLog($retailer, $custMembershipTier['id']);
 
         $this->set('custMembershipTier', $custMembershipTier);
@@ -64,8 +71,8 @@ class CustMembershipTiersController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($custMembershipTier['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($custMembershipTier['id']);
                 $this->Logging->iLog($retailer, $custMembershipTier['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -96,8 +103,8 @@ class CustMembershipTiersController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($custMembershipTier['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($custMembershipTier['id']);
                 $this->Logging->iLog($retailer, $custMembershipTier['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -125,8 +132,8 @@ class CustMembershipTiersController extends AppController
             $session = $this->request->session();
             $retailer = $session->read('retailer');
 
-            $this->loadComponent('Logging');
-            $this->Logging->log($custMembershipTier['id']);
+            //$this->loadComponent('Logging');
+            $this->Logging->rLog($custMembershipTier['id']);
             $this->Logging->iLog($retailer, $custMembershipTier['id']);
 
         } else {

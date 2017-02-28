@@ -11,6 +11,13 @@ use App\Controller\AppController;
 class IntrasysEmployeeRolesController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+
+        $this->loadComponent('Logging');
+        
+    }
+
     /**
      * Index method
      *
@@ -43,7 +50,7 @@ class IntrasysEmployeeRolesController extends AppController
             'contain' => ['IntrasysEmployees']
         ]);
 
-        $this->loadComponent('Logging');
+        //$this->loadComponent('Logging');
         //$this->Logging->log($intrasysEmployeeRole['id']);
         $this->Logging->iLog(null, $intrasysEmployeeRole['id']);
 
@@ -64,7 +71,7 @@ class IntrasysEmployeeRolesController extends AppController
             if ($this->IntrasysEmployeeRoles->save($intrasysEmployeeRole)) {
                 $this->Flash->success(__('The intrasys employee role has been saved.'));
                 
-                $this->loadComponent('Logging');
+                //$this->loadComponent('Logging');
                 //$this->Logging->log($intrasysEmployeeRole['id']);
                 $this->Logging->iLog(null, $intrasysEmployeeRole['id']);
                 
@@ -94,7 +101,7 @@ class IntrasysEmployeeRolesController extends AppController
             if ($this->IntrasysEmployeeRoles->save($intrasysEmployeeRole)) {
                 $this->Flash->success(__('The intrasys employee role has been saved.'));
 
-                $this->loadComponent('Logging');
+                //$this->loadComponent('Logging');
                 //$this->Logging->log($intrasysEmployeeRole['id']);
                 $this->Logging->iLog(null, $intrasysEmployeeRole['id']);
 
@@ -121,7 +128,7 @@ class IntrasysEmployeeRolesController extends AppController
         if ($this->IntrasysEmployeeRoles->delete($intrasysEmployeeRole)) {
             $this->Flash->success(__('The intrasys employee role has been deleted.'));
 
-            $this->loadComponent('Logging');
+            //$this->loadComponent('Logging');
             //$this->Logging->log($intrasysEmployeeRole['id']);
             $this->Logging->iLog(null, $intrasysEmployeeRole['id']);
             

@@ -15,6 +15,13 @@ use Cake\I18n\Date;
 class PromotionsController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+
+        $this->loadComponent('Logging');
+        
+    }
+
     /**
      * Index method
      *
@@ -47,8 +54,8 @@ class PromotionsController extends AppController
         $session = $this->request->session();
         $retailer = $session->read('retailer');
 
-        $this->loadComponent('Logging');
-        $this->Logging->log($promotion['id']);
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($promotion['id']);
         $this->Logging->iLog($retailer, $promotion['id']);
 
         $this->set('promotion', $promotion);    
@@ -99,8 +106,8 @@ class PromotionsController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($promotion['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($promotion['id']);
                 $this->Logging->iLog($retailer, $promotion['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -146,8 +153,8 @@ class PromotionsController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($promotion['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($promotion['id']);
                 $this->Logging->iLog($retailer, $promotion['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -184,8 +191,8 @@ class PromotionsController extends AppController
             $session = $this->request->session();
             $retailer = $session->read('retailer');
 
-            $this->loadComponent('Logging');
-            $this->Logging->log($promotion['id']);
+            //$this->loadComponent('Logging');
+            $this->Logging->rLog($promotion['id']);
             $this->Logging->iLog($retailer, $promotion['id']);
 
             $this->Flash->success(__('The promotion has been deleted.'));

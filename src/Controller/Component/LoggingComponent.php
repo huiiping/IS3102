@@ -28,7 +28,7 @@ use Cake\Utility\Hash;
 class LoggingComponent extends Component {
 	
 	
-	public function log($id){
+	public function rLog($id){
 
 		$session = $this->request->session();
 

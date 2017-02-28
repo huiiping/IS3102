@@ -11,6 +11,13 @@ use App\Controller\AppController;
 class MessagesController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+
+        $this->loadComponent('Logging');
+        
+    }
+
     /**
      * Index method
      *
@@ -43,8 +50,8 @@ class MessagesController extends AppController
         $session = $this->request->session();
         $retailer = $session->read('retailer');
 
-        $this->loadComponent('Logging');
-        $this->Logging->log($message['id']);
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($message['id']);
         $this->Logging->iLog($retailer, $message['id']);
 
         $this->set('message', $message);
@@ -68,8 +75,8 @@ class MessagesController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($message['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($message['id']);
                 $this->Logging->iLog($retailer, $message['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -103,8 +110,8 @@ class MessagesController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($message['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($message['id']);
                 $this->Logging->iLog($retailer, $message['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -135,8 +142,8 @@ class MessagesController extends AppController
             $session = $this->request->session();
             $retailer = $session->read('retailer');
 
-            $this->loadComponent('Logging');
-            $this->Logging->log($message['id']);
+            //$this->loadComponent('Logging');
+            $this->Logging->rLog($message['id']);
             $this->Logging->iLog($retailer, $message['id']);
             
         } else {

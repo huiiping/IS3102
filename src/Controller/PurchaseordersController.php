@@ -11,6 +11,13 @@ use App\Controller\AppController;
 class PurchaseOrdersController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+
+        $this->loadComponent('Logging');
+        
+    }
+
     /**
      * Index method
      *
@@ -43,8 +50,8 @@ class PurchaseOrdersController extends AppController
         $session = $this->request->session();
         $retailer = $session->read('retailer');
 
-        $this->loadComponent('Logging');
-        $this->Logging->log($purchaseOrder['id']);
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($purchaseOrder['id']);
         $this->Logging->iLog($retailer, $purchaseOrder['id']);
 
         $this->set('purchaseOrder', $purchaseOrder);
@@ -67,8 +74,8 @@ class PurchaseOrdersController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($purchaseOrder['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($purchaseOrder['id']);
                 $this->Logging->iLog($retailer, $purchaseOrder['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -101,8 +108,8 @@ class PurchaseOrdersController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($purchaseOrder['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($purchaseOrder['id']);
                 $this->Logging->iLog($retailer, $purchaseOrder['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -132,8 +139,8 @@ class PurchaseOrdersController extends AppController
             $session = $this->request->session();
             $retailer = $session->read('retailer');
 
-            $this->loadComponent('Logging');
-            $this->Logging->log($purchaseOrder['id']);
+            //$this->loadComponent('Logging');
+            $this->Logging->rLog($purchaseOrder['id']);
             $this->Logging->iLog($retailer, $purchaseOrder['id']);
             
         } else {

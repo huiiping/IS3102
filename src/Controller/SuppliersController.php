@@ -15,6 +15,7 @@ class SuppliersController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
+        $this->loadcomponent('Logging');
         $this->loadcomponent('Auth', [
                 'authenticate' => [
                     'Form' => [
@@ -70,8 +71,8 @@ class SuppliersController extends AppController
         $session = $this->request->session();
         $retailer = $session->read('retailer');
 
-        $this->loadComponent('Logging');
-        $this->Logging->log($supplier['id']);
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($supplier['id']);
         $this->Logging->iLog($retailer, $supplier['id']);
 
         $this->set('supplier', $supplier);
@@ -94,8 +95,8 @@ class SuppliersController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($supplier['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($supplier['id']);
                 $this->Logging->iLog($retailer, $supplier['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -126,8 +127,8 @@ class SuppliersController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($supplier['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($supplier['id']);
                 $this->Logging->iLog($retailer, $supplier['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -155,8 +156,8 @@ class SuppliersController extends AppController
             $session = $this->request->session();
             $retailer = $session->read('retailer');
 
-            $this->loadComponent('Logging');
-            $this->Logging->log($supplier['id']);
+            //$this->loadComponent('Logging');
+            $this->Logging->rLog($supplier['id']);
             $this->Logging->iLog($retailer, $supplier['id']);
 
         } else {

@@ -11,6 +11,13 @@ use App\Controller\AppController;
 class SectionsController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+
+        $this->loadComponent('Logging');
+        
+    }
+
     /**
      * Index method
      *
@@ -49,8 +56,8 @@ class SectionsController extends AppController
         $session = $this->request->session();
         $retailer = $session->read('retailer');
 
-        $this->loadComponent('Logging');
-        $this->Logging->log($section['id']);
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($section['id']);
         $this->Logging->iLog($retailer, $section['id']);
 
         $this->set('section', $section);
@@ -73,8 +80,8 @@ class SectionsController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($section['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($section['id']);
                 $this->Logging->iLog($retailer, $section['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -106,8 +113,8 @@ class SectionsController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($section['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($section['id']);
                 $this->Logging->iLog($retailer, $section['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -136,8 +143,8 @@ class SectionsController extends AppController
             $session = $this->request->session();
             $retailer = $session->read('retailer');
 
-            $this->loadComponent('Logging');
-            $this->Logging->log($section['id']);
+            //$this->loadComponent('Logging');
+            $this->Logging->rLog($section['id']);
             $this->Logging->iLog($retailer, $section['id']);
         
         } else {

@@ -11,6 +11,11 @@ use App\Controller\AppController;
 class RetailerLoggingsController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+        $this->loadComponent('Logging');        
+    }
+
     /**
      * Index method
      *
@@ -40,6 +45,10 @@ class RetailerLoggingsController extends AppController
             'contain' => ['RetailerEmployees']
         ]);
 
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($retailerLogging['id']);
+        $this->Logging->iLog($retailer, $retailerLogging['id']);
+
         $this->set('retailerLogging', $retailerLogging);
         $this->set('_serialize', ['retailerLogging']);
     }
@@ -56,6 +65,10 @@ class RetailerLoggingsController extends AppController
             $retailerLogging = $this->RetailerLoggings->patchEntity($retailerLogging, $this->request->data);
             if ($this->RetailerLoggings->save($retailerLogging)) {
                 $this->Flash->success(__('The retailer logging has been saved.'));
+
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($retailerLogging['id']);
+                $this->Logging->iLog($retailer, $retailerLogging['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -83,6 +96,10 @@ class RetailerLoggingsController extends AppController
             if ($this->RetailerLoggings->save($retailerLogging)) {
                 $this->Flash->success(__('The retailer logging has been saved.'));
 
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($retailerLogging['id']);
+                $this->Logging->iLog($retailer, $retailerLogging['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The retailer logging could not be saved. Please, try again.'));
@@ -105,6 +122,11 @@ class RetailerLoggingsController extends AppController
         $retailerLogging = $this->RetailerLoggings->get($id);
         if ($this->RetailerLoggings->delete($retailerLogging)) {
             $this->Flash->success(__('The retailer logging has been deleted.'));
+
+            //$this->loadComponent('Logging');
+            $this->Logging->rLog($retailerLogging['id']);
+            $this->Logging->iLog($retailer, $retailerLogging['id']);
+            
         } else {
             $this->Flash->error(__('The retailer logging could not be deleted. Please, try again.'));
         }

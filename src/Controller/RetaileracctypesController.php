@@ -11,6 +11,13 @@ use App\Controller\AppController;
 class RetailerAccTypesController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+
+        $this->loadComponent('Logging');
+        
+    }
+
     /**
      * Index method
      *
@@ -40,7 +47,7 @@ class RetailerAccTypesController extends AppController
         //$session = $this->request->session();
         //$retailer = $session->read('retailer');
 
-        $this->loadComponent('Logging');
+        //$this->loadComponent('Logging');
         //$this->Logging->log($retailerAccType['id']);
         $this->Logging->iLog(null, $retailerAccType['id']);
 
@@ -64,7 +71,7 @@ class RetailerAccTypesController extends AppController
                 //$session = $this->request->session();
                 //$retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
+                //$this->loadComponent('Logging');
                 //$this->Logging->log($retailerAccType['id']);
                 $this->Logging->iLog(null, $retailerAccType['id']);
 
@@ -96,7 +103,7 @@ class RetailerAccTypesController extends AppController
                 //$session = $this->request->session();
                 //$retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
+                //$this->loadComponent('Logging');
                 //$this->Logging->log($retailerAccType['id']);
                 $this->Logging->iLog(null, $retailerAccType['id']);
 
@@ -125,7 +132,7 @@ class RetailerAccTypesController extends AppController
             //$session = $this->request->session();
             //$retailer = $session->read('retailer');
 
-            $this->loadComponent('Logging');
+            //$this->loadComponent('Logging');
             //$this->Logging->log($retailerAccType['id']);
             $this->Logging->iLog(null, $retailerAccType['id']);
         

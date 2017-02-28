@@ -38,8 +38,7 @@ class AppController extends Controller
      *
      * @return void
      */
-    public function initialize()
-    {
+    public function initialize() {
         parent::initialize();
 
         $this->loadComponent('RequestHandler');
@@ -81,8 +80,7 @@ class AppController extends Controller
      * @param \Cake\Event\Event $event The beforeRender event.
      * @return \Cake\Network\Response|null|void
      */
-    public function beforeRender(Event $event)
-    {
+    public function beforeRender(Event $event) {
         if (!array_key_exists('_serialize', $this->viewVars) &&
             in_array($this->response->type(), ['application/json', 'application/xml'])
         ) {
@@ -96,4 +94,13 @@ class AppController extends Controller
             $this->set('loggedIn', false);
         }
     }
+
+    /*
+    public function beforeFilter(Event $event) {
+
+        $this->loadComponent('Logging');
+
+    }*/
+
+
 }

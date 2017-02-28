@@ -11,6 +11,13 @@ use App\Controller\AppController;
 class CustomersPromotionsController extends AppController
 {
 
+
+    public function beforeFilter(Event $event)
+    {
+
+        $this->loadComponent('Logging');
+        
+    }
     /**
      * Index method
      *
@@ -40,8 +47,8 @@ class CustomersPromotionsController extends AppController
             'contain' => ['Customers', 'Promotions']
         ]);
 
-        $this->loadComponent('Logging');
-        $this->Logging->log($customersPromotion['id']);
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($customersPromotion['id']);
         $this->Logging->iLog($retailer, $customersPromotion['id']);
 
         $this->set('customersPromotion', $customersPromotion);
@@ -61,8 +68,8 @@ class CustomersPromotionsController extends AppController
             if ($this->CustomersPromotions->save($customersPromotion)) {
                 $this->Flash->success(__('The customers promotion has been saved.'));
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($customersPromotion['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($customersPromotion['id']);
                 $this->Logging->iLog($retailer, $customersPromotion['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -92,8 +99,8 @@ class CustomersPromotionsController extends AppController
             if ($this->CustomersPromotions->save($customersPromotion)) {
                 $this->Flash->success(__('The customers promotion has been saved.'));
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($customersPromotion['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($customersPromotion['id']);
                 $this->Logging->iLog($retailer, $customersPromotion['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -120,8 +127,8 @@ class CustomersPromotionsController extends AppController
         if ($this->CustomersPromotions->delete($customersPromotion)) {
             $this->Flash->success(__('The customers promotion has been deleted.'));
 
-            $this->loadComponent('Logging');
-            $this->Logging->log($customersPromotion['id']);
+            //$this->loadComponent('Logging');
+            $this->Logging->rLog($customersPromotion['id']);
             $this->Logging->iLog($retailer, $customersPromotion['id']);
 
         } else {

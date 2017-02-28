@@ -11,6 +11,13 @@ use App\Controller\AppController;
 class IntrasysEmployeesIntrasysEmployeeRolesController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+
+        $this->loadComponent('Logging');
+        
+    }
+
     /**
      * Index method
      *
@@ -40,7 +47,7 @@ class IntrasysEmployeesIntrasysEmployeeRolesController extends AppController
             'contain' => ['IntrasysEmployees', 'IntrasysEmployeeRoles']
         ]);
 
-        $this->loadComponent('Logging');
+        //$this->loadComponent('Logging');
         //$this->Logging->log($customer['id']);
         $this->Logging->iLog(null, $intrasysEmployeesIntrasysEmployeeRole['id']);
 
@@ -61,7 +68,7 @@ class IntrasysEmployeesIntrasysEmployeeRolesController extends AppController
             if ($this->IntrasysEmployeesIntrasysEmployeeRoles->save($intrasysEmployeesIntrasysEmployeeRole)) {
                 $this->Flash->success(__('The intrasys employees intrasys employee role has been saved.'));
 
-                $this->loadComponent('Logging');
+                //$this->loadComponent('Logging');
                 //$this->Logging->log($customer['id']);
                 $this->Logging->iLog(null, $intrasysEmployeesIntrasysEmployeeRole['id']);
 
@@ -92,7 +99,7 @@ class IntrasysEmployeesIntrasysEmployeeRolesController extends AppController
             if ($this->IntrasysEmployeesIntrasysEmployeeRoles->save($intrasysEmployeesIntrasysEmployeeRole)) {
                 $this->Flash->success(__('The intrasys employees intrasys employee role has been saved.'));
 
-                $this->loadComponent('Logging');
+                //$this->loadComponent('Logging');
                 //$this->Logging->log($customer['id']);
                 $this->Logging->iLog(null, $intrasysEmployeesIntrasysEmployeeRole['id']);
 
@@ -119,7 +126,7 @@ class IntrasysEmployeesIntrasysEmployeeRolesController extends AppController
         $intrasysEmployeesIntrasysEmployeeRole = $this->IntrasysEmployeesIntrasysEmployeeRoles->get($id);
         if ($this->IntrasysEmployeesIntrasysEmployeeRoles->delete($intrasysEmployeesIntrasysEmployeeRole)) {
 
-            $this->loadComponent('Logging');
+            //$this->loadComponent('Logging');
             //$this->Logging->log($customer['id']);
             $this->Logging->iLog(null, $intrasysEmployeesIntrasysEmployeeRole['id']);
 

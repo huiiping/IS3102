@@ -11,6 +11,13 @@ use App\Controller\AppController;
 class CustomersController extends AppController
 {
 
+
+    public function beforeFilter(Event $event)
+    {
+
+        $this->loadComponent('Logging');
+        
+    }
     /**
      * Index method
      *
@@ -43,8 +50,8 @@ class CustomersController extends AppController
         $session = $this->request->session();
         $retailer = $session->read('retailer');
 
-        $this->loadComponent('Logging');
-        $this->Logging->log($customer['id']);
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($customer['id']);
         $this->Logging->iLog($retailer, $customer['id']);
 
         $this->set('customer', $customer);
@@ -101,8 +108,8 @@ class CustomersController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($customer['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($customer['id']);
                 $this->Logging->iLog($retailer, $customer['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -132,8 +139,8 @@ class CustomersController extends AppController
             $session = $this->request->session();
             $retailer = $session->read('retailer'); 
 
-            $this->loadComponent('Logging');
-            $this->Logging->log($customer['id']);
+            //$this->loadComponent('Logging');
+            $this->Logging->rLog($customer['id']);
             $this->Logging->iLog($retailer, $customer['id']);
             
         } else {

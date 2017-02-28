@@ -11,6 +11,13 @@ use App\Controller\AppController;
 class RetailerLoyaltyPointsController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+
+        $this->loadComponent('Logging');
+        
+    }
+
     /**
      * Index method
      *
@@ -43,8 +50,8 @@ class RetailerLoyaltyPointsController extends AppController
         $session = $this->request->session();
         $retailer = $session->read('retailer');
 
-        $this->loadComponent('Logging');
-        $this->Logging->log($retailerLoyaltyPoint['id']);
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($retailerLoyaltyPoint['id']);
         $this->Logging->iLog($retailer, $retailerLoyaltyPoint['id']);
 
         $this->set('retailerLoyaltyPoint', $retailerLoyaltyPoint);
@@ -67,8 +74,8 @@ class RetailerLoyaltyPointsController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($retailerLoyaltyPoint['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($retailerLoyaltyPoint['id']);
                 $this->Logging->iLog($retailer, $retailerLoyaltyPoint['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -100,8 +107,8 @@ class RetailerLoyaltyPointsController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($retailerLoyaltyPoint['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($retailerLoyaltyPoint['id']);
                 $this->Logging->iLog($retailer, $retailerLoyaltyPoint['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -130,8 +137,8 @@ class RetailerLoyaltyPointsController extends AppController
             $session = $this->request->session();
             $retailer = $session->read('retailer');
 
-            $this->loadComponent('Logging');
-            $this->Logging->log($retailerLoyaltyPoint['id']);
+            //$this->loadComponent('Logging');
+            $this->Logging->rLog($retailerLoyaltyPoint['id']);
             $this->Logging->iLog($retailer, $retailerLoyaltyPoint['id']);
             
         } else {

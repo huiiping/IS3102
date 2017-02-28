@@ -11,6 +11,13 @@ use App\Controller\AppController;
 class ProdTypesController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+
+        $this->loadComponent('Logging');
+        
+    }
+
     /**
      * Index method
      *
@@ -51,8 +58,8 @@ class ProdTypesController extends AppController
         $session = $this->request->session();
         $retailer = $session->read('retailer');
 
-        $this->loadComponent('Logging');
-        $this->Logging->log($prodType['id']);
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($prodType['id']);
         $this->Logging->iLog($retailer, $prodType['id']);
 
         $this->set('prodType', $prodType);
@@ -75,8 +82,8 @@ class ProdTypesController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($prodType['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($prodType['id']);
                 $this->Logging->iLog($retailer, $prodType['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -109,8 +116,8 @@ class ProdTypesController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($prodType['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($prodType['id']);
                 $this->Logging->iLog($retailer, $prodType['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -140,8 +147,8 @@ class ProdTypesController extends AppController
             $session = $this->request->session();
             $retailer = $session->read('retailer');
 
-            $this->loadComponent('Logging');
-            $this->Logging->log($prodType['id']);
+            //$this->loadComponent('Logging');
+            $this->Logging->rLog($prodType['id']);
             $this->Logging->iLog($retailer, $prodType['id']);
 
         } else {

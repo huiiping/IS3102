@@ -11,6 +11,13 @@ use App\Controller\AppController;
 class PurchaseOrderItemsController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+
+        $this->loadComponent('Logging');
+        
+    }
+
     /**
      * Index method
      *
@@ -43,8 +50,8 @@ class PurchaseOrderItemsController extends AppController
         $session = $this->request->session();
         $retailer = $session->read('retailer');
 
-        $this->loadComponent('Logging');
-        $this->Logging->log($purchaseOrderItem['id']);
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($purchaseOrderItem['id']);
         $this->Logging->iLog($retailer, $purchaseOrderItem['id']);
 
         $this->set('purchaseOrderItem', $purchaseOrderItem);
@@ -67,8 +74,8 @@ class PurchaseOrderItemsController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($purchaseOrderItem['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($purchaseOrderItem['id']);
                 $this->Logging->iLog($retailer, $purchaseOrderItem['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -100,8 +107,8 @@ class PurchaseOrderItemsController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($purchaseOrderItem['id']);
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($purchaseOrderItem['id']);
                 $this->Logging->iLog($retailer, $purchaseOrderItem['id']);
 
                 return $this->redirect(['action' => 'index']);
@@ -130,8 +137,8 @@ class PurchaseOrderItemsController extends AppController
             $session = $this->request->session();
             $retailer = $session->read('retailer');
 
-            $this->loadComponent('Logging');
-            $this->Logging->log($purchaseOrderItem['id']);
+            //$this->loadComponent('Logging');
+            $this->Logging->rLog($purchaseOrderItem['id']);
             $this->Logging->iLog($retailer, $purchaseOrderItem['id']);
             
         } else {
