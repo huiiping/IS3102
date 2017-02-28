@@ -72,6 +72,9 @@ class RetailerEmployeesController extends AppController
             'contain' => ['Locations', 'Messages', 'RetailerEmployeeRoles', 'Promotions', 'PurchaseOrders', 'SupplierMemos']
         ]);
         
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+        
         //$this->loadComponent('Logging');
         $this->Logging->rLog($retailerEmployee['id']);
         $this->Logging->iLog($retailer, $retailerEmployee['id']);
@@ -92,6 +95,9 @@ class RetailerEmployeesController extends AppController
             $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
             if ($this->RetailerEmployees->save($retailerEmployee)) {
                 $this->Flash->success(__('The retailer employee has been saved.'));
+
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
 
                 //$this->loadComponent('Logging');
                 $this->Logging->rLog($retailerEmployee['id']);
@@ -136,6 +142,7 @@ class RetailerEmployeesController extends AppController
                 $this->Flash->success(__('The retailer employee has been saved.'));
 
                 $session = $this->request->session();
+                $retailer = $session->read('retailer');
 
                 //$this->loadComponent('Logging');
                 $this->Logging->rLog($retailerEmployee['id']);
@@ -159,6 +166,7 @@ class RetailerEmployeesController extends AppController
         if ($this->RetailerEmployees->delete($retailerEmployee)) {
             
             $session = $this->request->session();
+            $retailer = $session->read('retailer');
            
             //$this->loadComponent('Logging');
             $this->Logging->rLog($retailerEmployee['id']);
