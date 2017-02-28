@@ -97,8 +97,9 @@ class AppController extends Controller
     }
 
     
-    /*public function beforeFilter(Event $event) {
+    public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
+        Debugger::dump(['IN Before Filter NOW']);
         //Retrieve & check User's role
         $user = $this->request->session()->read('Auth.User');
 
@@ -116,7 +117,7 @@ class AppController extends Controller
             $user = null;
             Debugger::dump($user);
             //return $this->redirect($this->Auth->logout());
-        } 
+        } */
 
         if($user != null) {
         $IntrasysEmployeeRoles = TableRegistry::get('IntrasysEmployeesIntrasysEmployeeRoles');
@@ -216,6 +217,6 @@ class AppController extends Controller
         }
         return;
     }
-}*/
+}
 
 }

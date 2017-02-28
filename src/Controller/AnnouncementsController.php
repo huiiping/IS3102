@@ -19,7 +19,7 @@ class AnnouncementsController extends AppController
 
     public function beforeFilter(Event $event)
     {
-
+        parent::beforeFilter($event);
         $this->loadComponent('Logging');
         
         $user = $this->request->session()->read('Auth.User');
