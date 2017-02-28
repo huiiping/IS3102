@@ -336,26 +336,53 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <li class="dropdown user user-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <img src="/IS3102_Final/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                <span class="hidden-xs"><?= $_SESSION['Auth']['User']['first_name'] ?></span>
+                <span class="hidden-xs">
+                  <?php if($type) : ?>
+                    <?= $_SESSION['Auth']['User']['supplier_name'] ?>
+                  <?php else : ?>
+                    <?= $_SESSION['Auth']['User']['first_name'] ?>
+                  <?php endif; ?>
+                </span>
               </a>
               <ul class="dropdown-menu">
                 <!-- User image -->
                 <li class="user-header">
                   <img src="/IS3102_Final/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                   <p>
-                    <?= $_SESSION['Auth']['User']['first_name'] ?> <?= $_SESSION['Auth']['User']['last_name'] ?> 
-                    <small>Joined since <?= $this->Time->format($_SESSION['Auth']['User']['created'], 'd MMM YYYY') ?></small>
+                    <?php if($type) : ?>
+                      <?= $_SESSION['Auth']['User']['supplier_name'] ?>
+                      <small>Joined since <?= $this->Time->format($_SESSION['Auth']['User']['created'], 'd MMM YYYY') ?></small>
+                    <?php else : ?>
+                      <?= $_SESSION['Auth']['User']['first_name'] ?> <?= $_SESSION['Auth']['User']['last_name'] ?> 
+                      <small>Joined since <?= $this->Time->format($_SESSION['Auth']['User']['created'], 'd MMM YYYY') ?></small>
+                    <?php endif; ?>
                   </p>
                 </li>
                 <li class="user-footer">
                   <div class="pull-left">
                     <span class="btn btn-default btn-flat">
-                      <?= $this->Html->link(__('Profile'), ['controller' => 'IntrasysEmployees', 'action' => 'view', $_SESSION['Auth']['User']['id'],'class'=>'btn btn-default btn-flat']); ?>
+                      <?php if($intrasys) : ?>
+                        <?= $this->Html->link(__('Profile'), ['controller' => 'IntrasysEmployees', 'action' => 'view', $_SESSION['Auth']['User']['id'], 'class'=>'btn btn-default btn-flat']); ?>
+                      <?php else : ?>
+                        <?php if($type) : ?>
+                          <?= $this->Html->link(__('Profile'), ['controller' => 'Suppliers', 'action' => 'view', $_SESSION['Auth']['User']['id'], 'class'=>'btn btn-default btn-flat']); ?>
+                        <?php else : ?>
+                          <?= $this->Html->link(__('Profile'), ['controller' => 'RetailerEmployees', 'action' => 'view', $_SESSION['Auth']['User']['id'], 'class'=>'btn btn-default btn-flat']); ?>
+                        <?php endif; ?>
+                      <?php endif; ?>
                     </span>
                   </div>
                   <div class="pull-right">
                     <span class="btn btn-default btn-flat">
-                      <?= $this->Html->link(__('Logout'), ['controller' => 'IntrasysEmployees', 'action' => 'logout', 'class'=>'btn btn-default btn-flat']); ?>
+                      <?php if($intrasys) : ?>
+                        <?= $this->Html->link(__('Logout'), ['controller' => 'IntrasysEmployees', 'action' => 'logout', 'class'=>'btn btn-default btn-flat']); ?>
+                      <?php else : ?>
+                        <?php if($type) : ?>
+                          <?= $this->Html->link(__('Logout'), ['controller' => 'Suppliers', 'action' => 'logout', 'class'=>'btn btn-default btn-flat']); ?>
+                        <?php else : ?>
+                          <?= $this->Html->link(__('Logout'), ['controller' => 'RetailerEmployees', 'action' => 'logout', 'class'=>'btn btn-default btn-flat']); ?>
+                        <?php endif; ?>
+                      <?php endif; ?>
                     </span>
                   </div>
                 </li>

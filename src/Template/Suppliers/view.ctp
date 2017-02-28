@@ -91,7 +91,7 @@
                 <h4><?= __('Related Purchase Orders') ?></h4>
                 <table cellpadding="0" cellspacing="0">
                     <tr>
-                        <th scope="col"><?= __('Id') ?></th>
+                        <th scope="col"><?= __('PO Id') ?></th>
                         <th scope="col"><?= __('Created') ?></th>
                         <!--<th scope="col"><?= __('Total Price') ?></th>
                         <th scope="col"><?= __('Delivery Status') ?></th>
@@ -102,7 +102,7 @@
                     <?php foreach ($supplier->purchase_orders as $purchaseOrders): ?>
                     <tr>
                         <td>
-                            <?= $this->Html->link(__(h($purchaseOrders->id)), ['controller' => 'PurchaseOrders', 'action' => 'view', $purchaseOrders->id]) ?>
+                            <?= $this->Html->link(__('PO '.h($purchaseOrders->id)), ['controller' => 'PurchaseOrders', 'action' => 'view', $purchaseOrders->id]) ?>
                         </td>
                         <td><?= $this->Time->format(h($purchaseOrders->created), 'd MMM YYYY, hh:mm') ?></td>
                         <!--<td><?= h($purchaseOrders->total_price) ?></td>
@@ -124,7 +124,7 @@
                 <h4><?= __('Related Supplier Memos') ?></h4>
                 <table cellpadding="0" cellspacing="0">
                     <tr>
-                        <th scope="col"><?= __('Id') ?></th>
+                        <th scope="col"><?= __('Memo Id') ?></th>
                         <!--<th scope="col"><?= __('Remarks') ?></th>-->
                         <th scope="col"><?= __('Created') ?></th>
                         <!--<th scope="col"><?= __('Supplier Id') ?></th>
@@ -134,7 +134,7 @@
                     <?php foreach ($supplier->supplier_memos as $supplierMemos): ?>
                     <tr>
                         <td>
-                            <?= $this->Html->link(__(h($supplierMemos->id)), ['controller' => 'SupplierMemos', 'action' => 'view', $supplierMemos->id]) ?>
+                            <?= $this->Html->link(__('Memo '.h($supplierMemos->id)), ['controller' => 'SupplierMemos', 'action' => 'view', $supplierMemos->id]) ?>
                         </td>
                         <!--<td><?= h($supplierMemos->remarks) ?></td>-->
                         <td><?= $this->Time->format(h($supplierMemos->created), 'd MMM YYYY, hh:mm') ?></td>

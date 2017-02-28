@@ -111,7 +111,7 @@
                             <th scope="col"><?= __('Credit Card Type') ?></th>
                             <th scope="col"><?= __('Retailer Employee Id') ?></th>
                             <th scope="col" class="actions"><?= __('Actions') ?></th>-->
-                            <th scope="col"><?= __('Promotion') ?></th>
+                            <th scope="col"><?= __('Promotion ID') ?></th>
                         </tr>
                         <?php foreach ($retailerEmployee->promotions as $promotions): ?>
                         <tr>
@@ -125,7 +125,7 @@
                             <td><?= h($promotions->credit_card_type) ?></td>
                             <td><?= h($promotions->retailer_employee_id) ?></td>-->
                             <td>
-                                <?= $this->Html->link(__('Promotion ID '.h($promotions->id)), ['controller' => 'Promotions', 'action' => 'view', $promotions->id]) ?>
+                                <?= $this->Html->link(__('Promotion '.h($promotions->id)), ['controller' => 'Promotions', 'action' => 'view', $promotions->id]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -136,7 +136,7 @@
                     <?php if (!empty($retailerEmployee->purchase_orders)): ?>
                     <table cellpadding="0" cellspacing="0">
                         <tr>
-                            <!--th scope="col"><?= __('Id') ?></th>-->
+                            <th scope="col"><?= __('PO Id') ?></th>
                             <th scope="col"><?= __('Created') ?></th>
                             <!--<th scope="col"><?= __('Total Price') ?></th>
                             <th scope="col"><?= __('Delivery Status') ?></th>-->
@@ -146,9 +146,11 @@
                         </tr>
                         <?php foreach ($retailerEmployee->purchase_orders as $purchaseOrders): ?>
                         <tr>
-                            <!--<td><?= h($purchaseOrders->id) ?></td>-->
                             <td>
-                                <?= $this->Html->link(__(h($purchaseOrders->created) ), ['controller' => 'PurchaseOrders', 'action' => 'view', $purchaseOrders->id]) ?>
+                                <?= $this->Html->link(__('PO '.h($purchaseOrders->id)), ['controller' => 'PurchaseOrders', 'action' => 'view', $purchaseOrders->id]) ?>
+                            </td>
+                            <td>
+                                <?= $this->Time->format(h($purchaseOrders->created), 'd MMM YYYY, hh:mm') ?>
                             </td>
                             <!--<td><?= h($purchaseOrders->total_price) ?></td>
                             <td><?= h($purchaseOrders->delivery_status) ?></td>-->
@@ -178,7 +180,7 @@
                             <td><?= h($supplierMemos->remarks) ?></td>
                             <td><?= h($supplierMemos->created) ?></td>-->
                             <td>
-                                <?= $this->Html->link(__(h($supplierMemos->supplier_id)), ['controller' => 'SupplierMemos', 'action' => 'view', $supplierMemos->id]) ?>
+                                <?= $this->Html->link(__('Supplier '.h($supplierMemos->supplier_id)), ['controller' => 'SupplierMemos', 'action' => 'view', $supplierMemos->id]) ?>
                             </td>
                             <!--<td><?= h($supplierMemos->retailer_employee_id) ?></td>-->
                         </tr>

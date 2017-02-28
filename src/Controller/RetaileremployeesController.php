@@ -254,7 +254,7 @@ class RetailerEmployeesController extends AppController
 
         //$this->loadComponent('Logging');             
         $this->Logging->rLog($session->read('retailer_employee_id'));
-        $this->Logging->iLog($retailer, $session->read('retailer_employee_id'));
+        $this->Logging->iLog($session->read('retailer'), $session->read('retailer_employee_id'));
         
         return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
     }

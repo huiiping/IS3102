@@ -94,6 +94,20 @@ class AppController extends Controller
         } else {
             $this->set('loggedIn', false);
         }
+
+        //check database
+        if($this->request->session()->read('database') == null){
+            $this->set('intrasys', true);
+        } else {
+            $this->set('intrasys', false);
+        }
+
+        //check user type --> supplier
+        if($this->request->session()->read('supplier')){
+            $this->set('type', true);
+        } else {
+            $this->set('type', false);
+        }
     }
 
     
