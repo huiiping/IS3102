@@ -66,7 +66,7 @@ class IntrasysEmployeesController extends AppController
 
         //$this->loadComponent('Logging');
         //$this->Logging->log($intrasysEmployee['id']);
-        $this->Logging->iLog(null, $intrasysemployee['id']);
+        $this->Logging->iLog(null, $intrasysEmployee['id']);
 
     	$this->set('intrasysEmployee', $intrasysEmployee);
     	$this->set('_serialize', ['intrasysEmployee']);
@@ -89,7 +89,7 @@ class IntrasysEmployeesController extends AppController
 
                 //$this->loadComponent('Logging');
                 //$this->Logging->log($intrasysEmployee['id']);
-                //$this->Logging->iLog(null, $intrasysemployee['id']);
+                $this->Logging->iLog(null, $intrasysEmployee['id']);
 
     			return $this->redirect(['action' => 'index']);
     		}
@@ -121,7 +121,7 @@ class IntrasysEmployeesController extends AppController
 
                 //$this->loadComponent('Logging');
                 //$this->Logging->log($intrasysEmployee['id']);
-                //$this->Logging->iLog(null, $intrasysemployee['id']);
+                $this->Logging->iLog(null, $intrasysEmployee['id']);
 
     			return $this->redirect(['action' => 'index']);
     		}
@@ -174,7 +174,7 @@ class IntrasysEmployeesController extends AppController
 
             //$this->loadComponent('Logging');
             //$this->Logging->log($intrasysEmployee['id']);
-            //$this->Logging->iLog(null, $intrasysemployee['id']);
+            $this->Logging->iLog(null, $intrasysEmployee['id']);
 
         	$this->Flash->success(__('Your account has been activated.'));
         	return $this->redirect(['action' => 'index']);
@@ -212,7 +212,7 @@ class IntrasysEmployeesController extends AppController
 
                 //$this->loadComponent('Logging');
                 //$this->Logging->log($intrasysEmployee['id']);
-                $this->Logging->iLog(null, $intrasysemployee['id']);
+                $this->Logging->iLog(null, $intrasysEmployee['id']);
 
     			return $this->redirect(['action' => 'index']);
     		}
@@ -239,7 +239,7 @@ class IntrasysEmployeesController extends AppController
 
             //$this->loadComponent('Logging');
             //$this->Logging->log($intrasysEmployee['id']);
-            //$this->Logging->iLog(null, $intrasysemployee['id']);
+            $this->Logging->iLog(null, $intrasysEmployee['id']);
 
     	} else {
     		$this->Flash->error(__('The intrasys employee could not be deleted. Please, try again.'));
@@ -292,7 +292,7 @@ class IntrasysEmployeesController extends AppController
                 $this->Flash->success(__('The intrasys employee has been saved.'));
 
                 //$this->loadComponent('Logging'); 
-                $this->Logging->iLog(null, $intrasysemployee['id']);
+                $this->Logging->iLog(null, $intrasysEmployee['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -316,13 +316,12 @@ class IntrasysEmployeesController extends AppController
     		$this->Flash->error(__('Invalid email address'));
 
             //$this->loadComponent('Logging'); 
-            $this->Logging->iLog(null, $intrasysemployee['id']);
-
-    		return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'index']);
     	}
 
     	$row = $query->first();
     	$intrasysemployee = $this->IntrasysEmployees->get($row['id']);
+        $this->Logging->iLog(null, $intrasysemployee['id']);
 
     	$newPass = $this->Generator->generateString();
     	$intrasysemployee->password = $newPass;
