@@ -6,6 +6,7 @@ use Cake\ORM\TableRegistry;
 use Cake\Error\Debugger;
 use Cake\Datasource\ConnectionManager;
 use Cake\Utility\Hash;
+use Cake\Event\Event;
 
 /**
  * Locations Controller

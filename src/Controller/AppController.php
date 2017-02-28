@@ -18,6 +18,7 @@ use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Datasource\ConnectionManager;
 use Cake\Error\Debugger;
+use Cake\ORM\TableRegistry;
 
 /**
  * Application Controller
@@ -96,14 +97,125 @@ class AppController extends Controller
     }
 
     
-    public function beforeFilter(Event $event) {
+    /*public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
         //Retrieve & check User's role
         $user = $this->request->session()->read('Auth.User');
-        Debugger::dump($user);
 
+        //Controller Name
+        $controllerName = $this->request->params['controller'];
+        //Function Name
+        $methodName = $this->request->params['action'];
+        //Previous Page 
+        $previousPage = $this->referer();
+
+        //Debugger::dump($user);
+
+        /*if($user['account_status'] == 'deactivated' || $user['account_status'] == 'banned' ){
+            $this->Flash->error(__('Your account is '.$user['account_status']));
+            $user = null;
+            Debugger::dump($user);
+            //return $this->redirect($this->Auth->logout());
+        } 
+
+        if($user != null) {
+        $IntrasysEmployeeRoles = TableRegistry::get('IntrasysEmployeesIntrasysEmployeeRoles');
+            $allRoles = $IntrasysEmployeeRoles
+                    ->find()
+                    ->where(['intrasys_employee_id' => $user['id']])
+                    ->extract('intrasys_employee_role_id');
+
+            foreach ($allRoles as $intrasysEmployeeRole) {
+                echo "IER: ".$intrasysEmployeeRole;
+                echo "Controller: ".$controllerName;
+                echo "Method: ".$methodName;
+                echo "From Page: ".$previousPage;
+
+            //MUST ENSURE THAT IN THE DATABASE THE ID STARTS FROM 1
+                if($intrasysEmployeeRole == '1' ){
+                    if($controllerName == 'Retailers'){
+                            //is there going to be a search function? || $methodName == 'search')
+                        if($methodName == 'view') {
+                            return;
+                        }
+                    }
+                }
+
+                if($intrasysEmployeeRole == '2'){
+                    if($controllerName == 'Retailers'){
+                        return;
+                    }
+                }
+
+                if($intrasysEmployeeRole == '3'){
+                    if($controllerName == 'Retailers'){
+                        if($methodName == 'add' || $methodName == 'edit') {
+                            return;
+                        }
+                    }   
+                } 
+
+                if($intrasysEmployeeRole == '4'){
+                    if($controllerName == 'Announcements'){ 
+                            return;
+                        }
+                    }
+
+                if($intrasysEmployeeRole == '5'){
+                    if($controllerName == 'Announcements'){
+                        //is there going to be a search function?
+                        if($methodName == 'view'){
+                        return;
+                        }
+                    }
+                }
+
+                if($intrasysEmployeeRole == '6'){
+                    if($controllerName == 'IntrasysEmployees'){
+                        return;
+                        }
+                    }
+                
+
+                if($intrasysEmployeeRole == '7'){
+                    if($controllerName == 'IntrasysEmployees'){
+                        if($methodName == 'edit'){
+                            return;
+                        }
+                    }
+                }
+
+                if($intrasysEmployeeRole == '8'){
+                    if($controllerName == 'IntrasysEmployees'){
+                        //is there going to be a search function?
+                      if($methodName == 'view'){
+                            return;
+                        }
+                    }
+                }
+
+                if($intrasysEmployeeRole == '9'){
+                    if($controllerName == 'IntrasysEmployeeRoles'){
+                        if($methodName == 'view'){
+                            return;
+                        }
+                    }
+                }
+
+                if($intrasysEmployeeRole == '10'){
+                    return;
+                }
+
+
+                if($controllerName != 'IntrasysEmployees' && $methodName != 'login') {
+                $this->Flash->error(__('You are not authorized to access that function.'));
+                return $this->redirect($this->referer()); 
+                }
+
+                break; 
+        }
         return;
     }
-
+}*/
 
 }

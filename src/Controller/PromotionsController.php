@@ -6,6 +6,7 @@ use Cake\Mailer\Email;
 use Cake\Datasource\ConnectionManager;
 use Cake\I18n\Time;
 use Cake\I18n\Date;
+use Cake\Event\Event;
 
 /**
  * Promotions Controller
