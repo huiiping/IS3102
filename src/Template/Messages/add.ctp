@@ -24,11 +24,13 @@
                 <fieldset>
                     <?php
                         echo $this->Form->input('title');
-                        echo $this->Form->input('date_created', ['empty' => true]);
+                        echo $this->Form->input('date_created', [
+                            'select' => '0000:00:00 00:00:00']);
                         echo $this->Form->input('message');
-                        echo $this->Form->input('status');
-                        echo $this->Form->input('reference_id');
-                        echo $this->Form->input('sender_id');
+                        echo $this->Form->hidden('status', ['dafult' => false]);
+                        echo $this->Form->input('reference', ['options' => $references, 'empty' => true]);
+                        $session = $this->request->session();
+                        echo $this->Form->hidden('sender_id', ['value'=>$session->read('retailer_employee_id')]);
                         echo $this->Form->input('retailer_employees._ids', ['options' => $retailerEmployees]);
                     ?>
                 </fieldset>

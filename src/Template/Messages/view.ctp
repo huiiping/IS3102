@@ -34,12 +34,12 @@
                         <td><?= $this->Text->autoParagraph(h($message->message)); ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Reference Id') ?></th>
-                        <td><?= h($message->reference_id) ?></td>
+                        <th scope="row"><?= __('Reference') ?></th>
+                        <td><?= h($message->reference) ?></td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Sender Id') ?></th>
-                        <td><?= $this->Number->format($message->intrasys_employee_id) ?></td>
+                        <td><?= $this->Number->format($message->sender_id) ?></td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Status') ?></th>
