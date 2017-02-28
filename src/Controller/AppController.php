@@ -95,12 +95,15 @@ class AppController extends Controller
         }
     }
 
-    /*
+    
     public function beforeFilter(Event $event) {
+        parent::beforeFilter($event);
+        //Retrieve & check User's role
+        $user = $this->request->session()->read('Auth.User');
+        Debugger::dump($user);
 
-        $this->loadComponent('Logging');
-
-    }*/
+        return;
+    }
 
 
 }

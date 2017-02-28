@@ -22,6 +22,13 @@ class AnnouncementsController extends AppController
 
         $this->loadComponent('Logging');
         
+        $user = $this->request->session()->read('Auth.User');
+
+        if($user == null) {
+        $this->Flash->error(__('You are not log in.'));
+        return $this->redirect(['controller' => 'Pages', 'action' => 'main']);
+    }
+        
     }
 
     /**
