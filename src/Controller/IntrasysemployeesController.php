@@ -326,7 +326,7 @@ class IntrasysEmployeesController extends AppController
     	$session->destroy();
 
         $this->loadComponent('Logging'); 
-        $this->Logging->iLog(null, $intrasysemployee['id']);
+        $this->Logging->iLog(null, $session->read('employee_id'));
         
     	return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
     }

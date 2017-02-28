@@ -198,7 +198,7 @@ class PromotionsController extends AppController
 
 
     // currently not in use
-    // KIV for future usage
+    // KIV for future memory_get_usage()
     public function email($id = null){
 
         $promotion = $this->Promotions->get($id);
