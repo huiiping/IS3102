@@ -1,13 +1,13 @@
 <style>
 #main {
-  background-image: url(/IS3102_Final/img/warehouse.jpg); 
+  background-image: url(/IS3102_Final/img/intrasysLogin2.jpg); 
 
   background-size: cover;
 
 }
 #box {
   border-radius: 15px ;  
-  background-color: rgba(255,255,255,.7); 
+  background-color: rgba(255,255,255,.9); 
   overflow: hidden;
 }
 #form_box {
@@ -24,6 +24,8 @@
 }
 </style>
 
+<?= $this->Element('intrasysLeftSideBar'); ?>
+
 <!-- Main content -->
 <div class="content-wrapper" id = "main">
   <section class="content">
@@ -32,7 +34,7 @@
         <div class="box box-primary" id="box">
           <div class="box-header with-border">
           <br><br>
-            <h1 class="text-center">Welcome to Intrasys!</h1>
+            <h1 class="text-center">Welcome to Intrasys CLRMS!</h1>
             <hr>
             <h3 class="text-center">Provider of RFID Solutions | RFID Readers | RFID Solutions Singapore</h3>
             <!--<div class="panel panel-default " id="form_box">
