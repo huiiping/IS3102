@@ -18,7 +18,7 @@ use Cake\Mailer\Email;
  */
 class RetailerEmployeesController extends AppController
 {
-
+    private $password;
     //$this->loadComponent('Logging');    
 
     public function beforeFilter(Event $event)
