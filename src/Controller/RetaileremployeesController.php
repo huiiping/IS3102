@@ -8,6 +8,7 @@ use Cake\I18n\Time;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
+use Cake\Mailer\Email;
 
 
 /**
@@ -26,25 +27,25 @@ class RetailerEmployeesController extends AppController
         parent::beforeFilter($event);
         $this->loadComponent('Logging');
         $this->loadcomponent('Auth', [
-                'authenticate' => [
-                    'Form' => [
-                        'userModel' => 'RetailerEmployees',
-                        'fields' => [
-                            'username' => 'username',
-                            'password' => 'password'
-                        ],
-                    ]
-                ],
-                'loginAction' => [
-                    'controller' => 'RetailerEmployees',
-                    'action' => 'login'
-                ]
-        ]);
+            'authenticate' => [
+            'Form' => [
+            'userModel' => 'RetailerEmployees',
+            'fields' => [
+            'username' => 'username',
+            'password' => 'password'
+            ],
+            ]
+            ],
+            'loginAction' => [
+            'controller' => 'RetailerEmployees',
+            'action' => 'login'
+            ]
+            ]);
         
         // Allow users to register and logout.
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
-        $this->Auth->allow(['add', 'logout']);
+        $this->Auth->allow(['add', 'logout', 'activate', 'recover', 'recoverActivate']);
     }
 
     public function index() {
@@ -52,7 +53,7 @@ class RetailerEmployeesController extends AppController
         $this->loadComponent('Prg');
         $this->Prg->commonProcess();
         $this->paginate = [
-            'contain' => ['Locations']
+        'contain' => ['Locations']
         ];
         $this->set('retailerEmployees', $this->paginate($this->RetailerEmployees->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('retailerEmployees'));
@@ -60,7 +61,7 @@ class RetailerEmployeesController extends AppController
     }
     public $components = array(
         'Prg'
-    );
+        );
     /**
      * View method
      *
@@ -72,7 +73,7 @@ class RetailerEmployeesController extends AppController
     {
         $retailerEmployee = $this->RetailerEmployees->get($id, [
             'contain' => ['Locations', 'Messages', 'RetailerEmployeeRoles', 'Promotions', 'PurchaseOrders', 'SupplierMemos']
-        ]);
+            ]);
         
         $session = $this->request->session();
         $retailer = $session->read('retailer');
@@ -121,6 +122,104 @@ class RetailerEmployeesController extends AppController
         $this->set('_serialize', ['retailerEmployee']);
     }
 
+    public function add2(){
+
+        $this->loadComponent('Generator');
+
+        $retailerEmployee = $this->RetailerEmployees->newEntity();
+        if ($this->request->is('post')) {
+            $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
+            if ($this->withinLimit()) {
+
+                $retailerEmployee->set('username', $this->Generator->generateString());
+                $this->password = $this->Generator->generateString();
+                $retailerEmployee->set('password', $this->password);
+                $retailerEmployee->set('activation_status', 'Deactivated');
+                $retailerEmployee->set('activation_token', $this->Generator->generateString());
+
+
+                if ($this->RetailerEmployees->save($retailerEmployee)) {
+
+                    $this->__sendActivationEmail($retailerEmployee['id']);
+                    $this->Flash->success(__('The retailer employee has been saved.'));
+
+
+                    $session = $this->request->session();
+                    $retailer = $session->read('retailer');
+
+                //$this->loadComponent('Logging');
+                    $this->Logging->rLog($retailerEmployee['id']);
+                    $this->Logging->iLog($retailer, $retailerEmployee['id']);
+
+                    return $this->redirect(['action' => 'index']);
+                }
+            } else {
+                $this->Flash->error(__('You have reached your maximum number of users! Please contact Intrasys to upgrade your account.'));
+            }
+            $this->Flash->error(__('The retailer employee could not be saved. Please, try again.'));
+        }
+        $locations = $this->RetailerEmployees->Locations->find('list', ['limit' => 200]);
+        $messages = $this->RetailerEmployees->Messages->find('list', ['limit' => 200]);
+        $retailerEmployeeRoles = $this->RetailerEmployees->RetailerEmployeeRoles->find('list', ['limit' => 200]);
+        $this->set(compact('retailerEmployee', 'locations', 'messages', 'retailerEmployeeRoles'));
+        $this->set('_serialize', ['retailerEmployee']);
+    }
+
+    function __sendActivationEmail($user_id) {
+
+        $user = $this->RetailerEmployees->get($user_id);
+        $activationToken = $user['activation_token'];
+        if ($user === false) {
+            debug(__METHOD__." failed to retrieve User data for user.id: {$user_id}");
+            return false;
+        }
+
+        $email = new Email('default');
+        $email->template('activation');
+        $email->emailFormat('html');
+        $email->to($user['email']);
+        $email->subject('Please confirm your email address');
+        $email->from('tanyongming90@gmail.com');
+
+        return $email->send($user['first_name'] . ',' .
+            $user['username'] . ',' .
+            $this->password . ',' .
+            env('SERVER_NAME') . ',' . 
+            $user['id'] . ',' . 
+            $user['activation_token'] . ',' .
+            'retailer-employees');
+
+    }
+
+    function activate($id, $token) {
+
+
+        $retailerEmployee = $this->RetailerEmployees->get($id);
+
+        if($retailerEmployee){
+            if($retailerEmployee['activation_status'] == 'Activated'){
+                $this->Flash->success(__('Your account has already been activated.'));
+                return $this->redirect(['action' => 'index']);
+            }
+
+            if ($retailerEmployee['activation_token'] == $token) {
+
+                $retailerEmployee->activation_status = 'Activated';
+                $retailerEmployee->activation_token = NULL;
+                $this->RetailerEmployees->save($retailerEmployee);
+
+            //$this->loadComponent('Logging');
+            //$this->Logging->log($intrasysEmployee['id']);
+                $this->Logging->iLog(null, $retailerEmployee['id']);
+
+                $this->Flash->success(__('Your account has been activated.'));
+                return $this->redirect(['action' => 'index']);
+            }
+        }else{
+            $this->Flash->error(__('There is something wrong with the activation link'));
+            return $this->redirect(['action' => 'index']);
+        }
+    }
     private function withinLimit()
     {   
         $session = $this->request->session();
@@ -133,30 +232,30 @@ class RetailerEmployeesController extends AppController
         //obtaining the retailer's limit on the number of product types
         $conn = ConnectionManager::get('intrasysdb');
         $acctTypeID = $conn
-            ->newQuery()
-            ->select('retailer_acc_type_id')
-            ->from('retailers')
-            ->where(['retailer_name' => $retailer])
-            ->execute()
-            ->fetchAll('assoc');
+        ->newQuery()
+        ->select('retailer_acc_type_id')
+        ->from('retailers')
+        ->where(['retailer_name' => $retailer])
+        ->execute()
+        ->fetchAll('assoc');
         
         $defaultNum = $conn
-            ->newQuery()
-            ->select('num_of_users')
-            ->from('retailer_acc_types')
-            ->where(['id' => $acctTypeID[0]], ['id' => 'integer[]'])
-            ->execute()
-            ->fetchAll('assoc');
+        ->newQuery()
+        ->select('num_of_users')
+        ->from('retailer_acc_types')
+        ->where(['id' => $acctTypeID[0]], ['id' => 'integer[]'])
+        ->execute()
+        ->fetchAll('assoc');
         $defaultNum = Hash::extract($defaultNum, '{n}.num_of_users');
 
         //The bonus number of units given to individual retailers
         $bonus = $conn
-            ->newQuery()
-            ->select('num_of_users')
-            ->from('retailers')
-            ->where(['retailer_name' => $retailer])
-            ->execute()
-            ->fetchAll('assoc');
+        ->newQuery()
+        ->select('num_of_users')
+        ->from('retailers')
+        ->where(['retailer_name' => $retailer])
+        ->execute()
+        ->fetchAll('assoc');
         $bonus = Hash::extract($bonus, '{n}.num_of_users');
 
         //Total number of product types allowed to the retailers
@@ -179,63 +278,63 @@ class RetailerEmployeesController extends AppController
     {
         $retailerEmployee = $this->RetailerEmployees->get($id, [
             'contain' => ['Messages', 'RetailerEmployeeRoles']
-        ]);
+            ]);
 
         //Getting the session user - ID
         $sessionId = $this->request->session()->read('Auth.User.id');
 
         //Only the employee themselves can edit their account
         if($retailerEmployee['id'] != $sessionId) {
-             $this->redirect($this->referer());
-             $this->Flash->error(__('You are not authorzied to edit other employees.'));
-        }
+         $this->redirect($this->referer());
+         $this->Flash->error(__('You are not authorzied to edit other employees.'));
+     }
 
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
-            if ($this->RetailerEmployees->save($retailerEmployee)) {
-                $this->Flash->success(__('The retailer employee has been saved.'));
+     if ($this->request->is(['patch', 'post', 'put'])) {
+        $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
+        if ($this->RetailerEmployees->save($retailerEmployee)) {
+            $this->Flash->success(__('The retailer employee has been saved.'));
 
-                $session = $this->request->session();
-                $retailer = $session->read('retailer');
-
-                //$this->loadComponent('Logging');
-                $this->Logging->rLog($retailerEmployee['id']);
-                $this->Logging->iLog($retailer, $retailerEmployee['id']);
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The retailer employee could not be saved. Please, try again.'));
-        }
-        $locations = $this->RetailerEmployees->Locations->find('list', ['limit' => 200]);
-        $messages = $this->RetailerEmployees->Messages->find('list', ['limit' => 200]);
-        $retailerEmployeeRoles = $this->RetailerEmployees->RetailerEmployeeRoles->find('list', ['limit' => 200]);
-        $this->set(compact('retailerEmployee', 'locations', 'messages', 'retailerEmployeeRoles'));
-        $this->set('_serialize', ['retailerEmployee']);
-    }
-
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $retailerEmployee = $this->RetailerEmployees->get($id);
-        if ($this->RetailerEmployees->delete($retailerEmployee)) {
-            
             $session = $this->request->session();
             $retailer = $session->read('retailer');
-           
-            //$this->loadComponent('Logging');
+
+                //$this->loadComponent('Logging');
             $this->Logging->rLog($retailerEmployee['id']);
             $this->Logging->iLog($retailer, $retailerEmployee['id']);
 
-            $this->Flash->success(__('The retailer employee has been deleted.'));
-
-        } else {
-            $this->Flash->error(__('The retailer employee could not be deleted. Please, try again.'));
+            return $this->redirect(['action' => 'index']);
         }
+        $this->Flash->error(__('The retailer employee could not be saved. Please, try again.'));
+    }
+    $locations = $this->RetailerEmployees->Locations->find('list', ['limit' => 200]);
+    $messages = $this->RetailerEmployees->Messages->find('list', ['limit' => 200]);
+    $retailerEmployeeRoles = $this->RetailerEmployees->RetailerEmployeeRoles->find('list', ['limit' => 200]);
+    $this->set(compact('retailerEmployee', 'locations', 'messages', 'retailerEmployeeRoles'));
+    $this->set('_serialize', ['retailerEmployee']);
+}
 
-        return $this->redirect(['action' => 'index']);
+public function delete($id = null)
+{
+    $this->request->allowMethod(['post', 'delete']);
+    $retailerEmployee = $this->RetailerEmployees->get($id);
+    if ($this->RetailerEmployees->delete($retailerEmployee)) {
+
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+            //$this->loadComponent('Logging');
+        $this->Logging->rLog($retailerEmployee['id']);
+        $this->Logging->iLog($retailer, $retailerEmployee['id']);
+
+        $this->Flash->success(__('The retailer employee has been deleted.'));
+
+    } else {
+        $this->Flash->error(__('The retailer employee could not be deleted. Please, try again.'));
     }
 
-    public function login(){
+    return $this->redirect(['action' => 'index']);
+}
+
+public function login(){
     if($this->request->is('post')){
         $session = $this->request->session();
         $retailer = $_POST['retailer'];
@@ -260,6 +359,17 @@ class RetailerEmployeesController extends AppController
 
         $retaileremployee = $this->Auth->identify();
         if($retaileremployee){
+            if($retaileremployee['activation_status'] == 'Deactivated'){
+                $this->Flash->error('Your account has not been activated yet. Please check your email');
+
+                return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'index']);
+            }
+
+            if($retaileremployee['recovery_status'] == 'Pending'){
+                $this->Flash->error('Your account has not been recovered yet. Please check your email.');
+
+                return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'index']);
+            }
             $this->Auth->setUser($retaileremployee);
             $session->write('retailer', $retailer); 
             $session->write('retailer_employee_id',$retaileremployee['id']);
@@ -271,45 +381,118 @@ class RetailerEmployeesController extends AppController
             return $this->redirect(['controller' => 'Pages', 'action' => 'retailer']);
             //return $this->redirect($this->Auth->redirectUrl());            
         }
-            $this->Flash->error('Incorrect Login');   
-        }
+        $this->Flash->error('Incorrect Login');   
     }
+}
 
-    public function managerActions($id = null)
-    {
-        $retailerEmployee = $this->RetailerEmployees->get($id, [
-            'contain' => ['Messages', 'RetailerEmployeeRoles']
+public function managerActions($id = null)
+{
+    $retailerEmployee = $this->RetailerEmployees->get($id, [
+        'contain' => ['Messages', 'RetailerEmployeeRoles']
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
-            if ($this->RetailerEmployees->save($retailerEmployee)) {
-                $this->Flash->success(__('The retailer employee has been saved.'));
-                
-                //$this->loadComponent('Logging');            
-                $this->Logging->rLog($session->read('retailer_employee_id'));
-                $this->Logging->iLog($retailer, $session->read('retailer_employee_id'));
+    if ($this->request->is(['patch', 'post', 'put'])) {
+        $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
+        if ($this->RetailerEmployees->save($retailerEmployee)) {
+            $this->Flash->success(__('The retailer employee has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The retailer employee could not be saved. Please, try again.'));
+                //$this->loadComponent('Logging');            
+            $this->Logging->rLog($session->read('retailer_employee_id'));
+            $this->Logging->iLog($retailer, $session->read('retailer_employee_id'));
+
+            return $this->redirect(['action' => 'index']);
         }
-        $locations = $this->RetailerEmployees->Locations->find('list', ['limit' => 200]);
-        $messages = $this->RetailerEmployees->Messages->find('list', ['limit' => 200]);
-        $retailerEmployeeRoles = $this->RetailerEmployees->RetailerEmployeeRoles->find('list', ['limit' => 200]);
-        $this->set(compact('retailerEmployee', 'locations', 'messages', 'retailerEmployeeRoles'));
-        $this->set('_serialize', ['retailerEmployee']);
+        $this->Flash->error(__('The retailer employee could not be saved. Please, try again.'));
+    }
+    $locations = $this->RetailerEmployees->Locations->find('list', ['limit' => 200]);
+    $messages = $this->RetailerEmployees->Messages->find('list', ['limit' => 200]);
+    $retailerEmployeeRoles = $this->RetailerEmployees->RetailerEmployeeRoles->find('list', ['limit' => 200]);
+    $this->set(compact('retailerEmployee', 'locations', 'messages', 'retailerEmployeeRoles'));
+    $this->set('_serialize', ['retailerEmployee']);
+}
+
+public function recover(){
+
+    $this->loadComponent('Generator');
+    $email = $_POST['email'];
+    $query = $this->RetailerEmployees->find('all', [
+        'conditions' => ['email' => $email],
+        ]);
+
+        //check if user exists based on email
+    if($query->count() == 0){
+        $this->Flash->error(__('Invalid email address'));
+
+            //$this->loadComponent('Logging'); 
+        return $this->redirect(['action' => 'index']);
     }
 
-    public function logout(){
-        $this->Flash->success('You are now logged out');
-        $this->Auth->logout();
-        $session = $this->request->session();
-        $session->destroy();
+    $row = $query->first();
+    $retaileremployee = $this->RetailerEmployees->get($row['id']);
+    $this->Logging->iLog(null, $retaileremployee['id']);
+
+    $newPass = $this->Generator->generateString();
+    $retaileremployee->password = $newPass;
+    $retaileremployee->recovery_status = 'Pending';
+    $retaileremployee->recovery_token = $this->Generator->generateString();
+
+    if ($this->RetailerEmployees->save($retaileremployee)){
+
+
+        $email = new Email('default');
+        $email->template('recovery');
+        $email->emailFormat('html');
+        $email->to($retaileremployee['email']);
+        $email->subject('Password Recovery');
+        $email->from('tanyongming90@gmail.com');
+
+        $email->send($retaileremployee['first_name'] . ',' .
+            $retaileremployee['username'] . ',' .
+            $newPass . ',' .
+            env('SERVER_NAME') . ',' . 
+            $retaileremployee['id'] . ',' . 
+            $retaileremployee['recovery_token'] . ',' .   
+            'retailer-employees');
+
+        $this->Flash->success(__('Password Reset Email Sent, please check your email.'));
+        return $this->redirect(['action' => 'index']);
+    }
+
+}
+
+public function recoverActivate($id, $token){
+
+    $retailerEmployee = $this->RetailerEmployees->get($id);
+    if($retailerEmployee['recovery_status'] == NULL){
+        $this->Flash->success(__('Your account has already been recovered.'));
+        return $this->redirect(['action' => 'index']);
+    }
+
+    if ($retailerEmployee && $retailerEmployee['recovery_token'] == $token) {
+
+
+        $retailerEmployee->recovery_status = NULL;
+        $retailerEmployee->recovery_token = NULL;
+        $this->RetailerEmployees->save($retailerEmployee);
+
+        $this->Flash->success(__('Your account has been recovered. Please log in using your new username and password.'));
+        return $this->redirect(['action' => 'index']);
+
+    }
+    $this->Flash->error(__('There is something wrong with the activation link'));
+    return $this->redirect(['action' => 'index']);
+
+}
+
+public function logout(){
+    $this->Flash->success('You are now logged out');
+    $this->Auth->logout();
+    $session = $this->request->session();
+    $session->destroy();
 
         //$this->loadComponent('Logging');             
-        $this->Logging->rLog($session->read('retailer_employee_id'));
-        $this->Logging->iLog($session->read('retailer'), $session->read('retailer_employee_id'));
-        
-        return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
-    }
+    $this->Logging->rLog($session->read('retailer_employee_id'));
+    $this->Logging->iLog($session->read('retailer'), $session->read('retailer_employee_id'));
+
+    return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
+}
 }

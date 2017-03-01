@@ -48,7 +48,7 @@
 				<?=  $this->Form->create(); ?>
 					<?=  $this->Form->input('username', array('required' => true)); ?>
 					<?=  $this->Form->input('password', array('type' => 'password','required' => true)); ?>
-					<?=  $this->Form->input('retailer'); ?>
+					<?=  $this->Form->input('retailer',array('required' => true)); ?>
 					<hr>
 					<?=  $this->Form->submit('Login', 
 					array(	'class' => 'btn btn-lg btn-primary btn-block', 

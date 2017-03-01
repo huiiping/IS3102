@@ -23,7 +23,7 @@ echo 'Dear '.$content[0].',' .'<br><br>';
 
 echo 'Someone has requested a password reset for your account. ' . 
 'Please click the following link to recover your account: ' . '<br>';
-echo 'http://' . $content[3] . '/intrasys-employees/recoverActivate/' . $content[4] . '/' . $content[5] . '<br><br>';
+echo 'http://' . $content[3] . '/'. $content[6] . '/recoverActivate/' . $content[4] . '/' . $content[5] . '<br><br>';
 echo 'After recovering your account, please log in using the new credentials: ' . '<br>';
 echo 'Username: ' . $content[1] . '<br>';
 echo 'Password: ' . $content[2] . '<br>';
