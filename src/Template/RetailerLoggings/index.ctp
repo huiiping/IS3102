@@ -4,7 +4,11 @@
   */
 ?>
 
-<?= $this->Element('retailerLeftSideBar'); ?>
+<?php if($intrasys) : ?>
+  <?= $this->Element('intrasysLeftSideBar'); ?>
+<?php else : ?>
+  <?= $this->Element('retailerLeftSideBar'); ?>
+<?php endif; ?>
 
 <!-- Main Content -->
 <div class="content-wrapper">

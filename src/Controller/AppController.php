@@ -100,6 +100,8 @@ class AppController extends Controller
             $this->set('intrasys', true);
         } else {
             $this->set('intrasys', false);
+            $db = $this->request->session()->read('database');
+            $this->set('dbName', $db); //store database name
         }
 
         //check user type --> supplier

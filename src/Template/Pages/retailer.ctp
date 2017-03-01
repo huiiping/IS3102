@@ -34,9 +34,9 @@
         <div class="box box-primary" id="box">
           <div class="box-header with-border">
           <br><br>
-            <h1 class="text-center">Welcome to Intrasys CLRMS!</h1>
+            <h1 class="text-center">Welcome to <?= ucfirst(substr($dbName, 0, -2)) ?> Home Page!</h1>
             <hr>
-            <h3 class="text-center">Provider of RFID Solutions | RFID Readers | RFID Solutions Singapore</h3>
+            <!--<h3 class="text-center">Provider of RFID Solutions | RFID Readers | RFID Solutions Singapore</h3>-->
             <!--<div class="panel panel-default " id="form_box">
               <div class="panel-heading">
                 <h2 id="loginheading" class="panel-title text-center"></h2>   

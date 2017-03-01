@@ -39,7 +39,7 @@
                         <td><?= $this->Number->format($intrasysLogging->entityid) ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Employeeid') ?></th>
+                        <th scope="row"><?= __('Employee Id') ?></th>
                         <td><?= $this->Number->format($intrasysLogging->employeeid) ?></td>
                     </tr>
                     <tr>

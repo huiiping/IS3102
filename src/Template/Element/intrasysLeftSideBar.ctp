@@ -24,7 +24,8 @@
       <?= $this->Element('sideBar', array('type' => 'Retailer Account Types', 'typePlural' => 'RetailerAccTypes')); ?>
       <?= $this->Element('sideBar', array('type' => 'Retailer Loyalty Points', 'typePlural' => 'RetailerLoyaltyPoints')); ?>
       <?= $this->Element('sideBar', array('type' => 'System Announcements', 'typePlural' => 'Announcements')); ?>
-      <?= $this->Element('sideBar2', array('type' => 'Loggings', 'typePlural' => 'IntrasysLoggings')); ?>
+      <?= $this->Element('sideBar2', array('type' => 'Intrasys Loggings', 'typePlural' => 'IntrasysLoggings')); ?>
+      <?= $this->Element('sideBar2', array('type' => 'Retailer Loggings', 'typePlural' => 'RetailerLoggings')); ?>
 
       <!--<li class="treeview">
         <a href="">

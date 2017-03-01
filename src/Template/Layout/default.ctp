@@ -118,17 +118,26 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       <!-- Top Left Logo -->
       <?php if($intrasys) : ?>
         <a href="/IS3102_Final/pages/intrasys" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>Int</b></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>Intrasys</b></span>
       <?php else : ?>
         <?php if($type) : ?>
           <a href="/IS3102_Final/pages/supplier" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b><?= ucfirst(substr($_SESSION['Auth']['User']['supplier_name'],0,3)) ?></b></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b><?= ucfirst($_SESSION['Auth']['User']['supplier_name']) ?></b></span>
         <?php else : ?>
           <a href="/IS3102_Final/pages/retailer" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b><?= ucfirst(substr($dbName, 0, 3)) ?></b></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b><?= ucfirst(substr($dbName, 0, -2)) ?></b></span>
         <?php endif; ?>
       <?php endif; ?>
-    	  <!-- mini logo for sidebar mini 50x50 pixels -->
-    	  <span class="logo-mini"><b>Int</b></span>
-    	  <!-- logo for regular state and mobile devices -->
-    	  <span class="logo-lg"><b>Intrasys</b></span>
+    	  
     	</a>	
 
     	<!-- Header Navbar: style can be found in header.less -->

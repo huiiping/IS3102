@@ -4,7 +4,11 @@
   */
 ?>
 
-<?= $this->Element('retailerLeftSideBar'); ?>
+<?php if($intrasys) : ?>
+  <?= $this->Element('intrasysLeftSideBar'); ?>
+<?php else : ?>
+  <?= $this->Element('retailerLeftSideBar'); ?>
+<?php endif; ?>
 
 <!-- Main Content -->
 <div class="content-wrapper">
@@ -31,7 +35,7 @@
                       <td><?= h($retailerLogging->entity) ?></td>
                   </tr>
                   <tr>
-                      <th scope="row"><?= __('Entityid') ?></th>
+                      <th scope="row"><?= __('Entity Id') ?></th>
                       <td><?= $this->Number->format($retailerLogging->entityid) ?></td>
                   </tr>
                   <tr>

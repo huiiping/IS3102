@@ -37,7 +37,7 @@
                     <?php foreach ($intrasysLoggings as $intrasysLogging): ?>
                     <tr>
                         <td><?= $this->Number->format($intrasysLogging->id) ?></td>
-                        <td><?= $intrasysLogging->has('retailer') ? $this->Html->link($intrasysLogging->retailer->id, ['controller' => 'Retailers', 'action' => 'view', $intrasysLogging->retailer->id]) : '' ?></td>
+                        <td><?= $intrasysLogging->has('retailer') ? $this->Html->link($intrasysLogging->retailer->retailer_name, ['controller' => 'Retailers', 'action' => 'view', $intrasysLogging->retailer->id]) : '' ?></td>
                         <td><?= h($intrasysLogging->action) ?></td>
                         <!--<td><?= h($intrasysLogging->entity) ?></td>
                         <td><?= $this->Number->format($intrasysLogging->entityid) ?></td>
