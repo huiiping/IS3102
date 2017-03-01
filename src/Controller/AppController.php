@@ -127,8 +127,8 @@ class AppController extends Controller
         //Reading the database
         $session = $this->request->session();
         $database = $session->read('database');
-        debugger::dump($database);
-        Debugger::dump($user);
+        //debugger::dump($database);
+        //Debugger::dump($user);
 
         /*if($user['account_status'] == 'deactivated' || $user['account_status'] == 'banned' ){
             $this->Flash->error(__('Your account is '.$user['account_status']));
@@ -146,10 +146,10 @@ class AppController extends Controller
                     ->extract('intrasys_employee_role_id');
 
             foreach ($allRoles as $intrasysEmployeeRole) {
-                echo "IER: ".$intrasysEmployeeRole;
-                echo "Controller: ".$controllerName;
-                echo "Method: ".$methodName;
-                echo "From Page: ".$previousPage;
+                //echo "IER: ".$intrasysEmployeeRole;
+                //echo "Controller: ".$controllerName;
+                //echo "Method: ".$methodName;
+                //echo "From Page: ".$previousPage;
 
             //MUST ENSURE THAT IN THE INTRASYS DATABASE THE ID STARTS FROM 1
                 if($intrasysEmployeeRole == '1' ){
@@ -261,7 +261,7 @@ class AppController extends Controller
                     }
                 }
 
-                if($controllerName != 'IntrasysEmployees' && $methodName != 'login') {
+                if($controllerName != 'Pages' && $methodName != 'display') {
                 $this->Flash->error(__('You are not authorized to access that function.'));
                 return $this->redirect($this->referer()); 
                 }
@@ -281,8 +281,327 @@ class AppController extends Controller
                 echo "Controller: ".$controllerName;
                 echo "Method: ".$methodName;
                 echo "From Page: ".$previousPage;*/
-            echo("RETAILER EMPLOYEES");
-                return;
+            //echo("RETAILER EMPLOYEES");
+    
+        $RetailerEmployeeRoles = TableRegistry::get('RetailerEmployeesRetailerEmployeeRoles');
+            $allRoles = $RetailerEmployeeRoles
+                    ->find()
+                    ->where(['retailer_employee_id' => $user['id']])
+                    ->extract('retailer_employee_role_id');
+
+            foreach ($allRoles as $retailerEmployeeRole) {
+                //echo "IER: ".$retailerEmployeeRole;
+                //echo "Controller: ".$controllerName;
+                //echo "Method: ".$methodName;
+                //echo "From Page: ".$previousPage;
+
+            //MUST ENSURE THAT IN THE INTRASYS DATABASE THE ID STARTS FROM 1
+                //Employee Roles User
+                if($retailerEmployeeRole == '1' ){
+                    if($controllerName == 'RetailerEmployeeRoles'){
+                        if($methodName == 'index' || $methodName == 'view') {
+                            return;
+                        }
+                    }
+                }
+                //Employee Accounts Manager
+                if($retailerEmployeeRole == '2'){
+                    if($controllerName == 'RetailerEmployees'){
+                        return;
+                    }
+                }
+                //Employee Accounts Admin
+                if($retailerEmployeeRole == '3'){
+                    if($controllerName == 'RetailerEmployees'){
+                        if($methodName == 'index' || $methodName == 'add' || $methodName == 'edit') {
+                            return;
+                        }
+                    }   
+                }
+                //Normal User
+                if($retailerEmployeeRole == '4'){
+                    if($controllerName == 'RetailerEmployees'){
+                        if($methodName == 'index' || $methodName == 'edit') {
+                            return;
+                        }
+                    }   
+                }
+                //Employee Accounts User
+                if($retailerEmployeeRole == '5'){
+                    if($controllerName == 'RetailerEmployees'){
+                        if($methodName == 'index' || $methodName == 'view') {
+                            return;
+                        }
+                    }
+                }
+                //Company Info Admin
+                if($retailerEmployeeRole == '6'){
+                    if($controllerName == 'RetailerDetails'){
+                        return;
+                        }
+                    }
+                //Customers Membership Manager
+                if($retailerEmployeeRole == '7'){
+                    if($controllerName == 'CustMembershipTiers'){
+                        return;
+                        }
+                    }
+                //Customers Membership User    
+                if($retailerEmployeeRole == '8'){
+                    if($controllerName == 'CustMembershipTiers'){
+                        if($methodName == 'index' || $methodName == 'view'){
+                            return;
+                        }
+                    }
+                }
+                //Customers User
+                if($retailerEmployeeRole == '9'){
+                    if($controllerName == 'Customers'){
+                      if($methodName == 'index' || $methodName == 'view'){
+                            return;
+                        }
+                    }
+                }
+                //Product Types Manager
+                if($retailerEmployeeRole == '10'){
+                    if($controllerName == 'ProdTypes'){
+                            return;
+                        }
+                    }
+                //Product Types Admin
+                if($retailerEmployeeRole == '11'){
+                    if($controllerName == 'ProdTypes'){
+                      if($methodName == 'index' || $methodName == 'add' || $methodName == 'edit'){
+                            return;
+                        }
+                    }
+                }
+                //Product Types User
+                if($retailerEmployeeRole == '12'){
+                    if($controllerName == 'ProdTypes'){
+                    if($methodName == 'index' || $methodName == 'view'){
+                            return;
+                        }
+                    }
+                }
+                //Product Categories Manager
+                if($retailerEmployeeRole == '13'){
+                    if($controllerName == 'ProdCats'){
+                            return;
+                        }
+                    }
+                //Product Categories Admin
+                if($retailerEmployeeRole == '14'){
+                    if($controllerName == 'ProdCats'){
+                      if($methodName == 'index' || $methodName == 'add' || $methodName == 'edit'){
+                            return;
+                        }
+                    }
+                }
+                //Product Categories User
+                if($retailerEmployeeRole == '15'){
+                    if($controllerName == 'ProdCats'){
+                    if($methodName == 'index' || $methodName == 'view'){
+                            return;
+                        }
+                    }
+                }
+                //Purchase Orders Manager
+                if($retailerEmployeeRole == '16'){
+                    if($controllerName == 'PurchaseOrders'){
+                            return;
+                        }
+                    }
+                
+
+                //Purchase Orders User
+                if($retailerEmployeeRole == '17'){
+                    if($controllerName == 'PurchaseOrders'){
+                        if($methodName == 'index' || $methodName == 'view'){
+                            return;
+                        }
+                    }
+                }
+
+                //Purchase Orders Admin
+                if($retailerEmployeeRole == '18'){
+                    if($controllerName == 'PurchaseOrders'){
+                        if($methodName == 'index' || $methodName == 'add' || $methodName == 'edit'){
+                            return;
+                        }
+                    }
+                }
+
+                //Suppliers Accounts Manager
+                if($retailerEmployeeRole == '19'){
+                    if($controllerName == 'Suppliers'){
+                            return;
+                        }
+                    }
+                
+                //Suppliers Accounts User
+                if($retailerEmployeeRole == '20'){
+                    if($controllerName == 'Suppliers'){
+                        if($methodName == 'index' || $methodName == 'view'){
+                            return;
+                        }
+                    }
+                }
+
+                //Suppliers Accounts Admin
+                if($retailerEmployeeRole == '21'){
+                    if($controllerName == 'Suppliers'){
+                        if($methodName == 'index' || $methodName == 'add' || $methodName == 'edit'){
+                            return;
+                        }
+                    }
+                }
+
+                //Suppliers Memos Manager
+                if($retailerEmployeeRole == '22'){
+                    if($controllerName == 'SupplierMemos'){
+                            return;
+                        }
+                    }
+                
+                //Suppliers Memos User
+                if($retailerEmployeeRole == '23'){
+                    if($controllerName == 'SupplierMemos'){
+                        if($methodName == 'index' || $methodName == 'view'){
+                            return;
+                        }
+                    }
+                }
+
+                //Suppliers Memos Admin
+                if($retailerEmployeeRole == '24'){
+                    if($controllerName == 'SupplierMemos'){
+                        if($methodName == 'index' || $methodName == 'add' || $methodName == 'edit'){
+                            return;
+                        }
+                    }
+                }
+
+                //Supplier
+                if($retailerEmployeeRole == '25'){
+                    if($controllerName == 'Suppliers'){
+                        if($methodName == 'index' || $methodName == 'edit'){
+                            return;
+                        }
+                    }
+                }
+
+                //Promotional Schemes Manager
+                if($retailerEmployeeRole == '26'){
+                    if($controllerName == 'Promotions'){
+                            return;
+                        }
+                    }
+                
+                //Promotional Schemes User
+                if($retailerEmployeeRole == '27'){
+                    if($controllerName == 'Promotions'){
+                        if($methodName == 'index' || $methodName == 'view'){
+                            return;
+                        }
+                    }
+                }
+
+                //Promotional Schemes Admin
+                if($retailerEmployeeRole == '28'){
+                    if($controllerName == 'Promotions'){
+                        if($methodName == 'index' || $methodName == 'add' || $methodName == 'edit'){
+                            return;
+                        }
+                    }
+                }
+                /*Wait for YM to bake promotional email table
+                //Promotional Email Manager
+                if($retailerEmployeeRole == '29'){
+                    if($controllerName == 'XX'){
+                            return;
+                        }
+                    }
+                
+                //Promotional Email User
+                if($retailerEmployeeRole == '30'){
+                    if($controllerName == 'XX'){
+                        if($methodName == 'index' || $methodName == 'view'){
+                            return;
+                        }
+                    }
+                }
+
+                //Promotional Email Admin
+                if($retailerEmployeeRole == '31'){
+                    if($controllerName == 'XX'){
+                        if($methodName == 'index' || $methodName == 'add' || $methodName == 'edit'){
+                            return;
+                        }
+                    }
+                }*/
+                //Communications User
+                if($retailerEmployeeRole == '32'){
+                    if($controllerName == 'Messages'){
+                            return;
+                        }
+                    }
+                //Warehouse Admin
+                if($retailerEmployeeRole == '33'){
+                    if($controllerName == 'Sections'){
+                        if($methodName == 'index' || $methodName == 'view'){
+                            return;
+                        }
+                    }
+                }
+                //Warehouse Layouts Manager
+                if($retailerEmployeeRole == '34'){
+                    if($controllerName == 'Sections'){
+                            return;
+                        }
+                    }
+                //Master Account
+                if($retailerEmployeeRole == '35'){
+                            return;
+                    }
+                //Loggings
+                if($retailerEmployeeRole == '36'){
+                    if($controllerName == 'RetailerLoggings'){
+                            return;
+                        }
+                    }
+                //Locations Admin
+                if($retailerEmployeeRole == '37'){
+                    if($controllerName == 'Locations'){
+                        if($methodName == 'index' || $methodName == 'add' || $methodName == 'edit'){
+                            return;
+                        }
+                    }
+                }
+                //Locations Manager
+                if($retailerEmployeeRole == '38'){
+                    if($controllerName == 'Locations'){
+                            return;
+                        }
+                    }
+                //Locations User
+                if($retailerEmployeeRole == '39'){
+                    if($controllerName == 'Locations'){
+                        if($methodName == 'index' || $methodName == 'view'){
+                            return;
+                        }
+                    }
+                }
+                
+
+                if($controllerName != 'Pages' && $methodName != 'display') {
+                $this->Flash->error(__('You are not authorized to access that function.'));
+                return $this->redirect($this->referer()); 
+                }
+
+                break; 
+        }
+        return;
 
 
     }
