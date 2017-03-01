@@ -104,7 +104,7 @@ class ProdCatsController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                $this->loadComponent('Logging');
+                //$this->loadComponent('Logging');
                 $this->Logging->rLog($prodCat['id']);
                 $this->Logging->iLog($retailer, $prodCat['id']);
 
