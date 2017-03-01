@@ -146,11 +146,11 @@ class AppController extends Controller
                 echo "Method: ".$methodName;
                 echo "From Page: ".$previousPage;
 
-            //MUST ENSURE THAT IN THE DATABASE THE ID STARTS FROM 1
+            //MUST ENSURE THAT IN THE INTRASYS DATABASE THE ID STARTS FROM 1
                 if($intrasysEmployeeRole == '1' ){
                     if($controllerName == 'Retailers'){
                             //is there going to be a search function? || $methodName == 'search')
-                        if($methodName == 'view') {
+                        if($methodName == 'index' || $methodName == 'view') {
                             return;
                         }
                     }
@@ -164,7 +164,7 @@ class AppController extends Controller
 
                 if($intrasysEmployeeRole == '3'){
                     if($controllerName == 'Retailers'){
-                        if($methodName == 'add' || $methodName == 'edit') {
+                        if($methodName == 'index' || $methodName == 'add' || $methodName == 'edit') {
                             return;
                         }
                     }   
@@ -179,7 +179,7 @@ class AppController extends Controller
                 if($intrasysEmployeeRole == '5'){
                     if($controllerName == 'Announcements'){
                         //is there going to be a search function?
-                        if($methodName == 'view'){
+                        if($methodName == 'index' || $methodName == 'view'){
                         return;
                         }
                     }
@@ -194,7 +194,7 @@ class AppController extends Controller
 
                 if($intrasysEmployeeRole == '7'){
                     if($controllerName == 'IntrasysEmployees'){
-                        if($methodName == 'edit'){
+                        if($methodName == 'index' || $methodName == 'edit'){
                             return;
                         }
                     }
@@ -203,7 +203,7 @@ class AppController extends Controller
                 if($intrasysEmployeeRole == '8'){
                     if($controllerName == 'IntrasysEmployees'){
                         //is there going to be a search function?
-                      if($methodName == 'view'){
+                      if($methodName == 'index' || $methodName == 'view'){
                             return;
                         }
                     }
@@ -211,7 +211,7 @@ class AppController extends Controller
 
                 if($intrasysEmployeeRole == '9'){
                     if($controllerName == 'IntrasysEmployeeRoles'){
-                        if($methodName == 'view'){
+                        if($methodName == 'index' || $methodName == 'view'){
                             return;
                         }
                     }
@@ -221,6 +221,40 @@ class AppController extends Controller
                     return;
                 }
 
+                if($intrasysEmployeeRole == '11'){
+                    if($controllerName == 'IntrasysLoggings'){
+                            return;
+                        }
+                    }
+                
+
+                if($intrasysEmployeeRole == '12'){
+                    if($controllerName == 'RetailerAccTypes'){
+                        if($methodName == 'index' || $methodName == 'view'){
+                            return;
+                        }
+                    }
+                }
+
+                if($intrasysEmployeeRole == '13'){
+                    if($controllerName == 'RetailerAccTypes'){
+                            return;
+                        }
+                    }
+
+                  if($intrasysEmployeeRole == '14'){
+                    if($controllerName == 'RetailerLoyaltyPoints'){
+                            return;
+                        }
+                    }
+
+                if($intrasysEmployeeRole == '15'){
+                    if($controllerName == 'RetailerLoyaltyPoints'){
+                        if($methodName == 'index' || $methodName == 'view'){
+                            return;
+                        }
+                    }
+                }
 
                 if($controllerName != 'IntrasysEmployees' && $methodName != 'login') {
                 $this->Flash->error(__('You are not authorized to access that function.'));
