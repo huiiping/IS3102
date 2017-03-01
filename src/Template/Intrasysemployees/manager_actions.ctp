@@ -25,7 +25,7 @@
                     <?php
                         echo $this->Form->input('first_name', array('readonly'=> 'readonly'));
                         echo $this->Form->input('last_name', array('readonly'=> 'readonly'));
-                        //echo $this->Form->input('activation_status');
+                        echo $this->Form->input('activation_status',['options' => ['activated' => 'Activated', 'banned' => 'Banned', 'deactivated' => 'Deactivated', 'banned' => 'Banned', 'terminated' => 'Terminated']]);
                         /*echo $this->Form->input('activation_token');
                         echo $this->Form->input('recovery_status');
                         echo $this->Form->input('recovery_token');*/

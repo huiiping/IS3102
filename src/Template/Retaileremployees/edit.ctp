@@ -30,7 +30,7 @@
                         echo $this->Form->input('email');
                         echo $this->Form->input('address');
                         echo $this->Form->input('contact');
-                        echo $this->Form->input('activation_status');
+                        //echo $this->Form->input('activation_status');
                         //echo $this->Form->input('activation_token');
                         //echo $this->Form->input('recovery_status');
                         //echo $this->Form->input('recovery_token');
