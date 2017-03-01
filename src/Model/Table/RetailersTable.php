@@ -28,6 +28,13 @@ class RetailersTable extends Table
         return 'intrasysdb';
     }
     
+    public $filterArgs = array(
+        'retailer_name' => array(
+            'type' => 'like',
+            'field' => 'retailer_name'
+        )
+    );
+
     /**
      * Initialize method
      *
@@ -51,6 +58,7 @@ class RetailersTable extends Table
         $this->hasMany('RetailerLoyaltyPoints', [
             'foreignKey' => 'retailer_id'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

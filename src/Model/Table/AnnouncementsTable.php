@@ -24,6 +24,13 @@ class AnnouncementsTable extends Table
     public static function defaultConnectionName() {
         return 'intrasysdb';
     }
+
+    public $filterArgs = array(
+        'title' => array(
+            'type' => 'like',
+            'field' => 'title'
+        )
+    );
     
     /**
      * Initialize method
@@ -40,6 +47,7 @@ class AnnouncementsTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Searchable');
     }
 
     /**

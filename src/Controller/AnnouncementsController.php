@@ -38,11 +38,17 @@ class AnnouncementsController extends AppController
      */
     public function index()
     {
-        $announcements = $this->paginate($this->Announcements);
+        //$announcements = $this->paginate($this->Announcements);
 
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+        $this->set('announcements', $this->paginate($this->Announcements->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('announcements'));
         $this->set('_serialize', ['announcements']);
     }
+    public $components = array(
+        'Prg'
+    );
 
     /**
      * View method

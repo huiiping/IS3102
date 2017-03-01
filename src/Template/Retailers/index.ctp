@@ -20,6 +20,20 @@
               <h3 class="box-title"><?= __('Retailers') ?></h3>
             </div>
             <div class="box-body">
+            <br>
+              <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                  <tr>
+                    <?php echo $this->Form->create(null);?>
+                      <th width="10"></th>
+                      <th scope="col"><?= $this->Form->input('retailer_name'); ?></th>
+                      <th width="30"></th>
+                      <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+                      <th width="10"></th>
+                      <?php echo $this->Form->end();?>
+                  </tr>
+              </table>
+
+              <br>
               <table class="table table-bordered table-striped">
                 <thead>
                     <tr>

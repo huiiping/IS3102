@@ -24,14 +24,20 @@ class RetailersController extends AppController
 
     public function index()
     {
+        //$retailers = $this->paginate($this->Retailers);
+
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
         $this->paginate = [
             'contain' => ['RetailerAccTypes']
         ];
-        $retailers = $this->paginate($this->Retailers);
-
+        $this->set('retailers', $this->paginate($this->Retailers->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('retailers'));
         $this->set('_serialize', ['retailers']);
     }
+    public $components = array(
+        'Prg'
+    );
 
     /**
      * View method
