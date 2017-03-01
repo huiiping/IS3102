@@ -194,7 +194,7 @@ class SuppliersController extends AppController
         if($supplier){
             $this->Auth->setUser($supplier);
             $session->write('supplier', $supplier); 
-            return $this->redirect(['controller' => 'Suppliers', 'action' => 'index']);
+            return $this->redirect(['controller' => 'Pages', 'action' => 'supplier']);
             //return $this->redirect($this->Auth->redirectUrl());            
         }
             $this->Flash->error('Incorrect Login');   

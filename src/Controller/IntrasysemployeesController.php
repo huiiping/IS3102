@@ -272,7 +272,7 @@ class IntrasysEmployeesController extends AppController
                     //$this->loadComponent('Logging');            
                     $this->Logging->iLog(null, $intrasysemployee['id']);
 
-    				return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'index']);
+    				return $this->redirect(['controller' => 'Pages', 'action' => 'intrasys']);
                     
     			
     		}

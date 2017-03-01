@@ -116,7 +116,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     
     <header class="main-header">
       <!-- Top Left Logo -->
-      <a href="" class="logo">
+      <?php if($intrasys) : ?>
+        <a href="/IS3102_Final/pages/intrasys" class="logo">
+      <?php else : ?>
+        <?php if($type) : ?>
+          <a href="/IS3102_Final/pages/supplier" class="logo">
+        <?php else : ?>
+          <a href="/IS3102_Final/pages/retailer" class="logo">
+        <?php endif; ?>
+      <?php endif; ?>
     	  <!-- mini logo for sidebar mini 50x50 pixels -->
     	  <span class="logo-mini"><b>Int</b></span>
     	  <!-- logo for regular state and mobile devices -->
