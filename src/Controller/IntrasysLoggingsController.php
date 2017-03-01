@@ -135,4 +135,17 @@ class IntrasysLoggingsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function export() {
+        
+        $this->response->download('intrasyslog_'.date("d-m-y:h:s").'.csv');
+        $data = $this->IntrasysLoggings->find('all')->toArray();
+        $_serialize = 'data';
+        $_header = ['ID', 'Retailer ID', 'Action', 'Entity', 'Entity ID', 'Employee ID', 'Created'];
+        //$_extract = ['id', 'action', 'entity'];
+        //$this->set(compact('data', '_serialize', '_header', '_extract'));
+        $this->set(compact('data', '_serialize', '_header'));
+        $this->viewBuilder()->className('CsvView.Csv');
+        return;
+    }
 }
