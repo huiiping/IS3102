@@ -4,6 +4,8 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Datasource\ConnectionManager;
 use Cake\Event\Event;
+use Cake\Error\Debugger;
+use Cake\ORM\TableRegistry;
 
 /**
  * Retailers Controller
@@ -86,13 +88,45 @@ class RetailersController extends AppController
                 exec("C:/xampp/mysql/bin/mysql -uroot -pjoy -D$database < \"$scriptpath\"");
                 //---------------------------------------------------*/
 
-                return $this->redirect(['action' => 'index']);
+                $this->createTable($database,$retailer);
+                
             }
-            $this->Flash->error(__('The retailer could not be saved. Please, try again.'));
         }
         $retailerAccTypes = $this->Retailers->RetailerAccTypes->find('list', ['limit' => 200]);
         $this->set(compact('retailer', 'retailerAccTypes'));
         $this->set('_serialize', ['retailer']);
+    }
+
+
+    public function createTable($database,$retailer){
+                ConnectionManager::drop('conn1'); 
+                ConnectionManager::config('conn1', [
+                'className' => 'Cake\Database\Connection',
+                'driver' => 'Cake\Database\Driver\Mysql',
+                'persistent' => false,
+                'host' => 'localhost',
+                'username' => 'root',
+                'password' => 'joy',
+                'database' => $database,
+                'encoding' => 'utf8',
+                'timezone' => 'UTC',
+                'cacheMetadata' => true,
+            ]);
+                Debugger::dump('ADDRETAILER- DATABASENAME');
+                Debugger::dump($database);
+                Debugger::dump($retailer['retailer_name']);
+                $name = $retailer['retailer_name'];
+                $conn = ConnectionManager::get('conn1');
+                $sql = "INSERT INTO Retailer_employees (username, password)  
+                VALUES ('$name','123')";
+
+                $conn->query($sql);
+
+                return $this->redirect(['action' => 'index']);
+            
+            $this->Flash->error(__('The retailer could not be saved. Please, try again.'));
+            $this->set(compact('retailer'));
+            $this->set('_serialize', ['retailer']);
     }
 
     /**
