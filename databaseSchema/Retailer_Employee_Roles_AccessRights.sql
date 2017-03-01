@@ -103,3 +103,14 @@ VALUES ('Warehouse Layouts Manager','Manage Warehouse Layouts');
 INSERT INTO retailer_employee_roles (role_name, role_desc)
 VALUES ('Master Account','All Actions');
 
+INSERT INTO retailer_employee_roles (role_name, role_desc)
+VALUES ('Loggings Admin','Manage Retailer Loggings');
+
+INSERT INTO retailer_employee_roles (role_name, role_desc)
+VALUES ('Locations Admin','Create/Edit Locations');
+
+INSERT INTO retailer_employee_roles (role_name, role_desc)
+VALUES ('Locations Manager','Manage Locations');
+
+INSERT INTO retailer_employee_roles (role_name, role_desc)
+VALUES ('Locations User','View/Search Locations');

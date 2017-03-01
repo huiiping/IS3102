@@ -29,3 +29,17 @@ VALUES ('Employee Roles User','View/Search Employee Roles');
 INSERT INTO intrasys_employee_roles (role_name, role_desc)
 VALUES ('Master Account','All Actions');
 
+INSERT INTO intrasys_employee_roles (role_name, role_desc)
+VALUES ('Loggings Admin','Manage Intrasys Loggings');
+
+INSERT INTO intrasys_employee_roles (role_name, role_desc)
+VALUES ('Retailer Account Types User','View/Search Retailer Account Types');
+
+INSERT INTO intrasys_employee_roles (role_name, role_desc)
+VALUES ('Retailer Account Types Admin','Manage Retailer Account Types');
+
+INSERT INTO intrasys_employee_roles (role_name, role_desc)
+VALUES ('Retailer Loyalty Points Admin','Manage Retailer Loyalty Points');
+
+INSERT INTO intrasys_employee_roles (role_name, role_desc)
+VALUES ('Retailer Loyalty Points User','View/Search Loyalty Points');
