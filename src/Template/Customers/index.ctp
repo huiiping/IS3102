@@ -20,6 +20,35 @@
               <h3 class="box-title"><?= __('Customers') ?></h3>
             </div>
             <div class="box-body">
+            <br>
+                <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                    <tr>
+                        <?php echo $this->Form->create(null);?>
+                        <th width="10"></th>
+                        <th scope="col"><?= $this->Form->input('username'); ?></th>
+                        <th width="60"></th>
+                        <th scope="col"><?= $this->Form->input('email'); ?></th>
+                        <th width="60"></th>
+                        <th scope="col"></th>
+                        <th width="30"></th>
+                        <th scope="col"></th>
+                        <th width="10"></th>
+                    </tr>
+                    <tr>
+                        <th width="10"></th>
+                        <th scope="col"><?= $this->Form->input('first_name'); ?></th>
+                        <th width="60"></th>
+                        <th scope="col"><?= $this->Form->input('last_name'); ?></th>
+                        <th width="60"></th>
+                        <th scope="col"><?= $this->Form->input('address'); ?></th>
+                        <th width="30"></th>
+                        <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+                        <th width="10"></th>
+                        <?php echo $this->Form->end();?>
+                    </tr>
+                </table>
+                <br>
+
               <table class="table table-bordered table-striped">
                 <thead>
                     <tr>

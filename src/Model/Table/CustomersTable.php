@@ -25,6 +25,29 @@ use Cake\Validation\Validator;
 class CustomersTable extends Table
 {
 
+    public $filterArgs = array(
+        'username' => array(
+            'type' => 'like',
+            'field' => 'username'
+        ),
+        'email' => array(
+            'type' => 'like',
+            'field' => 'email'
+        ),
+        'address' => array(
+            'type' => 'like',
+            'field' => 'address'
+        ),
+        'first_name' => array(
+            'type' => 'like',
+            'field' => 'first_name'
+        ),
+        'last_name' => array(
+            'type' => 'like',
+            'field' => 'last_name'
+        )
+    );
+
     /**
      * Initialize method
      *
@@ -50,6 +73,7 @@ class CustomersTable extends Table
             'targetForeignKey' => 'promotion_id',
             'joinTable' => 'customers_promotions'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

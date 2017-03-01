@@ -26,11 +26,16 @@ class ProdCatsController extends AppController
      */
     public function index()
     {
-        $prodCats = $this->paginate($this->ProdCats);
-
+        //$prodCats = $this->paginate($this->ProdCats);
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+        $this->set('prodCats', $this->paginate($this->ProdCats->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('prodCats'));
         $this->set('_serialize', ['prodCats']);
     }
+    public $components = array(
+        'Prg'
+    );
 
     /**
      * View method

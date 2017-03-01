@@ -61,6 +61,10 @@ class RetailerEmployeeRolesTable extends Table
         'location' => array(
             'type' => 'like',
             'field' => 'location_id'
+        ),
+        'role_name' => array(
+            'type' => 'like',
+            'field' => 'role_name'
         )
     );
     /**

@@ -26,14 +26,19 @@ class CustomersController extends AppController
      */
     public function index()
     {
+        //$customers = $this->paginate($this->Customers);
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+        $this->set('customers', $this->paginate($this->Customers->find('searchable', $this->Prg->parsedParams())));
         $this->paginate = [
             'contain' => ['CustMembershipTiers']
         ];
-        $customers = $this->paginate($this->Customers);
-
         $this->set(compact('customers'));
         $this->set('_serialize', ['customers']);
     }
+    public $components = array(
+        'Prg'
+    );
 
     /**
      * View method

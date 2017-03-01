@@ -35,7 +35,6 @@ class ProdTypesController extends AppController
             'contain' => ['ProdCats']
         ];
         $this->set('prodTypes', $this->paginate($this->ProdTypes->find('searchable', $this->Prg->parsedParams())));
-
         $this->set(compact('prodTypes'));
         $this->set('_serialize', ['prodTypes']);
     }

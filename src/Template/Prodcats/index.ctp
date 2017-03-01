@@ -20,11 +20,27 @@
               <h3 class="box-title"><?= __('Product Categories') ?></h3>
             </div>
             <div class="box-body">
+            <br>
+              <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                  <tr>
+                    <?php echo $this->Form->create(null);?>
+                      <th width="10"></th>
+                      <th scope="col"><?= $this->Form->input(('cat_name'), ['label' => 'Category Name']); ?></th>
+                      <th width="60"></th>
+                      <th scope="col"><?= $this->Form->input(('cat_desc'), ['label' => 'Category Description']); ?></th>
+                      <th width="30"></th>
+                      <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+                      <th width="10"></th>
+                      <?php echo $this->Form->end();?>
+                  </tr>
+              </table>
+
+              <br>
               <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('cat_name') ?></th>
+                        <th scope="col"><?= $this->Paginator->sort(('cat_name'), ['label' => 'Category Name']) ?></th>
                         <th scope="col" class="actions"><?= __('Actions') ?></th>
                     </tr>
                 </thead>

@@ -26,11 +26,16 @@ class RetailerEmployeeRolesController extends AppController
      */
     public function index()
     {
-        $retailerEmployeeRoles = $this->paginate($this->RetailerEmployeeRoles);
-
+        //$retailerEmployeeRoles = $this->paginate($this->RetailerEmployeeRoles);
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+        $this->set('retailerEmployeeRoles', $this->paginate($this->RetailerEmployeeRoles->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('retailerEmployeeRoles'));
         $this->set('_serialize', ['retailerEmployeeRoles']);
     }
+    public $components = array(
+        'Prg'
+    );
 
     /**
      * View method

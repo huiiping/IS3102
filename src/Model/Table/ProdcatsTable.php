@@ -22,6 +22,16 @@ use Cake\Validation\Validator;
 class ProdCatsTable extends Table
 {
 
+    public $filterArgs = array(
+        'cat_name' => array(
+            'type' => 'like',
+            'field' => 'cat_name'
+        ),
+        'cat_desc' => array(
+            'type' => 'like',
+            'field' => 'cat_desc'
+        )
+    );
     /**
      * Initialize method
      *
@@ -39,6 +49,7 @@ class ProdCatsTable extends Table
         $this->hasMany('ProdTypes', [
             'foreignKey' => 'prod_cat_id'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**
