@@ -107,9 +107,6 @@ class LocationsController extends AppController
         //counting the retailer's existing number of locations of a certain type
         $query = $this->Locations->find()->where(['type' => $type]);
         $count = $query->count();
-        /*$locations = TableRegistry::get('Locations');
-        $query = $locations->find('all')->where(['type' => $type]);
-        $count = $query->count();*/
 
         //obtaining the retailer's limit on the number of locations of a certain type
         $conn = ConnectionManager::get('intrasysdb');
@@ -121,16 +118,29 @@ class LocationsController extends AppController
             ->execute()
             ->fetchAll('assoc');
         
-        $limit = $conn
+        $defaultNum = $conn
             ->newQuery()
             ->select('num_of_'.$type.'s')
             ->from('retailer_acc_types')
             ->where(['id' => $acctTypeID[0]], ['id' => 'integer[]'])
             ->execute()
             ->fetchAll('assoc');
-        $limit = Hash::extract($limit, '{n}.num_of_'.$type.'s');
+        $defaultNum = Hash::extract($defaultNum, '{n}.num_of_'.$type.'s');
 
-        if ($count >= $limit[0]) {
+        //The bonus number of units given to individual retailers
+        $bonus = $conn
+            ->newQuery()
+            ->select('num_of_'.$type.'s')
+            ->from('retailers')
+            ->where(['retailer_name' => $retailer])
+            ->execute()
+            ->fetchAll('assoc');
+        $bonus = Hash::extract($bonus, '{n}.num_of_'.$type.'s');
+
+        //Total units allocated to each retaiiler
+        $limit = $defaultNum[0] + $bonus[0]; 
+        
+        if ($count >= $limit) {
             return false;
         }
         return true;

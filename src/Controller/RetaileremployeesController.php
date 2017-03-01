@@ -7,6 +7,8 @@ use Cake\Datasource\ConnectionManager;
 use Cake\I18n\Time;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
+use Cake\Utility\Hash;
+
 
 /**
  * RetailerEmployees Controller
@@ -93,17 +95,22 @@ class RetailerEmployeesController extends AppController
         $retailerEmployee = $this->RetailerEmployees->newEntity();
         if ($this->request->is('post')) {
             $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
-            if ($this->RetailerEmployees->save($retailerEmployee)) {
-                $this->Flash->success(__('The retailer employee has been saved.'));
+            if ($this->withinLimit()) {
+                if ($this->RetailerEmployees->save($retailerEmployee)) {
+                    $this->Flash->success(__('The retailer employee has been saved.'));
 
-                $session = $this->request->session();
-                $retailer = $session->read('retailer');
+                    $session = $this->request->session();
+                    $retailer = $session->read('retailer');
 
-                //$this->loadComponent('Logging');
-                $this->Logging->rLog($retailerEmployee['id']);
-                $this->Logging->iLog($retailer, $retailerEmployee['id']);
+                    //$this->loadComponent('Logging');
+                    $this->Logging->rLog($retailerEmployee['id']);
+                    $this->Logging->iLog($retailer, $retailerEmployee['id']);
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
+                }
+            }
+            else {
+                $this->Flash->error(__('You have reached your maximum number of users! Please contact Intrasys to upgrade your account.'));
             }
             $this->Flash->error(__('The retailer employee could not be saved. Please, try again.'));
         }
@@ -112,6 +119,53 @@ class RetailerEmployeesController extends AppController
         $retailerEmployeeRoles = $this->RetailerEmployees->RetailerEmployeeRoles->find('list', ['limit' => 200]);
         $this->set(compact('retailerEmployee', 'locations', 'messages', 'retailerEmployeeRoles'));
         $this->set('_serialize', ['retailerEmployee']);
+    }
+
+    private function withinLimit()
+    {   
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        //counting the retailer's existing number of product types
+        $query = $this->RetailerEmployees->find();
+        $count = $query->count();
+
+        //obtaining the retailer's limit on the number of product types
+        $conn = ConnectionManager::get('intrasysdb');
+        $acctTypeID = $conn
+            ->newQuery()
+            ->select('retailer_acc_type_id')
+            ->from('retailers')
+            ->where(['retailer_name' => $retailer])
+            ->execute()
+            ->fetchAll('assoc');
+        
+        $defaultNum = $conn
+            ->newQuery()
+            ->select('num_of_users')
+            ->from('retailer_acc_types')
+            ->where(['id' => $acctTypeID[0]], ['id' => 'integer[]'])
+            ->execute()
+            ->fetchAll('assoc');
+        $defaultNum = Hash::extract($defaultNum, '{n}.num_of_users');
+
+        //The bonus number of units given to individual retailers
+        $bonus = $conn
+            ->newQuery()
+            ->select('num_of_users')
+            ->from('retailers')
+            ->where(['retailer_name' => $retailer])
+            ->execute()
+            ->fetchAll('assoc');
+        $bonus = Hash::extract($bonus, '{n}.num_of_users');
+
+        //Total number of product types allowed to the retailers
+        $limit = $defaultNum[0] + $bonus[0]; 
+        
+        if ($count >= $limit) {
+            return false;
+        }
+        return true;
     }
 
     /**

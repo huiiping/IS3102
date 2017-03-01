@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\Datasource\ConnectionManager;
+use Cake\Utility\Hash;
 
 /**
  * ProdTypes Controller
@@ -77,17 +79,22 @@ class ProdTypesController extends AppController
         $prodType = $this->ProdTypes->newEntity();
         if ($this->request->is('post')) {
             $prodType = $this->ProdTypes->patchEntity($prodType, $this->request->data);
-            if ($this->ProdTypes->save($prodType)) {
-                $this->Flash->success(__('The prod type has been saved.'));
+            if ($this->withinLimit()) {
+                if ($this->ProdTypes->save($prodType)) {
+                    $this->Flash->success(__('The prod type has been saved.'));
 
-                $session = $this->request->session();
-                $retailer = $session->read('retailer');
+                    $session = $this->request->session();
+                    $retailer = $session->read('retailer');
 
-                //$this->loadComponent('Logging');
-                $this->Logging->rLog($prodType['id']);
-                $this->Logging->iLog($retailer, $prodType['id']);
+                    //$this->loadComponent('Logging');
+                    $this->Logging->rLog($prodType['id']);
+                    $this->Logging->iLog($retailer, $prodType['id']);
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
+                }
+            }
+            else {
+                $this->Flash->error(__('You have reached your maximum number of Product Types! Please contact Intrasys to upgrade your account.'));
             }
             $this->Flash->error(__('The prod type could not be saved. Please, try again.'));
         }
@@ -95,6 +102,53 @@ class ProdTypesController extends AppController
         $promotions = $this->ProdTypes->Promotions->find('list', ['limit' => 200]);
         $this->set(compact('prodType', 'prodCats', 'promotions'));
         $this->set('_serialize', ['prodType']);
+    }
+
+    private function withinLimit()
+    {   
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        //counting the retailer's existing number of product types
+        $query = $this->ProdTypes->find();
+        $count = $query->count();
+
+        //obtaining the retailer's limit on the number of product types
+        $conn = ConnectionManager::get('intrasysdb');
+        $acctTypeID = $conn
+            ->newQuery()
+            ->select('retailer_acc_type_id')
+            ->from('retailers')
+            ->where(['retailer_name' => $retailer])
+            ->execute()
+            ->fetchAll('assoc');
+        
+        $defaultNum = $conn
+            ->newQuery()
+            ->select('num_of_product_types')
+            ->from('retailer_acc_types')
+            ->where(['id' => $acctTypeID[0]], ['id' => 'integer[]'])
+            ->execute()
+            ->fetchAll('assoc');
+        $defaultNum = Hash::extract($defaultNum, '{n}.num_of_product_types');
+
+        //The bonus number of units given to individual retailers
+        $bonus = $conn
+            ->newQuery()
+            ->select('num_of_product_types')
+            ->from('retailers')
+            ->where(['retailer_name' => $retailer])
+            ->execute()
+            ->fetchAll('assoc');
+        $bonus = Hash::extract($bonus, '{n}.num_of_product_types');
+
+        //Total number of product types allowed to the retailers
+        $limit = $defaultNum[0] + $bonus[0]; 
+        
+        if ($count >= $limit) {
+            return false;
+        }
+        return true;
     }
 
     /**

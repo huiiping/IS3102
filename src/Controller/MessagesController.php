@@ -40,8 +40,18 @@ class MessagesController extends AppController
 
         $this->set(compact('inboxMessages'));
         $this->set('_serialize', ['inboxMessages']);
+    }
 
-        $sentMessages = $this->paginate($this->Messages->find()->where(['id' => $id]));
+    public function viewSent()
+    {   
+        $session = $this->request->session();
+        $id = $session->read('retailer_employee_id');
+
+        $this->paginate = [
+            'contain' => ['RetailerEmployees']
+        ];
+
+        $sentMessages = $this->paginate($this->Messages->find()->where(['sender_id' => $id]));
 
         $this->set(compact('sentMessages'));
         $this->set('_serialize', ['sentMessages']);
@@ -164,5 +174,10 @@ class MessagesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function test()
+    {
+        
     }
 }

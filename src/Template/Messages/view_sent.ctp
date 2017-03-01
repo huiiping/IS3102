@@ -20,7 +20,7 @@
         <div class="col-xs-12">
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title"><?= __('Inbox Messages') ?></h3>
+              <h3 class="box-title"><?= __('Sent Messages') ?></h3>
             </div>
             <div class="box-body">
               <table class="table table-bordered table-striped">
@@ -37,7 +37,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($inboxMessages as $message): ?>
+                    <?php foreach ($sentMessages as $message): ?>
                     <tr>
                         <td><?= $this->Number->format($message->id) ?></td>
                         <td><?= h($message->title) ?></td>
