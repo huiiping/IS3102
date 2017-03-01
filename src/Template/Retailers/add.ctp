@@ -32,10 +32,11 @@
                         echo $this->Form->input('contact');
                         echo $this->Form->input('contract_start_date');
                         echo $this->Form->input('contract_end_date');
+                        /*Gwen: these fields are only for edit
                         echo $this->Form->input('num_of_users', ['label'=>'No. of Users']);
                         echo $this->Form->input('num_of_warehouses', ['label'=>'No. of Warehouses']);
                         echo $this->Form->input('num_of_stores', ['label'=>'No. of Stores']);
-                        echo $this->Form->input('num_of_product_types', ['label'=>'No. of Product Types']);
+                        echo $this->Form->input('num_of_product_types', ['label'=>'No. of Product Types']);*/
                         echo $this->Form->input('retailer_acc_type_id', ['label'=>'Retailer Account Type'], ['options' => $retailerAccTypes]);
                     ?>
                 </fieldset>

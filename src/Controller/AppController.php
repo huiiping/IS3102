@@ -124,7 +124,11 @@ class AppController extends Controller
         //Previous Page 
         $previousPage = $this->referer();
 
-        //Debugger::dump($user);
+        //Reading the database
+        $session = $this->request->session();
+        $database = $session->read('database');
+        debugger::dump($database);
+        Debugger::dump($user);
 
         /*if($user['account_status'] == 'deactivated' || $user['account_status'] == 'banned' ){
             $this->Flash->error(__('Your account is '.$user['account_status']));
@@ -133,7 +137,8 @@ class AppController extends Controller
             //return $this->redirect($this->Auth->logout());
         } */
 
-        if($user != null) {
+        if($user != null && $database == null) {
+            echo("INTRASYS EMPLOYEES");
         $IntrasysEmployeeRoles = TableRegistry::get('IntrasysEmployeesIntrasysEmployeeRoles');
             $allRoles = $IntrasysEmployeeRoles
                     ->find()
@@ -264,6 +269,22 @@ class AppController extends Controller
                 break; 
         }
         return;
+    } else if ($database != null) {
+        /*$RetailerEmployeeRoles = TableRegistry::get('IntrasysEmployeesIntrasysEmployeeRoles');
+            $allRoles = $IntrasysEmployeeRoles
+                    ->find()
+                    ->where(['intrasys_employee_id' => $user['id']])
+                    ->extract('intrasys_employee_role_id');
+
+            foreach ($allRoles as $intrasysEmployeeRole) {
+                echo "IER: ".$intrasysEmployeeRole;
+                echo "Controller: ".$controllerName;
+                echo "Method: ".$methodName;
+                echo "From Page: ".$previousPage;*/
+            echo("RETAILER EMPLOYEES");
+                return;
+
+
     }
 }
 
