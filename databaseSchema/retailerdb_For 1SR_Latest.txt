@@ -33,6 +33,20 @@ CREATE TABLE customers (
     FOREIGN KEY (cust_membership_tier_id) REFERENCES cust_membership_tiers(id)
 );
 
+CREATE TABLE promotion_emails (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    promotion_id INT,
+    cust_membership_tier_id INT,
+    title VARCHAR(100),
+    body VARCHAR(255),
+    last_sent DATETIME,
+    number_of_sends INT,
+    created DATETIME,
+    modified DATETIME,
+    FOREIGN KEY (promotion_id) REFERENCES promotions(id),
+    FOREIGN KEY (cust_membership_tier_id) REFERENCES cust_membership_tiers(id)
+);
+
 CREATE TABLE locations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
@@ -188,11 +202,11 @@ CREATE TABLE retailer_loggings (
     FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id)
 );
 
-CREATE TABLE customers_promotions (
-    customer_id INT NOT NULL,
+CREATE TABLE cust_membership_tiers_promotions (
+    cust_membership_tier_id INT NOT NULL,
     promotion_id INT NOT NULL,
-    PRIMARY KEY (customer_id, promotion_id),
-    FOREIGN KEY (customer_id) REFERENCES customers(id),
+    PRIMARY KEY (cust_membership_tier_id, promotion_id),
+    FOREIGN KEY (cust_membership_tier_id) REFERENCES customers(id),
     FOREIGN KEY (promotion_id) REFERENCES promotions(id)
 );
 
