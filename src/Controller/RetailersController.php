@@ -83,7 +83,7 @@ class RetailersController extends AppController
                 //$this->Logging->log($retailer['id']);
                 $this->Logging->iLog(null, $retailer['id']);
 
-                //Create new database for new retailer 
+                //Create new database for new retailer with tables
                 //Use the 'default' connection to create a new database
                 $conn = ConnectionManager::get('default');
                 $database = $retailer->retailer_name."db";
@@ -94,7 +94,7 @@ class RetailersController extends AppController
                 exec("C:/xampp/mysql/bin/mysql -uroot -pjoy -D$database < \"$scriptpath\"");
                 //---------------------------------------------------*/
 
-                $this->createTable($database,$retailer);
+                $this->retailerActivities($database,$retailer);
                 
             }
         }
@@ -104,7 +104,13 @@ class RetailersController extends AppController
     }
 
 
-    public function createTable($database,$retailer){
+    public function retailerActivities($database,$retailer){
+                //TODO:UPDATE the commands accordingly to the OS
+                //Add retailer roles in the retailer employee roles table
+                $scriptpath = $this->DbSchema->SCHEMA_FOLDER . "Retailer_Employee_Roles_AccessRights.sql";
+                exec("C:/xampp/mysql/bin/mysql -uroot -pjoy -D$database < \"$scriptpath\"");
+                //---------------------------------------------------*/
+
                 ConnectionManager::drop('conn1'); 
                 ConnectionManager::config('conn1', [
                 'className' => 'Cake\Database\Connection',
@@ -121,12 +127,27 @@ class RetailersController extends AppController
                 Debugger::dump('ADDRETAILER- DATABASENAME');
                 Debugger::dump($database);
                 Debugger::dump($retailer['retailer_name']);
-                $name = $retailer['retailer_name'];
+                $companyID = $retailer['id'];
+                $companyName = $retailer['retailer_name'];
+                $companyEmail = $retailer['retailer_email'];
+                $companyAddress = $retailer['address'];
+                $companyContact = $retailer['contact'];
+                $companyDesc = $retailer['retailer_desc'];
+                $created = $retailer['created'];
+                $modified = $retailer['modified'];
+
                 $conn = ConnectionManager::get('conn1');
-                $sql = "INSERT INTO Retailer_employees (username, password)  
-                VALUES ('$name','123')";
+                //To Do: Ask glenn to do the auto generation of username and password and activation link & changing of activation status to 'activated'
+                $sql = "INSERT INTO Retailer_employees (username, password, created, modified)  
+                VALUES ('$companyName','123','$created','$modified')";
+                //Add 'Master Account' role to the master account
+                $sql2 = "INSERT INTO Retailer_employees_retailer_employee_roles (retailer_employee_id, retailer_employee_role_id) VALUES ('1', '35')";
+                //Information in retailer table in intrasys DB will be copied to retailer_details in the retailer DB
+                $sql3 = "INSERT INTO Retailer_details (address, contact, retailerid, retailer_desc, retailer_email, retailer_name) VALUES ('$companyAddress', '$companyContact', '$companyID', '$companyDesc', '$companyEmail', '$companyName')";
 
                 $conn->query($sql);
+                $conn->query($sql2);
+                $conn->query($sql3);
 
                 return $this->redirect(['action' => 'index']);
             
