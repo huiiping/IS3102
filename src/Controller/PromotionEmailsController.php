@@ -2,6 +2,11 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Mailer\Email;
+use Cake\Datasource\ConnectionManager;
+use Cake\I18n\Time;
+use Cake\I18n\Date;
+use Cake\Event\Event;
 
 /**
  * PromotionEmails Controller
@@ -11,6 +16,13 @@ use App\Controller\AppController;
 class PromotionEmailsController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+
+        $this->loadComponent('Logging');
+        $this->loadComponent('Email');
+        
+    }
     /**
      * Index method
      *
@@ -52,10 +64,37 @@ class PromotionEmailsController extends AppController
     public function add()
     {
         $promotionEmail = $this->PromotionEmails->newEntity();
+
         if ($this->request->is('post')) {
+            
             $promotionEmail = $this->PromotionEmails->patchEntity($promotionEmail, $this->request->data);
+            
+            $send = $_POST['email'];
+            $title = $_POST['title'];
+            $body = $_POST['body'];
+            $tier = $_POST['cust_membership_tier_id'];
+            //echo $tier[0];
+
             if ($this->PromotionEmails->save($promotionEmail)) {
-                $this->Flash->success(__('The promotion email has been saved.'));
+
+                if($send = 'y') {
+
+                    $session = $this->request->session();
+                    $retailer = $session->read('retailer');
+                    $conn = ConnectionManager::get('default');
+                    $query = $conn
+                        ->execute('SELECT * FROM customers WHERE cust_membership_tier_id = :id', ['id' => $tier[0]])
+                        ->fetchAll('assoc');                    
+
+                    $this->Email->promotionEmail($title, $body, $query);
+
+                    $this->Flash->success(__('The promotion email has been sent and saved.'));
+
+                } else {
+
+                    $this->Flash->success(__('The promotion email has been saved.'));
+
+                }
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -113,4 +152,6 @@ class PromotionEmailsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+
 }

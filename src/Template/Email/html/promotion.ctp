@@ -14,9 +14,7 @@
  */
 ?>
 <?php
-$content = explode(',', $content);
 
-echo 'Hi '.$content[0].', greetings from '.$content[1].'<br />';
-echo 'From '.$content[3].'  till '.$content[4].', you can enjoy a discount of '.$content[5].' when you use '.$content[6].'!';
+echo $content;
 
 ?>

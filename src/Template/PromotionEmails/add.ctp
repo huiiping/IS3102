@@ -18,12 +18,30 @@
     <fieldset>
         <legend><?= __('Add Promotion Email') ?></legend>
         <?php
-            echo $this->Form->input('promotion_id', ['options' => $promotions, 'empty' => true]);
-            echo $this->Form->input('cust_membership_tier_id', ['options' => $custMembershipTiers, 'empty' => true]);
+            echo $this->Form->input('promotion_id', ['options' => $promotions, 'empty' => false]);
+            echo $this->Form->input('cust_membership_tier_id', [
+                'options' => $custMembershipTiers, 
+                'type' => 'select',
+                'multiple' => true,
+                'empty' => false,
+                'label' => 'Customer Membership Tier'
+                ]);
             echo $this->Form->input('title');
-            echo $this->Form->input('body');
-            echo $this->Form->input('last_sent', ['empty' => true]);
-            echo $this->Form->input('number_of_sends');
+            echo $this->Form->input('body', [
+                'type' => 'textarea']);
+            //echo $this->Form->input('last_sent', ['empty' => true]);
+            //echo $this->Form->input('number_of_sends');
+            echo "<br /><b>Send email now?</b> ";
+            echo "&nbsp;&nbsp;&nbsp;";
+            echo $this->Form->radio('email', 
+                [
+                    ['value' => 'y', 'text' => ' Yes '],
+                    ['value' => 'n', 'text' => ' No '],
+                ]
+            );
+            echo $this->Form->hidden('last_sent', ['value' => null]);
+            echo $this->Form->hidden('number_of_sends', ['value' => '0']);
+            echo "<br />";
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
