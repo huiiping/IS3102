@@ -18,22 +18,27 @@
     <ul class="sidebar-menu">
       <li class="header">MAIN NAVIGATION</li>
       
-      <?= $this->Element('sideBar2', array('type' => 'Retailer Details', 'typePlural' => 'RetailerDetails')); ?>
-      <?= $this->Element('sideBar', array('type' => 'Employees', 'typePlural' => 'RetailerEmployees')); ?>
-      <?= $this->Element('sideBar2', array('type' => 'Employee Roles', 'typePlural' => 'RetailerEmployeeRoles')); ?>
-      <?= $this->Element('sideBar', array('type' => 'Customers', 'typePlural' => 'Customers')); ?>
-      <?= $this->Element('sideBar', array('type' => 'Membership Tiers', 'typePlural' => 'CustMembershipTiers')); ?>
-      <?= $this->Element('sideBar', array('type' => 'Promotions', 'typePlural' => 'Promotions')); ?>
-      <?= $this->Element('sideBar', array('type' => 'Product Category', 'typePlural' => 'ProdCats')); ?>
-      <?= $this->Element('sideBar', array('type' => 'Product Types', 'typePlural' => 'ProdTypes')); ?>
-      <?= $this->Element('sideBar', array('type' => 'Locations', 'typePlural' => 'Locations')); ?>
-      <?= $this->Element('sideBar', array('type' => 'Sections', 'typePlural' => 'Sections')); ?>
-      <?= $this->Element('sideBar', array('type' => 'Suppliers', 'typePlural' => 'Suppliers')); ?>
-      <?= $this->Element('sideBar', array('type' => 'Supplier Memos', 'typePlural' => 'SupplierMemos')); ?>
-      <?= $this->Element('sideBar', array('type' => 'Purchase Orders', 'typePlural' => 'PurchaseOrders')); ?>
-      <?= $this->Element('sideBar', array('type' => 'Messages', 'typePlural' => 'Messages')); ?>
-      <?= $this->Element('sideBar2', array('type' => 'Loggings', 'typePlural' => 'RetailerLoggings')); ?>
-
+      <?php if($type) : ?>
+        <?= $this->Element('sideBar2', array('type' => 'Suppliers', 'typePlural' => 'Suppliers')); ?>
+        <?= $this->Element('sideBar2', array('type' => 'Purchase Orders', 'typePlural' => 'PurchaseOrders')); ?>
+      <?php else : ?>
+        <?= $this->Element('sideBar2', array('type' => 'Retailer Details', 'typePlural' => 'RetailerDetails')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Employees', 'typePlural' => 'RetailerEmployees')); ?>
+        <?= $this->Element('sideBar2', array('type' => 'Employee Roles', 'typePlural' => 'RetailerEmployeeRoles')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Customers', 'typePlural' => 'Customers')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Membership Tiers', 'typePlural' => 'CustMembershipTiers')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Promotions', 'typePlural' => 'Promotions')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Promotion Emails', 'typePlural' => 'PromotionEmails')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Product Category', 'typePlural' => 'ProdCats')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Product Types', 'typePlural' => 'ProdTypes')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Locations', 'typePlural' => 'Locations')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Sections', 'typePlural' => 'Sections')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Suppliers', 'typePlural' => 'Suppliers')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Supplier Memos', 'typePlural' => 'SupplierMemos')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Purchase Orders', 'typePlural' => 'PurchaseOrders')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Messages', 'typePlural' => 'Messages')); ?>
+        <?= $this->Element('sideBar2', array('type' => 'Loggings', 'typePlural' => 'RetailerLoggings')); ?>
+      <?php endif; ?>
 
       <!--<li class="treeview">
         <a href="">

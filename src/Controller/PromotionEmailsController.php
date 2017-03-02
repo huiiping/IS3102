@@ -30,14 +30,20 @@ class PromotionEmailsController extends AppController
      */
     public function index()
     {
+        
+        //$promotionEmails = $this->paginate($this->PromotionEmails);
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
         $this->paginate = [
             'contain' => ['Promotions', 'CustMembershipTiers']
         ];
-        $promotionEmails = $this->paginate($this->PromotionEmails);
-
+        $this->set('promotionEmails', $this->paginate($this->PromotionEmails->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('promotionEmails'));
         $this->set('_serialize', ['promotionEmails']);
     }
+    public $components = array(
+        'Prg'
+    );
 
     /**
      * View method

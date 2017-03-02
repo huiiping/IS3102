@@ -25,6 +25,13 @@ use Cake\Validation\Validator;
 class PromotionEmailsTable extends Table
 {
 
+    public $filterArgs = array(
+        'title' => array(
+            'type' => 'like',
+            'field' => 'title'
+        )
+    );
+
     /**
      * Initialize method
      *
@@ -47,6 +54,7 @@ class PromotionEmailsTable extends Table
         $this->belongsTo('CustMembershipTiers', [
             'foreignKey' => 'cust_membership_tier_id'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

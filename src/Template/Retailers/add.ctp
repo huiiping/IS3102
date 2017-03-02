@@ -25,7 +25,7 @@
                     <?php
                         echo $this->Form->input('retailer_name');
                         echo $this->Form->input('retailer_desc', ['label'=>'Retailer Description']);
-                        echo $this->Form->input('account_status');
+                        //echo $this->Form->input('account_status');
                         echo $this->Form->input('payment_term');
                         echo $this->Form->input('retailer_email');
                         echo $this->Form->input('address');
