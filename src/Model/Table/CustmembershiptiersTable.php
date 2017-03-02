@@ -35,7 +35,7 @@ class CustMembershipTiersTable extends Table
         parent::initialize($config);
 
         $this->table('cust_membership_tiers');
-        $this->displayField('id');
+        $this->displayField('tier_name');
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
