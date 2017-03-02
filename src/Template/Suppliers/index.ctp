@@ -20,8 +20,8 @@
               <h3 class="box-title"><?= __('Search Suppliers') ?></h3>
             </div>
             <div class="box-body">
-
               <br>
+              <?php if(!$type) : ?>
               <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
                 <tr>
                     <?php echo $this->Form->create(null);?>
@@ -38,6 +38,7 @@
                 </tr>
                 </table>
                 <br>
+                <?php endif; ?>
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>

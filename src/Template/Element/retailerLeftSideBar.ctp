@@ -20,7 +20,7 @@
       
       <?php if($type) : ?>
         <?= $this->Element('sideBar2', array('type' => 'Suppliers', 'typePlural' => 'Suppliers')); ?>
-        <?= $this->Element('sideBar2', array('type' => 'Purchase Orders', 'typePlural' => 'PurchaseOrders')); ?>
+        
       <?php else : ?>
         <?= $this->Element('sideBar2', array('type' => 'Retailer Details', 'typePlural' => 'RetailerDetails')); ?>
         <?= $this->Element('sideBar', array('type' => 'Employees', 'typePlural' => 'RetailerEmployees')); ?>

@@ -84,6 +84,8 @@
                   </div>
                 </div>
             </div>
+        </div>
+        <div class="col-md-8">
             <div class="box box-primary">
                 <div class="box-body box-profile">
                   <div class="box-header with-border">
@@ -126,6 +128,49 @@
                 </div>
             </div>
         </div>
+        <?php if(!$type) : ?>
+        <div class="col-md-8">
+            <div class="box box-primary">
+                <div class="box-body box-profile">
+                  <div class="box-header with-border">
+                    <h3 class="box-title"><?= __('Related Supplier Memos') ?></h3>
+                  </div>
+                  <div class="box-body"><br>
+                    <div class="related">
+                      <?php if (!empty($supplier->supplier_memos)): ?>
+                        <table cellpadding="0" cellspacing="0">
+                            <tr>
+                                <th scope="col"><?= __('Memo Id') ?></th>
+                                <!--<th scope="col"><?= __('Remarks') ?></th>-->
+                                <th scope="col"><?= __('Created') ?></th>
+                                <!--<th scope="col"><?= __('Supplier Id') ?></th>
+                                <th scope="col"><?= __('Retailer Employee Id') ?></th>
+                                <th scope="col" class="actions"><?= __('Actions') ?></th>-->
+                            </tr>
+                            <?php foreach ($supplier->supplier_memos as $supplierMemos): ?>
+                            <tr>
+                                <td>
+                                    <?= $this->Html->link(__('Memo '.h($supplierMemos->id)), ['controller' => 'SupplierMemos', 'action' => 'view', $supplierMemos->id]) ?>
+                                </td>
+                                <!--<td><?= h($supplierMemos->remarks) ?></td>-->
+                                <td><?= $this->Time->format(h($supplierMemos->created), 'd MMM YYYY, hh:mm') ?></td>
+                                <!--<td><?= h($supplierMemos->supplier_id) ?></td>
+                                <td><?= h($supplierMemos->retailer_employee_id) ?></td>
+                                <td class="actions">
+                                    <?= $this->Html->link(__('View'), ['controller' => 'SupplierMemos', 'action' => 'view', $supplierMemos->id]) ?>
+                                    <?= $this->Html->link(__('Edit'), ['controller' => 'SupplierMemos', 'action' => 'edit', $supplierMemos->id]) ?>
+                                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'SupplierMemos', 'action' => 'delete', $supplierMemos->id], ['confirm' => __('Are you sure you want to delete # {0}?', $supplierMemos->id)]) ?>
+                                </td>-->
+                            </tr>
+                            <?php endforeach; ?>
+                        </table>
+                      <?php endif; ?>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
       </div>
   </section>
 </div>
