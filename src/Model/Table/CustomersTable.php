@@ -45,6 +45,10 @@ class CustomersTable extends Table
         'last_name' => array(
             'type' => 'like',
             'field' => 'last_name'
+        ),
+        'activation_status' => array(
+            'type' => 'like',
+            'field' => 'activation_status'
         )
     );
 

@@ -25,22 +25,22 @@
                     <tr>
                         <?php echo $this->Form->create(null);?>
                         <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input('username'); ?></th>
+                        <th scope="col"><?= $this->Form->input('first_name'); ?></th>
+                        <th width="60"></th>
+                        <th scope="col"><?= $this->Form->input('last_name'); ?></th>
                         <th width="60"></th>
                         <th scope="col"><?= $this->Form->input('email'); ?></th>
-                        <th width="60"></th>
-                        <th scope="col"></th>
                         <th width="30"></th>
                         <th scope="col"></th>
                         <th width="10"></th>
                     </tr>
                     <tr>
                         <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input('first_name'); ?></th>
-                        <th width="60"></th>
-                        <th scope="col"><?= $this->Form->input('last_name'); ?></th>
-                        <th width="60"></th>
                         <th scope="col"><?= $this->Form->input('address'); ?></th>
+                        <th width="60"></th>
+                        <th scope="col"><?= $this->Form->input('activation_status'); ?></th>
+                        <th width="60"></th>
+                        <th scope="col"></th>
                         <th width="30"></th>
                         <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
                         <th width="10"></th>
@@ -60,7 +60,7 @@
                         <th scope="col"><?= $this->Paginator->sort('first_name') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('last_name') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('email') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('cust_membership_tier_id') ?></th>
+                        <!--<th scope="col"><?= $this->Paginator->sort('cust_membership_tier_id') ?></th>-->
                         <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                         <!--<th scope="col"><?= $this->Paginator->sort('activation_status') ?></th>
@@ -82,7 +82,7 @@
                         <td><?= h($customer->first_name) ?></td>
                         <td><?= h($customer->last_name) ?></td>
                         <td><?= h($customer->email) ?></td>
-                        <td><?= $customer->has('cust_membership_tier') ? $this->Html->link($customer->cust_membership_tier->id, ['controller' => 'CustMembershipTiers', 'action' => 'view', $customer->cust_membership_tier->id]) : '' ?></td>
+                        <!--<td><?= $customer->has('cust_membership_tier') ? $this->Html->link($customer->cust_membership_tier->id, ['controller' => 'CustMembershipTiers', 'action' => 'view', $customer->cust_membership_tier->id]) : '' ?></td>-->
                         <td><?= h($customer->created) ?></td>
                         <td><?= h($customer->modified) ?></td>
                         <!--<td><?= h($customer->activation_status) ?></td>

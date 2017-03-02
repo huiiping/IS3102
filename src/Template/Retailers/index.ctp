@@ -26,6 +26,8 @@
                     <?php echo $this->Form->create(null);?>
                       <th width="10"></th>
                       <th scope="col"><?= $this->Form->input('retailer_name'); ?></th>
+                      <th width="60"></th>
+                      <th scope="col"><?= $this->Form->input('account_status'); ?></th>
                       <th width="30"></th>
                       <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
                       <th width="10"></th>

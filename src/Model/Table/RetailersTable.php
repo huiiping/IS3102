@@ -32,6 +32,10 @@ class RetailersTable extends Table
         'retailer_name' => array(
             'type' => 'like',
             'field' => 'retailer_name'
+        ),
+        'account_status' => array(
+            'type' => 'like',
+            'field' => 'account_status'
         )
     );
 

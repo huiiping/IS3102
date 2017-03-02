@@ -27,11 +27,9 @@
                     <?php echo $this->Form->create(null);?>
                     <th width="10"></th>
                     <th scope="col"><?= $this->Form->input('supplier_name'); ?></th>
-                    <th width="30"></th>
+                    <th width="60"></th>
                     <th scope="col"><?= $this->Form->input('country'); ?></th>
-                    <th width="30"></th>
-                    <th scope="col"><?= $this->Form->input('username'); ?></th>
-                    <th width="30"></th>
+                    <th width="60"></th>
                     <th scope="col"><?= $this->Form->input('address'); ?></th>
                     <th width="30"></th>
                     <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>

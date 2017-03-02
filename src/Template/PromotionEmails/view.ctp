@@ -34,7 +34,7 @@
                         <td><?= $promotionEmail->has('promotion') ? $this->Html->link($promotionEmail->promotion->id, ['controller' => 'Promotions', 'action' => 'view', $promotionEmail->promotion->id]) : '' ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Cust Membership Tier') ?></th>
+                        <th scope="row"><?= __('Customer Membership Tier') ?></th>
                         <td><?= $promotionEmail->has('cust_membership_tier') ? $this->Html->link($promotionEmail->cust_membership_tier->tier_name, ['controller' => 'CustMembershipTiers', 'action' => 'view', $promotionEmail->cust_membership_tier->id]) : '' ?></td>
                     </tr>
                     <tr>

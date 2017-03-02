@@ -24,7 +24,7 @@
                 <fieldset>
                     <?php
                         echo $this->Form->input('promotion_id', ['options' => $promotions, 'empty' => false]);
-                        echo $this->Form->input('cust_membership_tier_id', [
+                        echo $this->Form->input('cust_membership_tier_id', ['label' => 'Customer Membership Tier'], [
                             'options' => $custMembershipTiers, 
                             'type' => 'select',
                             'multiple' => true,

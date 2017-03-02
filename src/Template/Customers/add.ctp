@@ -35,7 +35,7 @@
                         //echo $this->Form->input('recovery_status');
                         //echo $this->Form->input('recovery_token');
                         echo $this->Form->input('mailing_list');
-                        echo $this->Form->input('cust_membership_tier_id', ['options' => $custMembershipTiers]);
+                        echo $this->Form->input('cust_membership_tier_id', ['label' => 'Customer Membership Tier'], ['options' => $custMembershipTiers]);
                         echo $this->Form->input('promotions._ids', ['options' => $promotions]);
                     ?>
                 </fieldset>
