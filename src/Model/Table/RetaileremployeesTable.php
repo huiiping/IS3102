@@ -164,7 +164,22 @@ class RetailerEmployeesTable extends Table
 
         $validator
             ->allowEmpty('recovery_token');
-
+        // check whether password and confirm_password are matched
+        $validator 
+            ->add(
+                'confirm_password',
+                'custom',
+                [
+                    'rule' => function ($value, $context) {
+                            if (isset($context['data']['password']) && $value == $context['data']['password']) {
+                                return true;
+                            }
+                            return false;
+                        },
+                    'message' => 'Password and confirm password does not matched.'
+                ]
+            );
+            
         return $validator;
 
     }

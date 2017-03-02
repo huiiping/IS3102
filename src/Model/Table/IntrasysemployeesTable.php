@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Auth\DefaultPasswordHasher;
 
 /**
  * IntrasysEmployees Model
@@ -117,6 +118,21 @@ class IntrasysEmployeesTable extends Table
         $validator
             ->requirePresence('contact', 'create')
             ->notEmpty('contact');
+        // check whether password and confirm_password are matched
+        $validator 
+            ->add(
+                'confirm_password',
+                'custom',
+                [
+                    'rule' => function ($value, $context) {
+                            if (isset($context['data']['password']) && $value == $context['data']['password']) {
+                                return true;
+                            }
+                            return false;
+                        },
+                    'message' => 'Password and confirm password does not matched.'
+                ]
+            );
 
         return $validator;
     }
