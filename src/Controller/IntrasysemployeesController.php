@@ -16,7 +16,10 @@ class IntrasysEmployeesController extends AppController
 	public function beforeFilter(Event $event)
 	{
 		parent::beforeFilter($event);
+
+        //Loading Components
         $this->loadComponent('Logging');
+        $this->loadComponent('Email');
 		$this->loadcomponent('Auth', [
 			     'authenticate' => [
 			         'Form' => [
@@ -32,9 +35,9 @@ class IntrasysEmployeesController extends AppController
 			     'action' => 'login'
 			]
 		]);
+
         // Allow users to register and logout.
-        // You should not add the "login" action to allow list. Doing so would
-        // cause problems with normal functioning of AuthComponent.
+        // You should not add the "login" action to allow list. Doing so would cause problems with normal functioning of AuthComponent.
 		$this->Auth->allow(['add', 'logout', 'activate', 'recover', 'recoverActivate']);
 	}
 
@@ -113,10 +116,25 @@ class IntrasysEmployeesController extends AppController
     		$intrasysEmployee->set('activation_status', 'Deactivated');
     		$intrasysEmployee->set('activation_token', $this->Generator->generateString());
 
+            echo $intrasysEmployee['email'].'<br />';
+            echo $intrasysEmployee['first_name'].'<br />';
+            echo $intrasysEmployee['username'].'<br />';
+            echo $this->password.'<br />';
+            echo $intrasysEmployee['id'].'<br />';
+            echo $intrasysEmployee['activation_token'].'<br />';
 
     		if ($this->IntrasysEmployees->save($intrasysEmployee)) {
 
-    			$this->__sendActivationEmail($intrasysEmployee['id']);
+                $this->Email->activationEmail(
+                    $intrasysEmployee['email'], 
+                    $intrasysEmployee['first_name'], 
+                    $intrasysEmployee['username'], 
+                    $this->password, 
+                    $intrasysEmployee['id'], 
+                    $intrasysEmployee['activation_token'], 
+                    'intrasys-employees');
+
+    			//$this->__sendActivationEmail($intrasysEmployee['id']);
     			$this->Flash->success(__('The intrasys employee has been saved.'));
 
                 //$this->loadComponent('Logging');
@@ -132,6 +150,8 @@ class IntrasysEmployeesController extends AppController
     	$this->set('_serialize', ['intrasysEmployee']);
     }
 
+    //function has been shifted into EmailComponent
+    /*
     function __sendActivationEmail($user_id) {
 
     	$user = $this->IntrasysEmployees->get($user_id);
@@ -157,6 +177,7 @@ class IntrasysEmployeesController extends AppController
             'intrasys-employees');
 
     }
+    */
 
     function activate($id, $token) {
 
@@ -331,7 +352,16 @@ class IntrasysEmployeesController extends AppController
 
     	if ($this->IntrasysEmployees->save($intrasysemployee)){
 
+            $this->Email->activationEmail(
+                    $intrasysEmployee['email'], 
+                    $intrasysEmployee['first_name'], 
+                    $intrasysEmployee['username'], 
+                    $newPass, 
+                    $intrasysEmployee['id'], 
+                    $intrasysEmployee['recovery_token'], 
+                    'intrasys-employees');
 
+            /*
     		$email = new Email('default');
     		$email->template('recovery');
     		$email->emailFormat('html');
@@ -346,6 +376,7 @@ class IntrasysEmployeesController extends AppController
     			$intrasysemployee['id'] . ',' . 
     			$intrasysemployee['recovery_token'] . ',' .   
                 'intrasys-employees');
+            */
 
     		$this->Flash->success(__('Password Reset Email Sent, please check your email.'));
     		return $this->redirect(['action' => 'index']);

@@ -52,4 +52,42 @@ class EmailComponent extends Component {
         endforeach;
 
 	}
+
+    public function activationEmail($recipient, $firstName, $username, $pwd, $id, $token, $type){
+
+        $email = new Email('default');
+        $email->template('activation');
+        $email->emailFormat('html');        
+        $email->subject('Please confirm your email address');
+        $email->from('tanyongming90@gmail.com');
+        $email->to($recipient);
+        $email->send($firstName.','.
+            $username.','.
+            $pwd.','.
+            env('SERVER_NAME').','. 
+            $id.','. 
+            $token.','.
+            $type);
+
+    }
+
+    public function recoveryEmail($recipient, $firstName, $username, $pwd, $id, $token, $type){
+
+        $email = new Email('default');
+        $email->template('recovery');
+        $email->emailFormat('html');        
+        $email->subject('Password Recovery');
+        $email->from('tanyongming90@gmail.com');
+        $email->to($recipient);
+        $email->send($firstName.','.
+            $username.','.
+            $pwd.','.
+            env('SERVER_NAME').','. 
+            $id.','. 
+            $token.','.
+            $type);
+        
+    }
+
+
 }

@@ -26,6 +26,7 @@ class RetailerEmployeesController extends AppController
 
         parent::beforeFilter($event);
         $this->loadComponent('Logging');
+        $this->loadComponent('Email');
         $this->loadcomponent('Auth', [
             'authenticate' => [
             'Form' => [
@@ -140,7 +141,17 @@ class RetailerEmployeesController extends AppController
 
                 if ($this->RetailerEmployees->save($retailerEmployee)) {
 
-                    $this->__sendActivationEmail($retailerEmployee['id']);
+                    $this->Email->activationEmail(
+                        $retailerEmployee['email'], 
+                        $retailerEmployee['first_name'], 
+                        $retailerEmployee['username'], 
+                        $this->password, 
+                        $retailerEmployee['id'], 
+                        $retailerEmployee['activation_token'], 
+                        'retailer-employees');
+
+
+                    //$this->__sendActivationEmail($retailerEmployee['id']);
                     $this->Flash->success(__('The retailer employee has been saved.'));
 
 
@@ -165,6 +176,7 @@ class RetailerEmployeesController extends AppController
         $this->set('_serialize', ['retailerEmployee']);
     }
 
+    /*
     function __sendActivationEmail($user_id) {
 
         $user = $this->RetailerEmployees->get($user_id);
@@ -189,7 +201,7 @@ class RetailerEmployeesController extends AppController
             $user['activation_token'] . ',' .
             'retailer-employees');
 
-    }
+    }*/
 
     function activate($id, $token) {
 
@@ -437,7 +449,16 @@ public function recover(){
 
     if ($this->RetailerEmployees->save($retaileremployee)){
 
+        $this->Email->activationEmail(
+            $retaileremployee['email'], 
+            $retaileremployee['first_name'], 
+            $retaileremployee['username'], 
+            $newPass, 
+            $retaileremployee['id'], 
+            $retaileremployee['recovery_token'], 
+            'retailer-employees');
 
+        /*
         $email = new Email('default');
         $email->template('recovery');
         $email->emailFormat('html');
@@ -452,6 +473,7 @@ public function recover(){
             $retaileremployee['id'] . ',' . 
             $retaileremployee['recovery_token'] . ',' .   
             'retailer-employees');
+        */
 
         $this->Flash->success(__('Password Reset Email Sent, please check your email.'));
         return $this->redirect(['action' => 'index']);

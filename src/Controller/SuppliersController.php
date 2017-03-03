@@ -17,6 +17,7 @@ class SuppliersController extends AppController
     {
         parent::beforeFilter($event);
         $this->loadcomponent('Logging');
+        $this->loadComponent('Email');
         $this->loadcomponent('Auth', [
             'authenticate' => [
             'Form' => [
@@ -125,7 +126,16 @@ class SuppliersController extends AppController
 
             if ($this->Suppliers->save($supplier)) {
 
-                $this->__sendActivationEmail($supplier['id']);
+                $this->Email->activationEmail(
+                    $supplier['email'], 
+                    $supplier['first_name'], 
+                    $supplier['username'], 
+                    $this->password, 
+                    $supplier['id'], 
+                    $supplier['activation_token'], 
+                    'suppliers');
+
+                //$this->__sendActivationEmail($supplier['id']);
                 $this->Flash->success(__('The supplier has been saved.'));
 
                 $session = $this->request->session();
@@ -143,6 +153,7 @@ class SuppliersController extends AppController
         $this->set('_serialize', ['supplier']);
     }
 
+    /*
     function __sendActivationEmail($user_id) {
 
         $user = $this->Suppliers->get($user_id);
@@ -167,7 +178,7 @@ class SuppliersController extends AppController
             $user['activation_token'] . ',' .
             'suppliers');
 
-    }
+    }*/
 
     function activate($id, $token) {
 
@@ -327,7 +338,16 @@ class SuppliersController extends AppController
 
         if ($this->Suppliers->save($supplier)){
 
+            $this->Email->activationEmail(
+                $supplier['email'], 
+                $supplier['first_name'], 
+                $supplier['username'], 
+                $newPass, 
+                $supplier['id'], 
+                $supplier['recovery_token'], 
+                'suppliers');
 
+            /*
             $email = new Email('default');
             $email->template('recovery');
             $email->emailFormat('html');
@@ -342,6 +362,7 @@ class SuppliersController extends AppController
                 $supplier['id'] . ',' . 
                 $supplier['recovery_token'] . ',' .   
                 'suppliers');
+            */
 
             $this->Flash->success(__('Password Reset Email Sent, please check your email.'));
             return $this->redirect(['action' => 'index']);
