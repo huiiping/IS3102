@@ -23,12 +23,17 @@
               <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('retailer_id') ?></th>
+                        <th scope="col"><?= $this->Paginator->sort('id', array(
+                            'label' => 'Log ID')) ?></th>
+                        <th scope="col"><?= $this->Paginator->sort('retailer_id', array(
+                            'label' => 'Retailer ID')) ?></th>
                         <th scope="col"><?= $this->Paginator->sort('action') ?></th>
-                        <!--<th scope="col"><?= $this->Paginator->sort('entity') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('entityid') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('employeeid') ?></th>-->
+                        <th scope="col"><?= $this->Paginator->sort('entity', array(
+                            'label' => 'Entity / Controller')) ?></th>
+                        <th scope="col"><?= $this->Paginator->sort('entityid', array(
+                            'label' => 'Entity ID')) ?></th>
+                        <th scope="col"><?= $this->Paginator->sort('employeeid', array(
+                            'label' => 'Employee ID')) ?></th>
                         <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                         <th scope="col" class="actions"><?= __('Actions') ?></th>
                     </tr>
@@ -39,9 +44,9 @@
                         <td><?= $this->Number->format($intrasysLogging->id) ?></td>
                         <td><?= $intrasysLogging->has('retailer') ? $this->Html->link($intrasysLogging->retailer->retailer_name, ['controller' => 'Retailers', 'action' => 'view', $intrasysLogging->retailer->id]) : '' ?></td>
                         <td><?= h($intrasysLogging->action) ?></td>
-                        <!--<td><?= h($intrasysLogging->entity) ?></td>
+                        <td><?= h($intrasysLogging->entity) ?></td>
                         <td><?= $this->Number->format($intrasysLogging->entityid) ?></td>
-                        <td><?= $this->Number->format($intrasysLogging->employeeid) ?></td>-->
+                        <td><?= $this->Number->format($intrasysLogging->employeeid) ?></td>
                         <td><?= $this->Time->format(h($intrasysLogging->created), 'd MMM YYYY, hh:mm') ?></td>
                         <td class="actions">
                             <?= $this->Html->link(__('View'), ['action' => 'view', $intrasysLogging->id]) ?>

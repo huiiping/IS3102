@@ -25,14 +25,21 @@
             </div>
             <div class="box-body">
               <table class="table table-bordered table-striped">
-
                 <thead>
                     <tr>
-                        <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+                        <th scope="col"><?= $this->Paginator->sort('id', array(
+                            'label' => 'Log ID')
+                          ) ?></th>
                         <th scope="col"><?= $this->Paginator->sort('action') ?></th>
-                        <!--<th scope="col"><?= $this->Paginator->sort('entity') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('entityid') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('retailer_employee_id') ?></th>-->
+                        <th scope="col"><?= $this->Paginator->sort('entity', array(
+                            'label' => 'Entity / Controller')
+                          ) ?></th>
+                        <th scope="col"><?= $this->Paginator->sort('entityid', array(
+                            'label' => 'Entity ID')
+                          ) ?></th>
+                        <th scope="col"><?= $this->Paginator->sort('retailer_employee_id', array(
+                            'label' => 'Employee ID')
+                          ) ?></th>
                         <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                         <th scope="col" class="actions"><?= __('Actions') ?></th>
                     </tr>
@@ -42,9 +49,9 @@
                     <tr>
                         <td><?= $this->Number->format($retailerLogging->id) ?></td>
                         <td><?= h($retailerLogging->action) ?></td>
-                        <!--<td><?= h($retailerLogging->entity) ?></td>
+                        <td><?= h($retailerLogging->entity) ?></td>
                         <td><?= $this->Number->format($retailerLogging->entityid) ?></td>
-                        <td><?= $retailerLogging->has('retailer_employee') ? $this->Html->link($retailerLogging->retailer_employee->id, ['controller' => 'RetailerEmployees', 'action' => 'view', $retailerLogging->retailer_employee->id]) : '' ?></td>-->
+                        <td><?= $retailerLogging->has('retailer_employee') ? $this->Html->link($retailerLogging->retailer_employee->id, ['controller' => 'RetailerEmployees', 'action' => 'view', $retailerLogging->retailer_employee->id]) : '' ?></td>
                         <td><?= $this->Time->format(h($retailerLogging->created), 'd MMM YYYY, hh:mm') ?></td>
                         <td class="actions">
                             <?= $this->Html->link(__('View'), ['action' => 'view', $retailerLogging->id]) ?>
