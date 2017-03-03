@@ -5,6 +5,9 @@ use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\Error\Debugger;
 use Cake\ORM\TableRegistry;
+use Cake\Utility\Hash;
+use Cake\I18n\Time;
+use Cake\I18n\Date;
 
 /**
  * Messages Controller
@@ -27,34 +30,64 @@ class MessagesController extends AppController
      */
     public function index()
     {   
+        $retailerEmployeesMessages = TableRegistry::get('RetailerEmployeesMessages');
+        $retailerEmployees = TableRegistry::get('RetailerEmployees');
         $session = $this->request->session();
         $id = $session->read('retailer_employee_id');
+        
+        //Employees that user has sent messages to
+        $sentIDs = $this->Messages->find()->where(['sender_id' => $id])->select('id');
+        if (isset($sentIDs)) {
+            $reciever = $retailerEmployeesMessages->find()->where(['message_id' => $sentIDs], ['message_id' => 'integer[]'])->select('retailer_employee_id')->toArray();
+            $reciever = Hash::extract($reciever, '{n}.retailer_employee_id');
+        }
 
-        $this->paginate = [
-            'contain' => ['RetailerEmployees']
-        ];
-
-        $retailerEmployeesMessages = TableRegistry::get('RetailerEmployeesMessages');
-        $msgIDs = $retailerEmployeesMessages->find()->where(['retailer_employee_id' => $id])->select('message_id');
-        $inboxMessages = $this->paginate($this->Messages->find()->where(['id' => $msgIDs], ['id' => 'integer[]']));
-
-        $this->set(compact('inboxMessages'));
-        $this->set('_serialize', ['inboxMessages']);
+        //Employees that user has recieved messages from
+        $recieveIDs = $retailerEmployeesMessages->find()->where(['retailer_employee_id' => $id])->select('message_id');
+        if (isset($recieveIDs)) {
+            $sender = $this->Messages->find()->where(['id' => $recieveIDs], ['id' => 'integer[]'])->select('sender_id')->toArray();
+            $sender = Hash::extract($sender, '{n}.sender_id');
+        }   
+        
+        //Paginating all the relevant employees
+        if (!empty($reciever) && !empty($sender)) {
+            $employees = $this->paginate($retailerEmployees->find()
+                ->where(['id' => $reciever], ['id' => 'integer[]'])
+                ->orWhere(['id' => $sender], ['id' => 'integer[]'])
+                );
+        } else if (!empty($reciever)) {
+            $employees = $this->paginate($retailerEmployees->find()->where(['id' => $reciever], ['id' => 'integer[]']));
+        }
+        else if (!empty($sender)) {
+            $employees = $this->paginate($retailerEmployees->find()->where(['id' => $sender], ['id' => 'integer[]']));
+        }
+        
+        $this->set(compact('employees'));
+        $this->set('_serialize', ['employees']);
     }
 
-    public function viewSent()
+    public function chat($id)
     {   
         $session = $this->request->session();
-        $id = $session->read('retailer_employee_id');
+        $sender = $session->read('retailer_employee_id');
+        /**
+        $retailerEmployees = TableRegistry::get('RetailerEmployees');
+        $reciever = $retailerEmployees->find('list', ['limit' => 200])->where(['id' => $id]);
+        $this->set(compact('reciever', 'retailerEmployees'));
+        $this->set('reciever', $reciever);
+        $this->set('_serialize', ['reciever']);*/
 
         $this->paginate = [
             'contain' => ['RetailerEmployees']
         ];
 
-        $sentMessages = $this->paginate($this->Messages->find()->where(['sender_id' => $id]));
+        $messages = $this->paginate($this->Messages->find()
+            ->where(['sender_id' => $id])
+            ->orWhere(['sender_id' => $sender])
+        );
 
-        $this->set(compact('sentMessages'));
-        $this->set('_serialize', ['sentMessages']);
+        $this->set(compact('messages'));
+        $this->set('_serialize', ['messages']);
     }
 
     /**
@@ -174,10 +207,5 @@ class MessagesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
-    }
-
-    public function test()
-    {
-        
     }
 }
