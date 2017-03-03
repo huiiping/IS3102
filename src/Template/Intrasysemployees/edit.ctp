@@ -33,6 +33,7 @@
                         echo $this->Form->input('email');
                         echo $this->Form->input('contact');
                         echo $this->Form->input('password');
+                        echo $this->Form->input(('confirm_password'), array('type'  =>  'password')); 
                         echo $this->Form->input('address');
                         /* Gwen: Employee can't edit their employee role. Only manager can edit for their employees 
                         echo $this->Form->input('intrasys_employee_roles._ids', ['options' => $intrasysEmployeeRoles]);*/

@@ -41,7 +41,7 @@
                             <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                             <th scope="col"><?= $this->Paginator->sort('title') ?></th>
                             <th scope="col"><?= $this->Paginator->sort('promotion_id') ?></th>
-                            <th scope="col"><?= $this->Paginator->sort('cust_membership_tier_id') ?></th>
+                            <th scope="col"><?= $this->Paginator->sort(('cust_membership_tier_id'), ['label' => 'Customer Membership Tier']) ?></th>
                             <!--<th scope="col"><?= $this->Paginator->sort('body') ?></th>
                             <th scope="col"><?= $this->Paginator->sort('last_sent') ?></th>
                             <th scope="col"><?= $this->Paginator->sort('number_of_sends') ?></th>-->

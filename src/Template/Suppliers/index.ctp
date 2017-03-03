@@ -20,18 +20,16 @@
               <h3 class="box-title"><?= __('Search Suppliers') ?></h3>
             </div>
             <div class="box-body">
-
               <br>
+              <?php if(!$type) : ?>
               <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
                 <tr>
                     <?php echo $this->Form->create(null);?>
                     <th width="10"></th>
                     <th scope="col"><?= $this->Form->input('supplier_name'); ?></th>
-                    <th width="30"></th>
+                    <th width="60"></th>
                     <th scope="col"><?= $this->Form->input('country'); ?></th>
-                    <th width="30"></th>
-                    <th scope="col"><?= $this->Form->input('username'); ?></th>
-                    <th width="30"></th>
+                    <th width="60"></th>
                     <th scope="col"><?= $this->Form->input('address'); ?></th>
                     <th width="30"></th>
                     <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
@@ -40,6 +38,7 @@
                 </tr>
                 </table>
                 <br>
+                <?php endif; ?>
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>

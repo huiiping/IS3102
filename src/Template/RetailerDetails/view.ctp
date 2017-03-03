@@ -14,17 +14,36 @@
   <!-- Main content -->
   <section class="content">
       <div class="row">
-        <div class="col-xs-12">
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title"><?= h($retailerDetail->retailer_name) ?></h3>
-              <div class="pull-right">
+        <div class="col-xs-4">
+          <div class="box box-primary" style="height: 100%;">
+            <div class="box-body box-profile">
+              <h3 class="profile-username text-center"><?= h($retailerDetail->retailer_name) ?></h3>
+              <br>
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <b><?= __('Email') ?></b> 
+                  <div class="pull-right"><?= h($retailerDetail->retailer_email) ?></div>
+                </li>
+                <li class="list-group-item">
+                  <b><?= __('Contact') ?></b> 
+                  <div class="pull-right"><?= h($retailerDetail->contact) ?></div>
+                </li>
+              </ul>
+              <br>
+              <div class="btn btn-default btn-block">
                 <?= $this->Html->link(__('Edit Retailer Detail'), ['action' => 'edit', $retailerDetail->retailerid]) ?>
               </div>
             </div>
-            <div class="box-body">
-
-                <table class="vertical-table">
+          </div>
+        </div>
+        <div class="col-md-8">  
+          <div class="box box-primary" style="height: 100%;">
+              <div class="box-body box-profile">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><?= __('Retailer Profile') ?></h3>
+                </div>
+                <div class="box-body"><br>
+                  <table class="table table-bordered table-striped">
                     <tr>
                         <th scope="row"><?= __('Retailer Name') ?></th>
                         <td><?= h($retailerDetail->retailer_name) ?></td>
@@ -34,23 +53,17 @@
                         <td><?= $this->Text->autoParagraph(h($retailerDetail->retailer_desc)); ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Retailer Email') ?></th>
-                        <td><?= h($retailerDetail->retailer_email) ?></td>
-                    </tr>
-                    <tr>
                         <th scope="row"><?= __('Address') ?></th>
                         <td><?= h($retailerDetail->address) ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Contact') ?></th>
-                        <td><?= h($retailerDetail->contact) ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Retailer ID') ?></th>
+                        <th scope="row"><?= __('Retailer Id') ?></th>
                         <td><?= $this->Number->format($retailerDetail->retailerid) ?></td>
                     </tr>
-                </table>
-            </div>
+                  </table>
+                </div>
+              </div>
+          </div>
         </div>
       </div>
   </section>

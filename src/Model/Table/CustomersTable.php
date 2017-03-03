@@ -45,6 +45,10 @@ class CustomersTable extends Table
         'last_name' => array(
             'type' => 'like',
             'field' => 'last_name'
+        ),
+        'activation_status' => array(
+            'type' => 'like',
+            'field' => 'activation_status'
         )
     );
 
@@ -133,7 +137,22 @@ class CustomersTable extends Table
         $validator
             ->boolean('mailing_list')
             ->allowEmpty('mailing_list');
-
+        // check whether password and confirm_password are matched
+        $validator 
+            ->add(
+                'confirm_password',
+                'custom',
+                [
+                    'rule' => function ($value, $context) {
+                            if (isset($context['data']['password']) && $value == $context['data']['password']) {
+                                return true;
+                            }
+                            return false;
+                        },
+                    'message' => 'Password and confirm password does not matched.'
+                ]
+            );
+            
         return $validator;
     }
 
