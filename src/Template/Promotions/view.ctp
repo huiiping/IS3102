@@ -63,54 +63,16 @@
                     </tr>
                 </table>
                 <div class="related">
-                    <?php if (!empty($promotion->customers)): ?>
-                    <h4><?= __('Related Customers') ?></h4>
+                    <?php if (!empty($promotion->cust_membership_tiers)): ?>
+                    <h4><?= __('Related Customer Membership Tiers') ?></h4>
                     <table cellpadding="0" cellspacing="0">
                         <tr>
-                            <!--<th scope="col"><?= __('Id') ?></th>
-                            <th scope="col"><?= __('Username') ?></th>
-                            <th scope="col"><?= __('Password') ?></th>
-                            <th scope="col"><?= __('Email') ?></th>
-                            <th scope="col"><?= __('Address') ?></th>
-                            <th scope="col"><?= __('Contact') ?></th>
-                            <th scope="col"><?= __('Created') ?></th>
-                            <th scope="col"><?= __('Modified') ?></th>
-                            <th scope="col"><?= __('First Name') ?></th>
-                            <th scope="col"><?= __('Last Name') ?></th>
-                            <th scope="col"><?= __('Activation Status') ?></th>
-                            <th scope="col"><?= __('Activation Token') ?></th>
-                            <th scope="col"><?= __('Recovery Status') ?></th>
-                            <th scope="col"><?= __('Recovery Token') ?></th>
-                            <th scope="col"><?= __('Mailing List') ?></th>
-                            <th scope="col"><?= __('Cust Membership Tier Id') ?></th>
-                            <th scope="col" class="actions"><?= __('Actions') ?></th>-->
-                            <th scope="col"><?= __('Customer') ?></th>
+                            <th scope="col"><?= __('Customer Membership Tier') ?></th>
                         </tr>
-                        <?php foreach ($promotion->customers as $customers): ?>
+                        <?php foreach ($promotion->cust_membership_tiers as $custMembershipTiers): ?>
                         <tr>
-                            <!--<td><?= h($customers->id) ?></td>
-                            <td><?= h($customers->username) ?></td>
-                            <td><?= h($customers->password) ?></td>
-                            <td><?= h($customers->email) ?></td>
-                            <td><?= h($customers->address) ?></td>
-                            <td><?= h($customers->contact) ?></td>
-                            <td><?= h($customers->created) ?></td>
-                            <td><?= h($customers->modified) ?></td>
-                            <td><?= h($customers->first_name) ?></td>
-                            <td><?= h($customers->last_name) ?></td>
-                            <td><?= h($customers->activation_status) ?></td>
-                            <td><?= h($customers->activation_token) ?></td>
-                            <td><?= h($customers->recovery_status) ?></td>
-                            <td><?= h($customers->recovery_token) ?></td>
-                            <td><?= h($customers->mailing_list) ?></td>
-                            <td><?= h($customers->cust_membership_tier_id) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'Customers', 'action' => 'view', $customers->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'Customers', 'action' => 'edit', $customers->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Customers', 'action' => 'delete', $customers->id], ['confirm' => __('Are you sure you want to delete # {0}?', $customers->id)]) ?>
-                            </td>-->
                             <td>
-                                <?= $this->Html->link(__(h($customers->first_name).' '.h($customers->last_name)), ['controller' => 'Customers', 'action' => 'view', $customers->id]) ?>
+                                <?= $this->Html->link(__(h($custMembershipTiers->tier_name)), ['controller' => 'CustMembershipTiers', 'action' => 'view', $custMembershipTiers->id]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

@@ -206,7 +206,7 @@ CREATE TABLE cust_membership_tiers_promotions (
     cust_membership_tier_id INT NOT NULL,
     promotion_id INT NOT NULL,
     PRIMARY KEY (cust_membership_tier_id, promotion_id),
-    FOREIGN KEY (cust_membership_tier_id) REFERENCES customers(id),
+    FOREIGN KEY (cust_membership_tier_id) REFERENCES cust_membership_tiers(id),
     FOREIGN KEY (promotion_id) REFERENCES promotions(id)
 );
 

@@ -41,10 +41,10 @@ class PromotionsTable extends Table
         $this->belongsTo('RetailerEmployees', [
             'foreignKey' => 'retailer_employee_id'
         ]);
-        $this->belongsToMany('Customers', [
+        $this->belongsToMany('CustMembershipTiers', [
             'foreignKey' => 'promotion_id',
-            'targetForeignKey' => 'customer_id',
-            'joinTable' => 'customers_promotions'
+            'targetForeignKey' => 'cust_membership_tier_id',
+            'joinTable' => 'cust_membership_tiers_promotions'
         ]);
         $this->belongsToMany('ProdTypes', [
             'foreignKey' => 'promotion_id',

@@ -49,7 +49,7 @@ class PromotionsController extends AppController
     public function view($id = null)
     {
         $promotion = $this->Promotions->get($id, [
-            'contain' => ['RetailerEmployees', 'Customers', 'ProdTypes']
+            'contain' => ['RetailerEmployees', 'CustMembershipTiers', 'ProdTypes']
         ]);
 
         $session = $this->request->session();
@@ -89,9 +89,9 @@ class PromotionsController extends AppController
             $this->Flash->error(__('The promotion could not be saved. Please, try again.'));
         }
         $retailerEmployees = $this->Promotions->RetailerEmployees->find('list', ['limit' => 200]);
-        $customers = $this->Promotions->Customers->find('list', ['limit' => 200]);
+        $custMembershipTiers = $this->Promotions->custMembershipTiers->find('list', ['limit' => 200]);
         $prodTypes = $this->Promotions->ProdTypes->find('list', ['limit' => 200]);
-        $this->set(compact('promotion', 'retailerEmployees', 'customers', 'prodTypes'));
+        $this->set(compact('promotion', 'retailerEmployees', 'custMembershipTiers', 'prodTypes'));
         $this->set('_serialize', ['promotion']);
     }
 
@@ -105,7 +105,7 @@ class PromotionsController extends AppController
     public function edit($id = null)
     {
         $promotion = $this->Promotions->get($id, [
-            'contain' => ['Customers', 'ProdTypes']
+            'contain' => ['CustMembershipTiers', 'ProdTypes']
         ]);
 
         //Check if the promotion has already started or ended
@@ -136,9 +136,9 @@ class PromotionsController extends AppController
             $this->Flash->error(__('The promotion could not be saved. Please, try again.'));
         }
         $retailerEmployees = $this->Promotions->RetailerEmployees->find('list', ['limit' => 200]);
-        $customers = $this->Promotions->Customers->find('list', ['limit' => 200]);
+        $custMembershipTiers = $this->Promotions->custMembershipTiers->find('list', ['limit' => 200]);
         $prodTypes = $this->Promotions->ProdTypes->find('list', ['limit' => 200]);
-        $this->set(compact('promotion', 'retailerEmployees', 'customers', 'prodTypes'));
+        $this->set(compact('promotion', 'retailerEmployees', 'custMembershipTiers', 'prodTypes'));
         $this->set('_serialize', ['promotion']);
     }
 
