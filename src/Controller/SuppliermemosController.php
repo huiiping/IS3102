@@ -26,10 +26,14 @@ class SupplierMemosController extends AppController
      */
     public function index()
     {
+
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
         $this->paginate = [
             'contain' => ['Suppliers', 'RetailerEmployees']
         ];
-        $supplierMemos = $this->paginate($this->SupplierMemos);
+
+        $this->set('supplierMemos', $this->paginate($this->SupplierMemos->find('searchable', $this->Prg->parsedParams())));
 
         $this->set(compact('supplierMemos'));
         $this->set('_serialize', ['supplierMemos']);

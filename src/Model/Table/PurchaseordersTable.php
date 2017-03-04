@@ -25,7 +25,37 @@ use Cake\Validation\Validator;
  */
 class PurchaseOrdersTable extends Table
 {
+    public $filterArgs = array(
+        'id' => array(
+            'type' => 'like',
+            'field' => 'id'
+        ),
+        'created' => array(
+            'type' => 'like',
+            'field' => 'created'
+        ),
+        'total_price' => array(
+            'type' => 'like',
+            'field' => 'total_price'
+        ),
+        'delivery_status' => array(
+            'type' => 'like',
+            'field' => 'delivery_status'
+        )
+    ,
+        'supplier_id' => array(
+            'type' => 'like',
+            'field' => 'Suppliers.name',
+            'method' => 'findByActions'
+        )
+    ,
+        'retailer_employee_id' => array(
+            'type' => 'like',
+            'field' => 'RetailerEmployees.name',
+            'method' => 'findByActions'
 
+        )
+    );
     /**
      * Initialize method
      *
@@ -51,6 +81,7 @@ class PurchaseOrdersTable extends Table
         $this->hasMany('PurchaseOrderItems', [
             'foreignKey' => 'purchase_order_id'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

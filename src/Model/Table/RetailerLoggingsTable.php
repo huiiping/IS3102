@@ -24,6 +24,35 @@ use Cake\Validation\Validator;
 class RetailerLoggingsTable extends Table
 {
 
+
+    public $filterArgs = array(
+        'id' => array(
+            'type' => 'like',
+            'field' => 'id'
+        ),
+        'action' => array(
+            'type' => 'like',
+            'field' => 'action'
+        ),
+        'entity' => array(
+            'type' => 'like',
+            'field' => 'entity'
+        ),
+        'entity_id' => array(
+            'type' => 'like',
+            'field' => 'entity_id'
+        ),
+        'retailer_employee_id' => array(
+            'type' => 'like',
+            'field' => 'RetailerEmployees.id',
+            'method' => 'findByActions'
+
+        ),
+        'created' => array(
+            'type' => 'like',
+            'field' => 'created'
+        )
+    );
     /**
      * Initialize method
      *
@@ -44,6 +73,7 @@ class RetailerLoggingsTable extends Table
             'foreignKey' => 'retailer_employee_id',
             'joinType' => 'INNER'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

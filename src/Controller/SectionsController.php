@@ -32,7 +32,11 @@ class SectionsController extends AppController
         $this->paginate = [
             'contain' => ['Locations']
         ];
+
+
         $this->set('sections', $this->paginate($this->Sections->find('searchable', $this->Prg->parsedParams())));
+
+
 
         $this->set(compact('sections', 'locations'));
         $this->set('_serialize', ['sections']);

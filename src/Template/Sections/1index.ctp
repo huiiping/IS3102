@@ -25,11 +25,9 @@
                 <!--<legend><h4><?= __('Search') ?></h4></legend>-->
                 <table cellpadding="0" cellspacing="0", bgcolor="#FFFFFF">
                     <tr><?php
-                        echo $this->Form->create($sections);?>
+                        echo $this->Form->create(null);?>
                         <th width="10"></th>
                         <th scope="col"><?= $this->Form->input(('sec_name'), ['label' => 'Section Name']); ?></th>
-                        <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input('location_name',['label' => 'Location Name', 'type' => 'search']); ?></th>
                         <th width="30"></th>
                         <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
                         <th width="10"></th>

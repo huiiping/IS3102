@@ -23,10 +23,14 @@ class RetailerLoggingsController extends AppController
      */
     public function index()
     {
+
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
         $this->paginate = [
             'contain' => ['RetailerEmployees']
         ];
-        $retailerLoggings = $this->paginate($this->RetailerLoggings);
+        $this->set('retailerLoggings', $this->paginate($this->RetailerLoggings->find('searchable', $this->Prg->parsedParams())));
+
 
         $this->set(compact('retailerLoggings'));
         $this->set('_serialize', ['retailerLoggings']);

@@ -42,9 +42,13 @@ class SectionsTable extends Table
             'type' => 'like',
             'field' => 'reserve'
         ),
-        'location_id' => array(
+        'location_name' => array(
             'type' => 'like',
-            'field' => 'location_id'
+            'field' => 'Locations.name',
+            'method' => 'findByActions'
+
+
+
         ),
         'type' => array(
             'type' => 'type'

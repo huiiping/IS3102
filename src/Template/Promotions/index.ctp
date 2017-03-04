@@ -20,6 +20,30 @@
               <h3 class="box-title"><?= __('Promotions') ?></h3>
             </div>
             <div class="box-body">
+
+                <br>
+                <!--<legend><h4><?= __('Search') ?></h4></legend>-->
+                <table cellpadding="0" cellspacing="0", bgcolor="#FFFFFF">
+                    <tr><?php
+                        echo $this->Form->create($promotions);?>
+                        <th width="10"></th>
+                        <th scope="col"><?= $this->Form->input(('start_date'), ['label' => 'StartDate', 'type' => 'search']); ?></th>
+                        <th width="10"></th>
+                        <th scope="col"><?= $this->Form->input('end_date',['label' => 'EndDate', 'type' => 'search']); ?></th>
+                        <th width="30"></th>
+                        <th scope="col"><?= $this->Form->input('retailer_employee_id',['label' => 'Retailer Employee Name', 'type' => 'search']); ?></th>
+                        <th width="30"></th>
+                        <th scope="col"><?= $this->Form->input('supplier_id',['label' => 'Supplier Name', 'type' => 'search']); ?></th>
+                        <th width="30"></th>
+                        <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+                        <th width="10"></th>
+                        <?php echo $this->Form->end();?>
+                    </tr>
+                </table>
+                <br>
+
+
+
               <table class="table table-bordered table-striped">
                 <thead>
                     <tr>

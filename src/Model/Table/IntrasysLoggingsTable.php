@@ -23,7 +23,38 @@ use Cake\Validation\Validator;
  */
 class IntrasysLoggingsTable extends Table
 {
+    public $filterArgs = array(
+        'id' => array(
+            'type' => 'like',
+            'field' => 'id'
+        ),
+        'retailer_id' => array(
+            'type' => 'like',
+            'field' => 'retailer_id'
+        ),
+        'action' => array(
+            'type' => 'like',
+            'field' => 'action'
+        ),
+        'entity' => array(
+            'type' => 'like',
+            'field' => 'entity'
+        ),
+        'entity_id' => array(
+            'type' => 'like',
+            'field' => 'entity_id'
+        ),
+        'employee_id' => array(
+            'type' => 'like',
+            'field' => 'IntrasysEmployees.name',
+            'method' => 'findByActions'
 
+        ),
+        'created' => array(
+            'type' => 'like',
+            'field' => 'created'
+        )
+    );
     /**
      * Initialize method
      *
@@ -48,6 +79,7 @@ class IntrasysLoggingsTable extends Table
         $this->belongsTo('Retailers', [
             'foreignKey' => 'retailer_id'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

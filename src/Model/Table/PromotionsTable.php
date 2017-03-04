@@ -23,7 +23,46 @@ use Cake\Validation\Validator;
  */
 class PromotionsTable extends Table
 {
+    public $filterArgs = array(
+        'id' => array(
+            'type' => 'like',
+            'field' => 'id'
+        ),
+        'start_date' => array(
+            'type' => 'like',
+            'field' => 'start_date'
+        ),
+        'end_date' => array(
+            'type' => 'like',
+            'field' => 'end_date'
+        ),
+        'promo_desc' => array(
+            'type' => 'like',
+            'field' => 'promo_desc'
+        ),
+        'first_vouher_num' => array(
+            'type' => 'like',
+            'field' => 'first_vouher_num'
+        ),
+        'last_voucher_num' => array(
+            'type' => 'like',
+            'field' => 'last_voucher_num'
+        ),
+        'discount_rate' => array(
+            'type' => 'like',
+            'field' => 'discount_rate'
+        ),
+        'credit_card_type' => array(
+            'type' => 'like',
+            'field' => 'credit_card_type'
+        ),
+        'retailer_employee_id' => array(
+            'type' => 'like',
+            'field' => 'RetailerEmployees.id',
+            'method' => 'findByActions'
 
+        )
+    );
     /**
      * Initialize method
      *
@@ -51,6 +90,7 @@ class PromotionsTable extends Table
             'targetForeignKey' => 'prod_type_id',
             'joinTable' => 'promotions_prod_types'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

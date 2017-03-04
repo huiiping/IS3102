@@ -24,7 +24,32 @@ use Cake\Validation\Validator;
  */
 class SupplierMemosTable extends Table
 {
+    public $filterArgs = array(
+        'id' => array(
+            'type' => 'like',
+            'field' => 'id'
+        ),
+        'remarks' => array(
+            'type' => 'like',
+            'field' => 'remarks'
+        ),
+        'created' => array(
+            'type' => 'like',
+            'field' => 'created'
+        ),
+        'supplier_id' => array(
+            'type' => 'like',
+            'field' => 'Suppliers.name',
+            'method' => 'findByActions'
+        ),
+        'retailer_employee_id' => array(
+            'type' => 'like',
+            'field' => 'RetailerEmployees.name',
+            'method' => 'findByActions'
 
+
+        )
+    );
     /**
      * Initialize method
      *
@@ -47,6 +72,7 @@ class SupplierMemosTable extends Table
         $this->belongsTo('RetailerEmployees', [
             'foreignKey' => 'retailer_employee_id'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

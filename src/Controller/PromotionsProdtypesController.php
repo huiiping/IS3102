@@ -26,10 +26,15 @@ class PromotionsProdTypesController extends AppController
      */
     public function index()
     {
+
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
         $this->paginate = [
             'contain' => ['Promotions', 'ProdTypes']
         ];
-        $promotionsProdTypes = $this->paginate($this->PromotionsProdTypes);
+
+
+        $this->set('promotionsProdTypes', $this->paginate($this->PromotionsProdTypes->find('searchable', $this->Prg->parsedParams())));
 
         $this->set(compact('promotionsProdTypes'));
         $this->set('_serialize', ['promotionsProdTypes']);

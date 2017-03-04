@@ -25,11 +25,15 @@ class IntrasysLoggingsController extends AppController
      */
     public function index()
     {
+
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+
         $this->paginate = [
             'contain' => ['Retailers']
         ];
-        $intrasysLoggings = $this->paginate($this->IntrasysLoggings);
-
+       // $intrasysLoggings = $this->paginate($this->IntrasysLoggings);
+        $this->set('intrasysLoggings', $this->paginate($this->IntrasysLoggings->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('intrasysLoggings'));
         $this->set('_serialize', ['intrasysLoggings']);
     }
