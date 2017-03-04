@@ -26,9 +26,16 @@
                         echo $this->Form->input('name');
                         echo $this->Form->input('address');
                         echo $this->Form->input('contact');
-                        echo $this->Form->select('type', ['options' => [
-                            'warehouse' => 'Warehouse',
-                            'store' => 'Store']]);
+
+                        $options = array(
+                            'Store' => 'Store', 'Warehouse' => 'Warehouse');
+
+                        echo 'Type: ';
+                        echo $this->Form->radio('type', [
+                          ['value' => 'Store', 'text' => 'Store'],
+                          ['value' => 'Warehouse', 'text' => 'Warehouse']
+                          ]);
+                        
                     ?>
                 </fieldset>
                 <br>

@@ -26,8 +26,25 @@
                         echo $this->Form->input('name');
                         echo $this->Form->input('address');
                         echo $this->Form->input('contact');
-                        echo $this->Form->input('type');
                     ?>
+                    <?php if ($location->type == 'Store'): ?>
+                    <?php
+                       echo 'Type: ';
+                        echo $this->Form->radio('type', [
+                          ['value' => 'Store', 'text' => 'Store', 'selected' => true],
+                          ['value' => 'Warehouse', 'text' => 'Warehouse']
+                          ]);
+                    ?>
+                    <?php else: ?>
+                   <?php
+                     echo 'Type: ';
+                      echo $this->Form->radio('type', [
+                        ['value' => 'Store', 'text' => 'Store'],
+                        ['value' => 'Warehouse', 'text' => 'Warehouse', 'selected' => true]
+                        ]);
+                    ?>
+                    <?php endif; ?>
+
                 </fieldset>
                 <br>
                 <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>

@@ -395,13 +395,18 @@ public function login(){
                 $end = Time::parse($query[0]['contract_end_date']);
                 $start = Time::parse($query[0]['contract_start_date']);
 
-                if($end <= $now) {
+                if($query[0]['account_status'] == 'Deactivated') {
+                    $this->Flash->error($retailer.'\'s account with Intrasys has been deactivated.');
 
-                    $retailerEmployee = $this->RetailerEmployees->get($retaileremployee['id']);
-                    $retailerEmployee->activation_status = 'Deactivated';
-                    $this->RetailerEmployees->save($retailerEmployee);
+                    return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
+                } else if($end <= $now) {
 
-                    $this->Flash->error($retailer.'\'s contract with Intrasys has expired. Your account has been deactivated.');
+                    $retailerTable = TableRegistry::get('Retailers');
+                    $retailerEntity = $retailerTable->get($query[0]['id']);
+                    $retailerEntity->account_status = 'Deactivated';
+                    $retailerTable->save($retailerEntity);
+
+                    $this->Flash->error($retailer.'\'s contract with Intrasys has expired.');
 
                     return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
                 } else {

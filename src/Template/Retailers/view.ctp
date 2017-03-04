@@ -40,6 +40,16 @@
                 </li>
               </ul>
               <br>
+
+              <?php if ($retailer->account_status == 'Activated'): ?>
+                 <div class="btn btn-default btn-block">
+                    <?= $this->Html->link(__('Deactivate Retailer'), ['action' => 'deactivateStatus', $retailer->id]) ?>
+                  </div><br>
+              <?php else: ?>
+                 <div class="btn btn-default btn-block">
+                    <?= $this->Html->link(__('Activate Retailer'), ['action' => 'activateStatus', $retailer->id]) ?>
+                  </div><br>
+              <?php endif; ?>
               <div class="btn btn-default btn-block">
                 <?= $this->Html->link(__('Edit Retailer'), ['action' => 'edit', $retailer->id]) ?>
               </div><br>

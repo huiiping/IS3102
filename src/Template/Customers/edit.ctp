@@ -32,8 +32,7 @@
                         echo $this->Form->input('contact');
                         echo $this->Form->input('address');
                         echo $this->Form->input('activation_status');
-                        echo $this->Form->input('expiry_date', array(
-                            'type' => 'datetime-local'));
+                        echo $this->Form->input('expiry_date');
                         echo $this->Form->input('mailing_list');
                         echo $this->Form->input('cust_membership_tier_id', ['label' => 'Customer Membership Tier'], ['options' => $custMembershipTiers]);
                         //echo $this->Form->input('promotions._ids', ['options' => $promotions]);

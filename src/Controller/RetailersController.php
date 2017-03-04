@@ -310,4 +310,31 @@ class RetailersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+
+    public function activateStatus($id) {
+
+        $retailer = $this->Retailers->get($id);
+
+        $retailer->account_status = 'Activated';
+        $this->Retailers->save($retailer);
+
+        $this->Flash->success(__('The retailer has been activated.'));
+
+        return $this->redirect(['action' => 'view/'.$id]);
+    }
+
+    public function deactivateStatus($id) {
+
+        $retailer = $this->Retailers->get($id);
+
+        $retailer->account_status = 'Deactivated';
+        $this->Retailers->save($retailer);
+
+        $this->Flash->success(__('The retailer has been deactivated.'));
+
+        return $this->redirect(['action' => 'view/'.$id]);
+
+    }
+
 }
