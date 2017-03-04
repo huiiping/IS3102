@@ -35,6 +35,10 @@ class RetailerLoggingsController extends AppController
         $this->set(compact('retailerLoggings'));
         $this->set('_serialize', ['retailerLoggings']);
     }
+    public $components = array(
+        'Prg'
+    );
+
 
     /**
      * View method

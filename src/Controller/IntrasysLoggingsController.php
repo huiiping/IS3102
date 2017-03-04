@@ -37,6 +37,9 @@ class IntrasysLoggingsController extends AppController
         $this->set(compact('intrasysLoggings'));
         $this->set('_serialize', ['intrasysLoggings']);
     }
+    public $components = array(
+        'Prg'
+    );
 
     /**
      * View method

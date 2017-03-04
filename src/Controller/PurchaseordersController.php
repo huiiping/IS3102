@@ -38,6 +38,10 @@ class PurchaseOrdersController extends AppController
         $this->set('_serialize', ['purchaseOrders']);
     }
 
+    public $components = array(
+        'Prg'
+    );
+
     /**
      * View method
      *

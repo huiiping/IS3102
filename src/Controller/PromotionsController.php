@@ -39,6 +39,10 @@ class PromotionsController extends AppController
         $this->set('_serialize', ['promotions']);
     }
 
+    public $components = array(
+        'Prg'
+    );
+
     /**
      * View method
      *

@@ -38,6 +38,10 @@ class SupplierMemosController extends AppController
         $this->set(compact('supplierMemos'));
         $this->set('_serialize', ['supplierMemos']);
     }
+    public $components = array(
+        'Prg'
+    );
+
 
     /**
      * View method
