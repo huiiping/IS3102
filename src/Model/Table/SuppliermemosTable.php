@@ -44,10 +44,8 @@ class SupplierMemosTable extends Table
         ),
         'retailer_employee_id' => array(
             'type' => 'like',
-            'field' => 'RetailerEmployees.name',
+            'field' => 'RetailerEmployees.first_name',
             'method' => 'findByActions'
-
-
         )
     );
     /**

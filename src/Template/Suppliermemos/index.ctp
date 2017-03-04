@@ -21,7 +21,6 @@
             </div>
             <div class="box-body">
 
-
                 <br>
                 <!--<legend><h4><?= __('Search') ?></h4></legend>-->
                 <table cellpadding="0" cellspacing="0", bgcolor="#FFFFFF">
@@ -29,8 +28,8 @@
                         echo $this->Form->create($supplierMemos);?>
                         <th width="10"></th>
                         <th scope="col"><?= $this->Form->input(('supplier_id'), ['label' => 'Supplier Name', 'type' => 'search']); ?></th>
-                        <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input('retailer_employee_id',['label' => 'Retailer Employee Name', 'type' => 'search']); ?></th>
+                        <th width="60"></th>
+                        <th scope="col"><?= $this->Form->input(('retailer_employee_id'), ['label' => 'Retailer Employee Name', 'type' => 'search']); ?></th>
                         <th width="30"></th>
                         <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
                         <th width="10"></th>
@@ -38,7 +37,6 @@
                     </tr>
                 </table>
                 <br>
-
 
               <table class="table table-bordered table-striped">
 

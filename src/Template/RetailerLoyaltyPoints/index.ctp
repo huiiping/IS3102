@@ -4,7 +4,7 @@
   */
 ?>
 
-
+<?= $this->Element('intrasysLeftSideBar'); ?>
 
 <!-- Main Content -->
 <div class="content-wrapper">
@@ -28,17 +28,13 @@
                         echo $this->Form->create($retailerLoyaltyPoints);?>
                         <th width="10"></th>
                         <th scope="col"><?= $this->Form->input(('retailer_name'), ['label' => 'Retailer Name', 'type' => 'search']); ?></th>
-                        <th width="10"></th>
-
+                        <th width="30"></th>
                         <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
                         <th width="10"></th>
                         <?php echo $this->Form->end();?>
                     </tr>
                 </table>
                 <br>
-
-
-
 
                 <table class="table table-bordered table-striped">
                 <thead>
