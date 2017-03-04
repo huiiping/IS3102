@@ -27,13 +27,13 @@
                     <tr><?php
                         echo $this->Form->create($promotions);?>
                         <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input(('start_date'), ['label' => 'StartDate', 'type' => 'search']); ?></th>
-                        <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input('end_date',['label' => 'EndDate', 'type' => 'search']); ?></th>
+                        <th scope="col"><?= $this->Form->input(('cust_membership_tier_id'), ['label' => 'Customer Membership Tier ID', 'type' => 'search']); ?></th>
                         <th width="30"></th>
-                        <th scope="col"><?= $this->Form->input('retailer_employee_id',['label' => 'Retailer Employee Name', 'type' => 'search']); ?></th>
+                        <!--<th scope="col"><?= $this->Form->input(('start_date'), ['label' => 'Start Date', 'type' => 'search']); ?></th>
                         <th width="30"></th>
-                        <th scope="col"><?= $this->Form->input('supplier_id',['label' => 'Supplier Name', 'type' => 'search']); ?></th>
+                        <th scope="col"><?= $this->Form->input(('end_date'), ['label' => 'End Date', 'type' => 'search']); ?></th>-->
+                        <th width="30"></th>
+                        <th scope="col"><?= $this->Form->input(('retailer_employee_id') ,['label' => 'Retailer Employee Name', 'type' => 'search']); ?></th>
                         <th width="30"></th>
                         <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
                         <th width="10"></th>
@@ -41,8 +41,6 @@
                     </tr>
                 </table>
                 <br>
-
-
 
               <table class="table table-bordered table-striped">
                 <thead>

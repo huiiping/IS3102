@@ -30,11 +30,13 @@ class PromotionsController extends AppController
      */
     public function index()
     {
+        //$promotions = $this->paginate($this->Promotions);
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
         $this->paginate = [
             'contain' => ['RetailerEmployees']
         ];
-        $promotions = $this->paginate($this->Promotions);
-
+        $this->set('promotions', $this->paginate($this->Promotions->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('promotions'));
         $this->set('_serialize', ['promotions']);
     }
