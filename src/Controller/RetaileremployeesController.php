@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\Datasource\ConnectionManager;
 use Cake\I18n\Time;
+use Cake\I18n\Date;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
@@ -371,17 +372,35 @@ public function login(){
 
         $retaileremployee = $this->Auth->identify();
         if($retaileremployee){
-            if($retaileremployee['activation_status'] == 'Deactivated'){
+            if($retaileremployee['activation_status'] == 'Deactivated') {
                 $this->Flash->error('Your account has not been activated yet. Please check your email');
 
                 return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'index']);
-            }
-
-            if($retaileremployee['recovery_status'] == 'Pending'){
+            } else if($retaileremployee['recovery_status'] == 'Pending') {
                 $this->Flash->error('Your account has not been recovered yet. Please check your email.');
 
                 return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'index']);
+            } else {
+
+                $conn = ConnectionManager::get('intrasysdb');
+                $query = $conn
+                    ->newQuery()
+                    ->select('*')
+                    ->from('retailers')
+                    ->where(['retailer_name' => $retailer])
+                    ->execute()
+                    ->fetchAll('assoc');
+
+                $now = Date::now();
+                if($query[0]['contract_end_date'] >= $now) {
+
+                    $retaileremployee->activation_status = 'Deactivated';
+                    $this->RetailerEmployees->save($retaileremployee);
+
+                };
+
             }
+
             $this->Auth->setUser($retaileremployee);
             $session->write('retailer', $retailer); 
             $session->write('retailer_employee_id',$retaileremployee['id']);
@@ -389,8 +408,8 @@ public function login(){
             //$this->loadComponent('Logging');            
             $this->Logging->rLog($session->read('retailer_employee_id'));
             $this->Logging->iLog($retailer, $session->read('retailer_employee_id'));
-            
-            return $this->redirect(['controller' => 'Pages', 'action' => 'retailer']);
+
+            //return $this->redirect(['controller' => 'Pages', 'action' => 'retailer']);
             //return $this->redirect($this->Auth->redirectUrl());            
         }
         $this->Flash->error('Incorrect Login');   

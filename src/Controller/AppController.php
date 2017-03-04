@@ -43,7 +43,8 @@ class AppController extends Controller
         parent::initialize();
 
         $this->loadComponent('RequestHandler');
-        $this->loadComponent('Flash');
+        $this->loadComponent('Flash');      
+
         /*
          * Enable the following components for recommended CakePHP security settings.
          * see http://book.cakephp.org/3.0/en/controllers/components/security.html
@@ -73,6 +74,8 @@ class AppController extends Controller
             ]);
             ConnectionManager::alias('conn1', 'default');
         }
+
+
     }
 
     /**
