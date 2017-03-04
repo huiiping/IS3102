@@ -24,6 +24,37 @@ use Cake\Validation\Validator;
 class InventoryTable extends Table
 {
 
+
+
+    public $filterArgs = array(
+        'id' => array(
+            'type' => 'like',
+            'field' => 'id'
+        ),
+        'prod_type_id' => array(
+            'type' => 'like',
+            'field' => 'ProdTypes.prod_name'
+        ),
+        'SKU' => array(
+            'type' => 'like',
+            'field' => 'SKU'
+        ),
+        'quantity' => array(
+            'type' => 'like',
+            'field' => 'quantity'
+        ),
+        'section_id' => array(
+            'type' => 'like',
+            'field' => 'Sections.sec_name',
+             'method' => 'findByActions'
+        ),
+        'location_id' => array(
+            'type' => 'like',
+            'field' => 'Locations.name',
+            'method' => 'findByActions'
+        )
+
+    );
     /**
      * Initialize method
      *
@@ -50,6 +81,7 @@ class InventoryTable extends Table
             'foreignKey' => 'location_id',
             'joinType' => 'INNER'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

@@ -16,6 +16,33 @@
     </ul>
 </nav>
 <div class="inventory index large-9 medium-8 columns content">
+
+    <br>
+    <!--<legend><h4><?= __('Search') ?></h4></legend>-->
+    <table cellpadding="0" cellspacing="0", bgcolor="#FFFFFF">
+        <tr><?php
+            echo $this->Form->create($inventory);?>
+            <th width="10"></th>
+            <th scope="col"><?= $this->Form->input(('prod_type_id'), ['label' => 'Product Type Name', 'type' => 'search']); ?></th>
+            <th width="10"></th>
+            <th scope="col"><?= $this->Form->input(('section_id'), ['label' => 'Section Name', 'type' => 'search']); ?></th>
+            <th width="10"></th>
+            <th scope="col"><?= $this->Form->input(('location_id'), ['label' => 'Location Name', 'type' => 'search']); ?></th>
+            <th width="10"></th>
+            <th scope="col"><?= $this->Form->input(('SKU'), ['label' => 'SKU', 'type' => 'search']); ?></th>
+            <th width="10"></th>
+
+
+            <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+            <th width="10"></th>
+            <?php echo $this->Form->end();?>
+        </tr>
+    </table>
+    <br>
+
+
+
+
     <h3><?= __('Inventory') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
@@ -33,10 +60,10 @@
             <?php foreach ($inventory as $inventory): ?>
             <tr>
                 <td><?= $this->Number->format($inventory->id) ?></td>
-                <td><?= $inventory->has('prod_type') ? $this->Html->link($inventory->prod_type->id, ['controller' => 'ProdTypes', 'action' => 'view', $inventory->prod_type->id]) : '' ?></td>
+                <td><?= $inventory->has('prod_type') ? $this->Html->link($inventory->prod_type->prod_name, ['controller' => 'ProdTypes', 'action' => 'view', $inventory->prod_type->id]) : '' ?></td>
                 <td><?= h($inventory->SKU) ?></td>
                 <td><?= $this->Number->format($inventory->quantity) ?></td>
-                <td><?= $inventory->has('section') ? $this->Html->link($inventory->section->id, ['controller' => 'Sections', 'action' => 'view', $inventory->section->id]) : '' ?></td>
+                <td><?= $inventory->has('section') ? $this->Html->link($inventory->section->sec_name, ['controller' => 'Sections', 'action' => 'view', $inventory->section->id]) : '' ?></td>
                 <td><?= $inventory->has('location') ? $this->Html->link($inventory->location->name, ['controller' => 'Locations', 'action' => 'view', $inventory->location->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $inventory->id]) ?>

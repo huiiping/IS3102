@@ -18,14 +18,20 @@ class InventoryController extends AppController
      */
     public function index()
     {
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
         $this->paginate = [
             'contain' => ['ProdTypes', 'Sections', 'Locations']
         ];
-        $inventory = $this->paginate($this->Inventory);
+
+        $this->set('inventory', $this->paginate($this->Inventory->find('searchable', $this->Prg->parsedParams())));
 
         $this->set(compact('inventory'));
         $this->set('_serialize', ['inventory']);
     }
+    public $components = array(
+        'Prg'
+    );
 
     /**
      * View method
