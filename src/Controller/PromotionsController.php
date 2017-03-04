@@ -180,6 +180,7 @@ class PromotionsController extends AppController
 
     // currently not in use
     // KIV for future memory_get_usage()
+    /*
     public function email($id = null){
 
         $promotion = $this->Promotions->get($id);
@@ -193,4 +194,5 @@ class PromotionsController extends AppController
         $email->replyTo('support@intrasys.com');
         $email->send($retailerEmployees['username'].','.$promotion['promo_desc'].','.$promotion['start_date'].','.$promotion['end_date'].','.$promotion['discount_rate'].','.$promotion['credit_card_type']); 
     }
+    */
 }

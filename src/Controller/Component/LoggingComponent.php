@@ -19,8 +19,6 @@ use Cake\ORM\TableRegistry;
 use Cake\Datasource\ConnectionManager;
 use Cake\Utility\Hash;
 
-
-
 /**
  * Post-Redirect-Get: Transfers POST Requests to GET Requests
  *
@@ -44,7 +42,6 @@ class LoggingComponent extends Component {
 	}
 
 	public function iLog($retailer, $id){
-
 		
 		$session = $this->request->session();
 
