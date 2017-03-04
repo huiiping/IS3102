@@ -20,6 +20,11 @@
               <h3 class="box-title"><?= __('Retailer Employee Roles') ?></h3>
             </div>
             <div class="box-body">
+            <div class="pull-right">
+                <div class="btn btn-default btn-block">
+                  <?= $this->Html->link(__('View Employee Roles Mapping Tree'), ['controller' => 'pages', 'action' => 'display', 'retailer_tree']) ?>
+                </div>
+            </div>
             <br>
               <!--<legend><h4><?= __('Search') ?></h4></legend>-->
               <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
