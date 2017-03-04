@@ -50,7 +50,7 @@ class CustomersController extends AppController
     public function view($id = null)
     {
         $customer = $this->Customers->get($id, [
-            'contain' => ['CustMembershipTiers', 'Promotions']
+            'contain' => ['CustMembershipTiers']
         ]);
 
         $session = $this->request->session();
@@ -90,7 +90,7 @@ class CustomersController extends AppController
         }
         $custMembershipTiers = $this->Customers->CustMembershipTiers->find('list', ['limit' => 200]);
         $promotions = $this->Customers->Promotions->find('list', ['limit' => 200]);
-        $this->set(compact('customer', 'custMembershipTiers', 'promotions'));
+        $this->set(compact('customer', 'custMembershipTiers'));
         $this->set('_serialize', ['customer']);
     }
 
@@ -103,9 +103,7 @@ class CustomersController extends AppController
      */
     public function edit($id = null)
     {
-        $customer = $this->Customers->get($id, [
-            'contain' => ['Promotions']
-        ]);
+        $customer = $this->Customers->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $customer = $this->Customers->patchEntity($customer, $this->request->data);
             if ($this->Customers->save($customer)) {
@@ -124,7 +122,7 @@ class CustomersController extends AppController
         }
         $custMembershipTiers = $this->Customers->CustMembershipTiers->find('list', ['limit' => 200]);
         $promotions = $this->Customers->Promotions->find('list', ['limit' => 200]);
-        $this->set(compact('customer', 'custMembershipTiers', 'promotions'));
+        $this->set(compact('customer', 'custMembershipTiers'));
         $this->set('_serialize', ['customer']);
     }
 

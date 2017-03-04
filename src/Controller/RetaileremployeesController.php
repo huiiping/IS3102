@@ -375,11 +375,11 @@ public function login(){
             if($retaileremployee['activation_status'] == 'Deactivated') {
                 $this->Flash->error('Your account has not been activated yet. Please check your email');
 
-                return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'index']);
+                return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
             } else if($retaileremployee['recovery_status'] == 'Pending') {
                 $this->Flash->error('Your account has not been recovered yet. Please check your email.');
 
-                return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'index']);
+                return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
             } else {
 
                 $conn = ConnectionManager::get('intrasysdb');
@@ -392,12 +392,75 @@ public function login(){
                     ->fetchAll('assoc');
 
                 $now = Date::now();
-                if($query[0]['contract_end_date'] >= $now) {
+                $end = Time::parse($query[0]['contract_end_date']);
+                $start = Time::parse($query[0]['contract_start_date']);
 
-                    $retaileremployee->activation_status = 'Deactivated';
-                    $this->RetailerEmployees->save($retaileremployee);
+                if($end <= $now) {
 
-                };
+                    $retailerEmployee = $this->RetailerEmployees->get($retaileremployee['id']);
+                    $retailerEmployee->activation_status = 'Deactivated';
+                    $this->RetailerEmployees->save($retailerEmployee);
+
+                    $this->Flash->error($retailer.'\'s contract with Intrasys has expired. Your account has been deactivated.');
+
+                    return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
+                } else {
+
+                    // 1. check the difference (in days) between the contract start date and today's date
+                    // 2. mod the number of days by 365 (to get the number of years elapsed) 
+                    // 3. count the number of times loyalty points have already been awarded to them for "annual contract loyalty"
+                    // 4. if the answer from (3) - (2) is ONE, award 100 loyalty points to the retailer
+
+
+                    $diff_year = 0;
+                    $start->addYear(1);
+
+                    while($start<$now) {
+
+                        $diff_year += 1;
+                        $start->addYear(1);
+
+                    }
+
+                    if($diff_year != 0) {
+
+                        $query2 = $conn
+                            ->newQuery()
+                            ->select('*')
+                            ->from('retailer_loyalty_points')
+                            ->where(['retailer_id' => $query[0]['id']])
+                            ->where(['remarks' => 'Annual Contractual Loyalty Reward'])
+                            ->execute()
+                            ->fetchAll('assoc');
+
+                        $rowCount = 0;
+
+                        foreach($query2 as $row){
+                            $rowCount++;
+                        }
+                        
+                        //echo $diff_year - $rowCount;
+
+                        // if the amount of loyalty points awarded for the annual contractual loyalty does not tally with the number of years elapsed in the contract, award the retailer with the loyalty points before proceeding
+                        while($diff_year - $rowCount != 0) {
+
+                            $rlpTable = TableRegistry::get('RetailerLoyaltyPoints');
+                            $rlp = $rlpTable->newEntity();
+
+                            $rlp->loyalty_pts = 100;
+                            $rlp->redemption_pts = null;
+                            $rlp->remarks = 'Annual Contractual Loyalty Reward';
+                            $rlp->retailer_id = $query[0]['id'];
+
+                            $rlpTable->save($rlp);
+
+                            $rowCount++;
+
+                        }
+
+                    }                    
+
+                }
 
             }
 

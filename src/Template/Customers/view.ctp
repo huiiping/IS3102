@@ -34,6 +34,10 @@
                     <b><?= __('Mailing List') ?></b> 
                     <div class="pull-right"><?= $customer->mailing_list ? __('Yes') : __('No'); ?></div>
                   </li>
+                  <li class="list-group-item">
+                    <b><?= __('Expiry Date') ?></b> 
+                    <div class="pull-right"><?= $this->Time->format(h($customer->expiry_date), 'd MMM YYYY, hh:mm') ?></div>
+                  </li>
                 </ul>
                 <br>
               <div class="btn btn-default btn-block"><?= $this->Html->link(__('Edit Customer'), ['action' => 'edit', $customer->id]) ?></div>
@@ -42,7 +46,7 @@
         </div>
 
         <div class="col-md-8">  
-            <div class="box box-primary">
+            <div class="box box-primary" style="height: 100%;">
                 <div class="box-body box-profile">
                   <div class="box-header with-border">
                     <h3 class="box-title"><?= __('Customer Profile') ?></h3>
@@ -80,55 +84,7 @@
                     </table>
                   </div>
                 </div>
-            </div>
-            <div class="box box-primary">
-                <div class="box-body box-profile">
-                  <div class="box-header with-border">
-                    <h3 class="box-title"><?= __('Related Promotions') ?></h3>
-                  </div>
-                  <div class="box-body"><br>
-                    <div class="related">
-                        <?php if (!empty($customer->promotions)): ?>
-                        <table cellpadding="0" cellspacing="0">
-                            <tr>
-                                <!--<th scope="col"><?= __('Id') ?></th>
-                                <th scope="col"><?= __('Start Date') ?></th>
-                                <th scope="col"><?= __('End Date') ?></th>
-                                <th scope="col"><?= __('Promo Desc') ?></th>
-                                <th scope="col"><?= __('First Voucher Num') ?></th>
-                                <th scope="col"><?= __('Last Voucher Num') ?></th>
-                                <th scope="col"><?= __('Discount Rate') ?></th>
-                                <th scope="col"><?= __('Credit Card Type') ?></th>
-                                <th scope="col"><?= __('Retailer Employee Id') ?></th>
-                                <th scope="col" class="actions"><?= __('Actions') ?></th>-->
-                                <th scope="col"><?= __('Voucher Number') ?></th>
-                            </tr>
-                            <?php foreach ($customer->promotions as $promotions): ?>
-                            <tr>
-                                <!--td><?= h($promotions->id) ?></td>
-                                <td><?= h($promotions->start_date) ?></td>
-                                <td><?= h($promotions->end_date) ?></td>
-                                <td><?= h($promotions->promo_desc) ?></td>
-                                <td><?= h($promotions->first_voucher_num) ?></td>
-                                <td><?= h($promotions->last_voucher_num) ?></td>
-                                <td><?= h($promotions->discount_rate) ?></td>
-                                <td><?= h($promotions->credit_card_type) ?></td>
-                                <td><?= h($promotions->retailer_employee_id) ?></td>
-                                <td class="actions">
-                                    <?= $this->Html->link(__('View'), ['controller' => 'Promotions', 'action' => 'view', $promotions->id]) ?>
-                                    <?= $this->Html->link(__('Edit'), ['controller' => 'Promotions', 'action' => 'edit', $promotions->id]) ?>
-                                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Promotions', 'action' => 'delete', $promotions->id], ['confirm' => __('Are you sure you want to delete # {0}?', $promotions->id)]) ?>
-                                </td>-->
-                                <td>
-                                    <?= $this->Html->link(__(h($promotions->first_voucher_num).h($promotions->last_voucher_num) ), ['controller' => 'Promotions', 'action' => 'view', $promotions->id]) ?>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </table>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
+            </div>            
         </div>
       </div>
   </section>

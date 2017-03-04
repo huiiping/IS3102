@@ -29,6 +29,7 @@ CREATE TABLE customers (
     recovery_status VARCHAR(100),
     recovery_token VARCHAR(100),
     mailing_list BOOLEAN,
+    expiry_date DATETIME,
     cust_membership_tier_id INT NOT NULL,
     FOREIGN KEY (cust_membership_tier_id) REFERENCES cust_membership_tiers(id)
 );
