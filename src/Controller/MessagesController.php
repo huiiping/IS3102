@@ -68,26 +68,27 @@ class MessagesController extends AppController
 
     public function chat($id)
     {   
+        //Retrieving existing chats
         $session = $this->request->session();
         $sender = $session->read('retailer_employee_id');
-        /**
+        
         $retailerEmployees = TableRegistry::get('RetailerEmployees');
         $reciever = $retailerEmployees->find('list', ['limit' => 200])->where(['id' => $id]);
         $this->set(compact('reciever', 'retailerEmployees'));
         $this->set('reciever', $reciever);
-        $this->set('_serialize', ['reciever']);*/
+        $this->set('_serialize', ['reciever']);
 
         $this->paginate = [
             'contain' => ['RetailerEmployees']
         ];
 
-        $messages = $this->paginate($this->Messages->find()
+        $msgs = $this->paginate($this->Messages->find()
             ->where(['sender_id' => $id])
             ->orWhere(['sender_id' => $sender])
         );
 
-        $this->set(compact('messages'));
-        $this->set('_serialize', ['messages']);
+        $this->set(compact('msgs'));
+        $this->set('_serialize', ['msgs']);
     }
 
     /**

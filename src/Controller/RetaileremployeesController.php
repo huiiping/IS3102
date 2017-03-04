@@ -409,7 +409,7 @@ public function login(){
             $this->Logging->rLog($session->read('retailer_employee_id'));
             $this->Logging->iLog($retailer, $session->read('retailer_employee_id'));
 
-            //return $this->redirect(['controller' => 'Pages', 'action' => 'retailer']);
+            return $this->redirect(['controller' => 'Pages', 'action' => 'retailer']);
             //return $this->redirect($this->Auth->redirectUrl());            
         }
         $this->Flash->error('Incorrect Login');   

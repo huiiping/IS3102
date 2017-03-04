@@ -31,7 +31,7 @@
                         echo $this->Form->input('address');
                         echo $this->Form->input('contact');
                         echo $this->Form->input('contract_start_date', array('type' => 'datetime-local'));
-                        echo $this->Form->input('contract_end_date', array('type' => 'datetime-local',);
+                        echo $this->Form->input('contract_end_date', array('type' => 'datetime-local'));
                         /*Gwen: these fields are only for edit
                         echo $this->Form->input('num_of_users', ['label'=>'No. of Users']);
                         echo $this->Form->input('num_of_warehouses', ['label'=>'No. of Warehouses']);
