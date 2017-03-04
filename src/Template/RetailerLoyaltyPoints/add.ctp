@@ -17,7 +17,7 @@
         <div class="col-xs-12">
           <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title"><?= __('Create New Retailer Loyalty Point') ?></h3>
+                <h3 class="box-title"><?= __('Award New Loyalty Points') ?></h3>
             </div>
             <div class="box-body">
                 <?= $this->Form->create($retailerLoyaltyPoint) ?>

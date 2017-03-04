@@ -4,7 +4,9 @@
   */
 ?>
 
+<?php if($loggedIn) : ?>
 <?= $this->Element('intrasysLeftSideBar'); ?>
+<?php endif; ?>
 
 <!-- Main Content -->
 <div class="content-wrapper">
