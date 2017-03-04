@@ -176,7 +176,7 @@ return [
      * appropriate file to src/Mailer/Transport. Transports should be named
      * 'YourTransport.php', where 'Your' is the name of the transport.
      */
-'EmailTransport' => [
+    'EmailTransport' => [
         'default' => [
             'className' => 'Smtp',
             // The following keys are used in SMTP transports
@@ -357,5 +357,6 @@ return [
      */
     'Session' => [
         'defaults' => 'php',
+        'timeout' => 2*60,
     ],
 ];
