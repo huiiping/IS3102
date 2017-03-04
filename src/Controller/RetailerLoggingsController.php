@@ -30,8 +30,6 @@ class RetailerLoggingsController extends AppController
             'contain' => ['RetailerEmployees']
         ];
         $this->set('retailerLoggings', $this->paginate($this->RetailerLoggings->find('searchable', $this->Prg->parsedParams())));
-
-
         $this->set(compact('retailerLoggings'));
         $this->set('_serialize', ['retailerLoggings']);
     }
@@ -53,6 +51,9 @@ class RetailerLoggingsController extends AppController
             'contain' => ['RetailerEmployees']
         ]);
 
+
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
         //$this->loadComponent('Logging');
         $this->Logging->rLog($retailerLogging['id']);
         $this->Logging->iLog($retailer, $retailerLogging['id']);

@@ -44,9 +44,8 @@ class RetailerLoggingsTable extends Table
         ),
         'retailer_employee_id' => array(
             'type' => 'like',
-            'field' => 'RetailerEmployees.id',
+            'field' => 'RetailerEmployees.first_name',
             'method' => 'findByActions'
-
         ),
         'created' => array(
             'type' => 'like',

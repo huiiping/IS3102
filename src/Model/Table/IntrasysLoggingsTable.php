@@ -30,7 +30,7 @@ class IntrasysLoggingsTable extends Table
         ),
         'retailer_id' => array(
             'type' => 'like',
-            'field' => 'retailer_id'
+            'field' => 'Retailers.retailer_name'
         ),
         'action' => array(
             'type' => 'like',
@@ -44,11 +44,9 @@ class IntrasysLoggingsTable extends Table
             'type' => 'like',
             'field' => 'entity_id'
         ),
-        'employee_id' => array(
+        'employeeid' => array(
             'type' => 'like',
-            'field' => 'IntrasysEmployees.name',
-            'method' => 'findByActions'
-
+            'field' => 'employeeid'
         ),
         'created' => array(
             'type' => 'like',

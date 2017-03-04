@@ -4,7 +4,7 @@
   */
 ?>
 
-<?= $this->Element('intrasyssLeftSideBar'); ?>
+<?= $this->Element('intrasysLeftSideBar'); ?>
 
 <!-- Main Content -->
 <div class="content-wrapper">
@@ -24,7 +24,7 @@
                 <table class="vertical-table">
                     <tr>
                         <th scope="row"><?= __('Retailer') ?></th>
-                        <td><?= $intrasysLogging->has('retailer') ? $this->Html->link($intrasysLogging->retailer->id, ['controller' => 'Retailers', 'action' => 'view', $intrasysLogging->retailer->id]) : '' ?></td>
+                        <td><?= $intrasysLogging->has('retailer') ? $this->Html->link($intrasysLogging->retailer->retailer_name, ['controller' => 'Retailers', 'action' => 'view', $intrasysLogging->retailer->id]) : '' ?></td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Action') ?></th>

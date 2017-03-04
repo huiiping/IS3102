@@ -54,6 +54,8 @@ class IntrasysLoggingsController extends AppController
             'contain' => ['Retailers']
         ]);
 
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
         //$this->loadComponent('Logging');
         //$this->Logging->rLog($intrasysLogging['id']);
         $this->Logging->iLog($retailer, $intrasysLogging['id']);

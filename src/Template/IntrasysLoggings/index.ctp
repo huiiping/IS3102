@@ -21,18 +21,17 @@
             </div>
             <div class="box-body">
 
-
                 <br>
                 <!--<legend><h4><?= __('Search') ?></h4></legend>-->
                 <table cellpadding="0" cellspacing="0", bgcolor="#FFFFFF">
                     <tr><?php
-                        echo $this->Form->create($intrasysLogging);?>
+                        echo $this->Form->create($intrasysLoggings);?>
                         <th width="10"></th>
                         <th scope="col"><?= $this->Form->input(('retailer_id'), ['label' => 'Retailer Name', 'type' => 'search']); ?></th>
-                        <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input('entity',['label' => 'Entity Name', 'type' => 'search']); ?></th>
-                        <th width="30"></th>
-                        <th scope="col"><?= $this->Form->input('employee_id',['label' => 'Employee Name', 'type' => 'search']); ?></th>
+                        <th width="60"></th>
+                        <th scope="col"><?= $this->Form->input(('entity'), ['label' => 'Entity / Controller', 'type' => 'search']); ?></th>
+                        <!--<th width="60"></th>
+                        <th scope="col"><?= $this->Form->input(('employeeid'), ['label' => 'Employee ID', 'type' => 'search']); ?></th>-->
                         <th width="30"></th>
                         <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
                         <th width="10"></th>
@@ -47,14 +46,14 @@
                         <th scope="col"><?= $this->Paginator->sort('id', array(
                             'label' => 'Log ID')) ?></th>
                         <th scope="col"><?= $this->Paginator->sort('retailer_id', array(
-                            'label' => 'Retailer ID')) ?></th>
+                            'label' => 'Retailer Name')) ?></th>
                         <th scope="col"><?= $this->Paginator->sort('action') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('entity', array(
                             'label' => 'Entity / Controller')) ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('entityid', array(
+                        <!--<th scope="col"><?= $this->Paginator->sort('entityid', array(
                             'label' => 'Entity ID')) ?></th>
                         <th scope="col"><?= $this->Paginator->sort('employeeid', array(
-                            'label' => 'Employee ID')) ?></th>
+                            'label' => 'Employee ID')) ?></th>-->
                         <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                         <th scope="col" class="actions"><?= __('Actions') ?></th>
                     </tr>
@@ -66,8 +65,8 @@
                         <td><?= $intrasysLogging->has('retailer') ? $this->Html->link($intrasysLogging->retailer->retailer_name, ['controller' => 'Retailers', 'action' => 'view', $intrasysLogging->retailer->id]) : '' ?></td>
                         <td><?= h($intrasysLogging->action) ?></td>
                         <td><?= h($intrasysLogging->entity) ?></td>
-                        <td><?= $this->Number->format($intrasysLogging->entityid) ?></td>
-                        <td><?= $this->Number->format($intrasysLogging->employeeid) ?></td>
+                        <!--<td><?= $this->Number->format($intrasysLogging->entityid) ?></td>
+                        <td><?= $this->Number->format($intrasysLogging->employeeid) ?></td>-->
                         <td><?= $this->Time->format(h($intrasysLogging->created), 'd MMM YYYY, hh:mm') ?></td>
                         <td class="actions">
                             <?= $this->Html->link(__('View'), ['action' => 'view', $intrasysLogging->id]) ?>

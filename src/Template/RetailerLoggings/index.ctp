@@ -24,6 +24,24 @@
               <h3 class="box-title"><?= __('Retailer Loggings') ?></h3>
             </div>
             <div class="box-body">
+
+            <br>
+                <!--<legend><h4><?= __('Search') ?></h4></legend>-->
+                <table cellpadding="0" cellspacing="0", bgcolor="#FFFFFF">
+                    <tr><?php
+                        echo $this->Form->create($retailerLoggings);?>
+                        <th width="10"></th>
+                        <th scope="col"><?= $this->Form->input(('retailer_employee_id'), ['label' => 'Retailer Employee Name', 'type' => 'search']); ?></th>
+                        <th width="60"></th>
+                        <th scope="col"><?= $this->Form->input(('entity'), ['label' => 'Entity / Controller', 'type' => 'search']); ?></th>
+                        <th width="30"></th>
+                        <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+                        <th width="10"></th>
+                        <?php echo $this->Form->end();?>
+                    </tr>
+                </table>
+                <br>
+
               <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -34,9 +52,9 @@
                         <th scope="col"><?= $this->Paginator->sort('entity', array(
                             'label' => 'Entity / Controller')
                           ) ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('entityid', array(
+                        <!--<th scope="col"><?= $this->Paginator->sort('entityid', array(
                             'label' => 'Entity ID')
-                          ) ?></th>
+                          ) ?></th>-->
                         <th scope="col"><?= $this->Paginator->sort('retailer_employee_id', array(
                             'label' => 'Employee ID')
                           ) ?></th>
@@ -50,8 +68,8 @@
                         <td><?= $this->Number->format($retailerLogging->id) ?></td>
                         <td><?= h($retailerLogging->action) ?></td>
                         <td><?= h($retailerLogging->entity) ?></td>
-                        <td><?= $this->Number->format($retailerLogging->entityid) ?></td>
-                        <td><?= $retailerLogging->has('retailer_employee') ? $this->Html->link($retailerLogging->retailer_employee->id, ['controller' => 'RetailerEmployees', 'action' => 'view', $retailerLogging->retailer_employee->id]) : '' ?></td>
+                        <!--<td><?= $this->Number->format($retailerLogging->entityid) ?></td>-->
+                        <td><?= $retailerLogging->has('retailer_employee') ? $this->Html->link($retailerLogging->retailer_employee->first_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $retailerLogging->retailer_employee->id]) : '' ?></td>
                         <td><?= $this->Time->format(h($retailerLogging->created), 'd MMM YYYY, hh:mm') ?></td>
                         <td class="actions">
                             <?= $this->Html->link(__('View'), ['action' => 'view', $retailerLogging->id]) ?>
