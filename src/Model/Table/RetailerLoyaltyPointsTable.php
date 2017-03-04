@@ -55,7 +55,7 @@ class RetailerLoyaltyPointsTable extends Table
         ),
         'retailer_name' => array(
             'type' => 'like',
-            'field' => 'Retailers.company_name',
+            'field' => 'Retailers.retailer_name',
             'method' => 'findByActions'
         )
     );
