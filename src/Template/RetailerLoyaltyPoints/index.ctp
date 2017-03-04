@@ -4,7 +4,7 @@
   */
 ?>
 
-<?= $this->Element('intrasysLeftSideBar'); ?>
+
 
 <!-- Main Content -->
 <div class="content-wrapper">
@@ -20,7 +20,27 @@
               <h3 class="box-title"><?= __('Retailer Loyalty Points') ?></h3>
             </div>
             <div class="box-body">
-              <table class="table table-bordered table-striped">
+
+                <br>
+                <!--<legend><h4><?= __('Search') ?></h4></legend>-->
+                <table cellpadding="0" cellspacing="0", bgcolor="#FFFFFF">
+                    <tr><?php
+                        echo $this->Form->create($retailerLoyaltyPoints);?>
+                        <th width="10"></th>
+                        <th scope="col"><?= $this->Form->input(('retailer_name'), ['label' => 'Retailer Name', 'type' => 'search']); ?></th>
+                        <th width="10"></th>
+
+                        <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+                        <th width="10"></th>
+                        <?php echo $this->Form->end();?>
+                    </tr>
+                </table>
+                <br>
+
+
+
+
+                <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th scope="col"><?= $this->Paginator->sort('id') ?></th>

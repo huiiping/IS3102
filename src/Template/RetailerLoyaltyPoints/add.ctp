@@ -4,7 +4,6 @@
   */
 ?>
 
-<?= $this->Element('intrasysLeftSideBar'); ?>
 
 <!-- Main Content -->
 <div class="content-wrapper">

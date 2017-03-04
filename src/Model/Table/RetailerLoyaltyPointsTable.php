@@ -26,7 +26,41 @@ class RetailerLoyaltyPointsTable extends Table
     public static function defaultConnectionName() {
         return 'intrasysdb';
     }
-    
+
+
+    public $filterArgs = array(
+        'id' => array(
+            'type' => 'like',
+            'field' => 'id'
+        ),
+        'loyalty_pts' => array(
+            'type' => 'like',
+            'field' => 'loyalty_pts'
+        ),
+        'redemption_pts' => array(
+            'type' => 'like',
+            'field' => 'redemption_pts'
+        ),
+        'remarks' => array(
+            'type' => 'like',
+            'field' => 'remarks'
+        ),
+        'created' => array(
+            'type' => 'like',
+            'field' => 'created'
+        ),
+        'modified' => array(
+            'type' => 'like',
+            'field' => 'modified'
+        ),
+        'retailer_name' => array(
+            'type' => 'like',
+            'field' => 'Retailers.company_name',
+            'method' => 'findByActions'
+        )
+    );
+
+
     /**
      * Initialize method
      *
@@ -47,6 +81,7 @@ class RetailerLoyaltyPointsTable extends Table
             'foreignKey' => 'retailer_id',
             'joinType' => 'INNER'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

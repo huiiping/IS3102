@@ -25,14 +25,21 @@ class RetailerLoyaltyPointsController extends AppController
      */
     public function index()
     {
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+
         $this->paginate = [
             'contain' => ['Retailers']
         ];
-        $retailerLoyaltyPoints = $this->paginate($this->RetailerLoyaltyPoints);
 
+        $this->set('retailerLoyaltyPoints', $this->paginate($this->RetailerLoyaltyPoints->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('retailerLoyaltyPoints'));
         $this->set('_serialize', ['retailerLoyaltyPoints']);
     }
+    public $components = array(
+        'Prg'
+    );
+
 
     /**
      * View method
