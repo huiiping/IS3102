@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\Datasource\ConnectionManager;
+use Cake\ORM\TableRegistry;
 
 /**
  * RetailerDetails Controller
@@ -103,6 +105,17 @@ class RetailerDetailsController extends AppController
 
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
+                $retailerID = $retailerDetail['retailerid'];
+
+                $retailerTable = TableRegistry::get('Retailers');
+                $getRetailer = $retailerTable->get($retailerID);
+
+                $getRetailer->address = $retailerDetail['address'];
+                $getRetailer->contact = $retailerDetail['contact'];
+                $getRetailer->retailer_desc = $retailerDetail['retailer_desc'];
+                $getRetailer->retailer_email = $retailerDetail['retailer_email'];
+                $getRetailer->retailer_name = $retailerDetail['retailer_name'];
+                $retailerTable->save($getRetailer);
 
                 //$this->loadComponent('Logging');
                 $this->Logging->rLog($retailerDetail['id']);
