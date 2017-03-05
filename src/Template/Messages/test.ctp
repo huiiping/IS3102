@@ -1,28 +1,59 @@
-<?php
-/**
-  * @var \App\View\AppView $this
-  */
-?>
-
-<?= $this->Element('retailerLeftSideBar'); ?>
 <?= $this->Html->css('messages.css') ?>
+<?= $this->Element('retailerLeftSideBar'); ?>
 <?php $session = $this->request->session(); ?>
-<!-- Main Content -->
+<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+
 <div class="content-wrapper">
-  <!-- Content Header -->
-  <section class="content-header">
-  </section>
-  <!-- Inbox Messages -->
-  <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title"><?= __('Chat History') ?></h3>
+    <section class="content">
+      <div class="mail-box">
+        <aside class="sm-side">
+          <div class="user-head">
+            <div class="user-name">
+            <!-- New Chat Button -->
+            <form action="http://localhost/IS3102_Final/messages/add" method="post">
+             <span class="btn green fileinput-button">
+                <i class="fa fa-plus fa fa-white"></i>
+                <span>New Chat</span>
+              </span>
+            <!-- New Group Button -->
+              <span class="btn green fileinput-button">
+                <i class="fa fa-plus fa fa-white"></i>
+                <span>New Group</span>
+                <input action="http://localhost/IS3102_Final/test/">
+              </span>
+              </form>
             </div>
-            <div class="box-body">
-              <table class="table table-bordered table-striped">
-                <?php if(isset($msgs)) : ?>
+          </div>
+          <div class="inbox-body">
+            <h4>Current Chats</h4>
+          </div>
+
+            <table class="table table-inbox table-hover">
+                <?php if(isset($employees)) : ?>
+                <tbody>
+                      <?php foreach ($employees as $employee): ?>
+                      <tr>
+                          <td class="actions">
+                            <?= $this->Html->link(__(h($employee->first_name).' '.h($employee->last_name)), ['action' => 'test', $employee->id]) ?>
+                          </td>
+                      </tr>
+                    <?php endforeach; ?>
+                </tbody>
+                </table>
+                <?php else : ?>
+                    <h3>You do not have any current chats</h3>
+                <?php endif; ?>
+              </table>
+
+        </aside>
+        <aside class="lg-side">
+          <div class="inbox-head">
+            <h4>Chat Name</h4>
+          </div>
+          <div class="inbox-body">
+            <div class="mail-option">
+              <table class="table table-inbox table-hover">
+                <?php if(!empty($msgs)) : ?>
                 <thead>
                     <tr>
                         <th scope="col"><?= $this->Paginator->sort('sender_id') ?></th>
@@ -32,7 +63,6 @@
                         <th scope="col" class="actions"><?= __('Actions') ?></th>
                     </tr>
                 </thead>
-
                 <tbody>
                     <?php foreach ($msgs as $message): ?>
                     <tr>
@@ -46,24 +76,12 @@
                         </td>
                     </tr>
                     <?php endforeach; ?>
-                <?php endif; ?>
                 </tbody>
+                <?php endif; ?>
               </table>
+            </div>
 
-              <!-- Paginator 
-              <div class="paginator">
-                    <ul class="pagination">
-                        <?= $this->Paginator->first('<< ' . __('first')) ?>
-                        <?= $this->Paginator->prev('< ' . __('previous')) ?>
-                        <?= $this->Paginator->numbers() ?>
-                        <?= $this->Paginator->next(__('next') . ' >') ?>
-                        <?= $this->Paginator->last(__('last') . ' >>') ?>
-                    </ul>
-                    <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
-              </div>
-              <! End of paginator -->
-                
-                <!-- Reply Function -->
+            <!-- Reply Function -->
                 <div class="box-body">
                   <form action="http://localhost/IS3102_Final/messages/add" method="post">
                     <fieldset>
@@ -95,13 +113,8 @@
                 </div>
                 <!-- End of reply function -->
 
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        </aside>
       </div>
-  </section>
+    </section>
+  </div>
 </div>
-
-

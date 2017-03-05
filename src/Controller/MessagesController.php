@@ -16,7 +16,6 @@ use Cake\I18n\Date;
  */
 class MessagesController extends AppController
 {
-
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
@@ -29,7 +28,7 @@ class MessagesController extends AppController
      * @return \Cake\Network\Response|null
      */
     public function index()
-    {   
+    {
         $retailerEmployeesMessages = TableRegistry::get('RetailerEmployeesMessages');
         $retailerEmployees = TableRegistry::get('RetailerEmployees');
         $session = $this->request->session();
@@ -62,32 +61,113 @@ class MessagesController extends AppController
             $employees = $this->paginate($retailerEmployees->find()->where(['id' => $sender], ['id' => 'integer[]']));
         }
         
-        $this->set(compact('employees'));
+        $this->set('employees', $employees);
         $this->set('_serialize', ['employees']);
     }
 
-    public function chat($id)
+    public function chat($id = null, $attachment = null, $attachmentID = null)
     {   
-        //Retrieving existing chats
+        $msgs = [];
+        $retailerEmployees = TableRegistry::get('RetailerEmployees');
+        $reciever = $retailerEmployees->find('list', ['limit' => 200]);
+        
         $session = $this->request->session();
         $sender = $session->read('retailer_employee_id');
+        $this->paginate = [
+                'contain' => ['RetailerEmployees']
+            ];
+
+        //Attaching entity
+        if ($id == 0 && isset($attachment) && isset($attachmentID)) {
+            $this->set('attachment', $attachment);
+            $this->set('_serialize', ['attachment']);
+            $this->set('attachmentID', $attachmentID);
+            $this->set('_serialize', ['attachmentID']);
+        }
         
-        $retailerEmployees = TableRegistry::get('RetailerEmployees');
-        $reciever = $retailerEmployees->find('list', ['limit' => 200])->where(['id' => $id]);
-        $this->set(compact('reciever', 'retailerEmployees'));
+        //Retrieving existing chats
+        if (isset($id) && $id != 0) {
+            $reciever = $retailerEmployees->find('list', ['limit' => 200])->where(['id' => $id]);
+            $this->set(compact('reciever', 'retailerEmployees'));
+
+            $this->paginate = [
+                'contain' => ['RetailerEmployees']
+            ];
+
+            $msgs = $this->paginate($this->Messages->find()
+                ->where(['sender_id' => $id])
+                ->orWhere(['sender_id' => $sender])
+            );
+        }
+
         $this->set('reciever', $reciever);
         $this->set('_serialize', ['reciever']);
+        $this->set('msgs', $msgs);
+        $this->set('_serialize', ['msgs']);
+    }
 
-        $this->paginate = [
-            'contain' => ['RetailerEmployees']
-        ];
+    public function test($id = null, $attachment = null, $attachmentID = null) 
+    {   
+        //Defining variables
+        $retailerEmployeesMessages = TableRegistry::get('RetailerEmployeesMessages');
+        $retailerEmployees = TableRegistry::get('RetailerEmployees');
+        $chats = $retailerEmployees->find('list', ['limit' => 200]);
+        $session = $this->request->session();
+        $senderID = $session->read('retailer_employee_id');
+        $msgs = [];
+        
+        //Employees that user has sent messages to
+        $sentIDs = $this->Messages->find()->where(['sender_id' => $senderID])->select('id');
+        if (isset($sentIDs)) {
+            $recievers = $retailerEmployeesMessages->find()->where(['message_id' => $sentIDs], ['message_id' => 'integer[]'])->select('retailer_employee_id')->toArray();
+            $recievers = Hash::extract($recievers, '{n}.retailer_employee_id');
+        }
 
-        $msgs = $this->paginate($this->Messages->find()
-            ->where(['sender_id' => $id])
-            ->orWhere(['sender_id' => $sender])
-        );
+        //Employees that user has recieved messages from
+        $recieveIDs = $retailerEmployeesMessages->find()->where(['retailer_employee_id' => $senderID])->select('message_id');
+        if (isset($recieveIDs)) {
+            $senders = $this->Messages->find()->where(['id' => $recieveIDs], ['id' => 'integer[]'])->select('sender_id')->toArray();
+            $senders = Hash::extract($senders, '{n}.sender_id');
+        }   
+        
+        //Paginating all the relevant employees
+        if (!empty($recievers) && !empty($senders)) {
+            $employees = $this->paginate($retailerEmployees->find()
+                ->where(['id' => $recievers], ['id' => 'integer[]'])
+                ->orWhere(['id' => $senders], ['id' => 'integer[]'])
+                );
+        } else if (!empty($recievers)) {
+            $employees = $this->paginate($retailerEmployees->find()->where(['id' => $recievers], ['id' => 'integer[]']));
+        }
+        else if (!empty($senders)) {
+            $employees = $this->paginate($retailerEmployees->find()->where(['id' => $senders], ['id' => 'integer[]']));
+        }
 
-        $this->set(compact('msgs'));
+        $this->set(compact('employees'));
+        $this->set('_serialize', ['employees']);
+
+        //Details of attachments
+        if ($id == 0 && isset($attachment) && isset($attachmentID)) {
+            $this->set('attachment', $attachment);
+            $this->set('_serialize', ['attachment']);
+            $this->set('attachmentID', $attachmentID);
+            $this->set('_serialize', ['attachmentID']);
+        }
+        
+        //Retrieving existing chats with a particular person or group
+        if (isset($id) && $id != 0) {
+            $chats = $retailerEmployees->find('list', ['limit' => 200])->where(['id' => $id]);
+            $this->set(compact('chats', 'retailerEmployees'));
+
+            $msgs = $this->paginate($this->Messages->find()
+                ->where(['sender_id' => $id])
+                ->orWhere(['sender_id' => $senderID])
+            );
+        }
+        
+        $this->set('reciever', $chats);
+        $this->set('_serialize', ['reciever']);
+        $this->set('msgs', $msgs);
         $this->set('_serialize', ['msgs']);
     }
 
@@ -100,14 +180,13 @@ class MessagesController extends AppController
      */
     public function view($id = null)
     {
-        $message = $this->Messages->get($id, [
+       $message = $this->Messages->get($id, [
             'contain' => ['RetailerEmployees']
         ]);
 
         $session = $this->request->session();
         $retailer = $session->read('retailer');
 
-        //$this->loadComponent('Logging');
         $this->Logging->rLog($message['id']);
         $this->Logging->iLog($retailer, $message['id']);
 
@@ -125,14 +204,12 @@ class MessagesController extends AppController
         $message = $this->Messages->newEntity();
         if ($this->request->is('post')) {
             $message = $this->Messages->patchEntity($message, $this->request->data);
-            //$message->retailer_employee_id = $this->Auth->retaileremployee('id');    
             if ($this->Messages->save($message)) {
                 $this->Flash->success(__('The message has been saved.'));
 
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                //$this->loadComponent('Logging');
                 $this->Logging->rLog($message['id']);
                 $this->Logging->iLog($retailer, $message['id']);
 
@@ -140,9 +217,7 @@ class MessagesController extends AppController
             }
             $this->Flash->error(__('The message could not be saved. Please, try again.'));
         }
-        $references = $this->Messages->find('list', ['limit' => 200]);
         $retailerEmployees = $this->Messages->RetailerEmployees->find('list', ['limit' => 200]);
-        $this->set(compact('message', 'references'));
         $this->set(compact('message', 'retailerEmployees'));
         $this->set('_serialize', ['message']);
     }
@@ -167,7 +242,6 @@ class MessagesController extends AppController
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
 
-                //$this->loadComponent('Logging');
                 $this->Logging->rLog($message['id']);
                 $this->Logging->iLog($retailer, $message['id']);
 
@@ -175,10 +249,8 @@ class MessagesController extends AppController
             }
             $this->Flash->error(__('The message could not be saved. Please, try again.'));
         }
-        //$references = $this->Messages->References->find('list', ['limit' => 200]);
         $retailerEmployees = $this->Messages->RetailerEmployees->find('list', ['limit' => 200]);
-        //$this->set(compact('message', 'references', 'retailerEmployees'));
-            $this->set(compact('message', 'retailerEmployees'));
+        $this->set(compact('message', 'retailerEmployees'));
         $this->set('_serialize', ['message']);
     }
 
@@ -194,15 +266,14 @@ class MessagesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $message = $this->Messages->get($id);
         if ($this->Messages->delete($message)) {
-            $this->Flash->success(__('The message has been deleted.'));
-
+            
             $session = $this->request->session();
             $retailer = $session->read('retailer');
 
-            //$this->loadComponent('Logging');
             $this->Logging->rLog($message['id']);
             $this->Logging->iLog($retailer, $message['id']);
-            
+
+            $this->Flash->success(__('The message has been deleted.'));
         } else {
             $this->Flash->error(__('The message could not be deleted. Please, try again.'));
         }

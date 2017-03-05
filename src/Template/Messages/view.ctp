@@ -34,8 +34,12 @@
                         <td><?= $this->Text->autoParagraph(h($message->message)); ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Reference') ?></th>
-                        <td><?= h($message->reference) ?></td>
+                        <th scope="row"><?= __('Attachment') ?></th>
+                        <td><?= h($message->attachment) ?></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><?= __('AttachmentID') ?></th>
+                        <td><?= $this->Number->format($message->attachmentID) ?></td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Sender Id') ?></th>

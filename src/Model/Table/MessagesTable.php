@@ -9,7 +9,6 @@ use Cake\Validation\Validator;
 /**
  * Messages Model
  *
- * @property \Cake\ORM\Association\BelongsTo $References
  * @property \Cake\ORM\Association\BelongsTo $RetailerEmployees
  * @property \Cake\ORM\Association\BelongsToMany $RetailerEmployees
  *
@@ -37,10 +36,7 @@ class MessagesTable extends Table
         $this->table('messages');
         $this->displayField('title');
         $this->primaryKey('id');
-        /*
-        $this->belongsTo('Msgs', [
-            'foreignKey' => 'reference'
-        ]);*/
+
         $this->belongsTo('RetailerEmployees', [
             'foreignKey' => 'sender_id'
         ]);
@@ -77,6 +73,13 @@ class MessagesTable extends Table
             ->boolean('status')
             ->allowEmpty('status');
 
+        $validator
+            ->allowEmpty('attachment');
+
+        $validator
+            ->integer('attachmentID')
+            ->allowEmpty('attachmentID');
+
         return $validator;
     }
 
@@ -89,7 +92,6 @@ class MessagesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        //$rules->add($rules->existsIn(['reference_id'], 'Messages'));
         $rules->add($rules->existsIn(['sender_id'], 'RetailerEmployees'));
 
         return $rules;

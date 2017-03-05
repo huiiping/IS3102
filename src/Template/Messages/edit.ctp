@@ -26,8 +26,9 @@
                         echo $this->Form->input('title');
                         echo $this->Form->input('date_created', ['empty' => true]);
                         echo $this->Form->input('message');
+                        echo $this->Form->input('attachment');
+                        echo $this->Form->input('attachmentID');
                         echo $this->Form->input('status');
-                        echo $this->Form->input('reference_id');
                         echo $this->Form->input('sender_id');
                         echo $this->Form->input('retailer_employees._ids', ['options' => $retailerEmployees]);
                     ?>

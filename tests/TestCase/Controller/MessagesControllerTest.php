@@ -17,14 +17,14 @@ class MessagesControllerTest extends IntegrationTestCase
      */
     public $fixtures = [
         'app.messages',
-        'app.references',
         'app.retailer_employees',
         'app.locations',
         'app.sections',
         'app.promotions',
-        'app.customers',
         'app.cust_membership_tiers',
+        'app.customers',
         'app.customers_promotions',
+        'app.cust_membership_tiers_promotions',
         'app.prod_types',
         'app.prod_cats',
         'app.promotions_prod_types',
@@ -32,8 +32,9 @@ class MessagesControllerTest extends IntegrationTestCase
         'app.suppliers',
         'app.supplier_memos',
         'app.purchase_order_items',
-        'app.retailer_employees_retailer_employeer_roles',
-        'app.retailer_employees_messages'
+        'app.retailer_employees_messages',
+        'app.retailer_employee_roles',
+        'app.retailer_employees_retailer_employee_roles'
     ];
 
     /**

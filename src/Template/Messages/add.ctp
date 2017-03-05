@@ -28,7 +28,8 @@
                             'select' => '0000:00:00 00:00:00']);
                         echo $this->Form->input('message');
                         echo $this->Form->hidden('status', ['dafult' => false]);
-                        echo $this->Form->input('reference', ['options' => $references, 'empty' => true]);
+                        echo $this->Form->input('attachment');
+                        echo $this->Form->input('attachmentID');
                         $session = $this->request->session();
                         echo $this->Form->hidden('sender_id', ['value'=>$session->read('retailer_employee_id')]);
                         echo $this->Form->input('retailer_employees._ids', ['options' => $retailerEmployees]);
@@ -43,3 +44,4 @@
       </div>
   </section>
 </div>
+

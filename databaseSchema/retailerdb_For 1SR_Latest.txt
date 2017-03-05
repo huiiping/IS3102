@@ -110,7 +110,8 @@ CREATE TABLE messages (
     date_created DATETIME,
     message TEXT,
     status BOOLEAN,
-    reference VARCHAR(100),
+    attachment VARCHAR(100),
+    attachmentID INT,
     sender_id INT,
     FOREIGN KEY (sender_id) REFERENCES retailer_employees(id)
 );

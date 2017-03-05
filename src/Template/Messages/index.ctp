@@ -24,18 +24,14 @@
                 <?php if(isset($employees)) : ?>
                 <thead>
                     <tr>
-                        <th scope="col"><?= $this->Paginator->sort('first_name') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('last_name') ?></th>
                         <th scope="col" class="actions"><?= __('Actions') ?></th>
                     </tr>
                 </thead>
                 <tbody>
                       <?php foreach ($employees as $employee): ?>
                       <tr>
-                          <td><?= h($employee->first_name) ?></td>
-                          <td><?= h($employee->last_name) ?></td>
                           <td class="actions">
-                            <?= $this->Html->link(__('Chat'), ['action' => 'chat', $employee->id]) ?>
+                            <?= $this->Html->link(__(h($employee->first_name).' '.h($employee->last_name)), ['action' => 'chat', $employee->id]) ?>
                           </td>
                       </tr>
                     <?php endforeach; ?>
