@@ -150,11 +150,11 @@ class RetailerLoyaltyPointsController extends AppController
                     $this->Logging->rLog($retailerLoyaltyPoint['id']);
                     $this->Logging->iLog($retailer, $retailerLoyaltyPoint['id']);
 
-                    return $this->redirect(['action' => 'individual', $id]);
+                    return $this->redirect(['action' => 'individual', $retailerLoyaltyPoint->retailer_id]);
                 }
             } else {
                 $this->Flash->error(__('Cannot redeem loyalty points that had been redeemed.'));
-                return $this->redirect(['action' => 'individual', $id]);
+                return $this->redirect(['action' => 'individual', $retailerLoyaltyPoint->retailer_id]);
             }
             $this->Flash->error(__('The loyalty point could not be redeemed. Please, try again.'));
         }

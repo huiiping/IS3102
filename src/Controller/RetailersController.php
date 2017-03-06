@@ -64,6 +64,23 @@ class RetailersController extends AppController
         $this->set('_serialize', ['retailer']);
     }
 
+    public function account($id = null)
+    {
+        $retailer = $this->Retailers->get($id, [
+            'contain' => ['RetailerAccTypes']
+        ]);
+
+        //$session = $this->request->session();
+        //$retailer = $session->read('retailer');
+
+        //$this->loadComponent('Logging');
+        //$this->Logging->log($retailer['id']);
+        $this->Logging->iLog(null, $retailer['id']);
+
+        $this->set('retailer', $retailer);
+        $this->set('_serialize', ['retailer']);
+    }
+
     /**
      * Add method
      *
