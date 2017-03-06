@@ -16,6 +16,9 @@ class SuppliersController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
+        $this->loadComponent('CakeCaptcha.Captcha', [
+          'captchaConfig' => 'ExampleCaptcha'
+          ]);
         $this->loadcomponent('Logging');
         $this->loadComponent('Email');
         $this->loadcomponent('Auth', [
@@ -268,6 +271,15 @@ class SuppliersController extends AppController
 
     public function login(){
         if($this->request->is('post')){
+            $isHuman = captcha_validate($this->request->data['CaptchaCode']);
+
+            unset($this->request->data['CaptchaCode']);
+
+            if (!$isHuman) {
+              $this->Flash->error('Wrong captcha code. Please try again');
+                return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'login']);
+            }
+            
             $session = $this->request->session();
             $retailer = $_POST['retailer'];
             $database = $_POST['retailer']."db";

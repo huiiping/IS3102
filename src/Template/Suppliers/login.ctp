@@ -24,7 +24,7 @@
 	padding: 15px;
 }
 </style>
-
+<?= $this->Html->css(captcha_layout_stylesheet_url(), ['inline' => false]) ?>
 
 <div class="content-wrapper" id = "main">
   <!-- Main content -->
@@ -49,6 +49,14 @@
 					<?=  $this->Form->input('password', array('type' => 'password','required' => true)); ?>
 					<?=  $this->Form->input('retailer'); ?>
 					<hr>
+					
+					<?= captcha_image_html() ?>
+					<?= $this->Form->input('CaptchaCode', [
+					  'label' => 'Retype the characters from the picture:',
+					  'maxlength' => '10',
+					  'id' => 'CaptchaCode'
+					]) ?>
+
 					<?=  $this->Form->submit('Login', 
 					array(	'class' => 'btn btn-lg btn-primary btn-block', 
 							'style' => 'border-radius: 10px')); ?>
