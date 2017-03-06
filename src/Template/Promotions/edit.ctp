@@ -25,10 +25,10 @@
                     <?php
                         echo $this->Form->input('start_date', array(
                           'label' => 'Start Date (GMT)',
-                          'type' => 'datetime-local'));
+                          'type' => 'datetime'));
                         echo $this->Form->input('end_date', array(
                           'label' => 'End Date (GMT)',
-                          'type' => 'datetime-local'));
+                          'type' => 'datetime'));
                         echo $this->Form->input('promo_desc', array('label' => 'Description'));
                         echo $this->Form->input('first_voucher_num', array('label' => 'Voucher Starting Number'));
                         echo $this->Form->input('last_voucher_num', array('label' => 'Voucher Ending Number'));

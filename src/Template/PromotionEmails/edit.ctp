@@ -28,7 +28,7 @@
                         echo $this->Form->input('title');
                         echo $this->Form->input('body');
                         echo $this->Form->input('last_sent', ['empty' => true]);
-                        echo $this->Form->input('number_of_sends');
+                        //echo $this->Form->input('number_of_sends');
                     ?>
                 </fieldset>
                 <br>
