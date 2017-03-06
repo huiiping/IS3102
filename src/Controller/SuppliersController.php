@@ -338,7 +338,7 @@ class SuppliersController extends AppController
 
         if ($this->Suppliers->save($supplier)){
 
-            $this->Email->activationEmail(
+            $this->Email->recoveryEmail(
                 $supplier['email'], 
                 $supplier['first_name'], 
                 $supplier['username'], 

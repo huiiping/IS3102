@@ -81,7 +81,7 @@ class IntrasysEmployeesController extends AppController
      * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
      */
     
-    public function add()
+    public function add2()
     {
     	$intrasysEmployee = $this->IntrasysEmployees->newEntity();
     	if ($this->request->is('post')) {
@@ -103,7 +103,7 @@ class IntrasysEmployeesController extends AppController
     	$this->set('_serialize', ['intrasysEmployee']);
     }
 
-    public function add2(){
+    public function add(){
 
     	$this->loadComponent('Generator');
 
@@ -333,11 +333,9 @@ class IntrasysEmployeesController extends AppController
     		'conditions' => ['email' => $email],
     		]);
 
-        //check if user exists based on email
     	if($query->count() == 0){
     		$this->Flash->error(__('Invalid email address'));
-
-            //$this->loadComponent('Logging'); 
+         
             return $this->redirect(['action' => 'index']);
     	}
 
@@ -352,13 +350,13 @@ class IntrasysEmployeesController extends AppController
 
     	if ($this->IntrasysEmployees->save($intrasysemployee)){
 
-            $this->Email->activationEmail(
-                    $intrasysEmployee['email'], 
-                    $intrasysEmployee['first_name'], 
-                    $intrasysEmployee['username'], 
+            $this->Email->recoveryEmail(
+                    $intrasysemployee['email'],
+                    $intrasysemployee['first_name'], 
+                    $intrasysemployee['username'], 
                     $newPass, 
-                    $intrasysEmployee['id'], 
-                    $intrasysEmployee['recovery_token'], 
+                    $intrasysemployee['id'], 
+                    $intrasysemployee['recovery_token'], 
                     'intrasys-employees');
 
             /*
