@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\Error\Debugger;
 
 /**
  * ProdCats Controller
@@ -130,10 +131,19 @@ class ProdCatsController extends AppController
      */
     public function delete($id = null)
     {
+
         $this->request->allowMethod(['post', 'delete']);
-        $prodCat = $this->ProdCats->get($id);
+        $prodCat = $this->ProdCats->get($id, [
+            'contain' => ['ProdTypes']
+        ]);
+
+        if (!empty($prodCat->prod_types)) {
+            $this->Flash->error(__('This product category cannot be deleted. Please check related product type.'));
+            return $this->redirect(['action' => 'index']);
+        }
+        
         if ($this->ProdCats->delete($prodCat)) {
-            $this->Flash->success(__('The prod cat has been deleted.'));
+            $this->Flash->success(__('The product category has been deleted.'));
 
             $session = $this->request->session();
             $retailer = $session->read('retailer');
@@ -143,7 +153,7 @@ class ProdCatsController extends AppController
             $this->Logging->iLog($retailer, $prodCat['id']);
         
         } else {
-            $this->Flash->error(__('The prod cat could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The product category could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);
