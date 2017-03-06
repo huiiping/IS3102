@@ -18,9 +18,11 @@
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title"><?= h($purchaseOrderItem->item_name) ?></h3>
+              <?php if(!$type) : ?> 
               <div class="pull-right">
                 <?= $this->Html->link(__('Edit Purchase Order Item'), ['action' => 'edit', $purchaseOrderItem->id]) ?>
               </div>
+              <?php endif; ?>
             </div>
             <div class="box-body">
 

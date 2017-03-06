@@ -61,6 +61,39 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php if($type) : ?>
+
+                        <?php foreach ($suppliers as $supplier): ?>
+                        <?php if($supplier->id == $_SESSION['Auth']['User']['id']) : ?>
+                        <tr>
+                            <td><?= $this->Number->format($supplier->id) ?></td>
+                            <!--<td><?= h($supplier->username) ?></td>
+                            <td><?= h($supplier->password) ?></td>-->
+                            <td><?= h($supplier->supplier_name) ?></td>
+                            <td><?= h($supplier->email) ?></td>
+                            <!--<td><?= h($supplier->address) ?></td>
+                            <td><?= h($supplier->contact) ?></td>-->
+                            <td><?= $this->Time->format(h($supplier->created), 'd MMM YYYY, hh:mm') ?></td>
+                            <td><?= $this->Time->format(h($supplier->modified), 'd MMM YYYY, hh:mm') ?></td>
+                            <!--<td><?= h($supplier->country) ?></td>
+                            <td><?= h($supplier->activation_status) ?></td>
+                            <td><?= h($supplier->activation_token) ?></td>
+                            <td><?= h($supplier->recovery_status) ?></td>
+                            <td><?= h($supplier->recovery_token) ?></td>
+                            <td><?= h($supplier->bank_acc) ?></td>-->
+                            <td class="actions">
+                                <?= $this->Html->link(__('View |'), ['action' => 'view', $supplier->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $supplier->id]) ?>
+                                <?php if(!$type) : ?>
+                                <?= $this->Form->postLink(__('| Delete'), ['action' => 'delete', $supplier->id], ['confirm' => __('Are you sure you want to delete # {0}?', $supplier->id)]) ?>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php endif; ?>
+                        <?php endforeach; ?>
+
+                        <?php else : ?>
+
                         <?php foreach ($suppliers as $supplier): ?>
                         <tr>
                             <td><?= $this->Number->format($supplier->id) ?></td>
@@ -80,11 +113,14 @@
                             <td><?= h($supplier->bank_acc) ?></td>-->
                             <td class="actions">
                                 <?= $this->Html->link(__('View |'), ['action' => 'view', $supplier->id]) ?>
-                                <?= $this->Html->link(__('Edit |'), ['action' => 'edit', $supplier->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $supplier->id], ['confirm' => __('Are you sure you want to delete # {0}?', $supplier->id)]) ?>
+                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $supplier->id]) ?>
+                                <?php if(!$type) : ?>
+                                <?= $this->Form->postLink(__('| Delete'), ['action' => 'delete', $supplier->id], ['confirm' => __('Are you sure you want to delete # {0}?', $supplier->id)]) ?>
+                                <?php endif; ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
+                        <?php endif; ?>
                     </tbody>
                 </table>
                 <div class="paginator">

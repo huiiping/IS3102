@@ -18,16 +18,20 @@
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title"><?= 'Purchase Order '.h($purchaseOrder->id) ?></h3>
+            <?php if(!$type) : ?> 
               <div class="pull-right">
                 <?= $this->Html->link(__(' Edit Purchase Order'), ['action' => 'edit', $purchaseOrder->id]) ?>
               </div>
+            <?php endif; ?>
             </div>
             <div class="box-body">
+              <?php if(!$type) : ?> 
               <div class="pull-right">
-                <div class="btn btn-default btn-block">
-                  <?= $this->Html->link(__('Add Purchase Order Item'), ['controller' => 'purchase_order_items', 'action' => 'add']) ?>
+                <div class="btn btn-default btn-block">   
+                    <?= $this->Html->link(__('Add Purchase Order Item'), ['controller' => 'purchase_order_items', 'action' => 'add']) ?>
                 </div>
               </div>
+              <?php endif; ?>
                 <table class="vertical-table">
                     <tr>
                         <th scope="row"><?= __('Supplier') ?></th>
@@ -43,7 +47,13 @@
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Retailer Employee') ?></th>
-                        <td><?= $purchaseOrder->has('retailer_employee') ? $this->Html->link($purchaseOrder->retailer_employee->first_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $purchaseOrder->retailer_employee->id]) : '' ?></td>
+                        <td>
+                            <?php if($type) : ?>
+                            <?= h($purchaseOrder->retailer_employee->last_name) ?>
+                            <?php else : ?>
+                            <?= $purchaseOrder->has('retailer_employee') ? $this->Html->link($purchaseOrder->retailer_employee->first_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $purchaseOrder->retailer_employee->id]) : '' ?>
+                            <?php endif; ?>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Id') ?></th>
@@ -80,8 +90,10 @@
                             <td><?= h($purchaseOrderItems->sub_total_price) ?></td>
                             <!--<td><?= h($purchaseOrderItems->purchase_order_id) ?></td>-->
                             <td class="actions">
-                                <?= $this->Html->link(__('View |'), ['controller' => 'PurchaseOrderItems', 'action' => 'view', $purchaseOrderItems->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'PurchaseOrderItems', 'action' => 'edit', $purchaseOrderItems->id]) ?>
+                                <?= $this->Html->link(__('View'), ['controller' => 'PurchaseOrderItems', 'action' => 'view', $purchaseOrderItems->id]) ?>
+                                <?php if(!$type) : ?> 
+                                <?= $this->Html->link(__('| Edit'), ['controller' => 'PurchaseOrderItems', 'action' => 'edit', $purchaseOrderItems->id]) ?>
+                                <?php endif; ?>
                                 <!--<?= $this->Form->postLink(__('Delete'), ['controller' => 'PurchaseOrderItems', 'action' => 'delete', $purchaseOrderItems->id], ['confirm' => __('Are you sure you want to delete # {0}?', $purchaseOrderItems->id)]) ?>-->
                             </td>
                         </tr>
