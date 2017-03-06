@@ -287,7 +287,7 @@ public $components = array(
 
           if (!$isHuman) {
             $this->Flash->error('Wrong captcha code. Please try again');
-            return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
+            return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'login']);
           }
       }
 

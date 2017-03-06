@@ -305,7 +305,7 @@ class SuppliersController extends AppController
 
                 if (!$isHuman) {
                     $this->Flash->error('Wrong captcha code. Please try again');
-                    return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
+                    return $this->redirect(['controller' => 'Suppliers', 'action' => 'login']);
                 }
             }
 
