@@ -204,7 +204,7 @@ class AppController extends Controller
 
                 if($intrasysEmployeeRole == '7'){
                     if($controllerName == 'IntrasysEmployees'){
-                        if($methodName == 'index' || $methodName == 'edit'){
+                        if($methodName == 'index' || $methodName == 'edit' || $methodName == 'view'){
                             return;
                         }
                     }

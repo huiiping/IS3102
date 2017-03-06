@@ -70,6 +70,21 @@ public $components = array(
     		'contain' => ['IntrasysEmployeeRoles']
     		]);
 
+        $sessionId = $this->request->session()->read('Auth.User.id');
+        $session = $this->request->session()->read('Auth.User');
+        $sessionEmployee = $this->IntrasysEmployees->get($session['id'], [
+            'contain' => ['IntrasysEmployeeRoles']
+            ]);
+        //$intrasysEmployees = $intrasysEmployee->IntrasysEmployeeRoles;
+        foreach ($sessionEmployee->intrasys_employee_roles as $intrasysEmployeeRoles) {
+            if($intrasysEmployeeRoles->id == '7') {
+                if($intrasysEmployee['id'] != $sessionId) {
+                $this->redirect($this->referer());
+                $this->Flash->error(__('You are not authorized to view other employees.'));
+                }    
+            }
+
+        }
         //$this->loadComponent('Logging');
         //$this->Logging->log($intrasysEmployee['id']);
         $this->Logging->iLog(null, $intrasysEmployee['id']);
