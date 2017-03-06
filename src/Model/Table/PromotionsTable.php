@@ -78,7 +78,7 @@ class PromotionsTable extends Table
         parent::initialize($config);
 
         $this->table('promotions');
-        $this->displayField('id');
+        $this->displayField('promo_desc');
         $this->primaryKey('id');
 
         $this->belongsTo('RetailerEmployees', [

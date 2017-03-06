@@ -50,7 +50,7 @@ class RetailersTable extends Table
         parent::initialize($config);
 
         $this->table('retailers');
-        $this->displayField('id');
+        $this->displayField('retailer_name');
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');

@@ -75,7 +75,7 @@ class PromotionEmailsController extends AppController
             
             $promotionEmail = $this->PromotionEmails->patchEntity($promotionEmail, $this->request->data);
             
-            //$send = $_POST['email'];
+            $send = $_POST['email'];
             $title = $_POST['title'];
             $body = $_POST['body'];
             $tier = $_POST['cust_membership_tier_id'];
@@ -127,6 +127,8 @@ class PromotionEmailsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $promotionEmail = $this->PromotionEmails->patchEntity($promotionEmail, $this->request->data);
             if ($this->PromotionEmails->save($promotionEmail)) {
+                
+                $send = $_POST['email'];
                 
                 if($send = 'y') {
 

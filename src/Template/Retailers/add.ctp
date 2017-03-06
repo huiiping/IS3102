@@ -27,7 +27,7 @@
                         echo $this->Form->input('retailer_desc', ['label'=>'Retailer Description']);
                         echo $this->Form->hidden('account_status', ['value' => 'Activated']);
                         echo $this->Form->input('payment_term');
-                        echo $this->Form->input('retailer_email');
+                        echo $this->Form->input('retailer_email', array('label' => 'Master Account Email'));
                         echo $this->Form->input('address');
                         echo $this->Form->input('contact');
                         echo $this->Form->input('contract_start_date', array('type' => 'datetime'));

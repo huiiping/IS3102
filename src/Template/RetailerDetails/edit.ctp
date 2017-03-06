@@ -23,7 +23,7 @@
                 <?= $this->Form->create($retailerDetail) ?>
                 <fieldset>
                     <?php
-                        echo $this->Form->input('retailer_name');
+                        echo $this->Form->input('retailer_name', array('disabled' => true));
                         echo $this->Form->input(('retailer_desc'), ['label' => 'Retailer Description']);
                         echo $this->Form->input('retailer_email');
                         echo $this->Form->input('address');
