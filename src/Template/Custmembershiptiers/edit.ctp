@@ -32,6 +32,7 @@
                         echo $this->Form->input('discount_rate', array('label' => 'Discount Rate (%)'));
                         echo $this->Form->input('birthday_rate', array('label' => 'Birthday Discount Rate (%)'));
                         echo $this->Form->input('description');
+                        echo $this->Form->input('status',['options' => ['Activated' => 'Activated', 'Deactivated' => 'Deactivated']]);
                     ?>
                 </fieldset>
                 <br>

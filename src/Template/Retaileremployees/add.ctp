@@ -38,7 +38,7 @@
                         //echo $this->Form->input('recovery_status');
                         //echo $this->Form->input('recovery_token');
                         echo $this->Form->input('location_id', ['options' => $locations, 'empty' => true]);
-                        echo $this->Form->input('messages._ids', ['options' => $messages]);
+                        //echo $this->Form->input('messages._ids', ['options' => $messages]);
                         echo $this->Form->input('retailer_employee_roles._ids', ['options' => $retailerEmployeeRoles]);
                     ?>
                 </fieldset>

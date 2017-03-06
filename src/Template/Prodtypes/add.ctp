@@ -31,7 +31,7 @@
                         echo $this->Form->input('web_store_unit_price');
                         echo $this->Form->input('SKU');
                         echo $this->Form->input(('prod_cat_id'), ['label' => 'Product Category'], ['options' => $prodCats, 'empty' => true]);
-                        echo $this->Form->input('promotions._ids', ['options' => $promotions]);
+                        //echo $this->Form->input('promotions._ids', ['options' => $promotions]);
                     ?>
                 </fieldset>
                 <br>

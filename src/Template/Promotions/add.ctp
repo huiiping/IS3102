@@ -24,12 +24,12 @@
                 <fieldset>
                     <?php
                         echo $this->Form->input('start_date', array(
-                            'type' => 'datetime-local',
+                            'type' => 'datetime',
                             'label' => 'Start Date (GMT)',
                             'selected' => '0000:00:00 00:00:00'));
                         
                         echo $this->Form->input('end_date', array(
-                            'type' => 'datetime-local',
+                            'type' => 'datetime',
                             'label' => 'End Date (GMT)',
                             'selected' => '0000:00:00 00:00:00'));
                         

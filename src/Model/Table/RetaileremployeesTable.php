@@ -81,7 +81,7 @@ class RetailerEmployeesTable extends Table
         parent::initialize($config);
 
         $this->table('retailer_employees');
-        $this->displayField('id');
+        $this->displayField('last_name'.' '.'first_name');
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');

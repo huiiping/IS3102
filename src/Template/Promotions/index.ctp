@@ -27,8 +27,8 @@
                     <tr><?php
                         echo $this->Form->create($promotions);?>
                         <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input(('cust_membership_tier_id'), ['label' => 'Customer Membership Tier ID', 'type' => 'search']); ?></th>
-                        <th width="30"></th>
+                        <!--<th scope="col"><?= $this->Form->input(('cust_membership_tier_id'), ['label' => 'Customer Membership Tier ID', 'type' => 'search']); ?></th>
+                        <th width="30"></th>-->
                         <!--<th scope="col"><?= $this->Form->input(('start_date'), ['label' => 'Start Date', 'type' => 'search']); ?></th>
                         <th width="30"></th>
                         <th scope="col"><?= $this->Form->input(('end_date'), ['label' => 'End Date', 'type' => 'search']); ?></th>-->
@@ -46,8 +46,8 @@
                 <thead>
                     <tr>
                         <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort(('first_voucher_num'), ['label' => 'First Voucher Number']) ?></th>
-                        <th scope="col"><?= $this->Paginator->sort(('last_voucher_num'), ['label' => 'First Voucher Number']) ?></th>
+                        <th scope="col"><?= $this->Paginator->sort(('promo_desc'), ['label' => 'Description']) ?></th>
+                        <th scope="col"><?= $this->Paginator->sort(('retailer_employee_id'), ['label' => 'Created By']) ?></th>
                         <th scope="col"><?= $this->Paginator->sort('start_date') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('end_date') ?></th>
                         <!--<th scope="col"><?= $this->Paginator->sort('discount_rate') ?></th>
@@ -60,8 +60,8 @@
                     <?php foreach ($promotions as $promotion): ?>
                     <tr>
                         <td><?= $this->Number->format($promotion->id) ?></td>
-                        <td><?= h($promotion->first_voucher_num) ?></td>
-                        <td><?= h($promotion->last_voucher_num) ?></td>
+                        <td><?= h($promotion->promo_desc) ?></td>
+                        <td><?= $promotion->has('retailer_employee') ? $this->Html->link($promotion->retailer_employee->last_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $promotion->retailer_employee->id]) : '' ?></td>
                         <td><?= $this->Time->format(h($promotion->start_date), 'd MMM YYYY, hh:mm') ?></td>
                         <td><?= $this->Time->format(h($promotion->end_date), 'd MMM YYYY, hh:mm') ?></td>
                         <!--<td><?= $this->Number->format($promotion->discount_rate) ?></td>

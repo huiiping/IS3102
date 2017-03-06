@@ -34,6 +34,10 @@
                         <td><?= $this->Text->autoParagraph(h($custMembershipTier->description)); ?></td>
                     </tr>
                     <tr>
+                        <th scope="row"><?= __('Tier Name') ?></th>
+                        <td><?= h($custMembershipTier->status) ?></td>
+                    </tr>
+                    <tr>
                         <th scope="row"><?= __('Min Spending') ?></th>
                         <td><?= h($custMembershipTier->min_spending) ?></td>
                     </tr>
@@ -65,6 +69,7 @@
                         <th scope="row"><?= __('Id') ?></th>
                         <td><?= $this->Number->format($custMembershipTier->id) ?></td>
                     </tr>
+
                     <tr>
                         <th scope="row"><?= __('Created') ?></th>
                         <td><?= $this->Time->format(h($custMembershipTier->created), 'd MMM YYYY, hh:mm') ?></td>

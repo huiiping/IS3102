@@ -43,7 +43,7 @@ class ProdCatsTable extends Table
         parent::initialize($config);
 
         $this->table('prod_cats');
-        $this->displayField('id');
+        $this->displayField('cat_name');
         $this->primaryKey('id');
 
         $this->hasMany('ProdTypes', [
