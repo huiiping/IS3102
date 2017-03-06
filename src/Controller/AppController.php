@@ -266,13 +266,18 @@ class AppController extends Controller
                     }
                 }
 
+                if($controllerName == 'IntrasysEmployees' && $methodName == 'logout'){
+                    return;
+                }
+            }
+
                 if($controllerName != 'Pages' && $methodName != 'display') {
                 $this->Flash->error(__('You are not authorized to access that function.'));
                 return $this->redirect($this->referer()); 
                 }
 
-                break; 
-        }
+                //break; 
+        
         return;
     } else if ($database != null) {
         /*$RetailerEmployeeRoles = TableRegistry::get('IntrasysEmployeesIntrasysEmployeeRoles');
