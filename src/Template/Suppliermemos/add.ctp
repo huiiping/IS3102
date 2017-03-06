@@ -25,7 +25,9 @@
                     <?php
                         echo $this->Form->input('remarks');
                         echo $this->Form->input('supplier_id', ['options' => $suppliers, 'empty' => true]);
-                        echo $this->Form->input('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
+                        //echo $this->Form->input('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
+                        $session = $this->request->session();
+                        echo $this->Form->hidden('retailer_employee_id', ['value'=>$session->read('retailer_employee_id')]);
                     ?>
                 </fieldset>
                 <br>

@@ -45,8 +45,8 @@
                         <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('supplier_id') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                        <!--<th scope="col"><?= $this->Paginator->sort('remarks') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('retailer_employee_id') ?></th>-->
+                        <!--<th scope="col"><?= $this->Paginator->sort('remarks') ?></th>-->
+                        <th scope="col"><?= $this->Paginator->sort('retailer_employee_id') ?></th>
                         <th scope="col" class="actions"><?= __('Actions') ?></th>
                     </tr>
                 </thead>
@@ -56,8 +56,8 @@
                         <td><?= $this->Number->format($supplierMemo->id) ?></td>
                         <td><?= $supplierMemo->has('supplier') ? $this->Html->link($supplierMemo->supplier->supplier_name, ['controller' => 'Suppliers', 'action' => 'view', $supplierMemo->supplier->id]) : '' ?></td>
                         <td><?= $this->Time->format(h($supplierMemo->created), 'd MMM YYYY, hh:mm') ?></td>
-                        <!--<td><?= h($supplierMemo->remarks) ?></td>
-                        <td><?= $supplierMemo->has('retailer_employee') ? $this->Html->link($supplierMemo->retailer_employee->id, ['controller' => 'RetailerEmployees', 'action' => 'view', $supplierMemo->retailer_employee->id]) : '' ?></td>-->
+                        <!--<td><?= h($supplierMemo->remarks) ?></td>-->
+                        <td><?= $supplierMemo->has('retailer_employee') ? $this->Html->link($supplierMemo->retailer_employee->last_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $supplierMemo->retailer_employee->id]) : '' ?></td>
                         <td class="actions">
                             <?= $this->Html->link(__('View |'), ['action' => 'view', $supplierMemo->id]) ?>
                             <?= $this->Html->link(__('Edit |'), ['action' => 'edit', $supplierMemo->id]) ?>

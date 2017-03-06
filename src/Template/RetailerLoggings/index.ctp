@@ -40,6 +40,13 @@
                         <?php echo $this->Form->end();?>
                     </tr>
                 </table>
+                <?php echo '<h3>'; ?>
+                    <?= $this->Html->link('Export All Logs', [
+                      'controller' => 'retailerLoggings', 
+                      'action' => 'export',
+                      '_ext' => 'csv'
+                    ]) ?>
+                <?php echo '</h3>';    ?>
                 <br>
 
               <table class="table table-bordered table-striped">

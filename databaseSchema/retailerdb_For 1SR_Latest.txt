@@ -134,6 +134,7 @@ CREATE TABLE purchase_orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     created DATETIME,
     total_price DOUBLE,
+    approval_status VARCHAR(100),
     delivery_status BOOLEAN,
     supplier_id INT,
     retailer_employee_id INT,

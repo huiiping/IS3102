@@ -38,6 +38,13 @@
                         <?php echo $this->Form->end();?>
                     </tr>
                 </table>
+                <?php echo '<h3>'; ?>
+                    <?= $this->Html->link('Export All Logs', [
+                      'controller' => 'intrasysLoggings', 
+                      'action' => 'export',
+                      '_ext' => 'csv'
+                    ]) ?>
+                <?php echo '</h3>';    ?>
                 <br>
 
               <table class="table table-bordered table-striped">
@@ -57,7 +64,7 @@
                         <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                         <th scope="col" class="actions"><?= __('Actions') ?></th>
                     </tr>
-                </thead>
+                </thead>                
                 <tbody>
                     <?php foreach ($intrasysLoggings as $intrasysLogging): ?>
                     <tr>
@@ -84,15 +91,9 @@
                         <?= $this->Paginator->numbers() ?>
                         <?= $this->Paginator->next(__('next') . ' >') ?>
                         <?= $this->Paginator->last(__('last') . ' >>') ?>
-                    </ul>
-                    <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
-
-                    <?= $this->Html->link('export', [
-                      'controller' => 'intrasysLoggings', 
-                      'action' => 'export',
-                      '_ext' => 'csv'
-                    ]) ?>
-                    
+                        
+                    </ul>                    
+                    <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>                    
                 </div>
             </div>
           </div>

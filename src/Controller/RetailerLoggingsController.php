@@ -142,4 +142,19 @@ class RetailerLoggingsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function export() {
+        
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+        $this->response->download($retailer.'log_'.date("d-m-y:h:s").'.csv');
+        $data = $this->RetailerLoggings->find('all')->toArray();
+        $_serialize = 'data';
+        $_header = ['ID', 'Action', 'Entity', 'Entity ID', 'Employee ID', 'Created'];
+        //$_extract = ['id', 'action', 'entity'];
+        //$this->set(compact('data', '_serialize', '_header', '_extract'));
+        $this->set(compact('data', '_serialize', '_header'));
+        $this->viewBuilder()->className('CsvView.Csv');
+        return;
+    }
 }
