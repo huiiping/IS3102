@@ -212,7 +212,7 @@ class RetailerEmployeesController extends AppController
         if($retailerEmployee){
             if($retailerEmployee['activation_status'] == 'Activated'){
                 $this->Flash->success(__('Your account has already been activated.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'login']);
             }
 
             if ($retailerEmployee['activation_token'] == $token) {
@@ -226,11 +226,11 @@ class RetailerEmployeesController extends AppController
                 $this->Logging->iLog(null, $retailerEmployee['id']);
 
                 $this->Flash->success(__('Your account has been activated.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'login']);
             }
         }else{
             $this->Flash->error(__('There is something wrong with the activation link'));
-            return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'login']);
         }
     }
     private function withinLimit()
@@ -522,7 +522,7 @@ public function recover(){
         $this->Flash->error(__('Invalid email address'));
 
             //$this->loadComponent('Logging'); 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'login']);
     }
 
     $row = $query->first();
@@ -536,7 +536,7 @@ public function recover(){
 
     if ($this->RetailerEmployees->save($retaileremployee)){
 
-        $this->Email->activationEmail(
+        $this->Email->recoveryEmail(
             $retaileremployee['email'], 
             $retaileremployee['first_name'], 
             $retaileremployee['username'], 
@@ -563,7 +563,7 @@ public function recover(){
         */
 
         $this->Flash->success(__('Password Reset Email Sent, please check your email.'));
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'login']);
     }
 
 }
@@ -573,7 +573,7 @@ public function recoverActivate($id, $token){
     $retailerEmployee = $this->RetailerEmployees->get($id);
     if($retailerEmployee['recovery_status'] == NULL){
         $this->Flash->success(__('Your account has already been recovered.'));
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'login']);
     }
 
     if ($retailerEmployee && $retailerEmployee['recovery_token'] == $token) {
@@ -584,11 +584,11 @@ public function recoverActivate($id, $token){
         $this->RetailerEmployees->save($retailerEmployee);
 
         $this->Flash->success(__('Your account has been recovered. Please log in using your new username and password.'));
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'login']);
 
     }
     $this->Flash->error(__('There is something wrong with the activation link'));
-    return $this->redirect(['action' => 'index']);
+    return $this->redirect(['action' => 'login']);
 
 }
 

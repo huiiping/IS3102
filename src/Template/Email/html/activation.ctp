@@ -23,7 +23,7 @@ echo 'Welcome to CLRMS '.$content[0].',' .'<br><br>';
 
 
 echo 'Please click the following link to activate your account: ' . '<br>';
-echo 'http://' . $content[3] . '/' . $content[6] . '/activate/' . $content[4] . '/' . $content[5] . '<br><br>';
+echo 'http://' . $content[3] . '/IS3102_Final/' . $content[6] . '/activate/' . $content[4] . '/' . $content[5] . '<br><br>';
 echo 'After activating your account, please log in using the following credentials: ' . '<br>';
 echo 'Username: ' . $content[1] . '<br>';
 echo 'Password: ' . $content[2] . '<br>';

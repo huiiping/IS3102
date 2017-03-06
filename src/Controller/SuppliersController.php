@@ -186,7 +186,7 @@ class SuppliersController extends AppController
         $supplier = $this->Suppliers->get($id);
         if($supplier['activation_status'] == 'Activated'){
             $this->Flash->success(__('Your account has already been activated.'));
-            return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'login']);
         }
 
         if ($supplier &&  $supplier['activation_token'] == $token) {
@@ -200,11 +200,11 @@ class SuppliersController extends AppController
          $this->Logging->iLog(null,  $supplier['id']);
 
          $this->Flash->success(__('Your account has been activated.'));
-         return $this->redirect(['action' => 'index']);
+         return $this->redirect(['action' => 'login']);
 
      }
      $this->Flash->error(__('There is something wrong with the activation link'));
-     return $this->redirect(['action' => 'index']);
+     return $this->redirect(['action' => 'login']);
  }
     /**
      * Edit method
@@ -294,13 +294,13 @@ class SuppliersController extends AppController
                 if($supplier['activation_status'] == 'Deactivated'){
                     $this->Flash->error('Your account has not been activated yet. Please check your email');
 
-                    return $this->redirect(['controller' => 'Pages', 'action' => 'index']);
+                    return $this->redirect(['controller' => 'Pages', 'action' => 'login']);
                 }
 
                 if($supplier['recovery_status'] == 'Pending'){
                     $this->Flash->error('Your account has not been recovered yet. Please check your email.');
 
-                    return $this->redirect(['controller' => 'Pages', 'action' => 'index']);
+                    return $this->redirect(['controller' => 'Pages', 'action' => 'login']);
                 }
                 $this->Auth->setUser($supplier);
                 $session->write('supplier', $supplier); 
@@ -324,7 +324,7 @@ class SuppliersController extends AppController
             $this->Flash->error(__('Invalid email address'));
 
             //$this->loadComponent('Logging'); 
-            return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'login']);
         }
 
         $row = $query->first();
@@ -365,7 +365,7 @@ class SuppliersController extends AppController
             */
 
             $this->Flash->success(__('Password Reset Email Sent, please check your email.'));
-            return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'login']);
         }
 
     }
@@ -375,7 +375,7 @@ class SuppliersController extends AppController
         $supplier = $this->Suppliers->get($id);
         if($supplier['recovery_status'] == NULL){
             $this->Flash->success(__('Your account has already been recovered.'));
-            return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'login']);
         }
 
         if ($supplier && $supplier['recovery_token'] == $token) {
@@ -386,11 +386,11 @@ class SuppliersController extends AppController
             $this->Suppliers->save($supplier);
 
             $this->Flash->success(__('Your account has been recovered. Please log in using your new username and password.'));
-            return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'login']);
 
         }
         $this->Flash->error(__('There is something wrong with the activation link'));
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'login']);
 
     }
 
