@@ -30,7 +30,7 @@
                         echo $this->Form->input('email', array('readonly'=> 'readonly'));
                         echo $this->Form->input('address', array('readonly'=> 'readonly'));
                         echo $this->Form->input('contact', array('readonly'=> 'readonly'));
-                        echo $this->Form->input('activation_status',['options' => ['activated' => 'Activated', 'banned' => 'Banned', 'deactivated' => 'Deactivated', 'banned' => 'Banned', 'terminated' => 'Terminated']]);
+                        echo $this->Form->input('activation_status',['options' => ['Activated' => 'Activated', 'Banned' => 'Banned', 'Deactivated' => 'Deactivated', 'Terminated' => 'Terminated']]);
                         //echo $this->Form->input('activation_token');
                         //echo $this->Form->input('recovery_status');
                         //echo $this->Form->input('recovery_token');
