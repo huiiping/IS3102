@@ -24,7 +24,6 @@
                 <fieldset>
                     <?php
                         echo $this->Form->input('title');
-                        echo $this->Form->input('date_created', ['empty' => true]);
                         echo $this->Form->input('message');
                         echo $this->Form->input('attachment');
                         echo $this->Form->input('attachmentID');

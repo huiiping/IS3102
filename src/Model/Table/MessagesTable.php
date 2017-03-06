@@ -19,6 +19,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Message patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Message[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Message findOrCreate($search, callable $callback = null, $options = [])
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class MessagesTable extends Table
 {
@@ -36,6 +38,8 @@ class MessagesTable extends Table
         $this->table('messages');
         $this->displayField('title');
         $this->primaryKey('id');
+
+        $this->addBehavior('Timestamp');
 
         $this->belongsTo('RetailerEmployees', [
             'foreignKey' => 'sender_id'
@@ -61,10 +65,6 @@ class MessagesTable extends Table
 
         $validator
             ->allowEmpty('title');
-
-        $validator
-            ->dateTime('date_created')
-            ->allowEmpty('date_created');
 
         $validator
             ->allowEmpty('message');

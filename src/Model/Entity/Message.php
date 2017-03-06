@@ -8,7 +8,8 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $title
- * @property \Cake\I18n\Time $date_created
+ * @property \Cake\I18n\Time $created
+ * @property \Cake\I18n\Time $modified
  * @property string $message
  * @property bool $status
  * @property string $attachment

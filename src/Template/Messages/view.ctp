@@ -55,7 +55,11 @@
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Date Created') ?></th>
-                        <td><?= $this->Time->format(h($message->date_created), 'd MMM YYYY, hh:mm') ?></td>
+                        <td><?= $this->Time->format(h($message->created), 'd MMM YYYY, hh:mm') ?></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><?= __('Date Modified') ?></th>
+                        <td><?= $this->Time->format(h($message->modified), 'd MMM YYYY, hh:mm') ?></td>
                     </tr>
                 </table>
                 <div class="related">

@@ -17,16 +17,11 @@
         <div class="col-xs-12">
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title"><?= __('Chats') ?></h3>
+              <h3 class="box-title"><?= __('Active Chats') ?></h3>
             </div>
             <div class="box-body">
               <table class="table table-bordered table-striped">
-                <?php if(isset($employees)) : ?>
-                <thead>
-                    <tr>
-                        <th scope="col" class="actions"><?= __('Actions') ?></th>
-                    </tr>
-                </thead>
+                <?php if(!empty($employees)) : ?>
                 <tbody>
                       <?php foreach ($employees as $employee): ?>
                       <tr>
@@ -48,7 +43,7 @@
                     <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
                 </div>
                 <?php else : ?>
-                    <h3>You do not have any current chats</h3>
+                    <?= $this->Html->link(__('New Chat'), ['action' => 'chat', 0]) ?>
                 <?php endif; ?>
             </div>
           </div>

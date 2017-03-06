@@ -38,11 +38,41 @@ class MessagesControllerTest extends IntegrationTestCase
     ];
 
     /**
+     * Test beforeFilter method
+     *
+     * @return void
+     */
+    public function testBeforeFilter()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
      * Test index method
      *
      * @return void
      */
     public function testIndex()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test chat method
+     *
+     * @return void
+     */
+    public function testChat()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test test method
+     *
+     * @return void
+     */
+    public function testTest()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

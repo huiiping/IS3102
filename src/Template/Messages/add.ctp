@@ -24,8 +24,6 @@
                 <fieldset>
                     <?php
                         echo $this->Form->input('title');
-                        echo $this->Form->input('date_created', [
-                            'select' => '0000:00:00 00:00:00']);
                         echo $this->Form->input('message');
                         echo $this->Form->hidden('status', ['dafult' => false]);
                         echo $this->Form->input('attachment');

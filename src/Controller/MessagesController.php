@@ -33,6 +33,7 @@ class MessagesController extends AppController
         $retailerEmployees = TableRegistry::get('RetailerEmployees');
         $session = $this->request->session();
         $id = $session->read('retailer_employee_id');
+        $employees = [];
         
         //Employees that user has sent messages to
         $sentIDs = $this->Messages->find()->where(['sender_id' => $id])->select('id');
@@ -278,6 +279,6 @@ class MessagesController extends AppController
             $this->Flash->error(__('The message could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'chat']);
     }
 }

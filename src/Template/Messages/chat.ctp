@@ -22,7 +22,7 @@
             </div>
             <div class="box-body">
               <table class="table table-bordered table-striped">
-                <?php if(isset($msgs)) : ?>
+                <?php if(!empty($msgs)) : ?>
                 <thead>
                     <tr>
                         <th scope="col"><?= $this->Paginator->sort('sender_id') ?></th>
@@ -39,7 +39,7 @@
                         <td><?= h($message->sender_id) ?></td>
                         <td><?= h($message->message) ?></td>
                         <td><?= $this->Html->link(__(h($message->attachment)), ['controller' => h($message->attachment), 'action' => 'view', h($message->attachmentID)]) ?></td>
-                        <td><?= $this->Time->format(h($message->date_created), 'd MMM YYYY, hh:mm') ?></td>
+                        <td><?= $this->Time->format(h($message->modified), 'd MMM YYYY, hh:mm') ?></td>
                         <td class="actions">
                           <?= $this->Html->link(__('Edit |'), ['controller' => 'Messages', 'action' => 'edit', $message->id]) ?>
                           <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $message->id], ['confirm' => __('Are you sure you want to delete # {0}?', $message->id)]) ?>
@@ -69,10 +69,6 @@
                     <fieldset>
                         <?php
                             //echo $this->Form->hidden('title'); 
-                            echo $this->Form->input('start_date', [
-                                  'type' => 'datetime-local',
-                                  'label' => 'Date Created (GMT)',
-                                  'selected' => '0000:00:00 00:00:00']);
                             echo $this->Form->input('message', ['type' => 'text']);
                             echo $this->Form->hidden('status', ['dafult' => false]);
                             if (isset($attachment) && isset($attachmentID)) {
