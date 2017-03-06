@@ -25,6 +25,7 @@
                     <?php
                         echo $this->Form->input(('sec_name'), ['label' => 'Section Name']);
                         echo $this->Form->input('space_limit');
+                        echo $this->Form->input('available_space'); 
                         echo $this->Form->input('reserve');
                         echo $this->Form->input('location_id', ['options' => $locations, 'empty' => true]);
                     ?>
