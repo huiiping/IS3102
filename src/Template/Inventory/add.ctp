@@ -5,7 +5,6 @@
 ?>
 
 <?= $this->Element('retailerLeftSideBar'); ?>
-
 <!-- Main Content -->
 <div class="content-wrapper">
   <!-- Content Header -->
