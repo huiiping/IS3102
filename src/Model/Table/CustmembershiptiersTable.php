@@ -43,6 +43,12 @@ class CustMembershipTiersTable extends Table
         $this->hasMany('Customers', [
             'foreignKey' => 'cust_membership_tier_id'
         ]);
+
+        $this->belongsToMany('Promotions', [
+            'foreignKey' => 'cust_membership_tier_id',
+            'targetForeignKey' => 'promotion_id',
+            'joinTable' => 'cust_membership_tiers_promotions'
+        ]);
     }
 
     /**

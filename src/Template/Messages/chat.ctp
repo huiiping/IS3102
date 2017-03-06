@@ -21,6 +21,7 @@
               <h3 class="box-title"><?= __('Chat History') ?></h3>
             </div>
             <div class="box-body">
+
               <table class="table table-bordered table-striped">
                 <?php if(!empty($msgs)) : ?>
                 <thead>
@@ -62,7 +63,7 @@
                     <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
               </div>
               <! End of paginator -->
-                
+                <br>
                 <!-- Reply Function -->
                 <div class="box-body">
                   <form action="http://localhost/IS3102_Final/messages/add" method="post">
@@ -91,8 +92,6 @@
                 </div>
                 <!-- End of reply function -->
 
-                </div>
-              </div>
             </div>
           </div>
         </div>

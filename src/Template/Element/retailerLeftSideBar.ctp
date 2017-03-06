@@ -31,6 +31,7 @@
         <?= $this->Element('sideBar', array('type' => 'Promotion Emails', 'typePlural' => 'PromotionEmails')); ?>
         <?= $this->Element('sideBar', array('type' => 'Product Category', 'typePlural' => 'ProdCats')); ?>
         <?= $this->Element('sideBar', array('type' => 'Product Types', 'typePlural' => 'ProdTypes')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Inventory', 'typePlural' => 'Inventory')); ?>
         <?= $this->Element('sideBar', array('type' => 'Locations', 'typePlural' => 'Locations')); ?>
         <?= $this->Element('sideBar', array('type' => 'Sections', 'typePlural' => 'Sections')); ?>
         <?= $this->Element('sideBar', array('type' => 'Suppliers', 'typePlural' => 'Suppliers')); ?>

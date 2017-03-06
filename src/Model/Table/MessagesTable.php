@@ -25,6 +25,17 @@ use Cake\Validation\Validator;
 class MessagesTable extends Table
 {
 
+    public $filterArgs = array(
+        'message' => array(
+            'type' => 'like',
+            'field' => 'message'
+        ),
+        'title' => array(
+            'type' => 'like',
+            'field' => 'title'
+        )
+    );
+
     /**
      * Initialize method
      *
@@ -49,6 +60,7 @@ class MessagesTable extends Table
             'targetForeignKey' => 'retailer_employee_id',
             'joinTable' => 'retailer_employees_messages'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

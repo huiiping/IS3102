@@ -20,8 +20,8 @@
               <h3 class="box-title"><?= __('Active Chats') ?></h3>
             </div>
             <div class="box-body">
-              <table class="table table-bordered table-striped">
                 <?php if(!empty($employees)) : ?>
+              <table class="table table-bordered table-striped">
                 <tbody>
                       <?php foreach ($employees as $employee): ?>
                       <tr>
