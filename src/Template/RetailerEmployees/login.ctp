@@ -50,13 +50,19 @@
 					<?=  $this->Form->input('password', array('type' => 'password','required' => true)); ?>
 					<?=  $this->Form->input('retailer',array('required' => true)); ?>
 					<hr>
-					
+					<!-- CAPTCHA CSS -->
+					<?php 
+					$session = $this->request->session();
+					if ($session->check('login_fail') && $session->read('login_fail') > 3) : ?>
+
 					<?= captcha_image_html() ?>
 					<?= $this->Form->input('CaptchaCode', [
 					  'label' => 'Retype the characters from the picture:',
 					  'maxlength' => '10',
 					  'id' => 'CaptchaCode'
 					]) ?>
+					<?php endif; ?>
+					<!-- End CAPTCHA -->
 
 					<?=  $this->Form->submit('Login', 
 					array(	'class' => 'btn btn-lg btn-primary btn-block', 

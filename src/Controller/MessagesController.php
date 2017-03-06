@@ -70,10 +70,10 @@ class MessagesController extends AppController
     {   
         $msgs = [];
         $retailerEmployees = TableRegistry::get('RetailerEmployees');
-        $reciever = $retailerEmployees->find('list', ['limit' => 200]);
         
         $session = $this->request->session();
         $sender = $session->read('retailer_employee_id');
+        $reciever = $this->Messages->RetailerEmployees->find('list', ['limit' => 200])->where(['id !=' => $sender]);
         $this->paginate = [
                 'contain' => ['RetailerEmployees']
             ];
@@ -88,7 +88,7 @@ class MessagesController extends AppController
         
         //Retrieving existing chats
         if (isset($id) && $id != 0) {
-            $reciever = $retailerEmployees->find('list', ['limit' => 200])->where(['id' => $id]);
+            $reciever = $this->Messages->RetailerEmployees->find('list', ['limit' => 200])->where(['id' => $id]);
             $this->set(compact('reciever', 'retailerEmployees'));
 
             $this->paginate = [
@@ -279,6 +279,6 @@ class MessagesController extends AppController
             $this->Flash->error(__('The message could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'chat']);
+        return $this->redirect(['action' => 'index']);
     }
 }

@@ -40,8 +40,6 @@
                     <?php endforeach; ?>
                 </tbody>
                 </table>
-                <?php else : ?>
-                    <h3>You do not have any current chats</h3>
                 <?php endif; ?>
               </table>
 

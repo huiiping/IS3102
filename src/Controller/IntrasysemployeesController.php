@@ -24,19 +24,19 @@ class IntrasysEmployeesController extends AppController
        $this->loadComponent('Logging');
        $this->loadComponent('Email');
        $this->loadcomponent('Auth', [
-        'authenticate' => [
-        'Form' => [
-        'userModel' => 'IntrasysEmployees',
-        'fields' => [
-        'username' => 'username',
-        'password' => 'password'
-        ],
-        ]
-        ],
-        'loginAction' => [
-        'controller' => 'IntrasysEmployees',
-        'action' => 'login'
-        ]
+                      'authenticate' => [
+                          'Form' => [
+                              'userModel' => 'IntrasysEmployees',
+                              'fields' => [
+                                  'username' => 'username',
+                                  'password' => 'password'
+                              ],
+                          ]
+                      ],
+                      'loginAction' => [
+                          'controller' => 'IntrasysEmployees',
+                          'action' => 'login'
+                        ]
         ]);
 
         // Allow users to register and logout.
@@ -275,44 +275,58 @@ public $components = array(
 
   public function login(){
 
-   if($this->request->is('post')){
-    $isHuman = captcha_validate($this->request->data['CaptchaCode']);
+    if($this->request->is('post')){
+    
+      $session = $this->request->session();
 
-    unset($this->request->data['CaptchaCode']);
+      //CAPTCHA feature
+      if ($session->check('login_fail') && $session->read('login_fail') > 3) {
+          $isHuman = captcha_validate($this->request->data['CaptchaCode']);
 
-    if (!$isHuman) {
-      $this->Flash->error('Wrong captcha code. Please try again');
-        return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'login']);
+          unset($this->request->data['CaptchaCode']);
+
+          if (!$isHuman) {
+            $this->Flash->error('Wrong captcha code. Please try again');
+            return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
+          }
+      }
+
+      $intrasysemployee = $this->Auth->identify();
+      if($intrasysemployee){
+        if($intrasysemployee['activation_status'] == 'Deactivated'){
+          $this->Flash->error('Your account has not been activated yet. Please check your email');
+
+          return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'login']);
+        }
+
+        if($intrasysemployee['recovery_status'] == 'Pending'){
+          $this->Flash->error('Your account has not been recovered yet. Please check your email.');
+
+          return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'login']);
+        }
+
+        $this->Auth->setUser($intrasysemployee);
+        $session->write('employee_id',$intrasysemployee['id']);
+           
+        $this->Logging->iLog(null, $intrasysemployee['id']);
+
+        return $this->redirect(['controller' => 'Pages', 'action' => 'intrasys']);
+
+      }
+
+      else {
+
+            if($session->check('login_fail')) {
+                $login_fail = $session->read('login_fail') + 1;
+            }   
+            else {
+                $login_fail = 1;
+            }
+            $session->write("login_fail",$login_fail);
+        }
+
+      $this->Flash->error('Incorrect Login');   
     }
-
-    $session = $this->request->session();
-
-    $intrasysemployee = $this->Auth->identify();
-    if($intrasysemployee){
-     if($intrasysemployee['activation_status'] == 'Deactivated'){
-        $this->Flash->error('Your account has not been activated yet. Please check your email');
-
-        return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'login']);
-    }
-
-    if($intrasysemployee['recovery_status'] == 'Pending'){
-        $this->Flash->error('Your account has not been recovered yet. Please check your email.');
-
-        return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'login']);
-    }
-
-    $this->Auth->setUser($intrasysemployee);
-    $session->write('employee_id',$intrasysemployee['id']);
-
-                    //$this->loadComponent('Logging');            
-    $this->Logging->iLog(null, $intrasysemployee['id']);
-
-    return $this->redirect(['controller' => 'Pages', 'action' => 'intrasys']);
-
-
-}
-$this->Flash->error('Incorrect Login');   
-}
 }
 
 public function managerActions($id = null)

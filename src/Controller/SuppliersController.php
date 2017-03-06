@@ -22,19 +22,19 @@ class SuppliersController extends AppController
         $this->loadcomponent('Logging');
         $this->loadComponent('Email');
         $this->loadcomponent('Auth', [
-            'authenticate' => [
-            'Form' => [
-            'userModel' => 'Suppliers',
-            'fields' => [
-            'username' => 'username',
-            'password' => 'password'
-            ],
-            ]
-            ],
-            'loginAction' => [
-            'controller' => 'Suppliers',
-            'action' => 'login'
-            ]
+                        'authenticate' => [
+                            'Form' => [
+                            'userModel' => 'Suppliers',
+                                'fields' => [
+                                    'username' => 'username',
+                                    'password' => 'password'
+                                ],
+                            ]
+                        ],
+                        'loginAction' => [
+                            'controller' => 'Suppliers',
+                            'action' => 'login'
+                        ]
             ]);
         // Allow users to register and logout.
         // You should not add the "login" action to allow list. Doing so would
@@ -271,19 +271,23 @@ class SuppliersController extends AppController
 
     public function login(){
         if($this->request->is('post')){
-            $isHuman = captcha_validate($this->request->data['CaptchaCode']);
-
-            unset($this->request->data['CaptchaCode']);
-
-            if (!$isHuman) {
-              $this->Flash->error('Wrong captcha code. Please try again');
-                return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'login']);
-            }
             
             $session = $this->request->session();
             $retailer = $_POST['retailer'];
             $database = $_POST['retailer']."db";
             $session->write('database', $database);
+
+            //CAPTCHA feature
+            if ($session->check('login_fail') && $session->read('login_fail') > 3) {
+                $isHuman = captcha_validate($this->request->data['CaptchaCode']);
+
+                unset($this->request->data['CaptchaCode']);
+
+                if (!$isHuman) {
+                    $this->Flash->error('Wrong captcha code. Please try again');
+                    return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
+                }
+            }
 
             ConnectionManager::drop('conn1'); 
             ConnectionManager::config('conn1', [
@@ -319,6 +323,18 @@ class SuppliersController extends AppController
                 return $this->redirect(['controller' => 'Pages', 'action' => 'supplier']);
             //return $this->redirect($this->Auth->redirectUrl());            
             }
+
+            else {
+
+            if($session->check('login_fail')) {
+                $login_fail = $session->read('login_fail') + 1;
+            }   
+            else {
+                $login_fail = 1;
+            }
+            $session->write("login_fail",$login_fail);
+            }
+
             $this->Flash->error('Incorrect Login');   
         }
     }

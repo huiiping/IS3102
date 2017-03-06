@@ -76,7 +76,7 @@
                               echo $this->Form->input('attachmentID', ['value' => $attachmentID]);
                             }
                             echo $this->Form->hidden('sender_id', ['value'=>$session->read('retailer_employee_id')]);
-                            echo $this->Form->input('retailer_employees._ids', ['options' => $reciever]);
+                            echo $this->Form->input('retailer_employees_id', ['options' => $reciever]);
                         ?>
                     </fieldset>
                       <br>

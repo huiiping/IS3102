@@ -43,7 +43,10 @@
                     <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
                 </div>
                 <?php else : ?>
-                    <?= $this->Html->link(__('New Chat'), ['action' => 'chat', 0]) ?>
+                    <span class="btn green fileinput-button">
+                      <i class="fa fa-plus fa fa-white"></i>
+                      <span><?= $this->Html->link(__('New Chat'), ['action' => 'chat', 0]) ?></span>
+                    </span>
                 <?php endif; ?>
             </div>
           </div>
