@@ -4,7 +4,11 @@
   */
 ?>
 
+<?php if($intrasys) : ?>
 <?= $this->Element('intrasysLeftSideBar'); ?>
+<?php else : ?>
+<?= $this->Element('retailerLeftSideBar'); ?>
+<?php endif; ?>
 
 <!-- Main Content -->
 <div class="content-wrapper">
@@ -19,7 +23,11 @@
             <div class="box-header with-border">
               <h3 class="box-title"><?= __('Retailer Loyalty Point') ?></h3>
               <div class="pull-right">
+              <?php if($intrasys) : ?>
                 <?= $this->Html->link(__('Edit Retailer Loyalty Point'), ['action' => 'edit', $retailerLoyaltyPoint->id]) ?>
+              <?php else : ?>
+                <?= $this->Html->link(__('Redeem Loyalty Point'), ['action' => 'redeem', $retailerLoyaltyPoint->id]) ?>
+              <?php endif; ?>
               </div>
             </div>
             <div class="box-body">
@@ -27,7 +35,13 @@
                 <table class="vertical-table">
                     <tr>
                         <th scope="row"><?= __('Retailer Name') ?></th>
-                        <td><?= $retailerLoyaltyPoint->has('retailer') ? $this->Html->link($retailerLoyaltyPoint->retailer->retailer_name, ['controller' => 'Retailers', 'action' => 'view', $retailerLoyaltyPoint->retailer->id]) : '' ?></td>
+                        <td>
+                        <?php if($intrasys) : ?>
+                          <?= $retailerLoyaltyPoint->has('retailer') ? $this->Html->link($retailerLoyaltyPoint->retailer->retailer_name, ['controller' => 'Retailers', 'action' => 'view', $retailerLoyaltyPoint->retailer->id]) : '' ?>
+                        <?php else : ?>
+                          <?= h($retailerLoyaltyPoint->retailer->retailer_name) ?>
+                        <?php endif; ?>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Remarks') ?></th>

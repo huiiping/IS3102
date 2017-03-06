@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\ORM\Table;
+
 /**
  * RetailerLoyaltyPoints Controller
  *
@@ -127,6 +129,39 @@ class RetailerLoyaltyPointsController extends AppController
         $this->set('_serialize', ['retailerLoyaltyPoint']);
     }
 
+    public function redeem($id = null)
+    {
+        $retailerLoyaltyPoint = $this->RetailerLoyaltyPoints->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $retailerLoyaltyPoint = $this->RetailerLoyaltyPoints->patchEntity($retailerLoyaltyPoint, $this->request->data);
+
+            if ($retailerLoyaltyPoint['redemption_pts'] == 0) {
+                $retailerLoyaltyPoint->redemption_pts =  $retailerLoyaltyPoint['loyalty_pts'];
+
+                if ($this->RetailerLoyaltyPoints->save($retailerLoyaltyPoint)) {
+                    $this->Flash->success(__('The loyalty points has been redeemed.'));
+
+                    $session = $this->request->session();
+                    $retailer = $session->read('retailer');
+
+                    //$this->loadComponent('Logging');
+                    $this->Logging->rLog($retailerLoyaltyPoint['id']);
+                    $this->Logging->iLog($retailer, $retailerLoyaltyPoint['id']);
+
+                    return $this->redirect(['action' => 'individual', $id]);
+                }
+            } else {
+                $this->Flash->error(__('Cannot redeem loyalty points that had been redeemed.'));
+                return $this->redirect(['action' => 'individual', $id]);
+            }
+            $this->Flash->error(__('The loyalty point could not be redeemed. Please, try again.'));
+        }
+        //$retailers = $this->RetailerLoyaltyPoints->Retailers->find('list', ['limit' => 200]);
+        $this->set(compact('retailerLoyaltyPoint', 'retailers'));
+        $this->set('_serialize', ['retailerLoyaltyPoint']);
+    }
     /**
      * Delete method
      *
@@ -154,4 +189,23 @@ class RetailerLoyaltyPointsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function individual($id = null)
+    {
+        $retailerLoyaltyPoints = $this->paginate($this->RetailerLoyaltyPoints);
+        $this->set(compact('retailerLoyaltyPoints'));
+
+        $query = $this->RetailerLoyaltyPoints->find('all', [
+            'contain' => ['Retailers'],
+            'conditions' => ['RetailerLoyaltyPoints.retailer_id' => $id]
+        ]);
+        $retailerLoyaltyPoints = $query->all();
+
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        $this->set('retailerLoyaltyPoints', $retailerLoyaltyPoints);
+        $this->set('_serialize', ['retailerLoyaltyPoints']);
+    }
 }
+        

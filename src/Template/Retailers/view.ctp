@@ -40,7 +40,6 @@
                 </li>
               </ul>
               <br>
-
               <?php if ($retailer->account_status == 'Activated'): ?>
                  <div class="btn btn-default btn-block">
                     <?= $this->Html->link(__('Deactivate Retailer'), ['action' => 'deactivateStatus', $retailer->id]) ?>
@@ -53,6 +52,10 @@
               <div class="btn btn-default btn-block">
                 <?= $this->Html->link(__('Edit Retailer'), ['action' => 'edit', $retailer->id]) ?>
               </div><br>
+              <div class="btn btn-default btn-block">
+                <?= $this->Html->link(__('View Retailer Loyalty Points'), ['controller' => 'retailer_loyalty_points', 'action' => 'individual', $retailer->id]) ?>
+              </div>
+              <br>
             </div>
           </div>
           <div class="box box-primary">
@@ -128,7 +131,9 @@
                     </tr>
                 </table>
             </div>
+          </div>
         </div>
       </div>
+    </div>
   </section>
 </div>

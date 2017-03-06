@@ -33,6 +33,10 @@
               <div class="btn btn-default btn-block">
                 <?= $this->Html->link(__('Edit Retailer Detail'), ['action' => 'edit', $retailerDetail->retailerid]) ?>
               </div>
+              <br>
+              <div class="btn btn-default btn-block">
+                <?= $this->Html->link(__('View Retailer Loyalty Points'), ['controller' => 'RetailerLoyaltyPoints', 'action' => 'individual', $retailerDetail->retailerid]) ?>
+              </div>
             </div>
           </div>
         </div>
