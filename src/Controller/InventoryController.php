@@ -58,13 +58,58 @@ class InventoryController extends AppController
     public function add()
     {
         $inventory = $this->Inventory->newEntity();
-        if ($this->request->is('post')) {
-            $inventory = $this->Inventory->patchEntity($inventory, $this->request->getData());
-            if ($this->Inventory->save($inventory)) {
-                $this->Flash->success(__('The inventory has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+        if ($this->request->is('post')) {
+
+            $inventory = $this->Inventory->patchEntity($inventory, $this->request->getData());
+            $quantity = $this->request->getData('quantity');
+            $sectionid=$this->request->getData('section_id');
+            $locationid=$this->request->getData('location_id');
+
+
+            $query = $this->Inventory->Sections->find()->where(['Sections.id'=>$sectionid, 'Sections.location_id'=>$locationid]);
+
+
+
+            /******
+             *
+             * Since I can't figure out the Ajax dropdown, I'm using this to limit the sections to the locations.
+             * Remove after figuring ou the Ajax thingy.
+             *
+             */
+
+
+            if (iterator_count($query)){
+
+                $reserve=$query->extract('reserve');
+                if($reserve->first()==false){
+                    $space = $query->extract('available_space');
+                    if($space->first() >= $quantity) {  //Not really proper but 1SR deadline =P (extract data to INT form)
+
+                        if ($this->Inventory->save($inventory)) {
+                            $this->Flash->success(__('The inventory has been saved.'));
+
+                            return $this->redirect(['action' => 'index']);
+                        }
+
+                    }else{
+
+                        $this->Flash->error(__('Not enough space in this section'));
+                    }
+
+                }else{
+                    $this->Flash->error(__('This section is reserved.'));
+
+
+                }
+            }else {
+                $this->Flash->error(__('The section is not in this location.'));
+
+
             }
+
+
+
             $this->Flash->error(__('The inventory could not be saved. Please, try again.'));
         }
         $prodTypes = $this->Inventory->ProdTypes->find('list', ['limit' => 200]);
