@@ -211,7 +211,7 @@ class RetailerEmployeesController extends AppController
 
     }*/
 
-    function activate($id, $token, $database) {
+    public function activate($id, $token, $database) {
 
         ConnectionManager::drop('conn1'); 
                 ConnectionManager::config('conn1', [
@@ -592,18 +592,73 @@ public function recover(){
 
     $this->loadComponent('Generator');
     $email = $_POST['email'];
+    $retailer = $_POST['retailer'];
+    $database = $_POST['retailer'].'db';
+
+    ConnectionManager::drop('conn1'); 
+    ConnectionManager::config('conn1', [
+        'className' => 'Cake\Database\Connection',
+        'driver' => 'Cake\Database\Driver\Mysql',
+        'persistent' => false,
+        'host' => 'localhost',
+        'username' => 'root',
+        'password' => 'joy',
+        'database' => $database,
+        'encoding' => 'utf8',
+        'timezone' => 'UTC',
+        'cacheMetadata' => true,
+        ]);
+    $conn = ConnectionManager::get('conn1');
+
+    $query = $conn
+    ->newQuery()
+    ->select('*')
+    ->from('retailer_employees')
+    ->where(['email' => $email])
+    ->execute()
+    ->fetchAll('assoc');
+
+    if($query->count() == 0){
+        $this->Flash->error(__('Invalid email address'));
+         return $this->redirect(['action' => 'login']);
+    }
+
+        $token = $this->Generator->generateString();
+        $pass = $this->Generator->generateString();
+        $hasher = new DefaultPasswordHasher();
+        $hashedPass = $hasher->hash($pass);
+
+        $conn->update('retailer_employees', 
+            ['recovery_status' => 'Pending' ,
+            'recovery_token' => $token,
+            'password' => $pass],
+            ['email' => $email]);
+
+        $this->Email->retailerEmployeeRecoveryEmail(
+                        $email, 
+                        $query[0]['first_name'], 
+                        $query[0]['username'], 
+                        $pass, 
+                        $query[0]['id'], 
+                        $token,  
+                        'retailer-employees',
+                        $database
+                        );
+
+       
+        $this->Flash->success(__('Password Reset Email Sent, please check your email.'));
+        return $this->redirect(['action' => 'login']);
+
+}
+
+
+/*
+
     $query = $this->RetailerEmployees->find('all', [
         'conditions' => ['email' => $email],
         ]);
 
-        //check if user exists based on email
-    if($query->count() == 0){
-        $this->Flash->error(__('Invalid email address'));
-
-            //$this->loadComponent('Logging'); 
-        return $this->redirect(['action' => 'login']);
-    }
-
+     
     $row = $query->first();
     $retaileremployee = $this->RetailerEmployees->get($row['id']);
     $this->Logging->iLog(null, $retaileremployee['id']);
@@ -624,52 +679,60 @@ public function recover(){
             $retaileremployee['recovery_token'], 
             'retailer-employees');
 
-        /*
-        $email = new Email('default');
-        $email->template('recovery');
-        $email->emailFormat('html');
-        $email->to($retaileremployee['email']);
-        $email->subject('Password Recovery');
-        $email->from('tanyongming90@gmail.com');
-
-        $email->send($retaileremployee['first_name'] . ',' .
-            $retaileremployee['username'] . ',' .
-            $newPass . ',' .
-            env('SERVER_NAME') . ',' . 
-            $retaileremployee['id'] . ',' . 
-            $retaileremployee['recovery_token'] . ',' .   
-            'retailer-employees');
-        */
+        
 
         $this->Flash->success(__('Password Reset Email Sent, please check your email.'));
         return $this->redirect(['action' => 'login']);
+    */
+    
+
+
+
+public function recoverActivate($id, $token, $database){
+
+    ConnectionManager::drop('conn1'); 
+    ConnectionManager::config('conn1', [
+        'className' => 'Cake\Database\Connection',
+        'driver' => 'Cake\Database\Driver\Mysql',
+        'persistent' => false,
+        'host' => 'localhost',
+        'username' => 'root',
+        'password' => 'joy',
+        'database' => $database,
+        'encoding' => 'utf8',
+        'timezone' => 'UTC',
+        'cacheMetadata' => true,
+        ]);
+    $conn = ConnectionManager::get('conn1');
+
+    $query = $conn
+    ->newQuery()
+    ->select('*')
+    ->from('retailer_employees')
+    ->where(['id' => $id])
+    ->execute()
+    ->fetchAll('assoc');
+
+    if($query->count() == 0){
+        $this->Flash->error(__('There is something wrong with the activation link'));
+        return $this->redirect(['action' => 'login']);
     }
 
-}
-
-public function recoverActivate($id, $token){
-
-    $retailerEmployee = $this->RetailerEmployees->get($id);
-    if($retailerEmployee['recovery_status'] == NULL){
+    if($query[0]['recovery_status'] == NULL){
         $this->Flash->success(__('Your account has already been recovered.'));
         return $this->redirect(['action' => 'login']);
     }
 
-    if ($retailerEmployee && $retailerEmployee['recovery_token'] == $token) {
+    $conn->update('retailer_employees', 
+        ['recovery_status' => NULL ,
+        'recovery_token' => NULL],
+        ['id' => $id]);
 
-
-        $retailerEmployee->recovery_status = NULL;
-        $retailerEmployee->recovery_token = NULL;
-        $this->RetailerEmployees->save($retailerEmployee);
-
-        $this->Flash->success(__('Your account has been recovered. Please log in using your new username and password.'));
-        return $this->redirect(['action' => 'login']);
-
-    }
-    $this->Flash->error(__('There is something wrong with the activation link'));
+    $this->Flash->success(__('Your account has been recovered.'));
     return $this->redirect(['action' => 'login']);
-
 }
+
+
 
 public function logout(){
     $this->Flash->success('You are now logged out');

@@ -91,7 +91,25 @@ class EmailComponent extends Component {
 
     }
 
+    public function retailerEmployeeRecoveryEmail($recipient, $firstName, $username, $pwd, $id, $token, $type, $database){
 
+        $email = new Email('default');
+        $email->template('retailer_employee_recovery');
+        $email->emailFormat('html');        
+        $email->subject('Please confirm your email address');
+        $email->from('tanyongming90@gmail.com');
+        $email->to($recipient);
+        $email->send($firstName.','.
+            $username.','.
+            $pwd.','.
+            env('SERVER_NAME').','. 
+            $id.','. 
+            $token.','.
+            $type . ',' .
+            $database
+            );
+
+    }
     public function recoveryEmail($recipient, $firstName, $username, $pwd, $id, $token, $type){
 
         $email = new Email('default');
