@@ -25,7 +25,7 @@
                 <!--<h3><?= __('Search') ?></h3>-->
                 <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
                     <tr><?php
-                        echo $this->Form->create(null);?>
+                        echo $this->Form->create($locations);?>
                         <th width="10"></th>
                         <th scope="col"><?= $this->Form->input('name'); ?></th>
                         <th width="60"></th>

@@ -78,7 +78,18 @@ class SectionsController extends AppController
     {
         $section = $this->Sections->newEntity();
         if ($this->request->is('post')) {
+
+
+
+           // $spaceLim = $this->request->getData('space_limit');
+           // $this->update()->set(['available_space'=> $spaceLim])->execute();
+
+
+
+
             $section = $this->Sections->patchEntity($section, $this->request->data);
+
+
             if ($this->Sections->save($section)) {
                 $this->Flash->success(__('The section has been saved.'));
 

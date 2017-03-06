@@ -18,14 +18,24 @@ class CustMembershipTiersPromotionsController extends AppController
      */
     public function index()
     {
+
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+
         $this->paginate = [
             'contain' => ['CustMembershipTiers', 'Promotions']
         ];
-        $custMembershipTiersPromotions = $this->paginate($this->CustMembershipTiersPromotions);
+
+        $this->set('custMembershipTiersPromotions', $this->paginate($this->CustMembershipTiersPromotions->find('searchable', $this->Prg->parsedParams())));
 
         $this->set(compact('custMembershipTiersPromotions'));
         $this->set('_serialize', ['custMembershipTiersPromotions']);
     }
+
+    public $components = array(
+        'Prg'
+    );
+
 
     /**
      * View method

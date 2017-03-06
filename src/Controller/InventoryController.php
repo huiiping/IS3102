@@ -85,7 +85,7 @@ class InventoryController extends AppController
                 if($reserve->first()==false){
                     $space = $query->extract('available_space')->first();
 
-                    if($space >= $quantity) {  //Not really proper but 1SR deadline =P (extract data to INT form)
+                    if($space >= $quantity) {
 
                         if ($this->Inventory->save($inventory)) {
                             $this->Flash->success(__('The inventory has been saved.'));

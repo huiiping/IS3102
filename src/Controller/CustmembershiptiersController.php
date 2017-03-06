@@ -26,11 +26,19 @@ class CustMembershipTiersController extends AppController
      */
     public function index()
     {
-        $custMembershipTiers = $this->paginate($this->CustMembershipTiers);
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+
+        $this->set('custMembershipTiers', $this->paginate($this->CustMembershipTiers->find('searchable', $this->Prg->parsedParams())));
 
         $this->set(compact('custMembershipTiers'));
         $this->set('_serialize', ['custMembershipTiers']);
     }
+
+    public $components = array(
+        'Prg'
+    );
+
 
     /**
      * View method

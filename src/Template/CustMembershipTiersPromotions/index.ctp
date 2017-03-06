@@ -14,6 +14,28 @@
     </ul>
 </nav>
 <div class="custMembershipTiersPromotions index large-9 medium-8 columns content">
+
+    <br>
+    <!--<legend><h4><?= __('Search') ?></h4></legend>-->
+    <table cellpadding="0" cellspacing="0", bgcolor="#FFFFFF">
+        <tr><?php
+            echo $this->Form->create($custMembershipTiersPromotions);?>
+            <th width="10"></th>
+            <th scope="col"><?= $this->Form->input(('membershipTier_id'), ['label' => 'Membership Tier Id', 'type' => 'search']); ?></th>
+            <th width="10"></th>
+            <th scope="col"><?= $this->Form->input('membershiptier_name',['label' => 'Membership Tier Name', 'type' => 'search']); ?></th>
+            <th width="30"></th>
+            <th scope="col"><?= $this->Form->input('credit_card_type',['label' => 'Credit Card Type', 'type' => 'search']); ?></th>
+            <th width="30"></th>
+            <th scope="col"><?= $this->Form->input('promotion_id',['label' => 'Promotion Id', 'type' => 'search']); ?></th>
+            <th width="30"></th>
+            <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+            <th width="10"></th>
+            <?php echo $this->Form->end();?>
+        </tr>
+    </table>
+    <br>
+
     <h3><?= __('Cust Membership Tiers Promotions') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

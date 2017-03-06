@@ -40,9 +40,9 @@ class PromotionsTable extends Table
             'type' => 'like',
             'field' => 'promo_desc'
         ),
-        'first_vouher_num' => array(
+        'first_voucher_num' => array(
             'type' => 'like',
-            'field' => 'first_vouher_num'
+            'field' => 'first_voucher_num'
         ),
         'last_voucher_num' => array(
             'type' => 'like',
@@ -58,7 +58,7 @@ class PromotionsTable extends Table
         ),
         'cust_membership_tier_id' => array(
             'type' => 'like',
-            'field' => 'cust_membership_tier_id',
+            'field' => 'CustMembershipTiers.id',
             'method' => 'findByActions'
         ),
         'retailer_employee_id' => array(

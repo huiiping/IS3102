@@ -23,7 +23,59 @@ use Cake\Validation\Validator;
  */
 class CustMembershipTiersTable extends Table
 {
-
+    public $filterArgs = array(
+        'id' => array(
+            'type' => 'like',
+            'field' => 'id'
+        ),
+        'tier_name' => array(
+            'type' => 'like',
+            'field' => 'tier_name'
+        ),
+        'validity_period' => array(
+            'type' => 'like',
+            'field' => 'validity_period'
+        ),
+        'min_spending' => array(
+            'type' => 'like',
+            'field' => 'min_spending'
+        ),
+        'membership_fee' => array(
+            'type' => 'like',
+            'field' => 'membership_fee'
+        ),
+        'membership_pts' => array(
+            'type' => 'like',
+            'field' => 'membership_pts'
+        ),
+        'redemption_pts' => array(
+            'type' => 'like',
+            'field' => 'redemption_pts'
+        ),
+        'discount_rate' => array(
+            'type' => 'like',
+            'field' => 'discount_rate'
+        ),
+        'birthday_rate' => array(
+            'type' => 'like',
+            'field' => 'birthday_rate'
+        ),
+        'description' => array(
+            'type' => 'like',
+            'field' => 'description'
+        ),
+        'created' => array(
+            'type' => 'like',
+            'field' => 'created'
+        ),
+        'modified' => array(
+            'type' => 'like',
+            'field' => 'modified'
+        ),
+        'type' => array(
+            'type' => 'type'
+        )
+    );
     /**
      * Initialize method
      *
@@ -49,6 +101,7 @@ class CustMembershipTiersTable extends Table
             'targetForeignKey' => 'promotion_id',
             'joinTable' => 'cust_membership_tiers_promotions'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

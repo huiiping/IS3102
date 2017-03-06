@@ -23,6 +23,33 @@ use Cake\Validation\Validator;
 class CustMembershipTiersPromotionsTable extends Table
 {
 
+
+    public $filterArgs = array(
+        'membershipTier_id' => array(
+            'type' => 'like',
+            'field' => 'CustMembershipTiers.id',
+                        'method' => 'findByActions'
+        ),
+        'membershiptier_name' => array(
+            'type' => 'like',
+            'field' => 'CustMembershipTiers.tier_name',
+            'method' => 'findByActions'
+        ),
+        'credit_card_type' => array(
+            'type' => 'like',
+            'field' => 'Promotions.credit_card_type',
+            'method' => 'findByActions'
+        ),
+        'promotion_id' => array(
+            'type' => 'like',
+            'field' => 'Promotions.id',
+            'method' => 'findByActions'
+        ),
+
+        'type' => array(
+            'type' => 'type'
+        )
+    );
     /**
      * Initialize method
      *
@@ -45,6 +72,7 @@ class CustMembershipTiersPromotionsTable extends Table
             'foreignKey' => 'promotion_id',
             'joinType' => 'INNER'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**
