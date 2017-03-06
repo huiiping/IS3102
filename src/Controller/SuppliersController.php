@@ -449,4 +449,29 @@ class SuppliersController extends AppController
         $session->destroy();
         return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
     }
+
+    public function activateStatus($id) {
+
+        $supplier = $this->Suppliers->get($id);
+
+        $supplier->activation_status = 'Activated';
+        $this->Suppliers->save($supplier);
+
+        $this->Flash->success(__('The supplier has been activated.'));
+
+        return $this->redirect(['action' => 'view/'.$id]);
+    }
+
+    public function deactivateStatus($id) {
+
+        $supplier = $this->Suppliers->get($id);
+
+        $supplier->activation_status = 'Deactivated';
+        $this->Suppliers->save($supplier);
+
+        $this->Flash->success(__('The supplier has been deactivated.'));
+
+        return $this->redirect(['action' => 'view/'.$id]);
+
+    }
 }

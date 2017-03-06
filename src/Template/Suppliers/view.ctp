@@ -34,6 +34,15 @@
                 </li>
               </ul>
               <br>
+              <?php if ($supplier->activation_status == 'Activated'): ?>
+                 <div class="btn btn-default btn-block">
+                    <?= $this->Html->link(__('Deactivate Supplier'), ['action' => 'deactivateStatus', $supplier->id]) ?>
+                  </div><br>
+              <?php else: ?>
+                 <div class="btn btn-default btn-block">
+                    <?= $this->Html->link(__('Activate Supplier'), ['action' => 'activateStatus', $supplier->id]) ?>
+                  </div><br>
+              <?php endif; ?>
               <div class="btn btn-default btn-block">
                 <?= $this->Html->link(__('Edit Supplier'), ['action' => 'edit', $supplier->id]) ?>
               </div>
