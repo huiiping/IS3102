@@ -27,7 +27,15 @@
                         echo $this->Form->input('cust_membership_tier_id', ['label' => 'Customer Membership Tier'], ['options' => $custMembershipTiers, 'empty' => true]);
                         echo $this->Form->input('title');
                         echo $this->Form->input('body');
-                        echo $this->Form->input('last_sent', ['empty' => true]);
+                        echo "<br /><b>Send email now?</b> ";
+                        echo "&nbsp;&nbsp;&nbsp;";
+                        echo $this->Form->radio('email', 
+                            [
+                                ['value' => 'y', 'text' => ' Yes '],
+                                ['value' => 'n', 'text' => ' No '],
+                            ]
+                        );
+                        //echo $this->Form->input('last_sent', ['empty' => true]);
                         //echo $this->Form->input('number_of_sends');
                     ?>
                 </fieldset>

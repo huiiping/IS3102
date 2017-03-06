@@ -75,7 +75,7 @@ class PromotionEmailsController extends AppController
             
             $promotionEmail = $this->PromotionEmails->patchEntity($promotionEmail, $this->request->data);
             
-            $send = $_POST['email'];
+            //$send = $_POST['email'];
             $title = $_POST['title'];
             $body = $_POST['body'];
             $tier = $_POST['cust_membership_tier_id'];
@@ -127,7 +127,28 @@ class PromotionEmailsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $promotionEmail = $this->PromotionEmails->patchEntity($promotionEmail, $this->request->data);
             if ($this->PromotionEmails->save($promotionEmail)) {
-                $this->Flash->success(__('The promotion email has been saved.'));
+                
+                if($send = 'y') {
+
+                    $title = $_POST['title'];
+                    $body = $_POST['body'];
+                    $tier = $_POST['cust_membership_tier_id'];
+
+                    $session = $this->request->session();
+                    $retailer = $session->read('retailer');
+                    $conn = ConnectionManager::get('default');
+                    $query = $conn
+                        ->execute('SELECT * FROM customers WHERE cust_membership_tier_id = :id', ['id' => $tier[0]])
+                        ->fetchAll('assoc');                    
+
+                    $this->Email->promotionEmail($title, $body, $query);
+
+                    $this->Flash->success(__('The promotion email has been sent and saved.'));
+
+                } else {
+
+                    $this->Flash->success(__('The promotion email has been saved.'));
+                }
 
                 return $this->redirect(['action' => 'index']);
             }

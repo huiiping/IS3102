@@ -71,7 +71,7 @@ class ProdTypesTable extends Table
         parent::initialize($config);
 
         $this->table('prod_types');
-        $this->displayField('id');
+        $this->displayField('prod_name');
         $this->primaryKey('id');
 
         $this->belongsTo('ProdCats', [

@@ -65,7 +65,7 @@ class SectionsTable extends Table
         parent::initialize($config);
 
         $this->table('sections');
-        $this->displayField('id');
+        $this->displayField('sec_name');
         $this->primaryKey('id');
 
         $this->belongsTo('Locations', [
