@@ -25,13 +25,13 @@
                     <?php
                         echo $this->Form->input('retailer_name');
                         echo $this->Form->input('retailer_desc', ['label'=>'Retailer Description']);
-                        //echo $this->Form->input('account_status');
+                        echo $this->Form->hidden('account_status', ['value' => 'Activated']);
                         echo $this->Form->input('payment_term');
                         echo $this->Form->input('retailer_email');
                         echo $this->Form->input('address');
                         echo $this->Form->input('contact');
-                        echo $this->Form->input('contract_start_date', array('type' => 'datetime-local'));
-                        echo $this->Form->input('contract_end_date', array('type' => 'datetime-local'));
+                        echo $this->Form->input('contract_start_date', array('type' => 'datetime'));
+                        echo $this->Form->input('contract_end_date', array('type' => 'datetime'));
                         /*Gwen: these fields are only for edit
                         echo $this->Form->input('num_of_users', ['label'=>'No. of Users']);
                         echo $this->Form->input('num_of_warehouses', ['label'=>'No. of Warehouses']);
