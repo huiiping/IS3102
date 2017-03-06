@@ -26,7 +26,7 @@ class MessagesTable extends Table
 {
 
     public $filterArgs = array(
-        'message' => array(
+        'mess' => array(
             'type' => 'like',
             'field' => 'message'
         ),

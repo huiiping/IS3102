@@ -68,6 +68,9 @@ class MessagesController extends AppController
 
     public function chat($id = null, $attachment = null, $attachmentID = null)
     {   
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+
         $msgs = [];
         $retailerEmployeesMessages = TableRegistry::get('RetailerEmployeesMessages');
         $retailerEmployees = TableRegistry::get('RetailerEmployees');
@@ -133,12 +136,16 @@ class MessagesController extends AppController
                 $msgs = $this->paginate($this->Messages->find()->where(['id' => $msgsRecieved], ['id' => 'integer[]']));
             }
         }
+        $msgs = $this->paginate($this->Messages->find('searchable', $this->Prg->parsedParams()));
 
         $this->set('reciever', $reciever);
         $this->set('_serialize', ['reciever']);
         $this->set('msgs', $msgs);
         $this->set('_serialize', ['msgs']);
     }
+    public $components = array(
+        'Prg'
+    );
 
     public function test($id = null, $attachment = null, $attachmentID = null) 
     {   
