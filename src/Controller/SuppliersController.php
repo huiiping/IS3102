@@ -90,7 +90,7 @@ class SuppliersController extends AppController
      *
      * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add2()
     {
         $supplier = $this->Suppliers->newEntity();
         if ($this->request->is('post')) {
@@ -113,7 +113,7 @@ class SuppliersController extends AppController
         $this->set('_serialize', ['supplier']);
     }
 
-    public function add2(){
+    public function add(){
 
         $this->loadComponent('Generator');
 
@@ -128,15 +128,19 @@ class SuppliersController extends AppController
 
 
             if ($this->Suppliers->save($supplier)) {
+                $session = $this->request->session();
+                $database = $session->read('database');
 
-                $this->Email->activationEmail(
+                $this->Email->retailerEmployeeActivationEmail(
                     $supplier['email'], 
                     $supplier['first_name'], 
                     $supplier['username'], 
                     $this->password, 
                     $supplier['id'], 
                     $supplier['activation_token'], 
-                    'suppliers');
+                    'suppliers',
+                    $database
+                    );
 
                 //$this->__sendActivationEmail($supplier['id']);
                 $this->Flash->success(__('The supplier has been saved.'));
@@ -156,37 +160,52 @@ class SuppliersController extends AppController
         $this->set('_serialize', ['supplier']);
     }
 
-    /*
-    function __sendActivationEmail($user_id) {
+    
 
-        $user = $this->Suppliers->get($user_id);
-        $activationToken = $user['activation_token'];
-        if ($user === false) {
-            debug(__METHOD__." failed to retrieve User data for user.id: {$user_id}");
-            return false;
+    function activate($id, $token, $database) {
+
+        ConnectionManager::drop('conn1'); 
+                ConnectionManager::config('conn1', [
+                'className' => 'Cake\Database\Connection',
+                'driver' => 'Cake\Database\Driver\Mysql',
+                'persistent' => false,
+                'host' => 'localhost',
+                'username' => 'root',
+                'password' => 'joy',
+                'database' => $database,
+                'encoding' => 'utf8',
+                'timezone' => 'UTC',
+                'cacheMetadata' => true,
+            ]);
+        $conn = ConnectionManager::get('conn1');
+        
+        $query = $conn
+                    ->newQuery()
+                    ->select('*')
+                    ->from('suppliers')
+                    ->where(['id' => $id])
+                    ->execute()
+                    ->fetchAll('assoc');
+
+        if($query[0]['activation_status'] == 'Activated'){
+            $this->Flash->success(__('Your account has already been activated.'));
+                return $this->redirect(['action' => 'login']);
+        }
+        if($query[0]['activation_token'] == $token){
+            $conn->update('suppliers', 
+                ['activation_status' => 'Activated' ,
+                'activation_token' => NULL],
+                ['id' => $id]);
+            
+            $this->Flash->success(__('Your account has been activated.'));
+                return $this->redirect(['action' => 'login']);
+        }
+        else{
+            $this->Flash->error(__('There is something wrong with the activation link'));
+            return $this->redirect(['action' => 'login']);
         }
 
-        $email = new Email('default');
-        $email->template('activation');
-        $email->emailFormat('html');
-        $email->to($user['email']);
-        $email->subject('Please confirm your email address');
-        $email->from('tanyongming90@gmail.com');
-
-        return $email->send($user['supplier_name'] . ',' .
-            $user['username'] . ',' .
-            $this->password . ',' .
-            env('SERVER_NAME') . ',' . 
-            $user['id'] . ',' . 
-            $user['activation_token'] . ',' .
-            'suppliers');
-
-    }*/
-
-    function activate($id, $token) {
-
-
-        $supplier = $this->Suppliers->get($id);
+    /*    $supplier = $this->Suppliers->get($id);
         if($supplier['activation_status'] == 'Activated'){
             $this->Flash->success(__('Your account has already been activated.'));
             return $this->redirect(['action' => 'login']);
@@ -208,6 +227,7 @@ class SuppliersController extends AppController
      }
      $this->Flash->error(__('There is something wrong with the activation link'));
      return $this->redirect(['action' => 'login']);
+*/
  }
     /**
      * Edit method
