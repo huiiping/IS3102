@@ -331,7 +331,7 @@ class AppController extends Controller
                 //Normal User
                 if($retailerEmployeeRole == '4'){
                     if($controllerName == 'RetailerEmployees'){
-                        if($methodName == 'index' || $methodName == 'edit') {
+                        if($methodName == 'index' || $methodName == 'edit' || $methodName == 'view') {
                             return;
                         }
                     }   

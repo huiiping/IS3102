@@ -82,6 +82,21 @@ class RetailerEmployeesController extends AppController
         
         $session = $this->request->session();
         $retailer = $session->read('retailer');
+
+        $session = $this->request->session()->read('Auth.User');
+        $sessionEmployee = $this->RetailerEmployees->get($session['id'], [
+            'contain' => ['RetailerEmployeeRoles']
+            ]);
+
+        foreach ($sessionEmployee->retailer_employee_roles as $retailerEmployeeRoles) {
+            if($retailerEmployeeRoles->id == '4') {
+                if($retailerEmployee['id'] != $session['id']) {
+                $this->redirect($this->referer());
+                $this->Flash->error(__('You are not authorized to view other employees.'));
+                }    
+            }
+
+        }
         
         //$this->loadComponent('Logging');
         $this->Logging->rLog($retailerEmployee['id']);
