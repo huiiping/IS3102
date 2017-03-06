@@ -96,7 +96,7 @@ class RetailerEmployeesController extends AppController
      *
      * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add2()
     {
         $retailerEmployee = $this->RetailerEmployees->newEntity();
         if ($this->request->is('post')) {
@@ -127,7 +127,7 @@ class RetailerEmployeesController extends AppController
         $this->set('_serialize', ['retailerEmployee']);
     }
 
-    public function add2(){
+    public function add(){
 
         $this->loadComponent('Generator');
 
@@ -144,15 +144,19 @@ class RetailerEmployeesController extends AppController
 
 
                 if ($this->RetailerEmployees->save($retailerEmployee)) {
+                    $session = $this->request->session();
+                    $database = $session->read('database');
 
-                    $this->Email->activationEmail(
+                    $this->Email->retailerEmployeeActivationEmail(
                         $retailerEmployee['email'], 
                         $retailerEmployee['first_name'], 
                         $retailerEmployee['username'], 
                         $this->password, 
                         $retailerEmployee['id'], 
                         $retailerEmployee['activation_token'], 
-                        'retailer-employees');
+                        'retailer-employees',
+                        $database
+                        );
 
 
                     //$this->__sendActivationEmail($retailerEmployee['id']);
@@ -207,9 +211,52 @@ class RetailerEmployeesController extends AppController
 
     }*/
 
-    function activate($id, $token) {
+    function activate($id, $token, $database) {
 
+        ConnectionManager::drop('conn1'); 
+                ConnectionManager::config('conn1', [
+                'className' => 'Cake\Database\Connection',
+                'driver' => 'Cake\Database\Driver\Mysql',
+                'persistent' => false,
+                'host' => 'localhost',
+                'username' => 'root',
+                'password' => 'joy',
+                'database' => $database,
+                'encoding' => 'utf8',
+                'timezone' => 'UTC',
+                'cacheMetadata' => true,
+            ]);
+        $conn = ConnectionManager::get('conn1');
+        
+        $query = $conn
+                    ->newQuery()
+                    ->select('*')
+                    ->from('retailer_employees')
+                    ->where(['id' => $id])
+                    ->execute()
+                    ->fetchAll('assoc');
 
+        if($query[0]['activation_status'] == 'Activated'){
+            $this->Flash->success(__('Your account has already been activated.'));
+                return $this->redirect(['action' => 'login']);
+            }
+            
+        if($query[0]['activation_token'] == $token){
+            $conn->update('retailer_employees', 
+                ['activation_status' => 'Activated' ,
+                'activation_token' => NULL],
+                ['id' => $id]);
+            
+            $this->Flash->success(__('Your account has been activated.'));
+                return $this->redirect(['action' => 'login']);
+        }
+        else{
+            $this->Flash->error(__('There is something wrong with the activation link'));
+            return $this->redirect(['action' => 'login']);
+        }
+
+        
+/*
         $retailerEmployee = $this->RetailerEmployees->get($id);
 
         if($retailerEmployee){
@@ -235,7 +282,9 @@ class RetailerEmployeesController extends AppController
             $this->Flash->error(__('There is something wrong with the activation link'));
             return $this->redirect(['action' => 'login']);
         }
+*/
     }
+
     private function withinLimit()
     {   
         $session = $this->request->session();
@@ -360,7 +409,7 @@ public function login(){
           $this->Flash->error('Wrong captcha code. Please try again');
             return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'login']);
         }
-    
+
         $session = $this->request->session();
         $retailer = $_POST['retailer'];
         $database = $_POST['retailer']."db";
@@ -407,8 +456,8 @@ public function login(){
                 $end = Time::parse($query[0]['contract_end_date']);
                 $start = Time::parse($query[0]['contract_start_date']);
 
-                if($query[0]['account_status'] == 'Deactivated') {
-                    $this->Flash->error($retailer.'\'s account with Intrasys has been deactivated.');
+                if($query[0]['account_status'] != 'Activated') {
+                    $this->Flash->error($retailer.'\'s account with Intrasys has been deactivated, banned or terminated.');
 
                     return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
                 } else if($end <= $now) {
@@ -498,6 +547,8 @@ public function login(){
 
 public function managerActions($id = null)
 {
+    $session = $this->request->session();
+    $retailer = $session->read('retailer');
     $retailerEmployee = $this->RetailerEmployees->get($id, [
         'contain' => ['Messages', 'RetailerEmployeeRoles']
         ]);

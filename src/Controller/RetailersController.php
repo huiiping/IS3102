@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Datasource\ConnectionManager;
+use Cake\Auth\DefaultPasswordHasher;
 use Cake\Event\Event;
 use Cake\Error\Debugger;
 use Cake\ORM\TableRegistry;
@@ -21,6 +22,7 @@ class RetailersController extends AppController
         parent::beforeFilter($event);
         $this->loadcomponent('DbSchema');
         $this->loadComponent('Logging');
+        $this->loadComponent('Email');
     }
 
     public function index()
@@ -63,7 +65,6 @@ class RetailersController extends AppController
         $this->set('retailer', $retailer);
         $this->set('_serialize', ['retailer']);
     }
-
     public function account($id = null)
     {
         $retailer = $this->Retailers->get($id, [
@@ -81,11 +82,6 @@ class RetailersController extends AppController
         $this->set('_serialize', ['retailer']);
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
-     */
     public function add()
     {
         $retailer = $this->Retailers->newEntity();
@@ -248,9 +244,44 @@ class RetailersController extends AppController
                 $modified = $retailer['modified'];
 
                 $conn = ConnectionManager::get('conn1');
-                //To Do: Ask glenn to do the auto generation of username and password and activation link & changing of activation status to 'activated'
-                $sql = "INSERT INTO Retailer_employees (username, password, created, modified)  
-                VALUES ('$companyName','123','$created','$modified')";
+
+                $this->loadComponent('Generator');
+                
+                $user = $this->Generator->generateString();
+                $pass = $this->Generator->generateString();
+                $hasher = new DefaultPasswordHasher();
+                $hashedPass = $hasher->hash($pass);
+
+                $token = $this->Generator->generateString();
+
+                
+
+                $sql = "INSERT INTO Retailer_employees (username, first_name, last_name, password, activation_status, activation_token, email, address, contact, created, modified)  
+                VALUES (
+                '$user',
+                '$companyName',
+                '$companyName',
+                '$hashedPass',
+                'Deactivated',
+                '$token',
+                '$companyEmail',
+                '$companyAddress',
+                '$companyContact',
+                '$created',
+                '$modified'
+                )";
+                
+                $this->Email->retailerEmployeeActivationEmail(
+                        $companyEmail, 
+                        $companyName, 
+                        $user, 
+                        $pass, 
+                        1, 
+                        $token,  
+                        'retailer-employees',
+                        $database
+                        );
+                
                 //Add 'Master Account' role to the master account
                 $sql2 = "INSERT INTO Retailer_employees_retailer_employee_roles (retailer_employee_id, retailer_employee_role_id) VALUES ('1', '35')";
                 //Information in retailer table in intrasys DB will be copied to retailer_details in the retailer DB
