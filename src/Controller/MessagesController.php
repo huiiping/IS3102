@@ -120,7 +120,7 @@ class MessagesController extends AppController
                 $msgsRecieved = Hash::extract($msgsRecieved, '{n}.message_id');
             }  
 
-            //Paginating all the relevant employees
+            //Paginating all the relevant messages
             if (!empty($msgsSent) && !empty($msgsRecieved)) {
                 $msgs = $this->paginate($this->Messages->find()
                     ->where(['id' => $msgsSent], ['id' => 'integer[]'])
