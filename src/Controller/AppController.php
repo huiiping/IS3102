@@ -56,7 +56,7 @@ class AppController extends Controller
         $session = $this->request->session();
         $database = $session->read('database');
         //$session->destroy();
-        debugger::dump($database);
+        //debugger::dump($database);
         if ($database != NULL) {
             ConnectionManager::drop('conn1'); 
             ConnectionManager::config('conn1', [
@@ -118,7 +118,7 @@ class AppController extends Controller
     
     public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
-        Debugger::dump(['IN Before Filter NOW']);
+        //Debugger::dump(['IN Before Filter NOW']);
         //Retrieve & check User's role
         $user = $this->request->session()->read('Auth.User');
 
@@ -143,7 +143,7 @@ class AppController extends Controller
         } */
 
         if($user != null && $database == null) {
-            echo("INTRASYS EMPLOYEES");
+            //echo("INTRASYS EMPLOYEES");
         $IntrasysEmployeeRoles = TableRegistry::get('IntrasysEmployeesIntrasysEmployeeRoles');
             $allRoles = $IntrasysEmployeeRoles
                     ->find()

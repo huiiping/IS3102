@@ -134,12 +134,12 @@ public $components = array(
     		$intrasysEmployee->set('activation_status', 'Deactivated');
     		$intrasysEmployee->set('activation_token', $this->Generator->generateString());
 
-            echo $intrasysEmployee['email'].'<br />';
-            echo $intrasysEmployee['first_name'].'<br />';
-            echo $intrasysEmployee['username'].'<br />';
-            echo $this->password.'<br />';
-            echo $intrasysEmployee['id'].'<br />';
-            echo $intrasysEmployee['activation_token'].'<br />';
+            //echo $intrasysEmployee['email'].'<br />';
+            //echo $intrasysEmployee['first_name'].'<br />';
+            //echo $intrasysEmployee['username'].'<br />';
+            //echo $this->password.'<br />';
+            //echo $intrasysEmployee['id'].'<br />';
+            //echo $intrasysEmployee['activation_token'].'<br />';
 
             if ($this->IntrasysEmployees->save($intrasysEmployee)) {
 
@@ -272,20 +272,27 @@ public $components = array(
      */
     public function delete($id = null)
     {
-    	$this->request->allowMethod(['post', 'delete']);
-    	$intrasysEmployee = $this->IntrasysEmployees->get($id);
-    	if ($this->IntrasysEmployees->delete($intrasysEmployee)) {
-    		$this->Flash->success(__('The intrasys employee has been deleted.'));
+      $session = $this->request->session();
+      $employee_id = $session->read('employee_id');
 
-            //$this->loadComponent('Logging');
-            //$this->Logging->log($intrasysEmployee['id']);
-            $this->Logging->iLog(null, $intrasysEmployee['id']);
+      if($id != $employee_id){
+      	$this->request->allowMethod(['post', 'delete']);
+      	$intrasysEmployee = $this->IntrasysEmployees->get($id);
+      	if ($this->IntrasysEmployees->delete($intrasysEmployee)) {
+      		$this->Flash->success(__('The intrasys employee has been deleted.'));
 
-        } else {
-          $this->Flash->error(__('The intrasys employee could not be deleted. Please, try again.'));
+              //$this->loadComponent('Logging');
+              //$this->Logging->log($intrasysEmployee['id']);
+              $this->Logging->iLog(null, $intrasysEmployee['id']);
+
+          } else {
+            $this->Flash->error(__('The intrasys employee could not be deleted. Please, try again.'));
+        }
+      } else {
+        $this->Flash->error(__('You cannot delete your own account.'));
+
       }
 
-      return $this->redirect(['action' => 'index']);
   }
 
   public function login(){
