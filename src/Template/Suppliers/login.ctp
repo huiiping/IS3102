@@ -78,6 +78,7 @@
 
 				<?=  $this->Form->create('Post', ['url' => ['action' => 'recover']]); ?>
 					<?=  $this->Form->input('Enter your email address', array(	'id' => 'email' ,'name' => 'email', 'required' => true)); ?>
+					<?=  $this->Form->input('retailer',array('required' => true)); ?>
 					<hr>
 					<?=  $this->Form->submit('Recover my Account', 
 					array(	'class' => 'btn btn-lg btn-primary btn-block', 

@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use Cake\Datasource\ConnectionManager;
 use Cake\Event\Event;
 use Cake\Mailer\Email;
+use Cake\Auth\DefaultPasswordHasher;
 /**
  * Suppliers Controller
  *
@@ -133,7 +134,7 @@ class SuppliersController extends AppController
 
                 $this->Email->retailerEmployeeActivationEmail(
                     $supplier['email'], 
-                    $supplier['first_name'], 
+                    $supplier['supplier_name'], 
                     $supplier['username'], 
                     $this->password, 
                     $supplier['id'], 
@@ -362,7 +363,68 @@ class SuppliersController extends AppController
     public function recover(){
 
         $this->loadComponent('Generator');
+
         $email = $_POST['email'];
+        $retailer = $_POST['retailer'];
+        $database = $_POST['retailer'].'db';
+
+
+        ConnectionManager::drop('conn1'); 
+        ConnectionManager::config('conn1', [
+            'className' => 'Cake\Database\Connection',
+            'driver' => 'Cake\Database\Driver\Mysql',
+            'persistent' => false,
+            'host' => 'localhost',
+            'username' => 'root',
+            'password' => 'joy',
+            'database' => $database,
+            'encoding' => 'utf8',
+            'timezone' => 'UTC',
+            'cacheMetadata' => true,
+            ]);
+        $conn = ConnectionManager::get('conn1');
+
+        $query = $conn
+        ->newQuery()
+        ->select('*')
+        ->from('suppliers')
+        ->where(['email' => $email])
+        ->execute()
+        ->fetchAll('assoc');
+
+        if($query == NULL){
+            $this->Flash->error(__('Invalid email address'));
+            return $this->redirect(['action' => 'login']);
+        }
+
+        $token = $this->Generator->generateString();
+        $pass = $this->Generator->generateString();
+        $hasher = new DefaultPasswordHasher();
+        $hashedPass = $hasher->hash($pass);
+
+        $conn->update('suppliers', 
+            ['recovery_status' => 'Pending' ,
+            'recovery_token' => $token,
+            'password' => $hashedPass],
+            ['email' => $email]);
+
+        $this->Email->retailerEmployeeRecoveryEmail(
+                        $email, 
+                        $query[0]['supplier_name'], 
+                        $query[0]['username'], 
+                        $pass, 
+                        $query[0]['id'], 
+                        $token,  
+                        'suppliers',
+                        $database
+                        );
+
+       
+        $this->Flash->success(__('Password Reset Email Sent, please check your email.'));
+        return $this->redirect(['action' => 'login']);
+
+
+/*
         $query = $this->Suppliers->find('all', [
             'conditions' => ['email' => $email],
             ]);
@@ -395,26 +457,8 @@ class SuppliersController extends AppController
                 $supplier['recovery_token'], 
                 'suppliers');
 
-            /*
-            $email = new Email('default');
-            $email->template('recovery');
-            $email->emailFormat('html');
-            $email->to($supplier['email']);
-            $email->subject('Password Recovery');
-            $email->from('tanyongming90@gmail.com');
-
-            $email->send($supplier['supplier_name'] . ',' .
-                $supplier['username'] . ',' .
-                $newPass . ',' .
-                env('SERVER_NAME') . ',' . 
-                $supplier['id'] . ',' . 
-                $supplier['recovery_token'] . ',' .   
-                'suppliers');
+           
             */
-
-            $this->Flash->success(__('Password Reset Email Sent, please check your email.'));
-            return $this->redirect(['action' => 'login']);
-        }
 
     }
 
