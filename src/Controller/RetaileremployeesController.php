@@ -10,6 +10,7 @@ use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use Cake\Mailer\Email;
+use Cake\Auth\DefaultPasswordHasher;
 
 
 /**
@@ -633,7 +634,7 @@ public function recover(){
     ->execute()
     ->fetchAll('assoc');
 
-    if($query->count() == 0){
+    if($query == NULL){
         $this->Flash->error(__('Invalid email address'));
          return $this->redirect(['action' => 'login']);
     }
@@ -646,7 +647,7 @@ public function recover(){
         $conn->update('retailer_employees', 
             ['recovery_status' => 'Pending' ,
             'recovery_token' => $token,
-            'password' => $pass],
+            'password' => $hashedPass],
             ['email' => $email]);
 
         $this->Email->retailerEmployeeRecoveryEmail(
@@ -728,7 +729,7 @@ public function recoverActivate($id, $token, $database){
     ->execute()
     ->fetchAll('assoc');
 
-    if($query->count() == 0){
+    if($query == NULL){
         $this->Flash->error(__('There is something wrong with the activation link'));
         return $this->redirect(['action' => 'login']);
     }
