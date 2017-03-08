@@ -490,7 +490,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <!-- AdminLTE App -->
   <?= $this->Html->script('app.min.js') ?>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-  <?= $this->Html->script('dashboard.js') ?>
+  <!--<?= $this->Html->script('dashboard.js') ?>-->
   <!-- AdminLTE for demo purposes -->
   <?= $this->Html->script('demo.js') ?>
   <!-- DataTables -->
