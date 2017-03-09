@@ -45,19 +45,11 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');      
 
-        /*
-         * Enable the following components for recommended CakePHP security settings.
-         * see http://book.cakephp.org/3.0/en/controllers/components/security.html
-         */
-        //$this->loadComponent('Security');
-        //$this->loadComponent('Csrf');
-
-        //Setting the database connection
         $session = $this->request->session();
         $database = $session->read('database');
-        //$session->destroy();
-        //debugger::dump($database);
+
         if ($database != NULL) {
+
             ConnectionManager::drop('conn1'); 
             ConnectionManager::config('conn1', [
                 'className' => 'Cake\Database\Connection',
@@ -84,21 +76,23 @@ class AppController extends Controller
      * @param \Cake\Event\Event $event The beforeRender event.
      * @return \Cake\Network\Response|null|void
      */
+
     public function beforeRender(Event $event) {
+        
         if (!array_key_exists('_serialize', $this->viewVars) &&
             in_array($this->response->type(), ['application/json', 'application/xml'])
             ) {
             $this->set('_serialize', true);
         }
 
-            //check login
+        //check login
         if($this->request->session()->read('Auth.User')){
             $this->set('loggedIn', true);
         } else {
             $this->set('loggedIn', false);
         }
 
-            //check database
+        //check database
         if($this->request->session()->read('database') == null){
             $this->set('intrasys', true);
         } else {
@@ -112,11 +106,11 @@ class AppController extends Controller
             $this->set('type', true);
         } else {
             $this->set('type', false);
-            }
+        }
     }
-
     
     public function beforeFilter(Event $event) {
+        
         parent::beforeFilter($event);
         //Debugger::dump(['IN Before Filter NOW']);
         //Retrieve & check User's role

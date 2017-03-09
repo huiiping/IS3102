@@ -760,8 +760,6 @@ public function recoverActivate($id, $token, $database){
     return $this->redirect(['action' => 'login']);
 }
 
-
-
 public function logout(){
     $this->Flash->success('You are now logged out');
     $this->Auth->logout();
