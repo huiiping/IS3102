@@ -19,8 +19,9 @@ use Cake\ORM\TableRegistry;
         $query = $prodCats->find('all');
         $results = $query->all()
         ->extract('id');
-        //Gwen: HP, can help me display it like the intrasys employee role in the add.ctp of intrasys employees. Not drop down list.
-        echo $this->Form->input('parentid'), ['options' => $results]);
+        $data= $results->toArray();
+
+        echo $this->Form->input('parentid', array('type' => 'select', 'options' => array_combine($data, $data), 'empty' => true));
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
