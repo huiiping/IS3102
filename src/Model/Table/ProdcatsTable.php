@@ -58,7 +58,9 @@ class ProdCatsTable extends Table
             ->allowEmpty('parentid');
 
         $validator
-            ->allowEmpty('cat_name');
+            ->requirePresence('cat_name', 'create')
+            ->notEmpty('cat_name')
+            ->add('cat_name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->allowEmpty('cat_desc');

@@ -13,11 +13,14 @@ use Cake\ORM\TableRegistry;
     <fieldset>
         <legend><?= __('Add Prod Cat') ?></legend>
         <?php
-            echo $this->Form->input('cat_name');
-            echo $this->Form->input('cat_desc');
-            //$prodCats = TableRegistry::get('prodCats');
-            //var_dump($prodCats);
-            echo $this->Form->input('parentid', ['options' => $prodCats]);
+        echo $this->Form->input('cat_name');
+        echo $this->Form->input('cat_desc');
+        $prodCats = TableRegistry::get('prodCats');
+        $query = $prodCats->find('all');
+        $results = $query->all()
+        ->extract('cat_name');
+        //Gwen: HP, can help me display it like the intrasys employee role in the add.ctp of intrasys employees. Not drop down list.
+        echo $this->Form->input('parentid', ['options' => $results]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

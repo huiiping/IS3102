@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\Error\Debugger;
+
 
 /**
  * ProdCats Controller
@@ -20,7 +20,6 @@ class ProdCatsController extends AppController
     public function index()
     {
         $prodCats = $this->paginate($this->ProdCats);
-        Debugger::dump($prodCats);
         $this->set(compact('prodCats'));
         $this->set('_serialize', ['prodCats']);
     }
@@ -49,12 +48,6 @@ class ProdCatsController extends AppController
      */
     public function add()
     {   
-        $prodCats = $this->paginate($this->ProdCats);
-        Debugger::dump($prodCats);
-
-        $prodCatids = $prodCats->find('all')->all();
-        //->extract('id');
-
         $prodCat = $this->ProdCats->newEntity();
         if ($this->request->is('post')) {
 
