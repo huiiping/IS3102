@@ -1,14 +1,22 @@
 <?php
-namespace App\Test\TestCase\Controller;
+namespace App\Test\TestCase\Model\Table;
 
-use App\Controller\ProdCatsController;
-use Cake\TestSuite\IntegrationTestCase;
+use App\Model\Table\ProductsTable;
+use Cake\ORM\TableRegistry;
+use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\ProdCatsController Test Case
+ * App\Model\Table\ProductsTable Test Case
  */
-class ProdCatsControllerTest extends IntegrationTestCase
+class ProductsTableTest extends TestCase
 {
+
+    /**
+     * Test subject
+     *
+     * @var \App\Model\Table\ProductsTable
+     */
+    public $Products;
 
     /**
      * Fixtures
@@ -16,6 +24,7 @@ class ProdCatsControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
+        'app.products',
         'app.prod_cats',
         'app.prod_types',
         'app.promotions',
@@ -34,55 +43,62 @@ class ProdCatsControllerTest extends IntegrationTestCase
         'app.customers',
         'app.customers_promotions',
         'app.cust_membership_tiers_promotions',
-        'app.promotions_prod_types'
+        'app.promotions_prod_types',
+        'app.prod_specifications',
+        'app.products_prod_specifications',
+        'app.promotions_products'
     ];
 
     /**
-     * Test index method
+     * setUp method
      *
      * @return void
      */
-    public function testIndex()
+    public function setUp()
+    {
+        parent::setUp();
+        $config = TableRegistry::exists('Products') ? [] : ['className' => 'App\Model\Table\ProductsTable'];
+        $this->Products = TableRegistry::get('Products', $config);
+    }
+
+    /**
+     * tearDown method
+     *
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->Products);
+
+        parent::tearDown();
+    }
+
+    /**
+     * Test initialize method
+     *
+     * @return void
+     */
+    public function testInitialize()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
     /**
-     * Test view method
+     * Test validationDefault method
      *
      * @return void
      */
-    public function testView()
+    public function testValidationDefault()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
     /**
-     * Test add method
+     * Test buildRules method
      *
      * @return void
      */
-    public function testAdd()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test edit method
-     *
-     * @return void
-     */
-    public function testEdit()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test delete method
-     *
-     * @return void
-     */
-    public function testDelete()
+    public function testBuildRules()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

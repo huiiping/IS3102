@@ -4,16 +4,14 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * ProdCat Entity
+ * ProdSpecification Entity
  *
- * @property int $id
- * @property int $parentid
- * @property string $cat_name
- * @property string $cat_desc
+ * @property string $title
+ * @property string $description
  *
- * @property \App\Model\Entity\ProdType[] $prod_types
+ * @property \App\Model\Entity\Product[] $products
  */
-class ProdCat extends Entity
+class ProdSpecification extends Entity
 {
 
     /**
@@ -27,6 +25,6 @@ class ProdCat extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'id' => false
+        'title' => false
     ];
 }

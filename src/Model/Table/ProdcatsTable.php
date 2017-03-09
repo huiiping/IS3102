@@ -9,7 +9,7 @@ use Cake\Validation\Validator;
 /**
  * ProdCats Model
  *
- * @property \Cake\ORM\Association\HasMany $ProdTypes
+ * @property \Cake\ORM\Association\HasMany $Products
  *
  * @method \App\Model\Entity\ProdCat get($primaryKey, $options = [])
  * @method \App\Model\Entity\ProdCat newEntity($data = null, array $options = [])
@@ -22,16 +22,6 @@ use Cake\Validation\Validator;
 class ProdCatsTable extends Table
 {
 
-    public $filterArgs = array(
-        'cat_name' => array(
-            'type' => 'like',
-            'field' => 'cat_name'
-        ),
-        'cat_desc' => array(
-            'type' => 'like',
-            'field' => 'cat_desc'
-        )
-    );
     /**
      * Initialize method
      *
@@ -46,10 +36,9 @@ class ProdCatsTable extends Table
         $this->displayField('cat_name');
         $this->primaryKey('id');
 
-        $this->hasMany('ProdTypes', [
+        $this->hasMany('Products', [
             'foreignKey' => 'prod_cat_id'
         ]);
-        $this->addBehavior('Searchable');
     }
 
     /**
@@ -63,6 +52,10 @@ class ProdCatsTable extends Table
         $validator
             ->integer('id')
             ->allowEmpty('id', 'create');
+
+        $validator
+            ->integer('parentid')
+            ->allowEmpty('parentid');
 
         $validator
             ->allowEmpty('cat_name');

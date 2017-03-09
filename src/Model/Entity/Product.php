@@ -4,16 +4,21 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * ProdCat Entity
+ * Product Entity
  *
  * @property int $id
- * @property int $parentid
- * @property string $cat_name
- * @property string $cat_desc
+ * @property string $prod_name
+ * @property string $prod_desc
+ * @property float $store_unit_price
+ * @property float $web_store_unit_price
+ * @property string $SKU
+ * @property int $prod_cat_id
  *
- * @property \App\Model\Entity\ProdType[] $prod_types
+ * @property \App\Model\Entity\ProdCat $prod_cat
+ * @property \App\Model\Entity\ProdSpecification[] $prod_specifications
+ * @property \App\Model\Entity\Promotion[] $promotions
  */
-class ProdCat extends Entity
+class Product extends Entity
 {
 
     /**

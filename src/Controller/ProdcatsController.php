@@ -2,8 +2,6 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\Event\Event;
-use Cake\Error\Debugger;
 
 /**
  * ProdCats Controller
@@ -13,13 +11,6 @@ use Cake\Error\Debugger;
 class ProdCatsController extends AppController
 {
 
-    public function beforeFilter(Event $event)
-    {
-
-        $this->loadComponent('Logging');
-        
-    }
-
     /**
      * Index method
      *
@@ -27,16 +18,11 @@ class ProdCatsController extends AppController
      */
     public function index()
     {
-        //$prodCats = $this->paginate($this->ProdCats);
-        $this->loadComponent('Prg');
-        $this->Prg->commonProcess();
-        $this->set('prodCats', $this->paginate($this->ProdCats->find('searchable', $this->Prg->parsedParams())));
+        $prodCats = $this->paginate($this->ProdCats);
+
         $this->set(compact('prodCats'));
         $this->set('_serialize', ['prodCats']);
     }
-    public $components = array(
-        'Prg'
-    );
 
     /**
      * View method
@@ -50,13 +36,6 @@ class ProdCatsController extends AppController
         $prodCat = $this->ProdCats->get($id, [
             'contain' => ['ProdTypes']
         ]);
-
-        $session = $this->request->session();
-        $retailer = $session->read('retailer');
-
-        //$this->loadComponent('Logging');
-        $this->Logging->rLog($prodCat['id']);
-        $this->Logging->iLog($retailer, $prodCat['id']);
 
         $this->set('prodCat', $prodCat);
         $this->set('_serialize', ['prodCat']);
@@ -74,13 +53,6 @@ class ProdCatsController extends AppController
             $prodCat = $this->ProdCats->patchEntity($prodCat, $this->request->data);
             if ($this->ProdCats->save($prodCat)) {
                 $this->Flash->success(__('The prod cat has been saved.'));
-
-                $session = $this->request->session();
-                $retailer = $session->read('retailer');
-
-                //$this->loadComponent('Logging');
-                $this->Logging->rLog($prodCat['id']);
-                $this->Logging->iLog($retailer, $prodCat['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -107,13 +79,6 @@ class ProdCatsController extends AppController
             if ($this->ProdCats->save($prodCat)) {
                 $this->Flash->success(__('The prod cat has been saved.'));
 
-                $session = $this->request->session();
-                $retailer = $session->read('retailer');
-
-                //$this->loadComponent('Logging');
-                $this->Logging->rLog($prodCat['id']);
-                $this->Logging->iLog($retailer, $prodCat['id']);
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The prod cat could not be saved. Please, try again.'));
@@ -131,29 +96,12 @@ class ProdCatsController extends AppController
      */
     public function delete($id = null)
     {
-
         $this->request->allowMethod(['post', 'delete']);
-        $prodCat = $this->ProdCats->get($id, [
-            'contain' => ['ProdTypes']
-        ]);
-
-        if (!empty($prodCat->prod_types)) {
-            $this->Flash->error(__('This product category cannot be deleted. Please check related product type.'));
-            return $this->redirect(['action' => 'index']);
-        }
-        
+        $prodCat = $this->ProdCats->get($id);
         if ($this->ProdCats->delete($prodCat)) {
-            $this->Flash->success(__('The product category has been deleted.'));
-
-            $session = $this->request->session();
-            $retailer = $session->read('retailer');
-
-            //$this->loadComponent('Logging');
-            $this->Logging->rLog($prodCat['id']);
-            $this->Logging->iLog($retailer, $prodCat['id']);
-        
+            $this->Flash->success(__('The prod cat has been deleted.'));
         } else {
-            $this->Flash->error(__('The product category could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The prod cat could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);
