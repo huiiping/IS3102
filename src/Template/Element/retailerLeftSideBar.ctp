@@ -19,7 +19,11 @@
       <li class="header">MAIN NAVIGATION</li>
       
       <?php if($type) : ?>
-        <?= $this->Element('sideBar2', array('type' => 'Suppliers', 'typePlural' => 'Suppliers')); ?>
+        <li class="treeview">
+          <a href="/IS3102_Final/suppliers/index">
+            <i class="fa fa-table"></i>Supplier Details
+          </a>
+        </li>
         
       <?php else : ?>
         <li class="treeview">
@@ -34,7 +38,8 @@
         <?= $this->Element('sideBar', array('type' => 'Promotions', 'typePlural' => 'Promotions')); ?>
         <?= $this->Element('sideBar', array('type' => 'Promotion Emails', 'typePlural' => 'PromotionEmails')); ?>
         <?= $this->Element('sideBar', array('type' => 'Product Category', 'typePlural' => 'ProdCats')); ?>
-        <?= $this->Element('sideBar', array('type' => 'Product Types', 'typePlural' => 'Prods')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Product Specification', 'typePlural' => 'ProdSpecifications')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Product', 'typePlural' => 'Products')); ?>
         <?= $this->Element('sideBar', array('type' => 'Inventory', 'typePlural' => 'Inventory')); ?>
         <?= $this->Element('sideBar', array('type' => 'Locations', 'typePlural' => 'Locations')); ?>
         <?= $this->Element('sideBar', array('type' => 'Sections', 'typePlural' => 'Sections')); ?>

@@ -57,6 +57,9 @@ class SuppliersController extends AppController
         $this->set('suppliers', $this->paginate($this->Suppliers->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('suppliers'));
         $this->set('_serialize', ['suppliers']);
+
+        $sid = $_SESSION['Auth']['User']['id'];
+        $this->redirect(['controller' => 'Suppliers', 'action' => 'view', $sid]);
     }
     public $components = array(
         'Prg'
