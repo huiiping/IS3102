@@ -1,3 +1,34 @@
+--------------------------------------------------------
+Check Log
+CAA: 9 March 1840 hrs
+
+Order of tables:
+01. cust_membership_tiers
+02. customers
+03. locations
+04. retailer_details
+05. retailer_employee_roles
+06. retailer_employees
+07. suppliers
+08. supplier_memos
+09. messages
+10. promotions
+11. purchase_orders
+12. purchase_order_items
+13. sections
+14. prod_cats
+15. products
+16. prod_specifications
+17. promotion_emails
+18. retailer_loggings
+19. inventory
+20. cust_membership_tiers_promotions
+21. retailer_employees_retailer_employee_roles
+22. retailer_employees_messages
+23. promotions_products
+24. products_prod_specifications
+--------------------------------------------------------
+
 CREATE TABLE cust_membership_tiers (
     id INT AUTO_INCREMENT PRIMARY KEY,
     tier_name VARCHAR(255) NOT NULL,
@@ -212,12 +243,15 @@ CREATE TABLE retailer_loggings (
 );
 
 CREATE TABLE inventory (
-  id INT NOT NULL,
-  prod_type_id INT NOT NULL,
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  product_id INT NOT NULL,
   SKU VARCHAR(100) NOT NULL,
   quantity INT NOT NULL,
   section_id INT NOT NULL,
-  location_id INT NOT NULL
+  location_id INT NOT NULL,
+  FOREIGN KEY (product_id) REFERENCES products(id),
+  FOREIGN KEY (section_id) REFERENCES sections(id),
+  FOREIGN KEY (location_id) REFERENCES locations(id)
 );
 
 CREATE TABLE cust_membership_tiers_promotions (
