@@ -19,7 +19,7 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('product_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('title') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('prod_specification_title') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -27,7 +27,7 @@
             <?php foreach ($productsProdSpecifications as $productsProdSpecification): ?>
             <tr>
                 <td><?= $productsProdSpecification->has('product') ? $this->Html->link($productsProdSpecification->product->id, ['controller' => 'Products', 'action' => 'view', $productsProdSpecification->product->id]) : '' ?></td>
-                <td><?= h($productsProdSpecification->title) ?></td>
+                <td><?= h($productsProdSpecification->prod_specification_title) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $productsProdSpecification->product_id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $productsProdSpecification->product_id]) ?>

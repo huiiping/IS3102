@@ -18,14 +18,14 @@ class ProductsProdSpecificationsFixture extends TestFixture
     // @codingStandardsIgnoreStart
     public $fields = [
         'product_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'title' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'prod_specification_title' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         '_indexes' => [
-            'title' => ['type' => 'index', 'columns' => ['title'], 'length' => []],
+            'prod_specification_title' => ['type' => 'index', 'columns' => ['prod_specification_title'], 'length' => []],
         ],
         '_constraints' => [
-            'primary' => ['type' => 'primary', 'columns' => ['product_id', 'title'], 'length' => []],
+            'primary' => ['type' => 'primary', 'columns' => ['product_id', 'prod_specification_title'], 'length' => []],
             'products_prod_specifications_ibfk_1' => ['type' => 'foreign', 'columns' => ['product_id'], 'references' => ['products', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
-            'products_prod_specifications_ibfk_2' => ['type' => 'foreign', 'columns' => ['title'], 'references' => ['prod_specifications', 'title'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'products_prod_specifications_ibfk_2' => ['type' => 'foreign', 'columns' => ['prod_specification_title'], 'references' => ['prod_specifications', 'title'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -42,7 +42,7 @@ class ProductsProdSpecificationsFixture extends TestFixture
     public $records = [
         [
             'product_id' => 1,
-            'title' => '241a46ee-d99a-4778-9e61-cdec9ac36faf'
+            'prod_specification_title' => '9514e9a2-678b-4585-8b3c-ff3c7fb64d92'
         ],
     ];
 }

@@ -23,7 +23,7 @@
         <tbody>
             <?php foreach ($prodCats as $prodCat): ?>
             <tr>
-                <td><?= $this->Number->format($prodCat->id) ?></td>
+                <td><?= $this->Html->link(__($prodCat->id), ['action' => 'view', $prodCat->id]) ?></td>
                 <td><?= $this->Number->format($prodCat->parentid) ?></td>
                 <td><?= h($prodCat->cat_name) ?></td>
                 <td class="actions">

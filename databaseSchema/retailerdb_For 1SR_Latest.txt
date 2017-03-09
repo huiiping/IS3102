@@ -288,10 +288,10 @@ CREATE TABLE promotions_products (
 
 CREATE TABLE products_prod_specifications (
     product_id INT NOT NULL,
-    title VARCHAR(255) NOT NULL,
-    PRIMARY KEY (product_id, title),
+    prod_specification_title VARCHAR(255) NOT NULL,
+    PRIMARY KEY (product_id, prod_specification_title),
     FOREIGN KEY (product_id) REFERENCES products(id),
-    FOREIGN KEY (title) REFERENCES prod_specifications(title)
+    FOREIGN KEY (prod_specification_title) REFERENCES prod_specifications(title)
 );
 
 

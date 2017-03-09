@@ -37,7 +37,7 @@ class ProdSpecificationsTable extends Table
         $this->primaryKey('title');
 
         $this->belongsToMany('Products', [
-            'foreignKey' => 'prod_specification_id',
+            'foreignKey' => 'prod_specification_title',
             'targetForeignKey' => 'product_id',
             'joinTable' => 'products_prod_specifications'
         ]);

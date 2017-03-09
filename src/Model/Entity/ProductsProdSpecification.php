@@ -7,7 +7,7 @@ use Cake\ORM\Entity;
  * ProductsProdSpecification Entity
  *
  * @property int $product_id
- * @property string $title
+ * @property string $prod_specification_title
  *
  * @property \App\Model\Entity\Product $product
  */

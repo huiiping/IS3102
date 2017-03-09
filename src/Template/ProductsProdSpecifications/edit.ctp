@@ -24,6 +24,7 @@
     <fieldset>
         <legend><?= __('Edit Products Prod Specification') ?></legend>
         <?php
+            echo $this->Form->input('prod_specification_title');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

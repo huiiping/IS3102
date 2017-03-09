@@ -51,7 +51,7 @@ class ProductsProdSpecificationsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->allowEmpty('title', 'create');
+            ->allowEmpty('prod_specification_title', 'create');
 
         return $validator;
     }

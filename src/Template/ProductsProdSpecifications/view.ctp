@@ -24,8 +24,8 @@
             <td><?= $productsProdSpecification->has('product') ? $this->Html->link($productsProdSpecification->product->id, ['controller' => 'Products', 'action' => 'view', $productsProdSpecification->product->id]) : '' ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Title') ?></th>
-            <td><?= h($productsProdSpecification->title) ?></td>
+            <th scope="row"><?= __('Prod Specification Title') ?></th>
+            <td><?= h($productsProdSpecification->prod_specification_title) ?></td>
         </tr>
     </table>
 </div>

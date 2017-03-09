@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Error\Debugger;
 
 
 /**
@@ -34,7 +35,7 @@ class ProdCatsController extends AppController
     public function view($id = null)
     {
         $prodCat = $this->ProdCats->get($id, [
-            'contain' => ['ProdTypes']
+            'contain' => ['Products']
             ]);
 
         $this->set('prodCat', $prodCat);
@@ -75,6 +76,8 @@ class ProdCatsController extends AppController
         $prodCat = $this->ProdCats->get($id, [
             'contain' => []
             ]);
+
+        Debugger::dump($prodCat);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $prodCat = $this->ProdCats->patchEntity($prodCat, $this->request->data);
             if ($this->ProdCats->save($prodCat)) {

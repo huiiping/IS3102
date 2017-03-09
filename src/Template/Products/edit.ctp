@@ -32,7 +32,7 @@
             echo $this->Form->input('web_store_unit_price');
             echo $this->Form->input('SKU');
             echo $this->Form->input('prod_cat_id', ['options' => $prodCats, 'empty' => true]);
-            echo $this->Form->input('prod_specifications._ids', ['options' => $prodSpecifications]);
+            echo $this->Form->input('prod_specifications._title', ['options' => $prodSpecifications]);
             echo $this->Form->input('promotions._ids', ['options' => $promotions]);
         ?>
     </fieldset>

@@ -23,7 +23,7 @@ use Cake\ORM\TableRegistry;
             $prodCats = TableRegistry::get('prodCats');
             $query = $prodCats->find('all');
             $results = $query->all()
-            ->extract('cat_name');
+            ->extract('id');
             //Gwen: HP, can help me display it like the intrasys employee role in the add.ctp of intrasys employees. Not drop down list.
             echo $this->Form->input('parentid', ['options' => $results]);
             ?>
