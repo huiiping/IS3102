@@ -555,6 +555,18 @@ public function login(){
             $session->write('retailer', $retailer); 
             $session->write('retailer_employee_id',$retaileremployee['id']);
 
+            //get retailer ID
+            $conn = ConnectionManager::get('intrasysdb');
+            $query = $conn
+                ->newQuery()
+                ->select('*')
+                ->from('retailers')
+                ->where(['retailer_name' => $retailer])
+                ->execute()
+                ->fetchAll('assoc');
+            $rid = $query[0]['id'];
+            $session->write('retailerid', $rid); 
+
             //$this->loadComponent('Logging');            
             $this->Logging->rLog($session->read('retailer_employee_id'));
             $this->Logging->iLog($retailer, $session->read('retailer_employee_id'));

@@ -89,30 +89,30 @@ class AppController extends Controller
             in_array($this->response->type(), ['application/json', 'application/xml'])
             ) {
             $this->set('_serialize', true);
-    }
-
-        //check login
-    if($this->request->session()->read('Auth.User')){
-        $this->set('loggedIn', true);
-    } else {
-        $this->set('loggedIn', false);
-    }
-
-        //check database
-    if($this->request->session()->read('database') == null){
-        $this->set('intrasys', true);
-    } else {
-        $this->set('intrasys', false);
-        $db = $this->request->session()->read('database');
-            $this->set('dbName', $db); //store database name
         }
+
+            //check login
+        if($this->request->session()->read('Auth.User')){
+            $this->set('loggedIn', true);
+        } else {
+            $this->set('loggedIn', false);
+        }
+
+            //check database
+        if($this->request->session()->read('database') == null){
+            $this->set('intrasys', true);
+        } else {
+            $this->set('intrasys', false);
+            $db = $this->request->session()->read('database');
+                $this->set('dbName', $db); //store database name
+            }
 
         //check user type --> supplier
         if($this->request->session()->read('supplier')){
             $this->set('type', true);
         } else {
             $this->set('type', false);
-        }
+            }
     }
 
     

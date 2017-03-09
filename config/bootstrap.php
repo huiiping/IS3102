@@ -99,7 +99,8 @@ if (Configure::read('debug')) {
  * Set server timezone to UTC. You can change it to another timezone of your
  * choice but using UTC makes time calculations / conversions easier.
  */
-date_default_timezone_set('UTC');
+//date_default_timezone_set('UTC');
+date_default_timezone_set('Singapore'); //set timezone to Singapore time
 
 /*
  * Configure the mbstring extension to use the correct encoding.
@@ -220,5 +221,5 @@ Plugin::load('CakeCaptcha', ['routes' => true]);
  * Debug Kit should not be installed on a production system
  */
 if (Configure::read('debug')) {
-    Plugin::load('DebugKit', ['bootstrap' => true]);
+    Plugin::load('DebugKit', ['bootstrap' => false]); //to hide the cakephp debugkit
 }

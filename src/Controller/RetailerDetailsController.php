@@ -32,6 +32,9 @@ class RetailerDetailsController extends AppController
 
         $this->set(compact('retailerDetails'));
         $this->set('_serialize', ['retailerDetails']);
+
+        $rid = $this->request->session()->read('retailerid');
+        $this->redirect(['controller' => 'RetailerDetails', 'action' => 'view', $rid]);
     }
 
     /**
