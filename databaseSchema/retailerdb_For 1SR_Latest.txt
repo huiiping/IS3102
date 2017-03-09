@@ -166,21 +166,25 @@ CREATE TABLE sections (
 
 CREATE TABLE prod_cats (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    parentid INT,
     cat_name VARCHAR(100),
     cat_desc TEXT
 );
 
-CREATE TABLE prod_types (
+CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     prod_name VARCHAR(100),
     prod_desc TEXT,
-    colour VARCHAR(100),
-    dimension VARCHAR(255),
     store_unit_price DOUBLE,
     web_store_unit_price DOUBLE,
     SKU VARCHAR(100),
     prod_cat_id INT,
     FOREIGN KEY (prod_cat_id) REFERENCES prod_cats(id)
+);
+
+CREATE TABLE prod_specifications (
+    title VARCHAR(255) PRIMARY KEY,
+    description VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE promotion_emails (
@@ -207,6 +211,15 @@ CREATE TABLE retailer_loggings (
     FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id)
 );
 
+CREATE TABLE inventory (
+  id INT NOT NULL,
+  prod_type_id INT NOT NULL,
+  SKU VARCHAR(100) NOT NULL,
+  quantity INT NOT NULL,
+  section_id INT NOT NULL,
+  location_id INT NOT NULL
+);
+
 CREATE TABLE cust_membership_tiers_promotions (
     cust_membership_tier_id INT NOT NULL,
     promotion_id INT NOT NULL,
@@ -231,19 +244,20 @@ CREATE TABLE retailer_employees_messages (
     FOREIGN KEY (message_id) REFERENCES messages(id)
 );
 
-CREATE TABLE promotions_prod_types (
+CREATE TABLE promotions_products (
     promotion_id INT NOT NULL,
-    prod_type_id INT NOT NULL,
-    PRIMARY KEY (promotion_id, prod_type_id),
+    product_id INT NOT NULL,
+    PRIMARY KEY (promotion_id, product_id),
     FOREIGN KEY (promotion_id) REFERENCES promotions(id),
-    FOREIGN KEY (prod_type_id) REFERENCES prod_types(id)
+    FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
-CREATE TABLE inventory (
-  id INT NOT NULL,
-  prod_type_id INT NOT NULL,
-  SKU VARCHAR(100) NOT NULL,
-  quantity INT NOT NULL,
-  section_id INT NOT NULL,
-  location_id INT NOT NULL
+CREATE TABLE products_prod_specifications (
+    product_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    PRIMARY KEY (product_id, title),
+    FOREIGN KEY (product_id) REFERENCES products(id),
+    FOREIGN KEY (title) REFERENCES prod_specifications(title)
 );
+
+
