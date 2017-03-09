@@ -1,7 +1,5 @@
 <?php
-/**
-  * @var \App\View\AppView $this
-  */
+use Cake\ORM\TableRegistry;
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
@@ -20,7 +18,10 @@
     <fieldset>
         <legend><?= __('Edit Prod Cat') ?></legend>
         <?php
-            echo $this->Form->input('parentid');
+            $prodCats = TableRegistry::get('prodCats');
+            $query = $prodCats->find('all');
+            var_dump($query);
+            echo $this->Form->input('parentid', ['options' => $prodCats]);
             echo $this->Form->input('cat_name');
             echo $this->Form->input('cat_desc');
         ?>

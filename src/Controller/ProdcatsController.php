@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Error\Debugger;
 
 /**
  * ProdCats Controller
@@ -19,7 +20,7 @@ class ProdCatsController extends AppController
     public function index()
     {
         $prodCats = $this->paginate($this->ProdCats);
-
+        Debugger::dump($prodCats);
         $this->set(compact('prodCats'));
         $this->set('_serialize', ['prodCats']);
     }
@@ -35,7 +36,7 @@ class ProdCatsController extends AppController
     {
         $prodCat = $this->ProdCats->get($id, [
             'contain' => ['ProdTypes']
-        ]);
+            ]);
 
         $this->set('prodCat', $prodCat);
         $this->set('_serialize', ['prodCat']);
@@ -47,9 +48,16 @@ class ProdCatsController extends AppController
      * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
-    {
+    {   
+        $prodCats = $this->paginate($this->ProdCats);
+        Debugger::dump($prodCats);
+
+        $prodCatids = $prodCats->find('all')->all();
+        //->extract('id');
+
         $prodCat = $this->ProdCats->newEntity();
         if ($this->request->is('post')) {
+
             $prodCat = $this->ProdCats->patchEntity($prodCat, $this->request->data);
             if ($this->ProdCats->save($prodCat)) {
                 $this->Flash->success(__('The prod cat has been saved.'));
@@ -73,7 +81,7 @@ class ProdCatsController extends AppController
     {
         $prodCat = $this->ProdCats->get($id, [
             'contain' => []
-        ]);
+            ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $prodCat = $this->ProdCats->patchEntity($prodCat, $this->request->data);
             if ($this->ProdCats->save($prodCat)) {
