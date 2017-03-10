@@ -51,9 +51,6 @@ class PromotionEmailsTable extends Table
         $this->belongsTo('Promotions', [
             'foreignKey' => 'promotion_id'
         ]);
-        $this->belongsTo('CustMembershipTiers', [
-            'foreignKey' => 'cust_membership_tier_id'
-        ]);
         $this->addBehavior('Searchable');
     }
 
@@ -96,7 +93,6 @@ class PromotionEmailsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['promotion_id'], 'Promotions'));
-        $rules->add($rules->existsIn(['cust_membership_tier_id'], 'CustMembershipTiers'));
 
         return $rules;
     }

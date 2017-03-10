@@ -17,13 +17,13 @@
         <div class="col-xs-12">
           <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title"><?= __('Create New Email for Promotion ID '.$id) ?></h3>
+                <h3 class="box-title"><?= __('Create New Promotion Email') ?></h3>
             </div>
             <div class="box-body">
                 <?= $this->Form->create($promotionEmail) ?>
                 <fieldset>
                     <?php
-                        //echo $this->Form->input('promotion_id', ['options' => $promotions, 'empty' => false, 'disabled' => true, 'label' => 'Promotion Description']);
+                        echo $this->Form->input('promotion_id', ['options' => $promotions, 'empty' => false]);
                         echo $this->Form->input('title');
                         echo $this->Form->input('body', [
                             'type' => 'textarea']);
@@ -43,8 +43,7 @@
                     ?>
                 </fieldset>
                 <br>
-                <?= $this->Form->button(__('Send'), ['class'=>'btn btn-default btn-flat']); ?>
-                <!-- Need 2 more buttons: "Save as Draft" and "Cancel"-->
+                <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
                 <?= $this->Form->end() ?>
             </div>
           </div>

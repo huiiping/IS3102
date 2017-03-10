@@ -19,8 +19,10 @@
             <div class="box-header with-border">
               <h3 class="box-title"><?= 'Promotion ID '.h($promotion->id) ?></h3>
               <div class="pull-right">
-                <?= $this->Html->link(__('Edit Promotion'), ['action' => 'edit', $promotion->id]) ?>
+                <?= $this->Html->link(__('Edit Promotion'), ['action' => 'edit', $promotion->id]) ?> |  
+                 <?= $this->Html->link(__('Generate Email'), ['controller' => 'PromotionEmails', 'action' => 'add', $promotion->id]) ?>
               </div>
+
             </div>
             <div class="box-body">
 
@@ -64,10 +66,10 @@
                 </table>
                 <div class="related">
                     <?php if (!empty($promotionEmails)): ?>
-                    <h4><?= __('Related Promotion Emails') ?></h4>
+                    <h4><?= __('Saved Email Drafts') ?></h4>
                     <table cellpadding="0" cellspacing="0">
                         <tr>
-                            <th scope="col"><?= __('Promotion Email') ?></th>
+                            <th scope="col"><?= __('Email ID') ?></th>
                         </tr>
                         <?php foreach ($promotionEmails as $promotionEmail): ?>
                         <tr>

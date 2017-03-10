@@ -8,6 +8,7 @@ use Cake\I18n\Time;
 use Cake\I18n\Date;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
+use Cake\Error\Debugger;
 
 /**
  * Promotions Controller
@@ -21,6 +22,7 @@ class PromotionsController extends AppController
     {
 
         $this->loadComponent('Logging');
+        $this->loadComponent('Email');
         
     }
 
@@ -89,11 +91,40 @@ class PromotionsController extends AppController
         if ($this->request->is('post')) {
             $promotion = $this->Promotions->patchEntity($promotion, $this->request->data);
             if ($this->Promotions->save($promotion)) {
-                
-                $this->Flash->success(__('The promotion has been saved.'));
 
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
+                
+                if ($_POST['title'] != null && $_POST['body'] != null) {
+
+                    $promotionEmailTable = TableRegistry::get('PromotionEmails');
+                    $promotionEmail = $promotionEmailTable->newEntity([
+                        'promotion_id' => $promotion['id'],
+                        'title' => $_POST['title'],
+                        'body' => $_POST['body'],
+                        'last_sent' => Date::now(),
+                        'number_of_sends' => 1]);
+                    $promotionEmailTable->save($promotionEmail);
+                    Debugger::dump($this->request->data);
+
+
+                    $tiers = $_POST['cust_membership_tiers'];
+                    $conn = ConnectionManager::get('default');
+                    foreach ($tiers['_ids'] as $tier):
+                        $query = $conn
+                        ->execute('SELECT * FROM customers WHERE cust_membership_tier_id = :id', ['id' => $tier])
+                        ->fetchAll('assoc');  
+
+                        $this->Email->promotionEmail($_POST['title'], $_POST['body'], $query);
+                    endforeach;                               
+
+                    $this->Flash->success(__('The promotion has been saved and the email has been sent out.'));
+
+                } else {
+
+                    $this->Flash->success(__('The promotion has been saved.'));
+
+                }
 
                 //$this->loadComponent('Logging');
                 $this->Logging->rLog($promotion['id']);
@@ -137,7 +168,37 @@ class PromotionsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $promotion = $this->Promotions->patchEntity($promotion, $this->request->data);
             if ($this->Promotions->save($promotion)) {
-                $this->Flash->success(__('The promotion has been saved.'));
+
+                if ($_POST['title'] != null && $_POST['body'] != null) {
+
+                    $promotionEmailTable = TableRegistry::get('PromotionEmails');
+                    $promotionEmail = $promotionEmailTable->newEntity([
+                        'promotion_id' => $promotion['id'],
+                        'title' => $_POST['title'],
+                        'body' => $_POST['body'],
+                        'last_sent' => Date::now(),
+                        'number_of_sends' => 1]);
+                    $promotionEmailTable->save($promotionEmail);
+                    Debugger::dump($this->request->data);
+
+
+                    $tiers = $_POST['cust_membership_tiers'];
+                    $conn = ConnectionManager::get('default');
+                    foreach ($tiers['_ids'] as $tier):
+                        $query = $conn
+                        ->execute('SELECT * FROM customers WHERE cust_membership_tier_id = :id', ['id' => $tier])
+                        ->fetchAll('assoc');  
+
+                        $this->Email->promotionEmail($_POST['title'], $_POST['body'], $query);
+                    endforeach;                               
+
+                    $this->Flash->success(__('The promotion has been saved and the email has been sent out.'));
+
+                } else {
+
+                    $this->Flash->success(__('The promotion has been saved.'));
+
+                }
 
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');

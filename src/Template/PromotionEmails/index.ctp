@@ -41,7 +41,6 @@
                             <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                             <th scope="col"><?= $this->Paginator->sort('title') ?></th>
                             <th scope="col"><?= $this->Paginator->sort('promotion_id') ?></th>
-                            <th scope="col"><?= $this->Paginator->sort(('cust_membership_tier_id'), ['label' => 'Customer Membership Tier']) ?></th>
                             <!--<th scope="col"><?= $this->Paginator->sort('body') ?></th>
                             <th scope="col"><?= $this->Paginator->sort('last_sent') ?></th>
                             <th scope="col"><?= $this->Paginator->sort('number_of_sends') ?></th>-->
@@ -56,7 +55,6 @@
                             <td><?= $this->Number->format($promotionEmail->id) ?></td>
                             <td><?= h($promotionEmail->title) ?></td>
                             <td><?= $promotionEmail->has('promotion') ? $this->Html->link($promotionEmail->promotion->id, ['controller' => 'Promotions', 'action' => 'view', $promotionEmail->promotion->id]) : '' ?></td>
-                            <td><?= $promotionEmail->has('cust_membership_tier') ? $this->Html->link($promotionEmail->cust_membership_tier->tier_name, ['controller' => 'CustMembershipTiers', 'action' => 'view', $promotionEmail->cust_membership_tier->id]) : '' ?></td>
                             <!--<td><?= h($promotionEmail->body) ?></td>
                             <td><?= h($promotionEmail->last_sent) ?></td>
                             <td><?= $this->Number->format($promotionEmail->number_of_sends) ?></td>-->

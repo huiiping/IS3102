@@ -41,9 +41,46 @@
                         echo $this->Form->input('cust_membership_tiers._ids', array('options' => $custMembershipTiers, 'label' => 'Applicable to Customer Tier(s)'));
                         echo $this->Form->input('prod_types._ids', array('options' => $prodTypes, 'label' => 'Applicable to Product Type(s)'));
                     ?>
+
+                    <div class="box-body">
+                <p id="emailField1" style="visibility:hidden">Title</p>
+                <input type="hidden" name="title" id="title"><br >
+                <p id="emailField2" style="visibility:hidden">Body</p>
+                <input type="hidden" name="body" id="body"><br >
+
+                </div>
+                <script>
+                function myFunction() {
+
+                    if(document.getElementById("title").type == "text"){
+                      document.getElementById("title").type = "hidden";
+                    } else {
+                      document.getElementById("title").type = "text";
+                    }
+
+                    if(document.getElementById("body").type == "text"){
+                      document.getElementById("body").type = "hidden";
+                    } else {
+                      document.getElementById("body").type = "text";
+                    }
+
+                    if(document.getElementById("emailField1").style.visibility == "hidden"){
+                      document.getElementById("emailField1").style.visibility = "";
+                    } else {
+                      document.getElementById("emailField1").style.visibility = "hidden";
+                    }
+
+                    if(document.getElementById("emailField2").style.visibility == "hidden"){
+                      document.getElementById("emailField2").style.visibility = "";
+                    } else {
+                      document.getElementById("emailField2").style.visibility = "hidden";
+                    }                    
+                }
+                </script>
                 </fieldset>
                 <br>
                 <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
+                <button type="button" onclick="myFunction()" class="btn btn-default btn-flat">Generate Email</button>
                 <?= $this->Form->end() ?>
             </div>
           </div>

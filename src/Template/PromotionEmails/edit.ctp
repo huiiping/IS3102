@@ -24,7 +24,6 @@
                 <fieldset>
                     <?php
                         echo $this->Form->input('promotion_id', ['options' => $promotions, 'empty' => true]);
-                        echo $this->Form->input('cust_membership_tier_id', ['label' => 'Customer Membership Tier'], ['options' => $custMembershipTiers, 'empty' => true]);
                         echo $this->Form->input('title');
                         echo $this->Form->input('body');
                         echo "<br /><b>Send email now?</b> ";

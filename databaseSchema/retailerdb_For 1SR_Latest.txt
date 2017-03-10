@@ -1,6 +1,6 @@
 --------------------------------------------------------
 Check Log
-CAA: 9 March 1840 hrs
+CAA: 10 March 1304 hrs
 
 Order of tables:
 01. cust_membership_tiers
@@ -221,15 +221,13 @@ CREATE TABLE prod_specifications (
 CREATE TABLE promotion_emails (
     id INT AUTO_INCREMENT PRIMARY KEY,
     promotion_id INT,
-    cust_membership_tier_id INT,
     title VARCHAR(100),
     body VARCHAR(255),
     last_sent DATETIME,
     number_of_sends INT,
     created DATETIME,
     modified DATETIME,
-    FOREIGN KEY (promotion_id) REFERENCES promotions(id),
-    FOREIGN KEY (cust_membership_tier_id) REFERENCES cust_membership_tiers(id)
+    FOREIGN KEY (promotion_id) REFERENCES promotions(id)
 );
 
 CREATE TABLE retailer_loggings (

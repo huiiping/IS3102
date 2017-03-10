@@ -35,7 +35,7 @@ class PromotionEmailsController extends AppController
         $this->loadComponent('Prg');
         $this->Prg->commonProcess();
         $this->paginate = [
-            'contain' => ['Promotions', 'CustMembershipTiers']
+            'contain' => ['Promotions']
         ];
         $this->set('promotionEmails', $this->paginate($this->PromotionEmails->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('promotionEmails'));
@@ -55,10 +55,12 @@ class PromotionEmailsController extends AppController
     public function view($id = null)
     {
         $promotionEmail = $this->PromotionEmails->get($id, [
-            'contain' => ['Promotions', 'CustMembershipTiers']
+            'contain' => ['Promotions']
         ]);
 
-        $this->set('promotionEmail', $promotionEmail);
+        $custMembershipTiers = $this->PromotionEmails->Promotions->CustMembershipTiers->find('list', ['limit' => 200]);
+
+        $this->set(compact('promotionEmail', 'promotions', 'custMembershipTiers'));
         $this->set('_serialize', ['promotionEmail']);
     }
 
@@ -67,8 +69,54 @@ class PromotionEmailsController extends AppController
      *
      * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
-    {
+    public function add($id = null) {
+
+        //$promotionEmail = $this->PromotionEmails->get($id, ['contain' => []]);{
+        $promotionEmail = $this->PromotionEmails->newEntity();
+
+        if ($this->request->is('post')) {
+            
+            $promotionEmail = $this->PromotionEmails->patchEntity($promotionEmail, $this->request->data);
+            
+            $send = $_POST['email'];
+            $title = $_POST['title'];
+            $body = $_POST['body'];
+            $tier = $_POST['cust_membership_tier_id'];
+            //echo $tier[0];
+
+            if ($this->PromotionEmails->save($promotionEmail)) {
+
+                if($send = 'y') {
+
+                    $session = $this->request->session();
+                    $retailer = $session->read('retailer');
+                    $conn = ConnectionManager::get('default');
+                    $query = $conn
+                        ->execute('SELECT * FROM customers WHERE cust_membership_tier_id = :id', ['id' => $tier[0]])
+                        ->fetchAll('assoc');                    
+
+                    $this->Email->promotionEmail($title, $body, $query);
+
+                    $this->Flash->success(__('The promotion email has been sent and saved.'));
+
+                } else {
+
+                    $this->Flash->success(__('The promotion email has been saved.'));
+
+                }
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The promotion email could not be saved. Please, try again.'));
+        }
+        $promotions = $this->PromotionEmails->Promotions->find('list', ['limit' => 200]);
+        $custMembershipTiers = $this->PromotionEmails->Promotions->CustMembershipTiers->find('list', ['limit' => 200]);
+        $this->set(compact('promotionEmail', 'promotions', 'custMembershipTiers'));
+        $this->set('id', $id);
+        $this->set('_serialize', ['promotionEmail']);
+    }
+
+    public function addAll() {
         $promotionEmail = $this->PromotionEmails->newEntity();
 
         if ($this->request->is('post')) {
@@ -124,6 +172,8 @@ class PromotionEmailsController extends AppController
         $promotionEmail = $this->PromotionEmails->get($id, [
             'contain' => []
         ]);
+
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $promotionEmail = $this->PromotionEmails->patchEntity($promotionEmail, $this->request->data);
             if ($this->PromotionEmails->save($promotionEmail)) {
@@ -157,7 +207,7 @@ class PromotionEmailsController extends AppController
             $this->Flash->error(__('The promotion email could not be saved. Please, try again.'));
         }
         $promotions = $this->PromotionEmails->Promotions->find('list', ['limit' => 200]);
-        $custMembershipTiers = $this->PromotionEmails->CustMembershipTiers->find('list', ['limit' => 200]);
+        $custMembershipTiers = $this->PromotionEmails->Promotions->CustMembershipTiers->find('list', ['limit' => 200]);
         $this->set(compact('promotionEmail', 'promotions', 'custMembershipTiers'));
         $this->set('_serialize', ['promotionEmail']);
     }
