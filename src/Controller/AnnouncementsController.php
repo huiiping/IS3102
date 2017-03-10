@@ -16,7 +16,6 @@ use Cake\ORM\TableRegistry;
 class AnnouncementsController extends AppController
 {
 
-
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
@@ -78,6 +77,7 @@ class AnnouncementsController extends AppController
      */
     public function add()
     {
+        
         $announcement = $this->Announcements->newEntity();
         if ($this->request->is('post')) {
             $announcement = $this->Announcements->patchEntity($announcement, $this->request->data);

@@ -17,7 +17,8 @@
 $content = explode(',', $content);
 
 
-echo 'Welcome to CLRMS '.$content[0].',' .'<br><br>';
+echo 'Welcome onboard CLRMS '.$content[0].',' .'<br><br>';
+echo 'You are receiving this email as you are the assigned master acccount for '.$content[0].'\' account with Intrasys';
 
 
 echo 'Please click the following link to activate your account: ' . '<br>';

@@ -223,3 +223,4 @@ Plugin::load('CakeCaptcha', ['routes' => true]);
 if (Configure::read('debug')) {
     Plugin::load('DebugKit', ['bootstrap' => false]); //to hide the cakephp debugkit
 }
+

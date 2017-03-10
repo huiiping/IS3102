@@ -11,7 +11,8 @@
         "cakephp/migrations": "~1.0",
         "cakephp/plugin-installer": "*",
         "friendsofcake/cakephp-csvview": "~3.0",
-        "captcha-com/cakephp-captcha": "4.*"
+        "captcha-com/cakephp-captcha": "4.*",
+		"hashmode/cakephp-tinymce-elfinder": "~1.0"
     },
     "require-dev": {
         "psy/psysh": "@stable",
@@ -44,7 +45,8 @@
         ],
         "cs-check": "phpcs --colors -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP ./src ./tests",
         "cs-fix": "phpcbf --colors --standard=vendor/cakephp/cakephp-codesniffer/CakePHP ./src ./tests",
-        "test": "phpunit --colors=always"
+        "test": "phpunit --colors=always",
+		"post-update-cmd": "CakephpTinymceElfinder\\Console\\Installer::postUpdate"
     },
     "prefer-stable": true
 }
