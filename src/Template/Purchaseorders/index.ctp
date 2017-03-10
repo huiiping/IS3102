@@ -60,7 +60,7 @@
                             <?= $this->Html->link(__('View |'), ['action' => 'view', $purchaseOrder->id]) ?>
                             <?= $this->Html->link(__('Edit |'), ['action' => 'edit', $purchaseOrder->id]) ?>
                             <?= $this->Form->postLink(__('Delete |'), ['action' => 'delete', $purchaseOrder->id], ['confirm' => __('Are you sure you want to delete # {0}?', $purchaseOrder->id)]) ?>
-                            <?= $this->Html->link(__('Message'), ['controller' => 'Messages', 'action' => 'chat', 0, $this->request->params['controller'], $purchaseOrder->id]) ?>
+                            <?= $this->Html->link(__('Message'), ['controller' => 'Messages', 'action' => 'index', 0, $this->request->params['controller'], $purchaseOrder->id]) ?>
                         </td>
                     </tr>
                     <?php endforeach; ?>

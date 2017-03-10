@@ -20,69 +20,34 @@ class MessagesController extends AppController
     {
         parent::beforeFilter($event);
         $this->loadComponent('Logging'); 
+        $this->loadComponent('Prg');
     }
+
+    public $components = array(
+        'Prg'
+    );
 
     /**
      * Index method
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
-    {
-        $retailerEmployeesMessages = TableRegistry::get('RetailerEmployeesMessages');
-        $retailerEmployees = TableRegistry::get('RetailerEmployees');
-        $session = $this->request->session();
-        $id = $session->read('retailer_employee_id');
-        $employees = [];
-        
-        //Employees that user has sent messages to
-        $sentIDs = $this->Messages->find()->where(['sender_id' => $id])->select('id');
-        if (isset($sentIDs)) {
-            $reciever = $retailerEmployeesMessages->find()->where(['message_id' => $sentIDs], ['message_id' => 'integer[]'])->select('retailer_employee_id')->toArray();
-            $reciever = Hash::extract($reciever, '{n}.retailer_employee_id');
-        }
-
-        //Employees that user has recieved messages from
-        $recieveIDs = $retailerEmployeesMessages->find()->where(['retailer_employee_id' => $id])->select('message_id');
-        if (isset($recieveIDs)) {
-            $sender = $this->Messages->find()->where(['id' => $recieveIDs], ['id' => 'integer[]'])->select('sender_id')->toArray();
-            $sender = Hash::extract($sender, '{n}.sender_id');
-        }   
-        
-        //Paginating all the relevant employees
-        if (!empty($reciever) && !empty($sender)) {
-            $employees = $this->paginate($retailerEmployees->find()
-                ->where(['id' => $reciever], ['id' => 'integer[]'])
-                ->orWhere(['id' => $sender], ['id' => 'integer[]'])
-                );
-        } else if (!empty($reciever)) {
-            $employees = $this->paginate($retailerEmployees->find()->where(['id' => $reciever], ['id' => 'integer[]']));
-        }
-        else if (!empty($sender)) {
-            $employees = $this->paginate($retailerEmployees->find()->where(['id' => $sender], ['id' => 'integer[]']));
-        }
-        
-        $this->set('employees', $employees);
-        $this->set('_serialize', ['employees']);
-    }
-
-    public function chat($id = null, $attachment = null, $attachmentID = null)
+    public function index($id = null, $attachment = null, $attachmentID = null) 
     {   
         $this->loadComponent('Prg');
         $this->Prg->commonProcess();
 
-        $msgs = [];
+        //Setting Variables
         $retailerEmployeesMessages = TableRegistry::get('RetailerEmployeesMessages');
         $retailerEmployees = TableRegistry::get('RetailerEmployees');
-        
         $session = $this->request->session();
         $sender = $session->read('retailer_employee_id');
-        $reciever = $this->Messages->RetailerEmployees->find('list', ['limit' => 200])->where(['id !=' => $sender]);
-        $this->paginate = [
-                'contain' => ['RetailerEmployees']
-            ];
+        $receiver = $this->Messages->RetailerEmployees->find('list', ['limit' => 200])->where(['id !=' => $sender]);
+        $employees = [];
+        $msg = [];
+        $chatName = [];
 
-        //Attaching entity
+        //Attaching attachments
         if ($id == 0 && isset($attachment) && isset($attachmentID)) {
             $this->set('attachment', $attachment);
             $this->set('_serialize', ['attachment']);
@@ -90,126 +55,94 @@ class MessagesController extends AppController
             $this->set('_serialize', ['attachmentID']);
         }
 
-        //Retrieving existing chats
+        //Receiver is the person the user is chatting with
         if (isset($id) && $id != 0) {
 
-            //Reciever is the person the user is chatting with
-            $reciever = $this->Messages->RetailerEmployees->find('list', ['limit' => 200])->where(['id' => $id]);
-            $this->set(compact('reciever', 'retailerEmployees'));
+            $receiver = $this->Messages->RetailerEmployees->find('list', ['limit' => 200])->where(['id' => $id]);
+            $chatName = $this->paginate($retailerEmployees->find()->where(['id' => $id], ['id' => 'integer[]']));
+        }
+        
+        //message_id's of messages sent by the user
+        $sentIDs = $this->Messages->find()->where(['sender_id' => $sender])->select('id');
+        if (isset($sentIDs)) {
 
-            $this->paginate = [
-                'contain' => ['RetailerEmployees']
-            ];
+            //Employees that user has sent messages to
+            $msgReceiver = $retailerEmployeesMessages->find()->where(['message_id' => $sentIDs], ['message_id' => 'integer[]'])->select('retailer_employee_id')->toArray();
+            $msgReceiver = Hash::extract($msgReceiver, '{n}.retailer_employee_id');
 
-            //Messages sent by user
-            $sentIDs = $this->Messages->find()->where(['sender_id' => $sender])->select('id');
-            if (isset($sentIDs)) {
+            //Messages sent by user to
+            if (isset($id) && $id != 0) { 
                 $msgsSent = $retailerEmployeesMessages->find()
                         ->where(['message_id' => $sentIDs], ['message_id' => 'integer[]'])
                         ->andWhere(['retailer_employee_id' => $id])
                         ->select('message_id')
                         ->toArray();
                 $msgsSent = Hash::extract($msgsSent, '{n}.message_id');
-            }
+            }   
+        }
 
-            //Messages recieved from recepient
-            $recieveIDs = $this->Messages->find()->where(['sender_id' => $id])->select('id');
-            if (isset($recieveIDs)) {
-                $msgsRecieved = $retailerEmployeesMessages->find()
-                        ->where(['message_id' => $recieveIDs], ['message_id' => 'integer[]'])
+        //message_id's of messages recieved by the user
+        $receiveIDs = $retailerEmployeesMessages->find()->where(['retailer_employee_id' => $sender])->select('message_id');
+        if (isset($receiveIDs)) {
+
+            //Employees that user has recieved messages from
+            $msgSender = $this->Messages->find()->where(['id' => $receiveIDs], ['id' => 'integer[]'])->select('sender_id')->toArray();
+            $msgSender = Hash::extract($msgSender, '{n}.sender_id');
+
+            //Messages recieved by user
+            if (isset($id) && $id != 0) {
+                $msgsReceived = $retailerEmployeesMessages->find()
+                        ->where(['message_id' => $receiveIDs], ['message_id' => 'integer[]'])
                         ->andWhere(['retailer_employee_id' => $sender])
                         ->select('message_id')
                         ->toArray();
-                $msgsRecieved = Hash::extract($msgsRecieved, '{n}.message_id');
-            }  
-
-            //Paginating all the relevant messages
-            if (!empty($msgsSent) && !empty($msgsRecieved)) {
-                $msgs = $this->paginate($this->Messages->find()
-                    ->where(['id' => $msgsSent], ['id' => 'integer[]'])
-                    ->orWhere(['id' => $msgsRecieved], ['id' => 'integer[]'])
-                    );
-            } else if (!empty($msgsSent)) {
-                $msgs = $this->paginate($this->Messages->find()->where(['id' => $msgsSent], ['id' => 'integer[]']));
+                $msgsReceived = Hash::extract($msgsReceived, '{n}.message_id');
             }
-            else if (!empty($msgsRecieved)) {
-                $msgs = $this->paginate($this->Messages->find()->where(['id' => $msgsRecieved], ['id' => 'integer[]']));
-            }
+        } 
+        
+        //Paginating the employees who have active chats with the user
+        if (!empty($msgReceiver) && !empty($msgSender)) {
+            $employees = $this->paginate($retailerEmployees->find()
+                ->where(['id' => $msgReceiver], ['id' => 'integer[]'])
+                ->orWhere(['id' => $msgSender], ['id' => 'integer[]'])
+                );
+        } 
+        else if (!empty($msgReceiver)) {
+            $employees = $this->paginate($retailerEmployees->find()->where(['id' => $msgReceiver], ['id' => 'integer[]']));
         }
+        else if (!empty($msgSender)) {
+            $employees = $this->paginate($retailerEmployees->find()->where(['id' => $msgSender], ['id' => 'integer[]']));
+        }
+
+        //Paginating the relevant chat history
+        $this->paginate = [
+                'contain' => ['RetailerEmployees']
+            ];
+        if (!empty($msgsSent) && !empty($msgsReceived)) {
+            $msg = $this->paginate($this->Messages->find()
+                ->where(['id' => $msgsSent], ['id' => 'integer[]'])
+                ->orWhere(['id' => $msgsReceived], ['id' => 'integer[]'])
+                );
+        } 
+        else if (!empty($msgsSent)) {
+            $msg = $this->paginate($this->Messages->find()->where(['id' => $msgsSent], ['id' => 'integer[]']));
+        }
+        else if (!empty($msgsReceived)) {
+            $msg = $this->paginate($this->Messages->find()->where(['id' => $msgsReceived], ['id' => 'integer[]']));
+        }
+
         $msgs = $this->paginate($this->Messages->find('searchable', $this->Prg->parsedParams()));
 
-        $this->set('reciever', $reciever);
-        $this->set('_serialize', ['reciever']);
+        $this->set('receiver', $receiver);
+        $this->set('_serialize', ['receiver']);
+        $this->set('chatName', $chatName);
+        $this->set('_serialize', ['chatName']);
         $this->set('msgs', $msgs);
         $this->set('_serialize', ['msgs']);
-    }
-    public $components = array(
-        'Prg'
-    );
-
-    public function test($id = null, $attachment = null, $attachmentID = null) 
-    {   
-        //Defining variables
-        $retailerEmployeesMessages = TableRegistry::get('RetailerEmployeesMessages');
-        $retailerEmployees = TableRegistry::get('RetailerEmployees');
-        $chats = $retailerEmployees->find('list', ['limit' => 200]);
-        $session = $this->request->session();
-        $senderID = $session->read('retailer_employee_id');
-        $msgs = [];
-        
-        //Employees that user has sent messages to
-        $sentIDs = $this->Messages->find()->where(['sender_id' => $senderID])->select('id');
-        if (isset($sentIDs)) {
-            $recievers = $retailerEmployeesMessages->find()->where(['message_id' => $sentIDs], ['message_id' => 'integer[]'])->select('retailer_employee_id')->toArray();
-            $recievers = Hash::extract($recievers, '{n}.retailer_employee_id');
-        }
-
-        //Employees that user has recieved messages from
-        $recieveIDs = $retailerEmployeesMessages->find()->where(['retailer_employee_id' => $senderID])->select('message_id');
-        if (isset($recieveIDs)) {
-            $senders = $this->Messages->find()->where(['id' => $recieveIDs], ['id' => 'integer[]'])->select('sender_id')->toArray();
-            $senders = Hash::extract($senders, '{n}.sender_id');
-        }   
-        
-        //Paginating all the relevant employees
-        if (!empty($recievers) && !empty($senders)) {
-            $employees = $this->paginate($retailerEmployees->find()
-                ->where(['id' => $recievers], ['id' => 'integer[]'])
-                ->orWhere(['id' => $senders], ['id' => 'integer[]'])
-                );
-        } else if (!empty($recievers)) {
-            $employees = $this->paginate($retailerEmployees->find()->where(['id' => $recievers], ['id' => 'integer[]']));
-        }
-        else if (!empty($senders)) {
-            $employees = $this->paginate($retailerEmployees->find()->where(['id' => $senders], ['id' => 'integer[]']));
-        }
-
-        $this->set(compact('employees'));
+        $this->set('msg', $msg);
+        $this->set('_serialize', ['msg']);
+        $this->set('employees', $employees);
         $this->set('_serialize', ['employees']);
-
-        //Details of attachments
-        if ($id == 0 && isset($attachment) && isset($attachmentID)) {
-            $this->set('attachment', $attachment);
-            $this->set('_serialize', ['attachment']);
-            $this->set('attachmentID', $attachmentID);
-            $this->set('_serialize', ['attachmentID']);
-        }
-        
-        //Retrieving existing chats with a particular person or group
-        if (isset($id) && $id != 0) {
-            $chats = $retailerEmployees->find('list', ['limit' => 200])->where(['id' => $id]);
-            $this->set(compact('chats', 'retailerEmployees'));
-
-            $msgs = $this->paginate($this->Messages->find()
-                ->where(['sender_id' => $id])
-                ->orWhere(['sender_id' => $senderID])
-            );
-        }
-        
-        $this->set('reciever', $chats);
-        $this->set('_serialize', ['reciever']);
-        $this->set('msgs', $msgs);
-        $this->set('_serialize', ['msgs']);
     }
 
     /**
