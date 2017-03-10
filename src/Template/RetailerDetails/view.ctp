@@ -14,63 +14,129 @@
   <!-- Main content -->
   <section class="content">
       <div class="row">
-        <div class="col-xs-4">
-          <div class="box box-primary" style="height: 100%;">
+        <div class="col-xs-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+            <h3 class="profile-username"><?= 'About '.ucfirst(h($retailerDetail->retailer_name)) ?>&nbsp
+              <a href="/IS3102_Final/retailer-details/edit/<?= $retailerDetail->retailerid ?>" title="edit details">
+                  <i class="fa fa-edit"></i>
+                </a>
+              <div class="pull-right">
+                <a href="mailto:<?= h($retailerDetail->retailer_email) ?>" title="email">
+                  <i class="fa fa-envelope-o"></i>
+                </a>&nbsp
+                <a href="tel:+<?= h($retailerDetail->contact) ?>" title="contact">
+                  <i class="fa fa-phone"></i>
+                </a>
+              </div>
+            </h3>
+            </div>
+            <br>
             <div class="box-body box-profile">
-              <h3 class="profile-username text-center"><?= h($retailerDetail->retailer_name) ?></h3>
-              <br>
-              <ul class="list-group list-group-unbordered">
-                <li class="list-group-item">
-                  <b><?= __('Email') ?></b> 
-                  <div class="pull-right"><?= h($retailerDetail->retailer_email) ?></div>
-                </li>
-                <li class="list-group-item">
-                  <b><?= __('Contact') ?></b> 
-                  <div class="pull-right"><?= h($retailerDetail->contact) ?></div>
-                </li>
-              </ul>
-              <br>
-              <div class="btn btn-default btn-block">
-                <?= $this->Html->link(__('Edit Retailer Detail'), ['action' => 'edit', $retailerDetail->retailerid]) ?>
-              </div>
-              <br>
-              <div class="btn btn-default btn-block">
-                <?= $this->Html->link(__('View Retailer Account Type'), ['controller' => 'Retailers', 'action' => 'account', $retailerDetail->retailerid]) ?>
-              </div>
-              <br>
-              <div class="btn btn-default btn-block">
-                <?= $this->Html->link(__('View Retailer Loyalty Points'), ['controller' => 'RetailerLoyaltyPoints', 'action' => 'individual', $retailerDetail->retailerid]) ?>
-              </div>
+              <?= $this->Text->autoParagraph(h($retailerDetail->retailer_desc)); ?>
+            </div>
+            <br>
+          </div>
+        </div>
+        <div class="col-xs-7">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title"><?= __('ID '.$this->Number->format($retailerDetail->retailerid).' Contract Information') ?></h3>
+            </div>
+            <div class="box-body"><br>
+              <!--<li class="list-group-item" style="border: 0px;">
+                <b><?= __('Retailer ID') ?></b> 
+                <div class="pull-right">
+                  <?= $this->Number->format($retailerDetail->retailerid) ?>
+                </div>
+              </li>-->
+              <li class="list-group-item" style="border: 0px;">
+                <!--<b><?= __('Account Type') ?></b>-->
+                <div title="Account Type" style="font-size: 20px; text-align: center;">
+                  <i class="fa fa-trophy"></i>&nbsp&nbsp<?= h($getRetailer->retailer_acc_type->name) ?>
+                </div>
+              </li><br><br>
+              <!--<li class="list-group-item" style="border: 0px;">
+                <b><?= __('No. Of Users') ?></b> 
+                <div title="No. Of Users" class="pull-right">
+                  <i class="fa fa-user" title="No. Of Users"></i>&nbsp&nbsp<?= $user ?>
+                </div>
+              </li>
+              <li class="list-group-item" style="border: 0px;">
+                <b><?= __('No. Of Warehouses') ?></b> 
+                <div title="No. Of Warehouses" class="pull-right">
+                  <i class="fa fa-building" title="No. Of Warehouses"></i>&nbsp&nbsp<?= h($getRetailer->retailer_acc_type->num_of_warehouses) ?>
+                </div>
+              </li>
+              <li class="list-group-item" style="border: 0px;">
+                <b><?= __('No. Of Stores') ?></b> 
+                <div title="No. of Stores" class="pull-right">
+                  <i class="fa fa-shopping-cart" title="No. of Stores"></i>&nbsp&nbsp<?= h($getRetailer->retailer_acc_type->num_of_stores) ?>
+                </div>
+              </li>
+              <li class="list-group-item" style="border: 0px;">
+                <b><?= __('No. Of Product Types') ?></b> 
+                <div title="No. of Product Types" class="pull-right">
+                  <i class="fa fa-product-hunt" title="No. of Product Types"></i>&nbsp&nbsp<?= h($getRetailer->retailer_acc_type->num_of_product_types) ?>
+                </div>
+              </li>-->
+              <table width="100%" align="center" style="text-align: center; border: 0px;">
+                <tr>
+                  <td style="font-size: 18px;" title="No. Of Users">
+                    <i class="fa fa-user"></i>
+                    <br><p style="font-size: 14px;">Users</p>
+                  </td>
+                  <td style="font-size: 18px;" title="No. Of Warehouses">
+                    <i class="fa fa-building"></i>
+                    <br><p style="font-size: 14px;">Warehouses</p>
+                  </td>
+                  <td style="font-size: 18px;" title="No. of Stores">
+                    <i class="fa fa-shopping-cart"></i>
+                    <br><p style="font-size: 14px;">Stores</p>
+                  </td>
+                  <td style="font-size: 18px;" title="No. of Product Types">
+                    <i class="fa fa-product-hunt"></i>
+                    <br><p style="font-size: 14px;">Products</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="font-size: 18px;" title="No. Of Users">
+                    <?= ($getRetailer->retailer_acc_type->num_of_users) +  ($getRetailer->num_of_users)?>
+                  </td>
+                  <td style="font-size: 18px;" title="No. Of Warehouses">
+                    <?= ($getRetailer->retailer_acc_type->num_of_warehouses) + ($getRetailer->num_of_warehouses) ?>
+                  </td>
+                  <td style="font-size: 18px;" title="No. of Stores">
+                    <?= ($getRetailer->retailer_acc_type->num_of_stores) + ($getRetailer->num_of_stores)?>
+                  </td>
+                  <td style="font-size: 18px;" title="No. of Product Types">
+                    <?= ($getRetailer->retailer_acc_type->num_of_product_types) + ($getRetailer->num_of_product_types) ?>
+                  </td>
+                </tr>
+              </table><br>
             </div>
           </div>
         </div>
-        <div class="col-md-8">  
-          <div class="box box-primary" style="height: 100%;">
-              <div class="box-body box-profile">
-                <div class="box-header with-border">
-                  <h3 class="box-title"><?= __('Retailer Profile') ?></h3>
-                </div>
-                <div class="box-body"><br>
-                  <table class="table table-bordered table-striped">
-                    <tr>
-                        <th scope="row"><?= __('Retailer Name') ?></th>
-                        <td><?= h($retailerDetail->retailer_name) ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Retailer Description') ?></th>
-                        <td><?= $this->Text->autoParagraph(h($retailerDetail->retailer_desc)); ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Address') ?></th>
-                        <td><?= h($retailerDetail->address) ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Retailer Id') ?></th>
-                        <td><?= $this->Number->format($retailerDetail->retailerid) ?></td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
+        <div class="col-xs-5">
+          <div class="box box-primary" style="height: 270px;">
+            <div class="box-header with-border">
+              <h3 class="box-title"><?= __('Retailer Profile') ?></h3>
+            </div>
+            <div class="box-body"><br>
+              <li class="list-group-item" style="border: 0px;">
+                <a href="mailto:<?= h($retailerDetail->retailer_email) ?>" title="email">
+                  <i class="fa fa-envelope-o"></i>&nbsp&nbsp<?= h($retailerDetail->retailer_email) ?>
+                </a>
+              </li>
+              <li class="list-group-item" style="border: 0px;">
+                <a href="tel:+<?= h($retailerDetail->contact) ?>" title="contact">
+                  <i class="fa fa-phone"></i>
+                </a>&nbsp&nbsp<?= h($retailerDetail->contact) ?>
+              </li>
+              <li class="list-group-item" style="border: 0px;">
+                  <i class="fa fa-map-marker" style="color: #3c8dbc;" title="address"></i>&nbsp&nbsp<?= h($retailerDetail->address) ?>
+              </li>
+            </div>
           </div>
         </div>
       </div>

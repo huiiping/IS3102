@@ -62,6 +62,15 @@ class RetailerDetailsController extends AppController
 
         $this->set('retailerDetail', $retailerDetail);
         $this->set('_serialize', ['retailerDetail']);
+
+        //get retailer details from retailers table
+        $retailerID = $retailerDetail['retailerid'];
+        $retailerTable = TableRegistry::get('Retailers');
+        $getRetailer = $retailerTable->get($retailerID, [
+            'contain' => ['RetailerAccTypes']
+        ]);
+        $this->set('getRetailer', $getRetailer);
+        $this->set('_serialize', ['getRetailer']);
     }
 
     /**
