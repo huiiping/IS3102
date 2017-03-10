@@ -7,6 +7,7 @@ use Cake\Datasource\ConnectionManager;
 use Cake\I18n\Time;
 use Cake\I18n\Date;
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 
 /**
  * Promotions Controller
@@ -58,6 +59,13 @@ class PromotionsController extends AppController
             'contain' => ['RetailerEmployees', 'CustMembershipTiers', 'ProdTypes']
         ]);
 
+        $promotionEmails = TableRegistry::get('PromotionEmails');
+        $query = $promotionEmails
+                    ->find()
+                    ->select(['id', 'title', 'body'])
+                    ->where(['promotion_id' => $id])
+                    ->toArray();
+
         $session = $this->request->session();
         $retailer = $session->read('retailer');
 
@@ -65,8 +73,9 @@ class PromotionsController extends AppController
         $this->Logging->rLog($promotion['id']);
         $this->Logging->iLog($retailer, $promotion['id']);
 
-        $this->set('promotion', $promotion);    
-        $this->set('_serialize', ['promotion']);
+        $this->set('promotion', $promotion);
+        $this->set('promotionEmails', $query);    
+        $this->set('_serialize', ['promotion', 'promotionEmails']);
     }
 
     /**

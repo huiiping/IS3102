@@ -647,35 +647,36 @@ public function recover(){
     ->fetchAll('assoc');
 
     if($query == NULL){
+        
         $this->Flash->error(__('Invalid email address'));
-         return $this->redirect(['action' => 'login']);
+        return $this->redirect(['action' => 'login']);
     }
 
-        $token = $this->Generator->generateString();
-        $pass = $this->Generator->generateString();
-        $hasher = new DefaultPasswordHasher();
-        $hashedPass = $hasher->hash($pass);
+    $token = $this->Generator->generateString();
+    $pass = $this->Generator->generateString();
+    $hasher = new DefaultPasswordHasher();
+    $hashedPass = $hasher->hash($pass);
 
-        $conn->update('retailer_employees', 
-            ['recovery_status' => 'Pending' ,
-            'recovery_token' => $token,
-            'password' => $hashedPass],
-            ['email' => $email]);
+    $conn->update('retailer_employees', 
+        ['recovery_status' => 'Pending' ,
+        'recovery_token' => $token,
+        'password' => $hashedPass],
+        ['email' => $email]);
 
-        $this->Email->retailerEmployeeRecoveryEmail(
-                        $email, 
-                        $query[0]['first_name'], 
-                        $query[0]['username'], 
-                        $pass, 
-                        $query[0]['id'], 
-                        $token,  
-                        'retailer-employees',
-                        $database
-                        );
+    $this->Email->retailerEmployeeRecoveryEmail(
+                    $email, 
+                    $query[0]['first_name'], 
+                    $query[0]['username'], 
+                    $pass, 
+                    $query[0]['id'], 
+                    $token,  
+                    'retailer-employees',
+                    $database
+                    );
 
-       
-        $this->Flash->success(__('Password Reset Email Sent, please check your email.'));
-        return $this->redirect(['action' => 'login']);
+   
+    $this->Flash->success(__('Password Reset Email Sent, please check your email.'));
+    return $this->redirect(['action' => 'login']);
 
 }
 

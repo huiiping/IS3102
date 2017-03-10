@@ -63,6 +63,23 @@
                     </tr>
                 </table>
                 <div class="related">
+                    <?php if (!empty($promotionEmails)): ?>
+                    <h4><?= __('Related Promotion Emails') ?></h4>
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th scope="col"><?= __('Promotion Email') ?></th>
+                        </tr>
+                        <?php foreach ($promotionEmails as $promotionEmail): ?>
+                        <tr>
+                            <td>
+                                <?= $this->Html->link(__(h($promotionEmail->title)), ['controller' => 'PromotionEmails', 'action' => 'view', $promotionEmail->id]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                    <?php endif; ?>
+                </div>
+                <div class="related">
                     <?php if (!empty($promotion->cust_membership_tiers)): ?>
                     <h4><?= __('Related Customer Membership Tiers') ?></h4>
                     <table cellpadding="0" cellspacing="0">
