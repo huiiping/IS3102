@@ -1,5 +1,5 @@
-<li class="treeview"><!-- start -->
-  <a href="">
+<li class="treeview">
+  <a <?php if($this->request->session()->read('page') === $typePlural) : ?> class="changeactive" <?php endif; ?> href="">
     <i class="fa fa-table"></i>
     <span><?= $type ?></span>
     <span class="pull-right-container">
@@ -8,7 +8,7 @@
   </a>
   <ul class="treeview-menu">
     <li><p class="indent"><?= $this->Html->link(__($type.' Index'), ['controller' => $typePlural, 'action' => 'index']) ?></p></li>
-  	<li><p class="indent"><?= $this->Html->link(__('Create New'), ['controller' => $typePlural, 'action' => 'add']) ?></p></li>
+    <li><p class="indent"><?= $this->Html->link(__('Create New'), ['controller' => $typePlural, 'action' => 'add']) ?></p></li>
     <li><p class="indent"></p></li>
   </ul>
-</li><!-- end -->
+</li>

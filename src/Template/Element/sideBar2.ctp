@@ -1,5 +1,5 @@
 <li class="treeview"><!-- start -->
-  <a href="">
+  <a <?php if($this->request->session()->read('page') === $typePlural) : ?> class="changeactive" <?php endif; ?> href="">
     <i class="fa fa-table"></i>
     <span><?= $type ?></span>
     <span class="pull-right-container">

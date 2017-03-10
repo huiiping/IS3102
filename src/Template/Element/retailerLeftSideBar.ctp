@@ -1,3 +1,9 @@
+<style>
+.changeactive {
+  background-color: rgba(0,0,0,0.8);
+}
+</style>
+
 <!-- Left side column contains the logo and sidebar -->
 <aside class="main-sidebar">
   <section class="sidebar">
@@ -20,15 +26,15 @@
       
       <?php if($type) : ?>
         <li class="treeview">
-          <a href="/IS3102_Final/suppliers/index">
-            <i class="fa fa-table"></i>Supplier Details
+          <a <?php if($this->request->session()->read('page') === 'Suppliers') : ?> class="changeactive" <?php endif; ?> href="/IS3102_Final/suppliers/index">
+            <i class="fa fa-table"></i><span>Supplier Details</span>
           </a>
         </li>
         
       <?php else : ?>
         <li class="treeview">
-          <a href="/IS3102_Final/retailer-details/index">
-            <i class="fa fa-table"></i>Retailer Details
+          <a <?php if($this->request->session()->read('page') === 'RetailerDetails') : ?> class="changeactive" <?php endif; ?> href="/IS3102_Final/retailer-details/index">
+            <i class="fa fa-table"></i><span>Retailer Details</span>
           </a>
         </li>
         <?= $this->Element('sideBar', array('type' => 'Employees', 'typePlural' => 'RetailerEmployees')); ?>

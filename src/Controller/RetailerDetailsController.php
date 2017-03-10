@@ -18,6 +18,9 @@ class RetailerDetailsController extends AppController
     {
 
         $this->loadComponent('Logging');
+
+        $session = $this->request->session();
+        $session->write('page', 'RetailerDetails'); //set page
         
     }
 
@@ -33,8 +36,8 @@ class RetailerDetailsController extends AppController
         $this->set(compact('retailerDetails'));
         $this->set('_serialize', ['retailerDetails']);
 
-        $rid = $this->request->session()->read('retailerid');
-        $this->redirect(['controller' => 'RetailerDetails', 'action' => 'view', $rid]);
+        $rid = $this->request->session()->read('retailerid'); //get retailer ID
+        $this->redirect(['controller' => 'RetailerDetails', 'action' => 'view', $rid]); //redirect to retailer details view page
     }
 
     /**

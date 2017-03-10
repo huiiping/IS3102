@@ -41,6 +41,9 @@ class SuppliersController extends AppController
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
         $this->Auth->allow(['add', 'logout', 'activate', 'recover', 'recoverActivate']);
+
+        $session = $this->request->session();
+        $session->write('page', 'Suppliers'); //set page
     }
     
 
@@ -58,8 +61,10 @@ class SuppliersController extends AppController
         $this->set(compact('suppliers'));
         $this->set('_serialize', ['suppliers']);
 
-        $sid = $_SESSION['Auth']['User']['id'];
-        $this->redirect(['controller' => 'Suppliers', 'action' => 'view', $sid]);
+        if($type) { //if is supplier
+            $sid = $_SESSION['Auth']['User']['id'];
+            $this->redirect(['controller' => 'Suppliers', 'action' => 'view', $sid]);
+        }
     }
     public $components = array(
         'Prg'
