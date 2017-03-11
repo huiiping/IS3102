@@ -40,7 +40,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('script') ?>
 	
     <!-- CakePHP CSS -->
-    <?= $this->Html->css('base.css') ?>
+   <!-- <?= $this->Html->css('base.css') ?>-->
 	
     <!-- Bootstrap 3.3.6 -->
     <?= $this->Html->css('bootstrap.min.css') ?>
@@ -54,6 +54,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   		 folder instead of downloading all of them to reduce the load. -->
   	<?= $this->Html->css('_all-skins.min.css') ?>
   	<!-- iCheck -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
   	<?= $this->Html->css('blue.css') ?>
   	<!-- Morris chart -->
   	<?= $this->Html->css('morris') ?>
