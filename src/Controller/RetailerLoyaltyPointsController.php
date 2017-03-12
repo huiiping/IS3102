@@ -52,19 +52,33 @@ class RetailerLoyaltyPointsController extends AppController
      */
     public function view($id = null)
     {
-        $retailerLoyaltyPoint = $this->RetailerLoyaltyPoints->get($id, [
-            'contain' => ['Retailers']
-        ]);
 
-        $session = $this->request->session();
-        $retailer = $session->read('retailer');
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+
+        $this->paginate = [
+            'contain' => ['Retailers']
+        ];
+
+        $this->set('retailerLoyaltyPoints', $this->paginate($this->RetailerLoyaltyPoints->find('searchable', $this->Prg->parsedParams())));
+        $this->set('retailerId', $id);
+        $this->set(compact('retailerLoyaltyPoints', 'retailerId'));
+        $this->set('_serialize', ['retailerLoyaltyPoints']);
+
+        // $retailerLoyaltyPoint = $this->RetailerLoyaltyPoints->get($id, [
+        //     'contain' => ['Retailers']
+        //     ]);
+
+        //$session = $this->request->session();
+        //$retailer = $session->read('retailer');
 
         //$this->loadComponent('Logging');
-        $this->Logging->rLog($retailerLoyaltyPoint['id']);
-        $this->Logging->iLog($retailer, $retailerLoyaltyPoint['id']);
+        //$this->Logging->rLog($retailerLoyaltyPoint['id']);
+        //$this->Logging->iLog($retailer, $retailerLoyaltyPoint['id']);
 
-        $this->set('retailerLoyaltyPoint', $retailerLoyaltyPoint);
-        $this->set('_serialize', ['retailerLoyaltyPoint']);
+        // $this->set('retailerLoyaltyPoint', $retailerLoyaltyPoint);
+        // $this->set(compact('retailerLoyaltyPoint', 'retailerId'));
+        // $this->set('_serialize', ['retailerLoyaltyPoint']);
     }
 
     /**
