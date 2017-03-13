@@ -4,6 +4,8 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\ORM\Table;
+use Cake\Datasource\ConnectionManager;
+use Cake\ORM\TableRegistry;
 
 /**
  * RetailerLoyaltyPoints Controller
@@ -53,16 +55,31 @@ class RetailerLoyaltyPointsController extends AppController
     public function view($id = null)
     {
 
-        $this->loadComponent('Prg');
-        $this->Prg->commonProcess();
+        //$this->loadComponent('Prg');
+        //$this->Prg->commonProcess();
 
-        $this->paginate = [
-            'contain' => ['Retailers']
-        ];
+        //$this->paginate = [
+             //'contain' => ['Retailers']
+        //];
+        
+        //echo $id;
+        //$table = TableRegistry::get('RetailerLoyaltyPoints');
+        //$query = $table->find('all')
+                    //->where(['retailer_id' => $id])
+                    //->toArray();
 
-        $this->set('retailerLoyaltyPoints', $this->paginate($this->RetailerLoyaltyPoints->find('searchable', $this->Prg->parsedParams())));
-        $this->set('retailerId', $id);
-        $this->set(compact('retailerLoyaltyPoints', 'retailerId'));
+        // $query = $this->RetailerLoyaltyPoints->find()
+        //         ->where(['RetailerLoyaltyPoints.retailer_id' => $id])
+        //         ->toArray();
+
+        $query = $this->paginate($this->RetailerLoyaltyPoints->find('searchable', $this->Prg->parsedParams())->where(['retailer_id' => $id]));
+
+        //$this->set('retailerLoyaltyPoints', $this->paginate($this->RetailerLoyaltyPoints->find('searchable', $this->Prg->parsedParams())->where['retailer_id' => $id]));
+        $this->set('retailerLoyaltyPoints', $query);
+        //$this->set('retailerLoyaltyPoints', $this->paginate($this->RetailerLoyaltyPoints->find('searchable', $query)));
+        //$this->set('retailerLoyaltyPoints', $this->paginate($query));
+        //$this->set('retailerId', $id);
+        $this->set(compact('retailerLoyaltyPoints'));
         $this->set('_serialize', ['retailerLoyaltyPoints']);
 
         // $retailerLoyaltyPoint = $this->RetailerLoyaltyPoints->get($id, [

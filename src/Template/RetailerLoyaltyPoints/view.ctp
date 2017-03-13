@@ -37,7 +37,7 @@
                 <tbody>
                   <?php foreach ($retailerLoyaltyPoints as $retailerLoyaltyPoint): ?>
 
-                    <?php if($retailerLoyaltyPoint['retailer_id']==$retailerId) { ?>
+                    <?php //if($retailerLoyaltyPoint['retailer_id']==$retailerId) { ?>
                       <tr>
 
                         <?php 
@@ -72,8 +72,11 @@
                       </tr>
 
 
-                    <?php } ?>
-                  <?php endforeach; ?>
+                    <?php 
+
+                    // }                    
+                    endforeach; 
+                    ?>
 
                 </tbody>
                 </table>
