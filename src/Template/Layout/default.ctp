@@ -75,6 +75,28 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->css('select2.min.css') ?>
     <!-- DataTables -->
     <?= $this->Html->css('dataTables.bootstrap.css') ?>
+    <!-- jQuery -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+  <!-- jQuery 2.2.3 -->'
+  <?= $this->Html->script('jquery-2.2.3.min.js') ?>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script> $.widget.bridge('uibutton', $.ui.button); </script>
+<?= $this->Html->script('jquery.sparkline.min.js') ?>
+  <!-- jvectormap -->
+  <?= $this->Html->script('jquery-jvectormap-1.2.2.min.js') ?>
+  <?= $this->Html->script('jquery-jvectormap-world-mill-en.js') ?>
+  <!-- jQuery Knob Chart -->
+  <?= $this->Html->script('jquery.knob.js') ?>
+<!-- Slimscroll -->
+  <?= $this->Html->script('jquery.slimscroll.min.js') ?>
+<?= $this->Html->script('jquery.dataTables.min.js') ?>
+<!-- InputMask -->
+  <?= $this->Html->script('jquery.inputmask.js') ?>
+  <?= $this->Html->script('jquery.inputmask.date.extensions.js') ?>
+  <?= $this->Html->script('jquery.inputmask.extensions.js') ?>
    	<style> p.indent{ 
       padding-left: 1.8em; 
       padding-top: 0.3em; 
@@ -481,34 +503,20 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </footer> 
   </div>
 
-  <!-- jQuery -->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-  <!-- jQuery 2.2.3 -->'
-  <?= $this->Html->script('jquery-2.2.3.min.js') ?>
-  <!-- jQuery UI 1.11.4 -->
-  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-  <script> $.widget.bridge('uibutton', $.ui.button); </script>
+  
   <!-- Bootstrap 3.3.6 -->
   <?= $this->Html->script('bootstrap.min.js') ?>
   <!-- Morris.js charts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
   <?= $this->Html->script('morris.min.js') ?>
   <!-- Sparkline -->
-  <?= $this->Html->script('jquery.sparkline.min.js') ?>
-  <!-- jvectormap -->
-  <?= $this->Html->script('jquery-jvectormap-1.2.2.min.js') ?>
-  <?= $this->Html->script('jquery-jvectormap-world-mill-en.js') ?>
-  <!-- jQuery Knob Chart -->
-  <?= $this->Html->script('jquery.knob.js') ?>
+  
   <!-- daterangepicker -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
   <?= $this->Html->script('daterangepicker.js') ?>
   <!-- datepicker -->
   <?= $this->Html->script('bootstrap-datepicker.js') ?>
-  <!-- Slimscroll -->
-  <?= $this->Html->script('jquery.slimscroll.min.js') ?>
+  
   <!-- FastClick -->
   <?= $this->Html->script('fastclick.js') ?>
   <!-- AdminLTE App -->
@@ -518,7 +526,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <!-- AdminLTE for demo purposes -->
   <?= $this->Html->script('demo.js') ?>
   <!-- DataTables -->
-  <?= $this->Html->script('jquery.dataTables.min.js') ?>
+  
   <?= $this->Html->script('dataTables.bootstrap.min.js') ?>
   <!-- bootstrap color picker -->
   <?= $this->Html->script('bootstrap-colorpicker.min.js') ?>
@@ -528,10 +536,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->script('icheck.min.js') ?>
   <!-- Select2 -->
   <?= $this->Html->script('select2.full.min.js') ?>
-  <!-- InputMask -->
-  <?= $this->Html->script('jquery.inputmask.js') ?>
-  <?= $this->Html->script('jquery.inputmask.date.extensions.js') ?>
-  <?= $this->Html->script('jquery.inputmask.extensions.js') ?>
+  
 
 </body>
 </html>
