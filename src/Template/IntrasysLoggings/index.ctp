@@ -27,13 +27,10 @@
                     <tr><?php
                         echo $this->Form->create($intrasysLoggings);?>
                         <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input(('retailer_id'), ['label' => 'Retailer Name', 'type' => 'search']); ?></th>
+                        <th scope="col"><?= $this->Form->input(('search'), ['label' => 'Retailer Name', 'type' => 'search']); ?></th>
                         <th width="60"></th>
-                        <th scope="col"><?= $this->Form->input(('entity'), ['label' => 'Entity / Controller', 'type' => 'search']); ?></th>
-                        <!--<th width="60"></th>
-                        <th scope="col"><?= $this->Form->input(('employeeid'), ['label' => 'Employee ID', 'type' => 'search']); ?></th>-->
-                        <th width="30"></th>
-                        <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+
+                        <th scope="col" class="actions"><?= $this->Form->submit(__('Search'), ['class'=>'btn btn-default btn-flat']); ?></th>
                         <th width="10"></th>
                         <?php echo $this->Form->end();?>
                     </tr>

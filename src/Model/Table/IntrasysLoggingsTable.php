@@ -51,6 +51,10 @@ class IntrasysLoggingsTable extends Table
         'created' => array(
             'type' => 'like',
             'field' => 'created'
+        ),
+        'search' => array(
+            'type' => 'like',
+            'field' => array('Retailers.retailer_name','action','entity','entity_id', 'employeeid','RetailerEmployees.first_name','RetailerEmployees.last_name')
         )
     );
     /**
