@@ -40,8 +40,9 @@ class LocationsTable extends Table
             'type' => 'like',
             'field' => 'contact'
         ),
-        'type' => array(
-            'type' => 'type'
+        'search' => array(
+            'type' => 'like',
+            'field' => array('id', 'name', 'address', 'contact')
         )
     );
     /**

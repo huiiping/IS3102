@@ -49,7 +49,12 @@ class CustomersTable extends Table
         'activation_status' => array(
             'type' => 'like',
             'field' => 'activation_status'
+        ),
+        'search' => array(
+            'type' => 'like',
+            'field' => array('activation_status','username','email','address','first_name','last_name')
         )
+
     );
 
     /**

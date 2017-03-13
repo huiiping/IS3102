@@ -23,26 +23,12 @@
             <br>
                 <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
                     <tr>
-                        <?php echo $this->Form->create(null);?>
+                        <?php echo $this->Form->create($customers);?>
                         <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input('first_name'); ?></th>
+                        <th scope="col"><?= $this->Form->input('search'); ?></th>
                         <th width="60"></th>
-                        <th scope="col"><?= $this->Form->input('last_name'); ?></th>
-                        <th width="60"></th>
-                        <th scope="col"><?= $this->Form->input('email'); ?></th>
-                        <th width="30"></th>
-                        <th scope="col"></th>
-                        <th width="10"></th>
-                    </tr>
-                    <tr>
-                        <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input('address'); ?></th>
-                        <th width="60"></th>
-                        <th scope="col"><?= $this->Form->input('activation_status'); ?></th>
-                        <th width="60"></th>
-                        <th scope="col"></th>
-                        <th width="30"></th>
-                        <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+
+                        <th scope="col" class="actions"><?= $this->Form->submit(__('Search'), ['class'=>'btn btn-default btn-flat']); ?></th>
                         <th width="10"></th>
                         <?php echo $this->Form->end();?>
                     </tr>

@@ -21,15 +21,10 @@
         <tr><?php
             echo $this->Form->create($custMembershipTiersPromotions);?>
             <th width="10"></th>
-            <th scope="col"><?= $this->Form->input(('membershipTier_id'), ['label' => 'Membership Tier Id', 'type' => 'search']); ?></th>
+            <th scope="col"><?= $this->Form->input(('search'), ['label' => 'Search', 'type' => 'search']); ?></th>
             <th width="10"></th>
-            <th scope="col"><?= $this->Form->input('membershiptier_name',['label' => 'Membership Tier Name', 'type' => 'search']); ?></th>
-            <th width="30"></th>
-            <th scope="col"><?= $this->Form->input('credit_card_type',['label' => 'Credit Card Type', 'type' => 'search']); ?></th>
-            <th width="30"></th>
-            <th scope="col"><?= $this->Form->input('promotion_id',['label' => 'Promotion Id', 'type' => 'search']); ?></th>
-            <th width="30"></th>
-            <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+
+            <th scope="col" class="actions"><?= $this->Form->submit(__('Search'), ['class'=>'btn btn-default btn-flat']); ?></th>
             <th width="10"></th>
             <?php echo $this->Form->end();?>
         </tr>
