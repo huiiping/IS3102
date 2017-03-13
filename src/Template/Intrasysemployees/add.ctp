@@ -19,7 +19,6 @@
       <div class="col-md-offset-3 col-md-6">
         <div class="box box-primary">
           <div class="panel panel-default">
-
             <div class="panel-heading">
               <h3 class="panel-title">Create New Intrasys Employee</h3>
             </div>
@@ -33,39 +32,47 @@
               <div class ="form-group">          
                 <div class="input-group">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                  <input class = "form-control" type="text" placeholder = "First Name" name="first_name" required="required" id="first_name" maxlength="255"> 
+                  <input class = "form-control" type="text" placeholder = "First Name*" name="first_name" required="required" id="first_name" maxlength="255"> 
                 </div>
               </div>
               <div class ="form-group">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                  <input class = "form-control" type="text" placeholder = "Last Name" name="last_name" required="required" id="last_name" maxlength="255"> 
+                  <input class = "form-control" type="text" placeholder = "Last Name*" name="last_name" required="required" id="last_name" maxlength="255"> 
                 </div>
               </div>
               <div class ="form-group">
                 <div class="input-group">
                   <span class="input-group-addon">@</span>
-                  <input class = "form-control" type="email" placeholder = "Email" name="email" required="required" id="email" maxlength="255"> 
+                  <input class = "form-control" type="email" placeholder = "Email*" name="email" required="required" id="email" maxlength="255"> 
                 </div>
               </div>
               <div class ="form-group">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                  <input class = "form-control" type="text" placeholder = "Contact Number" name="contact" required="required" id="contact" maxlength="100"> 
+                  <input class = "form-control" type="text" placeholder = "Contact Number*" name="contact" required="required" id="contact" maxlength="100"> 
                 </div>
               </div>
               <div class ="form-group">            
                 <div class="input-group">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                  <input class = "form-control" type="text" name="address" placeholder = "Address" required="required" id="address" maxlength="255">
+                  <input class = "form-control" type="text" name="address" placeholder = "Address*" required="required" id="address" maxlength="255">
                 </div> 
-                </div>         
-                
-                <button  class="btn btn-md btn-primary pull-right" type="submit" style =" border-radius: 8px ;">Add Employee</button>
+              </div>
+              <div class ="form-group">
+                <label>Intrasys Employee Roles</label>
+                <?= $this->Form->input('intrasys_employee_roles._ids', ['options' => $intrasysEmployeeRoles, 'label' => '']); ?>
+              </div>
+              <br>
+              <div class ="form-group" align="right">            
+                <div class="input-group">
+                  <a href="/IS3102_Final/intrasys-employees/index" class="btn btn-md btn-primary pull-right" style="border-radius: 8px; margin:5px;">Back to Employee Index</a>
+                  <button class="btn btn-md btn-primary pull-right" type="submit" style="border-radius: 8px; margin:5px;">Add Employee</button>
+                </div> 
+              </div>
               </form>
 
-
-              <?= $this->Form->create($intrasysEmployee) ?>
+              <!--<?= $this->Form->create($intrasysEmployee) ?>
               <fieldset>
                 <?php
                 /*echo $this->Form->input('first_name');
@@ -86,7 +93,8 @@
             </form>
             <br>
             <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
-            <?= $this->Form->end() ?>
+            <?= $this->Form->end() ?>-->
+
           </div>
         </div>
       </div>

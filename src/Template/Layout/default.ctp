@@ -54,7 +54,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   		 folder instead of downloading all of them to reduce the load. -->
   	<?= $this->Html->css('_all-skins.min.css') ?>
   	<!-- iCheck -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
   	<?= $this->Html->css('blue.css') ?>
   	<!-- Morris chart -->
@@ -75,62 +75,64 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->css('select2.min.css') ?>
     <!-- DataTables -->
     <?= $this->Html->css('dataTables.bootstrap.css') ?>
-    <!-- jQuery -->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-  <!-- jQuery 2.2.3 -->'
-  <?= $this->Html->script('jquery-2.2.3.min.js') ?>
-  <!-- jQuery UI 1.11.4 -->
-  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-  <script> $.widget.bridge('uibutton', $.ui.button); </script>
-<?= $this->Html->script('jquery.sparkline.min.js') ?>
-  <!-- jvectormap -->
-  <?= $this->Html->script('jquery-jvectormap-1.2.2.min.js') ?>
-  <?= $this->Html->script('jquery-jvectormap-world-mill-en.js') ?>
-  <!-- jQuery Knob Chart -->
-  <?= $this->Html->script('jquery.knob.js') ?>
-<!-- Slimscroll -->
-  <?= $this->Html->script('jquery.slimscroll.min.js') ?>
-<?= $this->Html->script('jquery.dataTables.min.js') ?>
-<!-- InputMask -->
-  <?= $this->Html->script('jquery.inputmask.js') ?>
-  <?= $this->Html->script('jquery.inputmask.date.extensions.js') ?>
-  <?= $this->Html->script('jquery.inputmask.extensions.js') ?>
-   	<style> p.indent{ 
-      padding-left: 1.8em; 
-      padding-top: 0.3em; 
-      color: #b8c7ce;
-    }
-    .row{
-      max-width: none;
-    }
-    .navbartopright{
-      font-size: 15px;
-    }
-    div.message{
-      text-align: center;
-      cursor: pointer;
-      display: block;
-      font-weight: normal;
-      padding: 0 1.5rem 0 1.5rem;
-      transition: height 300ms ease-out 0s;
-      background-color: #a0d3e8;
-      color: #626262;
-      top: 15px;
-      right: 15px;
-      z-index: 999;
-      overflow: hidden;
-      height: 50px;
-      line-height: 2.5em;
-      box-radius: 5px;
-    }
-    div.message.error{
-      background-color: #C3232D;
-      color: #FFF;
-    }
-    </style>
     
+    <!-- jQuery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <!-- jQuery 2.2.3 -->
+    <?= $this->Html->script('jquery-2.2.3.min.js') ?>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script> $.widget.bridge('uibutton', $.ui.button); </script>
+    <?= $this->Html->script('jquery.sparkline.min.js') ?>
+    <!-- jvectormap -->
+    <?= $this->Html->script('jquery-jvectormap-1.2.2.min.js') ?>
+    <?= $this->Html->script('jquery-jvectormap-world-mill-en.js') ?>
+    <!-- jQuery Knob Chart -->
+    <?= $this->Html->script('jquery.knob.js') ?>
+    <!-- Slimscroll -->
+    <?= $this->Html->script('jquery.slimscroll.min.js') ?>
+    <?= $this->Html->script('jquery.dataTables.min.js') ?>
+    <!-- InputMask -->
+    <?= $this->Html->script('jquery.inputmask.js') ?>
+    <?= $this->Html->script('jquery.inputmask.date.extensions.js') ?>
+    <?= $this->Html->script('jquery.inputmask.extensions.js') ?>
+
+   	<style> 
+      p.indent{ 
+        padding-left: 1.8em; 
+        padding-top: 0.3em; 
+        color: #b8c7ce;
+      }
+      .row{
+        max-width: none;
+      }
+      .navbartopright{
+        font-size: 15px;
+      }
+      div.message{
+        text-align: center;
+        cursor: pointer;
+        display: block;
+        font-weight: normal;
+        padding: 0 1.5rem 0 1.5rem;
+        transition: height 300ms ease-out 0s;
+        background-color: #a0d3e8;
+        color: #626262;
+        top: 15px;
+        right: 15px;
+        z-index: 999;
+        overflow: hidden;
+        height: 50px;
+        line-height: 2.5em;
+        box-radius: 5px;
+      }
+      div.message.error{
+        background-color: #C3232D;
+        color: #FFF;
+      }
+    </style>
 </head>
 
 <?php if($loggedIn) : ?>
@@ -503,7 +505,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </footer> 
   </div>
 
-  
   <!-- Bootstrap 3.3.6 -->
   <?= $this->Html->script('bootstrap.min.js') ?>
   <!-- Morris.js charts -->
@@ -516,7 +517,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <?= $this->Html->script('daterangepicker.js') ?>
   <!-- datepicker -->
   <?= $this->Html->script('bootstrap-datepicker.js') ?>
-  
   <!-- FastClick -->
   <?= $this->Html->script('fastclick.js') ?>
   <!-- AdminLTE App -->
@@ -526,17 +526,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
   <!-- AdminLTE for demo purposes -->
   <?= $this->Html->script('demo.js') ?>
   <!-- DataTables -->
-  
   <?= $this->Html->script('dataTables.bootstrap.min.js') ?>
   <!-- bootstrap color picker -->
   <?= $this->Html->script('bootstrap-colorpicker.min.js') ?>
   <!-- bootstrap time picker -->
   <?= $this->Html->script('bootstrap-timepicker.min.js') ?>
-    <!-- iCheck 1.0.1 -->
-    <?= $this->Html->script('icheck.min.js') ?>
+  <!-- iCheck 1.0.1 -->
+  <?= $this->Html->script('icheck.min.js') ?>
   <!-- Select2 -->
   <?= $this->Html->script('select2.full.min.js') ?>
   
-
 </body>
 </html>
