@@ -20,11 +20,11 @@
               <h3 class="box-title"><?= h($intrasysLogging->action) ?></h3>
             </div>
             <div class="box-body">
-            
-                <table class="vertical-table">
+                <br>
+                <table class="table table-bordered table-striped">
                     <tr>
-                        <th scope="row"><?= __('Retailer') ?></th>
-                        <td><?= $intrasysLogging->has('retailer') ? $this->Html->link($intrasysLogging->retailer->retailer_name, ['controller' => 'Retailers', 'action' => 'view', $intrasysLogging->retailer->id]) : '' ?></td>
+                        <th scope="row"><?= __('Id') ?></th>
+                        <td><?= $this->Number->format($intrasysLogging->id) ?></td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Action') ?></th>
@@ -39,18 +39,19 @@
                         <td><?= $this->Number->format($intrasysLogging->entityid) ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Employee Id') ?></th>
-                        <td><?= $this->Number->format($intrasysLogging->employeeid) ?></td>
+                        <th scope="row"><?= __('Retailer') ?></th>
+                        <td><?= $intrasysLogging->has('retailer') ? $this->Html->link($intrasysLogging->retailer->retailer_name, ['controller' => 'Retailers', 'action' => 'view', $intrasysLogging->retailer->id]) : '' ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Id') ?></th>
-                        <td><?= $this->Number->format($intrasysLogging->id) ?></td>
+                        <th scope="row"><?= __('Employee Id') ?></th>
+                        <td><?= $this->Number->format($intrasysLogging->employeeid) ?></td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Created') ?></th>
                         <td><?= $this->Time->format(h($intrasysLogging->created), 'd MMM YYYY, hh:mm') ?></td>
                     </tr>
                 </table>
+                <br>
             </div>
         </div>
       </div>

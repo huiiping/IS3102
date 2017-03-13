@@ -28,36 +28,37 @@
                         echo $this->Form->create($intrasysLoggings);?>
                         <th width="10"></th>
                         <th scope="col"><?= $this->Form->input(('search'), ['label' => 'Retailer Name', 'type' => 'search']); ?></th>
-                        <th width="60"></th>
-
+                        <th width="30"></th>
                         <th scope="col" class="actions"><?= $this->Form->submit(__('Search'), ['class'=>'btn btn-default btn-flat']); ?></th>
                         <th width="10"></th>
                         <?php echo $this->Form->end();?>
                     </tr>
                 </table>
-                <?php echo '<h3>'; ?>
+                <br>
+                <a class="btn btn-default btn-flat" href="/IS3102_Final/intrasys-loggings/export.csv">Export All Logs</a>
+                <!--<?php echo '<h3>'; ?>
                     <?= $this->Html->link('Export All Logs', [
                       'controller' => 'intrasysLoggings', 
                       'action' => 'export',
                       '_ext' => 'csv'
                     ]) ?>
-                <?php echo '</h3>';    ?>
-                <br>
+                <?php echo '</h3>';    ?>-->
+                <br><br>
 
               <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th scope="col"><?= $this->Paginator->sort('id', array(
                             'label' => 'Log ID')) ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('retailer_id', array(
-                            'label' => 'Retailer Name')) ?></th>
                         <th scope="col"><?= $this->Paginator->sort('action') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('entity', array(
                             'label' => 'Entity / Controller')) ?></th>
-                        <!--<th scope="col"><?= $this->Paginator->sort('entityid', array(
+                        <th scope="col"><?= $this->Paginator->sort('entityid', array(
                             'label' => 'Entity ID')) ?></th>
+                        <th scope="col"><?= $this->Paginator->sort('retailer_id', array(
+                            'label' => 'Retailer Name')) ?></th>
                         <th scope="col"><?= $this->Paginator->sort('employeeid', array(
-                            'label' => 'Employee ID')) ?></th>-->
+                            'label' => 'Employee ID')) ?></th>
                         <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                         <th scope="col" class="actions"><?= __('Actions') ?></th>
                     </tr>
@@ -66,11 +67,11 @@
                     <?php foreach ($intrasysLoggings as $intrasysLogging): ?>
                     <tr>
                         <td><?= $this->Number->format($intrasysLogging->id) ?></td>
-                        <td><?= $intrasysLogging->has('retailer') ? $this->Html->link($intrasysLogging->retailer->retailer_name, ['controller' => 'Retailers', 'action' => 'view', $intrasysLogging->retailer->id]) : '' ?></td>
                         <td><?= h($intrasysLogging->action) ?></td>
                         <td><?= h($intrasysLogging->entity) ?></td>
-                        <!--<td><?= $this->Number->format($intrasysLogging->entityid) ?></td>
-                        <td><?= $this->Number->format($intrasysLogging->employeeid) ?></td>-->
+                        <td><?= $this->Number->format($intrasysLogging->entityid) ?></td>
+                        <td><?= $intrasysLogging->has('retailer') ? $this->Html->link($intrasysLogging->retailer->retailer_name, ['controller' => 'Retailers', 'action' => 'view', $intrasysLogging->retailer->id]) : '' ?></td>
+                        <td><?= $this->Number->format($intrasysLogging->employeeid) ?></td>
                         <td><?= $this->Time->format(h($intrasysLogging->created), 'd MMM YYYY, hh:mm') ?></td>
                         <td class="actions">
                             <?= $this->Html->link(__('View'), ['action' => 'view', $intrasysLogging->id]) ?>

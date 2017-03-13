@@ -1,6 +1,7 @@
 <style>
 .changeactive {
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0, 123, 100, 1);
+  
 }
 </style>
 
@@ -32,11 +33,6 @@
         </li>
         
       <?php else : ?>
-        <li class="treeview">
-          <a <?php if($this->request->session()->read('page') === 'RetailerDetails') : ?> class="changeactive" <?php endif; ?> href="/IS3102_Final/retailer-details/index">
-            <i class="fa fa-table"></i><span>Retailer Details</span>
-          </a>
-        </li>
         <?= $this->Element('sideBar', array('type' => 'Employees', 'typePlural' => 'RetailerEmployees')); ?>
         <?= $this->Element('sideBar2', array('type' => 'Employee Roles', 'typePlural' => 'RetailerEmployeeRoles')); ?>
         <?= $this->Element('sideBar', array('type' => 'Customers', 'typePlural' => 'Customers')); ?>

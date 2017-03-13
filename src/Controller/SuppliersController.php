@@ -60,8 +60,8 @@ class SuppliersController extends AppController
         $this->set('suppliers', $this->paginate($this->Suppliers->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('suppliers'));
         $this->set('_serialize', ['suppliers']);
-
-        if($type) { //if is supplier
+        
+        if($this->request->session()->read('type')) { //if is supplier
             $sid = $_SESSION['Auth']['User']['id'];
             $this->redirect(['controller' => 'Suppliers', 'action' => 'view', $sid]);
         }

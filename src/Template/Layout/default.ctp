@@ -351,6 +351,26 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             </li>
             <!-- End Tasks -->
 
+            <!-- Setting -->
+            <?php if( (!$intrasys) && (!$type) ) : ?>
+            <li class="dropdown notifications-menu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-gears"></i>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <ul class="menu">
+                    <li><!-- start task item -->
+                      <a <?php if($this->request->session()->read('page') === 'RetailerDetails') : ?> class="changeactive" <?php endif; ?> href="/IS3102_Final/retailer-details/index">
+                        <i class="fa fa-gear"></i><span>Company Profile</span>
+                      </a>
+                    </li><!-- end task item -->
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <?php endif; ?>
+
             <!-- Start User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -379,30 +399,32 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 </li>
                 <li class="user-footer">
                   <div class="pull-left">
-                    <span class="btn btn-default btn-flat">
-                      <?php if($intrasys) : ?>
-                        <?= $this->Html->link(__('Profile'), ['controller' => 'IntrasysEmployees', 'action' => 'view', $_SESSION['Auth']['User']['id'], 'class'=>'btn btn-default btn-flat']); ?>
+                    <?php if($intrasys) : ?>
+                      <a class="btn btn-default btn-flat" href="/IS3102_Final/intrasys-employees/view/<?= $_SESSION['Auth']['User']['id'] ?>" >Profile</a>
+                      <!--<?= $this->Html->link(__('Profile'), ['controller' => 'IntrasysEmployees', 'action' => 'view', $_SESSION['Auth']['User']['id']]); ?>-->
+                    <?php else : ?>
+                      <?php if($type) : ?>
+                        <a class="btn btn-default btn-flat" href="/IS3102_Final/suppliers/view/<?= $_SESSION['Auth']['User']['id'] ?>" >Profile</a>
+                        <!--<?= $this->Html->link(__('Profile'), ['controller' => 'Suppliers', 'action' => 'view', $_SESSION['Auth']['User']['id']]); ?>-->
                       <?php else : ?>
-                        <?php if($type) : ?>
-                          <?= $this->Html->link(__('Profile'), ['controller' => 'Suppliers', 'action' => 'view', $_SESSION['Auth']['User']['id'], 'class'=>'btn btn-default btn-flat']); ?>
-                        <?php else : ?>
-                          <?= $this->Html->link(__('Profile'), ['controller' => 'RetailerEmployees', 'action' => 'view', $_SESSION['Auth']['User']['id'], 'class'=>'btn btn-default btn-flat']); ?>
-                        <?php endif; ?>
+                        <a class="btn btn-default btn-flat" href="/IS3102_Final/retailer-employees/view/<?= $_SESSION['Auth']['User']['id'] ?>" >Profile</a>
+                        <!--<?= $this->Html->link(__('Profile'), ['controller' => 'RetailerEmployees', 'action' => 'view', $_SESSION['Auth']['User']['id']]); ?>-->
                       <?php endif; ?>
-                    </span>
+                    <?php endif; ?>
                   </div>
                   <div class="pull-right">
-                    <span class="btn btn-default btn-flat">
-                      <?php if($intrasys) : ?>
-                        <?= $this->Html->link(__('Logout'), ['controller' => 'IntrasysEmployees', 'action' => 'logout', 'class'=>'btn btn-default btn-flat']); ?>
+                    <?php if($intrasys) : ?>
+                      <a class="btn btn-default btn-flat" href="/IS3102_Final/intrasys-employees/logout" >Logout</a>
+                      <!--<?= $this->Html->link(__('Logout'), ['controller' => 'IntrasysEmployees', 'action' => 'logout']); ?>-->
+                    <?php else : ?>
+                      <?php if($type) : ?>
+                        <a class="btn btn-default btn-flat" href="/IS3102_Final/suppliers/logout" >Logout</a>
+                        <!--<?= $this->Html->link(__('Logout'), ['controller' => 'Suppliers', 'action' => 'logout']); ?>-->
                       <?php else : ?>
-                        <?php if($type) : ?>
-                          <?= $this->Html->link(__('Logout'), ['controller' => 'Suppliers', 'action' => 'logout', 'class'=>'btn btn-default btn-flat']); ?>
-                        <?php else : ?>
-                          <?= $this->Html->link(__('Logout'), ['controller' => 'RetailerEmployees', 'action' => 'logout', 'class'=>'btn btn-default btn-flat']); ?>
-                        <?php endif; ?>
+                        <a class="btn btn-default btn-flat" href="/IS3102_Final/retailer-employees/logout" >Logout</a>
+                        <!--<?= $this->Html->link(__('Logout'), ['controller' => 'RetailerEmployees', 'action' => 'logout']); ?>-->
                       <?php endif; ?>
-                    </span>
+                    <?php endif; ?>
                   </div>
                 </li>
               </ul>

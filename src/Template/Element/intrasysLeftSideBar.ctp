@@ -21,10 +21,13 @@
       <?= $this->Element('sideBar', array('type' => 'Employees', 'typePlural' => 'IntrasysEmployees')); ?>
       <?= $this->Element('sideBar', array('type' => 'Retailers', 'typePlural' => 'retailers')); ?>
       <?= $this->Element('sideBar', array('type' => 'Retailer Account Types', 'typePlural' => 'RetailerAccTypes')); ?>
-      <?= $this->Element('sideBar', array('type' => 'Retailer Loyalty Points', 'typePlural' => 'RetailerLoyaltyPoints')); ?>
+      <!--<?= $this->Element('sideBar', array('type' => 'Retailer Loyalty Points', 'typePlural' => 'RetailerLoyaltyPoints')); ?>-->
       <?= $this->Element('sideBar', array('type' => 'System Announcements', 'typePlural' => 'Announcements')); ?>
-      <?= $this->Element('sideBar2', array('type' => 'Intrasys Loggings', 'typePlural' => 'IntrasysLoggings')); ?>
-
+      <li class="treeview">
+          <a href="/IS3102_Final/intrasys-loggings/index">
+            <i class="fa fa-table"></i><span>Intrasys Loggings</span>
+          </a>
+        </li>
       <!--<li class="treeview">
         <a href="">
           <i class="fa fa-table"></i>
