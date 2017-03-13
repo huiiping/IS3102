@@ -52,6 +52,11 @@ class InventoryTable extends Table
             'type' => 'like',
             'field' => 'Locations.name',
             'method' => 'findByActions'
+        ),
+        'search' => array(
+            'type' => 'like',
+            'field' => array('id','ProdTypes.prod_name','SKU','quantity','Sections.sec_name','Locations.name'),
+            'method' => 'findByActions'
         )
 
     );
