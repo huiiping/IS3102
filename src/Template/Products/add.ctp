@@ -26,10 +26,23 @@
             echo $this->Form->input('web_store_unit_price');
             echo $this->Form->input('SKU');
             echo $this->Form->input('prod_cat_id', ['options' => $prodCats, 'empty' => true]);
-            echo $this->Form->input('prod_specifications._ids', ['options' => $prodSpecifications]);
+            // echo $this->Form->input('prod_specifications._title', array('type' => 'hidden');
+            //     // prod_specifications._ids', ['options' => $prodSpecifications]);
             echo $this->Form->input('promotions._ids', ['options' => $promotions]);
+
         ?>
     </fieldset>
+
+    <?= $this->Form->create($prodSpecification) ?>
+    <fieldset>
+        <legend><?= __('Add Product Specification') ?></legend>
+        <?php
+            echo $this->Form->input('title', array('type' => 'visible'));
+            echo $this->Form->input('description');
+            // echo $this->Form->input('products._ids', ['options' => $products]);
+        ?>
+    </fieldset>
+
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>

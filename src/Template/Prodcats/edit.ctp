@@ -28,8 +28,35 @@ use Cake\ORM\TableRegistry;
 
             echo $this->Form->input('parentid', array('type' => 'select', 'options' => array_combine($data, $data), 'empty' => true));
             ?>
-        </fieldset>
-        <?= $this->Form->button(__('Submit')) ?>
-        <?= $this->Form->end() ?>
-    </div>
+            <div class="container">
+              <h3>Tooltip Example</h3>
+              <p>The data-placement attribute specifies the tooltip position.</p>
+              <ul class="list-inline">
+                  <li><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">Right</a></li>
+              </ul>
+          </div>
 
+          
+
+     <!--Hovering works. Can use for employee roles & parentID. Just need to make it nicer
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <li>Milk</li>
+        <script>
+            $( "li" ).hover(
+              function() {
+                $( this ).append( $( "<span> ***</span>" ) );
+            }, function() {
+                $( this ).find( "span:last" ).remove();
+            }
+            );
+        </script>-->
+    </fieldset>
+    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->end() ?>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();   
+    });
+</script>

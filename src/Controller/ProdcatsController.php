@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Error\Debugger;
+use Cake\ORM\TableRegistry;
 
 
 /**
@@ -49,6 +50,13 @@ class ProdCatsController extends AppController
 
         $this->set('prodCat', $prodCat);
         $this->set('_serialize', ['prodCat']);
+    }
+
+    public function view2()
+    {
+        $prodCats = $this->paginate($this->ProdCats);
+        $this->set(compact('prodCats'));
+        $this->set('_serialize', ['prodCats']);
     }
 
     /**

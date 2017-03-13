@@ -19,7 +19,7 @@ class ProductsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['ProdCats']
+        'contain' => ['ProdCats']
         ];
         $products = $this->paginate($this->Products);
 
@@ -38,7 +38,7 @@ class ProductsController extends AppController
     {
         $product = $this->Products->get($id, [
             'contain' => ['ProdCats', 'ProdSpecifications', 'Promotions']
-        ]);
+            ]);
 
         $this->set('product', $product);
         $this->set('_serialize', ['product']);
@@ -79,7 +79,7 @@ class ProductsController extends AppController
     {
         $product = $this->Products->get($id, [
             'contain' => ['ProdSpecifications', 'Promotions']
-        ]);
+            ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $product = $this->Products->patchEntity($product, $this->request->data);
             if ($this->Products->save($product)) {

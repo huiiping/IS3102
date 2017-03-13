@@ -31,7 +31,7 @@ class InventoryTable extends Table
             'type' => 'like',
             'field' => 'id'
         ),
-        'prod_type_id' => array(
+        'product_id' => array(
             'type' => 'like',
             'field' => 'Products.prod_name'
         ),
@@ -74,8 +74,8 @@ class InventoryTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('ProdTypes', [
-            'foreignKey' => 'prod_type_id',
+        $this->belongsTo('Products', [
+            'foreignKey' => 'product_id',
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('Sections', [
@@ -122,7 +122,7 @@ class InventoryTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['prod_type_id'], 'ProdTypes'));
+        $rules->add($rules->existsIn(['product_id'], 'Products'));
         $rules->add($rules->existsIn(['section_id'], 'Sections'));
         $rules->add($rules->existsIn(['location_id'], 'Locations'));
 
