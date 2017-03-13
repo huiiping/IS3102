@@ -3,24 +3,37 @@
   * @var \App\View\AppView $this
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Prod Specifications'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Products'), ['controller' => 'Products', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Product'), ['controller' => 'Products', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="prodSpecifications form large-9 medium-8 columns content">
-    <?= $this->Form->create($prodSpecification) ?>
-    <fieldset>
-        <legend><?= __('Add Prod Specification') ?></legend>
-        <?php
-            echo $this->Form->input('title', array('type' => 'visible'));
-            echo $this->Form->input('description');
-            echo $this->Form->input('products._ids', ['options' => $products]);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+
+<?= $this->Element('retailerLeftSideBar'); ?>
+
+<!-- Main Content -->
+<div class="content-wrapper">
+  <!-- Content Header -->
+  <section class="content-header">
+  </section>
+  <!-- Main content -->
+  <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title"><?= __('Create New Product Specification') ?></h3>
+            </div>
+            <div class="box-body">
+                <?= $this->Form->create($prodSpecification) ?>
+                <fieldset>
+                    <?php
+                        echo $this->Form->input('title', array('type' => 'visible'));
+                        echo $this->Form->input('description');
+                        echo $this->Form->input('products._ids', ['options' => $products]);
+                    ?>
+                </fieldset>
+                <br>
+                <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
+                <?= $this->Form->end() ?>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
 </div>
