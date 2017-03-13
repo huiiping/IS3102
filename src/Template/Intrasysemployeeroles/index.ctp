@@ -46,23 +46,24 @@
                   <tr>
                       <th scope="col"><?= $this->Paginator->sort(('id'), ['label' => 'ID']) ?></th>
                       <th scope="col"><?= $this->Paginator->sort('role_name') ?></th>
-                      <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                      <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-                      <th scope="col" class="actions"><?= __('Actions') ?></th>
+                      <th scope="col"><?= $this->Paginator->sort('role_desc') ?></th>
+                      <!-- <th scope="col"><?= $this->Paginator->sort('modified') ?></th> -->
+                      <!-- <th scope="col" class="actions"><?= __('Actions') ?></th> -->
                   </tr>
               </thead>
               <tbody>
                   <?php foreach ($intrasysEmployeeRoles as $intrasysEmployeeRole): ?>
                   <tr>
                       <td><?= $this->Number->format($intrasysEmployeeRole->id) ?></td>
-                      <td><?= h($intrasysEmployeeRole->role_name) ?></td>
-                      <td><?= $this->Time->format(h($intrasysEmployeeRole->created), 'd MMM YYYY, hh:mm') ?></td>
-                      <td><?= $this->Time->format(h($intrasysEmployeeRole->modified), 'd MMM YYYY, hh:mm') ?></td>
-                      <td class="actions">
-                          <?= $this->Html->link(__('View'), ['action' => 'view', $intrasysEmployeeRole->id]) ?>
+                      <td><?= $this->Html->link(__($intrasysEmployeeRole->role_name), ['action' => 'view', $intrasysEmployeeRole->id])  ?></td>
+                      <td><?= h($intrasysEmployeeRole->role_desc) ?></td>
+                      <!--  <td><?= $this->Time->format(h($intrasysEmployeeRole->created), 'd MMM YYYY, hh:mm') ?></td>
+                      <td><?= $this->Time->format(h($intrasysEmployeeRole->modified), 'd MMM YYYY, hh:mm') ?></td> -->
+                     <!--  <td class="actions">
+                          <?= $this->Html->link(__('View'), ['action' => 'view', $intrasysEmployeeRole->id]) ?> -->
                           <!--<?= $this->Html->link(__('Edit'), ['action' => 'edit', $intrasysEmployeeRole->id]) ?>
                           <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $intrasysEmployeeRole->id], ['confirm' => __('Are you sure you want to delete # {0}?', $intrasysEmployeeRole->id)]) ?>-->
-                      </td>
+                      <!-- </td> -->
                   </tr>
                   <?php endforeach; ?>
               </tbody>
