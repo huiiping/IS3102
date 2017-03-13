@@ -1,0 +1,21 @@
+diff a/src/Template/Intrasysemployees/add.ctp b/src/Template/Intrasysemployees/add.ctp	(rejected hunks)
+@@ -59,9 +59,16 @@
+                   <input class = "form-control" type="text" name="address" placeholder = "Address*" required="required" id="address" maxlength="255">
+                 </div> 
+               </div>
+-              <div class ="form-group">
+-                <label>Intrasys Employee Roles</label>
+-                <?= $this->Form->input('intrasys_employee_roles._ids', ['options' => $intrasysEmployeeRoles, 'label' => '']); ?>
++              <div class="form-group">
++                <div class="input-group">
++                  <label>Intrasys Employee Roles</label><br>
++                  <input type="hidden" name="intrasys_employee_roles[_ids]" value="">
++                  <select name="intrasys_employee_roles[_ids][]" multiple="multiple">
++                  <?php foreach ($intrasysEmployeeRoles as $intrasysEmployeeRole): ?>
++                    <option value="<?= $intrasysEmployeeRole->id ?>"><?php echo $intrasysEmployeeRole->role_name ?></option>
++                  <?php endforeach; ?>
++                  </select>
++                </div>
+               </div>
+               <br>
+               <div class ="form-group" align="right">            
