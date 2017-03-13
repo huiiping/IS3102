@@ -13,6 +13,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  * @property int $retailer_id
+ * @property int $intrasys_employee_id
  *
  * @property \App\Model\Entity\Retailer $retailer
  */

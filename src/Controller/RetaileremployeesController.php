@@ -538,6 +538,7 @@ public function login(){
                             $rlp->redemption_pts = null;
                             $rlp->remarks = 'Annual Contractual Loyalty Reward';
                             $rlp->retailer_id = $query[0]['id'];
+                            $rlp->intrasys_employee_id = '0';
 
                             $rlpTable->save($rlp);
 

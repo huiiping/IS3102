@@ -24,11 +24,10 @@ class RetailerLoyaltyPointsController extends AppController
 
     /**
      * Index method
-     *
+     * Not used in the current setup
      * @return \Cake\Network\Response|null
      */
-    public function index()
-    {
+    public function index() {
         $this->loadComponent('Prg');
         $this->Prg->commonProcess();
 
@@ -40,10 +39,10 @@ class RetailerLoyaltyPointsController extends AppController
         $this->set(compact('retailerLoyaltyPoints'));
         $this->set('_serialize', ['retailerLoyaltyPoints']);
     }
+
     public $components = array(
         'Prg'
     );
-
 
     /**
      * View method
@@ -54,48 +53,18 @@ class RetailerLoyaltyPointsController extends AppController
      */
     public function view($id = null)
     {
+        $this->paginate = [
+            'contain' => ['IntrasysEmployees', 'Retailers']
+        ];
 
-        //$this->loadComponent('Prg');
-        //$this->Prg->commonProcess();
+        $query = $this->paginate($this->RetailerLoyaltyPoints->find('searchable', $this->Prg->parsedParams())->where(['retailer_id' => $id])->order(['RetailerLoyaltyPoints.modified' => 'ASC']));
 
-        //$this->paginate = [
-             //'contain' => ['Retailers']
-        //];
-        
-        //echo $id;
-        //$table = TableRegistry::get('RetailerLoyaltyPoints');
-        //$query = $table->find('all')
-                    //->where(['retailer_id' => $id])
-                    //->toArray();
+        $query2 = $this->RetailerLoyaltyPoints->Retailers->find('all')->where(['id' => $id])->toArray();
 
-        // $query = $this->RetailerLoyaltyPoints->find()
-        //         ->where(['RetailerLoyaltyPoints.retailer_id' => $id])
-        //         ->toArray();
-
-        $query = $this->paginate($this->RetailerLoyaltyPoints->find('searchable', $this->Prg->parsedParams())->where(['retailer_id' => $id]));
-
-        //$this->set('retailerLoyaltyPoints', $this->paginate($this->RetailerLoyaltyPoints->find('searchable', $this->Prg->parsedParams())->where['retailer_id' => $id]));
+        $this->set('retailer', $query2);
         $this->set('retailerLoyaltyPoints', $query);
-        //$this->set('retailerLoyaltyPoints', $this->paginate($this->RetailerLoyaltyPoints->find('searchable', $query)));
-        //$this->set('retailerLoyaltyPoints', $this->paginate($query));
-        //$this->set('retailerId', $id);
-        $this->set(compact('retailerLoyaltyPoints'));
+        $this->set(compact('retailerLoyaltyPoints', 'retailer'));
         $this->set('_serialize', ['retailerLoyaltyPoints']);
-
-        // $retailerLoyaltyPoint = $this->RetailerLoyaltyPoints->get($id, [
-        //     'contain' => ['Retailers']
-        //     ]);
-
-        //$session = $this->request->session();
-        //$retailer = $session->read('retailer');
-
-        //$this->loadComponent('Logging');
-        //$this->Logging->rLog($retailerLoyaltyPoint['id']);
-        //$this->Logging->iLog($retailer, $retailerLoyaltyPoint['id']);
-
-        // $this->set('retailerLoyaltyPoint', $retailerLoyaltyPoint);
-        // $this->set(compact('retailerLoyaltyPoint', 'retailerId'));
-        // $this->set('_serialize', ['retailerLoyaltyPoint']);
     }
 
     /**
@@ -118,7 +87,7 @@ class RetailerLoyaltyPointsController extends AppController
                 $this->Logging->rLog($retailerLoyaltyPoint['id']);
                 $this->Logging->iLog($retailer, $retailerLoyaltyPoint['id']);
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $retailerLoyaltyPoint->retailer_id]);
             }
             $this->Flash->error(__('The retailer loyalty point could not be saved. Please, try again.'));
         }
@@ -127,9 +96,37 @@ class RetailerLoyaltyPointsController extends AppController
         $this->set('_serialize', ['retailerLoyaltyPoint']);
     }
 
+    public function addSpecific($id = null)
+    {
+        $retailerLoyaltyPoint = $this->RetailerLoyaltyPoints->newEntity();
+        if ($this->request->is('post')) {
+            $retailerLoyaltyPoint = $this->RetailerLoyaltyPoints->patchEntity($retailerLoyaltyPoint, $this->request->data);
+            if ($this->RetailerLoyaltyPoints->save($retailerLoyaltyPoint)) {
+                $this->Flash->success(__('The retailer loyalty point has been saved.'));
+
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($retailerLoyaltyPoint['id']);
+                $this->Logging->iLog($retailer, $retailerLoyaltyPoint['id']);
+
+                return $this->redirect(['action' => 'view', $retailerLoyaltyPoint->retailer_id]);
+            }
+            $this->Flash->error(__('The retailer loyalty point could not be saved. Please, try again.'));
+        }
+
+        $query2 = $this->RetailerLoyaltyPoints->Retailers->find('all')->where(['id' => $id])->toArray();
+
+        $this->set('retailer', $query2);
+        $this->set(compact('retailerLoyaltyPoint', 'retailer'));
+        $this->set('_serialize', ['retailerLoyaltyPoint']);
+    }
+
     /**
      * Edit method
-     *
+     * Not allowed to edit with the current set up.
+     * User to create another row to correct mistakes if any. 
      * @param string|null $id Retailer Loyalty Point id.
      * @return \Cake\Network\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
@@ -151,7 +148,7 @@ class RetailerLoyaltyPointsController extends AppController
                 $this->Logging->rLog($retailerLoyaltyPoint['id']);
                 $this->Logging->iLog($retailer, $retailerLoyaltyPoint['id']);
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $retailerLoyaltyPoint->retailer_id]);
             }
             $this->Flash->error(__('The retailer loyalty point could not be saved. Please, try again.'));
         }
@@ -181,7 +178,7 @@ class RetailerLoyaltyPointsController extends AppController
                     $this->Logging->rLog($retailerLoyaltyPoint['id']);
                     $this->Logging->iLog($retailer, $retailerLoyaltyPoint['id']);
 
-                    return $this->redirect(['action' => 'individual', $retailerLoyaltyPoint->retailer_id]);
+                    return $this->redirect(['action' => 'view', $retailerLoyaltyPoint->retailer_id]);
                 }
             } else {
                 $this->Flash->error(__('Cannot redeem loyalty points that had been redeemed.'));
@@ -195,7 +192,7 @@ class RetailerLoyaltyPointsController extends AppController
     }
     /**
      * Delete method
-     *
+     * Not allowed to delete with the current setup
      * @param string|null $id Retailer Loyalty Point id.
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
@@ -218,7 +215,7 @@ class RetailerLoyaltyPointsController extends AppController
             $this->Flash->error(__('The retailer loyalty point could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'view', $retailerLoyaltyPoint->retailer_id]);
     }
 
     public function individual($id = null)

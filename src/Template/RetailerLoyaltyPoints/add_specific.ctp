@@ -23,10 +23,11 @@
                 <?= $this->Form->create($retailerLoyaltyPoint) ?>
                 <fieldset>
                     <?php
+                        $session = $this->request->session();
                         echo $this->Form->input('loyalty_pts', ['label'=>'Loyalty Points']);
                         echo $this->Form->input('redemption_pts');
                         echo $this->Form->input('remarks');
-                        echo $this->Form->input('retailer_id', ['options' => $retailers]);
+                        echo $this->Form->hidden('retailer_id', ['value' => $retailer[0]['id']]);
                         echo $this->Form->hidden('intrasys_employee_id', ['value'=>$session->read('employee_id')]);
                     ?>
                 </fieldset>

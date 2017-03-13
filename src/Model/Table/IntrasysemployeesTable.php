@@ -56,7 +56,7 @@ class IntrasysEmployeesTable extends Table
         parent::initialize($config);
 
         $this->table('intrasys_employees');
-        $this->displayField('id');
+        $this->displayField('last_name');
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');

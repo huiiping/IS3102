@@ -1,3 +1,18 @@
+--------------------------------------------------------
+Check Log
+CAA: 14 March 0007 hrs
+
+Order of tables:
+01. retailer_acc_types
+02. retailers
+03. intrasys_loggings
+04. retailer_loyalty_points
+05. intrasys_employees
+06. intrasys_employee_roles
+07. announcements
+08. intrasys_employees_intrasys_employee_roles
+--------------------------------------------------------
+
 CREATE TABLE retailer_acc_types (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) UNIQUE NOT NULL,
@@ -48,7 +63,9 @@ CREATE TABLE retailer_loyalty_points (
     remarks TEXT, 
     created DATETIME,
     modified DATETIME,
-    retailer_id INT NOT NULL,
+    retailer_id INT,
+    intrasys_employee_id INT,
+    FOREIGN KEY (intrasys_employee_id) REFERENCES intrasys_employees(id),
     FOREIGN KEY (retailer_id) REFERENCES retailers(id)
 );
 

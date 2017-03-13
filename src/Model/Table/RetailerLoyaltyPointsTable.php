@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
  * RetailerLoyaltyPoints Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Retailers
+ * @property \Cake\ORM\Association\BelongsTo $IntrasysEmployees
  *
  * @method \App\Model\Entity\RetailerLoyaltyPoint get($primaryKey, $options = [])
  * @method \App\Model\Entity\RetailerLoyaltyPoint newEntity($data = null, array $options = [])
@@ -23,10 +24,11 @@ use Cake\Validation\Validator;
  */
 class RetailerLoyaltyPointsTable extends Table
 {
+
+
     public static function defaultConnectionName() {
         return 'intrasysdb';
     }
-
 
     public $filterArgs = array(
         'id' => array(
@@ -58,9 +60,8 @@ class RetailerLoyaltyPointsTable extends Table
             'field' => 'Retailers.retailer_name',
             'method' => 'findByActions'
         )
+
     );
-
-
     /**
      * Initialize method
      *
@@ -71,9 +72,9 @@ class RetailerLoyaltyPointsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('retailer_loyalty_points');
-        $this->displayField('id');
-        $this->primaryKey('id');
+        $this->setTable('retailer_loyalty_points');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
 
@@ -81,6 +82,11 @@ class RetailerLoyaltyPointsTable extends Table
             'foreignKey' => 'retailer_id',
             'joinType' => 'INNER'
         ]);
+        $this->belongsTo('IntrasysEmployees', [
+            'foreignKey' => 'intrasys_employee_id',
+            'joinType' => 'INNER'
+        ]);
+
         $this->addBehavior('Searchable');
     }
 
@@ -120,6 +126,7 @@ class RetailerLoyaltyPointsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['retailer_id'], 'Retailers'));
+        $rules->add($rules->existsIn(['intrasys_employee_id'], 'IntrasysEmployees'));
 
         return $rules;
     }

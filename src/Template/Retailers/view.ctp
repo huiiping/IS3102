@@ -42,18 +42,18 @@
               <br>
               <?php if ($retailer->account_status == 'Activated'): ?>
                  <div class="btn btn-default btn-block">
-                    <?= $this->Html->link(__('Deactivate Retailer'), ['action' => 'deactivateStatus', $retailer->id]) ?>
+                    <?= $this->Html->link(__('Deactivate '.$retailer->retailer_name), ['action' => 'deactivateStatus', $retailer->id]) ?>
                   </div><br>
               <?php else: ?>
                  <div class="btn btn-default btn-block">
-                    <?= $this->Html->link(__('Activate Retailer'), ['action' => 'activateStatus', $retailer->id]) ?>
+                    <?= $this->Html->link(__('Activate '.$retailer->retailer_name), ['action' => 'activateStatus', $retailer->id]) ?>
                   </div><br>
               <?php endif; ?>
               <div class="btn btn-default btn-block">
-                <?= $this->Html->link(__('Edit Retailer'), ['action' => 'edit', $retailer->id]) ?>
+                <?= $this->Html->link(__('Edit '.$retailer->retailer_name), ['action' => 'edit', $retailer->id]) ?>
               </div><br>
               <div class="btn btn-default btn-block">
-                <?= $this->Html->link(__('View Retailer Loyalty Points'), ['controller' => 'retailer_loyalty_points', 'action' => 'individual', $retailer->id]) ?>
+                <?= $this->Html->link(__('Manage '.$retailer->retailer_name.'\'s Loyalty Points'), ['controller' => 'retailer_loyalty_points', 'action' => 'view', $retailer->id]) ?>
               </div>
               <br>
             </div>
