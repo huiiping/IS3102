@@ -45,6 +45,11 @@ class CustMembershipTiersPromotionsTable extends Table
             'field' => 'Promotions.id',
             'method' => 'findByActions'
         ),
+        'search' => array(
+            'type' => 'like',
+            'field' => array('Promotions.id','Promotions.credit_card_type','CustMembershipTiers.tier_name','CustMembershipTiers.id'),
+            'method' => 'findByActions'
+        ),
 
         'type' => array(
             'type' => 'type'

@@ -24,15 +24,12 @@
               <?php if(!$type) : ?>
               <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
                 <tr>
-                    <?php echo $this->Form->create(null);?>
+                    <?php echo $this->Form->create($suppliers);?>
                     <th width="10"></th>
-                    <th scope="col"><?= $this->Form->input('supplier_name'); ?></th>
+                    <th scope="col"><?= $this->Form->input('search'); ?></th>
                     <th width="60"></th>
-                    <th scope="col"><?= $this->Form->input('country'); ?></th>
-                    <th width="60"></th>
-                    <th scope="col"><?= $this->Form->input('address'); ?></th>
-                    <th width="30"></th>
-                    <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+
+                    <th scope="col" class="actions"><?= $this->Form->submit(__('Search'), ['class'=>'btn btn-default btn-flat']); ?></th>
                     <th width="10"></th>
                     <?php echo $this->Form->end();?>
                 </tr>

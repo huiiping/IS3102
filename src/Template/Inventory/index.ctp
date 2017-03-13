@@ -27,15 +27,10 @@
                     <tr><?php
                         echo $this->Form->create($inventory);?>
                         <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input(('prod_type_id'), ['label' => 'Product Type Name', 'type' => 'search']); ?></th>
+                        <th scope="col"><?= $this->Form->input(('search'), ['label' => 'Search', 'type' => 'search']); ?></th>
                         <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input(('section_id'), ['label' => 'Section Name', 'type' => 'search']); ?></th>
-                        <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input(('location_id'), ['label' => 'Location Name', 'type' => 'search']); ?></th>
-                        <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input(('SKU'), ['label' => 'SKU', 'type' => 'search']); ?></th>
-                        <th width="10"></th>
-                        <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+
+                        <th scope="col" class="actions"><?= $this->Form->submit(__('Search'), ['class'=>'btn btn-default btn-flat']); ?></th>
                         <th width="10"></th>
                         <?php echo $this->Form->end();?>
                     </tr>

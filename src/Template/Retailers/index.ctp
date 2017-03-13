@@ -23,13 +23,13 @@
             <br>
               <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
                   <tr>
-                    <?php echo $this->Form->create(null);?>
+                    <?php echo $this->Form->create($retailers);?>
                       <th width="10"></th>
                       <th scope="col"><?= $this->Form->input('retailer_name'); ?></th>
                       <th width="60"></th>
                       <th scope="col"><?= $this->Form->input('account_status'); ?></th>
                       <th width="30"></th>
-                      <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+                      <th scope="col" class="actions"><?= $this->Form->submit(__('Search'), ['class'=>'btn btn-default btn-flat']); ?></th>
                       <th width="10"></th>
                       <?php echo $this->Form->end();?>
                   </tr>
@@ -45,16 +45,7 @@
                         <th scope="col"><?= $this->Paginator->sort('payment_term') ?></th>-->
                         <th scope="col"><?= $this->Paginator->sort('retailer_email') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('retailer_acc_type_id', ['label'=>'Retailer Account Type']) ?></th>
-                        <!--<th scope="col"><?= $this->Paginator->sort('address') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('contact') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('contract_start_date') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('contract_end_date') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('num_of_users') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('num_of_warehouses') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('num_of_stores') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('num_of_product_types') ?></th>-->
-                        <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
+                        <th scope="col"><?= $this->Paginator->sort('retailer_acc_type_id', ['label'=>'Loyalty Points']) ?></th>
                         <th scope="col" class="actions"><?= __('Actions') ?></th>
                     </tr>
                 </thead>
@@ -62,21 +53,36 @@
                     <?php foreach ($retailers as $retailer): ?>
                     <tr>
                         <td><?= $this->Number->format($retailer->id) ?></td>
-                        <td><?= h($retailer->retailer_name) ?></td>
+                        <td><?= $this->Html->link(__(h($retailer->retailer_name)), ['action' => 'view', $retailer->id]) ?></td>
                         <!--<td><?= h($retailer->account_status) ?></td>
                         <td><?= h($retailer->payment_term) ?></td>-->
-                        <td><?= h($retailer->retailer_email) ?></td>
+                        <td><?= $this->Text->autoLinkEmails(h($retailer->retailer_email)) ?></td>
                         <td><?= $retailer->has('retailer_acc_type') ? $this->Html->link($retailer->retailer_acc_type->name, ['controller' => 'RetailerAccTypes', 'action' => 'view', $retailer->retailer_acc_type->id]) : '' ?></td>
-                        <!--<td><?= h($retailer->address) ?></td>
-                        <td><?= h($retailer->contact) ?></td>
-                        <td><?= h($retailer->contract_start_date) ?></td>
-                        <td><?= h($retailer->contract_end_date) ?></td>
-                        <td><?= $this->Number->format($retailer->num_of_users) ?></td>
-                        <td><?= $this->Number->format($retailer->num_of_warehouses) ?></td>
-                        <td><?= $this->Number->format($retailer->num_of_stores) ?></td>
-                        <td><?= $this->Number->format($retailer->num_of_product_types) ?></td>-->
-                        <td><?= $this->Time->format(h($retailer->created), 'd MMM YYYY, hh:mm') ?></td>
-                        <td><?= $this->Time->format(h($retailer->modified), 'd MMM YYYY, hh:mm') ?></td>
+                        <td>
+
+                        <?php
+                          $query = $retailerLoyaltyPoints
+                                    ->find()
+                                    ->select(['loyalty_pts','redemption_pts'])
+                                    ->where(['retailer_id' => $retailer->id])
+                                    ->toArray();
+                          $total = 0;
+                          foreach ($query as $row) {
+
+                            if($row['loyalty_pts'] == null){
+
+                              $total -= $row['redemption_pts'];
+                            } else {
+
+                              $total += $row['loyalty_pts'];
+                            }                            
+                          }
+
+                          echo $this->Html->link($total, ['controller' => 'retailerLoyaltyPoints' , 'action' => 'view', $retailer->id]);
+
+                        ?>
+                          
+                        </td>
                         <td class="actions">
                             <?= $this->Html->link(__('View |'), ['action' => 'view', $retailer->id]) ?>
                             <?= $this->Html->link(__('Edit |'), ['action' => 'edit', $retailer->id]) ?>

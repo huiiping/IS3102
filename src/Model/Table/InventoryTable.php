@@ -33,7 +33,7 @@ class InventoryTable extends Table
         ),
         'prod_type_id' => array(
             'type' => 'like',
-            'field' => 'ProdTypes.prod_name'
+            'field' => 'Products.prod_name'
         ),
         'SKU' => array(
             'type' => 'like',
@@ -51,6 +51,11 @@ class InventoryTable extends Table
         'location_id' => array(
             'type' => 'like',
             'field' => 'Locations.name',
+            'method' => 'findByActions'
+        ),
+        'search' => array(
+            'type' => 'like',
+            'field' => array('id','Products.prod_name','SKU','quantity','Sections.sec_name','Locations.name'),
             'method' => 'findByActions'
         )
 

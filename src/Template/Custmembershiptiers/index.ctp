@@ -27,12 +27,9 @@
                     <tr><?php
                         echo $this->Form->create($custMembershipTiers);?>
                         <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input(('tier_name'), ['label' => 'Membership Tier Name', 'type' => 'search']); ?></th>
+                        <th scope="col"><?= $this->Form->input(('search'), ['label' => 'Membership Tier Name', 'type' => 'search']); ?></th>
                         <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input('validity_period',['label' => 'Validity Period', 'type' => 'search']); ?></th>
-                        <th width="30"></th>
-                        <th scope="col"><?= $this->Form->input('membership_pts',['label' => 'Membership Pts', 'type' => 'search']); ?></th>
-                        <th width="30"></th>
+
 
                         <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
                         <th width="10"></th>

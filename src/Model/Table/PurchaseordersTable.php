@@ -51,7 +51,13 @@ class PurchaseOrdersTable extends Table
             'type' => 'like',
             'field' => 'RetailerEmployees.first_name',
             'method' => 'findByActions'
+        ),
+        'search' => array(
+            'type' => 'like',
+            'field' => array('RetailerEmployees.first_name','id','total_price','created','Suppliers.supplier_name'),
+            'method' => 'findByActions'
         )
+
     );
     /**
      * Initialize method

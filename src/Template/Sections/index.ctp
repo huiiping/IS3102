@@ -27,11 +27,9 @@
                     <tr><?php
                         echo $this->Form->create($sections);?>
                         <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input(('sec_name'), ['label' => 'Section Name']); ?></th>
-                        <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input('location_name',['label' => 'Location Name', 'type' => 'search']); ?></th>
-                        <th width="30"></th>
-                        <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+                        <th scope="col"><?= $this->Form->input(('search'), ['label' => 'Search']); ?></th>
+
+                        <th scope="col" class="actions"><?= $this->Form->submit(__('Search'), ['class'=>'btn btn-default btn-flat']); ?></th>
                         <th width="10"></th>
                         <?php echo $this->Form->end();?>
                     </tr>

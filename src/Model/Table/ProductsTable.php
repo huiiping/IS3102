@@ -24,6 +24,41 @@ use Cake\Validation\Validator;
 class ProductsTable extends Table
 {
 
+
+    public $filterArgs = array(
+        'id' => array(
+            'type' => 'like',
+            'field' => 'id'
+        ),
+        'prod_name' => array(
+            'type' => 'like',
+            'field' => 'prod_name'
+        ),
+        'prod_desc' => array(
+            'type' => 'like',
+            'field' => 'prod_desc'
+        ),
+        'store_unit_price' => array(
+            'type' => 'like',
+            'field' => 'store_unit_price'
+        ),
+        'web_store_unit_price' => array(
+            'type' => 'like',
+            'field' => 'web_store_unit_price',
+            'method' => 'findByActions'
+        ),
+        'SKU' => array(
+            'type' => 'like',
+            'field' => 'SKU',
+            'method' => 'findByActions'
+        ),
+        'search' => array(
+            'type' => 'like',
+            'field' => array('id','prod_name','prod_desc','SKU','store_unit_price','web_store_unit_price'),
+            'method' => 'findByActions'
+        )
+
+    );
     /**
      * Initialize method
      *

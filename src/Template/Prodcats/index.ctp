@@ -10,6 +10,22 @@
     </ul>
 </nav>
 <div class="prodCats index large-9 medium-8 columns content">
+
+    <br>
+    <!--<legend><h4><?= __('Search') ?></h4></legend>-->
+    <table cellpadding="0" cellspacing="0", bgcolor="#FFFFFF">
+        <tr><?php
+            echo $this->Form->create($prodCats);?>
+            <th width="10"></th>
+            <th scope="col"><?= $this->Form->input(('search'), ['label' => 'Search', 'type' => 'search']); ?></th>
+            <th width="10"></th>
+
+            <th scope="col" class="actions"><?= $this->Form->submit(__('Search'), ['class'=>'btn btn-default btn-flat']); ?></th>
+            <th width="10"></th>
+            <?php echo $this->Form->end();?>
+        </tr>
+    </table>
+    <br>
     <h3><?= __('Prod Cats') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

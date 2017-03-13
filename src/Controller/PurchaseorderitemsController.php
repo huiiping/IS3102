@@ -26,15 +26,20 @@ class PurchaseOrderItemsController extends AppController
      */
     public function index()
     {
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
         $this->paginate = [
             'contain' => ['PurchaseOrders']
         ];
-        $purchaseOrderItems = $this->paginate($this->PurchaseOrderItems);
 
+        $this->set('purchaseOrderItems', $this->paginate($this->PurchaseOrderItems->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('purchaseOrderItems'));
         $this->set('_serialize', ['purchaseOrderItems']);
     }
 
+    public $components = array(
+        'Prg'
+    );
     /**
      * View method
      *

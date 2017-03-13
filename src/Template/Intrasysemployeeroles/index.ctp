@@ -33,7 +33,7 @@
                       <th width="10"></th>
                       <th scope="col"><?= $this->Form->input('role_name'); ?></th>
                       <th width="30"></th>
-                      <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+                      <th scope="col" class="actions"><?= $this->Form->submit(__('Search'), ['class'=>'btn btn-default btn-flat']); ?></th>
                       <th width="10"></th>
                       <?php echo $this->Form->end();?>
                   </tr>

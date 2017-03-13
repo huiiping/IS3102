@@ -32,10 +32,11 @@ class RetailersController extends AppController
         $this->loadComponent('Prg');
         $this->Prg->commonProcess();
         $this->paginate = [
-            'contain' => ['RetailerAccTypes']
+            'contain' => ['RetailerAccTypes', 'RetailerLoyaltyPoints']
         ];
         $this->set('retailers', $this->paginate($this->Retailers->find('searchable', $this->Prg->parsedParams())));
-        $this->set(compact('retailers'));
+        $this->set('retailerLoyaltyPoints', $this->Retailers->RetailerLoyaltyPoints);
+        $this->set(compact('retailers', 'retailerLoyaltyPoints'));
         $this->set('_serialize', ['retailers']);
     }
     public $components = array(

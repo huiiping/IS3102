@@ -72,6 +72,10 @@ class CustMembershipTiersTable extends Table
             'type' => 'like',
             'field' => 'modified'
         ),
+        'search' => array(
+            'type' => 'like',
+            'field' => array('tier_name','membership_pts','validity_period')
+        ),
         'type' => array(
             'type' => 'type'
         )
