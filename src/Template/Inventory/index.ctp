@@ -27,7 +27,7 @@
                     <tr><?php
                         echo $this->Form->create($inventory);?>
                         <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input(('search'), ['label' => 'Product Type Name', 'type' => 'search']); ?></th>
+                        <th scope="col"><?= $this->Form->input(('search'), ['label' => 'Search', 'type' => 'search']); ?></th>
                         <th width="10"></th>
 
                         <th scope="col" class="actions"><?= $this->Form->submit(__('Search'), ['class'=>'btn btn-default btn-flat']); ?></th>

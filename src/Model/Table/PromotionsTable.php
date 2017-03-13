@@ -58,14 +58,20 @@ class PromotionsTable extends Table
         ),
         'cust_membership_tier_id' => array(
             'type' => 'like',
-            'field' => 'CustMembershipTiers.id',
+            'field' => 'custMembershipTiers.id',
             'method' => 'findByActions'
         ),
         'retailer_employee_id' => array(
             'type' => 'like',
             'field' => 'RetailerEmployees.first_name',
             'method' => 'findByActions'
+        ),
+        'search' => array(
+            'type' => 'like',
+            'field' => array('id','promo_desc','first_voucher_num','last_voucher_num', 'credit_card_type','discount_rate','RetailerEmployees.first_name'),
+            'method' => 'findByActions'
         )
+
     );
     /**
      * Initialize method
