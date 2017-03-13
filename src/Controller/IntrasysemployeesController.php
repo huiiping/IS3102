@@ -163,7 +163,8 @@ public $components = array(
             }
             $this->Flash->error(__('The intrasys employee could not be saved. Please, try again.'));
         }
-        $intrasysEmployeeRoles = $this->IntrasysEmployees->IntrasysEmployeeRoles->find('list', ['limit' => 200]);
+        $this->set('intrasysEmployeeRoles', $this->IntrasysEmployees->IntrasysEmployeeRoles->find('all')); //to populate select input for roles
+        //$intrasysEmployeeRoles = $this->IntrasysEmployees->IntrasysEmployeeRoles->find('list', ['limit' => 200]);
         $this->set(compact('intrasysEmployee', 'intrasysEmployeeRoles'));
         $this->set('_serialize', ['intrasysEmployee']);
     }
