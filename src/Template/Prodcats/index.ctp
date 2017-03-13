@@ -41,20 +41,22 @@
                         <tr>
                             <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                             <th scope="col"><?= $this->Paginator->sort('parentid') ?></th>
-                            <th scope="col"><?= $this->Paginator->sort('cat_name') ?></th>
+                            <th scope="col"><?= $this->Paginator->sort('cat_name', ['label' => 'Category Name']) ?></th>
+                            <th scope="col"><?= $this->Paginator->sort('cat_desc', ['label' => 'Category Description']) ?></th>
                             <th scope="col" class="actions"><?= __('Actions') ?></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($prodCats as $prodCat): ?>
                         <tr>
-                            <td><?= $this->Html->link(__($prodCat->id), ['action' => 'view', $prodCat->id]) ?></td>
+                            <td><?= $this->Number->format($prodCat->id) ?></td>
                             <td><?= $this->Number->format($prodCat->parentid) ?></td>
-                            <td><?= h($prodCat->cat_name) ?></td>
+                            <td><?= $this->Html->link(__($prodCat->cat_name), ['action' => 'view', $prodCat->id]) ?></td>
+                            <td><?= h($prodCat->cat_desc) ?></td>
                             <td class="actions">
-                                <?= $this->Html->link(__('View |'), ['action' => 'view', $prodCat->id]) ?>
-                                <?= $this->Html->link(__('Edit |'), ['action' => 'edit', $prodCat->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $prodCat->id], ['confirm' => __('Are you sure you want to delete # {0}?', $prodCat->id)]) ?>
+                                <!-- <?= $this->Html->link(__('View |'), ['action' => 'view', $prodCat->id]) ?>
+                                <?= $this->Html->link(__('Edit |'), ['action' => 'edit', $prodCat->id]) ?> -->
+                                <?= $this->Form->button(__('Delete'), ['action' => 'delete', $prodCat->id], ['confirm' => __('Are you sure you want to delete # {0}?', $prodCat->id)]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
