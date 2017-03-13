@@ -111,7 +111,7 @@
               <div class="tree well">
                 <ul>
                   <li><span><i class="icon-minus-sign"></i> Master Account</span> 
-                   <a href="">View Accounts</a>
+                   <a href="/IS3102_Final/intrasys-employee-roles/view/10">View Account</a>
                    <ul>
                     <li><span><i class="icon-minus-sign"></i> Employee Accounts Manager</span> 
                       <a href="">View Accounts</a>
