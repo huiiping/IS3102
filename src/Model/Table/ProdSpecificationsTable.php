@@ -21,6 +21,12 @@ use Cake\Validation\Validator;
  */
 class ProdSpecificationsTable extends Table
 {
+    public $filterArgs = array(
+        'search' => array(
+            'type' => 'like',
+            'field' => array('title','description')
+        )
+    );
 
     /**
      * Initialize method
@@ -41,6 +47,7 @@ class ProdSpecificationsTable extends Table
             'targetForeignKey' => 'product_id',
             'joinTable' => 'products_prod_specifications'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

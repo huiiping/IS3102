@@ -18,14 +18,20 @@ class ProductsProdSpecificationsController extends AppController
      */
     public function index()
     {
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
         $this->paginate = [
             'contain' => ['Products', 'ProdSpecifications']
         ];
-        $productsProdSpecifications = $this->paginate($this->ProductsProdSpecifications);
+
+        $this->set('productsProdSpecifications', $this->paginate($this->ProductsProdSpecifications->find('searchable', $this->Prg->parsedParams())));
 
         $this->set(compact('productsProdSpecifications'));
         $this->set('_serialize', ['productsProdSpecifications']);
     }
+    public $components = array(
+        'Prg'
+    );
 
     /**
      * View method

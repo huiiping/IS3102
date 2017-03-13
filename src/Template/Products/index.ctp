@@ -24,26 +24,12 @@
                 <!--<h3><?= __('Search') ?></h3>-->
                 <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
                     <tr><?php
-                        echo $this->Form->create(null);?>
+                        echo $this->Form->create($products);?>
                         <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input(('prod_name'), ['label' => 'Product Name']); ?></th>
+                        <th scope="col"><?= $this->Form->input(('search'), ['label' => 'Search']); ?></th>
                         <th width="60"></th>
-                        <th scope="col"><?= $this->Form->input(('prod_desc'), ['label' => 'Product Description']); ?></th>
-                        <th width="60"></th>
-                        <th scope="col"></th>
-                        <th width="30"></th>
-                        <th scope="col"></th>
-                        <th width="10"></th>
-                    </tr>
-                    <tr>
-                        <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input('store_unit_price'); ?></th>
-                        <th width="60"></th>
-                        <th scope="col"><?= $this->Form->input('web_store_unit_price'); ?></th>
-                        <th width="60"></th>
-                        <th scope="col"><?= $this->Form->input('colour'); ?></th>
-                        <th width="30"></th>
-                        <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+
+                        <th scope="col" class="actions"><?= $this->Form->submit(__('Search'), ['class'=>'btn btn-default btn-flat']); ?></th>
                         <th width="10"></th>
                         <?php echo $this->Form->end();?>
                     </tr>
