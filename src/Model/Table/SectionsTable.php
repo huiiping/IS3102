@@ -50,6 +50,14 @@ class SectionsTable extends Table
 
 
         ),
+        'search' => array(
+            'type' => 'like',
+            'field' => array('Locations.name','Sections.id','sec_name'),
+            'method' => 'findByActions'
+
+
+
+        ),
         'type' => array(
             'type' => 'type'
         )

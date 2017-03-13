@@ -27,11 +27,10 @@
                     <tr><?php
                         echo $this->Form->create($supplierMemos);?>
                         <th width="10"></th>
-                        <th scope="col"><?= $this->Form->input(('supplier_id'), ['label' => 'Supplier Name', 'type' => 'search']); ?></th>
+                        <th scope="col"><?= $this->Form->input(('search'), ['label' => 'Search', 'type' => 'search']); ?></th>
                         <th width="60"></th>
-                        <th scope="col"><?= $this->Form->input(('retailer_employee_id'), ['label' => 'Retailer Employee Name', 'type' => 'search']); ?></th>
-                        <th width="30"></th>
-                        <th scope="col" class="actions"><?= $this->Form->submit(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?></th>
+
+                        <th scope="col" class="actions"><?= $this->Form->submit(__('Search'), ['class'=>'btn btn-default btn-flat']); ?></th>
                         <th width="10"></th>
                         <?php echo $this->Form->end();?>
                     </tr>

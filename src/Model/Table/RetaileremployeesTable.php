@@ -68,6 +68,10 @@ class RetailerEmployeesTable extends Table
         'location' => array(
             'type' => 'like',
             'field' => 'location_id'
+        ),
+        'search' => array(
+            'type' => 'like',
+            'field' => array('id','username','email','address','first_name','last_name','account_status','location_id')
         )
     );
     /**
