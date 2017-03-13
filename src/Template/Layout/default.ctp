@@ -154,7 +154,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           <ul class="nav navbar-nav">
 
             <!-- Start Messages: style can be found in dropdown.less-->
-            <li class="dropdown messages-menu">
+            <li class="dropdown messages-menu" title="Messages">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-envelope-o"></i>
                 <span class="label label-success">4</span>
@@ -233,7 +233,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <!-- End Messages -->
             
             <!-- Start Notifications: style can be found in dropdown.less -->
-            <li class="dropdown notifications-menu">
+            <li class="dropdown notifications-menu" title="Notifications">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-bell-o"></i>
                 <span class="label label-warning">10</span>
@@ -280,7 +280,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <!-- End Notifications -->
             
             <!-- Start Tasks: style can be found in dropdown.less -->
-            <li class="dropdown tasks-menu">
+            <li class="dropdown tasks-menu"  title="Tasks">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-flag-o"></i>
                 <span class="label label-danger">9</span>
@@ -353,7 +353,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
             <!-- Setting -->
             <?php if( (!$intrasys) && (!$type) ) : ?>
-            <li class="dropdown notifications-menu">
+            <li class="dropdown notifications-menu" title="Settings">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-gears"></i>
               </a>
@@ -372,7 +372,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <?php endif; ?>
 
             <!-- Start User Account: style can be found in dropdown.less -->
-            <li class="dropdown user user-menu">
+            <li class="dropdown user user-menu"  title="Profile / Logout">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <img src="/IS3102_Final/img/user2-160x160.jpg" class="user-image" alt="User Image">
                 <span class="hidden-xs">
