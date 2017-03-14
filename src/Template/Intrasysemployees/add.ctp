@@ -59,48 +59,26 @@
                   <input class = "form-control" type="text" name="address" placeholder = "Address*" required="required" id="address" maxlength="255">
                 </div> 
               </div>
-              <div class="form-group">
+
+              <label>Intrasys Employee Role(s)*</label><br>
+              <div class ="form-group">            
                 <div class="input-group">
-                  <label>Intrasys Employee Roles</label><br>
+                  <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
                   <input type="hidden" name="intrasys_employee_roles[_ids]" value="">
-                  <select name="intrasys_employee_roles[_ids][]" multiple="multiple">
-                  <?php foreach ($intrasysEmployeeRoles as $intrasysEmployeeRole): ?>
-                    <option value="<?= $intrasysEmployeeRole->id ?>"><?php echo $intrasysEmployeeRole->role_name ?></option>
-                  <?php endforeach; ?>
+                  <select name="intrasys_employee_roles[_ids][]" class='selectpicker form-control' multiple data-selected-text-format="count > 3" title = "Select Employee Role(s)*">
+                    <?php foreach ($intrasysEmployeeRoles as $intrasysEmployeeRole): ?>
+                      <option value="<?= $intrasysEmployeeRole->id ?>"> <?php echo $intrasysEmployeeRole->role_name ?></option>
+                    <?php endforeach; ?>
                   </select>
-                </div>
-              </div><br>
-              <div class ="form-group" align="right">            
-                <div class="input-group">
-                  <a href="/IS3102_Final/intrasys-employees/index" class="btn btn-md btn-primary pull-right" style="border-radius: 8px; margin:5px;">Back to Employee Index</a>
-                  <button class="btn btn-md btn-primary pull-right" type="submit" style="border-radius: 8px; margin:5px;">Add Employee</button>
                 </div> 
               </div>
-              </form>
-
-
-              <!--<?= $this->Form->create($intrasysEmployee) ?>
-              <fieldset>
-                <?php
-                /*echo $this->Form->input('first_name');
-                echo $this->Form->input('last_name');
-                        //echo $this->Form->input('activation_status');
-                        //echo $this->Form->input('activation_token');
-                        //echo $this->Form->input('recovery_status');
-                        //echo $this->Form->input('recovery_token');
-                        //echo $this->Form->input('username');
-                        //echo $this->Form->input('password');
-                        //echo $this->Form->input(('confirm_password'), array('type'  =>  'password')); 
-                echo $this->Form->input('email');
-                echo $this->Form->input('contact');
-                echo $this->Form->input('address');
-                echo $this->Form->input('intrasys_employee_roles._ids', ['options' => $intrasysEmployeeRoles]);*/
-                ?>
-              </fieldset>
+              <div class ="form-group" align="">            
+                <div class="input-group">
+                  <button class="btn btn-md btn-primary pull-right" type="submit" style="border-radius: 8px; margin-left: 0px; margin:5px;">Add Employee</button>
+                  <a href="/IS3102_Final/intrasys-employees/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Employee Index</a>
+                </div> 
+              </div>
             </form>
-            <br>
-            <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
-            <?= $this->Form->end() ?>-->
           </div>
         </div>
       </div>

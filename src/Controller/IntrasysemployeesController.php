@@ -293,6 +293,7 @@ public $components = array(
         $this->Flash->error(__('You cannot delete your own account.'));
 
       }
+      return $this->redirect(['action' => 'index']);
 
   }
 

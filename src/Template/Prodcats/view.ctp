@@ -26,17 +26,18 @@ use Cake\ORM\TableRegistry;
               <div class="pull-right">
                 <a class="btn btn-default btn-flat" href="/IS3102_Final/prod-cats/edit/<?= $prodCat->id ?>" >Edit Product Category</a>
               </div>
-
-              <div class="box-body">
-                <table class="table table-bordered table-striped">
-                  <tr>
-                    <th scope="row"><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($prodCat->id) ?></td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><?= __('Parent Id') ?></th>
-                    <?php if(!empty($prodCat->parentid)) : ?>
-            
+              <br>
+            </div>
+            <div class="box-body">
+              <table class="table table-bordered table-striped">
+                <tr>
+                  <th scope="row"><?= __('Id') ?></th>
+                  <td><?= $this->Number->format($prodCat->id) ?></td>
+                </tr>
+                <tr>
+                  <th scope="row"><?= __('Parent Id') ?></th>
+                  <?php if(!empty($prodCat->parentid)) : ?>
+                    
                     <?php 
                     $ProdCats = TableRegistry::get('ProdCats');
                     $catName = $ProdCats
@@ -50,21 +51,23 @@ use Cake\ORM\TableRegistry;
                     ?>
                     <?php $result ?>
                     <td><a href="/IS3102_Final/prod-cats/view/<?= $prodCat->parentid ?>" data-toggle="tooltip" data-placement="right" title= "<?php echo $result ?>" > <?= h($prodCat->parentid)?></a></td>
-                    <?php else : ?>
+                  <?php else : ?>
                     <td><?= h('None') ?></td>
-                    <?php endif; ?>
-                  </tr>
-                  <tr>
-                    <th scope="row"><?= __('Category Name') ?></th>
-                    <td><?= h($prodCat->cat_name) ?></td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><?= __('Category Description') ?></th>
-                    <td><?= $this->Text->autoParagraph(h($prodCat->cat_desc)); ?></td>
-                  </tr>
-                </table>
-              </div>
+                  <?php endif; ?>
+                </tr>
+                <tr>
+                  <th scope="row"><?= __('Category Name') ?></th>
+                  <td><?= h($prodCat->cat_name) ?></td>
+                </tr>
+                <tr>
+                  <th scope="row"><?= __('Category Description') ?></th>
+                  <td><?= $this->Text->autoParagraph(h($prodCat->cat_desc)); ?></td>
+                </tr>
+              </table>
             </div>
           </div>
-        </section>
+        </div>
       </div>
+    </div>
+  </section>
+</div>
