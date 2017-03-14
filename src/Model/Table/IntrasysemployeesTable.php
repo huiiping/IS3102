@@ -40,9 +40,9 @@ class IntrasysEmployeesTable extends Table
             'type' => 'like',
             'field' => 'last_name'
         ),
-            'search' => array(
+        'search' => array(
             'type' => 'like',
-            'field' => array('last_name','first_name')
+            'field' => array('last_name','first_name','contact','address','username','email','activation_status')
         )
     );
     /**

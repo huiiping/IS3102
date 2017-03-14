@@ -59,22 +59,21 @@
                   <input class = "form-control" type="text" name="address" placeholder = "Address*" required="required" id="address" maxlength="255">
                 </div> 
               </div>
-              <label>Intrasys Employee Role(s)*</label><br>
               <div class ="form-group">            
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
                   <input type="hidden" name="intrasys_employee_roles[_ids]" value="">
                   <select name="intrasys_employee_roles[_ids][]" class='selectpicker form-control' multiple data-selected-text-format="count > 3" title = "Select Employee Role(s)*">
                     <?php foreach ($intrasysEmployeeRoles as $intrasysEmployeeRole): ?>
-                      <option value="<?= $intrasysEmployeeRole->id ?>"> <?php echo $intrasysEmployeeRole->role_name ?></option>
+                      <option value="<?= $intrasysEmployeeRole->id ?>"><?php echo $intrasysEmployeeRole->role_name ?></option>
                     <?php endforeach; ?>
                   </select>
                 </div> 
               </div>
               <br>
               <div class ="row">
-                <a href="/IS3102_Final/intrasys-employees/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Employee Index</a>
-                <button class="btn btn-md btn-primary pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Add Employee</button>
+                <a href="/IS3102_Final/intrasys-employees/index" class="btn btn-md btn-default pull-left" style="border-radius: 8px; margin:5px;">Back to Employee Index</a>
+                <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Add Employee</button>
               </div>
               <br>
             </form>

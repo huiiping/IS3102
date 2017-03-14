@@ -15,7 +15,7 @@
   <section class="content">
       <div class="row">
         <div class="col-xs-4">
-          <div class="box box-primary" style="height: 100%;">
+          <div class="box box-primary" style="min-height: 500px;">
             <div class="box-body box-profile">
               <img class="profile-user-img img-responsive img-circle" src="/IS3102_Final/img/user2-160x160.jpg" alt="User profile picture">
 
@@ -35,13 +35,13 @@
                   <div class="pull-right"><?= h($intrasysEmployee->activation_status) ?></div>
                 </li>
               </ul>
-              <div class="btn btn-default btn-block"><?= $this->Html->link(__('Edit Employee'), ['action' => 'edit', $intrasysEmployee->id]) ?></div>
+              <a class="btn btn-default btn-block" title="Edit Employee Details" href="/IS3102_Final/intrasys-employees/edit/<?= $intrasysEmployee->id ?>" >Edit Employee Details</a>
             </div>
           </div>
         </div>
         
         <div class="col-md-8">  
-            <div class="box box-primary" style="height: 100%;">
+            <div class="box box-primary" style="min-height: 500px;">
                 <div class="box-body box-profile">
                   <div class="box-header with-border">
                     <h3 class="box-title"><?= __('Employee Profile') ?></h3>
@@ -49,32 +49,40 @@
                   <div class="box-body"><br>
                     <table class="table table-bordered table-striped">
                         <tr>
+                            <th scope="row"><?= __('Id') ?></th>
+                            <td><?= $this->Number->format($intrasysEmployee->id) ?></td>
+                        </tr>
+                        <tr>
                             <th scope="row"><?= __('Username') ?></th>
                             <td><?= h($intrasysEmployee->username) ?></td>
                         </tr>
                         <tr>
                             <th scope="row"><?= __('Email') ?></th>
-                            <td><?= h($intrasysEmployee->email) ?></td>
+                            <td>
+                              <a href="mailto:<?= h($intrasysEmployee->email) ?>" title="email">
+                                <?= h($intrasysEmployee->email) ?>
+                              </a>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row"><?= __('Contact') ?></th>
-                            <td><?= h($intrasysEmployee->contact) ?></td>
+                            <td>
+                              <a href="tel:+<?= h($intrasysEmployee->contact) ?>" title="contact">
+                                <?= h($intrasysEmployee->contact) ?>
+                              </a>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row"><?= __('Address') ?></th>
                             <td><?= h($intrasysEmployee->address) ?></td>
                         </tr>
                         <tr>
-                            <th scope="row"><?= __('Id') ?></th>
-                            <td><?= $this->Number->format($intrasysEmployee->id) ?></td>
+                            <th scope="row"><?= __('Join Date') ?></th>
+                            <td><?= $this->Time->format(h($intrasysEmployee->created), 'd MMM YYYY, HH:mm') ?></td>
                         </tr>
                         <tr>
-                            <th scope="row"><?= __('Created') ?></th>
-                            <td><?= $this->Time->format(h($intrasysEmployee->created), 'd MMM YYYY, hh:mm') ?></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><?= __('Modified') ?></th>
-                            <td><?= $this->Time->format(h($intrasysEmployee->modified), 'd MMM YYYY, hh:mm') ?></td>
+                            <th scope="row"><?= __('Last Modified') ?></th>
+                            <td><?= $this->Time->format(h($intrasysEmployee->modified), 'd MMM YYYY, HH:mm') ?></td>
                         </tr>
                     </table>
                   </div>

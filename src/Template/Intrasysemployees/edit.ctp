@@ -14,37 +14,59 @@
   <!-- Main content -->
   <section class="content">
       <div class="row">
-        <div class="col-xs-12">
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title"><?= __('Edit Intrasys Employee') ?></h3>
+        <div class="col-md-offset-3 col-md-6">
+        <div class="box box-primary">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Edit Intrasys Employee</h3>
             </div>
-            <div class="box-body">
-                <?= $this->Form->create($intrasysEmployee) ?>
-                <fieldset>
-                    <?php
-                        echo $this->Form->input('first_name');
-                        echo $this->Form->input('last_name');
-                        //echo $this->Form->input('activation_status');
-                        //echo $this->Form->input('activation_token');
-                        //echo $this->Form->input('recovery_status');
-                        //echo $this->Form->input('recovery_token');
-                        echo $this->Form->input('username');
-                        echo $this->Form->input('email');
-                        echo $this->Form->input('contact');
-                        echo $this->Form->input('password');
-                        echo $this->Form->input(('confirm_password'), array('type'  =>  'password')); 
-                        echo $this->Form->input('address');
-                        /* Gwen: Employee can't edit their employee role. Only manager can edit for their employees 
-                        echo $this->Form->input('intrasys_employee_roles._ids', ['options' => $intrasysEmployeeRoles]);*/
-                    ?>
-                </fieldset>
-                <br>
-                <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
-                <?= $this->Form->end() ?>
-            </div>
+          </div>
+          <div class="main" style="padding: 10px 20px;">
+
+            <form method="post" accept-charset="utf-8" action="/IS3102_Final/intrasys-employees/edit/<?=$intrasysEmployee->id?>">
+              <div style="display:none;">
+                <input type="hidden" name="_method" value="PUT">
+              </div>
+              <div class ="form-group">          
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                  <input class = "form-control" type="text" value = "<?=$intrasysEmployee->first_name?>" name="first_name" required="required" id="first_name" maxlength="255"> 
+                </div>
+              </div>
+              <div class ="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                  <input class = "form-control" type="text" value = "<?=$intrasysEmployee->last_name?>" name="last_name" required="required" id="last_name" maxlength="255"> 
+                </div>
+              </div>
+              <div class ="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon">@</span>
+                  <input class = "form-control" type="email" value = "<?=$intrasysEmployee->email?>" name="email" required="required" id="email" maxlength="255"> 
+                </div>
+              </div>
+              <div class ="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+                  <input class = "form-control" type="text" value = "<?=$intrasysEmployee->contact?>" name="contact" required="required" id="contact" maxlength="100"> 
+                </div>
+              </div>
+              <div class ="form-group">            
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                  <input class = "form-control" type="text" name="address" value = "<?=$intrasysEmployee->address?>" required="required" id="address" maxlength="255">
+                </div> 
+              </div>
+              <br>
+              <div class ="row">
+                <a href="/IS3102_Final/intrasys-employees/index" class="btn btn-md btn-default pull-left" style="border-radius: 8px; margin:5px;">Back to Employee Index</a>
+                <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Edit Employee</button>
+              </div>
+              <br>
+            </form>
           </div>
         </div>
       </div>
+    </div>
   </section>
 </div>
