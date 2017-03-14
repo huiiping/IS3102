@@ -90,10 +90,11 @@
         <div class="col-md-12">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#promotions" data-toggle="tab">Related Promotions</a></li>
-              <li><a href="#orders" data-toggle="tab">Related Purchase Orders</a></li>
-              <li><a href="#memos" data-toggle="tab">Related Supplier Memos</a></li>
-              <li><a href="#messages" data-toggle="tab">Related Messages</a></li>
+              <li class="active"><a href="#promotions" data-toggle="tab">Latest Promotions</a></li>
+              <li><a href="#orders" data-toggle="tab">Latest Purchase Orders</a></li>
+              <li><a href="#memos" data-toggle="tab">Latest Supplier Memos</a></li>
+              <li><a href="#messages" data-toggle="tab">Latest Messages</a></li>
+              <li><a href="#logs" data-toggle="tab">Latest Logs</a></li>
             </ul>
 
             <div class="tab-content">
@@ -214,6 +215,48 @@
                             <td><?= h($messages->sender_id) ?></td>-->
                         </tr>
                         <?php endforeach; ?>
+                    </table>
+                    <?php else: ?>
+
+                        There is no related message.
+
+                    <?php endif; ?>
+                </div>
+                <div class="tab-pane" id="logs">
+                    <?php if (!empty($retailerEmployee->retailer_loggings)): ?>
+                    <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Action</th>
+                        <th scope="col">Entity (ID)</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        $limit = 1;
+
+                        $result = $retailerEmployee->retailer_loggings;
+                        $result2 = array_slice($result,-5,5);
+
+                        foreach ($result2 as $logs) if($limit < 6){ 
+
+                            ?>
+                        <tr>
+                            <td><?= $this->Number->format($logs->id) ?></td>
+                            <td><?= ucfirst(h($logs->action)) ?></td>
+                            <td><?= h($logs->entity) ?> 
+                                (<?= $this->Number->format($logs->entityid)?>) 
+                            </td>
+                            <td><?= $this->Time->format(h($logs->created),'d MMM YYYY, hh:mm') ?></td>
+                        </tr>
+                        <?php 
+                            $limit++;
+                            }
+
+                        ?>
+                    </tbody>
                     </table>
                     <?php endif; ?>
                 </div>

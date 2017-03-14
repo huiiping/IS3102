@@ -78,7 +78,7 @@ class RetailerEmployeesController extends AppController
     public function view($id = null)
     {
         $retailerEmployee = $this->RetailerEmployees->get($id, [
-            'contain' => ['Locations', 'Messages', 'RetailerEmployeeRoles', 'Promotions', 'PurchaseOrders', 'SupplierMemos']
+            'contain' => ['Locations', 'Messages', 'RetailerEmployeeRoles', 'Promotions', 'PurchaseOrders', 'SupplierMemos', 'RetailerLoggings']
             ]);
         
         $session = $this->request->session();

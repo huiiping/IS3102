@@ -102,6 +102,9 @@ class RetailerEmployeesTable extends Table
         $this->hasMany('SupplierMemos', [
             'foreignKey' => 'retailer_employee_id'
         ]);
+        $this->hasMany('RetailerLoggings', [
+            'foreignKey' => 'retailer_employee_id'
+        ]);
         $this->belongsToMany('Messages', [
             'foreignKey' => 'retailer_employee_id',
             'targetForeignKey' => 'message_id',
