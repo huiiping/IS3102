@@ -53,6 +53,16 @@ class RetailerDetailsController extends AppController
             'contain' => []
         ]);
 
+        $retailerLoyaltyPoints = TableRegistry::get('retailerLoyaltyPoints');
+        $query = $retailerLoyaltyPoints
+                    ->find()
+                    ->select(['loyalty_pts', 'redemption_pts'])
+                    ->where(['retailer_id' => $id])
+                    ->toArray();
+
+        $this->set('retailerLoyaltyPoints', $query);
+        $this->set('_serialize', ['retailerLoyaltyPoints']);
+
         $session = $this->request->session();
         $retailer = $session->read('retailer');
 

@@ -98,6 +98,13 @@
                     <i class="fa fa-product-hunt"></i>
                     <br><p style="font-size: 14px;">Products</p>
                   </td>
+                  <td style="font-size: 18px;" title="No. of Loyalty Pts">
+                    <?php echo '<a href="/IS3102_Final/retailer-loyalty-points/retailer-view/'.$retailerDetail->retailerid.'"><i class="fa fa-product-hunt"></i></a>' ?>
+                    <br><p style="font-size: 14px;">
+                    <?= $this->Html->link('Loyalty Pts', ['controller' => 'retailerLoyaltyPoints' , 'action' => 'retailerView', $retailerDetail->retailerid]);
+                    ?>
+                    </p>
+                  </td>
                 </tr>
                 <tr>
                   <td style="font-size: 18px;" title="No. Of Users">
@@ -111,6 +118,25 @@
                   </td>
                   <td style="font-size: 18px;" title="No. of Product Types">
                     <?= ($getRetailer->retailer_acc_type->num_of_product_types) + ($getRetailer->num_of_product_types) ?>
+                  </td>
+                  <td style="font-size: 18px;" title="No. of Loyalty Points">
+
+                  <?php
+                    $total = 0;
+                    foreach ($retailerLoyaltyPoints as $row) {
+
+                      if($row['loyalty_pts'] == null){
+                        $total -= $row['redemption_pts'];
+                      } else {
+                        $total += $row['loyalty_pts'];
+                      }
+
+                    }
+
+                    echo $this->Html->link($total, ['controller' => 'retailerLoyaltyPoints' , 'action' => 'retailerView', $retailerDetail->retailerid]);
+
+                  ?>
+
                   </td>
                 </tr>
               </table><br>

@@ -130,17 +130,18 @@ class RetailersController extends AppController
 
                 ConnectionManager::drop('conn1'); 
                 ConnectionManager::config('conn1', [
-                'className' => 'Cake\Database\Connection',
-                'driver' => 'Cake\Database\Driver\Mysql',
-                'persistent' => false,
-                'host' => 'localhost',
-                'username' => 'root',
-                'password' => 'joy',
-                'database' => $database,
-                'encoding' => 'utf8',
-                'timezone' => 'UTC',
-                'cacheMetadata' => true,
-            ]);
+                    'className' => 'Cake\Database\Connection',
+                    'driver' => 'Cake\Database\Driver\Mysql',
+                    'persistent' => false,
+                    'host' => 'localhost',
+                    'username' => 'root',
+                    'password' => 'joy',
+                    'database' => $database,
+                    'encoding' => 'utf8',
+                    'timezone' => 'UTC',
+                    'cacheMetadata' => true,
+                ]);
+                
                 Debugger::dump('ADDRETAILER- DATABASENAME');
                 Debugger::dump($database);
                 Debugger::dump($retailer['retailer_name']);

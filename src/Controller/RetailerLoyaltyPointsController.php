@@ -57,7 +57,23 @@ class RetailerLoyaltyPointsController extends AppController
             'contain' => ['IntrasysEmployees', 'Retailers']
         ];
 
-        $query = $this->paginate($this->RetailerLoyaltyPoints->find('searchable', $this->Prg->parsedParams())->where(['retailer_id' => $id])->order(['RetailerLoyaltyPoints.modified' => 'ASC']));
+        $query = $this->paginate($this->RetailerLoyaltyPoints->find('searchable', $this->Prg->parsedParams())->where(['retailer_id' => $id])->order(['RetailerLoyaltyPoints.modified' => 'DESC']));
+
+        $query2 = $this->RetailerLoyaltyPoints->Retailers->find('all')->where(['id' => $id])->toArray();
+
+        $this->set('retailer', $query2);
+        $this->set('retailerLoyaltyPoints', $query);
+        $this->set(compact('retailerLoyaltyPoints', 'retailer'));
+        $this->set('_serialize', ['retailerLoyaltyPoints']);
+    }
+
+    public function retailerView($id = null)
+    {
+        $this->paginate = [
+            'contain' => ['IntrasysEmployees', 'Retailers']
+        ];
+
+        $query = $this->paginate($this->RetailerLoyaltyPoints->find('searchable', $this->Prg->parsedParams())->where(['retailer_id' => $id])->order(['RetailerLoyaltyPoints.modified' => 'DESC']));
 
         $query2 = $this->RetailerLoyaltyPoints->Retailers->find('all')->where(['id' => $id])->toArray();
 

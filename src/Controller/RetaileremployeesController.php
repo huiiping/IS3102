@@ -498,7 +498,6 @@ public function login(){
                     // 3. count the number of times loyalty points have already been awarded to them for "annual contract loyalty"
                     // 4. if the answer from (3) - (2) is ONE, award 100 loyalty points to the retailer
 
-
                     $diff_year = 0;
                     $start->addYear(1);
 
@@ -525,8 +524,6 @@ public function login(){
                         foreach($query2 as $row){
                             $rowCount++;
                         }
-                        
-                        //echo $diff_year - $rowCount;
 
                         // if the amount of loyalty points awarded for the annual contractual loyalty does not tally with the number of years elapsed in the contract, award the retailer with the loyalty points before proceeding
                         while($diff_year - $rowCount != 0) {
@@ -538,11 +535,12 @@ public function login(){
                             $rlp->redemption_pts = null;
                             $rlp->remarks = 'Annual Contractual Loyalty Reward';
                             $rlp->retailer_id = $query[0]['id'];
-                            $rlp->intrasys_employee_id = '0';
+                            $rlp->intrasys_employee_id = null;
 
                             $rlpTable->save($rlp);
 
                             $rowCount++;
+                            $this->Flash->error($rowCount); 
 
                         }
 

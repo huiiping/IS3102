@@ -29,7 +29,7 @@ class RetailerLoggingsController extends AppController
         $this->paginate = [
             'contain' => ['RetailerEmployees']
         ];
-        $this->set('retailerLoggings', $this->paginate($this->RetailerLoggings->find('searchable', $this->Prg->parsedParams())));
+        $this->set('retailerLoggings', $this->paginate($this->RetailerLoggings->find('searchable', $this->Prg->parsedParams())->order(['RetailerLoggings.created' => 'DESC'])));
         $this->set(compact('retailerLoggings'));
         $this->set('_serialize', ['retailerLoggings']);
     }

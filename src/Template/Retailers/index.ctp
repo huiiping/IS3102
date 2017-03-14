@@ -45,7 +45,7 @@
                         <th scope="col"><?= $this->Paginator->sort('payment_term') ?></th>-->
                         <th scope="col"><?= $this->Paginator->sort('retailer_email') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('retailer_acc_type_id', ['label'=>'Retailer Account Type']) ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('retailer_acc_type_id', ['label'=>'Loyalty Points']) ?></th>
+                        <th scope="col"><?= 'Loyalty Pts' ?></th>
                         <th scope="col" class="actions"><?= __('Actions') ?></th>
                     </tr>
                 </thead>
