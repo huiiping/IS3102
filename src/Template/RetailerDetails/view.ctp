@@ -99,7 +99,7 @@
                     <br><p style="font-size: 14px;">Products</p>
                   </td>
                   <td style="font-size: 18px;" title="No. of Loyalty Pts">
-                    <?php echo '<a href="/IS3102_Final/retailer-loyalty-points/retailer-view/'.$retailerDetail->retailerid.'"><i class="fa fa-product-hunt"></i></a>' ?>
+                    <?php echo '<a href="/IS3102_Final/retailer-loyalty-points/retailer-view/'.$retailerDetail->retailerid.'"><i class="fa fa-money"></i></a>' ?>
                     <br><p style="font-size: 14px;">
                     <?= $this->Html->link('Loyalty Pts', ['controller' => 'retailerLoyaltyPoints' , 'action' => 'retailerView', $retailerDetail->retailerid]);
                     ?>
