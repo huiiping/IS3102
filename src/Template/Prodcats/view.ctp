@@ -35,10 +35,8 @@ use Cake\ORM\TableRegistry;
                   </tr>
                   <tr>
                     <th scope="row"><?= __('Parent Id') ?></th>
-                    <?php if(empty($prodCat->parentid)) : ?>
-                      <td><?= h('None') ?></td>
-                    <?php endif; ?>
-
+                    <?php if(!empty($prodCat->parentid)) : ?>
+            
                     <?php 
                     $ProdCats = TableRegistry::get('ProdCats');
                     $catName = $ProdCats
@@ -52,6 +50,9 @@ use Cake\ORM\TableRegistry;
                     ?>
                     <?php $result ?>
                     <td><a href="/IS3102_Final/prod-cats/view/<?= $prodCat->parentid ?>" data-toggle="tooltip" data-placement="right" title= "<?php echo $result ?>" > <?= h($prodCat->parentid)?></a></td>
+                    <?php else : ?>
+                    <td><?= h('None') ?></td>
+                    <?php endif; ?>
                   </tr>
                   <tr>
                     <th scope="row"><?= __('Category Name') ?></th>
