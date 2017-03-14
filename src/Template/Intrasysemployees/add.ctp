@@ -59,7 +59,6 @@
                   <input class = "form-control" type="text" name="address" placeholder = "Address*" required="required" id="address" maxlength="255">
                 </div> 
               </div>
-
               <label>Intrasys Employee Role(s)*</label><br>
               <div class ="form-group">            
                 <div class="input-group">
@@ -72,12 +71,12 @@
                   </select>
                 </div> 
               </div>
-              <div class ="form-group" align="">            
-                <div class="input-group">
-                  <button class="btn btn-md btn-primary pull-right" type="submit" style="border-radius: 8px; margin-left: 0px; margin:5px;">Add Employee</button>
-                  <a href="/IS3102_Final/intrasys-employees/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Employee Index</a>
-                </div> 
+              <br>
+              <div class ="row">
+                <a href="/IS3102_Final/intrasys-employees/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Employee Index</a>
+                <button class="btn btn-md btn-primary pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Add Employee</button>
               </div>
+              <br>
             </form>
           </div>
         </div>
