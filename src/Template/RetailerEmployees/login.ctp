@@ -1,8 +1,10 @@
-<!-- Main Content -->
-<script
-src="https://code.jquery.com/jquery-3.1.1.slim.js"
-integrity="sha256-5i/mQ300M779N2OVDrl16lbohwXNUdzL/R2aVUXyXWA="
-crossorigin="anonymous"></script>
+<?php
+/**
+  * @var \App\View\AppView $this
+  */
+?>
+
+<script src="https://code.jquery.com/jquery-3.1.1.slim.js" integrity="sha256-5i/mQ300M779N2OVDrl16lbohwXNUdzL/R2aVUXyXWA=" crossorigin="anonymous"></script>
 
 <style>
 	#main {
@@ -28,6 +30,7 @@ crossorigin="anonymous"></script>
 		padding-bottom: 8px;
 	}
 </style>
+
 <?= $this->Html->css(captcha_layout_stylesheet_url(), ['inline' => false]) ?>
 
 <div class="content-wrapper" id = "main">
@@ -64,7 +67,14 @@ crossorigin="anonymous"></script>
 
 									<div class="input-group">
 										<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-										<input class = "form-control" type="text" name="retailer" placeholder = "Retailer" required="required" id="retailer">
+										<select name="retailer" id="retailer" class="form-control" placeholder="Retailer" required="required">
+											<option value="0">---- Select ----</option>
+										<?php foreach ($retailers as $retailer): ?>
+
+											<option><?= $retailer->retailer_name ?></option>
+
+										<?php endforeach;	?>
+										</select>
 									</div>					
 									<br>
 									<!-- CAPTCHA CSS -->					
@@ -133,7 +143,8 @@ crossorigin="anonymous"></script>
 							<?=  $this->Form->create(); ?>
 							<?=  $this->Form->input('username', array('required' => true)); ?>
 							<?=  $this->Form->input('password', array('type' => 'password','required' => true)); ?>
-							<?=  $this->Form->input('retailer',array('required' => true)); ?>
+							<?=  $this->Form->input('retailers._ids', array('options' => $retailers, 'label' => 'Retailer')); ?>
+
 							<hr>
 							
 							<?php 

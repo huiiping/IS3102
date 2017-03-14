@@ -77,8 +77,8 @@
 
                     <tr bgcolor="black">
                       <td bgcolor="black"><font color="white">Current Total Pts: </font></td>
-                      <td><font color="white"><?= $total ?></font></td>
-                      <td></td>
+                      <td bgcolor="black"><font color="white"><?= $total ?></font></td>
+                      <td bgcolor="black"></td>
                     </tr>
                     <tr>
                       <td colspan="3">

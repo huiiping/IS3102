@@ -432,6 +432,7 @@ public function login(){
             return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
           }
         }
+        echo 'HELLO '.$_POST['username'];
         $retailer = $_POST['retailer'];
         $database = $_POST['retailer']."db";
         $session->write('database', $database);
@@ -586,6 +587,11 @@ public function login(){
 
         $this->Flash->error('Incorrect Login');   
     }
+
+    $retailersTable = TableRegistry::get('Retailers');
+    $query = $retailersTable->find('all')->toArray();
+    $this->set('retailers', $query);
+
 }
 
 public function managerActions($id = null)
