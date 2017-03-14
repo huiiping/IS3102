@@ -25,7 +25,6 @@ use Cake\Validation\Validator;
 class RetailerLoyaltyPointsTable extends Table
 {
 
-
     public static function defaultConnectionName() {
         return 'intrasysdb';
     }
@@ -62,6 +61,8 @@ class RetailerLoyaltyPointsTable extends Table
         )
 
     );
+
+
     /**
      * Initialize method
      *
@@ -79,12 +80,10 @@ class RetailerLoyaltyPointsTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->belongsTo('Retailers', [
-            'foreignKey' => 'retailer_id',
-            'joinType' => 'INNER'
+            'foreignKey' => 'retailer_id'
         ]);
         $this->belongsTo('IntrasysEmployees', [
-            'foreignKey' => 'intrasys_employee_id',
-            'joinType' => 'INNER'
+            'foreignKey' => 'intrasys_employee_id'
         ]);
 
         $this->addBehavior('Searchable');

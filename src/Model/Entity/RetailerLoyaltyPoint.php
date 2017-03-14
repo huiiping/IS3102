@@ -16,6 +16,7 @@ use Cake\ORM\Entity;
  * @property int $intrasys_employee_id
  *
  * @property \App\Model\Entity\Retailer $retailer
+ * @property \App\Model\Entity\IntrasysEmployee $intrasys_employee
  */
 class RetailerLoyaltyPoint extends Entity
 {

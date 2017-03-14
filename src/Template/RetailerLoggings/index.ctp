@@ -40,14 +40,9 @@
                         <?php echo $this->Form->end();?>
                     </tr>
                 </table>
-                <h3>
-                    <?= $this->Html->link('Export All Logs', [
-                      'controller' => 'retailerLoggings', 
-                      'action' => 'export',
-                      '_ext' => 'csv'
-                    ]) ?>
-                </h3>
-                <br>
+                <br >
+                <a class="btn btn-default btn-flat" href="/IS3102_Final/intrasys-loggings/export.csv">Export All Logs</a>
+                <br><br >
 
               <table class="table table-bordered table-striped">
                 <thead>

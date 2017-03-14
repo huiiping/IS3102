@@ -22,7 +22,7 @@
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">
-              <?= __('Loyalty Points Log') ?> </h3>
+              <?= __('Manage Loyalty Points') ?> </h3>
             </div>
             <div class="box-body">
               <br>
@@ -39,8 +39,30 @@
                   $total = 0;
                   foreach ($retailerLoyaltyPoints as $retailerLoyaltyPoint): ?>
                       <tr>
-                        <td><?= $this->Number->format($retailerLoyaltyPoint->loyalty_pts) ?></td>
-                        <td><?= $this->Number->format($retailerLoyaltyPoint->redemption_pts) ?></td>
+
+                        <?php 
+
+                          if($retailerLoyaltyPoint->loyalty_pts == null){ 
+
+                        ?>
+
+                            <td>Deducted</td>
+                            <td><font color="red">(<?= $this->Number->format($retailerLoyaltyPoint->redemption_pts) ?>)</font></td>
+
+                        <?php
+
+                          } else {
+
+                        ?>
+                            <td>Awarded </td>
+                            <td><?= $this->Number->format($retailerLoyaltyPoint->loyalty_pts) ?></td>
+
+                        <?php 
+
+                          }
+
+                        ?>
+                        
                         <td><?= $this->Time->format(h($retailerLoyaltyPoint->modified), 'd MMM YYYY, hh:mm') ?></td>
                         
                       </tr>
@@ -53,8 +75,18 @@
 
                     ?>
 
+                    <tr bgcolor="black">
+                      <td bgcolor="black"><font color="white">Current Total Pts: </font></td>
+                      <td><font color="white"><?= $total ?></font></td>
+                      <td></td>
+                    </tr>
                     <tr>
-                      <td colspan="6">Current Amount: <?= $total ?></td>
+                      <td colspan="3">
+                        <?php  $link = '/IS3102_Final/retailer-loyalty-points/redeem/'.$retailer[0]['id'] 
+                        ?>
+                        <a class="btn btn-default btn-flat" href="<?=$link?>
+                        ">Redeem Loyalty Points</a>
+                      </td>
                     </tr>
 
                 </tbody>
@@ -67,12 +99,7 @@
                         <?= $this->Paginator->next(__('next') . ' >') ?>
                         <?= $this->Paginator->last(__('last') . ' >>') ?>
                     </ul>
-                    <p><?php
-                      echo $this->Html->link(
-                        'Redeem Loyalty Points',
-                        '/RetailerLoyaltyPoints/redeem/'.$retailer[0]['id'],
-                        ['class' => 'button']
-); ?></p>
+
                     <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
                 </div>
             </div>

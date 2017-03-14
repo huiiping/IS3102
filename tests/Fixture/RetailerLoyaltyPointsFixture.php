@@ -23,8 +23,8 @@ class RetailerLoyaltyPointsFixture extends TestFixture
         'remarks' => ['type' => 'text', 'length' => null, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
-        'retailer_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'intrasys_employee_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'retailer_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'intrasys_employee_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         '_indexes' => [
             'intrasys_employee_id' => ['type' => 'index', 'columns' => ['intrasys_employee_id'], 'length' => []],
             'retailer_id' => ['type' => 'index', 'columns' => ['retailer_id'], 'length' => []],
@@ -52,8 +52,8 @@ class RetailerLoyaltyPointsFixture extends TestFixture
             'loyalty_pts' => 1,
             'redemption_pts' => 1,
             'remarks' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-            'created' => '2017-03-14 00:38:21',
-            'modified' => '2017-03-14 00:38:21',
+            'created' => '2017-03-14 21:42:23',
+            'modified' => '2017-03-14 21:42:23',
             'retailer_id' => 1,
             'intrasys_employee_id' => 1
         ],
