@@ -33,8 +33,8 @@ class ProductsProdSpecificationsTable extends Table
         parent::initialize($config);
 
         $this->table('products_prod_specifications');
-        $this->displayField('title');
-        $this->primaryKey(['product_id', 'title']);
+        $this->displayField('prod_specification_id');
+        $this->primaryKey(['product_id', 'prod_specification_id']);
 
         $this->belongsTo('Products', [
             'foreignKey' => 'product_id',
@@ -51,7 +51,7 @@ class ProductsProdSpecificationsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->allowEmpty('prod_specification_title', 'create');
+            ->allowEmpty('prod_specification_id', 'create');
 
         return $validator;
     }

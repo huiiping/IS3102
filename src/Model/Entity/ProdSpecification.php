@@ -25,6 +25,6 @@ class ProdSpecification extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'title' => false
+        'id' => false
     ];
 }

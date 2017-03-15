@@ -213,8 +213,9 @@ CREATE TABLE products (
     FOREIGN KEY (prod_cat_id) REFERENCES prod_cats(id)
 );
 
-CREATE TABLE prod_specifications (
-    title VARCHAR(255) PRIMARY KEY,
+CREATE TABLE prod_specifications (  
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL
 );
 
@@ -285,11 +286,11 @@ CREATE TABLE promotions_products (
 );
 
 CREATE TABLE products_prod_specifications (
-    product_id INT NOT NULL,
-    prod_specification_title VARCHAR(255) NOT NULL,
-    PRIMARY KEY (product_id, prod_specification_title),
-    FOREIGN KEY (product_id) REFERENCES products(id),
-    FOREIGN KEY (prod_specification_title) REFERENCES prod_specifications(title)
+product_id INT NOT NULL,
+prod_specification_id INT NOT NULL,
+PRIMARY KEY (product_id, prod_specification_id),
+FOREIGN KEY (product_id) REFERENCES products(id),
+FOREIGN KEY (prod_specification_id) REFERENCES prod_specifications(id)
 );
 
 

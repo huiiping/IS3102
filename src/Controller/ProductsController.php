@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Core\Configure;
 
 /**
  * Products Controller
@@ -51,13 +52,17 @@ class ProductsController extends AppController
      */
     public function add()
     {
+        $session = $this->request->session();
+
         $product = $this->Products->newEntity();
         if ($this->request->is('post')) {
             $product = $this->Products->patchEntity($product, $this->request->data);
             if ($this->Products->save($product)) {
                 $this->Flash->success(__('The product has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                $session->write('product', $product->prod_name);
+                
+                return $this->redirect(['controller' => 'prodSpecifications', 'action' => 'add']);
             }
             $this->Flash->error(__('The product could not be saved. Please, try again.'));
         }

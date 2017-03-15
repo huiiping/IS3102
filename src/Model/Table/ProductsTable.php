@@ -78,7 +78,7 @@ class ProductsTable extends Table
         ]);
         $this->belongsToMany('ProdSpecifications', [
             'foreignKey' => 'product_id',
-            'targetForeignKey' => 'prod_specification_title',
+            'targetForeignKey' => 'prod_specification_id',
             'joinTable' => 'products_prod_specifications'
         ]);
         $this->belongsToMany('Promotions', [

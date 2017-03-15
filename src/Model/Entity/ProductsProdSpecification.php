@@ -7,7 +7,7 @@ use Cake\ORM\Entity;
  * ProductsProdSpecification Entity
  *
  * @property int $product_id
- * @property string $prod_specification_title
+ * @property string $prod_specification_id
  *
  * @property \App\Model\Entity\Product $product
  */
@@ -26,6 +26,6 @@ class ProductsProdSpecification extends Entity
     protected $_accessible = [
         '*' => true,
         'product_id' => false,
-        'title' => false
+        'prod_specification_id' => false
     ];
 }

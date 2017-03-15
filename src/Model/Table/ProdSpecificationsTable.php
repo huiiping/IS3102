@@ -24,7 +24,7 @@ class ProdSpecificationsTable extends Table
     public $filterArgs = array(
         'search' => array(
             'type' => 'like',
-            'field' => array('title','description')
+            'field' => array('id','title','description')
         )
     );
 
@@ -40,10 +40,10 @@ class ProdSpecificationsTable extends Table
 
         $this->table('prod_specifications');
         $this->displayField('title');
-        $this->primaryKey('title');
+        $this->primaryKey('id');
 
         $this->belongsToMany('Products', [
-            'foreignKey' => 'prod_specification_title',
+            'foreignKey' => 'prod_specification_id',
             'targetForeignKey' => 'product_id',
             'joinTable' => 'products_prod_specifications'
         ]);
@@ -58,6 +58,10 @@ class ProdSpecificationsTable extends Table
      */
     public function validationDefault(Validator $validator)
     {
+        $validator
+            ->integer('id')
+            ->allowEmpty('id', 'create');
+
         $validator
             ->allowEmpty('title', 'create');
 

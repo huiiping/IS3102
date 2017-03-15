@@ -50,9 +50,9 @@
                 <td><?= h($prodSpecification->title) ?></td>
                 <td><?= h($prodSpecification->description) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View |'), ['action' => 'view', $prodSpecification->title]) ?>
-                    <?= $this->Html->link(__('Edit |'), ['action' => 'edit', $prodSpecification->title]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $prodSpecification->title], ['confirm' => __('Are you sure you want to delete # {0}?', $prodSpecification->title)]) ?>
+                    <?= $this->Html->link(__('View |'), ['action' => 'view', $prodSpecification->id]) ?>
+                    <?= $this->Html->link(__('Edit |'), ['action' => 'edit', $prodSpecification->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $prodSpecification->id], ['confirm' => __('Are you sure you want to delete # {0}?', $prodSpecification->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

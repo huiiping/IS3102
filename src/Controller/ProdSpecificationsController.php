@@ -51,6 +51,7 @@ class ProdSpecificationsController extends AppController
         $prodSpecification = $this->ProdSpecifications->newEntity();
         if ($this->request->is('post')) {
             $prodSpecification = $this->ProdSpecifications->patchEntity($prodSpecification, $this->request->data);
+
             if ($this->ProdSpecifications->save($prodSpecification)) {
                 $this->Flash->success(__('The prod specification has been saved.'));
 
@@ -75,6 +76,8 @@ class ProdSpecificationsController extends AppController
         $prodSpecification = $this->ProdSpecifications->get($id, [
             'contain' => ['Products']
         ]);
+
+        var_dump($prodSpecification);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $prodSpecification = $this->ProdSpecifications->patchEntity($prodSpecification, $this->request->data);
             if ($this->ProdSpecifications->save($prodSpecification)) {
