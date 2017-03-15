@@ -15,7 +15,7 @@
   <section class="content">
       <div class="row">
         <div class="col-xs-4">
-          <div class="box box-primary" style="height: 100%;">
+          <div class="box box-primary" style="height: 450px;">
             <div class="box-body box-profile">
               <h3 class="profile-username text-center"><?= h($supplier->supplier_name) ?></h3>
               <br>
@@ -26,37 +26,49 @@
                 </li>
                 <li class="list-group-item">
                   <b><?= __('Email') ?></b> 
-                  <div class="pull-right"><?= h($supplier->email) ?></div>
+                  <div class="pull-right">
+                    <a href="mailto:<?= h($supplier->email) ?>" title="email">
+                      <?= h($supplier->email) ?>
+                    </a>
+                  </div>
                 </li>
                 <li class="list-group-item">
                   <b><?= __('Contact') ?></b> 
-                  <div class="pull-right"><?= h($supplier->contact) ?></div>
+                  <div class="pull-right">
+                    <a href="tel:+<?= h($supplier->contact) ?>" title="contact">
+                      <?= h($supplier->contact) ?>
+                    </a>
+                  </div>
                 </li>
               </ul>
               <br>
               <?php if ($supplier->activation_status == 'Activated'): ?>
-                 <div class="btn btn-default btn-block">
-                    <?= $this->Html->link(__('Deactivate Supplier'), ['action' => 'deactivateStatus', $supplier->id]) ?>
-                  </div><br>
+                <div align="center">
+                  <a title="Deactivate Supplier" class="btn btn-default btn-flat" href="/IS3102_Final/suppliers/deactivateStatus/<?=$supplier->id?>">Deactivate Supplier</a>
+                </div><br>
               <?php else: ?>
-                 <div class="btn btn-default btn-block">
-                    <?= $this->Html->link(__('Activate Supplier'), ['action' => 'activateStatus', $supplier->id]) ?>
-                  </div><br>
+                <div align="center">
+                  <a title="Activate Supplier" class="btn btn-default btn-flat" href="/IS3102_Final/suppliers/activateStatus/<?=$supplier->id?>">Activate Supplier</a>
+                </div><br>
               <?php endif; ?>
-              <div class="btn btn-default btn-block">
-                <?= $this->Html->link(__('Edit Supplier'), ['action' => 'edit', $supplier->id]) ?>
+              <div align="center">
+                <a title="Edit Supplier" class="btn btn-default btn-flat" href="/IS3102_Final/suppliers/edit/<?=$supplier->id?>">Edit Supplier</a>
               </div>
             </div>
           </div>
         </div>
         <div class="col-md-8">  
-            <div class="box box-primary">
+            <div class="box box-primary" style="height: 450px;">
                 <div class="box-body box-profile">
                   <div class="box-header with-border">
                     <h3 class="box-title"><?= __('Supplier Profile') ?></h3>
                   </div>
                   <div class="box-body"><br>
                     <table class="table table-bordered table-striped">
+                        <tr>
+                            <th scope="row"><?= __('Id') ?></th>
+                            <td><?= $this->Number->format($supplier->id) ?></td>
+                        </tr>
                         <tr>
                             <th scope="row"><?= __('Supplier Name') ?></th>
                             <td><?= h($supplier->supplier_name) ?></td>
@@ -77,24 +89,20 @@
                             <th scope="row"><?= __('Bank Account') ?></th>
                             <td><?= h($supplier->bank_acc) ?></td>
                         </tr>
-                        <tr>
-                            <th scope="row"><?= __('Id') ?></th>
-                            <td><?= $this->Number->format($supplier->id) ?></td>
-                        </tr>
-                        <tr>
+                        <!--<tr>
                             <th scope="row"><?= __('Created') ?></th>
                             <td><?= $this->Time->format(h($supplier->created), 'd MMM YYYY, hh:mm') ?></td>
                         </tr>
                         <tr>
                             <th scope="row"><?= __('Modified') ?></th>
                             <td><?= $this->Time->format(h($supplier->modified), 'd MMM YYYY, hh:mm') ?></td>
-                        </tr>
+                        </tr>-->
                     </table>
                   </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-body box-profile">
                   <div class="box-header with-border">
@@ -103,7 +111,7 @@
                   <div class="box-body"><br>
                     <div class="related">
                       <?php if (!empty($supplier->purchase_orders)): ?>
-                        <table cellpadding="0" cellspacing="0">
+                        <table class="table table-bordered table-striped">
                             <tr>
                                 <th scope="col"><?= __('PO Id') ?></th>
                                 <th scope="col"><?= __('Created') ?></th>
@@ -138,16 +146,17 @@
             </div>
         </div>
         <?php if(!$type) : ?>
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-body box-profile">
                   <div class="box-header with-border">
                     <h3 class="box-title"><?= __('Related Supplier Memos') ?></h3>
+                    <a title="Create New Memo" class="btn btn-default btn-flat pull-right" href="/IS3102_Final/supplier-memos/add">Create New Memo</a>
                   </div>
                   <div class="box-body"><br>
                     <div class="related">
                       <?php if (!empty($supplier->supplier_memos)): ?>
-                        <table cellpadding="0" cellspacing="0">
+                        <table class="table table-bordered table-striped">
                             <tr>
                                 <th scope="col"><?= __('Memo Id') ?></th>
                                 <!--<th scope="col"><?= __('Remarks') ?></th>-->
