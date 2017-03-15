@@ -33,12 +33,8 @@
                         echo $this->Form->input(('confirm_password'), array('type'  =>  'password')); 
                         echo $this->Form->input('activation_status');
                         echo $this->Form->input('expiry_date', array('div' => false));
-                        //echo $this->Form->input('activation_token');
-                        //echo $this->Form->input('recovery_status');
-                        //echo $this->Form->input('recovery_token');
-                        echo $this->Form->input('mailing_list');
                         echo $this->Form->input('cust_membership_tier_id', ['label' => 'Customer Membership Tier'], ['options' => $custMembershipTiers]);
-                        echo $this->Form->input('promotions._ids', ['options' => $promotions]);
+                        echo $this->Form->input('mailing_list');
                     ?>
                 </fieldset>
                 <br>

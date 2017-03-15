@@ -1,6 +1,6 @@
 --------------------------------------------------------
 Check Log
-CAA: 10 March 1304 hrs
+CAA: 15 March 1718 hrs
 
 Order of tables:
 01. cust_membership_tiers
@@ -27,6 +27,11 @@ Order of tables:
 22. retailer_employees_messages
 23. promotions_products
 24. products_prod_specifications
+25. transactions
+26. delivery_orders
+27. delivery_order_items
+28. transfer_orders
+29. transfer_order_items
 --------------------------------------------------------
 
 CREATE TABLE cust_membership_tiers (
@@ -286,11 +291,73 @@ CREATE TABLE promotions_products (
 );
 
 CREATE TABLE products_prod_specifications (
-product_id INT NOT NULL,
-prod_specification_id INT NOT NULL,
-PRIMARY KEY (product_id, prod_specification_id),
-FOREIGN KEY (product_id) REFERENCES products(id),
-FOREIGN KEY (prod_specification_id) REFERENCES prod_specifications(id)
+    product_id INT NOT NULL,
+    prod_specification_id INT NOT NULL,
+    PRIMARY KEY (product_id, prod_specification_id),
+    FOREIGN KEY (product_id) REFERENCES products(id),
+    FOREIGN KEY (prod_specification_id) REFERENCES prod_specifications(id)
 );
 
+CREATE TABLE transactions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    status VARCHAR(100),
+    remarks VARCHAR(255),
+    receiptID INT,
+    customer_id INT,
+    retailer_employee_id INT,
+    location_id INT,
+    modified DATETIME,
+    created DATETIME,
+    FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id),
+    FOREIGN KEY (location_id) REFERENCES locations(id)
+);
 
+CREATE TABLE delivery_orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    status VARCHAR(100),
+    fee double, 
+    currency VARCHAR(100),
+    deliverer VARCHAR(255),
+    customer_id INT,
+    retailer_employee_id INT,
+    location_id INT,
+    transaction_id INT,
+    modified DATETIME,
+    created DATETIME,
+    FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id),
+    FOREIGN KEY (location_id) REFERENCES locations(id), 
+    FOREIGN KEY (transaction_id) REFERENCES transactions(id)
+);
+
+CREATE TABLE delivery_order_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    itemID VARCHAR(255), 
+    EPC VARCHAR(255) UNIQUE,
+    barcode VARCHAR(255),
+    delivery_order_id INT,
+    FOREIGN KEY (delivery_order_id) REFERENCES delivery_orders(id)
+)
+
+CREATE TABLE transfer_orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    locationFrom INT,
+    locationTo INT,
+    status VARCHAR(100),
+    remarks VARCHAR(255),
+    retailer_employee_id INT,
+    created DATETIME,
+    FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id),
+    FOREIGN KEY (locationFrom) REFERENCES locations(id), 
+    FOREIGN KEY (locationTo) REFERENCES locations(id)
+)
+
+CREATE TABLE transfer_order_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    itemID VARCHAR(255), 
+    EPC VARCHAR(255) UNIQUE,
+    barcode VARCHAR(255),
+    transfer_order_id INT,
+    FOREIGN KEY (transfer_order_id) REFERENCES transfer_orders(id)
+)

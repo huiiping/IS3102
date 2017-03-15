@@ -72,7 +72,8 @@ class SupplierMemosController extends AppController
      *
      * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+
+    public function add($id = null, $name = null)
     {
         $supplierMemo = $this->SupplierMemos->newEntity();
         if ($this->request->is('post')) {
@@ -87,15 +88,43 @@ class SupplierMemosController extends AppController
                 $this->Logging->rLog($supplierMemo['id']);
                 $this->Logging->iLog($retailer, $supplierMemo['id']);
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'Suppliers', 'action' => 'view', $supplierMemo->supplier_id]);
             }
             $this->Flash->error(__('The supplier memo could not be saved. Please, try again.'));
         }
         $suppliers = $this->SupplierMemos->Suppliers->find('list', ['limit' => 200]);
         $retailerEmployees = $this->SupplierMemos->RetailerEmployees->find('list', ['limit' => 200]);
-        $this->set(compact('supplierMemo', 'suppliers', 'retailerEmployees'));
+
+        $this->set('supplierid', $id);
+        $this->set('suppliername', $name);
+        $this->set(compact('supplierMemo', 'suppliers', 'retailerEmployees', 'supplierid', ' $suppliername'));
         $this->set('_serialize', ['supplierMemo']);
     }
+
+    // public function add()
+    // {
+    //     $supplierMemo = $this->SupplierMemos->newEntity();
+    //     if ($this->request->is('post')) {
+    //         $supplierMemo = $this->SupplierMemos->patchEntity($supplierMemo, $this->request->data);
+    //         if ($this->SupplierMemos->save($supplierMemo)) {
+    //             $this->Flash->success(__('The supplier memo has been saved.'));
+
+    //             $session = $this->request->session();
+    //             $retailer = $session->read('retailer');
+
+    //             //$this->loadComponent('Logging');
+    //             $this->Logging->rLog($supplierMemo['id']);
+    //             $this->Logging->iLog($retailer, $supplierMemo['id']);
+
+    //             return $this->redirect(['action' => 'index']);
+    //         }
+    //         $this->Flash->error(__('The supplier memo could not be saved. Please, try again.'));
+    //     }
+    //     $suppliers = $this->SupplierMemos->Suppliers->find('list', ['limit' => 200]);
+    //     $retailerEmployees = $this->SupplierMemos->RetailerEmployees->find('list', ['limit' => 200]);
+    //     $this->set(compact('supplierMemo', 'suppliers', 'retailerEmployees'));
+    //     $this->set('_serialize', ['supplierMemo']);
+    // }
 
     /**
      * Edit method
@@ -127,7 +156,9 @@ class SupplierMemosController extends AppController
         }
         $suppliers = $this->SupplierMemos->Suppliers->find('list', ['limit' => 200]);
         $retailerEmployees = $this->SupplierMemos->RetailerEmployees->find('list', ['limit' => 200]);
-        $this->set(compact('supplierMemo', 'suppliers', 'retailerEmployees'));
+
+        $this->set('supplierid', $supplierMemo->supplier_id);
+        $this->set(compact('supplierMemo', 'suppliers', 'retailerEmployees', 'suppliername'));
         $this->set('_serialize', ['supplierMemo']);
     }
 

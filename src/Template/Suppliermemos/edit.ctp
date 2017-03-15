@@ -20,16 +20,18 @@
               <h3 class="box-title"><?= __('Edit Supplier Memo') ?></h3>
             </div>
             <div class="box-body">
-                <?= $this->Form->create($supplierMemo) ?>
-                <fieldset>
-                    <?php
-                        echo $this->Form->input('remarks');
-                        echo $this->Form->input('supplier_id', ['options' => $suppliers, 'empty' => true]);
-                        //echo $this->Form->input('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
-                    ?>
-                </fieldset>
-                <br>
-                <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
+
+            <?= $this->Form->create($supplierMemo) ?>
+              <div style="display:none;">
+                <input type="hidden" name="supplier_id" value="<?php echo $supplierid ?>">
+                <input type="hidden" name="retailer_employee_id" value="<?php echo $this->request->session()->read('retailer_employee_id') ?>">
+              </div>  
+              <div class="input-group">
+                Remarks: <br >
+                <textarea name="remarks" required="required" id="remarks" rows="4" cols="50"><?php echo $supplierMemo->remarks; ?></textarea>
+              </div>
+              <br >
+              <input type="submit" class="btn btn-default btn-flat" value="Create">
                 <?= $this->Form->end() ?>
             </div>
           </div>

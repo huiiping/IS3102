@@ -110,7 +110,8 @@
                             <td><?= h($supplier->bank_acc) ?></td>-->
                             <td class="actions">
                                 <?= $this->Html->link(__('View |'), ['action' => 'view', $supplier->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $supplier->id]) ?>
+                                <?= $this->Html->link(__('Edit |'), ['action' => 'edit', $supplier->id]) ?>
+                                <?= $this->Html->link(__('New Memo'), ['controller'=>'SupplierMemos', 'action' => 'add', $supplier->id, $supplier->supplier_name]) ?>
                                 <?php if(!$type) : ?>
                                 <?= $this->Form->postLink(__('| Delete'), ['action' => 'delete', $supplier->id], ['confirm' => __('Are you sure you want to delete # {0}?', $supplier->id)]) ?>
                                 <?php endif; ?>

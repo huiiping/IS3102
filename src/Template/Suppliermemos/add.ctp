@@ -17,22 +17,22 @@
         <div class="col-xs-12">
           <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title"><?= __('Create New Supplier Memo') ?></h3>
+                <h3 class="box-title"><?= __('Create New Memo for '.$suppliername) ?></h3>
             </div>
             <div class="box-body">
-                <?= $this->Form->create($supplierMemo) ?>
-                <fieldset>
-                    <?php
-                        echo $this->Form->input('remarks');
-                        echo $this->Form->input('supplier_id', ['options' => $suppliers, 'empty' => true]);
-                        //echo $this->Form->input('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
-                        $session = $this->request->session();
-                        echo $this->Form->hidden('retailer_employee_id', ['value'=>$session->read('retailer_employee_id')]);
-                    ?>
-                </fieldset>
-                <br>
-                <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
-                <?= $this->Form->end() ?>
+            <form method="post" accept-charset="utf-8" action="/IS3102_Final/supplier-memos/add">
+              <div style="display:none;">
+                <input type="hidden" name="_method" value="POST">
+                <input type="hidden" name="supplier_id" value="<?php echo $supplierid ?>">
+                <input type="hidden" name="retailer_employee_id" value="<?php echo $this->request->session()->read('retailer_employee_id') ?>">
+              </div>  
+              <div class="input-group">
+                Remarks: <br >
+                <textarea name="remarks" placeholder = "Enter your remarks.." required="required" id="remarks" rows="4" cols="50"></textarea>
+              </div>
+              <br >
+              <input type="submit" class="btn btn-default btn-flat" value="Create">
+            </form>
             </div>
           </div>
         </div>

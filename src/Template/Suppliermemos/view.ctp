@@ -19,7 +19,8 @@
             <div class="box-header with-border">
               <h3 class="box-title"><?= 'Supplier Memo '.h($supplierMemo->id) ?></h3>
               <div class="pull-right">
-                <?= $this->Html->link(__('Edit Supplier Memo'), ['action' => 'edit', $supplierMemo->id]) ?>
+                <?= $this->Html->link(__('Edit '), ['action' => 'edit', $supplierMemo->id]) ?> | 
+                <?= $this->Html->link(__('Delete'), ['action' => 'delete', $supplierMemo->id]) ?>
               </div>
             </div>
             <div class="box-body">
