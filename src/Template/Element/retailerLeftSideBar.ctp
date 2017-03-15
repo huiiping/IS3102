@@ -1,6 +1,6 @@
 <style>
 .changeactive {
-  background-color: rgba(0, 123, 100, 1);
+  background-color: rgba(0, 153, 255, 1);
   
 }
 </style>
@@ -46,7 +46,7 @@
         <?= $this->Element('sideBar', array('type' => 'Locations', 'typePlural' => 'Locations')); ?>
         <?= $this->Element('sideBar', array('type' => 'Sections', 'typePlural' => 'Sections')); ?>
         <?= $this->Element('sideBar', array('type' => 'Suppliers', 'typePlural' => 'Suppliers')); ?>
-        <?= $this->Element('sideBar', array('type' => 'Supplier Memos', 'typePlural' => 'SupplierMemos')); ?>
+        <!--<?= $this->Element('sideBar', array('type' => 'Supplier Memos', 'typePlural' => 'SupplierMemos')); ?>-->
         <?= $this->Element('sideBar', array('type' => 'Purchase Orders', 'typePlural' => 'PurchaseOrders')); ?>
         <?= $this->Element('sideBar', array('type' => 'Messages', 'typePlural' => 'Messages')); ?>
         <?= $this->Element('sideBar2', array('type' => 'Loggings', 'typePlural' => 'RetailerLoggings')); ?>
