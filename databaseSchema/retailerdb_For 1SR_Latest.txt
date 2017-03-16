@@ -358,7 +358,8 @@ CREATE TABLE reports (
     FOREIGN KEY (supplier_id) REFERENCES suppliers(id),
     FOREIGN KEY (location_id) REFERENCES locations(id),
     FOREIGN KEY (delivery_order_id) REFERENCES delivery_orders(id),
-    FOREIGN KEY (item_id) REFERENCES items(id)
+    FOREIGN KEY (item_id) REFERENCES items(id),
+    FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id)
 );
 
 CREATE TABLE transaction_items (

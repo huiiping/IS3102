@@ -3,6 +3,10 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use PHPExcel_Reader_HTML;
+use PHPExcel_IOFactory;
+use PHPExcel_Writer_HTML;
+use PHPExcel;
 
 /**
  * IntrasysLoggings Controller
@@ -51,14 +55,6 @@ class IntrasysLoggingsController extends AppController
      */
     public function view($id = null)
     {
-
-        $components = [
-            'RequestHandler' => [
-                'viewClassMap' => [
-                    'xlsx' => 'CakeExcel.Excel',
-                ],
-            ]
-        ];
 
         $intrasysLogging = $this->IntrasysLoggings->get($id, [
             'contain' => ['Retailers']
@@ -168,5 +164,32 @@ class IntrasysLoggingsController extends AppController
         return;
     }
 
+    public function test() {
 
+        $inputFileName = 'C:\xampp\htdocs\IS3102_Final\src\purchase-order.xlsx';
+
+        /** Load $inputFileName to a PHPExcel Object  **/
+        // $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+        // $objPHPExcel->getSheet(0);
+
+        $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+        $objPHPExcel->getSheet(0);
+
+        // $objWriter = new PHPExcel_Writer_HTML($objPHPExcel);
+        // $objWriter->setUseBOM(true);
+
+        // $objWriter->save($objPHPExcel);
+        //$this->set('objPHPExcel', $objWriter);
+
+
+    }
+
+    public function xls($id, $output_type = 'D', $file = 'my_spreadsheet.xlsx') {
+        //$user = $this->Users->get($id);
+        $this->set(compact('output_type', 'file'));
+        $this->viewBuilder()->layout('xls/default');
+        $this->viewBuilder()->template('xls/spreadsheet_user');
+        $this->RequestHandler->respondAs('xlsx');
+        $this->render();
+    }
 }
