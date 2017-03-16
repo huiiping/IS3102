@@ -4,6 +4,14 @@
   */
 ?>
 
+<?php
+$this->assign('title', __('Retailer') );
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Loyalty Points'), ['controller' => 'RetailerLoyaltyPoints', 'action' => 'index']);
+
+?>
+
+
 <?php if($intrasys) : ?>
 <?= $this->Element('intrasysLeftSideBar'); ?>
 <?php else : ?>

@@ -3,7 +3,12 @@
   * @var \App\View\AppView $this
   */
 ?>
+<?php
+$this->assign('title', __('Intrasys') );
+$this->Html->addCrumb(__('Intrasys'), ['controller' => 'Pages', 'action' => 'intrasys']);
+$this->Html->addCrumb(__('Retailer Account Types'), ['controller' => 'RetailerAccTypes', 'action' => 'index']);
 
+?>
 <?= $this->Element('intrasysLeftSideBar'); ?>
 
 <!-- Main Content -->

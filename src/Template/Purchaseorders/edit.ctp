@@ -3,7 +3,11 @@
   * @var \App\View\AppView $this
   */
 ?>
-
+<?php
+$this->assign('title', __('Reports') . '/' . __('Edit'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Purchase Orders'), ['controller' => 'Purchaseorders', 'action' => 'index']);
+?>
 <?= $this->Element('retailerLeftSideBar'); ?>
 
 <!-- Main Content -->

@@ -3,6 +3,12 @@
   * @var \App\View\AppView $this
   */
 ?>
+<?php
+$this->assign('title', __('Reports') . '/' . __('Edit'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Reports'), ['controller' => 'RetailerEmployees', 'action' => 'index']);
+$this->Html->addCrumb(__('View'));
+?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
