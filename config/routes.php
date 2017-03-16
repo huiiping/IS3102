@@ -41,8 +41,10 @@ use Cake\Routing\Route\DashedRoute;
  * `:action` markers.
  *
  */
+
+Router::extensions(['xlsx', 'csv']);
 Router::defaultRouteClass(DashedRoute::class);
-Router::extensions(['csv']);
+// Router::extensions(['csv']);
 
 Router::scope('/', function (RouteBuilder $routes) {
     /**
