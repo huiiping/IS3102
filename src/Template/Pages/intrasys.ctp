@@ -23,7 +23,11 @@
   padding-bottom: 60px;
 }
 </style>
+<?php
+$this->assign('title', __('Intrasys') . '/' . __('Add'));
+$this->Html->addCrumb(__('Intrasys'), ['controller' => 'Pages', 'action' => 'intrasys']);
 
+?>
 <?= $this->Element('intrasysLeftSideBar'); ?>
 
 <!-- Main content -->

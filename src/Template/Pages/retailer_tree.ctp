@@ -1,5 +1,9 @@
 <?= $this->Element('retailerLeftSideBar'); ?>
-
+<?php
+$this->assign('title', __('Retailer') . '/' . __('Add'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Retailer Tree'));
+?>
 <div class="content-wrapper">
   <!-- Main content -->
   <section class="content-header">
@@ -24,16 +28,16 @@
                     </ul>
                     <div class="tab-content">
                       <div class="active tab-pane" id="retailer">
-                        <img src="/IS3102_Final/img/retailer_tree.jpg" alt="Roles Mapping Tree">
+                        <img src="/IS3102_Final/img/retailer_tree.jpg" alt="Roles Mapping Tree" height="700">
                       </div>
                       <div class="tab-pane" id="customers">
-                        <img src="/IS3102_Final/img/customer_tree.jpg" alt="Roles Mapping Tree">
+                        <img src="/IS3102_Final/img/customer_tree.jpg" alt="Roles Mapping Tree" height="600">
                       </div>
                       <div class="tab-pane" id="suppliers">
-                        <img src="/IS3102_Final/img/supplier_tree.jpg" alt="Roles Mapping Tree">
+                        <img src="/IS3102_Final/img/supplier_tree.jpg" alt="Roles Mapping Tree" height="800">
                       </div>
                       <div class="tab-pane" id="inventory">
-                        <img src="/IS3102_Final/img/inventory_tree.jpg" alt="Roles Mapping Tree">
+                        <img src="/IS3102_Final/img/inventory_tree.jpg" alt="Roles Mapping Tree" height="600">
                       </div>
                     </div>
                 </div>

@@ -3,7 +3,14 @@
   * @var \App\View\AppView $this
   */
 ?>
+<?php
+$this->assign('title', __('ProdCats') . '/' . __('View'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('ProdCats'), ['controller' => 'ProdCats', 'action' => 'index']);
+$this->Html->addCrumb(__('Products'), ['controller' => 'Products', 'action' => 'index']);
+$this->Html->addCrumb(__('View'));
 
+?>
 <?= $this->Element('retailerLeftSideBar'); ?>
 
 <!-- Main Content -->

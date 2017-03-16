@@ -6,6 +6,13 @@
 
 <?= $this->Element('retailerLeftSideBar'); ?>
 
+<?php
+$this->assign('title', __('Add') . '/' . __('Add'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Location'), ['controller' => 'Locations', 'action' => 'index']);
+$this->Html->addCrumb(__('Section'), ['controller' => 'Sections', 'action' => 'index']);
+$this->Html->addCrumb(__('Add'));
+?>
 <!-- Main Content -->
 <div class="content-wrapper">
   <!-- Content Header -->

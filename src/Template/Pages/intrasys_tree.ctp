@@ -1,5 +1,9 @@
 <?= $this->Element('intrasysLeftSideBar'); ?>
-
+<?php
+$this->assign('title', __('Intrasys Tree') . '/' . __('Add'));
+$this->Html->addCrumb(__('Intrasys'), ['controller' => 'Pages', 'action' => 'intrasys']);
+$this->Html->addCrumb(__('Intrasys Tree'));
+?>
 
 <div class="content-wrapper">
   <!-- Main content -->

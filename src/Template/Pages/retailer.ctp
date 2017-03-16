@@ -1,13 +1,13 @@
 <style>
 #main {
-  background-image: url(/IS3102_Final/img/retailerLogin2.jpg); 
+  background-image: url(/IS3102_Final/img/retailerLogin2.jpg);
 
   background-size: cover;
 
 }
 #box {
-  border-radius: 15px ;  
-  background-color: rgba(255,255,255,.9); 
+  border-radius: 15px ;
+  background-color: rgba(255,255,255,.9);
   overflow: hidden;
 }
 #form_box {
@@ -23,7 +23,11 @@
   padding-bottom: 60px;
 }
 </style>
+<?php
+$this->assign('title', __('Retailer') . '/' . __('Add'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
 
+?>
 <?= $this->Element('retailerLeftSideBar'); ?>
 
 <!-- Main content -->
@@ -39,7 +43,7 @@
             <!--<h3 class="text-center">Provider of RFID Solutions | RFID Readers | RFID Solutions Singapore</h3>-->
             <!--<div class="panel panel-default " id="form_box">
               <div class="panel-heading">
-                <h2 id="loginheading" class="panel-title text-center"></h2>   
+                <h2 id="loginheading" class="panel-title text-center"></h2>
               </div>
               <br>
             </div>-->

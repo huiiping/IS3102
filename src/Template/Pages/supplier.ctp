@@ -23,7 +23,11 @@
   padding-bottom: 60px;
 }
 </style>
+<?php
+$this->assign('title', __('Supplier') . '/' . __('Add'));
+$this->Html->addCrumb(__('Supplier'), ['controller' => 'Pages', 'action' => 'supplier']);
 
+?>
 <?= $this->Element('retailerLeftSideBar'); ?>
 
 <!-- Main content -->

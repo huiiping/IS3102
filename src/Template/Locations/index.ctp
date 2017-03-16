@@ -5,7 +5,11 @@
 ?>
 
 <?= $this->Element('retailerLeftSideBar'); ?>
-
+<?php
+$this->assign('title', __('Location') . '/' . __('Add'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Location'), ['controller' => 'Locations', 'action' => 'index']);
+?>
 <!-- Main Content -->
 <div class="content-wrapper">
   <!-- Content Header -->

@@ -4,7 +4,13 @@
   */
 ?>
 <?= $this->Element('retailerLeftSideBar'); ?>
+<?php
+$this->assign('title', __('ProdCats') . '/' . __('Index'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('ProdCats'), ['controller' => 'ProdCats', 'action' => 'index']);
+$this->Html->addCrumb(__('Products'));
 
+?>
 <!-- Main Content -->
 <div class="content-wrapper">
   <!-- Content Header -->
