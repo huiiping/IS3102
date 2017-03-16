@@ -23,10 +23,10 @@ echo 'Welcome to CLRMS '.$content[0].',' .'<br><br>';
 
 
 echo 'Please click the following link to activate your account: ' . '<br>';
-echo 'http://' . $content[3] . '/IS3102_Final/' . $content[6] . '/activate/' . $content[4] . '/' . $content[5] . '<br><br>';
-echo 'After activating your account, please log in using the following credentials: ' . '<br>';
+echo 'http://' . $content[3] . '/IS3102_Final/' . $content[6] . '/activate/' . $content[4] . '/' . $content[5] . '/' . $content[7] . '<br><br>';
+echo 'After activating your account, please log in using the following username and your new password: ' . '<br>';
 echo 'Username: ' . $content[1] . '<br>';
-echo 'Password: ' . $content[2] . '<br>';
+
 echo 'If this was a mistake, just ignore this email and nothing will happen. This is a computer generated email, please do not reply.' . '<br><br>';
 echo 'Regards,' . '<br>' . 'The Intrasys Team'
 

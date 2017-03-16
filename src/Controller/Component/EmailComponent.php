@@ -53,7 +53,7 @@ class EmailComponent extends Component {
 
 	}
 
-    public function activationEmail($recipient, $firstName, $username, $pwd, $id, $token, $type){
+    public function activationEmail($recipient, $firstName, $username, $pwd, $id, $token, $type, $dbname){
 
         $email = new Email('default');
         $email->template('activation');
@@ -67,8 +67,8 @@ class EmailComponent extends Component {
             env('SERVER_NAME').','. 
             $id.','. 
             $token.','.
-            $type);
-
+            $type.','.
+            $dbname);
     }
 
     public function retailerEmployeeActivationEmail($recipient, $firstName, $username, $pwd, $id, $token, $type, $database){
