@@ -306,11 +306,11 @@ class RetailerEmployeesController extends AppController
         $session = $this->request->session();
         $retailer = $session->read('retailer');
 
-        //counting the retailer's existing number of product types
+        //counting the retailer's existing number of employees
         $query = $this->RetailerEmployees->find();
         $count = $query->count();
 
-        //obtaining the retailer's limit on the number of product types
+        //obtaining the retailer's limit on the number of employees
         $conn = ConnectionManager::get('intrasysdb');
         $acctTypeID = $conn
         ->newQuery()
@@ -329,7 +329,7 @@ class RetailerEmployeesController extends AppController
         ->fetchAll('assoc');
         $defaultNum = Hash::extract($defaultNum, '{n}.num_of_users');
 
-        //The bonus number of units given to individual retailers
+        //The bonus number of employees given to the retailer
         $bonus = $conn
         ->newQuery()
         ->select('num_of_users')
@@ -339,7 +339,7 @@ class RetailerEmployeesController extends AppController
         ->fetchAll('assoc');
         $bonus = Hash::extract($bonus, '{n}.num_of_users');
 
-        //Total number of product types allowed to the retailers
+        //Total number of employees allowed to the retailers
         $limit = $defaultNum[0] + $bonus[0]; 
         
         if ($count >= $limit) {

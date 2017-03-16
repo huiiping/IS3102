@@ -108,7 +108,7 @@
           <fieldset>
             <?php
             echo $this->Form->input('message', ['type' => 'text']);
-            echo $this->Form->hidden('status', ['dafult' => false]);
+            echo $this->Form->hidden('status', ['default' => false]);
             if (isset($attachment) && isset($attachmentID)) {
               echo $this->Form->input('attachment', ['value' => $attachment]);
               echo $this->Form->input('attachmentID', ['value' => $attachmentID]);
@@ -122,7 +122,7 @@
           <span class="btn green fileinput-button">
             <i class="fa fa-plus fa fa-white"></i>
             <span>Attachment</span>
-            <input type="file" name="files[]" multiple="">
+            <input type="file" name="file">
           </span>
           <?= $this->Form->button(__('Send'), ['class'=>'btn btn-default btn-flat']); ?>
         </form>
