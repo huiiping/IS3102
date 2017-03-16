@@ -178,7 +178,8 @@ CREATE TABLE products (
     prod_desc TEXT,
     store_unit_price DOUBLE,
     web_store_unit_price DOUBLE,
-    SKU VARCHAR(100),
+    SKU VARCHAR(100) UNIQUE,
+    barcode VARCHAR(255) UNIQUE,
     prod_cat_id INT,
     FOREIGN KEY (prod_cat_id) REFERENCES prod_cats(id)
 );
@@ -303,7 +304,7 @@ CREATE TABLE items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
     description VARCHAR(255),
-    EPC VARCHAR(255),
+    EPC VARCHAR(255) UNIQUE,
     status VARCHAR(100),
     report_id INT,
     product_id INT,

@@ -12,7 +12,8 @@
         "cakephp/plugin-installer": "*",
         "friendsofcake/cakephp-csvview": "~3.0",
         "captcha-com/cakephp-captcha": "4.*",
-		"hashmode/cakephp-tinymce-elfinder": "~1.0"
+		"hashmode/cakephp-tinymce-elfinder": "~1.0",
+        "dakota/cake-excel": "^2.0"
     },
     "require-dev": {
         "psy/psysh": "@stable",

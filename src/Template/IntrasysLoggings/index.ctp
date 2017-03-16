@@ -20,7 +20,7 @@
               <h3 class="box-title"><?= __('Intrasys Loggings') ?></h3>
             </div>
             <div class="box-body">
-
+            <?= $this->Html->link('Excel file', ['_ext' => 'xlsx']); ?>
                 <br>
                 <!--<legend><h4><?= __('Search') ?></h4></legend>-->
                 <table cellpadding="0" cellspacing="0", bgcolor="#FFFFFF">

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "dcf68345f8f91c8a3c23ec0dfec45b39",
+    "content-hash": "a8fa802f8b13c3fc9f98be2f94b54104",
     "packages": [
         {
             "name": "aura/intl",
@@ -364,6 +364,54 @@
             "time": "2016-06-06T13:31:24+00:00"
         },
         {
+            "name": "dakota/cake-excel",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dakota/CakeExcel.git",
+                "reference": "2d6f947e731802738a66c170b0fd78d0fe5d0ab0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dakota/CakeExcel/zipball/2d6f947e731802738a66c170b0fd78d0fe5d0ab0",
+                "reference": "2d6f947e731802738a66c170b0fd78d0fe5d0ab0",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "~3.1",
+                "php": ">=5.4.16",
+                "phpoffice/phpexcel": "~1.8"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.1.*"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "CakeExcel\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Walther Lalk",
+                    "email": "emailme@waltherlalk.com"
+                }
+            ],
+            "description": "CakePHP excel generator",
+            "homepage": "https://github.com/dakota/CakeExcel",
+            "keywords": [
+                "PHPExcel",
+                "cakephp",
+                "dakota",
+                "excel"
+            ],
+            "time": "2016-07-18T08:37:03+00:00"
+        },
+        {
             "name": "friendsofcake/cakephp-csvview",
             "version": "3.2.1",
             "source": {
@@ -532,6 +580,63 @@
                 "php mobile detect"
             ],
             "time": "2016-11-11T14:56:25+00:00"
+        },
+        {
+            "name": "phpoffice/phpexcel",
+            "version": "1.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPOffice/PHPExcel.git",
+                "reference": "372c7cbb695a6f6f1e62649381aeaa37e7e70b32"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/372c7cbb695a6f6f1e62649381aeaa37e7e70b32",
+                "reference": "372c7cbb695a6f6f1e62649381aeaa37e7e70b32",
+                "shasum": ""
+            },
+            "require": {
+                "ext-xml": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PHPExcel": "Classes/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Maarten Balliauw",
+                    "homepage": "http://blog.maartenballiauw.be"
+                },
+                {
+                    "name": "Mark Baker"
+                },
+                {
+                    "name": "Franck Lefevre",
+                    "homepage": "http://blog.rootslabs.net"
+                },
+                {
+                    "name": "Erik Tilt"
+                }
+            ],
+            "description": "PHPExcel - OpenXML - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
+            "homepage": "http://phpexcel.codeplex.com",
+            "keywords": [
+                "OpenXML",
+                "excel",
+                "php",
+                "spreadsheet",
+                "xls",
+                "xlsx"
+            ],
+            "time": "2015-05-01T07:00:55+00:00"
         },
         {
             "name": "psr/http-message",

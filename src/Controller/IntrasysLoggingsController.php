@@ -37,6 +37,7 @@ class IntrasysLoggingsController extends AppController
         $this->set(compact('intrasysLoggings'));
         $this->set('_serialize', ['intrasysLoggings']);
     }
+
     public $components = array(
         'Prg'
     );
@@ -50,6 +51,15 @@ class IntrasysLoggingsController extends AppController
      */
     public function view($id = null)
     {
+
+        $components = [
+            'RequestHandler' => [
+                'viewClassMap' => [
+                    'xlsx' => 'CakeExcel.Excel',
+                ],
+            ]
+        ];
+
         $intrasysLogging = $this->IntrasysLoggings->get($id, [
             'contain' => ['Retailers']
         ]);
@@ -157,4 +167,6 @@ class IntrasysLoggingsController extends AppController
         $this->viewBuilder()->className('CsvView.Csv');
         return;
     }
+
+
 }
