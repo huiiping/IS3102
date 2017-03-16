@@ -58,7 +58,7 @@ class PromotionsController extends AppController
     public function view($id = null)
     {
         $promotion = $this->Promotions->get($id, [
-            'contain' => ['RetailerEmployees', 'CustMembershipTiers', 'ProdTypes']
+            'contain' => ['RetailerEmployees', 'CustMembershipTiers', 'Products']
         ]);
 
         $promotionEmails = TableRegistry::get('PromotionEmails');
@@ -136,8 +136,8 @@ class PromotionsController extends AppController
         }
         $retailerEmployees = $this->Promotions->RetailerEmployees->find('list', ['limit' => 200]);
         $custMembershipTiers = $this->Promotions->custMembershipTiers->find('list', ['limit' => 200]);
-        $prodTypes = $this->Promotions->ProdTypes->find('list', ['limit' => 200]);
-        $this->set(compact('promotion', 'retailerEmployees', 'custMembershipTiers', 'prodTypes'));
+        $products = $this->Promotions->Products->find('list', ['limit' => 200]);
+        $this->set(compact('promotion', 'retailerEmployees', 'custMembershipTiers', 'products'));
         $this->set('_serialize', ['promotion']);
     }
 
@@ -151,7 +151,7 @@ class PromotionsController extends AppController
     public function edit($id = null)
     {
         $promotion = $this->Promotions->get($id, [
-            'contain' => ['CustMembershipTiers', 'ProdTypes']
+            'contain' => ['CustMembershipTiers', 'Products']
         ]);
 
         //Check if the promotion has already started or ended
@@ -213,8 +213,8 @@ class PromotionsController extends AppController
         }
         $retailerEmployees = $this->Promotions->RetailerEmployees->find('list', ['limit' => 200]);
         $custMembershipTiers = $this->Promotions->custMembershipTiers->find('list', ['limit' => 200]);
-        $prodTypes = $this->Promotions->ProdTypes->find('list', ['limit' => 200]);
-        $this->set(compact('promotion', 'retailerEmployees', 'custMembershipTiers', 'prodTypes'));
+        $products = $this->Promotions->Products->find('list', ['limit' => 200]);
+        $this->set(compact('promotion', 'retailerEmployees', 'custMembershipTiers', 'products'));
         $this->set('_serialize', ['promotion']);
     }
 

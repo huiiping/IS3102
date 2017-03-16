@@ -95,10 +95,10 @@ class PromotionsTable extends Table
             'targetForeignKey' => 'cust_membership_tier_id',
             'joinTable' => 'cust_membership_tiers_promotions'
         ]);
-        $this->belongsToMany('ProdTypes', [
+        $this->belongsToMany('Products', [
             'foreignKey' => 'promotion_id',
-            'targetForeignKey' => 'prod_type_id',
-            'joinTable' => 'promotions_prod_types'
+            'targetForeignKey' => 'products_id',
+            'joinTable' => 'promotions_products'
         ]);
         $this->addBehavior('Searchable');
     }
