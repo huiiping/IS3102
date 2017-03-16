@@ -13,7 +13,8 @@
         "friendsofcake/cakephp-csvview": "~3.0",
         "captcha-com/cakephp-captcha": "4.*",
 		"hashmode/cakephp-tinymce-elfinder": "~1.0",
-        "dakota/cake-excel": "^2.0"
+        "dakota/cake-excel": "^2.0",
+        "mailjet/mailjet-apiv3-php": "^1.1"
     },
     "require-dev": {
         "psy/psysh": "@stable",

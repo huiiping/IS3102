@@ -7,6 +7,8 @@ use Cake\Datasource\ConnectionManager;
 use Cake\I18n\Time;
 use Cake\I18n\Date;
 use Cake\Event\Event;
+require 'C:/xampp/htdocs/IS3102_Final/vendor/autoload.php';
+use \Mailjet\Resources;
 
 /**
  * PromotionEmails Controller
@@ -30,12 +32,35 @@ class PromotionEmailsController extends AppController
      */
     public function index()
     {
+        $apikey = '86b677af65add5a9ccdf9da1035ff660';
+        $apisecret = 'eef2c47229e7616b0996ade8a6f49d34';
+
+        $mj = new \Mailjet\Client($apikey, $apisecret);
+
+        $response = $mj->get(Resources::$Apikeytotals);
+        $response->success();
+        //var_dump($response->getData());
+        //var_dump($response->getData());
+        $stats = $response->getData();
+        var_dump($stats[0]);
+        var_dump('HI');
+        echo $stats[0]['BlockedCount'];
+        echo "nottttttt";
+
+        $responses = $mj->get(Resources::$Messagesentstatistics, ['id' => $id]);
+        $responses->success();
+        $stat = $responses->getData();        
+
+        var_dump($stat);
+        foreach ($responses as $response) {
+            echo $response; 
+        }
         
         //$promotionEmails = $this->paginate($this->PromotionEmails);
         $this->loadComponent('Prg');
         $this->Prg->commonProcess();
         $this->paginate = [
-            'contain' => ['Promotions']
+        'contain' => ['Promotions']
         ];
         $this->set('promotionEmails', $this->paginate($this->PromotionEmails->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('promotionEmails'));
@@ -43,7 +68,7 @@ class PromotionEmailsController extends AppController
     }
     public $components = array(
         'Prg'
-    );
+        );
 
     /**
      * View method
@@ -56,7 +81,7 @@ class PromotionEmailsController extends AppController
     {
         $promotionEmail = $this->PromotionEmails->get($id, [
             'contain' => ['Promotions']
-        ]);
+            ]);
 
         $custMembershipTiers = $this->PromotionEmails->Promotions->CustMembershipTiers->find('list', ['limit' => 200]);
 
@@ -75,7 +100,7 @@ class PromotionEmailsController extends AppController
         $promotionEmail = $this->PromotionEmails->newEntity();
 
         if ($this->request->is('post')) {
-            
+
             $promotionEmail = $this->PromotionEmails->patchEntity($promotionEmail, $this->request->data);
             
             $send = $_POST['email'];
@@ -92,8 +117,8 @@ class PromotionEmailsController extends AppController
                     $retailer = $session->read('retailer');
                     $conn = ConnectionManager::get('default');
                     $query = $conn
-                        ->execute('SELECT * FROM customers WHERE cust_membership_tier_id = :id', ['id' => $tier[0]])
-                        ->fetchAll('assoc');                    
+                    ->execute('SELECT * FROM customers WHERE cust_membership_tier_id = :id', ['id' => $tier[0]])
+                    ->fetchAll('assoc');                    
 
                     $this->Email->promotionEmail($title, $body, $query);
 
@@ -120,7 +145,7 @@ class PromotionEmailsController extends AppController
         $promotionEmail = $this->PromotionEmails->newEntity();
 
         if ($this->request->is('post')) {
-            
+
             $promotionEmail = $this->PromotionEmails->patchEntity($promotionEmail, $this->request->data);
             
             $send = $_POST['email'];
@@ -137,8 +162,8 @@ class PromotionEmailsController extends AppController
                     $retailer = $session->read('retailer');
                     $conn = ConnectionManager::get('default');
                     $query = $conn
-                        ->execute('SELECT * FROM customers WHERE cust_membership_tier_id = :id', ['id' => $tier[0]])
-                        ->fetchAll('assoc');                    
+                    ->execute('SELECT * FROM customers WHERE cust_membership_tier_id = :id', ['id' => $tier[0]])
+                    ->fetchAll('assoc');                    
 
                     $this->Email->promotionEmail($title, $body, $query);
 
@@ -171,13 +196,13 @@ class PromotionEmailsController extends AppController
     {
         $promotionEmail = $this->PromotionEmails->get($id, [
             'contain' => []
-        ]);
+            ]);
 
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $promotionEmail = $this->PromotionEmails->patchEntity($promotionEmail, $this->request->data);
             if ($this->PromotionEmails->save($promotionEmail)) {
-                
+
                 $send = $_POST['email'];
                 
                 if($send = 'y') {
@@ -190,8 +215,8 @@ class PromotionEmailsController extends AppController
                     $retailer = $session->read('retailer');
                     $conn = ConnectionManager::get('default');
                     $query = $conn
-                        ->execute('SELECT * FROM customers WHERE cust_membership_tier_id = :id', ['id' => $tier[0]])
-                        ->fetchAll('assoc');                    
+                    ->execute('SELECT * FROM customers WHERE cust_membership_tier_id = :id', ['id' => $tier[0]])
+                    ->fetchAll('assoc');                    
 
                     $this->Email->promotionEmail($title, $body, $query);
 
@@ -231,6 +256,7 @@ class PromotionEmailsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
 
 
 }
