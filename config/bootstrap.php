@@ -216,7 +216,6 @@ Type::build('timestamp')
 
 Plugin::load('CsvView');
 Plugin::load('CakeCaptcha', ['routes' => true]);
-Plugin::load('CakeExcel', ['bootstrap' => true, 'routes' => true]);
 
 /*
  * Only try to load DebugKit in development mode
