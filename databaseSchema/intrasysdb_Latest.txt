@@ -19,7 +19,7 @@ CREATE TABLE retailer_acc_types (
     num_of_users INT,
     num_of_warehouses INT,
     num_of_stores INT,
-    num_of_product_types INT,
+    num_of_products INT,
     created DATETIME,
     modified DATETIME
 );
@@ -38,7 +38,7 @@ CREATE TABLE retailers (
     num_of_users INT,
     num_of_warehouses INT,
     num_of_stores INT,
-    num_of_product_types INT,    
+    num_of_products INT,    
     created DATETIME,
     modified DATETIME,
     retailer_acc_type_id INT NOT NULL,

@@ -35,7 +35,7 @@
                         echo $this->Form->input('num_of_users', ['label'=>'No. of Users']);
                         echo $this->Form->input('num_of_warehouses', ['label'=>'No. of Warehouses']);
                         echo $this->Form->input('num_of_stores', ['label'=>'No. of Stores']);
-                        echo $this->Form->input('num_of_product_types', ['label'=>'No. of Product Types']);
+                        echo $this->Form->input('num_of_products', ['label'=>'No. of Products']);
                         echo $this->Form->input('retailer_acc_type_id', ['label'=>'Retailer Account Type'], ['options' => $retailerAccTypes]);
                     ?>
                 </fieldset>

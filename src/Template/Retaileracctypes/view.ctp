@@ -42,8 +42,8 @@
                         <td><?= $this->Number->format($retailerAccType->num_of_stores) ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('No. Of Product Types') ?></th>
-                        <td><?= $this->Number->format($retailerAccType->num_of_product_types) ?></td>
+                        <th scope="row"><?= __('No. Of Products') ?></th>
+                        <td><?= $this->Number->format($retailerAccType->num_of_products) ?></td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Id') ?></th>

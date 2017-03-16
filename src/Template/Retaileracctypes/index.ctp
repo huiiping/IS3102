@@ -28,7 +28,7 @@
                         <!--<th scope="col"><?= $this->Paginator->sort('num_of_users') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('num_of_warehouses') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('num_of_stores') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('num_of_product_types') ?></th>
+                        <th scope="col"><?= $this->Paginator->sort('num_of_products') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('modified') ?></th>-->
                         <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -42,7 +42,7 @@
                         <!--<td><?= $this->Number->format($retailerAccType->num_of_users) ?></td>
                         <td><?= $this->Number->format($retailerAccType->num_of_warehouses) ?></td>
                         <td><?= $this->Number->format($retailerAccType->num_of_stores) ?></td>
-                        <td><?= $this->Number->format($retailerAccType->num_of_product_types) ?></td>
+                        <td><?= $this->Number->format($retailerAccType->num_of_products) ?></td>
                         <td><?= h($retailerAccType->created) ?></td>
                         <td><?= h($retailerAccType->modified) ?></td>-->
                         <td class="actions">

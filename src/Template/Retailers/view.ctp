@@ -53,7 +53,7 @@
                 <?= $this->Html->link(__('Edit '.$retailer->retailer_name), ['action' => 'edit', $retailer->id]) ?>
               </div><br>
               <div class="btn btn-default btn-block">
-                <?= $this->Html->link(__('Manage '.$retailer->retailer_name.'\'s Loyalty Points'), ['controller' => 'retailer_loyalty_points', 'action' => 'view', $retailer->id]) ?>
+                <?= $this->Html->link(__('Manage '.ucfirst($retailer->retailer_name).'\'s Loyalty Points'), ['controller' => 'retailer_loyalty_points', 'action' => 'view', $retailer->id]) ?>
               </div>
               <br>
             </div>
@@ -78,7 +78,7 @@
                 </li>
                 <li class="list-group-item">
                   <b><?= __('No. Of Product Types') ?></b> 
-                  <div class="pull-right"><?= $this->Number->format($retailer->num_of_product_types) ?></div>
+                  <div class="pull-right"><?= $this->Number->format($retailer->num_of_products) ?></div>
                 </li>
               </ul>
               <br>

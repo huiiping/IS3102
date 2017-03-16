@@ -125,8 +125,8 @@ class RetailersTable extends Table
             ->allowEmpty('num_of_stores');
 
         $validator
-            ->integer('num_of_product_types')
-            ->allowEmpty('num_of_product_types');
+            ->integer('num_of_products')
+            ->allowEmpty('num_of_products');
 
         return $validator;
     }

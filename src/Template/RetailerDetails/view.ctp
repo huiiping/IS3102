@@ -94,7 +94,7 @@
                     <i class="fa fa-shopping-cart"></i>
                     <br><p style="font-size: 14px;">Stores</p>
                   </td>
-                  <td style="font-size: 18px;" title="No. of Product Types">
+                  <td style="font-size: 18px;" title="No. of Products">
                     <i class="fa fa-product-hunt"></i>
                     <br><p style="font-size: 14px;">Products</p>
                   </td>
@@ -117,7 +117,7 @@
                     <?= ($getRetailer->retailer_acc_type->num_of_stores) + ($getRetailer->num_of_stores)?>
                   </td>
                   <td style="font-size: 18px;" title="No. of Product Types">
-                    <?= ($getRetailer->retailer_acc_type->num_of_product_types) + ($getRetailer->num_of_product_types) ?>
+                    <?= ($getRetailer->retailer_acc_type->num_of_products) + ($getRetailer->num_of_products) ?>
                   </td>
                   <td style="font-size: 18px;" title="No. of Loyalty Points">
 
