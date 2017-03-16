@@ -49,7 +49,7 @@ $this->Html->addCrumb(__('Promotions'), ['controller' => 'Promotions', 'action' 
                         //echo $this->Form->input('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
                         //echo $this->Form->input('customers._ids', ['options' => $customers]);
                         echo $this->Form->input('cust_membership_tiers._ids', array('options' => $custMembershipTiers, 'label' => 'Applicable to Customer Tier(s)'));
-                        echo $this->Form->input('prod_types._ids', array('options' => $prodTypes, 'label' => 'Applicable to Product Type(s)'));
+                        echo $this->Form->input('prod_types._ids', array('options' => $products, 'label' => 'Applicable to Product Type(s)'));
                     ?>                
                
                 <div class="box-body">
