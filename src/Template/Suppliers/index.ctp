@@ -115,6 +115,7 @@
                                 <?php if(!$type) : ?>
                                 <?= $this->Form->postLink(__('| Delete'), ['action' => 'delete', $supplier->id], ['confirm' => __('Are you sure you want to delete # {0}?', $supplier->id)]) ?>
                                 <?php endif; ?>
+                                <?= $this->Html->link(__(' | Request Quotations'), ['action' => 'requestQuotation', $supplier->id, $supplier->supplier_name]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

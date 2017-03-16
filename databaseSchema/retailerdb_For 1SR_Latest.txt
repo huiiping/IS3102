@@ -411,3 +411,15 @@ CREATE TABLE feedbacks (
     FOREIGN KEY (item_id) REFERENCES items(id), 
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
+
+CREATE TABLE quotations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    message TEXT,
+    modified DATETIME,
+    created DATETIME,
+    retailer_employee_id INT,
+    supplier_id INT, 
+    FOREIGN KEY (supplier_id) REFERENCES suppliers(id), 
+    FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id)
+);
