@@ -37,23 +37,29 @@
         <?= $this->Element('sideBar2', array('type' => 'Employee Roles', 'typePlural' => 'RetailerEmployeeRoles')); ?>
         <?= $this->Element('sideBar', array('type' => 'Customers', 'typePlural' => 'Customers')); ?>
         <?= $this->Element('sideBar', array('type' => 'Membership Tiers', 'typePlural' => 'CustMembershipTiers')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Membership Points', 'typePlural' => 'MembershipPoints')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Feedbacks', 'typePlural' => 'Feedbacks')); ?>
         <?= $this->Element('sideBar', array('type' => 'Promotions', 'typePlural' => 'Promotions')); ?>
         <?= $this->Element('sideBar', array('type' => 'Promotion Emails', 'typePlural' => 'PromotionEmails')); ?>
         <?= $this->Element('sideBar', array('type' => 'Product Category', 'typePlural' => 'ProdCats')); ?>
         <?= $this->Element('sideBar', array('type' => 'Product Specification', 'typePlural' => 'ProdSpecifications')); ?>
         <?= $this->Element('sideBar', array('type' => 'Product', 'typePlural' => 'Products')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Items', 'typePlural' => 'Items')); ?>
         <?= $this->Element('sideBar', array('type' => 'Inventory', 'typePlural' => 'Inventory')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Stock Levels', 'typePlural' => 'StockLevels')); ?>
         <?= $this->Element('sideBar', array('type' => 'Locations', 'typePlural' => 'Locations')); ?>
         <?= $this->Element('sideBar', array('type' => 'Sections', 'typePlural' => 'Sections')); ?>
         <?= $this->Element('sideBar', array('type' => 'Suppliers', 'typePlural' => 'Suppliers')); ?>
         <!--<?= $this->Element('sideBar', array('type' => 'Supplier Memos', 'typePlural' => 'SupplierMemos')); ?>-->
         <?= $this->Element('sideBar', array('type' => 'Purchase Orders', 'typePlural' => 'PurchaseOrders')); ?>
         <?= $this->Element('sideBar', array('type' => 'Transactions', 'typePlural' => 'Transactions')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Transaction Items', 'typePlural' => 'TransactionItems')); ?>
         <?= $this->Element('sideBar', array('type' => 'Delivery Orders', 'typePlural' => 'DeliveryOrders')); ?>
         <?= $this->Element('sideBar', array('type' => 'Delivery Order Items', 'typePlural' => 'DeliveryOrderItems')); ?>
         <?= $this->Element('sideBar', array('type' => 'Transfer Orders', 'typePlural' => 'TransferOrders')); ?>
         <?= $this->Element('sideBar', array('type' => 'Transfer Orders Items', 'typePlural' => 'TransferOrdersItems')); ?>
         <?= $this->Element('sideBar', array('type' => 'Messages', 'typePlural' => 'Messages')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Reports', 'typePlural' => 'Reports')); ?>
         <?= $this->Element('sideBar2', array('type' => 'Loggings', 'typePlural' => 'RetailerLoggings')); ?>
       <?php endif; ?>
 

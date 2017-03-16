@@ -309,7 +309,6 @@ CREATE TABLE items (
     report_id INT,
     product_id INT,
     location_id INT,
-    FOREIGN KEY (report_id) REFERENCES reports(id),
     FOREIGN KEY (location_id) REFERENCES locations(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
