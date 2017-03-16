@@ -16,22 +16,16 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('itemID') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('EPC') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('barcode') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('transfer_order_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('item_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($transferOrderItems as $transferOrderItem): ?>
             <tr>
-                <td><?= $this->Number->format($transferOrderItem->id) ?></td>
-                <td><?= h($transferOrderItem->itemID) ?></td>
-                <td><?= h($transferOrderItem->EPC) ?></td>
-                <td><?= h($transferOrderItem->barcode) ?></td>
                 <td><?= $transferOrderItem->has('transfer_order') ? $this->Html->link($transferOrderItem->transfer_order->id, ['controller' => 'TransferOrders', 'action' => 'view', $transferOrderItem->transfer_order->id]) : '' ?></td>
+                <td><?= $this->Number->format($transferOrderItem->item_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $transferOrderItem->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $transferOrderItem->id]) ?>

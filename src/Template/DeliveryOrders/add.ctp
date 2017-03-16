@@ -26,12 +26,11 @@
         <?php
             echo $this->Form->control('status');
             echo $this->Form->control('fee');
-            echo $this->Form->control('currency');
             echo $this->Form->control('deliverer');
             echo $this->Form->control('customer_id', ['options' => $customers, 'empty' => true]);
             echo $this->Form->control('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
             echo $this->Form->control('location_id', ['options' => $locations, 'empty' => true]);
-            echo $this->Form->control('transaction_id');
+            echo $this->Form->control('transaction_id', ['options' => $transactions, 'empty' => true]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

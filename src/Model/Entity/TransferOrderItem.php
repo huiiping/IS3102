@@ -6,11 +6,8 @@ use Cake\ORM\Entity;
 /**
  * TransferOrderItem Entity
  *
- * @property int $id
- * @property string $itemID
- * @property string $EPC
- * @property string $barcode
  * @property int $transfer_order_id
+ * @property int $item_id
  *
  * @property \App\Model\Entity\TransferOrder $transfer_order
  */

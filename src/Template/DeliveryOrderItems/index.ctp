@@ -16,22 +16,16 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('itemID') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('EPC') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('barcode') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('delivery_order_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('item_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($deliveryOrderItems as $deliveryOrderItem): ?>
             <tr>
-                <td><?= $this->Number->format($deliveryOrderItem->id) ?></td>
-                <td><?= h($deliveryOrderItem->itemID) ?></td>
-                <td><?= h($deliveryOrderItem->EPC) ?></td>
-                <td><?= h($deliveryOrderItem->barcode) ?></td>
                 <td><?= $deliveryOrderItem->has('delivery_order') ? $this->Html->link($deliveryOrderItem->delivery_order->id, ['controller' => 'DeliveryOrders', 'action' => 'view', $deliveryOrderItem->delivery_order->id]) : '' ?></td>
+                <td><?= $this->Number->format($deliveryOrderItem->item_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $deliveryOrderItem->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $deliveryOrderItem->id]) ?>

@@ -16,10 +16,8 @@
     <fieldset>
         <legend><?= __('Add Delivery Order Item') ?></legend>
         <?php
-            echo $this->Form->control('itemID');
-            echo $this->Form->control('EPC');
-            echo $this->Form->control('barcode');
-            echo $this->Form->control('delivery_order_id', ['options' => $deliveryOrders, 'empty' => true]);
+            echo $this->Form->control('delivery_order_id', ['options' => $deliveryOrders]);
+            echo $this->Form->control('item_id');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

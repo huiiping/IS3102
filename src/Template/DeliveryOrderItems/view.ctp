@@ -18,24 +18,12 @@
     <h3><?= h($deliveryOrderItem->id) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('ItemID') ?></th>
-            <td><?= h($deliveryOrderItem->itemID) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('EPC') ?></th>
-            <td><?= h($deliveryOrderItem->EPC) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Barcode') ?></th>
-            <td><?= h($deliveryOrderItem->barcode) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Delivery Order') ?></th>
             <td><?= $deliveryOrderItem->has('delivery_order') ? $this->Html->link($deliveryOrderItem->delivery_order->id, ['controller' => 'DeliveryOrders', 'action' => 'view', $deliveryOrderItem->delivery_order->id]) : '' ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($deliveryOrderItem->id) ?></td>
+            <th scope="row"><?= __('Item Id') ?></th>
+            <td><?= $this->Number->format($deliveryOrderItem->item_id) ?></td>
         </tr>
     </table>
 </div>

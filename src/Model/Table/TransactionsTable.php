@@ -13,6 +13,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $RetailerEmployees
  * @property \Cake\ORM\Association\BelongsTo $Locations
  * @property \Cake\ORM\Association\HasMany $DeliveryOrders
+ * @property \Cake\ORM\Association\HasMany $TransactionItems
  *
  * @method \App\Model\Entity\Transaction get($primaryKey, $options = [])
  * @method \App\Model\Entity\Transaction newEntity($data = null, array $options = [])
@@ -55,6 +56,9 @@ class TransactionsTable extends Table
         $this->hasMany('DeliveryOrders', [
             'foreignKey' => 'transaction_id'
         ]);
+        $this->hasMany('TransactionItems', [
+            'foreignKey' => 'transaction_id'
+        ]);
     }
 
     /**
@@ -76,8 +80,24 @@ class TransactionsTable extends Table
             ->allowEmpty('remarks');
 
         $validator
-            ->integer('receiptID')
-            ->allowEmpty('receiptID');
+            ->integer('receipt_number')
+            ->allowEmpty('receipt_number');
+
+        $validator
+            ->numeric('gross_amount')
+            ->allowEmpty('gross_amount');
+
+        $validator
+            ->numeric('nett_amount')
+            ->allowEmpty('nett_amount');
+
+        $validator
+            ->numeric('member_discount')
+            ->allowEmpty('member_discount');
+
+        $validator
+            ->numeric('other_discount')
+            ->allowEmpty('other_discount');
 
         return $validator;
     }

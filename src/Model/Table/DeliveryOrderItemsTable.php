@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
  * DeliveryOrderItems Model
  *
  * @property \Cake\ORM\Association\BelongsTo $DeliveryOrders
+ * @property \Cake\ORM\Association\BelongsTo $Items
  *
  * @method \App\Model\Entity\DeliveryOrderItem get($primaryKey, $options = [])
  * @method \App\Model\Entity\DeliveryOrderItem newEntity($data = null, array $options = [])
@@ -37,33 +38,13 @@ class DeliveryOrderItemsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->belongsTo('DeliveryOrders', [
-            'foreignKey' => 'delivery_order_id'
+            'foreignKey' => 'delivery_order_id',
+            'joinType' => 'INNER'
         ]);
-    }
-
-    /**
-     * Default validation rules.
-     *
-     * @param \Cake\Validation\Validator $validator Validator instance.
-     * @return \Cake\Validation\Validator
-     */
-    public function validationDefault(Validator $validator)
-    {
-        $validator
-            ->integer('id')
-            ->allowEmpty('id', 'create');
-
-        $validator
-            ->allowEmpty('itemID');
-
-        $validator
-            ->allowEmpty('EPC')
-            ->add('EPC', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
-
-        $validator
-            ->allowEmpty('barcode');
-
-        return $validator;
+        $this->belongsTo('Items', [
+            'foreignKey' => 'item_id',
+            'joinType' => 'INNER'
+        ]);
     }
 
     /**
@@ -75,8 +56,8 @@ class DeliveryOrderItemsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['EPC']));
         $rules->add($rules->existsIn(['delivery_order_id'], 'DeliveryOrders'));
+        $rules->add($rules->existsIn(['item_id'], 'Items'));
 
         return $rules;
     }

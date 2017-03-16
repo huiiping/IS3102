@@ -27,7 +27,6 @@
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('status') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('fee') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('currency') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('deliverer') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('customer_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('retailer_employee_id') ?></th>
@@ -44,12 +43,11 @@
                 <td><?= $this->Number->format($deliveryOrder->id) ?></td>
                 <td><?= h($deliveryOrder->status) ?></td>
                 <td><?= $this->Number->format($deliveryOrder->fee) ?></td>
-                <td><?= h($deliveryOrder->currency) ?></td>
                 <td><?= h($deliveryOrder->deliverer) ?></td>
                 <td><?= $deliveryOrder->has('customer') ? $this->Html->link($deliveryOrder->customer->id, ['controller' => 'Customers', 'action' => 'view', $deliveryOrder->customer->id]) : '' ?></td>
                 <td><?= $deliveryOrder->has('retailer_employee') ? $this->Html->link($deliveryOrder->retailer_employee->last_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $deliveryOrder->retailer_employee->id]) : '' ?></td>
                 <td><?= $deliveryOrder->has('location') ? $this->Html->link($deliveryOrder->location->name, ['controller' => 'Locations', 'action' => 'view', $deliveryOrder->location->id]) : '' ?></td>
-                <td><?= $this->Number->format($deliveryOrder->transaction_id) ?></td>
+                <td><?= $deliveryOrder->has('transaction') ? $this->Html->link($deliveryOrder->transaction->id, ['controller' => 'Transactions', 'action' => 'view', $deliveryOrder->transaction->id]) : '' ?></td>
                 <td><?= h($deliveryOrder->modified) ?></td>
                 <td><?= h($deliveryOrder->created) ?></td>
                 <td class="actions">

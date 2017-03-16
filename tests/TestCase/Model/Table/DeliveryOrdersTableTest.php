@@ -45,6 +45,7 @@ class DeliveryOrdersTableTest extends TestCase
         'app.promotions_prod_types',
         'app.customers_promotions',
         'app.transactions',
+        'app.transaction_items',
         'app.delivery_order_items'
     ];
 

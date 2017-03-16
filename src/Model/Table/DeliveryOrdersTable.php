@@ -14,6 +14,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $Locations
  * @property \Cake\ORM\Association\BelongsTo $Transactions
  * @property \Cake\ORM\Association\HasMany $DeliveryOrderItems
+ * @property \Cake\ORM\Association\HasMany $Reports
  *
  * @method \App\Model\Entity\DeliveryOrder get($primaryKey, $options = [])
  * @method \App\Model\Entity\DeliveryOrder newEntity($data = null, array $options = [])
@@ -59,6 +60,9 @@ class DeliveryOrdersTable extends Table
         $this->hasMany('DeliveryOrderItems', [
             'foreignKey' => 'delivery_order_id'
         ]);
+        $this->hasMany('Reports', [
+            'foreignKey' => 'delivery_order_id'
+        ]);
     }
 
     /**
@@ -79,9 +83,6 @@ class DeliveryOrdersTable extends Table
         $validator
             ->numeric('fee')
             ->allowEmpty('fee');
-
-        $validator
-            ->allowEmpty('currency');
 
         $validator
             ->allowEmpty('deliverer');

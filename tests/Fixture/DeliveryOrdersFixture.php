@@ -20,7 +20,6 @@ class DeliveryOrdersFixture extends TestFixture
         'id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
         'status' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'fee' => ['type' => 'float', 'length' => null, 'precision' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => ''],
-        'currency' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'deliverer' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'customer_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'retailer_employee_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
@@ -58,14 +57,13 @@ class DeliveryOrdersFixture extends TestFixture
             'id' => 1,
             'status' => 'Lorem ipsum dolor sit amet',
             'fee' => 1,
-            'currency' => 'Lorem ipsum dolor sit amet',
             'deliverer' => 'Lorem ipsum dolor sit amet',
             'customer_id' => 1,
             'retailer_employee_id' => 1,
             'location_id' => 1,
             'transaction_id' => 1,
-            'modified' => '2017-03-15 17:25:07',
-            'created' => '2017-03-15 17:25:07'
+            'modified' => '2017-03-16 17:28:27',
+            'created' => '2017-03-16 17:28:27'
         ],
     ];
 }

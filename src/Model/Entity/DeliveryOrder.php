@@ -9,7 +9,6 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $status
  * @property float $fee
- * @property string $currency
  * @property string $deliverer
  * @property int $customer_id
  * @property int $retailer_employee_id
@@ -21,7 +20,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Customer $customer
  * @property \App\Model\Entity\RetailerEmployee $retailer_employee
  * @property \App\Model\Entity\Location $location
- * @property \App\Model\Entity\Transaction[] $transactions
+ * @property \App\Model\Entity\Transaction $transaction
  * @property \App\Model\Entity\DeliveryOrderItem[] $delivery_order_items
  */
 class DeliveryOrder extends Entity

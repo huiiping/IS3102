@@ -37,7 +37,9 @@ class DeliveryOrderItemsControllerTest extends IntegrationTestCase
         'app.prod_types',
         'app.promotions_prod_types',
         'app.customers_promotions',
-        'app.transactions'
+        'app.transactions',
+        'app.transaction_items',
+        'app.reports'
     ];
 
     /**

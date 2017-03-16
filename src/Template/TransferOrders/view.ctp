@@ -53,20 +53,14 @@
         <?php if (!empty($transferOrder->transfer_order_items)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('ItemID') ?></th>
-                <th scope="col"><?= __('EPC') ?></th>
-                <th scope="col"><?= __('Barcode') ?></th>
                 <th scope="col"><?= __('Transfer Order Id') ?></th>
+                <th scope="col"><?= __('Item Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($transferOrder->transfer_order_items as $transferOrderItems): ?>
             <tr>
-                <td><?= h($transferOrderItems->id) ?></td>
-                <td><?= h($transferOrderItems->itemID) ?></td>
-                <td><?= h($transferOrderItems->EPC) ?></td>
-                <td><?= h($transferOrderItems->barcode) ?></td>
                 <td><?= h($transferOrderItems->transfer_order_id) ?></td>
+                <td><?= h($transferOrderItems->item_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'TransferOrderItems', 'action' => 'view', $transferOrderItems->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'TransferOrderItems', 'action' => 'edit', $transferOrderItems->id]) ?>

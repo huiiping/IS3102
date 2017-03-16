@@ -23,6 +23,8 @@
                 <?= $this->Form->create($transaction) ?>
                 <fieldset>
                     <?php
+
+                        // if offline transaction, customer_id will be null
                         echo $this->Form->control('status');
                         echo $this->Form->control('remarks');
                         echo $this->Form->control('receiptID');

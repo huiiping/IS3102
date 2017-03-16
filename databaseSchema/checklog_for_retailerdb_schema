@@ -1,0 +1,41 @@
+--------------------------------------------------------
+Check Log
+CAA: 15 March 1718 hrs
+
+Order of tables:
+01. cust_membership_tiers
+02. customers
+03. locations
+04. retailer_details
+05. retailer_employee_roles
+06. retailer_employees
+07. suppliers
+08. supplier_memos
+09. messages
+10. promotions
+11. purchase_orders
+12. purchase_order_items
+13. sections
+14. prod_cats
+15. products
+16. prod_specifications
+17. promotion_emails
+18. retailer_loggings
+19. inventory*
+20. cust_membership_tiers_promotions
+21. retailer_employees_retailer_employee_roles
+22. retailer_employees_messages
+23. promotions_products
+24. products_prod_specifications
+25. transactions
+26. delivery_orders
+27. items
+28. delivery_order_items
+29. transfer_orders
+30. transfer_order_items
+31. reports
+32. transaction_items
+33. membership_points
+34. stock_levels
+35. feedbacks
+--------------------------------------------------------

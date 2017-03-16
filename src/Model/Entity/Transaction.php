@@ -9,10 +9,14 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $status
  * @property string $remarks
- * @property int $receiptID
+ * @property int $receipt_number
  * @property int $customer_id
  * @property int $retailer_employee_id
  * @property int $location_id
+ * @property float $gross_amount
+ * @property float $nett_amount
+ * @property float $member_discount
+ * @property float $other_discount
  * @property \Cake\I18n\Time $modified
  * @property \Cake\I18n\Time $created
  *

@@ -18,24 +18,12 @@
     <h3><?= h($transferOrderItem->id) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('ItemID') ?></th>
-            <td><?= h($transferOrderItem->itemID) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('EPC') ?></th>
-            <td><?= h($transferOrderItem->EPC) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Barcode') ?></th>
-            <td><?= h($transferOrderItem->barcode) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Transfer Order') ?></th>
             <td><?= $transferOrderItem->has('transfer_order') ? $this->Html->link($transferOrderItem->transfer_order->id, ['controller' => 'TransferOrders', 'action' => 'view', $transferOrderItem->transfer_order->id]) : '' ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($transferOrderItem->id) ?></td>
+            <th scope="row"><?= __('Item Id') ?></th>
+            <td><?= $this->Number->format($transferOrderItem->item_id) ?></td>
         </tr>
     </table>
 </div>

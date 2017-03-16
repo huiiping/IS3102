@@ -19,7 +19,7 @@ class DeliveryOrdersController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Customers', 'RetailerEmployees', 'Locations']
+            'contain' => ['Customers', 'RetailerEmployees', 'Locations', 'Transactions']
         ];
         $deliveryOrders = $this->paginate($this->DeliveryOrders);
 
@@ -64,7 +64,8 @@ class DeliveryOrdersController extends AppController
         $customers = $this->DeliveryOrders->Customers->find('list', ['limit' => 200]);
         $retailerEmployees = $this->DeliveryOrders->RetailerEmployees->find('list', ['limit' => 200]);
         $locations = $this->DeliveryOrders->Locations->find('list', ['limit' => 200]);
-        $this->set(compact('deliveryOrder', 'customers', 'retailerEmployees', 'locations'));
+        $transactions = $this->DeliveryOrders->Transactions->find('list', ['limit' => 200]);
+        $this->set(compact('deliveryOrder', 'customers', 'retailerEmployees', 'locations', 'transactions'));
         $this->set('_serialize', ['deliveryOrder']);
     }
 
@@ -92,7 +93,8 @@ class DeliveryOrdersController extends AppController
         $customers = $this->DeliveryOrders->Customers->find('list', ['limit' => 200]);
         $retailerEmployees = $this->DeliveryOrders->RetailerEmployees->find('list', ['limit' => 200]);
         $locations = $this->DeliveryOrders->Locations->find('list', ['limit' => 200]);
-        $this->set(compact('deliveryOrder', 'customers', 'retailerEmployees', 'locations'));
+        $transactions = $this->DeliveryOrders->Transactions->find('list', ['limit' => 200]);
+        $this->set(compact('deliveryOrder', 'customers', 'retailerEmployees', 'locations', 'transactions'));
         $this->set('_serialize', ['deliveryOrder']);
     }
 
