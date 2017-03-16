@@ -31,14 +31,14 @@ $this->Html->addCrumb(__('Add'));
                 <?= $this->Form->create($retailerEmployee) ?>
                 <fieldset>
                     <?php
-                        echo $this->Form->input('username');
-                        echo $this->Form->input('password');
-                        echo $this->Form->input(('confirm_password'), array('type'  =>  'password')); 
-                        echo $this->Form->input('email');
-                        echo $this->Form->input('address');
-                        echo $this->Form->input('contact');
+                        //echo $this->Form->input('username');
+                        //echo $this->Form->input('password');
+                        //echo $this->Form->input(('confirm_password'), array('type'  =>  'password')); 
                         echo $this->Form->input('first_name');
                         echo $this->Form->input('last_name');
+                        echo $this->Form->input('email');
+                        echo $this->Form->input('address');
+                        echo $this->Form->input('contact'); 
                         //echo $this->Form->input('activation_status');
                         //echo $this->Form->input('activation_token');
                         //echo $this->Form->input('recovery_status');

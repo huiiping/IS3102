@@ -185,6 +185,7 @@ class IntrasysEmployeesController extends AppController
        }
        $this->set('employeeId', $id);
        $this->set('token', $token);
+       $this->set('name', $intrasysEmployee['first_name']);
       /*return $this->redirect(['action' => 'activate']);
    
 

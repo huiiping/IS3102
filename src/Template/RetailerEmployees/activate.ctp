@@ -1,6 +1,6 @@
 <style>
 	#main {
-		background-image: url(/IS3102_Final/img/intrasysLogin4.jpg); 
+		background-image: url(/IS3102_Final/img/retailerLogin.jpg); 
 
 		background-size: cover;
 
@@ -13,20 +13,18 @@
 	#form_box {
 		padding: 0;
 		border-radius:10px;
-		
+		overflow: hidden;
 	}
-	 .modal-content{
+	.modal-content{
 		border-radius:10px;
 		overflow:hidden;
 	}
-	
 	#login_form, #resetPass_form{
 		padding: 15px;
 	}
 	.input-group{
 		padding-bottom: 8px;
 	}
-	
 	.registerInfo{
 		font-size:10px;
 	}
@@ -41,6 +39,7 @@
 	});
 </script>
 
+
 <?= $this->Html->css(captcha_layout_stylesheet_url(), ['inline' => false]) ?>
 
 <div class="content-wrapper" id = "main">
@@ -48,7 +47,6 @@
 	<section class="content">
 		<div class="row">
 			<div class="col-md-offset-4 col-md-4">
-
 
 				<div id="myModal" class="modal fade">
 					<div class="modal-dialog">
@@ -59,7 +57,7 @@
 							</div>
 							<div class="modal-body">
 								<p>Please enter your desired password</p>
-								<form method="post" accept-charset="utf-8" action="/IS3102_Final/intrasys-employees/setPassword" onsubmit="return validateForm()">
+								<form id="setPass"method="post" accept-charset="utf-8" action="/IS3102_Final/retailer-employees/setPassword" onsubmit="return validateForm()">
 									<div class = "row">
 										<div class="col-md-10 col-xs-10">
 											<div class="input-group">
@@ -83,8 +81,27 @@
 											<span id="checkPasswordMatch" class="fa fa-check" style="display:none; font-size: 24px"></span>
 										</div>
 									</div>
+									<div class = "row">
+										<div class="col-md-10 col-xs-10">
+											<div class="input-group">
+												<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+												<select name="retailer" id="retailer" class="form-control" placeholder="Retailer" required="required">
+													<option value="0">---- Select ----</option>
+													<?php foreach ($retailers as $retailer): ?>
+
+														<option><?= $retailer->retailer_name ?></option>
+
+													<?php endforeach;	?>
+												</select>
+											</div>	
+										</div>
+										<div class="checkIcons" >
+											<span id="checkPasswordMatch" class="fa fa-check" style="display:none; font-size: 24px"></span>
+										</div>
+									</div>
 									<input type='hidden' name='employeeId' value='<?php echo "$employeeId";?>'/>
 									<input type='hidden' name='token' value='<?php echo "$token";?>'/>
+									<input type='hidden' name='dbname' value='<?php echo "$dbname";?>'/>
 									<div class="col-md-10 col-xs-10 alert alert-danger alert-dismissible "id=validateMessage></div>
 										<div class = "row">
 											<button type="submit" class="btn btn-primary pull-right" style="margin:15px">Confirm</button>
@@ -95,9 +112,11 @@
 						</div>
 					</div>
 
+
 					<div class="box box-primary" id="box">
 						<div class="box-header with-border" style="padding:20px">
 							<br><br>
+
 
 							<h1 class="text-center">Welcome to CLRMS!</h1>
 							<hr>
@@ -106,23 +125,34 @@
 									<h2 id="loginheading" class="panel-title text-center">Login to your account</h2>   
 								</div>
 								<br>
-
 								<div id = "login_form">
 
-									<form method="post" accept-charset="utf-8" action="/IS3102_Final/intrasys-employees/login">
+									<form method="post" accept-charset="utf-8" action="/IS3102_Final/retailer-employees/login">
 										<div style="display:none;">
 											<input type="hidden" name="_method" value="POST">
 										</div>					
 										<div class="input-group">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 											<input class = "form-control" type="text" placeholder = "Username" name="username" required="required" id="username">	
-										</div>				
+										</div>
 										<div class="input-group">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 											<input class = "form-control" type="password" name="password" placeholder = "Password" required="required" id="password">
+										</div>
+
+										<div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+											<select name="retailer" id="retailer" class="form-control" placeholder="Retailer" required="required">
+												<option value="0">---- Select ----</option>
+												<?php foreach ($retailers as $retailer): ?>
+
+													<option><?= $retailer->retailer_name ?></option>
+
+												<?php endforeach;	?>
+											</select>
 										</div>					
 										<br>
-										<!-- CAPTCHA CSS -->
+										<!-- CAPTCHA CSS -->					
 										<?php 
 										$session = $this->request->session();
 										if ($session->check('login_fail') && $session->read('login_fail') > 3) : ?>
@@ -140,7 +170,6 @@
 										<!-- End CAPTCHA -->
 
 										<hr>
-
 										<div class="submit" style="padding-bottom: 5px;">
 											<input type="submit" class="btn btn-md btn-primary btn-block" style="border-radius: 10px;" value="Login">
 										</div>					
@@ -158,8 +187,6 @@
 								</div>
 
 
-
-
 								<!--<?= $this->Html->link(__('Logout'), ['controller' => 'IntrasysEmployees', 'action' => 'logout', 'class'=>'btn btn-default btn-flat']); ?>-->
 							</div>
 						</div>
@@ -173,31 +200,30 @@
 				$('#loginheading').html('Recover my Account');
 				$('#login_form').slideUp();
 				$('#resetPass_form').slideDown();
-
+				
 
 			});
 			$('#goback').click(function(){
 				$('#loginheading').html('Login to your account');
 				$('#login_form').slideDown();
 				$('#resetPass_form').slideUp();
-
+				
 
 			});
-
 
 			function checkPasswordMatch() {
 				var password = $("#txtNewPassword").val();
 				var confirmPassword = $("#txtConfirmPassword").val();
 
 				if (password != confirmPassword){
-
+					
 					document.getElementById('checkPasswordMatch').className = "fa fa-close";
 					document.getElementById("checkPasswordMatch").style.color = "red";
 					$("#checkPasswordMatch").show();
 					return false;
 				}
 				else{
-
+					
 					document.getElementById('checkPasswordMatch').className = "fa fa-check";
 					document.getElementById('checkPasswordMatch').style.color = "#00a65a";
 					$("#checkPasswordMatch").show();
@@ -207,7 +233,7 @@
 
 			function validatePass(){
 				var TCode = document.getElementById('txtNewPassword').value;
-
+				
 				if( /[^a-zA-Z0-9]/.test( TCode ) || TCode.length<8) {
 					document.getElementById('validatePassword').className = "fa fa-close";
 					document.getElementById('validatePassword').style.color = "red";
@@ -223,10 +249,7 @@
 			}
 
 			function validateForm(){
-				
-				if (validatePass() && checkPasswordMatch()){
-					return true;
-				}
+				var retailer=document.forms["setPass"]["retailer"].value
 				if (!validatePass()){
 					document.getElementById('validateMessage').innerHTML = "Password does not meet the requirements";
 					return false;
@@ -235,8 +258,13 @@
 					document.getElementById('validateMessage').innerHTML = "Passwords do not match";
 					return false;
 				}
-
+				if (!isNaN(retailer)){
+					document.getElementById('validateMessage').innerHTML = "Please Select the retailer you are under";
+					return false;
+				}
+				return true;
 			}
 
 		</script>
+
 
