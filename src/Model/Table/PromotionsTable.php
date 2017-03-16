@@ -124,6 +124,11 @@ class PromotionsTable extends Table
             ->allowEmpty('end_date');
 
         $validator
+            ->allowEmpty('promo_name')
+            ->notEmpty('promo_name')
+            ->add('promo_name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
             ->allowEmpty('promo_desc');
 
         $validator

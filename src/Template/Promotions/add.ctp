@@ -29,6 +29,8 @@ $this->Html->addCrumb(__('Promotions'), ['controller' => 'Promotions', 'action' 
                 <?= $this->Form->create($promotion) ?>
                 <fieldset>
                     <?php
+                        echo $this->Form->input('promo_name', array('label' => 'Promotion Title'));
+                        echo $this->Form->input('promo_desc', array('label' => 'Description'));
                         echo $this->Form->input('start_date', array(
                             'type' => 'datetime',
                             'label' => 'Start Date (GMT)',
@@ -39,7 +41,6 @@ $this->Html->addCrumb(__('Promotions'), ['controller' => 'Promotions', 'action' 
                             'label' => 'End Date (GMT)',
                             'selected' => '0000:00:00 00:00:00'));
                         
-                        echo $this->Form->input('promo_desc', array('label' => 'Description'));
                         echo $this->Form->input('first_voucher_num', array('label' => 'Voucher Starting Number'));
                         echo $this->Form->input('last_voucher_num', array('label' => 'Voucher Ending Number'));
                         echo $this->Form->input('discount_rate', array('label' => 'Discount Rate (%) '));
