@@ -4,10 +4,21 @@
   */
 ?>
 
+
+
+<?php
+
+$this->assign('title', __('Log') . '/' . __('Index'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Employee'), ['controller' => 'RetailerEmployees', 'action' => 'index']);
+$this->Html->addCrumb(__('Logs'));
+?>
+
+
 <?php if($intrasys) : ?>
-  <?= $this->Element('intrasysLeftSideBar'); ?>
+    <?= $this->Element('intrasysLeftSideBar'); ?>
 <?php else : ?>
-  <?= $this->Element('retailerLeftSideBar'); ?>
+    <?= $this->Element('retailerLeftSideBar'); ?>
 <?php endif; ?>
 
 <!-- Main Content -->

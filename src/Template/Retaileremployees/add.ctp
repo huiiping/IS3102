@@ -4,6 +4,12 @@
   */
 ?>
 
+<?php
+$this->assign('title', __('Employee') . '/' . __('Add'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Employee'), ['controller' => 'RetailerEmployees', 'action' => 'index']);
+$this->Html->addCrumb(__('Add'));
+?>
 <?php if($loggedIn) : ?>
 <?= $this->Element('retailerLeftSideBar'); ?>
 <?php endif; ?>
