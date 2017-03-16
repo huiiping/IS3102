@@ -155,6 +155,16 @@ crossorigin="anonymous"></script>
   </style>
 </head>
 
+<?=$this->Html->getCrumbList(['class' => 'breadcrumb navbar-breadcrumb',
+    'firstClass' => false,
+    'lastClass' => 'active'],
+    ['text' => __('Home'),
+        'url' => ['controller' => 'Pages',
+            'action' => 'main'],
+        'escape' => false])
+?>
+
+
 <?php if($loggedIn) : ?>
 
   <body class="hold-transition skin-blue sidebar-mini">
