@@ -26,12 +26,12 @@ use Cake\Validation\Validator;
 class FeedbacksTable extends Table
 {
 
-    /**
-     * Initialize method
-     *
-     * @param array $config The configuration for the Table.
-     * @return void
-     */
+    public $filterArgs = array(
+        'search' => array(
+            'type' => 'like',
+            'field' => array('customer_first_name','customer_last_name','customer_contact','customer_email','status')
+            )
+        );
     public function initialize(array $config)
     {
         parent::initialize($config);
@@ -44,13 +44,14 @@ class FeedbacksTable extends Table
 
         $this->belongsTo('Customers', [
             'foreignKey' => 'customer_id'
-        ]);
+            ]);
         $this->belongsTo('Products', [
             'foreignKey' => 'product_id'
-        ]);
+            ]);
         $this->belongsTo('Items', [
             'foreignKey' => 'item_id'
-        ]);
+            ]);
+        $this->addBehavior('Searchable');
     }
 
     /**
@@ -62,27 +63,26 @@ class FeedbacksTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('id')
-            ->allowEmpty('id', 'create');
+        ->integer('id')
+        ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('customer_first_name');
+        ->allowEmpty('customer_first_name');
 
         $validator
-            ->allowEmpty('customer_last_name');
+        ->allowEmpty('customer_last_name');
 
         $validator
-            ->integer('customer_contact')
-            ->allowEmpty('customer_contact');
+        ->allowEmpty('customer_contact');
 
         $validator
-            ->allowEmpty('customer_email');
+        ->allowEmpty('customer_email');
 
         $validator
-            ->allowEmpty('message');
+        ->allowEmpty('message');
 
         $validator
-            ->allowEmpty('status');
+        ->allowEmpty('status');
 
         return $validator;
     }

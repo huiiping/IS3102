@@ -87,7 +87,6 @@ class LocationsTable extends Table
             ->allowEmpty('address');
 
         $validator
-            ->integer('contact')
             ->allowEmpty('contact');
 
         $validator

@@ -18,14 +18,20 @@ class FeedbacksController extends AppController
      */
     public function index()
     {
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
         $this->paginate = [
-            'contain' => ['Customers', 'Products', 'Items']
+        'contain' => ['Customers', 'Products', 'Items']
         ];
-        $feedbacks = $this->paginate($this->Feedbacks);
+        $this->set('feedbacks', $this->paginate($this->Feedbacks->find('searchable', $this->Prg->parsedParams())));
 
         $this->set(compact('feedbacks'));
         $this->set('_serialize', ['feedbacks']);
     }
+
+    public $components = array(
+        'Prg'
+        );
 
     /**
      * View method
@@ -38,7 +44,7 @@ class FeedbacksController extends AppController
     {
         $feedback = $this->Feedbacks->get($id, [
             'contain' => ['Customers', 'Products', 'Items']
-        ]);
+            ]);
 
         $this->set('feedback', $feedback);
         $this->set('_serialize', ['feedback']);
@@ -79,7 +85,7 @@ class FeedbacksController extends AppController
     {
         $feedback = $this->Feedbacks->get($id, [
             'contain' => []
-        ]);
+            ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $feedback = $this->Feedbacks->patchEntity($feedback, $this->request->getData());
             if ($this->Feedbacks->save($feedback)) {
@@ -115,4 +121,42 @@ class FeedbacksController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function pendingStatus($id) {
+
+      $feedback = $this->Feedbacks->get($id);
+
+      $feedback->status = 'Replied';
+      $this->Feedbacks->save($feedback);
+
+      $this->Flash->success(__('The feedback has a replied status.'));
+
+      return $this->redirect(['action' => 'index']);
+  }
+
+  public function repliedStatus($id) {
+
+      $feedback = $this->Feedbacks->get($id);
+
+      $feedback->status = 'Closed';
+      $this->Feedbacks->save($feedback);
+
+      $this->Flash->success(__('The feedback has a closed status.'));
+
+      return $this->redirect(['action' => 'index']);
+
+  }
+
+  public function closedStatus($id) {
+
+      $feedback = $this->Feedbacks->get($id);
+
+      $feedback->status = 'Pending';
+      $this->Feedbacks->save($feedback);
+
+      $this->Flash->success(__('The feedback has a pending status.'));
+
+      return $this->redirect(['action' => 'index']);
+
+  }
 }
