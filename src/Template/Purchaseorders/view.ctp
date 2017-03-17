@@ -42,6 +42,10 @@ $this->Html->addCrumb(__('Purchase Orders'), ['controller' => 'Purchaseorders', 
                     <tr>
                         <th scope="row"><?= __('Supplier') ?></th>
                         <td><?= $purchaseOrder->has('supplier') ? $this->Html->link($purchaseOrder->supplier->supplier_name, ['controller' => 'Suppliers', 'action' => 'view', $purchaseOrder->supplier->id]) : '' ?></td>
+                    </tr>                    
+                    <tr>
+                        <th scope="row"><?= __('Location') ?></th>
+                        <td><?= $purchaseOrder->has('location') ? $this->Html->link($purchaseOrder->location->name, ['controller' => 'Locations', 'action' => 'view', $purchaseOrder->location->id]) : '' ?></td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Total Price') ?></th>

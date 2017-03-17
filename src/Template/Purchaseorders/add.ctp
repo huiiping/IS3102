@@ -29,7 +29,9 @@ $this->Html->addCrumb(__('Purchase Orders'), ['controller' => 'Purchaseorders', 
                 <?php
                     echo $this->Form->input('total_price');
                     echo $this->Form->input('delivery_status');
+                    echo $this->Form->input('comments');
                     echo $this->Form->input('supplier_id', ['options' => $suppliers, 'empty' => true]);
+                    echo $this->Form->input('location_id', ['options' => $locations, 'empty' => true]);
                     echo $this->Form->input('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
                 ?>
             </fieldset>

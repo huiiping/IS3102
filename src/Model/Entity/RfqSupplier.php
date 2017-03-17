@@ -4,19 +4,15 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * PurchaseOrderItem Entity
+ * RfqSupplier Entity
  *
- * @property int $id
- * @property int $item_ID
- * @property string $item_name
- * @property string $item_desc
- * @property int $quantity
- * @property float $unit_price
- * @property int $purchase_order_id
+ * @property int $rfq_id
+ * @property int $supplier_id
  *
- * @property \App\Model\Entity\PurchaseOrder $purchase_order
+ * @property \App\Model\Entity\Rfq $rfq
+ * @property \App\Model\Entity\Supplier $supplier
  */
-class PurchaseOrderItem extends Entity
+class RfqSupplier extends Entity
 {
 
     /**
@@ -30,6 +26,7 @@ class PurchaseOrderItem extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'id' => false
+        'rfq_id' => false,
+        'supplier_id' => false
     ];
 }

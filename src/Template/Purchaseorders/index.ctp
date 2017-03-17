@@ -44,6 +44,7 @@ $this->Html->addCrumb(__('Purchase Orders'), ['controller' => 'Purchaseorders', 
                         <!--<th scope="col"><?= $this->Paginator->sort('total_price') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('delivery_status') ?></th>-->
                         <th scope="col"><?= $this->Paginator->sort('supplier_id') ?></th>
+                        <th scope="col"><?= $this->Paginator->sort('location_id') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                         <!--<th scope="col"><?= $this->Paginator->sort('retailer_employee_id') ?></th>-->
                         <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -56,6 +57,7 @@ $this->Html->addCrumb(__('Purchase Orders'), ['controller' => 'Purchaseorders', 
                         <!--<td><?= $this->Number->format($purchaseOrder->total_price) ?></td>
                         <td><?= h($purchaseOrder->delivery_status) ?></td>-->
                         <td><?= $purchaseOrder->has('supplier') ? $this->Html->link($purchaseOrder->supplier->supplier_name, ['controller' => 'Suppliers', 'action' => 'view', $purchaseOrder->supplier->id]) : '' ?></td>
+                        <td><?= $purchaseOrder->has('location') ? $this->Html->link($purchaseOrder->location->name, ['controller' => 'Locations', 'action' => 'view', $purchaseOrder->location->id]) : '' ?></td>
                         <td><?= $this->Time->format(h($purchaseOrder->created), 'd MMM YYYY, hh:mm') ?></td>
                         <!--<td><?= $purchaseOrder->has('retailer_employee') ? $this->Html->link($purchaseOrder->retailer_employee->id, ['controller' => 'RetailerEmployees', 'action' => 'view', $purchaseOrder->retailer_employee->id]) : '' ?></td>-->
                         <td class="actions">

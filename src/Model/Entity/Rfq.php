@@ -4,19 +4,17 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * PurchaseOrderItem Entity
+ * Rfq Entity
  *
  * @property int $id
- * @property int $item_ID
- * @property string $item_name
- * @property string $item_desc
- * @property int $quantity
- * @property float $unit_price
- * @property int $purchase_order_id
+ * @property string $title
+ * @property string $body
+ * @property int $retailer_employee_id
  *
- * @property \App\Model\Entity\PurchaseOrder $purchase_order
+ * @property \App\Model\Entity\RetailerEmployee $retailer_employee
+ * @property \App\Model\Entity\RfqSupplier[] $rfq_suppliers
  */
-class PurchaseOrderItem extends Entity
+class Rfq extends Entity
 {
 
     /**

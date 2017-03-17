@@ -53,10 +53,6 @@ $this->Html->addCrumb(__('Purchase Order Items'), ['controller' => 'Purchaseorde
                         <td><?= $this->Number->format($purchaseOrderItem->unit_price) ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Sub Total Price') ?></th>
-                        <td><?= $this->Number->format($purchaseOrderItem->sub_total_price) ?></td>
-                    </tr>
-                    <tr>
                         <th scope="row"><?= __('Purchase Order') ?></th>
                         <td><?= $purchaseOrderItem->has('purchase_order') ? $this->Html->link($purchaseOrderItem->purchase_order->id, ['controller' => 'PurchaseOrders', 'action' => 'view', $purchaseOrderItem->purchase_order->id]) : '' ?></td>
                     </tr>

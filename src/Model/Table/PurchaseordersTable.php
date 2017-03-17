@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $Suppliers
  * @property \Cake\ORM\Association\BelongsTo $RetailerEmployees
+ * @property \Cake\ORM\Association\BelongsTo $Locations
  * @property \Cake\ORM\Association\HasMany $PurchaseOrderItems
  *
  * @method \App\Model\Entity\PurchaseOrder get($primaryKey, $options = [])
@@ -25,40 +26,7 @@ use Cake\Validation\Validator;
  */
 class PurchaseOrdersTable extends Table
 {
-    public $filterArgs = array(
-        'id' => array(
-            'type' => 'like',
-            'field' => 'id'
-        ),
-        'created' => array(
-            'type' => 'like',
-            'field' => 'created'
-        ),
-        'total_price' => array(
-            'type' => 'like',
-            'field' => 'total_price'
-        ),
-        'delivery_status' => array(
-            'type' => 'like',
-            'field' => 'delivery_status'
-        ),
-        'supplier_id' => array(
-            'type' => 'like',
-            'field' => 'Suppliers.supplier_name',
-            'method' => 'findByActions'
-        ),
-        'retailer_employee_id' => array(
-            'type' => 'like',
-            'field' => 'RetailerEmployees.first_name',
-            'method' => 'findByActions'
-        ),
-        'search' => array(
-            'type' => 'like',
-            'field' => array('RetailerEmployees.first_name','id','total_price','created','Suppliers.supplier_name'),
-            'method' => 'findByActions'
-        )
 
-    );
     /**
      * Initialize method
      *
@@ -69,9 +37,9 @@ class PurchaseOrdersTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('purchase_orders');
-        $this->displayField('id');
-        $this->primaryKey('id');
+        $this->setTable('purchase_orders');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
 
@@ -81,10 +49,12 @@ class PurchaseOrdersTable extends Table
         $this->belongsTo('RetailerEmployees', [
             'foreignKey' => 'retailer_employee_id'
         ]);
+        $this->belongsTo('Locations', [
+            'foreignKey' => 'location_id'
+        ]);
         $this->hasMany('PurchaseOrderItems', [
             'foreignKey' => 'purchase_order_id'
         ]);
-        $this->addBehavior('Searchable');
     }
 
     /**
@@ -104,8 +74,14 @@ class PurchaseOrdersTable extends Table
             ->allowEmpty('total_price');
 
         $validator
+            ->allowEmpty('approval_status');
+
+        $validator
             ->boolean('delivery_status')
             ->allowEmpty('delivery_status');
+
+        $validator
+            ->allowEmpty('comments');
 
         return $validator;
     }
@@ -121,6 +97,7 @@ class PurchaseOrdersTable extends Table
     {
         $rules->add($rules->existsIn(['supplier_id'], 'Suppliers'));
         $rules->add($rules->existsIn(['retailer_employee_id'], 'RetailerEmployees'));
+        $rules->add($rules->existsIn(['location_id'], 'Locations'));
 
         return $rules;
     }

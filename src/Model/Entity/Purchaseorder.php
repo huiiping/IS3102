@@ -9,9 +9,12 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property \Cake\I18n\Time $created
  * @property float $total_price
+ * @property string $approval_status
  * @property bool $delivery_status
+ * @property string $comments
  * @property int $supplier_id
  * @property int $retailer_employee_id
+ * @property int $location_id
  *
  * @property \App\Model\Entity\Supplier $supplier
  * @property \App\Model\Entity\RetailerEmployee $retailer_employee
