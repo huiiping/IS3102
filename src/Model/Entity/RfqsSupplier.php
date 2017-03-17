@@ -4,20 +4,15 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * RfqSupplier Entity
+ * RfqsSupplier Entity
  *
  * @property int $rfq_id
  * @property int $supplier_id
- * @property string $remarks
- * @property string $fileName
- * @property string $fileDir
- * @property \Cake\I18n\Time $modified
- * @property \Cake\I18n\Time $created
  *
  * @property \App\Model\Entity\Rfq $rfq
  * @property \App\Model\Entity\Supplier $supplier
  */
-class RfqSupplier extends Entity
+class RfqsSupplier extends Entity
 {
 
     /**

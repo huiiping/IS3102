@@ -47,8 +47,8 @@ class RfqsFixture extends TestFixture
             'id' => 1,
             'title' => 'Lorem ipsum dolor sit amet',
             'message' => 'Lorem ipsum dolor sit amet',
-            'modified' => '2017-03-17 15:03:13',
-            'created' => '2017-03-17 15:03:13',
+            'modified' => '2017-03-17 17:30:04',
+            'created' => '2017-03-17 17:30:04',
             'retailer_employee_id' => 1
         ],
     ];

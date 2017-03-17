@@ -1,13 +1,13 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\RfqSuppliersController;
+use App\Controller\RfqsSuppliersController;
 use Cake\TestSuite\IntegrationTestCase;
 
 /**
- * App\Controller\RfqSuppliersController Test Case
+ * App\Controller\RfqsSuppliersController Test Case
  */
-class RfqSuppliersControllerTest extends IntegrationTestCase
+class RfqsSuppliersControllerTest extends IntegrationTestCase
 {
 
     /**
@@ -16,7 +16,7 @@ class RfqSuppliersControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.rfq_suppliers',
+        'app.rfqs_suppliers',
         'app.rfqs',
         'app.retailer_employees',
         'app.locations',

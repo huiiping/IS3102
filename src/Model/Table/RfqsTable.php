@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
  * Rfqs Model
  *
  * @property \Cake\ORM\Association\BelongsTo $RetailerEmployees
- * @property \Cake\ORM\Association\HasMany $RfqSuppliers
+ * @property \Cake\ORM\Association\BelongsToMany $Suppliers
  *
  * @method \App\Model\Entity\Rfq get($primaryKey, $options = [])
  * @method \App\Model\Entity\Rfq newEntity($data = null, array $options = [])
@@ -31,22 +31,33 @@ class RfqsTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
+
+    public $filterArgs = array(
+        'search' => array(
+            'type' => 'like',
+            'field' => array('title','retailer_employee_id')
+            )
+    );
+
     public function initialize(array $config)
     {
         parent::initialize($config);
 
-        $this->setTable('rfqs');
-        $this->setDisplayField('title');
-        $this->setPrimaryKey('id');
+        $this->table('rfqs');
+        $this->displayField('title');
+        $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
 
         $this->belongsTo('RetailerEmployees', [
             'foreignKey' => 'retailer_employee_id'
         ]);
-        $this->hasMany('RfqSuppliers', [
-            'foreignKey' => 'rfq_id'
+        $this->belongsToMany('Suppliers', [
+            'foreignKey' => 'rfq_id',
+            'targetForeignKey' => 'supplier_id',
+            'joinTable' => 'rfqs_suppliers'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

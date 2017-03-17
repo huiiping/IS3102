@@ -97,7 +97,7 @@ class PromotionsTable extends Table
         ]);
         $this->belongsToMany('Products', [
             'foreignKey' => 'promotion_id',
-            'targetForeignKey' => 'products_id',
+            'targetForeignKey' => 'product_id',
             'joinTable' => 'promotions_products'
         ]);
         $this->addBehavior('Searchable');

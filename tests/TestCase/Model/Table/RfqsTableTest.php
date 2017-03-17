@@ -41,13 +41,13 @@ class RfqsTableTest extends TestCase
         'app.purchase_orders',
         'app.suppliers',
         'app.supplier_memos',
+        'app.rfqs_suppliers',
         'app.purchase_order_items',
         'app.retailer_loggings',
         'app.messages',
         'app.retailer_employees_messages',
         'app.retailer_employee_roles',
-        'app.retailer_employees_retailer_employee_roles',
-        'app.rfq_suppliers'
+        'app.retailer_employees_retailer_employee_roles'
     ];
 
     /**

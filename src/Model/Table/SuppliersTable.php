@@ -86,6 +86,12 @@ class SuppliersTable extends Table
             'foreignKey' => 'supplier_id'
         ]);
 
+        $this->belongsToMany('Rfqs', [
+            'foreignKey' => 'supplier_id',
+            'targetForeignKey' => 'rfq_id',
+            'joinTable' => 'rfqs_suppliers'
+        ]);
+
         $this->addBehavior('Searchable');
     }
 
@@ -173,6 +179,7 @@ class SuppliersTable extends Table
     {
         $rules->add($rules->isUnique(['username']));
         $rules->add($rules->isUnique(['email']));
+        $rules->add($rules->isUnique(['supplier_name']));
 
         return $rules;
     }

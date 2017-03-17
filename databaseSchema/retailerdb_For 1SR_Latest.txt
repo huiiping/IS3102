@@ -86,7 +86,7 @@ CREATE TABLE suppliers (
     contact VARCHAR(100) NOT NULL,
     created DATETIME,
     modified DATETIME,
-    supplier_name VARCHAR(255),
+    supplier_name VARCHAR(255) UNIQUE,
     country VARCHAR(255),
     activation_status VARCHAR(100),
     activation_token VARCHAR(100),
@@ -424,14 +424,9 @@ CREATE TABLE rfqs (
     FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id)    
 );
 
-CREATE TABLE rfq_suppliers (
+CREATE TABLE rfqs_suppliers (
     rfq_id INT,
     supplier_id INT,
-    remarks VARCHAR(255),
-    fileName VARCHAR(255),
-    fileDir VARCHAR(255),
-    modified DATETIME,
-    created DATETIME,
     PRIMARY KEY (rfq_id, supplier_id),
     FOREIGN KEY (rfq_id) REFERENCES rfqs(id),
     FOREIGN KEY (supplier_id) REFERENCES suppliers(id)

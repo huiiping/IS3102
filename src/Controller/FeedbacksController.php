@@ -31,7 +31,7 @@ class FeedbacksController extends AppController
 
     public $components = array(
         'Prg'
-        );
+    );
 
     /**
      * View method

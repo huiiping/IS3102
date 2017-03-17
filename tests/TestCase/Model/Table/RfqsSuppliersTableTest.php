@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\RfqSuppliersTable;
+use App\Model\Table\RfqsSuppliersTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\RfqSuppliersTable Test Case
+ * App\Model\Table\RfqsSuppliersTable Test Case
  */
-class RfqSuppliersTableTest extends TestCase
+class RfqsSuppliersTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\RfqSuppliersTable
+     * @var \App\Model\Table\RfqsSuppliersTable
      */
-    public $RfqSuppliers;
+    public $RfqsSuppliers;
 
     /**
      * Fixtures
@@ -24,7 +24,7 @@ class RfqSuppliersTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.rfq_suppliers',
+        'app.rfqs_suppliers',
         'app.rfqs',
         'app.retailer_employees',
         'app.locations',
@@ -58,8 +58,8 @@ class RfqSuppliersTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('RfqSuppliers') ? [] : ['className' => 'App\Model\Table\RfqSuppliersTable'];
-        $this->RfqSuppliers = TableRegistry::get('RfqSuppliers', $config);
+        $config = TableRegistry::exists('RfqsSuppliers') ? [] : ['className' => 'App\Model\Table\RfqsSuppliersTable'];
+        $this->RfqsSuppliers = TableRegistry::get('RfqsSuppliers', $config);
     }
 
     /**
@@ -69,7 +69,7 @@ class RfqSuppliersTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->RfqSuppliers);
+        unset($this->RfqsSuppliers);
 
         parent::tearDown();
     }

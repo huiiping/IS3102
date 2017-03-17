@@ -14,7 +14,7 @@ use Cake\ORM\Entity;
  * @property int $retailer_employee_id
  *
  * @property \App\Model\Entity\RetailerEmployee $retailer_employee
- * @property \App\Model\Entity\RfqSupplier[] $rfq_suppliers
+ * @property \App\Model\Entity\Supplier[] $suppliers
  */
 class Rfq extends Entity
 {

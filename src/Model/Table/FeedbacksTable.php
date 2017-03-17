@@ -31,7 +31,8 @@ class FeedbacksTable extends Table
             'type' => 'like',
             'field' => array('customer_first_name','customer_last_name','customer_contact','customer_email','status')
             )
-        );
+    );
+    
     public function initialize(array $config)
     {
         parent::initialize($config);

@@ -18,14 +18,20 @@ class RfqsController extends AppController
      */
     public function index()
     {
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
         $this->paginate = [
             'contain' => ['RetailerEmployees']
         ];
-        $rfqs = $this->paginate($this->Rfqs);
+        $this->set('rfqs', $this->paginate($this->Rfqs->find('searchable', $this->Prg->parsedParams())));
 
         $this->set(compact('rfqs'));
         $this->set('_serialize', ['rfqs']);
     }
+
+    public $components = array(
+        'Prg'
+    );
 
     /**
      * View method
@@ -37,7 +43,7 @@ class RfqsController extends AppController
     public function view($id = null)
     {
         $rfq = $this->Rfqs->get($id, [
-            'contain' => ['RetailerEmployees', 'RfqSuppliers']
+            'contain' => ['RetailerEmployees', 'Suppliers', 'RfqsSuppliers']
         ]);
 
         $this->set('rfq', $rfq);
@@ -62,7 +68,8 @@ class RfqsController extends AppController
             $this->Flash->error(__('The rfq could not be saved. Please, try again.'));
         }
         $retailerEmployees = $this->Rfqs->RetailerEmployees->find('list', ['limit' => 200]);
-        $this->set(compact('rfq', 'retailerEmployees'));
+        $this->set('suppliers', $this->Rfqs->Suppliers->find('all'));
+        $this->set(compact('rfq', 'retailerEmployees', 'suppliers'));
         $this->set('_serialize', ['rfq']);
     }
 
