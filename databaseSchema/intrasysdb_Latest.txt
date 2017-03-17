@@ -56,19 +56,6 @@ CREATE TABLE intrasys_loggings (
     FOREIGN KEY (retailer_id) REFERENCES retailers(id)
 );
 
-CREATE TABLE retailer_loyalty_points (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    loyalty_pts INT,
-    redemption_pts INT,
-    remarks TEXT, 
-    created DATETIME,
-    modified DATETIME,
-    retailer_id INT,
-    intrasys_employee_id INT,
-    FOREIGN KEY (intrasys_employee_id) REFERENCES intrasys_employees(id),
-    FOREIGN KEY (retailer_id) REFERENCES retailers(id)
-);
-
 CREATE TABLE intrasys_employees (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
@@ -84,6 +71,19 @@ CREATE TABLE intrasys_employees (
     contact VARCHAR(100) NOT NULL,
     created DATETIME,
     modified DATETIME
+);
+
+CREATE TABLE retailer_loyalty_points (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    loyalty_pts INT,
+    redemption_pts INT,
+    remarks TEXT, 
+    created DATETIME,
+    modified DATETIME,
+    retailer_id INT,
+    intrasys_employee_id INT,
+    FOREIGN KEY (intrasys_employee_id) REFERENCES intrasys_employees(id),
+    FOREIGN KEY (retailer_id) REFERENCES retailers(id)
 );
 
 CREATE TABLE intrasys_employee_roles (
