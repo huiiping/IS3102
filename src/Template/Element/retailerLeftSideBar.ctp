@@ -38,7 +38,7 @@
         <?= $this->Element('sideBar', array('type' => 'Customers', 'typePlural' => 'Customers')); ?>
         <?= $this->Element('sideBar', array('type' => 'Membership Tiers', 'typePlural' => 'CustMembershipTiers')); ?>
         <?= $this->Element('sideBar', array('type' => 'Membership Points', 'typePlural' => 'MembershipPoints')); ?>
-        <?= $this->Element('sideBar', array('type' => 'Feedbacks', 'typePlural' => 'Feedbacks')); ?>
+        <?= $this->Element('sideBar', array('type' => 'Customer Feedbacks', 'typePlural' => 'Feedbacks')); ?>
         <?= $this->Element('sideBar', array('type' => 'Promotions', 'typePlural' => 'Promotions')); ?>
         <?= $this->Element('sideBar', array('type' => 'Promotion Emails', 'typePlural' => 'PromotionEmails')); ?>
         <?= $this->Element('sideBar', array('type' => 'Product Category', 'typePlural' => 'ProdCats')); ?>
