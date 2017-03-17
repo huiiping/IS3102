@@ -49,6 +49,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <!-- Ionicons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 
+<?= $this->Html->css('intlTelInput.css') ?>
+
 <!-- Theme style -->
 <?= $this->Html->css('AdminLTE.min.css') ?>
 <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -97,6 +99,8 @@ crossorigin="anonymous"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
 <!-- jQuery 2.2.3 -->
 <?= $this->Html->script('jquery-2.2.3.min.js') ?>
+<?= $this->Html->script('intlTelInput.min.js') ?>
+<?= $this->Html->script('utils.js') ?>
 <!-- jQuery UI 1.11.4 -->
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -116,6 +120,7 @@ crossorigin="anonymous"></script> -->
 <?= $this->Html->script('jquery.inputmask.js') ?>
 <?= $this->Html->script('jquery.inputmask.date.extensions.js') ?>
 <?= $this->Html->script('jquery.inputmask.extensions.js') ?>
+
 
 <style> 
   p.indent{ 
