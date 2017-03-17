@@ -24,8 +24,8 @@
             <td><?= h($rfq->title) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Body') ?></th>
-            <td><?= h($rfq->body) ?></td>
+            <th scope="row"><?= __('Message') ?></th>
+            <td><?= h($rfq->message) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Retailer Employee') ?></th>
@@ -34,6 +34,14 @@
         <tr>
             <th scope="row"><?= __('Id') ?></th>
             <td><?= $this->Number->format($rfq->id) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Modified') ?></th>
+            <td><?= h($rfq->modified) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Created') ?></th>
+            <td><?= h($rfq->created) ?></td>
         </tr>
     </table>
     <div class="related">

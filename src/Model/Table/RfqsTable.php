@@ -19,6 +19,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Rfq patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Rfq[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Rfq findOrCreate($search, callable $callback = null, $options = [])
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class RfqsTable extends Table
 {
@@ -36,6 +38,8 @@ class RfqsTable extends Table
         $this->setTable('rfqs');
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
+
+        $this->addBehavior('Timestamp');
 
         $this->belongsTo('RetailerEmployees', [
             'foreignKey' => 'retailer_employee_id'
@@ -61,7 +65,7 @@ class RfqsTable extends Table
             ->allowEmpty('title');
 
         $validator
-            ->allowEmpty('body');
+            ->allowEmpty('message');
 
         return $validator;
     }

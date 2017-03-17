@@ -414,22 +414,12 @@ CREATE TABLE feedbacks (
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
-CREATE TABLE quotations (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255),
-    message TEXT,
-    modified DATETIME,
-    created DATETIME,
-    retailer_employee_id INT,
-    supplier_id INT, 
-    FOREIGN KEY (supplier_id) REFERENCES suppliers(id), 
-    FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id)
-);
-
 CREATE TABLE rfqs (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(100),
-    body VARCHAR(255),
+    message VARCHAR(255),
+    modified DATETIME,
+    created DATETIME,
     retailer_employee_id INT,
     FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id)    
 );
@@ -437,6 +427,9 @@ CREATE TABLE rfqs (
 CREATE TABLE rfq_suppliers (
     rfq_id INT,
     supplier_id INT,
+    remarks VARCHAR(255),
+    attachment VARCHAR(100),
+    attachmentID INT,
     PRIMARY KEY (rfq_id, supplier_id),
     FOREIGN KEY (rfq_id) REFERENCES rfqs(id),
     FOREIGN KEY (supplier_id) REFERENCES suppliers(id)

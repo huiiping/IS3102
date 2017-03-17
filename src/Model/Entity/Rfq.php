@@ -8,7 +8,9 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $title
- * @property string $body
+ * @property string $message
+ * @property \Cake\I18n\Time $modified
+ * @property \Cake\I18n\Time $created
  * @property int $retailer_employee_id
  *
  * @property \App\Model\Entity\RetailerEmployee $retailer_employee

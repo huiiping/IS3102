@@ -19,7 +19,9 @@ class RfqsFixture extends TestFixture
     public $fields = [
         'id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
         'title' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
-        'body' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'message' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'modified' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
+        'created' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'retailer_employee_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         '_indexes' => [
             'retailer_employee_id' => ['type' => 'index', 'columns' => ['retailer_employee_id'], 'length' => []],
@@ -44,7 +46,9 @@ class RfqsFixture extends TestFixture
         [
             'id' => 1,
             'title' => 'Lorem ipsum dolor sit amet',
-            'body' => 'Lorem ipsum dolor sit amet',
+            'message' => 'Lorem ipsum dolor sit amet',
+            'modified' => '2017-03-17 15:03:13',
+            'created' => '2017-03-17 15:03:13',
             'retailer_employee_id' => 1
         ],
     ];
