@@ -378,9 +378,9 @@ class IntrasysEmployeesController extends AppController
     $this->set('_serialize', ['intrasysEmployee']);
 
     $this->loadComponent('Generator');
-        $this->set('roles', $this->IntrasysEmployees->IntrasysEmployeeRoles->find('all')); //to populate select input for roles
-        $this->set(compact('roles'));
-      }
+    $this->set('roles', $this->IntrasysEmployees->IntrasysEmployeeRoles->find('all')); //to populate select input for roles
+    $this->set(compact('roles'));
+  }
 
       public function recover(){
 

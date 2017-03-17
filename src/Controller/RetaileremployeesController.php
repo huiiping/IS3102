@@ -204,7 +204,8 @@ class RetailerEmployeesController extends AppController
         }
         $locations = $this->RetailerEmployees->Locations->find('list', ['limit' => 200]);
         $messages = $this->RetailerEmployees->Messages->find('list', ['limit' => 200]);
-        $retailerEmployeeRoles = $this->RetailerEmployees->RetailerEmployeeRoles->find('list', ['limit' => 200]);
+        $this->set('retailerEmployeeRoles', $this->RetailerEmployees->RetailerEmployeeRoles->find('all')); //to populate select input for roles
+        //$retailerEmployeeRoles = $this->RetailerEmployees->RetailerEmployeeRoles->find('list', ['limit' => 200]);
         $this->set(compact('retailerEmployee', 'locations', 'messages', 'retailerEmployeeRoles'));
         $this->set('_serialize', ['retailerEmployee']);
     }
@@ -632,6 +633,10 @@ public function managerActions($id = null)
     $retailerEmployeeRoles = $this->RetailerEmployees->RetailerEmployeeRoles->find('list', ['limit' => 200]);
     $this->set(compact('retailerEmployee', 'locations', 'messages', 'retailerEmployeeRoles'));
     $this->set('_serialize', ['retailerEmployee']);
+
+    $this->loadComponent('Generator');
+    $this->set('roles', $this->RetailerEmployees->RetailerEmployeeRoles->find('all')); //to populate select input for roles
+    $this->set(compact('roles'));
 }
 
 public function recover(){
@@ -791,4 +796,29 @@ public function recover(){
 
             return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
         }
+
+    public function activateStatus($id) {
+
+      $retailerEmployee = $this->RetailerEmployees->get($id);
+
+      $retailerEmployee->activation_status = 'Activated';
+      $this->RetailerEmployees->save($retailerEmployee);
+
+      $this->Flash->success(__('The Retailer Employee has been activated.'));
+
+      return $this->redirect(['action' => 'index']);
     }
+
+    public function deactivateStatus($id) {
+
+      $retailerEmployee = $this->RetailerEmployees->get($id);
+
+      $retailerEmployee->activation_status = 'Deactivated';
+      $this->RetailerEmployees->save($retailerEmployee);
+
+      $this->Flash->success(__('The Retailer Employee has been deactivated.'));
+
+      return $this->redirect(['action' => 'index']);
+
+    }
+}

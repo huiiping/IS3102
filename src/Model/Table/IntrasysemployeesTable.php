@@ -42,7 +42,7 @@ class IntrasysEmployeesTable extends Table
         ),
         'search' => array(
             'type' => 'like',
-            'field' => array('last_name','first_name','contact','address','username','email','activation_status')
+            'field' => array('id','last_name','first_name','contact','address','username','email','activation_status')
         )
     );
     /**
