@@ -1,13 +1,13 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\PurchaseOrdersController;
+use App\Controller\RfqsController;
 use Cake\TestSuite\IntegrationTestCase;
 
 /**
- * App\Controller\PurchaseOrdersController Test Case
+ * App\Controller\RfqsController Test Case
  */
-class PurchaseOrdersControllerTest extends IntegrationTestCase
+class RfqsControllerTest extends IntegrationTestCase
 {
 
     /**
@@ -16,9 +16,7 @@ class PurchaseOrdersControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.purchase_orders',
-        'app.suppliers',
-        'app.supplier_memos',
+        'app.rfqs',
         'app.retailer_employees',
         'app.locations',
         'app.sections',
@@ -32,12 +30,16 @@ class PurchaseOrdersControllerTest extends IntegrationTestCase
         'app.prod_specifications',
         'app.products_prod_specifications',
         'app.promotions_products',
+        'app.purchase_orders',
+        'app.suppliers',
+        'app.supplier_memos',
+        'app.purchase_order_items',
         'app.retailer_loggings',
         'app.messages',
         'app.retailer_employees_messages',
         'app.retailer_employee_roles',
         'app.retailer_employees_retailer_employee_roles',
-        'app.purchase_order_items'
+        'app.rfq_suppliers'
     ];
 
     /**

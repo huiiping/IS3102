@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\PurchaseOrdersTable;
+use App\Model\Table\RfqSuppliersTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\PurchaseOrdersTable Test Case
+ * App\Model\Table\RfqSuppliersTable Test Case
  */
-class PurchaseOrdersTableTest extends TestCase
+class RfqSuppliersTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\PurchaseOrdersTable
+     * @var \App\Model\Table\RfqSuppliersTable
      */
-    public $PurchaseOrders;
+    public $RfqSuppliers;
 
     /**
      * Fixtures
@@ -24,9 +24,8 @@ class PurchaseOrdersTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.purchase_orders',
-        'app.suppliers',
-        'app.supplier_memos',
+        'app.rfq_suppliers',
+        'app.rfqs',
         'app.retailer_employees',
         'app.locations',
         'app.sections',
@@ -40,12 +39,15 @@ class PurchaseOrdersTableTest extends TestCase
         'app.prod_specifications',
         'app.products_prod_specifications',
         'app.promotions_products',
+        'app.purchase_orders',
+        'app.suppliers',
+        'app.supplier_memos',
+        'app.purchase_order_items',
         'app.retailer_loggings',
         'app.messages',
         'app.retailer_employees_messages',
         'app.retailer_employee_roles',
-        'app.retailer_employees_retailer_employee_roles',
-        'app.purchase_order_items'
+        'app.retailer_employees_retailer_employee_roles'
     ];
 
     /**
@@ -56,8 +58,8 @@ class PurchaseOrdersTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('PurchaseOrders') ? [] : ['className' => 'App\Model\Table\PurchaseOrdersTable'];
-        $this->PurchaseOrders = TableRegistry::get('PurchaseOrders', $config);
+        $config = TableRegistry::exists('RfqSuppliers') ? [] : ['className' => 'App\Model\Table\RfqSuppliersTable'];
+        $this->RfqSuppliers = TableRegistry::get('RfqSuppliers', $config);
     }
 
     /**
@@ -67,7 +69,7 @@ class PurchaseOrdersTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->PurchaseOrders);
+        unset($this->RfqSuppliers);
 
         parent::tearDown();
     }
@@ -78,16 +80,6 @@ class PurchaseOrdersTableTest extends TestCase
      * @return void
      */
     public function testInitialize()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test validationDefault method
-     *
-     * @return void
-     */
-    public function testValidationDefault()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

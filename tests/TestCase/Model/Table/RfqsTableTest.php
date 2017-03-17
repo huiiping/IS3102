@@ -1,14 +1,22 @@
 <?php
-namespace App\Test\TestCase\Controller;
+namespace App\Test\TestCase\Model\Table;
 
-use App\Controller\PurchaseOrdersController;
-use Cake\TestSuite\IntegrationTestCase;
+use App\Model\Table\RfqsTable;
+use Cake\ORM\TableRegistry;
+use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\PurchaseOrdersController Test Case
+ * App\Model\Table\RfqsTable Test Case
  */
-class PurchaseOrdersControllerTest extends IntegrationTestCase
+class RfqsTableTest extends TestCase
 {
+
+    /**
+     * Test subject
+     *
+     * @var \App\Model\Table\RfqsTable
+     */
+    public $Rfqs;
 
     /**
      * Fixtures
@@ -16,9 +24,7 @@ class PurchaseOrdersControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.purchase_orders',
-        'app.suppliers',
-        'app.supplier_memos',
+        'app.rfqs',
         'app.retailer_employees',
         'app.locations',
         'app.sections',
@@ -32,60 +38,68 @@ class PurchaseOrdersControllerTest extends IntegrationTestCase
         'app.prod_specifications',
         'app.products_prod_specifications',
         'app.promotions_products',
+        'app.purchase_orders',
+        'app.suppliers',
+        'app.supplier_memos',
+        'app.purchase_order_items',
         'app.retailer_loggings',
         'app.messages',
         'app.retailer_employees_messages',
         'app.retailer_employee_roles',
         'app.retailer_employees_retailer_employee_roles',
-        'app.purchase_order_items'
+        'app.rfq_suppliers'
     ];
 
     /**
-     * Test index method
+     * setUp method
      *
      * @return void
      */
-    public function testIndex()
+    public function setUp()
+    {
+        parent::setUp();
+        $config = TableRegistry::exists('Rfqs') ? [] : ['className' => 'App\Model\Table\RfqsTable'];
+        $this->Rfqs = TableRegistry::get('Rfqs', $config);
+    }
+
+    /**
+     * tearDown method
+     *
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->Rfqs);
+
+        parent::tearDown();
+    }
+
+    /**
+     * Test initialize method
+     *
+     * @return void
+     */
+    public function testInitialize()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
     /**
-     * Test view method
+     * Test validationDefault method
      *
      * @return void
      */
-    public function testView()
+    public function testValidationDefault()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
     /**
-     * Test add method
+     * Test buildRules method
      *
      * @return void
      */
-    public function testAdd()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test edit method
-     *
-     * @return void
-     */
-    public function testEdit()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test delete method
-     *
-     * @return void
-     */
-    public function testDelete()
+    public function testBuildRules()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

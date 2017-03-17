@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\Event\Event;
+
 /**
  * PurchaseOrders Controller
  *
@@ -11,13 +11,6 @@ use Cake\Event\Event;
 class PurchaseOrdersController extends AppController
 {
 
-    public function beforeFilter(Event $event)
-    {
-
-        $this->loadComponent('Logging');
-        
-    }
-
     /**
      * Index method
      *
@@ -25,22 +18,14 @@ class PurchaseOrdersController extends AppController
      */
     public function index()
     {
-
-        $this->loadComponent('Prg');
-        $this->Prg->commonProcess();
-
         $this->paginate = [
             'contain' => ['Suppliers', 'RetailerEmployees']
         ];
+        $purchaseOrders = $this->paginate($this->PurchaseOrders);
 
-        $this->set('purchaseOrders', $this->paginate($this->PurchaseOrders->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('purchaseOrders'));
         $this->set('_serialize', ['purchaseOrders']);
     }
-
-    public $components = array(
-        'Prg'
-    );
 
     /**
      * View method
@@ -55,13 +40,6 @@ class PurchaseOrdersController extends AppController
             'contain' => ['Suppliers', 'RetailerEmployees', 'PurchaseOrderItems']
         ]);
 
-        $session = $this->request->session();
-        $retailer = $session->read('retailer');
-
-        //$this->loadComponent('Logging');
-        $this->Logging->rLog($purchaseOrder['id']);
-        $this->Logging->iLog($retailer, $purchaseOrder['id']);
-
         $this->set('purchaseOrder', $purchaseOrder);
         $this->set('_serialize', ['purchaseOrder']);
     }
@@ -75,16 +53,9 @@ class PurchaseOrdersController extends AppController
     {
         $purchaseOrder = $this->PurchaseOrders->newEntity();
         if ($this->request->is('post')) {
-            $purchaseOrder = $this->PurchaseOrders->patchEntity($purchaseOrder, $this->request->data);
+            $purchaseOrder = $this->PurchaseOrders->patchEntity($purchaseOrder, $this->request->getData());
             if ($this->PurchaseOrders->save($purchaseOrder)) {
                 $this->Flash->success(__('The purchase order has been saved.'));
-
-                $session = $this->request->session();
-                $retailer = $session->read('retailer');
-
-                //$this->loadComponent('Logging');
-                $this->Logging->rLog($purchaseOrder['id']);
-                $this->Logging->iLog($retailer, $purchaseOrder['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -109,16 +80,9 @@ class PurchaseOrdersController extends AppController
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $purchaseOrder = $this->PurchaseOrders->patchEntity($purchaseOrder, $this->request->data);
+            $purchaseOrder = $this->PurchaseOrders->patchEntity($purchaseOrder, $this->request->getData());
             if ($this->PurchaseOrders->save($purchaseOrder)) {
                 $this->Flash->success(__('The purchase order has been saved.'));
-
-                $session = $this->request->session();
-                $retailer = $session->read('retailer');
-
-                //$this->loadComponent('Logging');
-                $this->Logging->rLog($purchaseOrder['id']);
-                $this->Logging->iLog($retailer, $purchaseOrder['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -143,14 +107,6 @@ class PurchaseOrdersController extends AppController
         $purchaseOrder = $this->PurchaseOrders->get($id);
         if ($this->PurchaseOrders->delete($purchaseOrder)) {
             $this->Flash->success(__('The purchase order has been deleted.'));
-
-            $session = $this->request->session();
-            $retailer = $session->read('retailer');
-
-            //$this->loadComponent('Logging');
-            $this->Logging->rLog($purchaseOrder['id']);
-            $this->Logging->iLog($retailer, $purchaseOrder['id']);
-            
         } else {
             $this->Flash->error(__('The purchase order could not be deleted. Please, try again.'));
         }

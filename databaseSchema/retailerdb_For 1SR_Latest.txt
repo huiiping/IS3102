@@ -140,6 +140,8 @@ CREATE TABLE purchase_orders (
     delivery_status BOOLEAN,
     supplier_id INT,
     retailer_employee_id INT,
+    location_id INT,
+    FOREIGN KEY (location_id) REFERENCES locations(id),    
     FOREIGN KEY (supplier_id) REFERENCES suppliers(id),
     FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id)
 );
@@ -151,7 +153,6 @@ CREATE TABLE purchase_order_items (
     item_desc TEXT,
     quantity INT,
     unit_price DOUBLE,
-    sub_total_price DOUBLE,
     purchase_order_id INT,
     FOREIGN KEY (purchase_order_id) REFERENCES purchase_orders(id)
 );
@@ -423,4 +424,20 @@ CREATE TABLE quotations (
     supplier_id INT, 
     FOREIGN KEY (supplier_id) REFERENCES suppliers(id), 
     FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id)
+);
+
+CREATE TABLE rfqs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100),
+    body VARCHAR(255),
+    retailer_employee_id INT,
+    FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id)    
+);
+
+CREATE TABLE rfq_suppliers (
+    rfq_id INT,
+    supplier_id INT,
+    PRIMARY KEY (rfq_id, supplier_id),
+    FOREIGN KEY (rfq_id) REFERENCES rfqs(id),
+    FOREIGN KEY (supplier_id) REFERENCES suppliers(id)
 );

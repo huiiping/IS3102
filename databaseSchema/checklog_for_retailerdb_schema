@@ -1,6 +1,6 @@
 --------------------------------------------------------
 Check Log
-CAA: 15 March 1718 hrs
+CAA: 17 March 1358 hrs
 
 Order of tables:
 01. cust_membership_tiers
@@ -38,4 +38,7 @@ Order of tables:
 33. membership_points
 34. stock_levels
 35. feedbacks
+36. rfqs
+37. rfq_suppliers
+
 --------------------------------------------------------
