@@ -19,7 +19,7 @@
         <legend><?= __('Add Rfq') ?></legend>
         <?php
             echo $this->Form->control('title');
-            echo $this->Form->control('body');
+            echo $this->Form->control('message');
             echo $this->Form->control('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
         ?>
     </fieldset>

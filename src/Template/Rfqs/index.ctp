@@ -20,7 +20,9 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('title') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('body') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('message') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('retailer_employee_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -30,7 +32,9 @@
             <tr>
                 <td><?= $this->Number->format($rfq->id) ?></td>
                 <td><?= h($rfq->title) ?></td>
-                <td><?= h($rfq->body) ?></td>
+                <td><?= h($rfq->message) ?></td>
+                <td><?= h($rfq->modified) ?></td>
+                <td><?= h($rfq->created) ?></td>
                 <td><?= $rfq->has('retailer_employee') ? $this->Html->link($rfq->retailer_employee->last_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $rfq->retailer_employee->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $rfq->id]) ?>
