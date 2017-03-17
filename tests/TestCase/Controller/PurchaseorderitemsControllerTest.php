@@ -19,7 +19,25 @@ class PurchaseOrderItemsControllerTest extends IntegrationTestCase
         'app.purchase_order_items',
         'app.purchase_orders',
         'app.suppliers',
-        'app.retailer_employees'
+        'app.supplier_memos',
+        'app.retailer_employees',
+        'app.locations',
+        'app.sections',
+        'app.promotions',
+        'app.cust_membership_tiers',
+        'app.customers',
+        'app.customers_promotions',
+        'app.cust_membership_tiers_promotions',
+        'app.products',
+        'app.prod_cats',
+        'app.prod_specifications',
+        'app.products_prod_specifications',
+        'app.promotions_products',
+        'app.retailer_loggings',
+        'app.messages',
+        'app.retailer_employees_messages',
+        'app.retailer_employee_roles',
+        'app.retailer_employees_retailer_employee_roles'
     ];
 
     /**

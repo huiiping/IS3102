@@ -22,20 +22,6 @@ use Cake\Validation\Validator;
 class PurchaseOrderItemsTable extends Table
 {
 
-
-    public $filterArgs = array(
-        'id' => array(
-            'type' => 'like',
-            'field' => 'id'
-        ),
-
-        'search' => array(
-            'type' => 'like',
-            'field' => array('id','item_ID','item_name','item_desc','quantity','unit_price','purchase_order_id'),
-            'method' => 'findByActions'
-        )
-
-    );
     /**
      * Initialize method
      *
@@ -46,14 +32,13 @@ class PurchaseOrderItemsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('purchase_order_items');
-        $this->displayField('id');
-        $this->primaryKey('id');
+        $this->setTable('purchase_order_items');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
 
         $this->belongsTo('PurchaseOrders', [
             'foreignKey' => 'purchase_order_id'
         ]);
-        $this->addBehavior('Searchable');
     }
 
     /**
@@ -85,10 +70,6 @@ class PurchaseOrderItemsTable extends Table
         $validator
             ->numeric('unit_price')
             ->allowEmpty('unit_price');
-
-        $validator
-            ->numeric('sub_total_price')
-            ->allowEmpty('sub_total_price');
 
         return $validator;
     }

@@ -33,7 +33,6 @@ $this->Html->addCrumb(__('Purchase Order Items'), ['controller' => 'Purchaseorde
                         echo $this->Form->input(('item_desc'), ['label' => 'Item Description']);
                         echo $this->Form->input('quantity');
                         echo $this->Form->input('unit_price');
-                        echo $this->Form->input('sub_total_price');
                         echo $this->Form->input('purchase_order_id', ['options' => $purchaseOrders, 'empty' => true]);
                     ?>
                 </fieldset>

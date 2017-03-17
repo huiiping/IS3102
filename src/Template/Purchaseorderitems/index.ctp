@@ -49,7 +49,6 @@ $this->Html->addCrumb(__('Purchase Order Items'), ['controller' => 'Purchaseorde
                         <th scope="col"><?= $this->Paginator->sort('item_name') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('quantity') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('unit_price') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('sub_total_price') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('purchase_order_id') ?></th>
                         <th scope="col" class="actions"><?= __('Actions') ?></th>
                     </tr>
@@ -62,7 +61,6 @@ $this->Html->addCrumb(__('Purchase Order Items'), ['controller' => 'Purchaseorde
                         <td><?= h($purchaseOrderItem->item_name) ?></td>
                         <td><?= $this->Number->format($purchaseOrderItem->quantity) ?></td>
                         <td><?= $this->Number->format($purchaseOrderItem->unit_price) ?></td>
-                        <td><?= $this->Number->format($purchaseOrderItem->sub_total_price) ?></td>
                         <td><?= $purchaseOrderItem->has('purchase_order') ? $this->Html->link($purchaseOrderItem->purchase_order->id, ['controller' => 'PurchaseOrders', 'action' => 'view', $purchaseOrderItem->purchase_order->id]) : '' ?></td>
                         <td class="actions">
                             <?= $this->Html->link(__('View'), ['action' => 'view', $purchaseOrderItem->id]) ?>

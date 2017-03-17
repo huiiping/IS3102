@@ -12,7 +12,6 @@ use Cake\ORM\Entity;
  * @property string $item_desc
  * @property int $quantity
  * @property float $unit_price
- * @property float $sub_total_price
  * @property int $purchase_order_id
  *
  * @property \App\Model\Entity\PurchaseOrder $purchase_order
