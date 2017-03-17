@@ -36,6 +36,10 @@ class IntrasysEmployeeRolesTable extends Table
         'role_name' => array(
             'type' => 'like',
             'field' => 'role_name'
+        ),
+        'search' => array(
+            'type' => 'like',
+            'field' => array('id','role_name','role_desc')
         )
     );
     /**

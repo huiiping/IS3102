@@ -1,9 +1,7 @@
 <style>
 #main {
   background-image: url(/IS3102_Final/img/warehouse.jpg); 
-
   background-size: cover;
-
 }
 #box {
   border-radius: 15px ;  
