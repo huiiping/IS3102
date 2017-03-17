@@ -18,6 +18,9 @@
     <fieldset>
         <legend><?= __('Add Rfq Supplier') ?></legend>
         <?php
+            echo $this->Form->control('remarks');
+            echo $this->Form->control('fileName');
+            echo $this->Form->control('fileDir');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

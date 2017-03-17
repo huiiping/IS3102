@@ -27,5 +27,25 @@
             <th scope="row"><?= __('Supplier') ?></th>
             <td><?= $rfqSupplier->has('supplier') ? $this->Html->link($rfqSupplier->supplier->supplier_name, ['controller' => 'Suppliers', 'action' => 'view', $rfqSupplier->supplier->id]) : '' ?></td>
         </tr>
+        <tr>
+            <th scope="row"><?= __('Remarks') ?></th>
+            <td><?= h($rfqSupplier->remarks) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('FileName') ?></th>
+            <td><?= h($rfqSupplier->fileName) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('FileDir') ?></th>
+            <td><?= h($rfqSupplier->fileDir) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Modified') ?></th>
+            <td><?= h($rfqSupplier->modified) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Created') ?></th>
+            <td><?= h($rfqSupplier->created) ?></td>
+        </tr>
     </table>
 </div>

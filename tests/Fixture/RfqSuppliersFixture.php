@@ -19,6 +19,11 @@ class RfqSuppliersFixture extends TestFixture
     public $fields = [
         'rfq_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'supplier_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'remarks' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'fileName' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'fileDir' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'modified' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
+        'created' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         '_indexes' => [
             'supplier_id' => ['type' => 'index', 'columns' => ['supplier_id'], 'length' => []],
         ],
@@ -42,7 +47,12 @@ class RfqSuppliersFixture extends TestFixture
     public $records = [
         [
             'rfq_id' => 1,
-            'supplier_id' => 1
+            'supplier_id' => 1,
+            'remarks' => 'Lorem ipsum dolor sit amet',
+            'fileName' => 'Lorem ipsum dolor sit amet',
+            'fileDir' => 'Lorem ipsum dolor sit amet',
+            'modified' => '2017-03-17 16:21:25',
+            'created' => '2017-03-17 16:21:25'
         ],
     ];
 }

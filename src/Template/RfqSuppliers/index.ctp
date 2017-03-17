@@ -20,6 +20,11 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('rfq_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('supplier_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('remarks') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('fileName') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('fileDir') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -28,6 +33,11 @@
             <tr>
                 <td><?= $rfqSupplier->has('rfq') ? $this->Html->link($rfqSupplier->rfq->title, ['controller' => 'Rfqs', 'action' => 'view', $rfqSupplier->rfq->id]) : '' ?></td>
                 <td><?= $rfqSupplier->has('supplier') ? $this->Html->link($rfqSupplier->supplier->supplier_name, ['controller' => 'Suppliers', 'action' => 'view', $rfqSupplier->supplier->id]) : '' ?></td>
+                <td><?= h($rfqSupplier->remarks) ?></td>
+                <td><?= h($rfqSupplier->fileName) ?></td>
+                <td><?= h($rfqSupplier->fileDir) ?></td>
+                <td><?= h($rfqSupplier->modified) ?></td>
+                <td><?= h($rfqSupplier->created) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $rfqSupplier->rfq_id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $rfqSupplier->rfq_id]) ?>

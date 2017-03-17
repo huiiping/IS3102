@@ -19,6 +19,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\RfqSupplier patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\RfqSupplier[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\RfqSupplier findOrCreate($search, callable $callback = null, $options = [])
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class RfqSuppliersTable extends Table
 {
@@ -37,6 +39,8 @@ class RfqSuppliersTable extends Table
         $this->setDisplayField('rfq_id');
         $this->setPrimaryKey(['rfq_id', 'supplier_id']);
 
+        $this->addBehavior('Timestamp');
+
         $this->belongsTo('Rfqs', [
             'foreignKey' => 'rfq_id',
             'joinType' => 'INNER'
@@ -45,6 +49,26 @@ class RfqSuppliersTable extends Table
             'foreignKey' => 'supplier_id',
             'joinType' => 'INNER'
         ]);
+    }
+
+    /**
+     * Default validation rules.
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationDefault(Validator $validator)
+    {
+        $validator
+            ->allowEmpty('remarks');
+
+        $validator
+            ->allowEmpty('fileName');
+
+        $validator
+            ->allowEmpty('fileDir');
+
+        return $validator;
     }
 
     /**
