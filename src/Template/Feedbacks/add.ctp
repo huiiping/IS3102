@@ -29,7 +29,8 @@ $this->Html->addCrumb(__('Create New Feedback'));
                 <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
                 <input type="hidden" name="customer_id" value="">
 
-                <select name="customer_id" class='selectpicker form-control' title ="Select Customer Id">
+                <select name="customer_id" class='selectpicker form-control' title ="Select Customer Id" data-live-search="true">
+                <option label=" " ></option> 
                   <?php foreach ($customers as $customer): ?>
                    <option><?php echo $customer ?></option> 
                  <?php endforeach; ?>
