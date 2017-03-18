@@ -573,7 +573,8 @@ crossorigin="anonymous"></script> -->
 <!-- AdminLTE for demo purposes -->
 <?= $this->Html->script('demo.js') ?>
 
-<!-- DataTables -->
+    <!-- Sort arrows -->
+    <?=$this->Html->css('admin_style.min')?><!-- DataTables -->
 <?= $this->Html->script('dataTables.bootstrap.min.js') ?>
 <!-- bootstrap color picker -->
 <?= $this->Html->script('bootstrap-colorpicker.min.js') ?>
