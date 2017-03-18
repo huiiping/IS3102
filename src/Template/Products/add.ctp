@@ -24,63 +24,84 @@ $this->Html->addCrumb(__('Create New Product'));
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">Create New Product</h3>
+            </div>
           </div>
-      </div>
-      <div class="main" style="padding: 10px 20px;">
+          <div class="main" style="padding: 10px 20px;">
 
-          <form method="post" accept-charset="utf-8" action="/IS3102_Final/products/add">
+            <form method="post" accept-charset="utf-8" action="/IS3102_Final/products/add">
               <div style="display:none;">
                 <input type="hidden" name="_method" value="POST">
-            </div>
-            <div class ="form-group">          
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                  <input class = "form-control" type="text" placeholder = "Product Name*" name="prod_name" required="required" id=prod_name" maxlength="255"> 
               </div>
+              <div class ="form-group">          
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-font"></i></span>
+                  <input class = "form-control" type="text" placeholder = "Product Name*" name="prod_name" required="required" id=prod_name" maxlength="255"> 
+                </div>
+              </div>
+
+              <div class ="form-group">          
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                  <input class = "form-control" type="text" placeholder = "Product Description*" name="prod_desc" required="required" id="prod_desc" maxlength="255"> 
+                </div>
+              </div>
+
+              <div class ="form-group">          
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-shopping-cart"></i></span>
+                  <input class = "form-control" type="text" placeholder = "SKU*" name="SKU" required="required" id="SKU" maxlength="255"> 
+                </div>
+              </div>
+
+              <div class ="form-group">          
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                  <input class = "form-control" type="text" placeholder = "Store Unit Price*" name="store_unit_price" required="required" id="store_unit_price" maxlength="255"> 
+                </div>
+              </div>
+
+              <div class ="form-group">          
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                  <input class = "form-control" type="text" placeholder = "Web Store Unit Price" name="web_store_unit_price" id="web_store_unit_price" maxlength="255"> 
+                </div>
+              </div>              
+
+              <div class ="form-group">            
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
+                  <input type="hidden" name="prod_cat_id" value="" required="required">
+
+                  <select name="prod_cat_id" class='selectpicker form-control' title ="Select Product Category*" data-live-search="true">
+                    <?php foreach ($prodCats as $prodCat): ?>
+                     <option><?php echo $prodCat ?></option> 
+                   <?php endforeach; ?>
+                 </select>
+               </div> 
+             </div>
+
+             <div class ="form-group">            
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
+                <input type="hidden" name="promotions[_ids]" value="">
+
+                <select name="promotions[_ids][]" class='selectpicker form-control' title ="Add an Existing Promotion" data-live-search="true" multiple data-selected-text-format="count > 3">
+                  <option value=" ">No Promotion</option>
+                  <?php foreach ($promotions as $promotion): ?>
+                   <option><?php echo $promotion ?></option> 
+                 <?php endforeach; ?>
+               </select>
+             </div> 
+           </div>
+
+           <div class ="row">
+            <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Add Product</button>
           </div>
 
-          <div class ="form-group">          
-            <div class="input-group">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-              <input class = "form-control" type="text" placeholder = "Product Description*" name="prod_desc" required="required" id="prod_desc" maxlength="255"> 
-          </div>
+        </form>
       </div>
-
-      <div class ="form-group">          
-        <div class="input-group">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-          <input class = "form-control" type="text" placeholder = "Store Unit Price*" name="store_unit_price" required="required" id="store_unit_price" maxlength="255"> 
-      </div>
+    </div>
   </div>
-
-  <div class ="form-group">          
-    <div class="input-group">
-      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-      <input class = "form-control" type="text" placeholder = "Web Store Unit Price" name="web_store_unit_price" id="web_store_unit_price" maxlength="255"> 
-  </div>
-</div>              
-
-<div class ="form-group">            
-    <div class="input-group">
-      <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
-      <input type="hidden" name="prod_cat_id" value="" required="required">
-
-      <select name="prod_cat_id" class='selectpicker form-control' data-live-search="true" title ="Select Product Category*">
-          <?php foreach ($prodCats as $prodCat): ?>
-               <option><?php echo $prodCat ?></option> 
-          <?php endforeach; ?>
-      </select>
-  </div> 
-</div>
-
-<div class ="row">
-<button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Add Product</button>
-</div>
-
-</form>
-</div>
-</div>
-</div>
 </div>
 </section>
 </div>
@@ -119,4 +140,4 @@ if(isset($_POST['submit'])){
 
     <!-- <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
-</div>-->
+  </div>-->

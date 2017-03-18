@@ -63,7 +63,7 @@ $this->Html->addCrumb(__('Create New Employee'));
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
                 <input type="hidden" name="intrasys_employee_roles[_ids]" value="">
-                <select name="intrasys_employee_roles[_ids][]" class='selectpicker form-control' multiple data-selected-text-format="count > 3" title = "Select Employee Role(s)*">
+                <select name="intrasys_employee_roles[_ids][]" class='selectpicker form-control' data-live-search="true" multiple data-selected-text-format="count > 3" title = "Select Employee Role(s)*">
                   <?php foreach ($intrasysEmployeeRoles as $intrasysEmployeeRole): ?>
                     <option value="<?= $intrasysEmployeeRole->id ?>"><?php echo $intrasysEmployeeRole->role_name ?></option>
                   <?php endforeach; ?>

@@ -42,7 +42,7 @@ $this->Html->addCrumb(__('Create New Product Category'));
             <div class ="form-group">          
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span><input type="hidden" name="parentid" value="">
-                <select name="parentid" class='selectpicker form-control' data-live-search="true"> title = "Select Parent Category*">
+                <select name="parentid" class='selectpicker form-control' data-live-search="true" title = "Select Parent Category*">
                   <option value=" ">No Parent Category</option>
                   <?php foreach ($prodCats as $category): ?>
                     <option value="<?= $category->id ?>"><?php echo $category->cat_name ?></option>

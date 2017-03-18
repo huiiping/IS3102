@@ -93,7 +93,7 @@ $this->Html->addCrumb(__('Edit Feedback'));
               <select name="item_id" class='selectpicker form-control' title ="Select Item" data-live-search="true">
               <option label=" " ></option> 
                 <?php foreach ($items as $item): ?>
-                  <?php if ($product == $feedback->item_id) :?>
+                  <?php if ($item == $feedback->item_id) :?>
                       <option selected="selected"><?=$feedback->item_id ?></option>
                     <?php else: ?>
                  <option><?php echo $item ?></option>

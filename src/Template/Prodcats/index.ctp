@@ -51,7 +51,7 @@ $this->Html->addCrumb(__('Product Category'));
     <thead>
         <tr>
             <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('parentid') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('parentid', ['label' => 'Parent Category']) ?></th>
             <th scope="col"><?= $this->Paginator->sort('cat_name', ['label' => 'Category Name']) ?></th>
             <th scope="col"><?= $this->Paginator->sort('cat_desc', ['label' => 'Category Description']) ?></th>
             <th scope="col" class="actions"><?= __('Actions') ?></th>

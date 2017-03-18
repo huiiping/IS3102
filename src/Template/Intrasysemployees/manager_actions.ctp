@@ -64,7 +64,7 @@ $this->Html->addCrumb(__('Manager Actions : '.$intrasysEmployee->first_name.' '.
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
                 <input type="hidden" name="intrasys_employee_roles[_ids]" value="">
-                <select name="intrasys_employee_roles[_ids][]" class='selectpicker form-control' multiple data-selected-text-format="count > 3" title = "" >
+                <select name="intrasys_employee_roles[_ids][]" class='selectpicker form-control' data-live-search="true" multiple data-selected-text-format="count > 3" title = "" >
                   <?php foreach ($roles as $role): ?> <!-- run every row of intrasys employee roles table -->
                     <?php if (!empty($intrasysEmployee->intrasys_employee_roles)): ?> <!-- check if employee has role -->
                       <?php foreach ($intrasysEmployee->intrasys_employee_roles as $intrasysEmployeeRoles): ?> <!-- if employee has role, run every role of employee -->

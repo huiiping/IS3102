@@ -150,6 +150,9 @@ class ProductsController extends AppController
         $promotions = $this->Products->Promotions->find('list', ['limit' => 200]);
         $this->set(compact('product', 'prodCats', 'prodSpecifications', 'promotions'));
         $this->set('_serialize', ['product']);
+
+        $this->set('promos', $this->Products->Promotions->find('all')); //to populate select input for roles
+    $this->set(compact('promos'));
     }
 
     /**
