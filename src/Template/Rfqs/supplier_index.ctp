@@ -5,8 +5,8 @@
 ?>
 <?php
 $this->assign('title', __('RFQ') . '/' . __('Index'));
-$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
-$this->Html->addCrumb(__('RFQ'), ['controller' => 'Rfqs', 'action' => 'index']);
+$this->Html->addCrumb(__('Supplier'), ['controller' => 'Pages', 'action' => 'supplier']);
+$this->Html->addCrumb(__('RFQ'), ['controller' => 'Rfqs', 'action' => 'supplierIndex']);
 
 ?>
 
@@ -47,23 +47,21 @@ $this->Html->addCrumb(__('RFQ'), ['controller' => 'Rfqs', 'action' => 'index']);
             <tr>
               <th scope="col"><?= $this->Paginator->sort('id') ?></th>
               <th scope="col"><?= $this->Paginator->sort('title') ?></th>
-              <th scope="col"><?= $this->Paginator->sort('retailer_employee_id') ?></th>
               <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
               <th scope="col"><?= $this->Paginator->sort('created') ?></th>
               <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($rfqs as $rfq): ?>
-              <tr>
-                <td style="max-width: 150px;"><?= $this->Number->format($rfq->id) ?></td>
-                <td style="max-width: 150px;"><?= $this->Html->link(__(h($rfq->title)), ['action' => 'view', $rfq->id], ['title' => $rfq->message])?></td>
-                <td style="max-width: 150px;"><?= $rfq->has('retailer_employee') ? $this->Html->link($rfq->retailer_employee->first_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $rfq->retailer_employee->id]) : '' ?></td>
-                <td style="max-width: 150px;"><?= h($rfq->modified) ?></td>
-                <td style="max-width: 150px;"><?= h($rfq->created) ?></td>
-                <td><?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete RFQ')), array('action' => 'delete', $rfq->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $rfq->id))) ?></td>
-              </tr>
-            <?php endforeach; ?>
+              <?php foreach ($rfqs as $rfq): ?>
+                <tr>
+                  <td style="max-width: 150px;"><?= $this->Number->format($rfq->id) ?></td>
+                  <td style="max-width: 150px;"><?= $this->Html->link(__(h($rfq->title)), ['action' => 'view', $rfq->id], ['title' => $rfq->message])?></td>               
+                  <td style="max-width: 150px;"><?= h($rfq->modified) ?></td>
+                  <td style="max-width: 150px;"><?= h($rfq->created) ?></td>
+                  <td><?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete RFQ')), array('action' => 'delete', $rfq->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $rfq->id))) ?></td>
+                </tr>
+              <?php endforeach; ?>
             </tbody>
           </table>
           <div class="paginator">

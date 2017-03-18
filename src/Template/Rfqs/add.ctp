@@ -6,7 +6,7 @@
 
 <?php
 $this->assign('title', __('RFQ') . '/' . __('Add'));
-$this->Html->addCrumb(__('RFQ'), ['controller' => 'Rfqs', 'action' => 'index']);
+$this->Html->addCrumb(__('RFQ'), ['controller' => 'Rfqs', 'action' => 'add']);
 $this->Html->addCrumb(__('Add'));
 ?>
   <!-- Main content -->
@@ -40,7 +40,8 @@ $this->Html->addCrumb(__('Add'));
                         <input type="hidden" name="suppliers[_ids]" value="">
                         <select name="suppliers[_ids][]" class='selectpicker form-control' multiple data-selected-text-format="count > 3" title = "Select Supplier(s)*">
                             <?php foreach ($suppliers as $supplier): ?>
-                              <option value="<?= $supplier->id ?>"><?php echo $supplier->supplier_name ?></option>
+                              <option <?php if($supplier->id == $id){ echo("selected") ;} ?>
+                              value="<?= $supplier->id ?>"><?php echo $supplier->supplier_name ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>

@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Rfqs Controller
@@ -43,11 +44,39 @@ class RfqsController extends AppController
     public function view($id = null)
     {
         $rfq = $this->Rfqs->get($id, [
-            'contain' => ['RetailerEmployees', 'Suppliers', 'RfqsSuppliers']
+            'contain' => ['RetailerEmployees', 'Suppliers']
         ]);
 
         $this->set('rfq', $rfq);
         $this->set('_serialize', ['rfq']);
+    }
+
+
+    public function supplierIndex()
+    {
+
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+
+        $session = $this->request->session();
+        $supplier = $session->read('supplier');
+        $supplier_id = $supplier['id'];
+
+        $query = $this->paginate($this->Rfqs->find('searchable', $this->Prg->parsedParams())->matching('Suppliers', function ($q) use ($supplier_id) {
+                return $q->where(['Suppliers.id' => $supplier_id]); 
+            })->order(['Rfqs.created' => 'DESC']));
+
+        $this->set('rfqs', $query);
+        $this->set('_serialize', ['rfqs']);
+
+        // $this->set('supplier', $supplier);
+
+        // $this->paginate = [
+        //     'contain' => ['Suppliers']
+        // ];        
+
+        // $this->set('rfqs', $this->paginate($this->Rfqs->find('searchable', $this->Prg->parsedParams())->where(['supplier_id' => $supplier['id']])));
+
     }
 
     /**
@@ -55,7 +84,7 @@ class RfqsController extends AppController
      *
      * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = null)
     {
         $rfq = $this->Rfqs->newEntity();
         if ($this->request->is('post')) {
@@ -69,7 +98,7 @@ class RfqsController extends AppController
         }
         $retailerEmployees = $this->Rfqs->RetailerEmployees->find('list', ['limit' => 200]);
         $this->set('suppliers', $this->Rfqs->Suppliers->find('all'));
-        $this->set(compact('rfq', 'retailerEmployees', 'suppliers'));
+        $this->set(compact('rfq', 'retailerEmployees', 'suppliers', 'id'));
         $this->set('_serialize', ['rfq']);
     }
 

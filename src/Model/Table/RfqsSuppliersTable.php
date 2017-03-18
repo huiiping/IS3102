@@ -23,6 +23,8 @@ use Cake\Validation\Validator;
 class RfqsSuppliersTable extends Table
 {
 
+    public $filterArgs = array(
+    );
     /**
      * Initialize method
      *

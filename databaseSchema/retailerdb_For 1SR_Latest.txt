@@ -431,3 +431,17 @@ CREATE TABLE rfqs_suppliers (
     FOREIGN KEY (rfq_id) REFERENCES rfqs(id),
     FOREIGN KEY (supplier_id) REFERENCES suppliers(id)
 );
+
+CREATE TABLE quotations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    rfq_id INT,
+    supplier_id INT,
+    fileName VARCHAR(255),
+    filePath VARCHAR(255),
+    comments VARCHAR(255),
+    status VARCHAR(100),
+    modified DATETIME,
+    created DATETIME,
+    FOREIGN KEY (supplier_id) REFERENCES suppliers(id),
+    FOREIGN KEY (rfq_id) REFERENCES rfqs(id)
+);

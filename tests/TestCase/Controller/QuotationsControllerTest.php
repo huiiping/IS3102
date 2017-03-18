@@ -17,6 +17,7 @@ class QuotationsControllerTest extends IntegrationTestCase
      */
     public $fixtures = [
         'app.quotations',
+        'app.rfqs',
         'app.retailer_employees',
         'app.locations',
         'app.sections',
@@ -33,6 +34,7 @@ class QuotationsControllerTest extends IntegrationTestCase
         'app.purchase_orders',
         'app.suppliers',
         'app.supplier_memos',
+        'app.rfqs_suppliers',
         'app.purchase_order_items',
         'app.retailer_loggings',
         'app.messages',

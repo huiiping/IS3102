@@ -3,6 +3,7 @@
   * @var \App\View\AppView $this
   */
 ?>
+<!--
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
@@ -16,6 +17,7 @@
         <li><?= $this->Html->link(__('New Rfq Supplier'), ['controller' => 'RfqSuppliers', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
+-->
 <div class="rfqs view large-9 medium-8 columns content">
     <h3><?= h($rfq->title) ?></h3>
     <table class="vertical-table">
@@ -45,22 +47,22 @@
         </tr>
     </table>
     <div class="related">
-        <h4><?= __('Related Rfq Suppliers') ?></h4>
-        <?php if (!empty($rfq->rfq_suppliers)): ?>
+        <h4><?= __('Related Suppliers') ?></h4>
+        <?php if (!empty($rfq->suppliers)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Rfq Id') ?></th>
                 <th scope="col"><?= __('Supplier Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($rfq->rfq_suppliers as $rfqSuppliers): ?>
+            <?php foreach ($rfq->suppliers as $supplier): ?>
             <tr>
-                <td><?= h($rfqSuppliers->rfq_id) ?></td>
-                <td><?= h($rfqSuppliers->supplier_id) ?></td>
+                <td><?= h($supplier->id) ?></td>
+                <td><?= h($supplier->supplier_name) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'RfqSuppliers', 'action' => 'view', $rfqSuppliers->rfq_id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'RfqSuppliers', 'action' => 'edit', $rfqSuppliers->rfq_id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'RfqSuppliers', 'action' => 'delete', $rfqSuppliers->rfq_id], ['confirm' => __('Are you sure you want to delete # {0}?', $rfqSuppliers->rfq_id)]) ?>
+                    <?= $this->Html->link(__('View'), ['controller' => 'Suppliers', 'action' => 'view', $supplier->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Suppliers', 'action' => 'edit', $supplier->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Suppliers', 'action' => 'delete', $supplier->id], ['confirm' => __('Are you sure you want to delete # {0}?', $supplier->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

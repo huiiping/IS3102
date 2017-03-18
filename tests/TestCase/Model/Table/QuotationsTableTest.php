@@ -25,6 +25,7 @@ class QuotationsTableTest extends TestCase
      */
     public $fixtures = [
         'app.quotations',
+        'app.rfqs',
         'app.retailer_employees',
         'app.locations',
         'app.sections',
@@ -41,6 +42,7 @@ class QuotationsTableTest extends TestCase
         'app.purchase_orders',
         'app.suppliers',
         'app.supplier_memos',
+        'app.rfqs_suppliers',
         'app.purchase_order_items',
         'app.retailer_loggings',
         'app.messages',
