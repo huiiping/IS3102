@@ -74,10 +74,7 @@ class CustMembershipTiersTable extends Table
         ),
         'search' => array(
             'type' => 'like',
-            'field' => array('tier_name','membership_pts','validity_period')
-        ),
-        'type' => array(
-            'type' => 'type'
+            'field' => array('tier_name','membership_pts','validity_period','min_spending','membership_fee','redemption_pts','discount_rate','birthday_rate')
         )
     );
     /**

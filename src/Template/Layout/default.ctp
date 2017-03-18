@@ -533,11 +533,11 @@ crossorigin="anonymous"></script> -->
         <?php if($loggedIn) : ?>
           <?=$this->Html->getCrumbList(['class' => 'breadcrumb navbar-breadcrumb',
               'firstClass' => false,
-              'lastClass' => 'active'],
+              'lastClass' => 'active']/*,
               ['text' => __('Home'),
                   'url' => ['controller' => 'Pages',
                       'action' => 'main'],
-                  'escape' => false])
+                  'escape' => false]*/)
           ?>
         <?php endif; ?>
         <?= $this->Flash->render() ?> <!--display messages-->

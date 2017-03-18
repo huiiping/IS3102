@@ -1,14 +1,14 @@
 <li class="treeview">
-  <a <?php if($this->request->session()->read('page') === $typePlural) : ?> class="changeactive" <?php endif; ?> href="">
+  <a <?php if($this->request->session()->read('page') === $title) : ?> class="changeactive" <?php endif; ?> href="">
     <i class="fa fa-table"></i>
-    <span><?= $type ?></span>
+    <span><?= $title ?></span>
     <span class="pull-right-container">
         <i class="fa fa-angle-left pull-right"></i>
     </span>
   </a>
   <ul class="treeview-menu">
-    <li><p class="indent"><?= $this->Html->link(__($type.' Index'), ['controller' => $typePlural, 'action' => 'index']) ?></p></li>
-    <li><p class="indent"><?= $this->Html->link(__('Create New'), ['controller' => $typePlural, 'action' => 'add']) ?></p></li>
+    <li><p class="indent"><?= $this->Html->link(__($type1), ['controller' => $typePlural, 'action' => 'index']) ?></p></li>
+    <li><p class="indent"><?= $this->Html->link(__($type2), ['controller' => $typePlural2, 'action' => 'index']) ?></p></li>
     <li><p class="indent"></p></li>
   </ul>
 </li>

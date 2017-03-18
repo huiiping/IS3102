@@ -52,9 +52,8 @@ class CustomersTable extends Table
         ),
         'search' => array(
             'type' => 'like',
-            'field' => array('activation_status','username','email','address','first_name','last_name')
+            'field' => array('id','activation_status','username','email','contact','address','first_name','last_name')
         )
-
     );
 
     /**

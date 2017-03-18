@@ -36,6 +36,11 @@ class RetailersTable extends Table
         'account_status' => array(
             'type' => 'like',
             'field' => 'account_status'
+        ),
+        'search' => array(
+            'type' => 'like',
+            'field' => array('id','retailer_name','retailer_email','contact','RetailerAccTypes.name','account_status'),
+            'method' => 'findByActions'            
         )
     );
 

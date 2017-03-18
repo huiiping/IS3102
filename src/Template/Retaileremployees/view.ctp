@@ -94,6 +94,7 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
             <div class="active tab-pane" id="promotions">
                 <?php if (!empty($retailerEmployee->promotions)): ?>
                 <table class="table table-bordered table-striped">
+                  <thead>
                     <tr>
                         <!--<th scope="col"><?= __('Id') ?></th>
                         <th scope="col"><?= __('Start Date') ?></th>
@@ -107,6 +108,8 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
                         <th scope="col" class="actions"><?= __('Actions') ?></th>-->
                         <th scope="col"><?= __('Promotion ID') ?></th>
                     </tr>
+                  </thead>
+                  <tbody>
                     <?php foreach ($retailerEmployee->promotions as $promotions): ?>
                     <tr>
                         <!--<td><?= h($promotions->id) ?></td>
@@ -123,6 +126,7 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
                         </td>
                     </tr>
                     <?php endforeach; ?>
+                  </tbody>
                 </table>
                 <?php else: ?>
 
@@ -133,8 +137,9 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
             <div class="tab-pane" id="orders">
                 <?php if (!empty($retailerEmployee->purchase_orders)): ?>
                 <table class="table table-bordered table-striped">
+                  <thead>
                     <tr>
-                        <th scope="col"><?= __('PO Id') ?></th>
+                        <th scope="col"><?= __('PO ID') ?></th>
                         <th scope="col"><?= __('Created') ?></th>
                         <!--<th scope="col"><?= __('Total Price') ?></th>
                         <th scope="col"><?= __('Delivery Status') ?></th>-->
@@ -142,6 +147,8 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
                         <!--<th scope="col"><?= __('Retailer Employee Id') ?></th>
                         <th scope="col" class="actions"><?= __('Actions') ?></th>-->
                     </tr>
+                  </thead>
+                  <tbody>
                     <?php foreach ($retailerEmployee->purchase_orders as $purchaseOrders): ?>
                     <tr>
                         <td>
@@ -158,6 +165,7 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
                         <!--<td><?= h($purchaseOrders->retailer_employee_id) ?></td>-->
                     </tr>
                     <?php endforeach; ?>
+                  </tbody>
                 </table>
                 <?php else: ?>
 
@@ -168,14 +176,17 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
             <div class="tab-pane" id="memos">
                 <?php if (!empty($retailerEmployee->supplier_memos)): ?>
                 <table class="table table-bordered table-striped">
+                  <thead>
                     <tr>
                         <!--<th scope="col"><?= __('Id') ?></th>
                         <th scope="col"><?= __('Remarks') ?></th>
                         <th scope="col"><?= __('Created') ?></th>-->
-                        <th scope="col"><?= __('Supplier Id') ?></th>
+                        <th scope="col"><?= __('Supplier ID') ?></th>
                         <!--<th scope="col"><?= __('Retailer Employee Id') ?></th>
                         <th scope="col" class="actions"><?= __('Actions') ?></th>-->
                     </tr>
+                  </thead>
+                  <tbody>
                     <?php foreach ($retailerEmployee->supplier_memos as $supplierMemos): ?>
                     <tr>
                         <!--<td><?= h($supplierMemos->id) ?></td>
@@ -187,6 +198,7 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
                         <!--<td><?= h($supplierMemos->retailer_employee_id) ?></td>-->
                     </tr>
                     <?php endforeach; ?>
+                  </tbody>
                 </table>
                 <?php else: ?>
 
@@ -197,8 +209,9 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
             <div class="tab-pane" id="messages">
                 <?php if (!empty($retailerEmployee->messages)): ?>
                 <table class="table table-bordered table-striped">
+                  <thead>
                     <tr>
-                        <th scope="col"><?= __('Message Id') ?></th>
+                        <th scope="col"><?= __('Message ID') ?></th>
                         <!--<th scope="col"><?= __('Title') ?></th>
                         <th scope="col"><?= __('Date Created') ?></th>
                         <th scope="col"><?= __('Message') ?></th>
@@ -207,6 +220,8 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
                         <th scope="col"><?= __('Sender Id') ?></th>
                         <th scope="col" class="actions"><?= __('Actions') ?></th>-->
                     </tr>
+                  </thead>
+                  <tbody>
                     <?php foreach ($retailerEmployee->messages as $messages): ?>
                     <tr>
                         <!--<td><?= h($messages->id) ?></td>-->
@@ -220,6 +235,7 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
                         <td><?= h($messages->sender_id) ?></td>-->
                     </tr>
                     <?php endforeach; ?>
+                  </tbody>
                 </table>
                 <?php else: ?>
 

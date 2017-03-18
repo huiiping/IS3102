@@ -21,12 +21,6 @@
   padding-bottom: 60px;
 }
 </style>
-
-<?php
-$this->assign('title', __('Intrasys') . '/' . __('Add'));
-$this->Html->addCrumb(__('Intrasys'), ['controller' => 'Pages', 'action' => 'intrasys']);
-?>
-
 <!-- Main content -->
 <section class="content" style="background-image: url(/IS3102_Final/img/intrasysLogin2.jpg); background-size: cover; height: 1000px;">
   <div class="row">
