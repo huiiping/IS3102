@@ -5,8 +5,6 @@ $this->Html->addCrumb(__('Feedbacks'), ['controller' => 'feedbacks', 'action' =>
 $this->Html->addCrumb(__('Edit Feedback'));
 ?>
 
-<?= $this->Element('retailerLeftSideBar'); ?>
-
 <!-- Main content -->
 <section class="content">
   <div class="row">

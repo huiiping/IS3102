@@ -2,75 +2,61 @@
 use Cake\ORM\TableRegistry;
 ?>
 
-<?= $this->Element('retailerLeftSideBar'); ?>
 <?php
 $this->assign('title', __('ProdCats') . '/' . __('Edit'));
 $this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
-$this->Html->addCrumb(__('ProdCats'), ['controller' => 'ProdCats', 'action' => 'index']);
-$this->Html->addCrumb(__('Edit'));
+$this->Html->addCrumb(__('Product Category'), ['controller' => 'ProdCats', 'action' => 'index']);
+$this->Html->addCrumb(__('Edit Product Category'));
 ?>
-<!-- Main Content -->
-<div class="content-wrapper">
-  <!-- Content Header -->
-  <section class="content-header">
-  </section>
-  <!-- Main content -->
-  <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title"><?= __('Edit Product Category') ?></h3>
-            </div>
-            <div class="box-body">
-                <?= $this->Form->create($prodCat) ?>
-                <fieldset>
-                    <?php
-                    echo $this->Form->input('cat_name');
-                    echo $this->Form->input('cat_desc');
-                    $prodCats = TableRegistry::get('prodCats');
-                    $query = $prodCats->find('all');
-                    $results = $query->all()
-                    ->extract('id');
-                    $data= $results->toArray();
 
-                    echo $this->Form->input('parentid', array('type' => 'select', 'options' => array_combine($data, $data), 'empty' => true));
-                    ?>
-                    <div class="container">
-                      <h3>Tooltip Example</h3>
-                      <p>The data-placement attribute specifies the tooltip position.</p>
-                      <ul class="list-inline">
-                          <li><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">Right</a></li>
-                      </ul>
-                  </div>
-
-                  
-
-                 <!--Hovering works. Can use for employee roles & parentID. Just need to make it nicer
-                    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-                    <li>Milk</li>
-                    <script>
-                        $( "li" ).hover(
-                          function() {
-                            $( this ).append( $( "<span> ***</span>" ) );
-                        }, function() {
-                            $( this ).find( "span:last" ).remove();
-                        }
-                        );
-                    </script>-->
-                </fieldset>
-                <br>
-                <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
-                <?= $this->Form->end() ?>
-            </div>
+<section class="content">
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+      <div class="box box-primary">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Edit Product Category</h3>
           </div>
         </div>
-      </div>
-  </section>
-</div>
+        <div class="main" style="padding: 10px 20px;">
 
-<script>
-    $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip();   
-    });
-</script>
+          <form method="post" accept-charset="utf-8" action="/IS3102_Final/prodCats/edit/<?=$prodCat->id?>">
+            <div style="display:none;">
+              <input type="hidden" name="_method" value="PUT">
+            </div>
+
+            <div class ="form-group">          
+              <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-font"></i></span>
+                <input class = "form-control" type="text" value = "<?=$prodCat->cat_name?>" name="cat_name" required="required" id="cat_name" maxlength="255"> 
+              </div>
+            </div>
+
+            <div class ="form-group">          
+              <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                <input class = "form-control" type="text" value = "<?=$prodCat->cat_desc?>" name="cat_desc" required="required" id="cat_desc" maxlength="255"> 
+              </div>
+            </div>
+
+                <?php
+                $session = $this->request->session();
+                $prodCats = TableRegistry::get('prodCats');
+                $query = $prodCats->find('all');
+                $results = $query->all()
+                ->extract('id');
+                $data= $results->toArray();
+                $session->write('data',$data);
+
+                echo $this->Form->input('parentid', array('type' => 'select', 'options' => array_combine($data, $data), 'empty' => true));
+                ?>
+
+            <div class ="row">
+             <button class="btn btn-md btn-primary pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Edit Feedback</button>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+</div>

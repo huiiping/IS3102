@@ -94,7 +94,6 @@ class ProdCatsController extends AppController
             'contain' => []
             ]);
 
-        Debugger::dump($prodCat);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $prodCat = $this->ProdCats->patchEntity($prodCat, $this->request->data);
             if ($this->ProdCats->save($prodCat)) {

@@ -25,7 +25,7 @@ class ProdCatsTable extends Table
     public $filterArgs = array(
         'search' => array(
             'type' => 'like',
-            'field' => 'cat_name', 'cat_desc', 'parentid')
+            'field' => 'cat_name','cat_desc','parentid')
     );
 
 
