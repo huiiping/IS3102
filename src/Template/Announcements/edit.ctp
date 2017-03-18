@@ -3,7 +3,12 @@
   * @var \App\View\AppView $this
   */
 ?>
+<?php
+$this->assign('title', __('Announcements') );
+$this->Html->addCrumb(__('Intrasys'), ['controller' => 'Pages', 'action' => 'intrasys']);
+$this->Html->addCrumb(__('Announcements'), ['controller' => 'Announcements', 'action' => 'index']);
 
+?>
 <?= $this->Element('intrasysLeftSideBar'); ?>
 
 <!-- Main Content -->

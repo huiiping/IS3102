@@ -3,6 +3,13 @@
   * @var \App\View\AppView $this
   */
 ?>
+
+<?php
+$this->assign('title', __('IntrasysLoggings') );
+$this->Html->addCrumb(__('Intrasys'), ['controller' => 'Pages', 'action' => 'intrasys']);
+$this->Html->addCrumb(__('Intrasys Loggings'), ['controller' => 'IntrasysLoggings', 'action' => 'index']);
+
+?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>

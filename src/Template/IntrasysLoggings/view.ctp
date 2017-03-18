@@ -4,6 +4,13 @@
   */
 ?>
 
+<?php
+$this->assign('title', __('IntrasysLoggings') );
+$this->Html->addCrumb(__('Intrasys'), ['controller' => 'Pages', 'action' => 'intrasys']);
+$this->Html->addCrumb(__('Intrasys Loggings'), ['controller' => 'IntrasysLoggings', 'action' => 'index']);
+
+?>
+
 <?= $this->Element('intrasysLeftSideBar'); ?>
 
 <!-- Main Content -->
