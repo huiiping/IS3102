@@ -50,7 +50,13 @@ class RetailerLoggingsTable extends Table
         'created' => array(
             'type' => 'like',
             'field' => 'created'
+        ),
+        'search' => array(
+            'type' => 'like',
+            'field' => array('action','entity','entityid','RetailerEmployees.first_name','RetailerEmployees.last_name'),
+            'method' => 'findByActions'
         )
+
     );
     /**
      * Initialize method

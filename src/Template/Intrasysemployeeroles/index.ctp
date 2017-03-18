@@ -74,7 +74,7 @@ $this->Html->addCrumb(__('Employee Roles'));
                 <?php foreach ($intrasysEmployeeRoles as $intrasysEmployeeRole): ?>
                 <tr>
                     <td><?= $this->Number->format($intrasysEmployeeRole->id) ?></td>
-                    <td><?= $this->Html->link(__($intrasysEmployeeRole->role_name), ['action' => 'view', $intrasysEmployeeRole->id])  ?></td>
+                    <td><?= $this->Html->link(__($intrasysEmployeeRole->role_name), ['action' => 'view', $intrasysEmployeeRole->id], ['title' => 'View Employee Role Details'])  ?></td>
                     <td><?= h($intrasysEmployeeRole->role_desc) ?></td>
                     <!--  <td><?= $this->Time->format(h($intrasysEmployeeRole->created), 'd MMM YYYY, hh:mm') ?></td>
                     <td><?= $this->Time->format(h($intrasysEmployeeRole->modified), 'd MMM YYYY, hh:mm') ?></td> -->

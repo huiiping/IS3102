@@ -32,6 +32,35 @@
         </li>
         
       <?php else : ?>
+        <?= $this->Element('sideBar3', array('title' => 'Create New', 'num' => '26', 
+        'type1' => 'Employee', 'typePlural' => 'RetailerEmployees', 
+        'type2' => 'Customer', 'typePlural2' => 'Customers', 
+        'type3' => 'Membership Tier', 'typePlural3' => 'CustMembershipTiers', 
+        'type4' => 'Membership Points', 'typePlural4' => 'MembershipPoints', 
+        'type5' => 'Feedback', 'typePlural5' => 'Feedbacks', 
+        'type6' => 'Promotion', 'typePlural6' => 'Promotions', 
+        'type7' => 'Promotion Email', 'typePlural7' => 'PromotionEmails', 
+        'type8' => 'Product Category', 'typePlural8' => 'ProdCats', 
+        'type9' => 'Product', 'typePlural9' => 'Products', 
+        'type10' => 'Product Specification', 'typePlural10' => 'ProdSpecifications', 
+        'type11' => 'Location', 'typePlural11' => 'Locations', 
+        'type12' => 'Section', 'typePlural12' => 'Sections', 
+        'type13' => 'Inventory', 'typePlural13' => 'Inventory', 
+        'type14' => 'Stock Level', 'typePlural14' => 'StockLevels', 
+        'type15' => 'Item', 'typePlural15' => 'Items', 
+        'type16' => 'Supplier', 'typePlural16' => 'Suppliers', 
+        'type17' => 'Purchase Order', 'typePlural17' => 'PurchaseOrders', 
+        'type18' => 'RFQ', 'typePlural18' => 'Rfqs', 
+        'type19' => 'Transaction', 'typePlural19' => 'Transactions', 
+        'type20' => 'Transaction Item', 'typePlural20' => 'TransactionItems', 
+        'type21' => 'Delivery Order', 'typePlural21' => 'DeliveryOrders', 
+        'type22' => 'Delivery Order Item', 'typePlural22' => 'DeliveryOrderItems', 
+        'type23' => 'Transfer Order', 'typePlural23' => 'TransferOrders', 
+        'type24' => 'Transfer Order Item', 'typePlural24' => 'TransferOrderItems',
+        'type25' => 'Message', 'typePlural25' => 'Messages',
+        'type26' => 'Report', 'typePlural26' => 'Reports'
+        )); ?>
+
         <?= $this->Element('sideBar', array('title' => 'Employees', 'type1' => 'Employees', 'typePlural' => 'RetailerEmployees', 'type2' => 'Employee Roles', 'typePlural2' => 'RetailerEmployeeRoles')); ?>
         
         <?= $this->Element('sideBar2', array('title' => 'Customers', 'num' => '4', 'type1' => 'Customers', 'typePlural' => 'Customers', 'type2' => 'Membership Tiers', 'typePlural2' => 'CustMembershipTiers', 'type3' => 'Membership Points', 'typePlural3' => 'MembershipPoints', 'type4' => 'Feedbacks', 'typePlural4' => 'Feedbacks')); ?>

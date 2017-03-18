@@ -29,6 +29,10 @@ class AnnouncementsTable extends Table
         'title' => array(
             'type' => 'like',
             'field' => 'title'
+        ),
+        'search' => array(
+            'type' => 'like',
+            'field' => array('title','message','remarks','id')
         )
     );
     
