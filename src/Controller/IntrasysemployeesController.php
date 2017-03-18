@@ -11,18 +11,16 @@ use Cake\ORM\TableRegistry;
  *
  * @property \App\Model\Table\IntrasysEmployeesTable $IntrasysEmployees
  */
-class IntrasysEmployeesController extends AppController
-{
+class IntrasysEmployeesController extends AppController {
   private $password;
 
-  public function beforeFilter(Event $event)
+  public function beforeFilter(Event $event) 
   {
     parent::beforeFilter($event);
 
         //Loading Components
     $this->loadComponent('CakeCaptcha.Captcha', [
-      'captchaConfig' => 'ExampleCaptcha'
-      ]);
+      'captchaConfig' => 'ExampleCaptcha']);
     $this->loadComponent('Logging');
     $this->loadComponent('Email');
     $this->loadcomponent('Auth', [
@@ -41,9 +39,10 @@ class IntrasysEmployeesController extends AppController
       ]
       ]);
 
-        // Allow users to register and logout.
-        // You should not add the "login" action to allow list. Doing so would cause problems with normal functioning of AuthComponent.
+    // Allow users to register and logout.
+    // You should not add the "login" action to allow list. Doing so would cause problems with normal functioning of AuthComponent.
     $this->Auth->allow(['add', 'logout', 'activate', 'recover', 'recoverActivate', 'setPassword']);
+
   }
 
   public function index() {
@@ -54,160 +53,152 @@ class IntrasysEmployeesController extends AppController
     $this->set(compact('intrasysEmployees'));
     $this->set('_serialize', ['intrasysEmployees']);
   }
+
   public $components = array(
-    'Prg'
-    );
+  'Prg'
+  );
 
-    /**
-     * View method
-     *
-     * @param string|null $id Intrasys Employee id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-    	$intrasysEmployee = $this->IntrasysEmployees->get($id, [
-    		'contain' => ['IntrasysEmployeeRoles']
-    		]);
+  /**
+  * View method
+  *
+  * @param string|null $id Intrasys Employee id.
+  * @return \Cake\Network\Response|null
+  * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+  */
+  public function view($id = null) {
+  	
+    $intrasysEmployee = $this->IntrasysEmployees->get($id, [
+  		'contain' => ['IntrasysEmployeeRoles']
+  		]);
 
-      $sessionId = $this->request->session()->read('Auth.User.id');
-      $session = $this->request->session()->read('Auth.User');
-      $sessionEmployee = $this->IntrasysEmployees->get($session['id'], [
-        'contain' => ['IntrasysEmployeeRoles']
-        ]);
-        //$intrasysEmployees = $intrasysEmployee->IntrasysEmployeeRoles;
-      foreach ($sessionEmployee->intrasys_employee_roles as $intrasysEmployeeRoles) {
-        if($intrasysEmployeeRoles->id == '7') {
-          if($intrasysEmployee['id'] != $sessionId) {
-            $this->redirect($this->referer());
-            $this->Flash->error(__('You are not authorized to view other employees.'));
-          }    
-        }
+    $sessionId = $this->request->session()->read('Auth.User.id');
+    $session = $this->request->session()->read('Auth.User');
+    $sessionEmployee = $this->IntrasysEmployees->get($session['id'], [
+      'contain' => ['IntrasysEmployeeRoles']
+      ]);
 
+    foreach ($sessionEmployee->intrasys_employee_roles as $intrasysEmployeeRoles) {
+
+      if($intrasysEmployeeRoles->id == '7') {
+
+        if($intrasysEmployee['id'] != $sessionId) {
+
+          $this->redirect($this->referer());
+          $this->Flash->error(__('You are not authorized to view other employees.'));
+
+        }    
       }
-        //$this->loadComponent('Logging');
-        //$this->Logging->log($intrasysEmployee['id']);
-      $this->Logging->iLog(null, $intrasysEmployee['id']);
 
-      $this->set('intrasysEmployee', $intrasysEmployee);
-      $this->set('_serialize', ['intrasysEmployee']);
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
-     */
-    
-    public function add2()
-    {
-    	$intrasysEmployee = $this->IntrasysEmployees->newEntity();
-    	if ($this->request->is('post')) {
-    		$intrasysEmployee = $this->IntrasysEmployees->patchEntity($intrasysEmployee, $this->request->data);
-    		$intrasysEmployee->set('activation_status', 'Activated');
-    		if ($this->IntrasysEmployees->save($intrasysEmployee)) {
-    			$this->Flash->success(__('The intrasys employee has been saved.'));
+    $this->Logging->iLog(null, $intrasysEmployee['id']);
+    $this->set('intrasysEmployee', $intrasysEmployee);
+    $this->set('_serialize', ['intrasysEmployee']);
 
-                //$this->loadComponent('Logging');
-                //$this->Logging->log($intrasysEmployee['id']);
-          $this->Logging->iLog(null, $intrasysEmployee['id']);
+  }
 
-          return $this->redirect(['action' => 'index']);
-        }
-        $this->Flash->error(__('The intrasys employee could not be saved. Please, try again.'));
+  /**
+  * Add method
+  *
+  * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
+  */
+
+  public function add2() {
+
+    $intrasysEmployee = $this->IntrasysEmployees->newEntity();
+
+    if ($this->request->is('post')) {
+
+    	$intrasysEmployee = $this->IntrasysEmployees->patchEntity($intrasysEmployee, $this->request->data);
+    	$intrasysEmployee->set('activation_status', 'Activated');
+
+    	if ($this->IntrasysEmployees->save($intrasysEmployee)) {
+
+    		$this->Flash->success(__('The intrasys employee has been saved.'));
+        $this->Logging->iLog(null, $intrasysEmployee['id']);
+
+        return $this->redirect(['action' => 'index']);
       }
-      $intrasysEmployeeRoles = $this->IntrasysEmployees->IntrasysEmployeeRoles->find('list', ['limit' => 200]);
+
+      $this->Flash->error(__('The intrasys employee could not be saved. Please, try again.'));
+
+    }
+
+    $intrasysEmployeeRoles = $this->IntrasysEmployees->IntrasysEmployeeRoles->find('list', ['limit' => 200]);
+    $this->set(compact('intrasysEmployee', 'intrasysEmployeeRoles'));
+    $this->set('_serialize', ['intrasysEmployee']);
+
+  }
+
+  public function add() {
+
+  	$this->loadComponent('Generator');
+
+  	$intrasysEmployee = $this->IntrasysEmployees->newEntity();
+
+  	if ($this->request->is('post')) {
+
+  		$intrasysEmployee = $this->IntrasysEmployees->patchEntity($intrasysEmployee, $this->request->data);
+      $intrasysEmployee->set('username', $this->Generator->generateString());
+      $this->password = $this->Generator->generateString();
+      $intrasysEmployee->set('password', $this->password);
+      $intrasysEmployee->set('activation_status', 'Deactivated');
+      $intrasysEmployee->set('activation_token', $this->Generator->generateString());
+
+      if ($this->IntrasysEmployees->save($intrasysEmployee)) {
+
+        $intrasysEmployee = $this->IntrasysEmployees->patchEntity($intrasysEmployee, $this->request->data);
+        $username =  $intrasysEmployee['id'] . substr($intrasysEmployee['first_name'],0,1) . substr($intrasysEmployee['last_name'],0,1) . "intrasys";
+        $intrasysEmployee->set('username', $username);
+        $this->IntrasysEmployees->save($intrasysEmployee);
+
+        $this->Email->activationEmail(
+          $intrasysEmployee['email'], 
+          $intrasysEmployee['first_name'], 
+          $intrasysEmployee['username'], 
+          $this->password, 
+          $intrasysEmployee['id'], 
+          $intrasysEmployee['activation_token'], 
+          'intrasys-employees',
+          ""
+        );
+
+        $this->Flash->success(__('The intrasys employee has been saved.'));
+        $this->Logging->iLog(null, $intrasysEmployee['id']);
+
+        return $this->redirect(['action' => 'index']);
+      }
+
+      $this->Flash->error(__('The intrasys employee could not be saved. Please, try again.'));
+
+    }
+
+      $this->set('intrasysEmployeeRoles', $this->IntrasysEmployees->IntrasysEmployeeRoles->find('all')); //to populate select input for roles
       $this->set(compact('intrasysEmployee', 'intrasysEmployeeRoles'));
       $this->set('_serialize', ['intrasysEmployee']);
-    }
 
-    public function add(){
-
-    	$this->loadComponent('Generator');
-
-    	$intrasysEmployee = $this->IntrasysEmployees->newEntity();
-    	if ($this->request->is('post')) {
-    		$intrasysEmployee = $this->IntrasysEmployees->patchEntity($intrasysEmployee, $this->request->data);
-
-
-
-        $intrasysEmployee->set('username', $this->Generator->generateString());
-        $this->password = $this->Generator->generateString();
-        $intrasysEmployee->set('password', $this->password);
-        $intrasysEmployee->set('activation_status', 'Deactivated');
-        $intrasysEmployee->set('activation_token', $this->Generator->generateString());
-
-
-        if ($this->IntrasysEmployees->save($intrasysEmployee)) {
-
-          $intrasysEmployee = $this->IntrasysEmployees->patchEntity($intrasysEmployee, $this->request->data);
-          $username =  $intrasysEmployee['id'] . substr($intrasysEmployee['first_name'],0,1) . substr($intrasysEmployee['last_name'],0,1) . "intrasys";
-          $intrasysEmployee->set('username', $username);
-          $this->IntrasysEmployees->save($intrasysEmployee);
-
-          $this->Email->activationEmail(
-            $intrasysEmployee['email'], 
-            $intrasysEmployee['first_name'], 
-            $intrasysEmployee['username'], 
-            $this->password, 
-            $intrasysEmployee['id'], 
-            $intrasysEmployee['activation_token'], 
-            'intrasys-employees',
-            ""
-            );
-
-    			//$this->__sendActivationEmail($intrasysEmployee['id']);
-          $this->Flash->success(__('The intrasys employee has been saved.'));
-
-                //$this->loadComponent('Logging');
-                //$this->Logging->log($intrasysEmployee['id']);
-          $this->Logging->iLog(null, $intrasysEmployee['id']);
-
-          return $this->redirect(['action' => 'index']);
-        }
-        $this->Flash->error(__('The intrasys employee could not be saved. Please, try again.'));
-      }
-        $this->set('intrasysEmployeeRoles', $this->IntrasysEmployees->IntrasysEmployeeRoles->find('all')); //to populate select input for roles
-        //$intrasysEmployeeRoles = $this->IntrasysEmployees->IntrasysEmployeeRoles->find('list', ['limit' => 200]);
-        $this->set(compact('intrasysEmployee', 'intrasysEmployeeRoles'));
-        $this->set('_serialize', ['intrasysEmployee']);
-      }
-
-
-
-      function activate($id, $token) {
-
-        $intrasysEmployee = $this->IntrasysEmployees->get($id);
-        if($intrasysEmployee['activation_status'] == 'Activated'){
-         $this->Flash->success(__('Your account has already been activated.'));
-         return $this->redirect(['action' => 'login']);
-       }
-       $this->set('employeeId', $id);
-       $this->set('token', $token);
-       $this->set('name', $intrasysEmployee['first_name']);
-      /*return $this->redirect(['action' => 'activate']);
-   
-
-    if ($intrasysEmployee && $intrasysEmployee['activation_token'] == $token) {
-
-
-      $intrasysEmployee->activation_status = 'Activated';
-      $intrasysEmployee->activation_token = NULL;
-      $this->IntrasysEmployees->save($intrasysEmployee);
-
-            //$this->loadComponent('Logging');
-            //$this->Logging->log($intrasysEmployee['id']);
-      $this->Logging->iLog(null, $intrasysEmployee['id']);
-
-      $this->Flash->success(__('Your account has been activated.'));
-      return $this->redirect(['action' => 'login']);
-
-    }
-    $this->Flash->error(__('There is something wrong with the activation link'));
-    return $this->redirect(['action' => 'login']);*/
   }
-  function setPassword(){
+
+
+
+  function activate($id, $token) {
+
+    $intrasysEmployee = $this->IntrasysEmployees->get($id);
+    
+    if($intrasysEmployee['activation_status'] == 'Activated'){
+      $this->Flash->success(__('Your account has already been activated.'));
+    
+      return $this->redirect(['action' => 'login']);
+    }
+
+     $this->set('employeeId', $id);
+     $this->set('token', $token);
+     $this->set('name', $intrasysEmployee['first_name']);
+
+  }
+
+  function setPassword() {
+
     $id=$_POST['employeeId'];
     $token=$_POST['token'];
     $password = $_POST['password'];
@@ -221,81 +212,93 @@ class IntrasysEmployeesController extends AppController
       $this->IntrasysEmployees->save($intrasysEmployee);
 
       $this->Flash->success(__('Your account has been successfully activated, please log in with your new credentials'));
+
       return $this->redirect(['action' => 'login']);
     }
-    $this->Flash->error(__('Stop tempering with the system'));
-    return $this->redirect(['action' => 'login']);
 
+    $this->Flash->error(__('Stop tempering with the system'));
+
+    return $this->redirect(['action' => 'login']);
   }
-    /**
-     * Edit method
-     *
-     * @param string|null $id Intrasys Employee id.
-     * @return \Cake\Network\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-     $intrasysEmployee = $this->IntrasysEmployees->get($id, [
+
+  /**
+  * Edit method
+  *
+  * @param string|null $id Intrasys Employee id.
+  * @return \Cake\Network\Response|null Redirects on successful edit, renders view otherwise.
+  * @throws \Cake\Network\Exception\NotFoundException When record not found.
+  */
+  public function edit($id = null) {
+   
+    $intrasysEmployee = $this->IntrasysEmployees->get($id, [
       'contain' => ['IntrasysEmployeeRoles']
       ]);
 
-          //Getting the session user - ID
-     $sessionId = $this->request->session()->read('Auth.User.id');
+    $sessionId = $this->request->session()->read('Auth.User.id');
 
-          //Only the employee themselves can edit their account
-     if($intrasysEmployee['id'] != $sessionId) {
-       $this->redirect($this->referer());
-       $this->Flash->error(__('You are not authorized to edit other employees.'));
-     }
+        //Only the employee themselves can edit their account
+    if($intrasysEmployee['id'] != $sessionId) {
 
-     if ($this->request->is(['patch', 'post', 'put'])) {
+      $this->redirect($this->referer());
+      $this->Flash->error(__('You are not authorized to edit other employees.'));
+
+      }
+
+    if ($this->request->is(['patch', 'post', 'put'])) {
+
       $intrasysEmployee = $this->IntrasysEmployees->patchEntity($intrasysEmployee, $this->request->data);
+
       if ($this->IntrasysEmployees->save($intrasysEmployee)) {
-       $this->Flash->success(__('The intrasys employee has been saved.'));
 
-                  //$this->loadComponent('Logging');
-                  //$this->Logging->log($intrasysEmployee['id']);
-       $this->Logging->iLog(null, $intrasysEmployee['id']);
+        $this->Flash->success(__('The intrasys employee has been saved.'));
+        $this->Logging->iLog(null, $intrasysEmployee['id']);
 
-       return $this->redirect(['action' => 'index']);
-     }
-     $this->Flash->error(__('The intrasys employee could not be saved. Please, try again.'));
-   }
-   $intrasysEmployeeRoles = $this->IntrasysEmployees->IntrasysEmployeeRoles->find('list', ['limit' => 200]);
-   $this->set(compact('intrasysEmployee', 'intrasysEmployeeRoles'));
-   $this->set('_serialize', ['intrasysEmployee']);
- }
+        return $this->redirect(['action' => 'index']);
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Intrasys Employee id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-      $session = $this->request->session();
-      $employee_id = $session->read('employee_id');
+      }
 
-      if($id != $employee_id){
-       $this->request->allowMethod(['post', 'delete']);
-       $intrasysEmployee = $this->IntrasysEmployees->get($id);
-       if ($this->IntrasysEmployees->delete($intrasysEmployee)) {
+      $this->Flash->error(__('The intrasys employee could not be saved. Please, try again.'));
+    }
+
+     $intrasysEmployeeRoles = $this->IntrasysEmployees->IntrasysEmployeeRoles->find('list', ['limit' => 200]);
+     $this->set(compact('intrasysEmployee', 'intrasysEmployeeRoles'));
+     $this->set('_serialize', ['intrasysEmployee']);
+
+  }
+
+  /**
+   * Delete method
+   *
+   * @param string|null $id Intrasys Employee id.
+   * @return \Cake\Network\Response|null Redirects to index.
+   * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+   */
+  public function delete($id = null) {
+    $session = $this->request->session();
+    $employee_id = $session->read('employee_id');
+
+    if($id != $employee_id){
+
+     $this->request->allowMethod(['post', 'delete']);
+     $intrasysEmployee = $this->IntrasysEmployees->get($id);
+
+     if ($this->IntrasysEmployees->delete($intrasysEmployee)) {
+
         $this->Flash->success(__('The intrasys employee has been deleted.'));
-
-                //$this->loadComponent('Logging');
-                //$this->Logging->log($intrasysEmployee['id']);
         $this->Logging->iLog(null, $intrasysEmployee['id']);
 
       } else {
+
         $this->Flash->error(__('The intrasys employee could not be deleted. Please, try again.'));
+
       }
+
     } else {
+
       $this->Flash->error(__('You cannot delete your own account.'));
 
     }
+
     return $this->redirect(['action' => 'index']);
   }
 
@@ -355,146 +358,135 @@ class IntrasysEmployeesController extends AppController
     }
   }
 
-  public function managerActions($id = null)
-  {
+  public function managerActions($id = null) {
+
     $intrasysEmployee = $this->IntrasysEmployees->get($id, [
       'contain' => ['IntrasysEmployeeRoles']
       ]);
 
     if ($this->request->is(['patch', 'post', 'put'])) {
-      $intrasysEmployee = $this->IntrasysEmployees->patchEntity($intrasysEmployee, $this->request->data);
-      if ($this->IntrasysEmployees->save($intrasysEmployee)) {
-        $this->Flash->success(__('The intrasys employee has been saved.'));
 
-                    //$this->loadComponent('Logging'); 
+      $intrasysEmployee = $this->IntrasysEmployees->patchEntity($intrasysEmployee, $this->request->data);
+
+      if ($this->IntrasysEmployees->save($intrasysEmployee)) {
+
+        $this->Flash->success(__('The intrasys employee has been saved.'));
         $this->Logging->iLog(null, $intrasysEmployee['id']);
 
         return $this->redirect(['action' => 'index']);
       }
+
       $this->Flash->error(__('The intrasys employee could not be saved. Please, try again.'));
+
     }
+
     $intrasysEmployeeRoles = $this->IntrasysEmployees->IntrasysEmployeeRoles->find('list', ['limit' => 200]);
+
     $this->set(compact('intrasysEmployee', 'intrasysEmployeeRoles'));
     $this->set('_serialize', ['intrasysEmployee']);
 
     $this->loadComponent('Generator');
     $this->set('roles', $this->IntrasysEmployees->IntrasysEmployeeRoles->find('all')); //to populate select input for roles
     $this->set(compact('roles'));
+
   }
 
-      public function recover(){
+  public function recover() {
 
-        $this->loadComponent('Generator');
-        $email = $_POST['email'];
-        $query = $this->IntrasysEmployees->find('all', [
-          'conditions' => ['email' => $email],
-          ]);
+    $this->loadComponent('Generator');
+    $email = $_POST['email'];
+    $query = $this->IntrasysEmployees->find('all', [
+      'conditions' => ['email' => $email],
+      ]);
 
-        if($query->count() == 0){
-          $this->Flash->error(__('Invalid email address'));
+    if($query->count() == 0){
 
-          return $this->redirect(['action' => 'login']);
-        }
+      $this->Flash->error(__('Invalid email address'));
 
-        $row = $query->first();
-        $intrasysemployee = $this->IntrasysEmployees->get($row['id']);
-        $this->Logging->iLog(null, $intrasysemployee['id']);
+      return $this->redirect(['action' => 'login']);
+    }
 
-        $newPass = $this->Generator->generateString();
-        $intrasysemployee->password = $newPass;
-        $intrasysemployee->recovery_status = 'Pending';
-        $intrasysemployee->recovery_token = $this->Generator->generateString();
+    $row = $query->first();
+    $intrasysemployee = $this->IntrasysEmployees->get($row['id']);
+    $this->Logging->iLog(null, $intrasysemployee['id']);
 
-        if ($this->IntrasysEmployees->save($intrasysemployee)){
+    $newPass = $this->Generator->generateString();
+    $intrasysemployee->password = $newPass;
+    $intrasysemployee->recovery_status = 'Pending';
+    $intrasysemployee->recovery_token = $this->Generator->generateString();
 
-          $this->Email->recoveryEmail(
-            $intrasysemployee['email'],
-            $intrasysemployee['first_name'], 
-            $intrasysemployee['username'], 
-            $newPass, 
-            $intrasysemployee['id'], 
-            $intrasysemployee['recovery_token'], 
-            'intrasys-employees');
+    if ($this->IntrasysEmployees->save($intrasysemployee)){
 
-                  /*
-          		$email = new Email('default');
-          		$email->template('recovery');
-          		$email->emailFormat('html');
-          		$email->to($intrasysemployee['email']);
-          		$email->subject('Password Recovery');
-          		$email->from('tanyongming90@gmail.com');
+      $this->Email->recoveryEmail(
+        $intrasysemployee['email'],
+        $intrasysemployee['first_name'], 
+        $intrasysemployee['username'], 
+        $newPass, 
+        $intrasysemployee['id'], 
+        $intrasysemployee['recovery_token'], 
+        'intrasys-employees');
 
-          		$email->send($intrasysemployee['first_name'] . ',' .
-          			$intrasysemployee['username'] . ',' .
-          			$newPass . ',' .
-          			env('SERVER_NAME') . ',' . 
-          			$intrasysemployee['id'] . ',' . 
-          			$intrasysemployee['recovery_token'] . ',' .   
-                      'intrasys-employees');
-                  */
+      $this->Flash->success(__('Password Reset Email Sent, please check your email.'));
+      return $this->redirect(['action' => 'login']);
+    }
+  }
 
-                      $this->Flash->success(__('Password Reset Email Sent, please check your email.'));
-                      return $this->redirect(['action' => 'login']);
-                    }
-                  }
+  public function recoverActivate($id, $token){
 
-                  public function recoverActivate($id, $token){
+    $intrasysEmployee = $this->IntrasysEmployees->get($id);
 
-                    $intrasysEmployee = $this->IntrasysEmployees->get($id);
-                    if($intrasysEmployee['recovery_status'] == NULL){
-                      $this->Flash->success(__('Your account has already been recovered.'));
-                      return $this->redirect(['action' => 'login']);
-                    }
+    if($intrasysEmployee['recovery_status'] == NULL) {
 
-                    if ($intrasysEmployee && $intrasysEmployee['recovery_token'] == $token) {
+      $this->Flash->success(__('Your account has already been recovered.'));
 
+      return $this->redirect(['action' => 'login']);
+    }
 
-                      $intrasysEmployee->recovery_status = NULL;
-                      $intrasysEmployee->recovery_token = NULL;
-                      $this->IntrasysEmployees->save($intrasysEmployee);
+    if ($intrasysEmployee && $intrasysEmployee['recovery_token'] == $token) {
 
-                      $this->Flash->success(__('Your account has been recovered. Please log in using your new username and password.'));
-                      return $this->redirect(['action' => 'login']);
+      $intrasysEmployee->recovery_status = NULL;
+      $intrasysEmployee->recovery_token = NULL;
+      $this->IntrasysEmployees->save($intrasysEmployee);
 
-                    }
-                    $this->Flash->error(__('There is something wrong with the activation link'));
-                    return $this->redirect(['action' => 'login']);
-                  }
+      $this->Flash->success(__('Your account has been recovered. Please log in using your new username and password.'));
 
-                  public function logout(){
-                   $this->Flash->success('You are now logged out');
-                   $this->Auth->logout();
-                   $session = $this->request->session();
-                   $session->destroy();
+      return $this->redirect(['action' => 'login']);
+    }
 
-        //$this->loadComponent('Logging'); 
-                   $this->Logging->iLog(null, $session->read('employee_id'));
+    $this->Flash->error(__('There is something wrong with the activation link'));
 
-                   return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
-                 }
+    return $this->redirect(['action' => 'login']);
+  }
 
-                 public function activateStatus($id) {
+  public function logout(){
+   
+   $this->Flash->success('You are now logged out');
+   $this->Auth->logout();
+   $session = $this->request->session();
+   $session->destroy();
 
-                  $intrasysEmployee = $this->IntrasysEmployees->get($id);
+   $this->Logging->iLog(null, $session->read('employee_id'));
 
-                  $intrasysEmployee->activation_status = 'Activated';
-                  $this->IntrasysEmployees->save($intrasysEmployee);
+   return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
+  }
 
-                  $this->Flash->success(__('The Intrasys Employee has been activated.'));
+   public function activateStatus($id) {
 
-                  return $this->redirect(['action' => 'index']);
-                }
+    $intrasysEmployee = $this->IntrasysEmployees->get($id);
+    $intrasysEmployee->activation_status = 'Activated';
+    $this->IntrasysEmployees->save($intrasysEmployee);
+    $this->Flash->success(__('The Intrasys Employee has been activated.'));
 
-                public function deactivateStatus($id) {
+    return $this->redirect(['action' => 'index']);
+  }
 
-                  $intrasysEmployee = $this->IntrasysEmployees->get($id);
+  public function deactivateStatus($id) {
 
-                  $intrasysEmployee->activation_status = 'Deactivated';
-                  $this->IntrasysEmployees->save($intrasysEmployee);
+    $intrasysEmployee = $this->IntrasysEmployees->get($id);
+    $intrasysEmployee->activation_status = 'Deactivated';
+    $this->IntrasysEmployees->save($intrasysEmployee);
+    $this->Flash->success(__('The Intrasys Employee has been deactivated.'));
 
-                  $this->Flash->success(__('The Intrasys Employee has been deactivated.'));
-
-                  return $this->redirect(['action' => 'index']);
-
-                }
-              }
+    return $this->redirect(['action' => 'index']);
+  }
+}
