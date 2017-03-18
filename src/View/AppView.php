@@ -36,7 +36,7 @@ class AppView extends View
      */
     public function initialize()
     {
-        $this->loadHelper('WyriHaximus/MinifyHtml.MinifyHtml');
+        // $this->loadHelper('WyriHaximus/MinifyHtml.MinifyHtml');
 
         if ($this->request->action == 'index') {
             $this->loadHelper('Paginator', ['templates' => 'template_paginator']);

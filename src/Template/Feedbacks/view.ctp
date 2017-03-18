@@ -1,9 +1,9 @@
 <?php
-/**
-  * @var \App\View\AppView $this
-  */
+$this->assign('title', __('Feedbacks') .'/'. __('View'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Feedbacks'), ['controller' => 'Feedbacks', 'action' => 'index']);
+$this->Html->addCrumb(__('View Feedback'));
 ?>
-<
 <?= $this->Element('retailerLeftSideBar'); ?>
 
 <!-- Main Content -->
