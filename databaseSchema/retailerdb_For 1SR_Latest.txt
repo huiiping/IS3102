@@ -171,7 +171,8 @@ CREATE TABLE prod_cats (
     id INT AUTO_INCREMENT PRIMARY KEY,
     parentid INT,
     cat_name VARCHAR(100) UNIQUE NOT NULL,
-    cat_desc TEXT
+    cat_desc TEXT,
+    FOREIGN KEY (parentid) REFERENCES prod_cats(id)
 );
 
 CREATE TABLE products (
@@ -420,6 +421,7 @@ CREATE TABLE rfqs (
     message VARCHAR(255),
     modified DATETIME,
     created DATETIME,
+    end_date DATETIME,
     retailer_employee_id INT,
     FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id)    
 );

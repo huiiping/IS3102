@@ -3,6 +3,9 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Datasource\ConnectionManager;
+use Cake\I18n\Time;
+use Cake\Mailer\Email;
+use Cake\Event\Event;
 
 /**
  * Rfqs Controller
@@ -11,6 +14,14 @@ use Cake\Datasource\ConnectionManager;
  */
 class RfqsController extends AppController
 {
+
+    public function beforeFilter(Event $event)
+    {
+
+        $this->loadComponent('Logging');
+        $this->loadComponent('Email');
+        
+    }
 
     /**
      * Index method
@@ -24,9 +35,12 @@ class RfqsController extends AppController
         $this->paginate = [
             'contain' => ['RetailerEmployees']
         ];
-        $this->set('rfqs', $this->paginate($this->Rfqs->find('searchable', $this->Prg->parsedParams())));
+        $this->set('rfqs', $this->paginate($this->Rfqs->find('searchable', $this->Prg->parsedParams())->order(['end_date' => 'DESC'])));
 
-        $this->set(compact('rfqs'));
+        $now = Time::now();
+        $this->set('now', $now);
+
+        $this->set(compact('rfqs', 'now'));
         $this->set('_serialize', ['rfqs']);
     }
 
@@ -47,7 +61,16 @@ class RfqsController extends AppController
             'contain' => ['RetailerEmployees', 'Suppliers']
         ]);
 
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        $this->Logging->rLog($rfq['id']);
+        $this->Logging->iLog($retailer, $rfq['id']);
+
+        $now = Time::now();
+        $this->set('now', $now);
         $this->set('rfq', $rfq);
+        $this->set(compact('rfq', 'now'));
         $this->set('_serialize', ['rfq']);
     }
 
@@ -61,12 +84,15 @@ class RfqsController extends AppController
         $session = $this->request->session();
         $supplier = $session->read('supplier');
         $supplier_id = $supplier['id'];
+        $now = Time::now();
+        $this->set('now', $now);
 
         $query = $this->paginate($this->Rfqs->find('searchable', $this->Prg->parsedParams())->matching('Suppliers', function ($q) use ($supplier_id) {
                 return $q->where(['Suppliers.id' => $supplier_id]); 
             })->order(['Rfqs.created' => 'DESC']));
 
         $this->set('rfqs', $query);
+        $this->set(compact('rfq', 'now'));
         $this->set('_serialize', ['rfqs']);
 
         // $this->set('supplier', $supplier);
@@ -87,15 +113,33 @@ class RfqsController extends AppController
     public function add($id = null)
     {
         $rfq = $this->Rfqs->newEntity();
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
         if ($this->request->is('post')) {
             $rfq = $this->Rfqs->patchEntity($rfq, $this->request->getData());
             if ($this->Rfqs->save($rfq)) {
+
+                $conn = ConnectionManager::get('default');
+                foreach ($_POST['suppliers']['_ids'] as $supplier) {
+                    $query = $conn
+                    ->execute('SELECT * FROM suppliers WHERE id = :id', ['id' => $supplier])
+                    ->fetchAll('assoc');
+
+                    $this->Email->rfqEmail($_POST['title'], $_POST['message'], $query);
+                }
+
                 $this->Flash->success(__('The rfq has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The rfq could not be saved. Please, try again.'));
         }
+
+        
+        $this->Logging->rLog($rfq['id']);
+        $this->Logging->iLog($retailer, $rfq['id']);
+
         $retailerEmployees = $this->Rfqs->RetailerEmployees->find('list', ['limit' => 200]);
         $this->set('suppliers', $this->Rfqs->Suppliers->find('all'));
         $this->set(compact('rfq', 'retailerEmployees', 'suppliers', 'id'));
@@ -123,6 +167,12 @@ class RfqsController extends AppController
             }
             $this->Flash->error(__('The rfq could not be saved. Please, try again.'));
         }
+
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+        $this->Logging->rLog($rfq['id']);
+        $this->Logging->iLog($retailer, $rfq['id']);
+
         $retailerEmployees = $this->Rfqs->RetailerEmployees->find('list', ['limit' => 200]);
         $this->set(compact('rfq', 'retailerEmployees'));
         $this->set('_serialize', ['rfq']);
@@ -144,6 +194,11 @@ class RfqsController extends AppController
         } else {
             $this->Flash->error(__('The rfq could not be deleted. Please, try again.'));
         }
+
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+        $this->Logging->rLog($rfq['id']);
+        $this->Logging->iLog($retailer, $rfq['id']);
 
         return $this->redirect(['action' => 'index']);
     }

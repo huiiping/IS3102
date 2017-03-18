@@ -66,6 +66,7 @@ class ProdCatsController extends AppController
      */
     public function add()
     {   
+        $this->set('prodCats', $this->ProdCats->find('all'));
         $prodCat = $this->ProdCats->newEntity();
         if ($this->request->is('post')) {
 
@@ -77,7 +78,7 @@ class ProdCatsController extends AppController
             }
             $this->Flash->error(__('The prod cat could not be saved. Please, try again.'));
         }
-        $this->set(compact('prodCat'));
+        $this->set(compact('prodCat', 'prodCats'));
         $this->set('_serialize', ['prodCat']);
     }
 
@@ -90,6 +91,7 @@ class ProdCatsController extends AppController
      */
     public function edit($id = null)
     {
+        $this->set('categories', $this->ProdCats->find('all'));
         $prodCat = $this->ProdCats->get($id, [
             'contain' => []
             ]);
@@ -103,7 +105,7 @@ class ProdCatsController extends AppController
             }
             $this->Flash->error(__('The prod cat could not be saved. Please, try again.'));
         }
-        $this->set(compact('prodCat'));
+        $this->set(compact('prodCat', 'categories'));
         $this->set('_serialize', ['prodCat']);
     }
 

@@ -47,9 +47,8 @@ $this->Html->addCrumb(__('RFQ'), ['controller' => 'Rfqs', 'action' => 'supplierI
             <tr>
               <th scope="col"><?= $this->Paginator->sort('id') ?></th>
               <th scope="col"><?= $this->Paginator->sort('title') ?></th>
-              <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-              <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-              <th scope="col" class="actions"><?= __('Actions') ?></th>
+              <th scope="col"><?= $this->Paginator->sort('created', ['Label' => 'Created On']) ?></th>
+              <th scope="col"><?= $this->Paginator->sort('end_date', ['Label' => 'Status']) ?></th>
             </tr>
             </thead>
             <tbody>
@@ -57,9 +56,26 @@ $this->Html->addCrumb(__('RFQ'), ['controller' => 'Rfqs', 'action' => 'supplierI
                 <tr>
                   <td style="max-width: 150px;"><?= $this->Number->format($rfq->id) ?></td>
                   <td style="max-width: 150px;"><?= $this->Html->link(__(h($rfq->title)), ['action' => 'view', $rfq->id], ['title' => $rfq->message])?></td>               
-                  <td style="max-width: 150px;"><?= h($rfq->modified) ?></td>
                   <td style="max-width: 150px;"><?= h($rfq->created) ?></td>
-                  <td><?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete RFQ')), array('action' => 'delete', $rfq->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $rfq->id))) ?></td>
+                  <?php
+
+                    if($now>=$rfq->end_date) {
+
+                  ?>
+
+                    <td style="max-width: 150px;" bgcolor="#b20707" align="center">
+                      <font color="white">CLOSED</font>
+                    </td>
+
+                  <?php } else {
+
+                  ?>
+                    <td style="max-width: 150px;" bgcolor="green" align="center">
+                      <font color="white">OPEN</font>
+                    </td>
+
+                  <?php } ?>
+
                 </tr>
               <?php endforeach; ?>
             </tbody>

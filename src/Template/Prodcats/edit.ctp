@@ -38,19 +38,19 @@ $this->Html->addCrumb(__('Edit Product Category'));
                 <input class = "form-control" type="text" value = "<?=$prodCat->cat_desc?>" name="cat_desc" required="required" id="cat_desc" maxlength="255"> 
               </div>
             </div>
-
-                <?php
-                $session = $this->request->session();
-                $prodCats = TableRegistry::get('prodCats');
-                $query = $prodCats->find('all');
-                $results = $query->all()
-                ->extract('id');
-                $data= $results->toArray();
-                $session->write('data',$data);
-
-                echo $this->Form->input('parentid', array('type' => 'select', 'options' => array_combine($data, $data), 'empty' => true));
-                ?>
-
+            <div class ="form-group">          
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span><input type="hidden" name="parentid" value="">
+                <select name="parentid" class='selectpicker form-control' single data-selected-text-format="count > 3" title = "Select Parent Category*">
+                  <option value="<?= null ?>">No Parent Category</option>
+                  <?php foreach ($categories as $category): ?>
+                    <option <?php 
+                        if($category->id == $prodCat->parentid){ echo("selected") ;} 
+                    ?> value="<?= $category->id ?>"><?php echo $category->cat_name ?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+            </div>
             <div class ="row">
              <button class="btn btn-md btn-primary pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Edit Feedback</button>
            </div>

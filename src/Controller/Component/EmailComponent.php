@@ -53,6 +53,32 @@ class EmailComponent extends Component {
 
 	}
 
+    public function rfqEmail($title, $body, $recipients){
+
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+        $conn = ConnectionManager::get('default');
+        $query = $conn
+            -> execute('SELECT * FROM retailer_details WHERE retailer_name = :name', ['name' => $retailer])
+            ->fetchAll('assoc');
+
+        $email = new Email('default');
+        $email->template('rfq');
+        $email->emailFormat('html');                
+        $email->subject($title);
+        $email->from('tanyongming90@gmail.com');
+        
+        foreach($query as $row):
+            $email->replyTo($row['retailer_email']);
+        endforeach;
+        
+        foreach ($recipients as $recipient):
+            $email->to($recipient['email']);
+            $email->send($body);
+        endforeach;
+
+    }
+
     public function activationEmail($recipient, $firstName, $username, $pwd, $id, $token, $type, $dbname){
 
         $email = new Email('default');
