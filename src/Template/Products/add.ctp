@@ -5,11 +5,10 @@
 ?>
 <?= $this->Element('retailerLeftSideBar'); ?>
 <?php
-$this->assign('title', __('ProdCats') . '/' . __('Add'));
+$this->assign('title', __('Products') . '/' . __('Add'));
 $this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
-$this->Html->addCrumb(__('ProdCats'), ['controller' => 'ProdCats', 'action' => 'index']);
 $this->Html->addCrumb(__('Products'), ['controller' => 'Products', 'action' => 'index']);
-$this->Html->addCrumb(__('Add'));
+$this->Html->addCrumb(__('Create New Product'));
 
 ?>
 <!-- Main Content -->
@@ -24,7 +23,7 @@ $this->Html->addCrumb(__('Add'));
         <div class="box box-primary">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Add New Product</h3>
+              <h3 class="panel-title">Create New Product</h3>
           </div>
       </div>
       <div class="main" style="padding: 10px 20px;">
@@ -66,7 +65,7 @@ $this->Html->addCrumb(__('Add'));
       <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
       <input type="hidden" name="prod_cat_id" value="" required="required">
 
-      <select name="prod_cat_id" class='selectpicker form-control' title ="Select Product Category*">
+      <select name="prod_cat_id" class='selectpicker form-control' data-live-search="true" title ="Select Product Category*">
           <?php foreach ($prodCats as $prodCat): ?>
                <option><?php echo $prodCat ?></option> 
           <?php endforeach; ?>
@@ -75,7 +74,7 @@ $this->Html->addCrumb(__('Add'));
 </div>
 
 <div class ="row">
-<button class="btn btn-md btn-primary pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Add Product</button>
+<button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Add Product</button>
 </div>
 
 </form>

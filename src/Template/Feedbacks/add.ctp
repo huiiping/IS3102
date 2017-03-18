@@ -30,7 +30,7 @@ $this->Html->addCrumb(__('Create New Feedback'));
                 <input type="hidden" name="customer_id" value="">
 
                 <select name="customer_id" class='selectpicker form-control' title ="Select Customer Id" data-live-search="true">
-                <option label=" " ></option> 
+                <option label=" " >No Customer ID</option> 
                   <?php foreach ($customers as $customer): ?>
                    <option><?php echo $customer ?></option> 
                  <?php endforeach; ?>
@@ -72,7 +72,7 @@ $this->Html->addCrumb(__('Create New Feedback'));
                 <input type="hidden" name="product_id" value="">
 
                 <select name="product_id" class='selectpicker form-control' title ="Select Product" data-live-search="true">
-                <option label=" " ></option> 
+                <option label=" " >No Product</option> 
                   <?php foreach ($products as $product): ?>
                    <option><?php echo $product ?></option> 
                  <?php endforeach; ?>
@@ -85,7 +85,7 @@ $this->Html->addCrumb(__('Create New Feedback'));
               <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
               <input type="hidden" name="item_id" value="">
               <select name="item_id" class='selectpicker form-control' title ="Select Item" data-live-search="true">
-              <option label=" " ></option> 
+              <option label=" " >No Item</option> 
                 <?php foreach ($items as $item): ?>
                  <option><?php echo $item ?></option>
                <?php endforeach; ?>
@@ -103,7 +103,7 @@ $this->Html->addCrumb(__('Create New Feedback'));
             <input class = "hidden" type="text" name="status" required="required" id="status" value="Pending"> 
 
          <div class ="row">
-         <button class="btn btn-md btn-primary pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Add Feedback</button>
+         <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Add Feedback</button>
         </div>
 
 

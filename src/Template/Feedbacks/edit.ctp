@@ -111,7 +111,7 @@ $this->Html->addCrumb(__('Edit Feedback'));
             </div>
 
          <div class ="row">
-         <button class="btn btn-md btn-primary pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Edit Feedback</button>
+         <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Edit Feedback</button>
         </div>
       </div>
     </div>
