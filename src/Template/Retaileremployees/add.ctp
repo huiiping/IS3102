@@ -53,17 +53,17 @@ $this->Html->addCrumb(__('Create New Employee'));
             </div>
             <style>
               .bootstrap-select>.dropdown-toggle {
-                width: 405px; /*setting the width of select roles field*/
+                width: 350px; /*setting the width of select roles field*/
               }
               .bootstrap-select.form-control:not([class*=col-]) {
-                width: 405px; /*setting the width of select roles field*/
+                width: 350px; /*setting the width of select roles field*/
               }
             </style>
             <div class ="form-group">            
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
                 <input type="hidden" name="retailer_employee_roles[_ids]" value="">
-                <select name="retailer_employee_roles[_ids][]" class='selectpicker form-control' multiple data-selected-text-format="count > 3" title = "Select Employee Role(s)*">
+                <select name="retailer_employee_roles[_ids][]" class='selectpicker form-control' data-live-search="true" multiple data-selected-text-format="count > 3" title = "Select Employee Role(s)*">
                   <?php foreach ($retailerEmployeeRoles as $retailerEmployeeRole): ?>
                     <option value="<?= $retailerEmployeeRole->id ?>"><?php echo $retailerEmployeeRole->role_name ?></option>
                   <?php endforeach; ?>
