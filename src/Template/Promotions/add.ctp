@@ -4,14 +4,12 @@
   */
 ?>
 <?php
-$this->assign('title', __('Reports') . '/' . __('Edit'));
+$this->assign('title', __('Promotions') . '/' . __('Add'));
 $this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
 $this->Html->addCrumb(__('Promotions'), ['controller' => 'Promotions', 'action' => 'index']);
-
+$this->Html->addCrumb(__('Create New Promotion'));
 ?>
 
-
-<?= $this->Element('retailerLeftSideBar'); ?>
 <!-- Main Content -->
 <div class="content-wrapper">
   <!-- Content Header -->
