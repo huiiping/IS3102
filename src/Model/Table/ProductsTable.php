@@ -70,7 +70,7 @@ class ProductsTable extends Table
         parent::initialize($config);
 
         $this->table('products');
-        $this->displayField('id');
+        $this->displayField('prod_name');
         $this->primaryKey('id');
 
         $this->belongsTo('ProdCats', [
