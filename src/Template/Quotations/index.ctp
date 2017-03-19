@@ -43,7 +43,8 @@
             <thead>
             <tr>
               <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-              <th scope="col"><?= $this->Paginator->sort('fileName') ?></th>
+              <th scope="col"><?= $this->Paginator->sort('fileName', ['Label' => 'File']) ?></th>
+              <th scope="col"><?= $this->Paginator->sort('rfq_id', ['Label' => 'RFQ']) ?></th>
               <th scope="col"><?= $this->Paginator->sort('status') ?></th>
               <th scope="col"><?= $this->Paginator->sort('created') ?></th>
               <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -53,10 +54,28 @@
             <?php foreach ($quotations as $quotation): ?>
               <tr>
                 <td style="max-width: 150px;"><?= $this->Number->format($quotation->id) ?></td>
-                <td style="max-width: 150px;"><?= $this->Html->link(__(h($quotation->fileName)), ['action' => 'view', $quotation->id], ['title' => $quotation->comments])?></td>
-                <td><embed src="<?= $quotation->filePath.$quotation->fileName ?>" width="220px" height="150px"></td>
-                <td style="max-width: 150px;"><?= h($rfq->created) ?></td>
-                <td><a href="/IS3102_Final/quotations/edit/<?=$quotation->id?>"><i class="fa fa-edit" title="Edit Quotation"></i></a>&nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Quotation')), array('action' => 'delete', $quotation->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $quotation->id))) ?></td>
+                <td style="max-width: 150px;" ><?= $this->Html->link(__(h($quotation->fileName)), ['action' => 'view', $quotation->id], ['title' => $quotation->comments])?></td>
+                <td><?= $quotation->has('rfq') ? $this->Html->link($quotation->rfq->title, ['controller' => 'Rfqs', 'action' => 'view', $quotation->rfq->id], ['title' => 'View RFQ Details']) : '' ?></td>
+
+                <?php if($quotation->status == 'Pending'){
+
+                    echo '<td bgcolor="#fdffc6" valign="middle" align="center"><b>Pending</b></td>';
+
+                } else if($quotation->status == 'Rejected') {
+
+                    echo '<td bgcolor="#db8f85" valign="middle" align="center"><b>Rejected</b></td>';
+
+                } else {
+
+                    echo '<td bgcolor="#85db8a" valign="middle" align="center"><b>Approved</b></td>';
+
+                }
+
+                ?>
+                    
+                <td style="max-width: 150px;"><?= h($quotation->created) ?></td>
+                <td><a href="/IS3102_Final/quotations/download/<?=$quotation->id?>"><i class="fa fa-cloud-download" title="Download Quotation"></i></a>&nbsp
+                <a href="/IS3102_Final/quotations/edit/<?=$quotation->id?>"><i class="fa fa-edit" title="Edit Quotation"></i></a>&nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Quotation')), array('action' => 'delete', $quotation->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $quotation->id))) ?></td>
               </tr>
             <?php endforeach; ?>
             </tbody>

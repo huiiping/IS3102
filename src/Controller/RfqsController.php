@@ -15,8 +15,7 @@ use Cake\Event\Event;
 class RfqsController extends AppController
 {
 
-    public function beforeFilter(Event $event)
-    {
+    public function beforeFilter(Event $event) {
 
         $this->loadComponent('Logging');
         $this->loadComponent('Email');
@@ -28,8 +27,7 @@ class RfqsController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
-    {
+    public function index() {
         $this->loadComponent('Prg');
         $this->Prg->commonProcess();
         $this->paginate = [

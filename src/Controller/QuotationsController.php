@@ -33,16 +33,23 @@ class QuotationsController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
-    {
+    public function index() {
+
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+
         $this->paginate = [
             'contain' => ['Rfqs', 'Suppliers']
         ];
-        $quotations = $this->paginate($this->Quotations);
 
+        $this->set('quotations', $this->paginate($this->Quotations->find('searchable', $this->Prg->parsedParams())->order(['Quotations.created' => 'DESC'])));
         $this->set(compact('quotations'));
         $this->set('_serialize', ['quotations']);
     }
+
+    public $components = array(
+        'Prg'
+    );
 
     /**
      * View method
@@ -81,7 +88,7 @@ class QuotationsController extends AppController
                     $uploadData = $this->Quotations->newEntity();
                     $uploadData->fileName = $fileName;
                     $uploadData->filePath = $uploadPath;
-                    $uploadData->rfq_id = $id;
+                    $uploadData->rfq_id = $_POST['rfq_id'];
                     $uploadData->supplier_id = $_POST['supplier_id'];
                     $uploadData->comments = $_POST['comments'];
                     $uploadData->status = $_POST['status'];
@@ -118,8 +125,9 @@ class QuotationsController extends AppController
 
         $supplier = $this->request->session()->read('supplier');
         $supplierid = $supplier['id'];
+        $this->set('rfqid', $id);
         $this->set('supplierid', $supplierid);
-        $this->set(compact('quotation', 'rfqs', 'suppliers', 'id', 'supplierid'));
+        $this->set(compact('quotation', 'rfqs', 'suppliers', 'rfqid', 'supplierid'));
         $this->set('_serialize', ['quotation']);
     }
 
@@ -169,4 +177,15 @@ class QuotationsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function download($id = null) { 
+
+        $quotation = $this->Quotations->get($id);
+        $filePath = $quotation['filePath'] . DS . $quotation['fileName'];
+        $this->response->file($filePath , array('download'=> true, 'name'=> $quotation['fileName']));
+
+        return $this->response;
+    }
+
 }
+
