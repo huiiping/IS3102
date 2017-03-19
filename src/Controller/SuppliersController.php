@@ -2,10 +2,16 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\Datasource\ConnectionManager;
 use Cake\Event\Event;
+use Cake\Datasource\ConnectionManager;
+use Cake\I18n\Time;
+use Cake\I18n\Date;
+use Cake\ORM\Entity;
+use Cake\ORM\TableRegistry;
+use Cake\Utility\Hash;
 use Cake\Mailer\Email;
 use Cake\Auth\DefaultPasswordHasher;
+
 /**
  * Suppliers Controller
  *
@@ -366,6 +372,10 @@ class SuppliersController extends AppController
 
             $this->Flash->error('Incorrect Login');   
         }
+
+        $retailersTable = TableRegistry::get('Retailers');
+        $query = $retailersTable->find('all')->toArray();
+        $this->set('retailers', $query);
     }
 
     public function recover(){

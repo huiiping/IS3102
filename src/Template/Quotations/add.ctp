@@ -3,29 +3,43 @@
   * @var \App\View\AppView $this
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Quotations'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Rfqs'), ['controller' => 'Rfqs', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Rfq'), ['controller' => 'Rfqs', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Suppliers'), ['controller' => 'Suppliers', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Supplier'), ['controller' => 'Suppliers', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="quotations form large-9 medium-8 columns content">
-    <?= $this->Form->create($quotation) ?>
-    <fieldset>
-        <legend><?= __('Add Quotation') ?></legend>
-        <?php
-            echo $this->Form->control('rfq_id', ['options' => $rfqs, 'empty' => true]);
-            echo $this->Form->control('supplier_id', ['options' => $suppliers, 'empty' => true]);
-            echo $this->Form->control('fileName');
-            echo $this->Form->control('filePath');
-            echo $this->Form->control('comments');
-            echo $this->Form->control('status');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
-</div>
+
+<?php
+$this->assign('title', __('Quotation') . '/' . __('Add'));
+$this->Html->addCrumb(__('Quotation'), ['controller' => 'Quotations', 'action' => 'index']);
+$this->Html->addCrumb(__('Add'));
+?>
+  <!-- Main content -->
+  <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title"><?= __('Submit New Quotation for RFQ ID: '.$id) ?></h3>
+            </div>
+            <div class="box-body">
+            <form method="post" accept-charset="utf-8" action="/IS3102_Final/quotations/add" enctype="multipart/form-data">
+                <div style="display:none;">
+                  <input type="hidden" name="_method" value="POST">
+                  <input type="hidden" name="supplier_id" value="<?= $supplierid ?>">
+                  <input type="hidden" name="status" value="Pending">
+                </div>
+                <div class ="form-group">          
+                  <div class="input-group">
+                    <input class = "form-control" type="file" name="file" id="file"> 
+                  </div>
+                </div>
+                <div class ="form-group">
+                  <div class="input-group">
+                    Comments: <br >
+                    <textarea name="comments" placeholder = "Enter your comments.." required="required" id="comments" rows="4" cols="50"></textarea>
+                  </div>
+                </div>
+                <br >
+                <input type="submit" class="btn btn-default btn-flat" value="Submit Quotation">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>

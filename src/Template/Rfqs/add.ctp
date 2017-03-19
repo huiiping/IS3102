@@ -6,7 +6,7 @@
 
 <?php
 $this->assign('title', __('RFQ') . '/' . __('Add'));
-$this->Html->addCrumb(__('RFQ'), ['controller' => 'Rfqs', 'action' => 'add']);
+$this->Html->addCrumb(__('RFQ'), ['controller' => 'Rfqs', 'action' => 'index']);
 $this->Html->addCrumb(__('Add'));
 ?>
   <!-- Main content -->

@@ -70,8 +70,8 @@ $this->Html->addCrumb(__('RFQ'), ['controller' => 'Rfqs', 'action' => 'supplierI
                   <?php } else {
 
                   ?>
-                    <td style="max-width: 150px;" bgcolor="green" align="center">
-                      <font color="white">OPEN</font>
+                    <td style="max-width: 150px;">
+                      <a class="btn btn-default btn-block" title="Submit Quotation Now" href="/IS3102_Final/quotations/add/<?= $rfq->id ?>" >Submit Quotation Now</a>
                     </td>
 
                   <?php } ?>

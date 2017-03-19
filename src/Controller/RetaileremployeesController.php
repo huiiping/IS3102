@@ -12,7 +12,6 @@ use Cake\Utility\Hash;
 use Cake\Mailer\Email;
 use Cake\Auth\DefaultPasswordHasher;
 
-
 /**
  * RetailerEmployees Controller
  *

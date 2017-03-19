@@ -1,8 +1,8 @@
 <?php
-$this->assign('title', __('Feedbacks') . '/' . __('Add'));
-$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
-$this->Html->addCrumb(__('Feedbacks'), ['controller' => 'feedbacks', 'action' => 'index']);
-$this->Html->addCrumb(__('Create New Feedback'));
+  $this->assign('title', __('Feedbacks') . '/' . __('Add'));
+  $this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+  $this->Html->addCrumb(__('Feedbacks'), ['controller' => 'feedbacks', 'action' => 'index']);
+  $this->Html->addCrumb(__('Create New Feedback'));
 ?>
 
 <?= $this->Element('retailerLeftSideBar'); ?>
@@ -30,13 +30,13 @@ $this->Html->addCrumb(__('Create New Feedback'));
                 <input type="hidden" name="customer_id" value="">
 
                 <select name="customer_id" class='selectpicker form-control' title ="Select Customer Id" data-live-search="true">
-                <option label=" " >No Customer ID</option> 
+                  <option label=" " >No Customer ID</option> 
                   <?php foreach ($customers as $customer): ?>
-                   <option><?php echo $customer ?></option> 
-                 <?php endforeach; ?>
-               </select>
-             </div> 
-           </div>
+                    <option><?php echo $customer ?></option> 
+                  <?php endforeach; ?>
+                </select>
+              </div> 
+            </div>
 
             <div class ="form-group">          
               <div class="input-group">
