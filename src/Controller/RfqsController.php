@@ -28,6 +28,7 @@ class RfqsController extends AppController
      * @return \Cake\Network\Response|null
      */
     public function index() {
+        
         $this->loadComponent('Prg');
         $this->Prg->commonProcess();
         $this->paginate = [

@@ -35,7 +35,7 @@ class RfqsTable extends Table
     public $filterArgs = array(
         'search' => array(
             'type' => 'like',
-            'field' => array('title','retailer_employee_id')
+            'field' => array('title','RetailerEmployees.first_name','RetailerEmployees.last_name', 'message')
             )
     );
 

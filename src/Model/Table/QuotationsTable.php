@@ -25,6 +25,13 @@ use Cake\Validation\Validator;
 class QuotationsTable extends Table
 {
 
+    public $filterArgs = array(
+        'search' => array(
+            'type' => 'like',
+            'field' => array('status','comments','fileName','Rfqs.title')
+            )
+    );
+
     /**
      * Initialize method
      *
@@ -47,6 +54,7 @@ class QuotationsTable extends Table
         $this->belongsTo('Suppliers', [
             'foreignKey' => 'supplier_id'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**
