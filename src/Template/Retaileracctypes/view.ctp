@@ -15,7 +15,7 @@ $this->Html->addCrumb(__('View Retailer Account Types : '.$retailerAccType->name
         </div>
         <div class="box-body">
           <div class="pull-right">
-            <a class="btn btn-default btn-block" title="Edit Retailer Account Type" href="/IS3102_Final/retailer-acc-types/edit<?=$retailerAccType->id?>" >Edit Retailer Account Type</a>
+            <a class="btn btn-default btn-block" title="Edit Retailer Account Type" href="/IS3102_Final/retailer-acc-types/edit/<?=$retailerAccType->id?>" >Edit Retailer Account Type</a>
           </div><br><br><br>
 
             <table class="table table-bordered table-striped">
@@ -51,7 +51,7 @@ $this->Html->addCrumb(__('View Retailer Account Types : '.$retailerAccType->name
                     <th scope="row"><?= __('Modified') ?></th>
                     <td><?= $this->Time->format(h($retailerAccType->modified), 'd MMM YYYY, HH:mm') ?></td>
                 </tr>
-            </table>
+            </table><br><br>
         </div>
       </div>
     </div>

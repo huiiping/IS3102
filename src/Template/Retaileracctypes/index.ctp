@@ -27,9 +27,8 @@ $this->Html->addCrumb(__('Retailer Account Types'));
                       <th scope="col"><?= $this->Paginator->sort('num_of_stores') ?></th>
                       <th scope="col"><?= $this->Paginator->sort('num_of_products') ?></th>
                       <!--<th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                      <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-                      <th scope="col" class="actions"><?= __('Actions') ?></th>-->
-                      <th></th>
+                      <th scope="col"><?= $this->Paginator->sort('modified') ?></th>-->
+                      <th scope="col" class="actions"><?= __('Actions') ?></th>
                   </tr>
               </thead>
               <tbody>

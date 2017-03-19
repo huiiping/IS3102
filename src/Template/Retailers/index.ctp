@@ -48,8 +48,7 @@ $this->Html->addCrumb(__('Retailers'));
                       <th scope="col"><?= $this->Paginator->sort('retailer_acc_type_id', ['label'=>'Retailer Account Type']) ?></th>
                       <th scope="col"><?= 'Loyalty Pts' ?></th>
                       <th scope="col"><?= $this->Paginator->sort('account_status') ?></th>
-                      <!--<th scope="col" class="actions"><?= __('Actions') ?></th>-->
-                      <th></th>
+                      <th scope="col" class="actions"><?= __('Actions') ?></th>
                   </tr>
               </thead>
               <tbody>

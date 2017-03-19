@@ -81,6 +81,9 @@ folder instead of downloading all of them to reduce the load. -->
 <?= $this->Html->css('dataTables.bootstrap.css') ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
 
+<!-- Sort arrows -->
+<?=$this->Html->css('admin_style.min.css')?><!-- DataTables -->
+
 <!-- jQuery -->
 <!-- <script
 src="https://code.jquery.com/jquery-3.1.1.slim.js"
@@ -573,8 +576,7 @@ crossorigin="anonymous"></script> -->
 <!-- AdminLTE for demo purposes -->
 <?= $this->Html->script('demo.js') ?>
 
-    <!-- Sort arrows -->
-<?=$this->Html->css('admin_style.min')?><!-- DataTables -->
+<!-- DataTables -->
 <?= $this->Html->script('dataTables.bootstrap.min.js') ?>
 <!-- bootstrap color picker -->
 <?= $this->Html->script('bootstrap-colorpicker.min.js') ?>

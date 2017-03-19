@@ -70,11 +70,10 @@ $this->Html->addCrumb(__('Employees'));
                     <th scope="col"><?= $this->Paginator->sort('address') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('activation_status') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('location_id') ?></th>
-                    <th></th>
-                    <th></th>
                     <!--<th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-                    <th scope="col" class="actions"><?= __('Actions') ?></th>-->
+                    <th scope="col"><?= $this->Paginator->sort('modified') ?></th>-->
+                    <th scope="col" class="actions"><?= __('Actions') ?></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>

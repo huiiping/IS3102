@@ -12,11 +12,11 @@ $this->Html->addCrumb(__('View Announcement'));
         <div class="box box-primary">
           <div class="box-header with-border">
             <h3 class="box-title"><?= h($announcement->title) ?></h3>
-            <div class="pull-right">
-              <?= $this->Html->link(__('Edit System Announcement'), ['action' => 'edit', $announcement->id]) ?>
-            </div>
           </div>
           <div class="box-body">
+            <div class="pull-right">
+              <a class="btn btn-default btn-block" title="Edit Announcement" href="/IS3102_Final/announcements/edit/<?=$announcement->id?>" >Edit Announcement</a>
+            </div><br><br><br>
 
               <table class="table table-bordered table-striped">
                   <tr>
@@ -43,7 +43,7 @@ $this->Html->addCrumb(__('View Announcement'));
                       <th scope="row"><?= __('Modified') ?></th>
                       <td><?= $this->Time->format(h($announcement->modified), 'd MMM YYYY, HH:mm') ?></td>
                   </tr>
-              </table>
+              </table><br><br>
           </div>
         </div>
       </div>
