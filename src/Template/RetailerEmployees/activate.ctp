@@ -104,6 +104,7 @@
 									<input type='hidden' name='dbname' value='<?php echo "$dbname";?>'/>
 									<div class="col-md-10 col-xs-10 alert alert-danger alert-dismissible "id=validateMessage></div>
 										<div class = "row">
+										
 											<button type="submit" class="btn btn-primary pull-right" style="margin:15px">Confirm</button>
 										</div>
 									</form>

@@ -158,7 +158,10 @@ class RetailersController extends AppController
 
                 $this->loadComponent('Generator');
                 
-                $user = $this->Generator->generateString();
+                 
+
+                $user = 1 . substr($companyName,0,1) . substr($companyName,0,1) . $companyName;
+                //$user = $this->Generator->generateString();
                 $pass = $this->Generator->generateString();
                 $hasher = new DefaultPasswordHasher();
                 $hashedPass = $hasher->hash($pass);
