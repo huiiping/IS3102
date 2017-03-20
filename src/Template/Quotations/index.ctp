@@ -68,23 +68,62 @@
                 <td style="max-width: 150px;"><?= $this->Number->format($quotation->id) ?></td>
                 <td style="max-width: 150px;" ><?= $this->Html->link(__(h($quotation->fileName)), ['action' => 'view', $quotation->id], ['title' => $quotation->comments])?></td>
                 <td><?= $quotation->has('rfq') ? $this->Html->link($quotation->rfq->title, ['controller' => 'Rfqs', 'action' => 'view', $quotation->rfq->id], ['title' => 'View RFQ Details']) : '' ?></td>
-
-                <?php if($quotation->status == 'Pending'){
-
-                    echo '<td bgcolor="#fdffc6" valign="middle" align="center"><b>'.h($quotation->status).'</b></td>';
+                <td>
+                <?php 
+                  if($quotation->status == 'Pending'){
+                ?>
+                    <div class="btn-group">
+                      <button type="button" style="width: 100px;" class="btn btn-warning btn-flat"><?= h($quotation->status) ?></button>
+                      <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a title="Reject Quotation" href="/IS3102_Final/quotations/rejectQuotation/<?= $quotation->id ?>">Reject</a></li>
+                        <li><a title="Approve Quotation" href="/IS3102_Final/quotations/approveQuotation/<?= $quotation->id ?>">Approve</a></li>
+                      </ul>
+                    </div>
+                <?php
 
                 } else if($quotation->status == 'Rejected') {
 
-                    echo '<td bgcolor="#db8f85" valign="middle" align="center"><b>'.h($quotation->status).'</b></td>';
+                ?>
+
+                    <div class="btn-group">
+                      <button type="button" style="width: 100px;" class="btn btn-danger btn-flat"><?= h($quotation->status) ?></button>
+                      <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a title="Pending Quotation" href="/IS3102_Final/quotations/pendingQuotation/<?= $quotation->id ?>">Pending</a></li>
+                        <li><a title="Approve Quotation" href="/IS3102_Final/quotations/approveQuotation/<?= $quotation->id ?>">Approve</a></li>
+                      </ul>
+                    </div>
+                <?php
 
                 } else {
 
-                    echo '<td bgcolor="#85db8a" valign="middle" align="center"><b>'.h($quotation->status).'</b></td>';
+                ?>
+
+                    <div class="btn-group">
+                      <button type="button" style="width: 100px;" class="btn btn-success btn-flat"><?= h($quotation->status) ?></button>
+                      <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a title="Reject Quotation" href="/IS3102_Final/quotations/rejectQuotation/<?= $quotation->id ?>">Pending</a></li>
+                        <li><a title="Reject Quotation" href="/IS3102_Final/quotations/rejectQuotation/<?= $quotation->id ?>">Reject</a></li>
+                      </ul>
+                    </div>
+
+                <?php 
 
                 }
 
                 ?>
-                    
+                </td>
                 <td style="max-width: 150px;"><?= h($quotation->created) ?></td>
                 <td><a href="/IS3102_Final/quotations/download/<?=$quotation->id?>"><i class="fa fa-cloud-download" title="Download Quotation"></i></a>&nbsp
                 <a href="/IS3102_Final/quotations/edit/<?=$quotation->id?>"><i class="fa fa-edit" title="Edit Quotation"></i></a>&nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Quotation')), array('action' => 'delete', $quotation->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $quotation->id))) ?></td>
@@ -107,4 +146,3 @@
     </div>
   </div>
 </section>
-                   

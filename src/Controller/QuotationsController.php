@@ -327,5 +327,35 @@ class QuotationsController extends AppController
         return $this->response;
     }
 
+    public function approveQuotation($id) {
+
+        $quotation = $this->Quotations->get($id);
+        $quotation->status = 'Approved';
+        $this->Quotations->save($quotation);
+        $this->Flash->success(__('The quotation has been approved.'));
+
+        return $this->redirect(['action' => 'index']);
+    }
+
+    public function rejectQuotation($id) {
+
+        $quotation = $this->Quotations->get($id);
+        $quotation->status = 'Rejected';
+        $this->Quotations->save($quotation);
+        $this->Flash->success(__('The quotation has been rejected.'));
+
+        return $this->redirect(['action' => 'index']);
+    }
+
+    public function pendingQuotation($id) {
+
+        $quotation = $this->Quotations->get($id);
+        $quotation->status = 'Pending';
+        $this->Quotations->save($quotation);
+        $this->Flash->success(__('The quotation\'s status has been revert to pending.'));
+
+        return $this->redirect(['action' => 'index']);
+    }
+
 }
 
