@@ -19,11 +19,11 @@ $this->Html->addCrumb(__('Products'));
         </div>
         <div class="box-body">
         <div class="pull-right">
-                <a class="btn btn-default btn-block" title="Create New Feedback" href="/IS3102_Final/products/add" >Create New Product</a>
+                <a class="btn btn-default btn-block" title="Create New Product" href="/IS3102_Final/products/add" >Create New Product</a>
             </div>
             <br>
           <!--<h3><?= __('Search') ?></h3>-->
-          <form method="post" accept-charset="utf-8" action="/IS3102_Final/feedbacks">
+          <form method="post" accept-charset="utf-8" action="/IS3102_Final/products">
             <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
               <tr>
                 <th width="10"></th>
