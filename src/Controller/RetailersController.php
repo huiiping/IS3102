@@ -127,6 +127,10 @@ class RetailersController extends AppController
                 $scriptpath = $this->DbSchema->SCHEMA_FOLDER . "Retailer_Employee_Roles_AccessRights.sql";
                 exec("C:/xampp/mysql/bin/mysql -uroot -pjoy -D$database < \"$scriptpath\"");
                 //---------------------------------------------------*/
+                //Add membership tiers in the customer membership tiers table
+                $scriptpath = $this->DbSchema->SCHEMA_FOLDER . "Cust_Membership_Tiers.sql";
+                exec("C:/xampp/mysql/bin/mysql -uroot -pjoy -D$database < \"$scriptpath\"");
+                //---------------------------------------------------*/
 
                 ConnectionManager::drop('conn1'); 
                 ConnectionManager::config('conn1', [
@@ -142,9 +146,7 @@ class RetailersController extends AppController
                     'cacheMetadata' => true,
                 ]);
                 
-                Debugger::dump('ADDRETAILER- DATABASENAME');
-                Debugger::dump($database);
-                Debugger::dump($retailer['retailer_name']);
+
                 $companyID = $retailer['id'];
                 $companyName = $retailer['retailer_name'];
                 $companyEmail = $retailer['retailer_email'];
@@ -156,9 +158,7 @@ class RetailersController extends AppController
 
                 $conn = ConnectionManager::get('conn1');
 
-                $this->loadComponent('Generator');
-                
-                 
+                $this->loadComponent('Generator');   
 
                 $user = 1 . substr($companyName,0,1) . substr($companyName,0,1) . $companyName;
                 //$user = $this->Generator->generateString();
