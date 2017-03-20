@@ -52,16 +52,8 @@ $this->Html->addCrumb(__('Manager Actions : '.$intrasysEmployee->first_name.' '.
             <div style="display:none;">
               <input type="hidden" name="_method" value="PUT">
             </div>
-            <style>
-              .bootstrap-select>.dropdown-toggle {
-                width: 405px; /*setting the width of select roles field*/
-              }
-              .bootstrap-select.form-control:not([class*=col-]) {
-                width: 405px; /*setting the width of select roles field*/
-              }
-            </style>
             <div class ="form-group">            
-              <div class="input-group">
+              <div class="input-group" style="z-index: 999999999;">
                 <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
                 <input type="hidden" name="intrasys_employee_roles[_ids]" value="">
                 <select name="intrasys_employee_roles[_ids][]" class='selectpicker form-control' data-live-search="true" multiple data-selected-text-format="count > 3" title = "" >
