@@ -12,6 +12,7 @@ use Cake\ORM\Entity;
  * @property string $status
  * @property string $remarks
  * @property int $retailer_employee_id
+ * @property int $supplier_id
  * @property \Cake\I18n\Time $created
  *
  * @property \App\Model\Entity\RetailerEmployee $retailer_employee

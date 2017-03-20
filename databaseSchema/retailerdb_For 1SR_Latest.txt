@@ -331,8 +331,10 @@ CREATE TABLE transfer_orders (
     status VARCHAR(100),
     remarks VARCHAR(255),
     retailer_employee_id INT,
+    supplier_id INT,
     created DATETIME,
     FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id),
+    FOREIGN KEY (supplier_id) REFERENCES suppliers(id), 
     FOREIGN KEY (locationFrom) REFERENCES locations(id), 
     FOREIGN KEY (locationTo) REFERENCES locations(id)
 );

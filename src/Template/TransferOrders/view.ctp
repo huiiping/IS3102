@@ -44,6 +44,10 @@
             <td><?= $this->Number->format($transferOrder->locationTo) ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Supplier Id') ?></th>
+            <td><?= $this->Number->format($transferOrder->supplier_id) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Created') ?></th>
             <td><?= h($transferOrder->created) ?></td>
         </tr>

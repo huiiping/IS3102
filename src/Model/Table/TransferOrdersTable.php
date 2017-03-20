@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
  * TransferOrders Model
  *
  * @property \Cake\ORM\Association\BelongsTo $RetailerEmployees
+ * @property \Cake\ORM\Association\BelongsTo $Suppliers
  * @property \Cake\ORM\Association\HasMany $TransferOrderItems
  *
  * @method \App\Model\Entity\TransferOrder get($primaryKey, $options = [])
@@ -43,6 +44,9 @@ class TransferOrdersTable extends Table
 
         $this->belongsTo('RetailerEmployees', [
             'foreignKey' => 'retailer_employee_id'
+        ]);
+        $this->belongsTo('Suppliers', [
+            'foreignKey' => 'supplier_id'
         ]);
         $this->hasMany('TransferOrderItems', [
             'foreignKey' => 'transfer_order_id'
@@ -88,6 +92,7 @@ class TransferOrdersTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['retailer_employee_id'], 'RetailerEmployees'));
+        $rules->add($rules->existsIn(['supplier_id'], 'Suppliers'));
 
         return $rules;
     }

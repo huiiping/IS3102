@@ -111,7 +111,7 @@ class QuotationsController extends AppController
      *
      * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add($id = null) {
+    public function supplierAdd($id = null) {
         $quotation = $this->Quotations->newEntity();
 
         if ($this->request->is('post')) {

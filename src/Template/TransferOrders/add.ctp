@@ -23,6 +23,7 @@
             echo $this->Form->control('status');
             echo $this->Form->control('remarks');
             echo $this->Form->control('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
+            echo $this->Form->control('supplier_id');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

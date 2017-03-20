@@ -24,6 +24,7 @@
                 <th scope="col"><?= $this->Paginator->sort('status') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('remarks') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('retailer_employee_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('supplier_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -37,6 +38,7 @@
                 <td><?= h($transferOrder->status) ?></td>
                 <td><?= h($transferOrder->remarks) ?></td>
                 <td><?= $transferOrder->has('retailer_employee') ? $this->Html->link($transferOrder->retailer_employee->last_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $transferOrder->retailer_employee->id]) : '' ?></td>
+                <td><?= $this->Number->format($transferOrder->supplier_id) ?></td>
                 <td><?= h($transferOrder->created) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $transferOrder->id]) ?>
