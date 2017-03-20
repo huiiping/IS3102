@@ -21,19 +21,11 @@ $this->Html->addCrumb(__('Manager Actions : '.$retailerEmployee->first_name.' '.
             <div style="display:none;">
               <input type="hidden" name="_method" value="PUT">
             </div>
-            <style>
-              .bootstrap-select>.dropdown-toggle {
-                width: 405px; /*setting the width of select roles field*/
-              }
-              .bootstrap-select.form-control:not([class*=col-]) {
-                width: 405px; /*setting the width of select roles field*/
-              }
-            </style>
             <div class ="form-group">            
-              <div class="input-group">
+              <div class="input-group" style="z-index: 999999999;">
                 <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
                 <input type="hidden" name="retailer_employee_roles[_ids]" value="">
-                <select name="retailer_employee_roles[_ids][]" class='selectpicker form-control' multiple data-selected-text-format="count > 3" title = "" >
+                <select name="retailer_employee_roles[_ids][]" class='selectpicker form-control' data-live-search="true" multiple data-selected-text-format="count > 3" title = "" >
                   <?php foreach ($roles as $role): ?> <!-- run every row of retailer employee roles table -->
                     <?php if (!empty($retailerEmployee->retailer_employee_roles)): ?> <!-- check if employee has role -->
                       <?php foreach ($retailerEmployee->retailer_employee_roles as $retailerEmployeeRoles): ?> <!-- if employee has role, run every role of employee -->

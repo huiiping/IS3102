@@ -51,16 +51,8 @@ $this->Html->addCrumb(__('Create New Employee'));
                 <input class = "form-control" type="text" name="address" placeholder = "Address*" required="required" id="address" maxlength="255">
               </div> 
             </div>
-            <style>
-              .bootstrap-select>.dropdown-toggle {
-                width: 350px; /*setting the width of select roles field*/
-              }
-              .bootstrap-select.form-control:not([class*=col-]) {
-                width: 350px; /*setting the width of select roles field*/
-              }
-            </style>
             <div class ="form-group">            
-              <div class="input-group">
+              <div class="input-group" style="z-index: 999999999;">
                 <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
                 <input type="hidden" name="retailer_employee_roles[_ids]" value="">
                 <select name="retailer_employee_roles[_ids][]" class='selectpicker form-control' data-live-search="true" multiple data-selected-text-format="count > 3" title = "Select Employee Role(s)*">
