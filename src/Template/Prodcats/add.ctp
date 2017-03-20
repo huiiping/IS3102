@@ -45,7 +45,7 @@ $this->Html->addCrumb(__('Create New Product Category'));
                 <select name="parentid" class='selectpicker form-control' data-live-search="true" title = "Select Parent Category*">
                   <option value=" ">No Parent Category</option>
                   <?php foreach ($prodCats as $category): ?>
-                    <option value="<?= $category->id ?>"><?php echo $category->cat_name ?></option>
+                    <option value="<?= $category->id ?>"><?php echo $category->cat_name?></option>
                   <?php endforeach; ?>
                 </select>
               </div>

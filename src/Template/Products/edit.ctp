@@ -57,7 +57,7 @@ $this->Html->addCrumb(__('Edit Product'));
 <div class ="form-group">          
     <div class="input-group">
       <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-      <input class = "form-control" type="text" value = "<?=$product->web_store_unit_price?>" name="web_store_unit_price" id="web_store_unit_price" maxlength="255"> 
+      <input class = "form-control" type="text" value = "<?=$product->web_store_unit_price?>" name="web_store_unit_price" id="web_store_unit_price" maxlength="255" title="web_store_unit_price"> 
   </div>
 </div> 
 
@@ -68,9 +68,10 @@ $this->Html->addCrumb(__('Edit Product'));
 
       <select name="prod_cat_id" class='selectpicker form-control' data-live-search="true">
         <?php foreach ($prodCats as $prodCat): ?>
+          <?php var_dump($prodCat) ?>
             <?php if ($prodCat == $product->prod_cat_id) :?>
               <option selected="selected">
-                <?=$feedback->item_id ?></option>
+                <?=$product->prod_cat_id ?></option>
             <?php else: ?>
                <option><?php echo $prodCat ?></option> 
            <?php endif; ?>
@@ -86,19 +87,17 @@ $this->Html->addCrumb(__('Edit Product'));
 
     <select name="promotions[_ids][]" class='selectpicker form-control' title ="Add an Existing Promotion" data-live-search="true">
       <option value=" ">No Promotion</option>
-      <?php foreach ($promos as $promo): ?>
-        <?php if (!empty($product->promotions)): ?>
-            <?php foreach ($product->promotions as $prodpromotion): ?>
-                <?php if ($prodpromotion->id == $promo->id) :?>
+      <?php foreach ($promotions as $promotion): ?>
+            <?php foreach ($promos as $promo): ?>
+                <?php if ($promotion->id == $promo->id) :?>
                   <option selected="selected">
-                    <?php echo $promo->id ?></option>
+                    <?php echo $promo->id?></option>
                     <?php break; ?>
                 <?php endif; ?>
             <?php endforeach; ?> 
-        <?php if (!($prodpromotion->id == $promo->id)) :?>
-         <option><?php echo $promo->id ?></option>
+        <?php if (!($promotion->id == $promo->id)) :?>
+         <option><?php echo $promotion ?></option>
      <?php endif; ?>
- <?php endif; ?>
 <?php endforeach; ?>
 </select>
 </div> 

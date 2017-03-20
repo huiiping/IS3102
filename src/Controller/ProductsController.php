@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Core\Configure;
+use Cake\Datasource\ConnectionManager;
+use Cake\Utility\Hash;
 
 /**
  * Products Controller
@@ -75,6 +77,7 @@ class ProductsController extends AppController
         $promotions = $this->Products->Promotions->find('list', ['limit' => 200]);
         $this->set(compact('product', 'prodCats', 'prodSpecifications', 'promotions'));
         $this->set('_serialize', ['product']);
+
     }
 
     private function withinLimit()
