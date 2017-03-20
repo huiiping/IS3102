@@ -230,7 +230,7 @@ class RetailerEmployeesController extends AppController
         $query = $conn
         ->newQuery()
         ->select('*')
-        ->from('suppliers')
+        ->from('retailer_employees')
         ->where(['id' => $id])
         ->execute()
         ->fetchAll('assoc');
