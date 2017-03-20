@@ -14,7 +14,7 @@ $this->Html->addCrumb(__('View Quotation'));
           </div>
           <div class="box-body">
             <div class="pull-right">
-              <a class="btn btn-default btn-block" title="Edit Quotation" href="/IS3102_Final/quotations/edit/<?=$quotation->id?>" >Edit Quotation</a>
+              <a class="btn btn-default btn-block" title="Edit Quotation" href="/IS3102_Final/quotations/supplier-edit/<?=$quotation->id?>" >Edit Quotation</a>
             </div><br><br><br>
 
               <table class="table table-bordered table-striped">

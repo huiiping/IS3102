@@ -16,7 +16,7 @@ $this->Html->addCrumb(__('Edit : ID '.$quotation->id));
         </div>
         <div class="main" style="padding: 10px 20px;">
 
-          <form method="post" accept-charset="utf-8" action="/IS3102_Final/quotations/edit/<?=$quotation->id?>" enctype="multipart/form-data">
+          <form method="post" accept-charset="utf-8" action="/IS3102_Final/quotations/supplier-edit/<?=$quotation->id?>" enctype="multipart/form-data">
             <div style="display:none;">
               <input type="hidden" name="_method" value="PUT">
             </div>

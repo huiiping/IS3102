@@ -27,13 +27,14 @@ $this->Html->addCrumb(__('Add'));
                 </div>
                 <div class ="form-group">          
                   <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-cloud-download" title="Download Quotation"></i></span>
                     <input class = "form-control" type="file" name="file" id="file"> 
                   </div>
                 </div>
                 <div class ="form-group">
                   <div class="input-group">
-                    Comments: <br >
-                    <textarea name="comments" placeholder = "Enter your comments.." required="required" id="comments" rows="4" cols="50"></textarea>
+                    <span class="input-group-addon"><i class="fa fa-commenting-o"></i></span>
+                    <textarea name="comments" placeholder = "Enter your comments.." required="required" id="comments" rows="4" cols="80"></textarea>
                   </div>
                 </div>
                 <br >

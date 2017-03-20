@@ -42,7 +42,7 @@ $this->Html->addCrumb(__('Edit Product Category'));
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span><input type="hidden" name="parentid" value="">
                 <select name="parentid" class='selectpicker form-control' data-live-search="true" title = "Select Parent Category*">
-                  <option value=" ">No Parent Category</option>
+                  <option value="<?= null ?>">No Parent Category</option>
                   <?php foreach ($categories as $category): ?>
                     <option <?php 
                         if($category->id == $prodCat->parentid){ echo("selected") ;} 
