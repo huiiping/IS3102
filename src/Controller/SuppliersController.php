@@ -29,24 +29,24 @@ class SuppliersController extends AppController
         $this->loadcomponent('Logging');
         $this->loadComponent('Email');
         $this->loadcomponent('Auth', [
-                        'authenticate' => [
-                            'Form' => [
-                            'userModel' => 'Suppliers',
-                                'fields' => [
-                                    'username' => 'username',
-                                    'password' => 'password'
-                                ],
-                            ]
-                        ],
-                        'loginAction' => [
-                            'controller' => 'Suppliers',
-                            'action' => 'login'
-                        ]
+            'authenticate' => [
+            'Form' => [
+            'userModel' => 'Suppliers',
+            'fields' => [
+            'username' => 'username',
+            'password' => 'password'
+            ],
+            ]
+            ],
+            'loginAction' => [
+            'controller' => 'Suppliers',
+            'action' => 'login'
+            ]
             ]);
         // Allow users to register and logout.
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
-        $this->Auth->allow(['add', 'logout', 'activate', 'recover', 'recoverActivate']);
+        $this->Auth->allow(['add', 'logout', 'activate', 'setPassword', 'recover', 'recoverActivate']);
 
         $session = $this->request->session();
         $session->write('page', 'Suppliers'); //set page
@@ -146,7 +146,12 @@ class SuppliersController extends AppController
                 $session = $this->request->session();
                 $database = $session->read('database');
 
-                $this->Email->retailerEmployeeActivationEmail(
+                $supplier = $this->Suppliers->patchEntity($supplier, $this->request->data);
+                $username =  $supplier['id'] . substr($supplier['supplier_name'],0,1) . substr($supplier['supplier_name'],0,1) . "supplier";
+                $supplier->set('username', $username);
+                $this->Suppliers->save($supplier);
+
+                $this->Email->activationEmail(
                     $supplier['email'], 
                     $supplier['supplier_name'], 
                     $supplier['username'], 
@@ -180,70 +185,108 @@ class SuppliersController extends AppController
     function activate($id, $token, $database) {
 
         ConnectionManager::drop('conn1'); 
-                ConnectionManager::config('conn1', [
-                'className' => 'Cake\Database\Connection',
-                'driver' => 'Cake\Database\Driver\Mysql',
-                'persistent' => false,
-                'host' => 'localhost',
-                'username' => 'root',
-                'password' => 'joy',
-                'database' => $database,
-                'encoding' => 'utf8',
-                'timezone' => 'UTC',
-                'cacheMetadata' => true,
+        ConnectionManager::config('conn1', [
+            'className' => 'Cake\Database\Connection',
+            'driver' => 'Cake\Database\Driver\Mysql',
+            'persistent' => false,
+            'host' => 'localhost',
+            'username' => 'root',
+            'password' => 'joy',
+            'database' => $database,
+            'encoding' => 'utf8',
+            'timezone' => 'UTC',
+            'cacheMetadata' => true,
             ]);
         $conn = ConnectionManager::get('conn1');
         
         $query = $conn
-                    ->newQuery()
-                    ->select('*')
-                    ->from('suppliers')
-                    ->where(['id' => $id])
-                    ->execute()
-                    ->fetchAll('assoc');
+        ->newQuery()
+        ->select('*')
+        ->from('suppliers')
+        ->where(['id' => $id])
+        ->execute()
+        ->fetchAll('assoc');
 
         if($query[0]['activation_status'] == 'Activated'){
             $this->Flash->success(__('Your account has already been activated.'));
-                return $this->redirect(['action' => 'login']);
+            return $this->redirect(['action' => 'login']);
         }
-        if($query[0]['activation_token'] == $token){
+        
+        $this->set('supplierId', $id);
+        $this->set('token', $token);
+        $this->set('dbname', $database);
+        $this->set('name', $query[0]['supplier_name']);
+
+        $retailersTable = TableRegistry::get('Retailers');
+        $query = $retailersTable->find('all')->toArray();
+        $this->set('retailers', $query);
+
+        /*if($query[0]['activation_token'] == $token){
             $conn->update('suppliers', 
                 ['activation_status' => 'Activated' ,
                 'activation_token' => NULL],
                 ['id' => $id]);
             
             $this->Flash->success(__('Your account has been activated.'));
-                return $this->redirect(['action' => 'login']);
+            return $this->redirect(['action' => 'login']);
         }
         else{
             $this->Flash->error(__('There is something wrong with the activation link'));
             return $this->redirect(['action' => 'login']);
-        }
+        }*/
+    }
 
-    /*    $supplier = $this->Suppliers->get($id);
-        if($supplier['activation_status'] == 'Activated'){
-            $this->Flash->success(__('Your account has already been activated.'));
+    function setPassword(){
+        $id=$_POST['supplierId'];
+        $token=$_POST['token'];
+        $database=$_POST['dbname']; 
+        $password = $_POST['password'];
+
+
+        ConnectionManager::drop('conn1'); 
+        ConnectionManager::config('conn1', [
+            'className' => 'Cake\Database\Connection',
+            'driver' => 'Cake\Database\Driver\Mysql',
+            'persistent' => false,
+            'host' => 'localhost',
+            'username' => 'root',
+            'password' => 'joy',
+            'database' => $database,
+            'encoding' => 'utf8',
+            'timezone' => 'UTC',
+            'cacheMetadata' => true,
+            ]);
+        $conn = ConnectionManager::get('conn1');
+
+        $query = $conn
+        ->newQuery()
+        ->select('*')
+        ->from('suppliers')
+        ->where(['id' => $id])
+        ->execute()
+        ->fetchAll('assoc');
+        
+        if($query[0]['activation_token'] == $token){
+
+
+            $hasher = new DefaultPasswordHasher();
+            $hashedPass = $hasher->hash($password);
+
+            $conn->update('suppliers', 
+                ['activation_status' => 'Activated' ,
+                'activation_token' => NULL,
+                'password' => $hashedPass],
+                ['id' => $id]
+                );
+
+
+            $this->Flash->success(__('Your account has been successfully activated, please log in with your new credentials'));
             return $this->redirect(['action' => 'login']);
         }
+        $this->Flash->error(__('Stop tempering with the system'));
+        return $this->redirect(['action' => 'login']);
 
-        if ($supplier &&  $supplier['activation_token'] == $token) {
-
-         $supplier->activation_status = 'Activated';
-         $supplier->activation_token = NULL;
-         $this->Suppliers->save($supplier);
-
-            //$this->loadComponent('Logging');
-            //$this->Logging->log($intrasysEmployee['id']);
-         $this->Logging->iLog(null,  $supplier['id']);
-
-         $this->Flash->success(__('Your account has been activated.'));
-         return $this->redirect(['action' => 'login']);
-
-     }
-     $this->Flash->error(__('There is something wrong with the activation link'));
-     return $this->redirect(['action' => 'login']);
-*/
- }
+    }
     /**
      * Edit method
      *
@@ -306,7 +349,7 @@ class SuppliersController extends AppController
 
     public function login(){
         if($this->request->is('post')){
-            
+
             $session = $this->request->session();
             $retailer = $_POST['retailer'];
             $database = $_POST['retailer']."db";
@@ -361,13 +404,13 @@ class SuppliersController extends AppController
 
             else {
 
-            if($session->check('login_fail')) {
-                $login_fail = $session->read('login_fail') + 1;
-            }   
-            else {
-                $login_fail = 1;
-            }
-            $session->write("login_fail",$login_fail);
+                if($session->check('login_fail')) {
+                    $login_fail = $session->read('login_fail') + 1;
+                }   
+                else {
+                    $login_fail = 1;
+                }
+                $session->write("login_fail",$login_fail);
             }
 
             $this->Flash->error('Incorrect Login');   
@@ -427,17 +470,17 @@ class SuppliersController extends AppController
             ['email' => $email]);
 
         $this->Email->retailerEmployeeRecoveryEmail(
-                        $email, 
-                        $query[0]['supplier_name'], 
-                        $query[0]['username'], 
-                        $pass, 
-                        $query[0]['id'], 
-                        $token,  
-                        'suppliers',
-                        $database
-                        );
+            $email, 
+            $query[0]['supplier_name'], 
+            $query[0]['username'], 
+            $pass, 
+            $query[0]['id'], 
+            $token,  
+            'suppliers',
+            $database
+            );
 
-       
+
         $this->Flash->success(__('Password Reset Email Sent, please check your email.'));
         return $this->redirect(['action' => 'login']);
 
@@ -478,62 +521,62 @@ class SuppliersController extends AppController
            
             */
 
-    }
+            }
 
-    public function recoverActivate($id, $token){
+            public function recoverActivate($id, $token){
 
-        $supplier = $this->Suppliers->get($id);
-        if($supplier['recovery_status'] == NULL){
-            $this->Flash->success(__('Your account has already been recovered.'));
-            return $this->redirect(['action' => 'login']);
+                $supplier = $this->Suppliers->get($id);
+                if($supplier['recovery_status'] == NULL){
+                    $this->Flash->success(__('Your account has already been recovered.'));
+                    return $this->redirect(['action' => 'login']);
+                }
+
+                if ($supplier && $supplier['recovery_token'] == $token) {
+
+
+                    $supplier->recovery_status = NULL;
+                    $supplier->recovery_token = NULL;
+                    $this->Suppliers->save($supplier);
+
+                    $this->Flash->success(__('Your account has been recovered. Please log in using your new username and password.'));
+                    return $this->redirect(['action' => 'login']);
+
+                }
+                $this->Flash->error(__('There is something wrong with the activation link'));
+                return $this->redirect(['action' => 'login']);
+
+            }
+
+            public function logout(){
+                $this->Flash->success('You are now logged out');
+                $this->Auth->logout();
+                $session = $this->request->session();
+                $session->destroy();
+                return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
+            }
+
+            public function activateStatus($id) {
+
+                $supplier = $this->Suppliers->get($id);
+
+                $supplier->activation_status = 'Activated';
+                $this->Suppliers->save($supplier);
+
+                $this->Flash->success(__('The supplier has been activated.'));
+
+                return $this->redirect(['action' => 'view/'.$id]);
+            }
+
+            public function deactivateStatus($id) {
+
+                $supplier = $this->Suppliers->get($id);
+
+                $supplier->activation_status = 'Deactivated';
+                $this->Suppliers->save($supplier);
+
+                $this->Flash->success(__('The supplier has been deactivated.'));
+
+                return $this->redirect(['action' => 'view/'.$id]);
+
+            }
         }
-
-        if ($supplier && $supplier['recovery_token'] == $token) {
-
-
-            $supplier->recovery_status = NULL;
-            $supplier->recovery_token = NULL;
-            $this->Suppliers->save($supplier);
-
-            $this->Flash->success(__('Your account has been recovered. Please log in using your new username and password.'));
-            return $this->redirect(['action' => 'login']);
-
-        }
-        $this->Flash->error(__('There is something wrong with the activation link'));
-        return $this->redirect(['action' => 'login']);
-
-    }
-
-    public function logout(){
-        $this->Flash->success('You are now logged out');
-        $this->Auth->logout();
-        $session = $this->request->session();
-        $session->destroy();
-        return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
-    }
-
-    public function activateStatus($id) {
-
-        $supplier = $this->Suppliers->get($id);
-
-        $supplier->activation_status = 'Activated';
-        $this->Suppliers->save($supplier);
-
-        $this->Flash->success(__('The supplier has been activated.'));
-
-        return $this->redirect(['action' => 'view/'.$id]);
-    }
-
-    public function deactivateStatus($id) {
-
-        $supplier = $this->Suppliers->get($id);
-
-        $supplier->activation_status = 'Deactivated';
-        $this->Suppliers->save($supplier);
-
-        $this->Flash->success(__('The supplier has been deactivated.'));
-
-        return $this->redirect(['action' => 'view/'.$id]);
-
-    }
-}

@@ -230,7 +230,7 @@ class RetailerEmployeesController extends AppController
         $query = $conn
         ->newQuery()
         ->select('*')
-        ->from('retailer_employees')
+        ->from('suppliers')
         ->where(['id' => $id])
         ->execute()
         ->fetchAll('assoc');
@@ -247,28 +247,14 @@ class RetailerEmployeesController extends AppController
         $retailersTable = TableRegistry::get('Retailers');
         $query = $retailersTable->find('all')->toArray();
         $this->set('retailers', $query);
-        /*if($query[0]['activation_token'] == $token){
-            $conn->update('retailer_employees', 
-                ['activation_status' => 'Activated' ,
-                'activation_token' => NULL],
-                ['id' => $id]);
-
-            $this->Flash->success(__('Your account has been activated.'));
-            return $this->redirect(['action' => 'login']);
-        }
-        else{
-            $this->Flash->error(__('There is something wrong with the activation link'));
-            return $this->redirect(['action' => 'login']);
-        }*/
+        
     }
 
     function setPassword(){
         $id=$_POST['employeeId'];
         $token=$_POST['token'];
         $database=$_POST['dbname'];
-        $password = $_POST['password'];
-
-
+        
         ConnectionManager::drop('conn1'); 
         ConnectionManager::config('conn1', [
             'className' => 'Cake\Database\Connection',

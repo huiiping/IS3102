@@ -69,7 +69,7 @@
 											<span id="validatePassword" class="fa fa-check" style="display:none; font-size: 24px"></span>
 										</div>
 									</div>
-									<p class="registerInfo">*Password has to be alphanumeric and at least 8 characters long</p>
+									<p class="registerInfo">*Password can only be alphanumeric and at least 8 characters long</p>
 									<div class = "row">
 										<div class="col-md-10 col-xs-10">
 											<div class=" input-group">
@@ -81,7 +81,7 @@
 											<span id="checkPasswordMatch" class="fa fa-check" style="display:none; font-size: 24px"></span>
 										</div>
 									</div>
-									<div class = "row">
+									<!-- <div class = "row">
 										<div class="col-md-10 col-xs-10">
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
@@ -95,10 +95,7 @@
 												</select>
 											</div>	
 										</div>
-										<div class="checkIcons" >
-											<span id="checkPasswordMatch" class="fa fa-check" style="display:none; font-size: 24px"></span>
-										</div>
-									</div>
+									</div> -->
 									<input type='hidden' name='employeeId' value='<?php echo "$employeeId";?>'/>
 									<input type='hidden' name='token' value='<?php echo "$token";?>'/>
 									<input type='hidden' name='dbname' value='<?php echo "$dbname";?>'/>
@@ -250,7 +247,7 @@
 			}
 
 			function validateForm(){
-				var retailer=document.forms["setPass"]["retailer"].value
+				/*var retailer=document.forms["setPass"]["retailer"].value*/
 				if (!validatePass()){
 					document.getElementById('validateMessage').innerHTML = "Password does not meet the requirements";
 					return false;
@@ -259,10 +256,10 @@
 					document.getElementById('validateMessage').innerHTML = "Passwords do not match";
 					return false;
 				}
-				if (!isNaN(retailer)){
+				/*if (!isNaN(retailer)){
 					document.getElementById('validateMessage').innerHTML = "Please Select the retailer you are under";
 					return false;
-				}
+				}*/
 				return true;
 			}
 
