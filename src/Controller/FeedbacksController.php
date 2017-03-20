@@ -126,10 +126,10 @@ class FeedbacksController extends AppController
 
       $feedback = $this->Feedbacks->get($id);
 
-      $feedback->status = 'Replied';
+      $feedback->status = 'Pending';
       $this->Feedbacks->save($feedback);
 
-      $this->Flash->success(__('The feedback has a replied status.'));
+      $this->Flash->success(__('The feedback has a pending status.'));
 
       return $this->redirect(['action' => 'index']);
   }
@@ -138,10 +138,10 @@ class FeedbacksController extends AppController
 
       $feedback = $this->Feedbacks->get($id);
 
-      $feedback->status = 'Closed';
+      $feedback->status = 'Replied';
       $this->Feedbacks->save($feedback);
 
-      $this->Flash->success(__('The feedback has a closed status.'));
+      $this->Flash->success(__('The feedback has a replied status.'));
 
       return $this->redirect(['action' => 'index']);
 
@@ -151,10 +151,10 @@ class FeedbacksController extends AppController
 
       $feedback = $this->Feedbacks->get($id);
 
-      $feedback->status = 'Pending';
+      $feedback->status = 'Closed';
       $this->Feedbacks->save($feedback);
 
-      $this->Flash->success(__('The feedback has a pending status.'));
+      $this->Flash->success(__('The feedback has a closed status.'));
 
       return $this->redirect(['action' => 'index']);
 

@@ -113,7 +113,7 @@
                         <span class="sr-only">Toggle Dropdown</span>
                       </button>
                       <ul class="dropdown-menu" role="menu">
-                        <li><a title="Reject Quotation" href="/IS3102_Final/quotations/rejectQuotation/<?= $quotation->id ?>">Pending</a></li>
+                        <li><a title="Pending Quotation" href="/IS3102_Final/quotations/pendingQuotation/<?= $quotation->id ?>">Pending</a></li>
                         <li><a title="Reject Quotation" href="/IS3102_Final/quotations/rejectQuotation/<?= $quotation->id ?>">Reject</a></li>
                       </ul>
                     </div>
