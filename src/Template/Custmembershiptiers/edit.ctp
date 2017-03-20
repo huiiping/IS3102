@@ -22,55 +22,55 @@ $this->Html->addCrumb(__('Edit Customer Membership Tier'));
               <input type="hidden" name="_method" value="PUT">
             </div>
             <div class ="form-group">          
-              <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
+              <div class="input-group" title="Enter Tier Name*">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-font"></i></span>
                 <input class = "form-control" type="text" value="<?=$custMembershipTier->tier_name?>" name="tier_name" required="required" id="tier_name" maxlength="255"> 
               </div>
             </div>
             <div class ="form-group">          
-              <div class="input-group">
+              <div class="input-group" title="Enter Renewal Cycle (days)*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 <input class = "form-control" type="number" min="0" value="<?=$custMembershipTier->validity_period?>" name="validity_period" required="required" id="validity_period"> 
               </div>
             </div>
             <div class ="form-group">
-              <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-shopping-cart"></i></span>
+              <div class="input-group" title="Enter Minimum Spending ($)">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
                 <input class = "form-control" type="text" value="<?=$custMembershipTier->min_spending?>" name="min_spending" id="min_spending" maxlength="100"> 
               </div>
             </div>
             <div class ="form-group">
-              <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-shopping-cart"></i></span>
+              <div class="input-group" title="Enter Membership Fee ($)">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
                 <input class = "form-control" type="text" value="<?=$custMembershipTier->membership_fee?>" name="membership_fee" id="membership_fee" maxlength="100"> 
               </div>
             </div>
             <div class ="form-group">          
-              <div class="input-group">
-                <span class="input-group-addon">P&nbsp;</span>
+              <div class="input-group" title="Enter Membership Points Earned Per $1 Spent">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-shopping-cart"></i></span>
                 <input class = "form-control" type="number" min="0" value="<?=$custMembershipTier->membership_pts?>" name="membership_pts" id="membership_pts"> 
               </div>
             </div>
             <div class ="form-group">          
-              <div class="input-group">
-                <span class="input-group-addon">P&nbsp;</span>
+              <div class="input-group" title="Enter Redemption Points Exchange Rate For $1 Discount">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-shopping-cart"></i></span>
                 <input class = "form-control" type="number" min="0" value="<?=$custMembershipTier->redemption_pts?>" name="redemption_pts" id="redemption_pts"> 
               </div>
             </div>
             <div class ="form-group">
-              <div class="input-group">
+              <div class="input-group" title="Enter Discount Rate (%)">
                 <span class="input-group-addon">%</span>
                 <input class = "form-control" type="text" value="<?=$custMembershipTier->discount_rate?>" name="discount_rate" id="discount_rate" maxlength="100">
               </div>
             </div>
             <div class ="form-group">
-              <div class="input-group">
+              <div class="input-group" title="Enter Birthday Discount Rate (%)">
                 <span class="input-group-addon">%</span>
                 <input class = "form-control" type="text" value="<?=$custMembershipTier->birthday_rate?>" name="birthday_rate" id="birthday_rate" maxlength="100">
               </div>
             </div>
             <div class ="form-group">
-              <div class="input-group">
+              <div class="input-group" title="Enter Description">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
                 <textarea rows="5" class = "form-control" type="textarea" name="description" id="description"><?=$custMembershipTier->description?></textarea>
               </div>

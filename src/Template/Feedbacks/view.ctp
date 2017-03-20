@@ -14,7 +14,7 @@ $this->Html->addCrumb(__('View Feedback'));
       </div>
       <div class="box-body">
           <div class="pull-right">
-            <a class="btn btn-default btn-block" title="Edit Retailer Account Type" href="/IS3102_Final/feedbacks/edit<?=$feedback->id?>" >Edit Feedback</a>
+            <a class="btn btn-default btn-block" title="Edit Retailer Account Type" href="/IS3102_Final/feedbacks/edit/<?=$feedback->id?>" >Edit Feedback</a>
         </div><br><br><br>
 
         <table class="table table-bordered table-striped">
@@ -24,7 +24,7 @@ $this->Html->addCrumb(__('View Feedback'));
             </tr>
             <tr>
                 <th scope="row"><?= __('Customer') ?></th>
-                <td><?= $feedback->has('customer') ? $this->Html->link($feedback->customer->id, ['controller' => 'Customers', 'action' => 'view', $feedback->customer->id]) : '' ?></td>
+                <td><?= $feedback->has('customer') ? $this->Html->link($feedback->customer->first_name.' '.$feedback->customer->last_name, ['controller' => 'Customers', 'action' => 'view', $feedback->customer->id]) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row"><?= __('Customer First Name') ?></th>
@@ -52,7 +52,7 @@ $this->Html->addCrumb(__('View Feedback'));
             </tr>
             <tr>
                 <th scope="row"><?= __('Product') ?></th>
-                <td><?= $feedback->has('product') ? $this->Html->link($feedback->product->id, ['controller' => 'Products', 'action' => 'view', $feedback->product->id]) : '' ?></td>
+                <td><?= $feedback->has('product') ? $this->Html->link($feedback->product->prod_name, ['controller' => 'Products', 'action' => 'view', $feedback->product->id]) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row"><?= __('Item') ?></th>
@@ -66,7 +66,7 @@ $this->Html->addCrumb(__('View Feedback'));
                 <th scope="row"><?= __('Created') ?></th>
                 <td><?= $this->Time->format(h($feedback->created), 'd MMM YYYY, HH:mm') ?></td>
             </tr>
-        </table>
+        </table><br><br>
     </div>
 </div>
 </div>
