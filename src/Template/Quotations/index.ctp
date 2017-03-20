@@ -71,15 +71,15 @@
 
                 <?php if($quotation->status == 'Pending'){
 
-                    echo '<td bgcolor="#fdffc6" valign="middle" align="center"><b>Pending</b></td>';
+                    echo '<td bgcolor="#fdffc6" valign="middle" align="center"><b>'.h($quotation->status).'</b></td>';
 
                 } else if($quotation->status == 'Rejected') {
 
-                    echo '<td bgcolor="#db8f85" valign="middle" align="center"><b>Rejected</b></td>';
+                    echo '<td bgcolor="#db8f85" valign="middle" align="center"><b>'.h($quotation->status).'</b></td>';
 
                 } else {
 
-                    echo '<td bgcolor="#85db8a" valign="middle" align="center"><b>Approved</b></td>';
+                    echo '<td bgcolor="#85db8a" valign="middle" align="center"><b>'.h($quotation->status).'</b></td>';
 
                 }
 

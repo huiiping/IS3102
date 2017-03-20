@@ -10,8 +10,18 @@ $this->Html->addCrumb(__('Announcements'), ['controller' => 'Announcements', 'ac
 
 ?>
 <?= $this->Element('intrasysLeftSideBar'); ?>
-<script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>
-<script>tinymce.init({ selector:'textarea' });</script>
+<script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<script>
+$(function () {
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('editor1');
+    //bootstrap WYSIHTML5 - text editor
+    $(".textarea").wysihtml5();
+  });
+</script>
 <!-- Main Content -->
 <div class="content-wrapper">
   <!-- Content Header -->
@@ -33,6 +43,11 @@ $this->Html->addCrumb(__('Announcements'), ['controller' => 'Announcements', 'ac
                         echo $this->Form->input('message', array('type' => 'textarea'));
                         echo $this->Form->input('remarks');
                     ?>
+                    <div class="box-body pad">
+                      <textarea id="editor1" name="editor1" rows="10" cols="80">
+                                              This is my textarea to be replaced with CKEditor.
+                      </textarea>
+              </div>
                 </fieldset>
                 <br>
                 <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
