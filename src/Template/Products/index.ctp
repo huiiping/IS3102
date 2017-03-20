@@ -47,7 +47,6 @@ $this->Html->addCrumb(__('Products'));
           <table class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort(('prod_name'), ['label' => 'Product Name'])?></th>
                 <th scope="col"><?= $this->Paginator->sort(('prod_cat_id'),['label' => 'Product Category']) ?></th>
                 <th scope="col"><?= $this->Paginator->sort('store_unit_price') ?></th>
@@ -59,7 +58,6 @@ $this->Html->addCrumb(__('Products'));
             <tbody>
               <?php foreach ($products as $product): ?>
                 <tr>
-                  <td style="max-width: 150px;"><?= $this->Number->format($product->id) ?></td>
                   <td style="max-width: 150px;"><?= $this->Html->link(__(h($product->prod_name)),['action' => 'view', $product->id], ['title' => 'View Product Details']) ?></td>
 
 
@@ -78,7 +76,7 @@ $this->Html->addCrumb(__('Products'));
                   }
                   ?>
 
-                  <td style="max-width: 150px;"><?= $product->has('prod_cat') ? $this->Html->link($session->read('catName'), ['controller' => 'ProdCats', 'action' => 'view', $product->prod_cat_id]) : '' ?></td>
+                  <td style="max-width: 150px;"><?= $product->has('prod_cat') ? $this->Html->link($session->read('catName'), ['controller' => 'ProdCats', 'action' => 'view', $product->prod_cat_id], ['title' => 'View Product Category']) : '' ?></td>
                   <td style="max-width: 150px;"><?= $this->Number->format($product->store_unit_price) ?></td>
                   <td style="max-width: 150px;"><?= $this->Number->format($product->web_store_unit_price) ?></td>
                   <td style="max-width: 150px;"><?= h($product->SKU) ?></td>

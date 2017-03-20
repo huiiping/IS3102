@@ -25,9 +25,11 @@ class ProductsController extends AppController
         'contain' => ['ProdCats']
         ];
         $products = $this->paginate($this->Products);
-
+        $promotions = $this->Products->Promotions->find('list', ['limit' => 200]);
         $this->set(compact('products'));
         $this->set('_serialize', ['products']);
+        $this->set('receiver', $promotions);
+        $this->set('_serialize', ['promotions']);
     }
 
     /**

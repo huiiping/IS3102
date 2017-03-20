@@ -1,7 +1,6 @@
 <?php
-use Cake\ORM\TableRegistry;
+use Cake\ORM\TableRegistry; 
 ?>
-<?= $this->Element('retailerLeftSideBar'); ?>
 <?php
 $this->assign('title', __('Products') . '/' . __('Add'));
 $this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
@@ -9,11 +8,7 @@ $this->Html->addCrumb(__('Products'), ['controller' => 'Products', 'action' => '
 $this->Html->addCrumb(__('Create New Product'));
 
 ?>
-<!-- Main Content -->
-<div class="content-wrapper">
-  <!-- Content Header -->
-  <section class="content-header">
-  </section>
+
   <!-- Main content -->
   <section class="content">
     <div class="row">
@@ -30,47 +25,13 @@ $this->Html->addCrumb(__('Create New Product'));
               <div style="display:none;">
                 <input type="hidden" name="_method" value="POST">
               </div>
-              <div class ="form-group">          
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-font"></i></span>
-                  <input class = "form-control" type="text" placeholder = "Product Name*" name="prod_name" required="required" id=prod_name" maxlength="255"> 
-                </div>
-              </div>
-
-              <div class ="form-group">          
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                  <input class = "form-control" type="text" placeholder = "Product Description*" name="prod_desc" required="required" id="prod_desc" maxlength="255"> 
-                </div>
-              </div>
-
-              <div class ="form-group">          
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-shopping-cart"></i></span>
-                  <input class = "form-control" type="text" placeholder = "SKU*" name="SKU" required="required" id="SKU" maxlength="255"> 
-                </div>
-              </div>
-
-              <div class ="form-group">          
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                  <input class = "form-control" type="text" placeholder = "Store Unit Price*" name="store_unit_price" required="required" id="store_unit_price" maxlength="255"> 
-                </div>
-              </div>
-
-              <div class ="form-group">          
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                  <input class = "form-control" type="text" placeholder = "Web Store Unit Price" name="web_store_unit_price" id="web_store_unit_price" maxlength="255"> 
-                </div>
-              </div>              
 
               <div class ="form-group">            
-                <div class="input-group">
+                <div class="input-group" title="Select Product Category*" style="z-index: 3;">
                   <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
                   <input type="hidden" name="prod_cat_id" value="" required="required">
 
-                  <select name="prod_cat_id" class='selectpicker form-control' title ="Select Product Category*" data-live-search="true">
+                  <select name="prod_cat_id" class='selectpicker form-control' title ="Select Product Category*" data-live-search="true" required="required">
                     <?php foreach ($prodCats as $prodCat): 
                     $session = $this->request->session();
                     $productCats = TableRegistry::get('ProdCats');
@@ -81,7 +42,6 @@ $this->Html->addCrumb(__('Create New Product'));
 
                     foreach ($productCat as $name){
                       $session->write('catName',$name);
-                      var_dump($name);
                     }
                     ?>
 
@@ -91,31 +51,75 @@ $this->Html->addCrumb(__('Create New Product'));
               </div> 
             </div>
 
-             <!-- <div class ="form-group">            
-              <div class="input-group">
+              <div class ="form-group">          
+                <div class="input-group" title="Product Name*">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-font"></i></span>
+                  <input class = "form-control" type="text" placeholder = "Product Name*" name="prod_name" required="required" id=prod_name" maxlength="255"> 
+                </div>
+              </div>
+
+              <div class ="form-group">          
+                <div class="input-group" title="Product Description*">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                  <input class = "form-control" type="text" placeholder = "Product Description*" name="prod_desc" required="required" id="prod_desc" maxlength="255"> 
+                </div>
+              </div>
+
+              <div class ="form-group">          
+                <div class="input-group" title="SKU*">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-shopping-cart"></i></span>
+                  <input class = "form-control" type="text" placeholder = "SKU*" name="SKU" required="required" id="SKU" maxlength="255"> 
+                </div>
+              </div>
+
+              <div class ="form-group">          
+                <div class="input-group" title="Store Unit Price*">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                  <input class = "form-control" type="text" placeholder = "Store Unit Price*" name="store_unit_price" required="required" id="store_unit_price" maxlength="255"> 
+                </div>
+              </div>
+
+              <div class ="form-group">          
+                <div class="input-group" title="Web Store Unit Price">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                  <input class = "form-control" type="text" placeholder = "Web Store Unit Price" name="web_store_unit_price" id="web_store_unit_price" maxlength="255"> 
+                </div>
+              </div>              
+
+            <div class ="form-group">            
+              <div class="input-group" title="Add an Existing Promotion" style="z-index: 3;">
                 <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
                 <input type="hidden" name="promotions[_ids]" value="">
+    
+              <select name="promotions[_ids][]" class='selectpicker form-control' title ="Add an Existing Promotion" data-live-search="true" multiple data-selected-text-format="count > 3">
+                <option value=" ">No Promotion</option>
+                <?php foreach ($promotions as $promotion): 
+                  $session = $this->request->session();
+                    $promotions = TableRegistry::get('Promotions');
+                    $promo = $promotions
+                    ->find()
+                    ->where(['id' => $promotion])
+                    ->extract('promo_name');
 
-                <select name="promotions[_ids][]" class='selectpicker form-control' title ="Add an Existing Promotion" data-live-search="true" multiple data-selected-text-format="count > 3">
-                  <option value=" ">No Promotion</option>
-                  <?php foreach ($promotions as $promotion): ?>
-                   <option value="<?= $promotion->id ?>"><?php echo $promotion->promo_name ?></option> 
-                 <?php endforeach; ?>
-               </select>
-             </div> 
-           </div> -->
+                    foreach ($promo as $name){
+                      $session->write('promoName',$name);
+                    }?>
+                 <option value="<?= $promotion?>"><?php echo $session->read('promoName')?></option> 
+               <?php endforeach; ?>
+             </select>
+           </div> 
+         </div>
 
-           <div class ="row">
-            <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Add Product</button>
-          </div>
+         <div class ="row">
+          <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Add Product</button>
+        </div>
 
-        </form>
-      </div>
+      </form>
     </div>
   </div>
 </div>
-</section>
 </div>
+</section>
 
 
 

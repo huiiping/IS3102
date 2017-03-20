@@ -48,7 +48,6 @@ $this->Html->addCrumb(__('Product Category'));
           <table class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('parentid', ['label' => 'Parent Category']) ?></th>
                 <th scope="col"><?= $this->Paginator->sort('cat_name', ['label' => 'Category Name']) ?></th>
                 <th scope="col"><?= $this->Paginator->sort('cat_desc', ['label' => 'Category Description']) ?></th>
@@ -58,7 +57,6 @@ $this->Html->addCrumb(__('Product Category'));
             <tbody>
               <?php foreach ($prodCats as $prodCat): ?>
                 <tr>
-                  <td style="max-width: 150px;"><?= $this->Number->format($prodCat->id) ?></td>
 
                   <?php
                   //Getting the Product Cat name using the prod_Cat_ID 
