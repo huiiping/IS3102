@@ -1,7 +1,5 @@
 <?php
-/**
-  * @var \App\View\AppView $this
-  */
+use Cake\ORM\TableRegistry;
 ?>
 <?= $this->Element('retailerLeftSideBar'); ?>
 <?php
@@ -73,14 +71,27 @@ $this->Html->addCrumb(__('Create New Product'));
                   <input type="hidden" name="prod_cat_id" value="" required="required">
 
                   <select name="prod_cat_id" class='selectpicker form-control' title ="Select Product Category*" data-live-search="true">
-                    <?php foreach ($prodCats as $prodCat): ?>
-                     <option><?php echo $prodCat ?></option> 
-                   <?php endforeach; ?>
-                 </select>
-               </div> 
-             </div>
+                    <?php foreach ($prodCats as $prodCat): 
+                    $session = $this->request->session();
+                    $productCats = TableRegistry::get('ProdCats');
+                    $productCat = $productCats
+                    ->find()
+                    ->where(['id' => $prodCat])
+                    ->extract('cat_name');
 
-             <div class ="form-group">            
+                    foreach ($productCat as $name){
+                      $session->write('catName',$name);
+                      var_dump($name);
+                    }
+                    ?>
+
+                    <option value="<?= $prodCat?>"><?php echo $session->read('catName')?></option> 
+                  <?php endforeach; ?>
+                </select>
+              </div> 
+            </div>
+
+             <!-- <div class ="form-group">            
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
                 <input type="hidden" name="promotions[_ids]" value="">
@@ -88,11 +99,11 @@ $this->Html->addCrumb(__('Create New Product'));
                 <select name="promotions[_ids][]" class='selectpicker form-control' title ="Add an Existing Promotion" data-live-search="true" multiple data-selected-text-format="count > 3">
                   <option value=" ">No Promotion</option>
                   <?php foreach ($promotions as $promotion): ?>
-                   <option><?php echo $promotion ?></option> 
+                   <option value="<?= $promotion->id ?>"><?php echo $promotion->promo_name ?></option> 
                  <?php endforeach; ?>
                </select>
              </div> 
-           </div>
+           </div> -->
 
            <div class ="row">
             <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Add Product</button>
