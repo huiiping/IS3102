@@ -353,6 +353,11 @@ class SuppliersController extends AppController
             $session = $this->request->session();
             $retailer = $_POST['retailer'];
             $database = $_POST['retailer']."db";
+
+            if($retailer == 0){
+                $this->Flash->error('Please Select a retailer');
+                return $this->redirect(['controller' => 'Suppliers', 'action' => 'login']);
+            }
             $session->write('database', $database);
 
             //CAPTCHA feature

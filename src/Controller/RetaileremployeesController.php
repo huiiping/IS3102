@@ -159,7 +159,7 @@ class RetailerEmployeesController extends AppController
 
 
                 if ($this->RetailerEmployees->save($retailerEmployee)) {
-                   
+                 
                     $session = $this->request->session();
                     $database = $session->read('database');
                     $retailer = $session->read('retailer');
@@ -365,11 +365,11 @@ class RetailerEmployeesController extends AppController
 
         //Only the employee themselves can edit their account
         if($retailerEmployee['id'] != $sessionId) {
-         $this->redirect($this->referer());
-         $this->Flash->error(__('You are not authorzied to edit other employees.'));
-     }
+           $this->redirect($this->referer());
+           $this->Flash->error(__('You are not authorzied to edit other employees.'));
+       }
 
-     if ($this->request->is(['patch', 'post', 'put'])) {
+       if ($this->request->is(['patch', 'post', 'put'])) {
         $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
         if ($this->RetailerEmployees->save($retailerEmployee)) {
             $this->Flash->success(__('The retailer employee has been saved.'));
@@ -434,6 +434,12 @@ public function login(){
     echo 'HELLO '.$_POST['username'];
     $retailer = $_POST['retailer'];
     $database = $_POST['retailer']."db";
+
+    if($retailer == 0){
+        $this->Flash->error('Please Select a retailer');
+        return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
+    }
+    
     $session->write('database', $database);
 
     ConnectionManager::drop('conn1'); 
@@ -782,28 +788,28 @@ public function recover(){
             return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
         }
 
-    public function activateStatus($id) {
+        public function activateStatus($id) {
 
-      $retailerEmployee = $this->RetailerEmployees->get($id);
+          $retailerEmployee = $this->RetailerEmployees->get($id);
 
-      $retailerEmployee->activation_status = 'Activated';
-      $this->RetailerEmployees->save($retailerEmployee);
+          $retailerEmployee->activation_status = 'Activated';
+          $this->RetailerEmployees->save($retailerEmployee);
 
-      $this->Flash->success(__('The Retailer Employee has been activated.'));
+          $this->Flash->success(__('The Retailer Employee has been activated.'));
 
-      return $this->redirect(['action' => 'index']);
-    }
+          return $this->redirect(['action' => 'index']);
+      }
 
-    public function deactivateStatus($id) {
+      public function deactivateStatus($id) {
 
-      $retailerEmployee = $this->RetailerEmployees->get($id);
+          $retailerEmployee = $this->RetailerEmployees->get($id);
 
-      $retailerEmployee->activation_status = 'Deactivated';
-      $this->RetailerEmployees->save($retailerEmployee);
+          $retailerEmployee->activation_status = 'Deactivated';
+          $this->RetailerEmployees->save($retailerEmployee);
 
-      $this->Flash->success(__('The Retailer Employee has been deactivated.'));
+          $this->Flash->success(__('The Retailer Employee has been deactivated.'));
 
-      return $this->redirect(['action' => 'index']);
+          return $this->redirect(['action' => 'index']);
 
-    }
-}
+      }
+  }
