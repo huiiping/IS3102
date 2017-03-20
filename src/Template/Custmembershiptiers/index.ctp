@@ -66,10 +66,9 @@ $this->Html->addCrumb(__('Customer Membership Tiers'));
                     <th scope="col"><?= $this->Paginator->sort('redemption_pts') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('discount_rate') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('birthday_rate') ?></th>
-                    <th></th>
                     <!--<th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-                    <th scope="col" class="actions"><?= __('Actions') ?></th>-->
+                    <th scope="col"><?= $this->Paginator->sort('modified') ?></th>-->
+                    <th scope="col" class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
             <tbody>
