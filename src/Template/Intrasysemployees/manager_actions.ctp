@@ -43,7 +43,7 @@ $this->Html->addCrumb(__('Manager Actions : '.$intrasysEmployee->first_name.' '.
       <div class="box box-primary">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Edit Role(s) of Intrasys Employee</h3>
+            <h3 class="panel-title">Edit Role(s) of Employee</h3>
           </div>
         </div>
         <div class="main" style="padding: 10px 20px;">
@@ -53,7 +53,7 @@ $this->Html->addCrumb(__('Manager Actions : '.$intrasysEmployee->first_name.' '.
               <input type="hidden" name="_method" value="PUT">
             </div>
             <div class ="form-group">            
-              <div class="input-group" style="z-index: 999999999;">
+              <div class="input-group" style="z-index: 999999999;" title="Select Employee Role(s)">
                 <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
                 <input type="hidden" name="intrasys_employee_roles[_ids]" value="">
                 <select name="intrasys_employee_roles[_ids][]" class='selectpicker form-control' data-live-search="true" multiple data-selected-text-format="count > 3" title = "" >

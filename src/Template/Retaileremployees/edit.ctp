@@ -15,7 +15,7 @@ $this->Html->addCrumb(__('Edit : '.$retailerEmployee->first_name.' '.$retailerEm
       <div class="box box-primary">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Edit Retailer Employee</h3>
+            <h3 class="panel-title">Edit Employee</h3>
           </div>
         </div>
         <div class="main" style="padding: 10px 20px;">
@@ -25,31 +25,31 @@ $this->Html->addCrumb(__('Edit : '.$retailerEmployee->first_name.' '.$retailerEm
               <input type="hidden" name="_method" value="PUT">
             </div>
             <div class ="form-group">          
-              <div class="input-group">
+              <div class="input-group" title="Enter First Name*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                 <input class = "form-control" type="text" value = "<?=$retailerEmployee->first_name?>" name="first_name" required="required" id="first_name" maxlength="255"> 
               </div>
             </div>
             <div class ="form-group">
-              <div class="input-group">
+              <div class="input-group" title="Enter Last Name*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                 <input class = "form-control" type="text" value = "<?=$retailerEmployee->last_name?>" name="last_name" required="required" id="last_name" maxlength="255"> 
               </div>
             </div>
             <div class ="form-group">
-              <div class="input-group">
+              <div class="input-group" title="Enter Email*">
                 <span class="input-group-addon">@</span>
                 <input class = "form-control" type="email" value = "<?=$retailerEmployee->email?>" name="email" required="required" id="email" maxlength="255"> 
               </div>
             </div>
             <div class ="form-group">
-              <div class="input-group">
+              <div class="input-group" title="Enter Contact Number*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
                 <input class = "form-control" type="text" value = "<?=$retailerEmployee->contact?>" name="contact" required="required" id="contact" maxlength="100"> 
               </div>
             </div>
             <div class ="form-group">            
-              <div class="input-group">
+              <div class="input-group" title="Enter Address*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
                 <input class = "form-control" type="text" name="address" value = "<?=$retailerEmployee->address?>" required="required" id="address" maxlength="255">
               </div> 

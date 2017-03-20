@@ -1,7 +1,7 @@
 <?php
 $this->assign('title', __('Intrasys Loggings') );
 $this->Html->addCrumb(__('Intrasys'), ['controller' => 'Pages', 'action' => 'intrasys']);
-$this->Html->addCrumb(__('Intrasys Loggings'));
+$this->Html->addCrumb(__('Loggings'));
 ?>
 
 <!-- Main content -->
@@ -10,7 +10,7 @@ $this->Html->addCrumb(__('Intrasys Loggings'));
     <div class="col-xs-12">
       <div class="box box-primary">
         <div class="box-header with-border">
-          <h3 class="box-title"><?= __('Intrasys Loggings') ?></h3>
+          <h3 class="box-title"><?= __('System Log') ?></h3>
         </div>
         <div class="box-body">
             <div class="pull-right">
@@ -69,11 +69,11 @@ $this->Html->addCrumb(__('Intrasys Loggings'));
                 <?php foreach ($intrasysLoggings as $intrasysLogging): ?>
                 <tr>
                     <td><?= $this->Number->format($intrasysLogging->id) ?></td>
-                    <td><?= $this->Html->link(__(ucfirst($intrasysLogging->action)), ['action' => 'view', $intrasysLogging->id], ['title' => 'View Logging Details']) ?></td>
+                    <td><?= $this->Html->link(__(ucfirst($intrasysLogging->action)), ['action' => 'view', $intrasysLogging->id], ['title' => 'View Log Details']) ?></td>
                     <td><?= h($intrasysLogging->entity) ?></td>
                     <td><?= $this->Number->format($intrasysLogging->entityid) ?></td>
                     <td><?= $this->Number->format($intrasysLogging->employeeid) ?></td>
-                    <td><?= $intrasysLogging->has('retailer') ? $this->Html->link($intrasysLogging->retailer->retailer_name, ['controller' => 'Retailers', 'action' => 'view', $intrasysLogging->retailer->id]) : '' ?></td>
+                    <td><?= $intrasysLogging->has('retailer') ? $this->Html->link($intrasysLogging->retailer->retailer_name, ['controller' => 'Retailers', 'action' => 'view', $intrasysLogging->retailer->id], ['title' => 'View Retailer Details']) : '' ?></td>
                     <td><?= $this->Time->format(h($intrasysLogging->created), 'd MMM YYYY, HH:mm') ?></td>
                     <!--<td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $intrasysLogging->id]) ?>

@@ -62,8 +62,8 @@ $this->Html->addCrumb(__('Feedbacks'));
                   <td style="max-width: 150px;"><a href="tel:+<?= h($feedback->contact) ?>" title="Call Contact">
                     <?= h($feedback->customer_contact) ?></a></td>
                     <td style="max-width: 150px;"><a href="mailto:<?= h($feedback->email) ?>" title="email"><?= h($feedback->customer_email) ?></a></td>
-                    <td style="max-width: 150px;"><?= $feedback->has('product') ? $this->Html->link($feedback->product->id, ['controller' => 'Products', 'action' => 'view', $feedback->product->id]) : '' ?></td>
-                    <td style="max-width: 150px;"><?= $feedback->has('item') ? $this->Html->link($feedback->item->name, ['controller' => 'Items', 'action' => 'view', $feedback->item->id]) : '' ?></td>
+                    <td style="max-width: 150px;"><?= $feedback->has('product') ? $this->Html->link($feedback->product->prod_name, ['controller' => 'Products', 'action' => 'view', $feedback->product->id], ['title' => 'View Product Details']) : '' ?></td>
+                    <td style="max-width: 150px;"><?= $feedback->has('item') ? $this->Html->link($feedback->item->name, ['controller' => 'Items', 'action' => 'view', $feedback->item->id], ['title' => 'View Item Details']) : '' ?></td>
                     <td>
                     <?php 
                     if($feedback->status == 'Pending'){
@@ -120,7 +120,7 @@ $this->Html->addCrumb(__('Feedbacks'));
                     </td>
 
                     <!-- php elseif ($feedback->status == 'Replied'): ?><a class="btn btn-default btn-block" title="Change to Closed" href="/IS3102_Final/feedbacks/repliedStatus/= $feedback->id ?>" >Replied</a>php else: ?><a class="btn btn-default btn-block" title="Change to Pending" href="/IS3102_Final/feedbacks/closedStatus/= $feedback->id ?>" >Closed</a>php endif; ?></td>-->
-                    <td style="max-width: 150px;"><?= h($feedback->created) ?></td>
+                    <td style="max-width: 150px;"><?= $this->Time->format(h($feedback->created), 'd MMM YYYY, HH:mm') ?></td>
                     <td><a href="/IS3102_Final/feedbacks/edit/<?=$feedback->id?>"><i class="fa fa-edit" title="Edit Feedback Details"></i></a>&nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Feedback')), array('action' => 'delete', $feedback->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $feedback->id))) ?></td>
                   </tr>
                 <?php endforeach; ?>

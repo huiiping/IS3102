@@ -18,7 +18,7 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
           <?php if (!empty($retailerEmployee->retailer_employee_roles)): ?>
           <?php foreach ($retailerEmployee->retailer_employee_roles as $retailerEmployeeRoles): ?>
             <p class="text-muted text-center">
-                <?= $this->Html->link(__(h($retailerEmployeeRoles->role_name)), ['controller' => 'RetailerEmployeeRoles', 'action' => 'view', $retailerEmployeeRoles->id]) ?>
+                <?= $this->Html->link(__(h($retailerEmployeeRoles->role_name)), ['controller' => 'RetailerEmployeeRoles', 'action' => 'view', $retailerEmployeeRoles->id], ['title' => 'View Employee Role Details']) ?>
             </p>
           <?php endforeach; ?>
           <?php endif; ?> 
@@ -26,11 +26,19 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item">
               <b><?= __('Activation Status') ?></b> 
-              <div class="pull-right"><?= h($retailerEmployee->activation_status) ?></div>
+              <div class="pull-right">
+                <?php if ($retailerEmployee->activation_status == 'Activated'): ?>
+                  <a class="btn btn-default btn-block" title="Deactivate Employee" href="/IS3102_Final/retailer-employees/deactivateStatus/<?= $retailerEmployee->id ?>">Deactivate</a>
+                <?php else: ?>
+                  <a class="btn btn-default btn-block" title="Activate Employee" href="/IS3102_Final/retailer-employees/activateStatus/<?= $retailerEmployee->id ?>">Activate</a>
+                <?php endif; ?>   
+              </div><br><br>
             </li>
             <li class="list-group-item">
               <b><?= __('Location') ?></b> 
-              <div class="pull-right"><?= $retailerEmployee->has('location') ? $this->Html->link($retailerEmployee->location->name, ['controller' => 'Locations', 'action' => 'view', $retailerEmployee->location->id]) : '' ?></div>
+              <div class="pull-right">
+                <?= $retailerEmployee->has('location') ? $this->Html->link($retailerEmployee->location->name, ['controller' => 'Locations', 'action' => 'view', $retailerEmployee->location->id], ['title' => 'View Location Details']) : '' ?>
+              </div>
             </li>
           </ul>
             <a class="btn btn-default btn-block" title="Edit Employee Details" href="/IS3102_Final/retailer-employees/edit/<?= $retailerEmployee->id ?>" >Edit Employee Details</a>
@@ -47,32 +55,40 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
               <div class="box-body"><br>
                 <table class="table table-bordered table-striped">
                     <tr>
+                        <th scope="row"><?= __('Id') ?></th>
+                        <td><?= $this->Number->format($retailerEmployee->id) ?></td>
+                    </tr>
+                    <tr>
                         <th scope="row"><?= __('Username') ?></th>
                         <td><?= h($retailerEmployee->username) ?></td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Email') ?></th>
-                        <td><?= h($retailerEmployee->email) ?></td>
+                        <td>
+                            <a href="mailto:<?= h($retailerEmployee->email) ?>" title="Email">
+                              <?= h($retailerEmployee->email) ?>
+                            </a>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Contact') ?></th>
-                        <td><?= h($retailerEmployee->contact) ?></td>
+                        <td>
+                            <a href="tel:+<?= h($retailerEmployee->contact) ?>" title="Call Contact">
+                              <?= h($retailerEmployee->contact) ?>
+                            </a>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row"><?= __('Address') ?></th>
                         <td><?= h($retailerEmployee->address) ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Id') ?></th>
-                        <td><?= $this->Number->format($retailerEmployee->id) ?></td>
+                        <th scope="row"><?= __('Date Created') ?></th>
+                        <td><?= $this->Time->format(h($retailerEmployee->created), 'd MMM YYYY, HH:mm') ?></td>
                     </tr>
                     <tr>
-                        <th scope="row"><?= __('Created') ?></th>
-                        <td><?= $this->Time->format(h($retailerEmployee->created), 'd MMM YYYY, hh:mm') ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Modified') ?></th>
-                        <td><?= $this->Time->format(h($retailerEmployee->modified), 'd MMM YYYY, hh:mm') ?></td>
+                        <th scope="row"><?= __('Last Modified') ?></th>
+                        <td><?= $this->Time->format(h($retailerEmployee->modified), 'd MMM YYYY, HH:mm') ?></td>
                     </tr>
                 </table>
               </div>
@@ -92,7 +108,7 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
 
         <div class="tab-content">
             <div class="active tab-pane" id="promotions">
-                <?php if (!empty($retailerEmployee->promotions)): ?>
+                <?php if (!empty($retailerEmployee->promotions)): ?><br>
                 <table class="table table-bordered table-striped">
                   <thead>
                     <tr>
@@ -122,20 +138,20 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
                         <td><?= h($promotions->credit_card_type) ?></td>
                         <td><?= h($promotions->retailer_employee_id) ?></td>-->
                         <td>
-                            <?= $this->Html->link(__('Promotion '.h($promotions->id)), ['controller' => 'Promotions', 'action' => 'view', $promotions->id]) ?>
+                            <?= $this->Html->link(__('Promotion '.h($promotions->id)), ['controller' => 'Promotions', 'action' => 'view', $promotions->id], ['title' => 'View Promotion Details']) ?>
                         </td>
                     </tr>
                     <?php endforeach; ?>
                   </tbody>
                 </table>
                 <?php else: ?>
-
+                    <br>
                     There is no related promotion.
-
+                    <br><br>
                 <?php endif; ?>
             </div>
             <div class="tab-pane" id="orders">
-                <?php if (!empty($retailerEmployee->purchase_orders)): ?>
+                <?php if (!empty($retailerEmployee->purchase_orders)): ?><br>
                 <table class="table table-bordered table-striped">
                   <thead>
                     <tr>
@@ -152,7 +168,7 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
                     <?php foreach ($retailerEmployee->purchase_orders as $purchaseOrders): ?>
                     <tr>
                         <td>
-                            <?= $this->Html->link(__('PO '.h($purchaseOrders->id)), ['controller' => 'PurchaseOrders', 'action' => 'view', $purchaseOrders->id]) ?>
+                            <?= $this->Html->link(__('PO '.h($purchaseOrders->id)), ['controller' => 'PurchaseOrders', 'action' => 'view', $purchaseOrders->id], ['title' => 'View Purchase Order Details']) ?>
                         </td>
                         <td>
                             <?= $this->Time->format(h($purchaseOrders->created), 'd MMM YYYY, hh:mm') ?>
@@ -168,13 +184,13 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
                   </tbody>
                 </table>
                 <?php else: ?>
-
+                    <br>
                     There is no related purchase order.
-
+                    <br><br>
                 <?php endif; ?>
             </div>
             <div class="tab-pane" id="memos">
-                <?php if (!empty($retailerEmployee->supplier_memos)): ?>
+                <?php if (!empty($retailerEmployee->supplier_memos)): ?><br>
                 <table class="table table-bordered table-striped">
                   <thead>
                     <tr>
@@ -193,7 +209,7 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
                         <td><?= h($supplierMemos->remarks) ?></td>
                         <td><?= h($supplierMemos->created) ?></td>-->
                         <td>
-                            <?= $this->Html->link(__('Supplier '.h($supplierMemos->supplier_id)), ['controller' => 'SupplierMemos', 'action' => 'view', $supplierMemos->id]) ?>
+                            <?= $this->Html->link(__('Supplier '.h($supplierMemos->supplier_id)), ['controller' => 'SupplierMemos', 'action' => 'view', $supplierMemos->id], ['title' => 'View Supplier Memo Details']) ?>
                         </td>
                         <!--<td><?= h($supplierMemos->retailer_employee_id) ?></td>-->
                     </tr>
@@ -201,13 +217,13 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
                   </tbody>
                 </table>
                 <?php else: ?>
-
+                    <br>
                     There is no related supplier memo.
-
+                    <br><br>
                 <?php endif; ?>
             </div>
             <div class="tab-pane" id="messages">
-                <?php if (!empty($retailerEmployee->messages)): ?>
+                <?php if (!empty($retailerEmployee->messages)): ?><br>
                 <table class="table table-bordered table-striped">
                   <thead>
                     <tr>
@@ -226,7 +242,7 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
                     <tr>
                         <!--<td><?= h($messages->id) ?></td>-->
                         <td>
-                            <?= $this->Html->link(__('Message '.h($messages->id)), ['controller' => 'Messages', 'action' => 'view', $messages->id]) ?>
+                            <?= $this->Html->link(__('Message '.h($messages->id)), ['controller' => 'Messages', 'action' => 'view', $messages->id], ['title' => 'View Message Details']) ?>
                         </td>
                         <!--<td><?= h($messages->date_created) ?></td>
                         <td><?= h($messages->message) ?></td>
@@ -238,13 +254,13 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
                   </tbody>
                 </table>
                 <?php else: ?>
-
+                    <br>
                     There is no related message.
-
+                    <br><br>
                 <?php endif; ?>
             </div>
             <div class="tab-pane" id="logs">
-                <?php if (!empty($retailerEmployee->retailer_loggings)): ?>
+                <?php if (!empty($retailerEmployee->retailer_loggings)): ?><br>
                 <table class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -266,7 +282,7 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
                         ?>
                     <tr>
                         <td><?= $this->Number->format($logs->id) ?></td>
-                        <td><?= ucfirst(h($logs->action)) ?></td>
+                        <td><?= $this->Html->link(__(ucfirst(h($logs->action))), ['controller' => 'RetailerLoggings', 'action' => 'view', $logs->id], ['title' => 'View Log Details']) ?></td>
                         <td><?= h($logs->entity) ?> 
                             (<?= $this->Number->format($logs->entityid)?>) 
                         </td>
@@ -280,9 +296,9 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
                 </tbody>
                 </table>
                 <?php else: ?>
-
+                    <br>
                     There is no related logging.
-
+                    <br><br>
                 <?php endif; ?>
             </div>
         </div>

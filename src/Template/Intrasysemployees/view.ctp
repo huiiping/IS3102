@@ -21,7 +21,7 @@ $this->Html->addCrumb(__('View : '.$intrasysEmployee->first_name.' '.$intrasysEm
             <?php if (!empty($intrasysEmployee->intrasys_employee_roles)): ?>
             <?php foreach ($intrasysEmployee->intrasys_employee_roles as $intrasysEmployeeRoles): ?>
               <p class="text-muted text-center">
-                  <?= $this->Html->link(__(h($intrasysEmployeeRoles->role_name)), ['controller' => 'IntrasysEmployeeRoles', 'action' => 'view', $intrasysEmployeeRoles->id]) ?>
+                  <?= $this->Html->link(__(h($intrasysEmployeeRoles->role_name)), ['controller' => 'IntrasysEmployeeRoles', 'action' => 'view', $intrasysEmployeeRoles->id], ['title' => 'View Employee Role Details']) ?>
               </p>
             <?php endforeach; ?>
             <?php endif; ?> 
@@ -29,7 +29,13 @@ $this->Html->addCrumb(__('View : '.$intrasysEmployee->first_name.' '.$intrasysEm
             <ul class="list-group list-group-unbordered">
               <li class="list-group-item">
                 <b><?= __('Activation Status') ?></b> 
-                <div class="pull-right"><?= h($intrasysEmployee->activation_status) ?></div>
+                <div class="pull-right">
+                <?php if ($intrasysEmployee->activation_status == 'Activated'): ?>
+                  <a class="btn btn-default btn-block" title="Deactivate Employee" href="/IS3102_Final/intrasys-employees/deactivateStatus/<?= $intrasysEmployee->id ?>">Deactivate</a>
+                <?php else: ?>
+                  <a class="btn btn-default btn-block" title="Activate Employee" href="/IS3102_Final/intrasys-employees/activateStatus/<?= $intrasysEmployee->id ?>">Activate</a>
+                <?php endif; ?>   
+              </div><br><br>
               </li>
             </ul>
             <a class="btn btn-default btn-block" title="Edit Employee Details" href="/IS3102_Final/intrasys-employees/edit/<?= $intrasysEmployee->id ?>" >Edit Employee Details</a>
@@ -56,7 +62,7 @@ $this->Html->addCrumb(__('View : '.$intrasysEmployee->first_name.' '.$intrasysEm
                       <tr>
                           <th scope="row"><?= __('Email') ?></th>
                           <td>
-                            <a href="mailto:<?= h($intrasysEmployee->email) ?>" title="email">
+                            <a href="mailto:<?= h($intrasysEmployee->email) ?>" title="Email">
                               <?= h($intrasysEmployee->email) ?>
                             </a>
                           </td>
@@ -64,7 +70,7 @@ $this->Html->addCrumb(__('View : '.$intrasysEmployee->first_name.' '.$intrasysEm
                       <tr>
                           <th scope="row"><?= __('Contact') ?></th>
                           <td>
-                            <a href="tel:+<?= h($intrasysEmployee->contact) ?>" title="contact">
+                            <a href="tel:+<?= h($intrasysEmployee->contact) ?>" title="Call Contact">
                               <?= h($intrasysEmployee->contact) ?>
                             </a>
                           </td>
@@ -74,7 +80,7 @@ $this->Html->addCrumb(__('View : '.$intrasysEmployee->first_name.' '.$intrasysEm
                           <td><?= h($intrasysEmployee->address) ?></td>
                       </tr>
                       <tr>
-                          <th scope="row"><?= __('Join Date') ?></th>
+                          <th scope="row"><?= __('Date Created') ?></th>
                           <td><?= $this->Time->format(h($intrasysEmployee->created), 'd MMM YYYY, HH:mm') ?></td>
                       </tr>
                       <tr>

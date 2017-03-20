@@ -1,8 +1,8 @@
 <?php
 $this->assign('title', __('Retailer Loggings') . '/' . __('Index'));
 $this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
-$this->Html->addCrumb(__('Retailer Loggings'), ['controller' => 'RetailerLoggings', 'action' => 'index']);
-$this->Html->addCrumb(__('View Retailer Logging'));
+$this->Html->addCrumb(__('Loggings'), ['controller' => 'RetailerLoggings', 'action' => 'index']);
+$this->Html->addCrumb(__('View Log'));
 ?>
 
 <!-- Main content -->
@@ -34,7 +34,7 @@ $this->Html->addCrumb(__('View Retailer Logging'));
                 </tr>
                 <tr>
                     <th scope="row"><?= __('Retailer Employee') ?></th>
-                    <td><?= $retailerLogging->has('retailer_employee') ? $this->Html->link($retailerLogging->retailer_employee->first_name.' '.$retailerLogging->retailer_employee->last_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $retailerLogging->retailer_employee->id]) : '' ?></td>
+                    <td><?= $retailerLogging->has('retailer_employee') ? $this->Html->link($retailerLogging->retailer_employee->first_name.' '.$retailerLogging->retailer_employee->last_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $retailerLogging->retailer_employee->id], ['title' => 'View Employee Details']) : '' ?></td>
                 </tr>
                 <tr>
                     <th scope="row"><?= __('Created') ?></th>

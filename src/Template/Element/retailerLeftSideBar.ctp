@@ -32,7 +32,7 @@
         </li>
         
       <?php else : ?>
-        <?= $this->Element('sideBar3', array('title' => 'Create New', 'num' => '26', 
+        <?= $this->Element('sideBar3', array('icon' => 'tags', 'title' => 'Create New', 'num' => '26', 
         'type1' => 'Employee', 'typePlural' => 'RetailerEmployees', 
         'type2' => 'Customer', 'typePlural2' => 'Customers', 
         'type3' => 'Membership Tier', 'typePlural3' => 'CustMembershipTiers', 
@@ -61,33 +61,33 @@
         'type26' => 'Report', 'typePlural26' => 'Reports'
         )); ?>
 
-        <?= $this->Element('sideBar', array('title' => 'Employees', 'type1' => 'Employees', 'typePlural' => 'RetailerEmployees', 'type2' => 'Employee Roles', 'typePlural2' => 'RetailerEmployeeRoles')); ?>
+        <?= $this->Element('sideBar', array('icon' => 'users', 'title' => 'Employees', 'type1' => 'Employees', 'typePlural' => 'RetailerEmployees', 'type2' => 'Employee Roles', 'typePlural2' => 'RetailerEmployeeRoles')); ?>
         
-        <?= $this->Element('sideBar2', array('title' => 'Customers', 'num' => '4', 'type1' => 'Customers', 'typePlural' => 'Customers', 'type2' => 'Membership Tiers', 'typePlural2' => 'CustMembershipTiers', 'type3' => 'Membership Points', 'typePlural3' => 'MembershipPoints', 'type4' => 'Feedbacks', 'typePlural4' => 'Feedbacks')); ?>
+        <?= $this->Element('sideBar2', array('icon' => 'users', 'title' => 'Customers', 'num' => '4', 'type1' => 'Customers', 'typePlural' => 'Customers', 'type2' => 'Membership Tiers', 'typePlural2' => 'CustMembershipTiers', 'type3' => 'Membership Points', 'typePlural3' => 'MembershipPoints', 'type4' => 'Feedbacks', 'typePlural4' => 'Feedbacks')); ?>
         
-        <?= $this->Element('sideBar', array('title' => 'Promotions', 'type1' => 'Promotions', 'typePlural' => 'Promotions', 'type2' => 'Promotion Emails', 'typePlural2' => 'PromotionEmails')); ?>
+        <?= $this->Element('sideBar', array('icon' => 'shopping-cart', 'title' => 'Promotions', 'type1' => 'Promotions', 'typePlural' => 'Promotions', 'type2' => 'Promotion Emails', 'typePlural2' => 'PromotionEmails')); ?>
         
-        <?= $this->Element('sideBar2', array('title' => 'Products', 'num' => '3', 'type1' => 'Product Category', 'typePlural' => 'ProdCats', 'type2' => 'Products', 'typePlural2' => 'Products', 'type3' => 'Product Specification', 'typePlural3' => 'ProdSpecifications')); ?>
+        <?= $this->Element('sideBar2', array('icon' => 'shopping-cart', 'title' => 'Products', 'num' => '3', 'type1' => 'Product Category', 'typePlural' => 'ProdCats', 'type2' => 'Products', 'typePlural2' => 'Products', 'type3' => 'Product Specification', 'typePlural3' => 'ProdSpecifications')); ?>
 
-        <?= $this->Element('sideBar2', array('title' => 'Warehouse', 'num' => '5', 'type1' => 'Locations', 'typePlural' => 'Locations', 'type2' => 'Sections', 'typePlural2' => 'Sections', 'type3' => 'Inventory', 'typePlural3' => 'Inventory', 'type4' => 'Stock Levels', 'typePlural4' => 'StockLevels', 'type5' => 'Items', 'typePlural5' => 'Items')); ?>
+        <?= $this->Element('sideBar2', array('icon' => 'building', 'title' => 'Warehouse', 'num' => '5', 'type1' => 'Locations', 'typePlural' => 'Locations', 'type2' => 'Sections', 'typePlural2' => 'Sections', 'type3' => 'Inventory', 'typePlural3' => 'Inventory', 'type4' => 'Stock Levels', 'typePlural4' => 'StockLevels', 'type5' => 'Items', 'typePlural5' => 'Items')); ?>
 
-        <?= $this->Element('sideBar2', array('title' => 'Suppliers', 'num' => '3', 'type1' => 'Suppliers', 'typePlural' => 'Suppliers', 'type2' => 'Purchase Orders', 'typePlural2' => 'PurchaseOrders', 'type3' => 'RFQ', 'typePlural3' => 'Rfqs')); ?>
+        <?= $this->Element('sideBar2', array('icon' => 'users', 'title' => 'Suppliers', 'num' => '3', 'type1' => 'Suppliers', 'typePlural' => 'Suppliers', 'type2' => 'Purchase Orders', 'typePlural2' => 'PurchaseOrders', 'type3' => 'RFQ', 'typePlural3' => 'Rfqs')); ?>
 
-        <?= $this->Element('sideBar2', array('title' => 'Transactions', 'num' => '6', 'type1' => 'Transactions', 'typePlural' => 'Transactions', 'type2' => 'Transaction Items', 'typePlural2' => 'TransactionItems', 'type3' => 'Delivery Orders', 'typePlural3' => 'DeliveryOrders', 'type4' => 'Delivery Order Items', 'typePlural4' => 'DeliveryOrderItems', 'type5' => 'Transfer Orders', 'typePlural5' => 'TransferOrders', 'type6' => 'Transfer Order Items', 'typePlural6' => 'TransferOrderItems')); ?>
+        <?= $this->Element('sideBar2', array('icon' => 'file-text-o', 'title' => 'Transactions', 'num' => '6', 'type1' => 'Transactions', 'typePlural' => 'Transactions', 'type2' => 'Transaction Items', 'typePlural2' => 'TransactionItems', 'type3' => 'Delivery Orders', 'typePlural3' => 'DeliveryOrders', 'type4' => 'Delivery Order Items', 'typePlural4' => 'DeliveryOrderItems', 'type5' => 'Transfer Orders', 'typePlural5' => 'TransferOrders', 'type6' => 'Transfer Order Items', 'typePlural6' => 'TransferOrderItems')); ?>
 
         <li class="treeview">
           <a href="/IS3102_Final/messages/index">
-            <i class="fa fa-table"></i><span>&nbsp;Messages</span>
+            <i class="fa fa-envelope"></i><span>&nbsp;Messages</span>
           </a>
         </li>
         <li class="treeview">
           <a href="/IS3102_Final/reports/index">
-            <i class="fa fa-table"></i><span>&nbsp;Reports</span>
+            <i class="fa fa-book"></i><span>&nbsp;Reports</span>
           </a>
         </li>
         <li class="treeview">
           <a href="/IS3102_Final/retailer-loggings/index">
-            <i class="fa fa-table"></i><span>&nbsp;Retailer Loggings</span>
+            <i class="fa fa-table"></i><span>&nbsp;Loggings</span>
           </a>
         </li>
       <?php endif; ?>

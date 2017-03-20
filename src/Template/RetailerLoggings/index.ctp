@@ -1,7 +1,7 @@
 <?php
 $this->assign('title', __('Retailer Loggings') . '/' . __('Index'));
 $this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
-$this->Html->addCrumb(__('Retailer Loggings'));
+$this->Html->addCrumb(__('Loggings'));
 ?>
 
 <!-- Main content -->
@@ -62,12 +62,12 @@ $this->Html->addCrumb(__('Retailer Loggings'));
                   <?php foreach ($retailerLoggings as $retailerLogging): ?>
                   <tr>
                       <td><?= $this->Number->format($retailerLogging->id) ?></td>
-                      <td><?= $this->Html->link(__(ucfirst($retailerLogging->action)), ['action' => 'view', $retailerLogging->id]) ?></td>
+                      <td><?= $this->Html->link(__(ucfirst($retailerLogging->action)), ['action' => 'view', $retailerLogging->id], ['title' => 'View Log Details']) ?></td>
                       <td><?= h($retailerLogging->entity) ?>
                         (<?= $this->Number->format($retailerLogging->entityid) ?>)
                       </td>
                       <td><?= $this->Number->format($retailerLogging->entityid) ?></td>
-                      <td><?= $retailerLogging->has('retailer_employee') ? $this->Html->link($retailerLogging->retailer_employee->first_name.' '.$retailerLogging->retailer_employee->last_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $retailerLogging->retailer_employee->id]) : '' ?></td>
+                      <td><?= $retailerLogging->has('retailer_employee') ? $this->Html->link($retailerLogging->retailer_employee->first_name.' '.$retailerLogging->retailer_employee->last_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $retailerLogging->retailer_employee->id], ['title' => 'View Employee Details']) : '' ?></td>
                       <td><?= $this->Time->format(h($retailerLogging->created), 'd MMM YYYY, HH:mm') ?></td>
                   </tr>
                   <?php endforeach; ?>

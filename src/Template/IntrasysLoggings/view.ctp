@@ -34,7 +34,7 @@ $this->Html->addCrumb(__('View Intrasys Logging'));
                   </tr>
                   <tr>
                       <th scope="row"><?= __('Retailer') ?></th>
-                      <td><?= $intrasysLogging->has('retailer') ? $this->Html->link($intrasysLogging->retailer->retailer_name, ['controller' => 'Retailers', 'action' => 'view', $intrasysLogging->retailer->id]) : '' ?></td>
+                      <td><?= $intrasysLogging->has('retailer') ? $this->Html->link($intrasysLogging->retailer->retailer_name, ['controller' => 'Retailers', 'action' => 'view', $intrasysLogging->retailer->id], ['title' => 'View Retailer Details']) : '' ?></td>
                   </tr>
                   <tr>
                       <th scope="row"><?= __('Employee Id') ?></th>
