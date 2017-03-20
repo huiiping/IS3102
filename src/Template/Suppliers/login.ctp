@@ -22,6 +22,9 @@
 	.input-group{
 		padding-bottom: 8px;
 	}
+	div:empty {
+		display: none;
+	}
 </style>
 <?= $this->Html->css(captcha_layout_stylesheet_url(), ['inline' => false]) ?>
 
@@ -43,7 +46,7 @@
 							<br>
 							<div id = "login_form">
 
-								<form method="post" accept-charset="utf-8" action="/IS3102_Final/suppliers/login">
+								<form id="loginForm" method="post" accept-charset="utf-8" action="/IS3102_Final/suppliers/login" onsubmit="return validateForm()">
 									<div style="display:none;">
 										<input type="hidden" name="_method" value="POST">
 									</div>					
@@ -66,7 +69,8 @@
 
 										<?php endforeach;	?>
 										</select>
-									</div>				
+									</div>	
+									<div id=validateMessage></div>			
 									<br>
 									<!-- CAPTCHA CSS -->	
 
@@ -140,6 +144,15 @@
 
 
 		});
+		function validateForm(){
+				var retailer=document.forms["loginForm"]["retailer"].value
+				
+				if (!isNaN(retailer)){
+					document.getElementById('validateMessage').innerHTML = "*Please Select the retailer you are under";
+					return false;
+				}
+				return true;
+			}
 	</script>
 
 

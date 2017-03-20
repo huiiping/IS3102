@@ -27,6 +27,9 @@
 	.input-group{
 		padding-bottom: 8px;
 	}
+	div:empty {
+		display: none;
+	}
 </style>
 
 <?= $this->Html->css(captcha_layout_stylesheet_url(), ['inline' => false]) ?>
@@ -50,7 +53,7 @@
 							<br>
 							<div id = "login_form">
 
-								<form method="post" accept-charset="utf-8" action="/IS3102_Final/retailer-employees/login">
+								<form id="loginForm" method="post" accept-charset="utf-8" action="/IS3102_Final/retailer-employees/login" onsubmit="return validateForm()">
 									<div style="display:none;">
 										<input type="hidden" name="_method" value="POST">
 									</div>					
@@ -62,7 +65,6 @@
 										<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 										<input class = "form-control" type="password" name="password" placeholder = "Password" required="required" id="password">
 									</div>
-
 									<div class="input-group">
 										<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
 										<select name="retailer" id="retailer" class="form-control" placeholder="Retailer" required="required">
@@ -73,7 +75,9 @@
 
 										<?php endforeach;	?>
 										</select>
-									</div>					
+									</div>
+									<div id=validateMessage></div>
+													
 									<br>
 									<!-- CAPTCHA CSS -->					
 									<?php 
@@ -93,6 +97,7 @@
 									<!-- End CAPTCHA -->
 
 									<hr>
+
 									<div class="submit" style="padding-bottom: 5px;">
 										<input type="submit" class="btn btn-md btn-primary btn-block" style="border-radius: 10px;" value="Login">
 									</div>					
@@ -133,5 +138,16 @@
 			
 
 		});
+
+		function validateForm(){
+				var retailer=document.forms["loginForm"]["retailer"].value
+				
+				if (!isNaN(retailer)){
+					document.getElementById('validateMessage').innerHTML = "*Please Select the retailer you are under";
+					return false;
+				}
+				return true;
+			}
+
 	</script>
 
