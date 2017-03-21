@@ -458,8 +458,8 @@ public function login(){
                 $this->Flash->error('Your account has not been activated yet. Please check your email');
 
                 return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
-            } else if($retaileremployee['recovery_status'] == 'Pending') {
-                $this->Flash->error('Your account has not been recovered yet. Please check your email.');
+            } else if($retaileremployee['activation_status'] == 'Recovery') {
+                $this->Flash->error('An email regarding password recovery has been sent to your email address. Please check your mail');
 
                 return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
             } else {
@@ -629,7 +629,7 @@ public function login(){
         $retailerEmployee = $this->RetailerEmployees->get($id);
         
 
-        $retailerEmployee->activation_status = 'Deactivated';
+        $retailerEmployee->activation_status = 'Recovery';
         $retailerEmployee->activation_token = $this->Generator->generateString();
 
         if ($this->RetailerEmployees->save($retailerEmployee)){

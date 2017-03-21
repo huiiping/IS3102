@@ -393,8 +393,8 @@ class SuppliersController extends AppController
                     return $this->redirect(['controller' => 'Pages', 'action' => 'login']);
                 }
 
-                if($supplier['recovery_status'] == 'Pending'){
-                    $this->Flash->error('Your account has not been recovered yet. Please check your email.');
+                if($supplier['activation_status'] == 'Recovery'){
+                    $this->Flash->error('An email regarding password recovery has been sent to your email address. Please check your mail');
 
                     return $this->redirect(['controller' => 'Pages', 'action' => 'login']);
                 }
@@ -423,7 +423,7 @@ class SuppliersController extends AppController
         $this->set('retailers', $query);
     }
 
-    public function recover(){
+    public function recoverPassword(){
 
         $this->loadComponent('Generator');
 
@@ -466,7 +466,7 @@ class SuppliersController extends AppController
         $hashedPass = $hasher->hash($pass);
 
         $conn->update('suppliers', 
-            ['activation_status' => 'Pending' ,
+            ['activation_status' => 'Recovery' ,
             'activation_token' => $token,
             'password' => $hashedPass],
             ['email' => $email]);

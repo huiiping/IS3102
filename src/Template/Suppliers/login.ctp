@@ -99,7 +99,7 @@
 
 							<div id="resetPass_form" style="display: none;">
 
-								<form method="post" accept-charset="utf-8" action="/IS3102_Final/suppliers/recover">
+								<form method="post" accept-charset="utf-8" action="/IS3102_Final/suppliers/recoverPassword">
 									<div style="display:none;">
 										<input type="hidden" name="_method" value="POST">
 									</div>
@@ -153,7 +153,7 @@
 		});
 		function validateForm(){
 			var retailer=document.forms["loginForm"]["retailer"].value
-			
+
 			if (!isNaN(retailer)){
 				document.getElementById('validateMessage').innerHTML = "*Please Select the retailer you are under";
 				return false;

@@ -327,8 +327,8 @@ public function login(){
         return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'login']);
       }
 
-      if($intrasysemployee['recovery_status'] == 'Pending'){
-        $this->Flash->error('Your account has not been recovered yet. Please check your email.');
+      if($intrasysemployee['activation_status'] == 'Recovery'){
+        $this->Flash->error('An email regarding password recovery has been sent to your email address. Please check your mail.');
 
         return $this->redirect(['controller' => 'IntrasysEmployees', 'action' => 'login']);
       }
@@ -397,7 +397,7 @@ public function managerActions($id = null) {
     
 
 
-    $intrasysEmployee->activation_status = 'Deactivated';
+    $intrasysEmployee->activation_status = 'Recovery';
     $intrasysEmployee->activation_token = $this->Generator->generateString();
 
     if ($this->IntrasysEmployees->save($intrasysEmployee)){
