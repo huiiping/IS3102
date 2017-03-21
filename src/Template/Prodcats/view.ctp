@@ -9,20 +9,19 @@ $this->Html->addCrumb(__('Product Category'), ['controller' => 'ProdCats', 'acti
 $this->Html->addCrumb(__('View Product Category'));
 ?>
 <!-- Main content -->
-<section class="content">
+<section class="content" style="min-height: 550px">
   <div class="row">
     <div class="col-xs-12">
       <div class="box box-primary" style="height: 100%;">
         <div class="box-body box-profile">
           <div class="box-header with-border">
             <h3 class="box-title"><?= h($prodCat->cat_name) ?></h3>
-
-            <div class="pull-right">
-              <a class="btn btn-default btn-flat" href="/IS3102_Final/prod-cats/edit/<?= $prodCat->id ?>" >Edit Product Category</a>
-            </div>
-            <br>
           </div>
           <div class="box-body">
+            <div class="pull-right">
+              <a class="btn btn-default btn-flat" href="/IS3102_Final/prod-cats/edit/<?= $prodCat->id ?>" >Edit Product Category</a>
+            </div><br><br><br>
+
             <table class="table table-bordered table-striped">
               <tr>
                 <th scope="row"><?= __('Id') ?></th>
@@ -64,4 +63,3 @@ $this->Html->addCrumb(__('View Product Category'));
     </div>
   </div>
 </section>
-</div>

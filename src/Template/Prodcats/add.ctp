@@ -10,7 +10,7 @@ $this->Html->addCrumb(__('Create New Product Category'));
 ?>
 
 <!-- Main content -->
-<section class="content">
+<section class="content" style="min-height: 550px">
   <div class="row">
     <div class="col-md-offset-3 col-md-6">
       <div class="box box-primary">
@@ -27,20 +27,20 @@ $this->Html->addCrumb(__('Create New Product Category'));
             </div>
 
             <div class ="form-group">          
-              <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+              <div class="input-group" title="Enter Category Name*">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-font"></i></span>
                 <input class = "form-control" type="text" placeholder = "Category Name*" name="cat_name" required="required" id="cat_name" maxlength="255"> 
               </div>
             </div>
 
             <div class ="form-group">          
-              <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+              <div class="input-group" title="Enter Category Description">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
                 <input class = "form-control" type="text" placeholder = "Category Description*" name="cat_desc" required="required" id="cat_desc" maxlength="255"> 
               </div>
             </div>
             <div class ="form-group">          
-              <div class="input-group">
+              <div class="input-group" title="Select Parent Category">
                 <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span><input type="hidden" name="parentid" value="">
                 <select name="parentid" class='selectpicker form-control' data-live-search="true" title = "Select Parent Category*">
                   <option value="<?= null ?>">No Parent Category</option>
@@ -51,11 +51,11 @@ $this->Html->addCrumb(__('Create New Product Category'));
               </div>
             </div>
          <div class ="row">
-         <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Add Product Category</button>
+          <a href="/IS3102_Final/prod-cats/index" class="btn btn-md btn-default pull-left" style="border-radius: 8px; margin:5px;">Back to Product Category Index</a>
+          <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Create Product Category</button>
         </div>
       </div>
     </div>
   </div>
 </div>
 </section>
-</div>

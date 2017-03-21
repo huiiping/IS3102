@@ -56,7 +56,7 @@ $this->Html->addCrumb(__('Announcements'));
                   <tr>
                       <!--<td><?= $this->Number->format($announcement->id) ?></td>-->
                       <td style="max-width: 150px; overflow: hidden;"><?= $this->Html->link(__($announcement->title), ['action' => 'view', $announcement->id], ['title' => 'View Announcement Details']) ?></td>
-                      <td style="max-width: 150px; overflow: hidden;"><?= h($announcement->message) ?></td>
+                      <td style="max-width: 150px; overflow: hidden;"><?php echo $announcement->message ?></td>
                       <td style="max-width: 150px; overflow: hidden;"><?= h($announcement->remarks) ?></td>
                       <!--<td><?= $this->Time->format(h($announcement->created), 'd MMM YYYY, hh:mm') ?></td>
                       <td><?= $this->Time->format(h($announcement->modified), 'd MMM YYYY, hh:mm') ?></td>

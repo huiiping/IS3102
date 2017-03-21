@@ -29,10 +29,10 @@ class CustomersController extends AppController
         //$customers = $this->paginate($this->Customers);
         $this->loadComponent('Prg');
         $this->Prg->commonProcess();
-        $this->set('customers', $this->paginate($this->Customers->find('searchable', $this->Prg->parsedParams())));
         $this->paginate = [
             'contain' => ['CustMembershipTiers']
         ];
+        $this->set('customers', $this->paginate($this->Customers->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('customers'));
         $this->set('_serialize', ['customers']);
     }
@@ -88,9 +88,10 @@ class CustomersController extends AppController
             }
             $this->Flash->error(__('The customer could not be saved. Please, try again.'));
         }
-        $custMembershipTiers = $this->Customers->CustMembershipTiers->find('list', ['limit' => 200]);
-        $promotions = $this->Customers->Promotions->find('list', ['limit' => 200]);
-        $this->set(compact('customer', 'custMembershipTiers'));
+        $this->set('custMembershipTiers', $this->Customers->CustMembershipTiers->find('all')); //to populate select input 
+        //$custMembershipTiers = $this->Customers->CustMembershipTiers->find('list', ['limit' => 200]);
+        //$promotions = $this->Customers->Promotions->find('list', ['limit' => 200]);
+        $this->set(compact('customer','custMembershipTiers'));
         $this->set('_serialize', ['customer']);
     }
 
@@ -103,7 +104,9 @@ class CustomersController extends AppController
      */
     public function edit($id = null)
     {
-        $customer = $this->Customers->get($id);
+        $customer = $this->Customers->get($id, [
+            'contain' => []
+        ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $customer = $this->Customers->patchEntity($customer, $this->request->data);
             if ($this->Customers->save($customer)) {
@@ -121,7 +124,6 @@ class CustomersController extends AppController
             $this->Flash->error(__('The customer could not be saved. Please, try again.'));
         }
         $custMembershipTiers = $this->Customers->CustMembershipTiers->find('list', ['limit' => 200]);
-        $promotions = $this->Customers->Promotions->find('list', ['limit' => 200]);
         $this->set(compact('customer', 'custMembershipTiers'));
         $this->set('_serialize', ['customer']);
     }
@@ -152,5 +154,30 @@ class CustomersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function activateStatus($id) {
+
+          $customer = $this->Customers->get($id);
+
+          $customer->activation_status = 'Activated';
+          $this->Customers->save($customer);
+
+          $this->Flash->success(__('The Customer has been activated.'));
+
+          return $this->redirect(['action' => 'index']);
+    }
+
+    public function deactivateStatus($id) {
+
+      $customer = $this->Customers->get($id);
+
+      $customer->activation_status = 'Deactivated';
+      $this->Customers->save($customer);
+
+      $this->Flash->success(__('The Customer has been deactivated.'));
+
+      return $this->redirect(['action' => 'index']);
+
     }
 }

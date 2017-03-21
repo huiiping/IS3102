@@ -1,6 +1,7 @@
 <?php
 use Cake\ORM\TableRegistry;
 ?>
+
 <?php
 $this->assign('title', __('ProdCats') . '/' . __('Index'));
 $this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
@@ -8,7 +9,7 @@ $this->Html->addCrumb(__('Product Category'));
 ?>
 
 <!-- Main content -->
-<section class="content">
+<section class="content" style="min-height: 550px">
   <div class="row">
     <div class="col-xs-12">
       <div class="box box-primary">
@@ -77,8 +78,8 @@ $this->Html->addCrumb(__('Product Category'));
                   $session->write('catName',$catID);
                 }
                   ?>
-                  <td style="max-width: 150px;"><?= $this->Html->link(__($session->read('catName')), ['action' => 'view', $prodCat->parentid]) ?></td>
-                  <td style="max-width: 150px;"><?= $this->Html->link(__($prodCat->cat_name), ['action' => 'view', $prodCat->id]) ?></td>
+                  <td style="max-width: 150px;"><?= $this->Html->link(__($session->read('catName')), ['action' => 'view', $prodCat->parentid], ['title' => 'View Parent ID Details']) ?></td>
+                  <td style="max-width: 150px;"><?= $this->Html->link(__($prodCat->cat_name), ['action' => 'view', $prodCat->id], ['title' => 'View Product Category Details']) ?></td>
                   <td style="max-width: 150px;"><?= h($prodCat->cat_desc) ?></td>
                   <td class="actions">
                     <a href="/IS3102_Final/prod-cats/edit/<?=$prodCat->id?>"><i class="fa fa-edit" title="Edit Product Category"></i></a>&nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Product Category')), array('action' => 'delete', $prodCat->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $prodCat->id))) ?></td>
@@ -102,4 +103,3 @@ $this->Html->addCrumb(__('Product Category'));
     </div>
   </div>
 </section>
-</div>

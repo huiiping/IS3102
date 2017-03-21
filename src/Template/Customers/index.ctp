@@ -102,8 +102,11 @@ $this->Html->addCrumb(__('Customers'));
                     <!--<td><?= h($customer->created) ?></td>
                     <td><?= h($customer->modified) ?></td>-->
                     <td>
-                        <?= h($customer->activation_status) ?>
-                        
+                        <?php if ($customer->activation_status == 'Activated'): ?>
+                          <a class="btn btn-default btn-block" title="Deactivate Customer" href="/IS3102_Final/customers/deactivateStatus/<?= $customer->id ?>" >Deactivate</a>
+                        <?php else: ?>
+                          <a class="btn btn-default btn-block" title="Activate Customer" href="/IS3102_Final/customers/activateStatus/<?= $customer->id ?>" >Activate</a>
+                        <?php endif; ?>
                     </td>
                     <!--<td><?= h($customer->activation_token) ?></td>
                     <td><?= h($customer->recovery_status) ?></td>

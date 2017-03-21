@@ -29,7 +29,7 @@ $this->Html->addCrumb(__('View Announcement'));
                   </tr>
                   <tr>
                       <th scope="row"><?= __('Message') ?></th>
-                      <td><?= h($announcement->message) ?></td>
+                      <td><?php echo $announcement->message ?></td>
                   </tr>
                   <tr>
                       <th scope="row"><?= __('Remarks') ?></th>

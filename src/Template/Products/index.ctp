@@ -8,7 +8,7 @@ $this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'ret
 $this->Html->addCrumb(__('Products'));
 ?>
 <!-- Main content -->
-<section class="content">
+<section class="content" style="min-height: 550px">
   <div class="row">
     <div class="col-xs-12">
       <div class="box box-primary">
@@ -76,7 +76,7 @@ $this->Html->addCrumb(__('Products'));
                   }
                   ?>
 
-                  <td style="max-width: 150px;"><?= $product->has('prod_cat') ? $this->Html->link($session->read('catName'), ['controller' => 'ProdCats', 'action' => 'view', $product->prod_cat_id], ['title' => 'View Product Category']) : '' ?></td>
+                  <td style="max-width: 150px;"><?= $product->has('prod_cat') ? $this->Html->link($session->read('catName'), ['controller' => 'ProdCats', 'action' => 'view', $product->prod_cat_id], ['title' => 'View Product Category Details']) : '' ?></td>
                   <td style="max-width: 150px;"><?= $this->Number->format($product->store_unit_price) ?></td>
                   <td style="max-width: 150px;"><?= $this->Number->format($product->web_store_unit_price) ?></td>
                   <td style="max-width: 150px;"><?= h($product->SKU) ?></td>
