@@ -23,9 +23,9 @@ class MessagesController extends AppController
         $this->loadComponent('Prg');
     }
 
-    public function chat() {
+    // public function chat() {
         
-    }
+    // }
 
     public $components = array(
         'Prg'

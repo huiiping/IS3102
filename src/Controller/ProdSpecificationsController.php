@@ -77,7 +77,7 @@ class ProdSpecificationsController extends AppController
             'contain' => ['Products']
         ]);
 
-        var_dump($prodSpecification);
+        //var_dump($prodSpecification);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $prodSpecification = $this->ProdSpecifications->patchEntity($prodSpecification, $this->request->data);
             if ($this->ProdSpecifications->save($prodSpecification)) {
