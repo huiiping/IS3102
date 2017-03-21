@@ -63,11 +63,11 @@
 										<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
 										<select name="retailer" id="retailer" class="form-control" placeholder="Retailer" required="required">
 											<option value="0">---- Select ----</option>
-										<?php foreach ($retailers as $retailer): ?>
+											<?php foreach ($retailers as $retailer): ?>
 
-											<option><?= $retailer->retailer_name ?></option>
+												<option><?= $retailer->retailer_name ?></option>
 
-										<?php endforeach;	?>
+											<?php endforeach;	?>
 										</select>
 									</div>	
 									<div id=validateMessage></div>			
@@ -109,8 +109,15 @@
 									</div>
 									<div class="input-group">
 										<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-										<input class = "form-control" placeholder = "Retailer" type="text" name="retailer" id="retailer" required="required">
-									</div>			
+										<select name="retailer" id="retailer" class="form-control" placeholder="Retailer" required="required">
+											<option value="0">---- Select ----</option>
+											<?php foreach ($retailers as $retailer): ?>
+
+												<option><?= $retailer->retailer_name ?></option>
+
+											<?php endforeach;	?>
+										</select>
+									</div>		
 									<hr>
 									<div class="submit" style="padding-bottom:5px"><input type="submit" class="btn btn-md btn-primary btn-block" style="border-radius: 10px" value="Recover my Account">
 									</div>	
@@ -145,14 +152,14 @@
 
 		});
 		function validateForm(){
-				var retailer=document.forms["loginForm"]["retailer"].value
-				
-				if (!isNaN(retailer)){
-					document.getElementById('validateMessage').innerHTML = "*Please Select the retailer you are under";
-					return false;
-				}
-				return true;
+			var retailer=document.forms["loginForm"]["retailer"].value
+			
+			if (!isNaN(retailer)){
+				document.getElementById('validateMessage').innerHTML = "*Please Select the retailer you are under";
+				return false;
 			}
+			return true;
+		}
 	</script>
 
 

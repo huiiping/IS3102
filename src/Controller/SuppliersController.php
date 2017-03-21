@@ -423,36 +423,75 @@ class SuppliersController extends AppController
         $this->set('retailers', $query);
     }
 
-    public function recoverPassword($id = null){
+    public function recover(){
 
         $this->loadComponent('Generator');
-        $session = $this->request->session();
-        $database = $session->read('database');
 
-        $supplier = $this->Suppliers->get($id);
-
-        $supplier->activation_status = 'Deactivated';
-        $supplier->activation_token = $this->Generator->generateString();
-
-        if ($this->Suppliers->save($supplier)){
+        $email = $_POST['email'];
+        $retailer = $_POST['retailer'];
+        $database = $_POST['retailer'].'db';
 
 
-            $this->Email->recoveryEmail(
-                $retailerEmployee['email'], 
-                $retailerEmployee['supplier_name'], 
-                $retailerEmployee['username'], 
-                $this->password, 
-                $retailerEmployee['id'], 
-                $retailerEmployee['activation_token'], 
-                'suppliers',
-                $database
-                );
+        ConnectionManager::drop('conn1'); 
+        ConnectionManager::config('conn1', [
+            'className' => 'Cake\Database\Connection',
+            'driver' => 'Cake\Database\Driver\Mysql',
+            'persistent' => false,
+            'host' => 'localhost',
+            'username' => 'root',
+            'password' => 'joy',
+            'database' => $database,
+            'encoding' => 'utf8',
+            'timezone' => 'UTC',
+            'cacheMetadata' => true,
+            ]);
+        $conn = ConnectionManager::get('conn1');
 
-            $this->Flash->success(__('Password Reset Email Sent'));
-            return $this->redirect(['action' => 'index']);
+        $query = $conn
+        ->newQuery()
+        ->select('*')
+        ->from('suppliers')
+        ->where(['email' => $email])
+        ->execute()
+        ->fetchAll('assoc');
+
+        if($query == NULL){
+            $this->Flash->error(__('Invalid email address'));
+            return $this->redirect(['action' => 'login']);
         }
 
+        $token = $this->Generator->generateString();
+        $pass = $this->Generator->generateString();
+        $hasher = new DefaultPasswordHasher();
+        $hashedPass = $hasher->hash($pass);
+
+        $conn->update('suppliers', 
+            ['activation_status' => 'Pending' ,
+            'activation_token' => $token,
+            'password' => $hashedPass],
+            ['email' => $email]);
+
+        $this->Email->recoveryEmail(
+            $email, 
+            $query[0]['supplier_name'], 
+            $query[0]['username'], 
+            $pass, 
+            $query[0]['id'], 
+            $token,  
+            'suppliers',
+            $database
+            );
+
+
+        $this->Flash->success(__('Password Reset Email Sent, please check your email.'));
+        return $this->redirect(['action' => 'login']);
+
+
+
     }
+
+
+    
 
     public function logout(){
         $this->Flash->success('You are now logged out');
