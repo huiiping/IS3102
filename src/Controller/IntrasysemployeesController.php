@@ -41,7 +41,8 @@ class IntrasysEmployeesController extends AppController {
 
     // Allow users to register and logout.
     // You should not add the "login" action to allow list. Doing so would cause problems with normal functioning of AuthComponent.
-    $this->Auth->allow(['add', 'logout', 'activate', 'recoverPassword', 'recoverActivate', 'setPassword']);
+    //$this->Auth->allow(['add', 'logout', 'activate', 'recoverPassword', 'recoverActivate', 'setPassword']);
+    $this->Auth->allow(['add', 'logout', 'activate', 'recoverPassword', 'setPassword']);
 
   }
 
@@ -103,32 +104,32 @@ class IntrasysEmployeesController extends AppController {
   * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
   */
 
-  public function add2() {
+  // public function add2() {
 
-    $intrasysEmployee = $this->IntrasysEmployees->newEntity();
+  //   $intrasysEmployee = $this->IntrasysEmployees->newEntity();
 
-    if ($this->request->is('post')) {
+  //   if ($this->request->is('post')) {
 
-    	$intrasysEmployee = $this->IntrasysEmployees->patchEntity($intrasysEmployee, $this->request->data);
-    	$intrasysEmployee->set('activation_status', 'Activated');
+  //   	$intrasysEmployee = $this->IntrasysEmployees->patchEntity($intrasysEmployee, $this->request->data);
+  //   	$intrasysEmployee->set('activation_status', 'Activated');
 
-    	if ($this->IntrasysEmployees->save($intrasysEmployee)) {
+  //   	if ($this->IntrasysEmployees->save($intrasysEmployee)) {
 
-    		$this->Flash->success(__('The intrasys employee has been saved.'));
-        $this->Logging->iLog(null, $intrasysEmployee['id']);
+  //   		$this->Flash->success(__('The intrasys employee has been saved.'));
+  //       $this->Logging->iLog(null, $intrasysEmployee['id']);
 
-        return $this->redirect(['action' => 'index']);
-      }
+  //       return $this->redirect(['action' => 'index']);
+  //     }
 
-      $this->Flash->error(__('The intrasys employee could not be saved. Please, try again.'));
+  //     $this->Flash->error(__('The intrasys employee could not be saved. Please, try again.'));
 
-    }
+  //   }
 
-    $intrasysEmployeeRoles = $this->IntrasysEmployees->IntrasysEmployeeRoles->find('list', ['limit' => 200]);
-    $this->set(compact('intrasysEmployee', 'intrasysEmployeeRoles'));
-    $this->set('_serialize', ['intrasysEmployee']);
+  //   $intrasysEmployeeRoles = $this->IntrasysEmployees->IntrasysEmployeeRoles->find('list', ['limit' => 200]);
+  //   $this->set(compact('intrasysEmployee', 'intrasysEmployeeRoles'));
+  //   $this->set('_serialize', ['intrasysEmployee']);
 
-  }
+  // }
 
   public function add() {
 
@@ -179,9 +180,7 @@ class IntrasysEmployeesController extends AppController {
 
     }
 
-
-
-    function activate($id, $token) {
+    public function activate($id, $token) {
 
       $intrasysEmployee = $this->IntrasysEmployees->get($id);
 
@@ -197,7 +196,7 @@ class IntrasysEmployeesController extends AppController {
 
     }
 
-    function setPassword() {
+    public function setPassword() {
 
       $id=$_POST['employeeId'];
       $token=$_POST['token'];
@@ -418,32 +417,32 @@ public function managerActions($id = null) {
     }
   }
 
-  public function recoverActivate($id, $token){
+  // public function recoverActivate($id, $token){
 
-    $intrasysEmployee = $this->IntrasysEmployees->get($id);
+  //   $intrasysEmployee = $this->IntrasysEmployees->get($id);
 
-    if($intrasysEmployee['recovery_status'] == NULL) {
+  //   if($intrasysEmployee['recovery_status'] == NULL) {
 
-      $this->Flash->success(__('Your account has already been recovered.'));
+  //     $this->Flash->success(__('Your account has already been recovered.'));
 
-      return $this->redirect(['action' => 'login']);
-    }
+  //     return $this->redirect(['action' => 'login']);
+  //   }
 
-    if ($intrasysEmployee && $intrasysEmployee['recovery_token'] == $token) {
+  //   if ($intrasysEmployee && $intrasysEmployee['recovery_token'] == $token) {
 
-      $intrasysEmployee->recovery_status = NULL;
-      $intrasysEmployee->recovery_token = NULL;
-      $this->IntrasysEmployees->save($intrasysEmployee);
+  //     $intrasysEmployee->recovery_status = NULL;
+  //     $intrasysEmployee->recovery_token = NULL;
+  //     $this->IntrasysEmployees->save($intrasysEmployee);
 
-      $this->Flash->success(__('Your account has been recovered. Please log in using your new username and password.'));
+  //     $this->Flash->success(__('Your account has been recovered. Please log in using your new username and password.'));
 
-      return $this->redirect(['action' => 'login']);
-    }
+  //     return $this->redirect(['action' => 'login']);
+  //   }
 
-    $this->Flash->error(__('There is something wrong with the activation link'));
+  //   $this->Flash->error(__('There is something wrong with the activation link'));
 
-    return $this->redirect(['action' => 'login']);
-  }
+  //   return $this->redirect(['action' => 'login']);
+  // }
 
   public function logout(){
 

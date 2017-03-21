@@ -12,8 +12,7 @@ use Cake\Event\Event;
 class CustMembershipTiersController extends AppController
 {
 
-    public function beforeFilter(Event $event)
-    {
+    public function beforeFilter(Event $event)     {
 
         $this->loadComponent('Logging');
         

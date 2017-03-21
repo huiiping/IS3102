@@ -45,8 +45,6 @@ $this->Html->addCrumb(__('Loggings'));
               </table>
             </form>
             <br>
-            <?= $this->Html->link('Excel File', ['_ext' => 'xlsx']); ?>
-            <br><br>
           <table class="table table-bordered table-striped">
             <thead>
                 <tr>

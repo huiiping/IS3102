@@ -27,18 +27,18 @@ class RetailerLoyaltyPointsController extends AppController
      * Not used in the current setup
      * @return \Cake\Network\Response|null
      */
-    public function index() {
-        $this->loadComponent('Prg');
-        $this->Prg->commonProcess();
+    // public function index() {
+    //     $this->loadComponent('Prg');
+    //     $this->Prg->commonProcess();
 
-        $this->paginate = [
-            'contain' => ['Retailers']
-        ];
+    //     $this->paginate = [
+    //         'contain' => ['Retailers']
+    //     ];
 
-        $this->set('retailerLoyaltyPoints', $this->paginate($this->RetailerLoyaltyPoints->find('searchable', $this->Prg->parsedParams())));
-        $this->set(compact('retailerLoyaltyPoints'));
-        $this->set('_serialize', ['retailerLoyaltyPoints']);
-    }
+    //     $this->set('retailerLoyaltyPoints', $this->paginate($this->RetailerLoyaltyPoints->find('searchable', $this->Prg->parsedParams())));
+    //     $this->set(compact('retailerLoyaltyPoints'));
+    //     $this->set('_serialize', ['retailerLoyaltyPoints']);
+    // }
 
     public $components = array(
         'Prg'
@@ -234,22 +234,22 @@ class RetailerLoyaltyPointsController extends AppController
         return $this->redirect(['action' => 'view', $retailerLoyaltyPoint->retailer_id]);
     }
 
-    public function individual($id = null)
-    {
-        $retailerLoyaltyPoints = $this->paginate($this->RetailerLoyaltyPoints);
-        $this->set(compact('retailerLoyaltyPoints'));
+    // public function individual($id = null)
+    // {
+    //     $retailerLoyaltyPoints = $this->paginate($this->RetailerLoyaltyPoints);
+    //     $this->set(compact('retailerLoyaltyPoints'));
 
-        $query = $this->RetailerLoyaltyPoints->find('all', [
-            'contain' => ['Retailers'],
-            'conditions' => ['RetailerLoyaltyPoints.retailer_id' => $id]
-        ]);
-        $retailerLoyaltyPoints = $query->all();
+    //     $query = $this->RetailerLoyaltyPoints->find('all', [
+    //         'contain' => ['Retailers'],
+    //         'conditions' => ['RetailerLoyaltyPoints.retailer_id' => $id]
+    //     ]);
+    //     $retailerLoyaltyPoints = $query->all();
 
-        $session = $this->request->session();
-        $retailer = $session->read('retailer');
+    //     $session = $this->request->session();
+    //     $retailer = $session->read('retailer');
 
-        $this->set('retailerLoyaltyPoints', $retailerLoyaltyPoints);
-        $this->set('_serialize', ['retailerLoyaltyPoints']);
-    }
+    //     $this->set('retailerLoyaltyPoints', $retailerLoyaltyPoints);
+    //     $this->set('_serialize', ['retailerLoyaltyPoints']);
+    // }
 }
         

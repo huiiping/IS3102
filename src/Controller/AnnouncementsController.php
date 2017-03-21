@@ -45,6 +45,7 @@ class AnnouncementsController extends AppController
         $this->set(compact('announcements'));
         $this->set('_serialize', ['announcements']);
     }
+    
     public $components = array(
         'Prg'
     );

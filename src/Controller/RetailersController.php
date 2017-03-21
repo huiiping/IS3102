@@ -118,9 +118,6 @@ class RetailersController extends AppController
         $this->set('_serialize', ['retailer']);
     }
 
-   
-
-
     public function retailerActivities($database,$retailer){
                 //TODO:UPDATE the commands accordingly to the OS
                 //Add retailer roles in the retailer employee roles table
@@ -144,8 +141,7 @@ class RetailersController extends AppController
                     'encoding' => 'utf8',
                     'timezone' => 'UTC',
                     'cacheMetadata' => true,
-                ]);
-                
+                ]);                 
 
                 $companyID = $retailer['id'];
                 $companyName = $retailer['retailer_name'];
@@ -168,33 +164,10 @@ class RetailersController extends AppController
 
                 $token = $this->Generator->generateString();
 
-                
-
-                $sql = "INSERT INTO Retailer_employees (username, first_name, last_name, password, activation_status, activation_token, email, address, contact, created, modified)  
-                VALUES (
-                '$user',
-                '$companyName',
-                '$companyName',
-                '$hashedPass',
-                'Deactivated',
-                '$token',
-                '$companyEmail',
-                '$companyAddress',
-                '$companyContact',
-                '$created',
-                '$modified'
-                )";
+                $sql = "INSERT INTO Retailer_employees (username, first_name, last_name, password, activation_status, activation_token, email, address, contact, created, modified) VALUES ('$user', '$companyName', '$companyName', '$hashedPass', 'Deactivated', '$token', '$companyEmail', '$companyAddress', '$companyContact', '$created', '$modified')";
                 
                 $this->Email->retailerEmployeeActivationEmail(
-                        $companyEmail, 
-                        $companyName, 
-                        $user, 
-                        $pass, 
-                        1, 
-                        $token,  
-                        'retailer-employees',
-                        $database
-                        );
+                        $companyEmail, $companyName, $user, $pass, 1, $token, 'retailer-employees', $database);
                 
                 //Add 'Master Account' role to the master account
                 $sql2 = "INSERT INTO Retailer_employees_retailer_employee_roles (retailer_employee_id, retailer_employee_role_id) VALUES ('1', '35')";
@@ -259,11 +232,6 @@ class RetailersController extends AppController
         if ($this->Retailers->delete($retailer)) {
             $this->Flash->success(__('The retailer has been deleted.'));
 
-            //$session = $this->request->session();
-            //$retailer = $session->read('retailer');
-
-            //$this->loadComponent('Logging');
-            //$this->Logging->log($retailer['id']);
             $this->Logging->iLog(null, $retailer['id']);
             
         } else {
@@ -272,7 +240,6 @@ class RetailersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-
 
     public function activateStatus($id) {
 

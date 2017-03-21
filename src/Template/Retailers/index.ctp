@@ -62,10 +62,8 @@ $this->Html->addCrumb(__('Retailers'));
                           <?= h($retailer->contact) ?>
                         </a>
                       </td>
-                      <td><?= h($retailer->account_status) ?></td>
                       <td><?= $retailer->has('retailer_acc_type') ? $this->Html->link($retailer->retailer_acc_type->name, ['controller' => 'RetailerAccTypes', 'action' => 'view', $retailer->retailer_acc_type->id], ['title' => 'View Account Type Details']) : '' ?></td>
                       <td>
-
                       <?php
                         $query = $retailerLoyaltyPoints
                                   ->find()
@@ -85,13 +83,8 @@ $this->Html->addCrumb(__('Retailers'));
                         }
                         echo $this->Html->link($total, ['controller' => 'retailerLoyaltyPoints' , 'action' => 'view', $retailer->id], ['title' => 'View Loyalty Points Details']);
                       ?>
-                        
                       </td>
-                      <!--<td class="actions">
-                          <?= $this->Html->link(__('View |'), ['action' => 'view', $retailer->id]) ?>
-                          <?= $this->Html->link(__('Edit |'), ['action' => 'edit', $retailer->id]) ?>
-                          <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $retailer->id], ['confirm' => __('Are you sure you want to delete # {0}?', $retailer->id)]) ?>
-                      </td>-->
+                      <td><?= h($retailer->account_status) ?></td>
                       <td>
                         <a href="/IS3102_Final/retailers/edit/<?=$retailer->id?>">
                           <i class="fa fa-edit" title="Edit Retailer Details"></i></a>&nbsp
