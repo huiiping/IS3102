@@ -1,16 +1,16 @@
 <?php
 use Cake\ORM\TableRegistry; 
 ?>
+
 <?php
 $this->assign('title', __('Products') . '/' . __('Add'));
 $this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
 $this->Html->addCrumb(__('Products'), ['controller' => 'Products', 'action' => 'index']);
 $this->Html->addCrumb(__('Create New Product'));
-
 ?>
 
-  <!-- Main content -->
-  <section class="content">
+<!-- Main content -->
+<section class="content" style="min-height: 550px">
     <div class="row">
       <div class="col-md-offset-3 col-md-6">
         <div class="box box-primary">
@@ -111,7 +111,8 @@ $this->Html->addCrumb(__('Create New Product'));
          </div>
 
          <div class ="row">
-          <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Add Product</button>
+          <a href="/IS3102_Final/products/index" class="btn btn-md btn-default pull-left" style="border-radius: 8px; margin:5px;">Back to Products Index</a>
+          <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Create Product</button>
         </div>
 
       </form>
