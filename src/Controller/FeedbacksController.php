@@ -2,6 +2,12 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Datasource\ConnectionManager;
+use Cake\Auth\DefaultPasswordHasher;
+use Cake\Event\Event;
+use Cake\Error\Debugger;
+use Cake\ORM\TableRegistry;
+use Cake\Mailer\Email;
 
 /**
  * Feedbacks Controller
@@ -11,6 +17,13 @@ use App\Controller\AppController;
 class FeedbacksController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->loadcomponent('DbSchema');
+        $this->loadComponent('Logging');
+        $this->loadComponent('Email');
+    }
     /**
      * Index method
      *
@@ -46,6 +59,13 @@ class FeedbacksController extends AppController
             'contain' => ['Customers', 'Products', 'Items']
             ]);
 
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($feedback['id']);
+        $this->Logging->iLog($retailer, $feedback['id']);
+
         $this->set('feedback', $feedback);
         $this->set('_serialize', ['feedback']);
     }
@@ -67,9 +87,18 @@ class FeedbacksController extends AppController
             }
             $this->Flash->error(__('The feedback could not be saved. Please, try again.'));
         }
+
         $customers = $this->Feedbacks->Customers->find('list', ['limit' => 200]);
         $products = $this->Feedbacks->Products->find('list', ['limit' => 200]);
         $items = $this->Feedbacks->Items->find('list', ['limit' => 200]);
+
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($feedback['id']);
+        $this->Logging->iLog($retailer, $feedback['id']);
+
         $this->set(compact('feedback', 'customers', 'products', 'items'));
         $this->set('_serialize', ['feedback']);
     }
@@ -95,9 +124,18 @@ class FeedbacksController extends AppController
             }
             $this->Flash->error(__('The feedback could not be saved. Please, try again.'));
         }
+
         $customers = $this->Feedbacks->Customers->find('list', ['limit' => 200]);
         $products = $this->Feedbacks->Products->find('list', ['limit' => 200]);
         $items = $this->Feedbacks->Items->find('list', ['limit' => 200]);
+
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($feedback['id']);
+        $this->Logging->iLog($retailer, $feedback['id']);
+
         $this->set(compact('feedback', 'customers', 'products', 'items'));
         $this->set('_serialize', ['feedback']);
     }
@@ -113,11 +151,19 @@ class FeedbacksController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $feedback = $this->Feedbacks->get($id);
+
         if ($this->Feedbacks->delete($feedback)) {
             $this->Flash->success(__('The feedback has been deleted.'));
         } else {
             $this->Flash->error(__('The feedback could not be deleted. Please, try again.'));
         }
+
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($feedback['id']);
+        $this->Logging->iLog($retailer, $feedback['id']);
 
         return $this->redirect(['action' => 'index']);
     }
@@ -128,6 +174,11 @@ class FeedbacksController extends AppController
 
       $feedback->status = 'Pending';
       $this->Feedbacks->save($feedback);
+
+      $session = $this->request->session();
+      $retailer = $session->read('retailer');
+      $this->Logging->rLog($feedback['id']);
+      $this->Logging->iLog($retailer, $feedback['id']);
 
       $this->Flash->success(__('The feedback has a pending status.'));
 
@@ -141,6 +192,11 @@ class FeedbacksController extends AppController
       $feedback->status = 'Replied';
       $this->Feedbacks->save($feedback);
 
+      $session = $this->request->session();
+      $retailer = $session->read('retailer');
+      $this->Logging->rLog($feedback['id']);
+      $this->Logging->iLog($retailer, $feedback['id']);
+
       $this->Flash->success(__('The feedback has a replied status.'));
 
       return $this->redirect(['action' => 'index']);
@@ -153,6 +209,11 @@ class FeedbacksController extends AppController
 
       $feedback->status = 'Closed';
       $this->Feedbacks->save($feedback);
+
+      $session = $this->request->session();
+      $retailer = $session->read('retailer');
+      $this->Logging->rLog($feedback['id']);
+      $this->Logging->iLog($retailer, $feedback['id']);
 
       $this->Flash->success(__('The feedback has a closed status.'));
 
