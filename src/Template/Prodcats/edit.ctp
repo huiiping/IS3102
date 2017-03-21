@@ -9,7 +9,7 @@ $this->Html->addCrumb(__('Product Category'), ['controller' => 'ProdCats', 'acti
 $this->Html->addCrumb(__('Edit Product Category'));
 ?>
 
-<section class="content">
+<section class="content" style="min-height: 550px">
   <div class="row">
     <div class="col-md-offset-3 col-md-6">
       <div class="box box-primary">
@@ -52,11 +52,11 @@ $this->Html->addCrumb(__('Edit Product Category'));
               </div>
             </div>
             <div class ="row">
-             <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Edit Product Category</button>
+              <a href="/IS3102_Final/prod-cats/index" class="btn btn-md btn-default pull-left" style="border-radius: 8px; margin:5px;">Back to Product Category Index</a>
+              <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Edit Product Category</button>
            </div>
          </div>
        </div>
      </div>
    </div>
  </section>
-</div>

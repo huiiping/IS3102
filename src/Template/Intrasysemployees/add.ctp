@@ -22,37 +22,37 @@ $this->Html->addCrumb(__('Create New Employee'));
               <input type="hidden" name="_method" value="POST">
             </div>
             <div class ="form-group">          
-              <div class="input-group" title="Enter First Name">
+              <div class="input-group" title="Enter First Name*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                 <input class = "form-control" type="text" placeholder = "First Name*" name="first_name" required="required" id="first_name" maxlength="255"> 
               </div>
             </div>
             <div class ="form-group">
-              <div class="input-group" title="Enter Last Name">
+              <div class="input-group" title="Enter Last Name*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                 <input class = "form-control" type="text" placeholder = "Last Name*" name="last_name" required="required" id="last_name" maxlength="255"> 
               </div>
             </div>
             <div class ="form-group">
-              <div class="input-group" title="Enter Email">
+              <div class="input-group" title="Enter Email*">
                 <span class="input-group-addon">@</span>
                 <input class = "form-control" type="email" placeholder = "Email*" name="email" required="required" id="email" maxlength="255"> 
               </div>
             </div>
             <div class ="form-group">
-              <div class="input-group" title="Enter Contac Number">
+              <div class="input-group" title="Enter Contact Number*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
                 <input class = "form-control" type="text" placeholder = "Contact Number*" name="contact" required="required" id="contact" maxlength="100"> 
               </div>
             </div>
             <div class ="form-group">            
-              <div class="input-group" title="Enter Address">
+              <div class="input-group" title="Enter Address*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
                 <input class = "form-control" type="text" name="address" placeholder = "Address*" required="required" id="address" maxlength="255">
               </div> 
             </div>
             <div class ="form-group">            
-              <div class="input-group" style="z-index: 999999999;" title="Select Employee Role(s)* ">
+              <div class="input-group" style="z-index: 999999999;" title="Select Employee Role(s)*">
                 <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
                 <input type="hidden" name="intrasys_employee_roles[_ids]" value="">
                 <select name="intrasys_employee_roles[_ids][]" class='selectpicker form-control' data-live-search="true" multiple data-selected-text-format="count > 3" title = "Select Employee Role(s)*" required="required">
