@@ -105,28 +105,28 @@ class SuppliersController extends AppController
      *
      * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add2()
-    {
-        $supplier = $this->Suppliers->newEntity();
-        if ($this->request->is('post')) {
-            $supplier = $this->Suppliers->patchEntity($supplier, $this->request->data);
-            if ($this->Suppliers->save($supplier)) {
-                $this->Flash->success(__('The supplier has been saved.'));
+    // public function add2()
+    // {
+    //     $supplier = $this->Suppliers->newEntity();
+    //     if ($this->request->is('post')) {
+    //         $supplier = $this->Suppliers->patchEntity($supplier, $this->request->data);
+    //         if ($this->Suppliers->save($supplier)) {
+    //             $this->Flash->success(__('The supplier has been saved.'));
 
-                $session = $this->request->session();
-                $retailer = $session->read('retailer');
+    //             $session = $this->request->session();
+    //             $retailer = $session->read('retailer');
 
-                //$this->loadComponent('Logging');
-                $this->Logging->rLog($supplier['id']);
-                $this->Logging->iLog($retailer, $supplier['id']);
+    //             //$this->loadComponent('Logging');
+    //             $this->Logging->rLog($supplier['id']);
+    //             $this->Logging->iLog($retailer, $supplier['id']);
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The supplier could not be saved. Please, try again.'));
-        }
-        $this->set(compact('supplier'));
-        $this->set('_serialize', ['supplier']);
-    }
+    //             return $this->redirect(['action' => 'index']);
+    //         }
+    //         $this->Flash->error(__('The supplier could not be saved. Please, try again.'));
+    //     }
+    //     $this->set(compact('supplier'));
+    //     $this->set('_serialize', ['supplier']);
+    // }
 
     public function add(){
 
@@ -454,32 +454,6 @@ class SuppliersController extends AppController
 
     }
 
-    
-
-    public function recoverActivate($id, $token){
-
-        $supplier = $this->Suppliers->get($id);
-        if($supplier['recovery_status'] == NULL){
-            $this->Flash->success(__('Your account has already been recovered.'));
-            return $this->redirect(['action' => 'login']);
-        }
-
-        if ($supplier && $supplier['recovery_token'] == $token) {
-
-
-            $supplier->recovery_status = NULL;
-            $supplier->recovery_token = NULL;
-            $this->Suppliers->save($supplier);
-
-            $this->Flash->success(__('Your account has been recovered. Please log in using your new username and password.'));
-            return $this->redirect(['action' => 'login']);
-
-        }
-        $this->Flash->error(__('There is something wrong with the activation link'));
-        return $this->redirect(['action' => 'login']);
-
-    }
-
     public function logout(){
         $this->Flash->success('You are now logged out');
         $this->Auth->logout();
@@ -512,4 +486,32 @@ class SuppliersController extends AppController
         return $this->redirect(['action' => 'view/'.$id]);
 
     }
+
+    
+
+    // public function recoverActivate($id, $token){
+
+    //     $supplier = $this->Suppliers->get($id);
+    //     if($supplier['recovery_status'] == NULL){
+    //         $this->Flash->success(__('Your account has already been recovered.'));
+    //         return $this->redirect(['action' => 'login']);
+    //     }
+
+    //     if ($supplier && $supplier['recovery_token'] == $token) {
+
+
+    //         $supplier->recovery_status = NULL;
+    //         $supplier->recovery_token = NULL;
+    //         $this->Suppliers->save($supplier);
+
+    //         $this->Flash->success(__('Your account has been recovered. Please log in using your new username and password.'));
+    //         return $this->redirect(['action' => 'login']);
+
+    //     }
+    //     $this->Flash->error(__('There is something wrong with the activation link'));
+    //     return $this->redirect(['action' => 'login']);
+
+    // }
+
+    
 }

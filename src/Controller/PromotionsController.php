@@ -105,7 +105,7 @@ class PromotionsController extends AppController
                         'last_sent' => Date::now(),
                         'number_of_sends' => 1]);
                     $promotionEmailTable->save($promotionEmail);
-                    Debugger::dump($this->request->data);
+                    //Debugger::dump($this->request->data);
 
 
                     $tiers = $_POST['cust_membership_tiers'];
