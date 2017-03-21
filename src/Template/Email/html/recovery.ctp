@@ -23,10 +23,8 @@ echo 'Dear '.$content[0].',' .'<br><br>';
 
 echo 'Someone has requested a password reset for your account. ' . 
 'Please click the following link to recover your account: ' . '<br>';
-echo 'http://' . $content[3] . '/IS3102_Final/'. $content[6] . '/recoverActivate/' . $content[4] . '/' . $content[5] . '<br><br>';
-echo 'After recovering your account, please log in using the new credentials: ' . '<br>';
-echo 'Username: ' . $content[1] . '<br>';
-echo 'Password: ' . $content[2] . '<br>';
+echo 'http://' . $content[3] . '/IS3102_Final/' . $content[6] . '/activate/' . $content[4] . '/' . $content[5] . '/' . $content[7] . '<br><br>';
+echo 'After re-activating your account, please key in your desired password and log in using the the new password' . '<br>';
 echo 'If this was a mistake, just ignore this email and nothing will happen. This is a computer generated email, please do not reply.' . '<br><br>';
 echo 'Regards,' . '<br>' . 'The Intrasys Team'
 

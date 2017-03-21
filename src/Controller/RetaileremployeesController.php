@@ -50,7 +50,7 @@ class RetailerEmployeesController extends AppController
         // Allow users to register and logout.
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
-        $this->Auth->allow(['add', 'logout', 'activate', 'recover', 'recoverActivate', 'setPassword']);
+        $this->Auth->allow(['add', 'logout', 'activate', 'recoverPassword', 'recoverActivate', 'setPassword']);
     }
 
     public function index() {
@@ -159,7 +159,7 @@ class RetailerEmployeesController extends AppController
 
 
                 if ($this->RetailerEmployees->save($retailerEmployee)) {
-                 
+
                     $session = $this->request->session();
                     $database = $session->read('database');
                     $retailer = $session->read('retailer');
@@ -254,7 +254,8 @@ class RetailerEmployeesController extends AppController
         $id=$_POST['employeeId'];
         $token=$_POST['token'];
         $database=$_POST['dbname'];
-        
+        $password =$_POST['password'];
+
         ConnectionManager::drop('conn1'); 
         ConnectionManager::config('conn1', [
             'className' => 'Cake\Database\Connection',
@@ -627,12 +628,45 @@ public function managerActions($id = null)
     $this->set(compact('roles'));
 }
 
-public function recover(){
+public function recoverPassword($id){
 
     $this->loadComponent('Generator');
-    $email = $_POST['email'];
-    $retailer = $_POST['retailer'];
-    $database = $_POST['retailer'].'db';
+    $session = $this->request->session();
+    $database = $session->read('database');
+
+    $retailerEmployee = $this->RetailerEmployees->get($id);
+    
+
+    $retailerEmployee->activation_status = 'Deactivated';
+    $retailerEmployee->activation_token = $this->Generator->generateString();
+
+    if ($this->RetailerEmployees->save($retailerEmployee)){
+
+
+        $this->Email->recoveryEmail(
+            $retailerEmployee['email'], 
+            $retailerEmployee['first_name'], 
+            $retailerEmployee['username'], 
+            $this->password, 
+            $retailerEmployee['id'], 
+            $retailerEmployee['activation_token'], 
+            'retailer-employees',
+            $database
+            );
+
+        $this->Flash->success(__('Password Reset Email Sent'));
+        return $this->redirect(['action' => 'index']);
+    }
+
+}
+
+
+
+
+
+
+
+public function recoverActivate($id, $token, $database){
 
     ConnectionManager::drop('conn1'); 
     ConnectionManager::config('conn1', [
@@ -653,160 +687,64 @@ public function recover(){
     ->newQuery()
     ->select('*')
     ->from('retailer_employees')
-    ->where(['email' => $email])
+    ->where(['id' => $id])
     ->execute()
     ->fetchAll('assoc');
 
     if($query == NULL){
-
-        $this->Flash->error(__('Invalid email address'));
+        $this->Flash->error(__('There is something wrong with the activation link'));
         return $this->redirect(['action' => 'login']);
     }
 
-    $token = $this->Generator->generateString();
-    $pass = $this->Generator->generateString();
-    $hasher = new DefaultPasswordHasher();
-    $hashedPass = $hasher->hash($pass);
+    if($query[0]['recovery_status'] == NULL){
+        $this->Flash->success(__('Your account has already been recovered.'));
+        return $this->redirect(['action' => 'login']);
+    }
 
     $conn->update('retailer_employees', 
-        ['recovery_status' => 'Pending' ,
-        'recovery_token' => $token,
-        'password' => $hashedPass],
-        ['email' => $email]);
+        ['recovery_status' => NULL ,
+        'recovery_token' => NULL],
+        ['id' => $id]);
 
-    $this->Email->retailerEmployeeRecoveryEmail(
-        $email, 
-        $query[0]['first_name'], 
-        $query[0]['username'], 
-        $pass, 
-        $query[0]['id'], 
-        $token,  
-        'retailer-employees',
-        $database
-        );
-
-
-    $this->Flash->success(__('Password Reset Email Sent, please check your email.'));
+    $this->Flash->success(__('Your account has been recovered.'));
     return $this->redirect(['action' => 'login']);
-
 }
 
-
-/*
-
-    $query = $this->RetailerEmployees->find('all', [
-        'conditions' => ['email' => $email],
-        ]);
-
-     
-    $row = $query->first();
-    $retaileremployee = $this->RetailerEmployees->get($row['id']);
-    $this->Logging->iLog(null, $retaileremployee['id']);
-
-    $newPass = $this->Generator->generateString();
-    $retaileremployee->password = $newPass;
-    $retaileremployee->recovery_status = 'Pending';
-    $retaileremployee->recovery_token = $this->Generator->generateString();
-
-    if ($this->RetailerEmployees->save($retaileremployee)){
-
-        $this->Email->recoveryEmail(
-            $retaileremployee['email'], 
-            $retaileremployee['first_name'], 
-            $retaileremployee['username'], 
-            $newPass, 
-            $retaileremployee['id'], 
-            $retaileremployee['recovery_token'], 
-            'retailer-employees');
-
-        
-
-        $this->Flash->success(__('Password Reset Email Sent, please check your email.'));
-        return $this->redirect(['action' => 'login']);
-    */
-
-
-
-
-        public function recoverActivate($id, $token, $database){
-
-            ConnectionManager::drop('conn1'); 
-            ConnectionManager::config('conn1', [
-                'className' => 'Cake\Database\Connection',
-                'driver' => 'Cake\Database\Driver\Mysql',
-                'persistent' => false,
-                'host' => 'localhost',
-                'username' => 'root',
-                'password' => 'joy',
-                'database' => $database,
-                'encoding' => 'utf8',
-                'timezone' => 'UTC',
-                'cacheMetadata' => true,
-                ]);
-            $conn = ConnectionManager::get('conn1');
-
-            $query = $conn
-            ->newQuery()
-            ->select('*')
-            ->from('retailer_employees')
-            ->where(['id' => $id])
-            ->execute()
-            ->fetchAll('assoc');
-
-            if($query == NULL){
-                $this->Flash->error(__('There is something wrong with the activation link'));
-                return $this->redirect(['action' => 'login']);
-            }
-
-            if($query[0]['recovery_status'] == NULL){
-                $this->Flash->success(__('Your account has already been recovered.'));
-                return $this->redirect(['action' => 'login']);
-            }
-
-            $conn->update('retailer_employees', 
-                ['recovery_status' => NULL ,
-                'recovery_token' => NULL],
-                ['id' => $id]);
-
-            $this->Flash->success(__('Your account has been recovered.'));
-            return $this->redirect(['action' => 'login']);
-        }
-
-        public function logout(){
-            $this->Flash->success('You are now logged out');
-            $this->Auth->logout();
-            $session = $this->request->session();
-            $session->destroy();
+public function logout(){
+    $this->Flash->success('You are now logged out');
+    $this->Auth->logout();
+    $session = $this->request->session();
+    $session->destroy();
 
         //$this->loadComponent('Logging');             
-            $this->Logging->rLog($session->read('retailer_employee_id'));
-            $this->Logging->iLog($session->read('retailer'), $session->read('retailer_employee_id'));
+    $this->Logging->rLog($session->read('retailer_employee_id'));
+    $this->Logging->iLog($session->read('retailer'), $session->read('retailer_employee_id'));
 
-            return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
-        }
+    return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
+}
 
-        public function activateStatus($id) {
+public function activateStatus($id) {
 
-          $retailerEmployee = $this->RetailerEmployees->get($id);
+  $retailerEmployee = $this->RetailerEmployees->get($id);
 
-          $retailerEmployee->activation_status = 'Activated';
-          $this->RetailerEmployees->save($retailerEmployee);
+  $retailerEmployee->activation_status = 'Activated';
+  $this->RetailerEmployees->save($retailerEmployee);
 
-          $this->Flash->success(__('The Retailer Employee has been activated.'));
+  $this->Flash->success(__('The Retailer Employee has been activated.'));
 
-          return $this->redirect(['action' => 'index']);
-      }
+  return $this->redirect(['action' => 'index']);
+}
 
-      public function deactivateStatus($id) {
+public function deactivateStatus($id) {
 
-          $retailerEmployee = $this->RetailerEmployees->get($id);
+  $retailerEmployee = $this->RetailerEmployees->get($id);
 
-          $retailerEmployee->activation_status = 'Deactivated';
-          $this->RetailerEmployees->save($retailerEmployee);
+  $retailerEmployee->activation_status = 'Deactivated';
+  $this->RetailerEmployees->save($retailerEmployee);
 
-          $this->Flash->success(__('The Retailer Employee has been deactivated.'));
+  $this->Flash->success(__('The Retailer Employee has been deactivated.'));
 
-          return $this->redirect(['action' => 'index']);
+  return $this->redirect(['action' => 'index']);
 
-      }
-  }
+}
+}
