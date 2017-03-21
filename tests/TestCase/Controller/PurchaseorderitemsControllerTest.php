@@ -37,7 +37,9 @@ class PurchaseOrderItemsControllerTest extends IntegrationTestCase
         'app.messages',
         'app.retailer_employees_messages',
         'app.retailer_employee_roles',
-        'app.retailer_employees_retailer_employee_roles'
+        'app.retailer_employees_retailer_employee_roles',
+        'app.rfqs',
+        'app.rfqs_suppliers'
     ];
 
     /**

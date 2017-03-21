@@ -3,66 +3,39 @@
   * @var \App\View\AppView $this
   */
 ?>
-<?php
-$this->assign('title', __('Reports') . '/' . __('Edit'));
-$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
-$this->Html->addCrumb(__('Purchase Orders'), ['controller' => 'Purchaseorders', 'action' => 'index']);
-$this->Html->addCrumb(__('Purchase Order Items'), ['controller' => 'Purchaseorderitems', 'action' => 'index']);
-?>
-<?= $this->Element('retailerLeftSideBar'); ?>
-
-<!-- Main Content -->
-<div class="content-wrapper">
-  <!-- Content Header -->
-  <section class="content-header">
-  </section>
-  <!-- Main content -->
-  <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title"><?= h($purchaseOrderItem->item_name) ?></h3>
-              <?php if(!$type) : ?> 
-              <div class="pull-right">
-                <?= $this->Html->link(__('Edit Purchase Order Item'), ['action' => 'edit', $purchaseOrderItem->id]) ?>
-              </div>
-              <?php endif; ?>
-            </div>
-            <div class="box-body">
-
-                <table class="vertical-table">
-                    <tr>
-                        <th scope="row"><?= __('Item ID') ?></th>
-                        <td><?= $this->Number->format($purchaseOrderItem->item_ID) ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Item Name') ?></th>
-                        <td><?= h($purchaseOrderItem->item_name) ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Item Description') ?></th>
-                        <td><?= $this->Text->autoParagraph(h($purchaseOrderItem->item_desc)); ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Quantity') ?></th>
-                        <td><?= $this->Number->format($purchaseOrderItem->quantity) ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Unit Price') ?></th>
-                        <td><?= $this->Number->format($purchaseOrderItem->unit_price) ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Purchase Order') ?></th>
-                        <td><?= $purchaseOrderItem->has('purchase_order') ? $this->Html->link($purchaseOrderItem->purchase_order->id, ['controller' => 'PurchaseOrders', 'action' => 'view', $purchaseOrderItem->purchase_order->id]) : '' ?></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><?= __('Id') ?></th>
-                        <td><?= $this->Number->format($purchaseOrderItem->id) ?></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-      </div>
-  </section>
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
+    <ul class="side-nav">
+        <li class="heading"><?= __('Actions') ?></li>
+        <li><?= $this->Html->link(__('Edit Purchase Order Item'), ['action' => 'edit', $purchaseOrderItem->id]) ?> </li>
+        <li><?= $this->Form->postLink(__('Delete Purchase Order Item'), ['action' => 'delete', $purchaseOrderItem->id], ['confirm' => __('Are you sure you want to delete # {0}?', $purchaseOrderItem->id)]) ?> </li>
+        <li><?= $this->Html->link(__('List Purchase Order Items'), ['action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Purchase Order Item'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Purchase Orders'), ['controller' => 'PurchaseOrders', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Purchase Order'), ['controller' => 'PurchaseOrders', 'action' => 'add']) ?> </li>
+    </ul>
+</nav>
+<div class="purchaseOrderItems view large-9 medium-8 columns content">
+    <h3><?= h($purchaseOrderItem->id) ?></h3>
+    <table class="vertical-table">
+        <tr>
+            <th scope="row"><?= __('Purchase Order') ?></th>
+            <td><?= $purchaseOrderItem->has('purchase_order') ? $this->Html->link($purchaseOrderItem->purchase_order->id, ['controller' => 'PurchaseOrders', 'action' => 'view', $purchaseOrderItem->purchase_order->id]) : '' ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Id') ?></th>
+            <td><?= $this->Number->format($purchaseOrderItem->id) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Item Id') ?></th>
+            <td><?= $this->Number->format($purchaseOrderItem->item_id) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Quantity') ?></th>
+            <td><?= $this->Number->format($purchaseOrderItem->quantity) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Unit Price') ?></th>
+            <td><?= $this->Number->format($purchaseOrderItem->unit_price) ?></td>
+        </tr>
+    </table>
 </div>

@@ -9,6 +9,7 @@ use Cake\Validation\Validator;
 /**
  * PurchaseOrderItems Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $Items
  * @property \Cake\ORM\Association\BelongsTo $PurchaseOrders
  *
  * @method \App\Model\Entity\PurchaseOrderItem get($primaryKey, $options = [])
@@ -36,6 +37,9 @@ class PurchaseOrderItemsTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
+        $this->belongsTo('Items', [
+            'foreignKey' => 'item_id'
+        ]);
         $this->belongsTo('PurchaseOrders', [
             'foreignKey' => 'purchase_order_id'
         ]);
@@ -52,16 +56,6 @@ class PurchaseOrderItemsTable extends Table
         $validator
             ->integer('id')
             ->allowEmpty('id', 'create');
-
-        $validator
-            ->integer('item_ID')
-            ->allowEmpty('item_ID');
-
-        $validator
-            ->allowEmpty('item_name');
-
-        $validator
-            ->allowEmpty('item_desc');
 
         $validator
             ->integer('quantity')
@@ -83,6 +77,7 @@ class PurchaseOrderItemsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        $rules->add($rules->existsIn(['item_id'], 'Items'));
         $rules->add($rules->existsIn(['purchase_order_id'], 'PurchaseOrders'));
 
         return $rules;
