@@ -1,6 +1,6 @@
 --------------------------------------------------------
 Check Log
-CAA: 20 March 2118 hrs
+CAA: 22 March 2027 hrs
 
 Order of tables:
 01. cust_membership_tiers
@@ -20,8 +20,8 @@ Order of tables:
 15. products
 16. prod_specifications
 17. promotion_emails
-18. retailer_loggings
-19. inventory*
+18. promotions_promotion_emails**
+19. retailer_loggings
 20. cust_membership_tiers_promotions
 21. retailer_employees_retailer_employee_roles
 22. retailer_employees_messages
@@ -41,4 +41,6 @@ Order of tables:
 36. rfqs
 37. rfqs_suppliers
 38. quotations
+39. coupons
+40. app_notifications
 --------------------------------------------------------
