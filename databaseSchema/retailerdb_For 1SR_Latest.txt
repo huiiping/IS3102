@@ -451,5 +451,5 @@ CREATE TABLE app_notifications (
     modified DATETIME,
     created DATETIME,
     retailer_employee_id INT,
-    FOREIGN KEY (sender_id) REFERENCES retailer_employees(id)
+    FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id)
 );
