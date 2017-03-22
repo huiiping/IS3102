@@ -119,7 +119,8 @@ class CustMembershipTiersTable extends Table
 
         $validator
             ->requirePresence('tier_name', 'create')
-            ->notEmpty('tier_name');
+            ->notEmpty('tier_name')
+            ->add('tier_name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->integer('validity_period')

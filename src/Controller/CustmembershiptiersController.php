@@ -106,7 +106,7 @@ class CustMembershipTiersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $custMembershipTier = $this->CustMembershipTiers->patchEntity($custMembershipTier, $this->request->data);
             if ($this->CustMembershipTiers->save($custMembershipTier)) {
-                $this->Flash->success(__('The cust membership tier has been saved.'));
+                $this->Flash->success(__('The customer membership tier has been saved.'));
 
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
@@ -117,7 +117,7 @@ class CustMembershipTiersController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The cust membership tier could not be saved. Please, try again.'));
+            $this->Flash->error(__('The customer membership tier could not be saved. Please, try again.'));
         }
         $this->set(compact('custMembershipTier'));
         $this->set('_serialize', ['custMembershipTier']);
@@ -135,7 +135,7 @@ class CustMembershipTiersController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $custMembershipTier = $this->CustMembershipTiers->get($id);
         if ($this->CustMembershipTiers->delete($custMembershipTier)) {
-            $this->Flash->success(__('The cust membership tier has been deleted.'));
+            $this->Flash->success(__('The customer membership tier has been deleted.'));
 
             $session = $this->request->session();
             $retailer = $session->read('retailer');
@@ -145,7 +145,7 @@ class CustMembershipTiersController extends AppController
             $this->Logging->iLog($retailer, $custMembershipTier['id']);
 
         } else {
-            $this->Flash->error(__('The cust membership tier could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The customer membership tier could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);
