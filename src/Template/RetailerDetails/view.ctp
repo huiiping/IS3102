@@ -4,18 +4,12 @@
   */
 ?>
 <?php
-$this->assign('title', __('Retailer') . '/' . __('RetailerDetails'));
+$this->assign('title', __('Retailer Details') . '/' . __('View'));
 $this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
 $this->Html->addCrumb(__('Retailer Details'), ['controller' => 'Pages', 'action' => 'retailer']);
-$this->Html->addCrumb(__('View'));
+$this->Html->addCrumb(__('View Retailer'));
 ?>
-<?= $this->Element('retailerLeftSideBar'); ?>
 
-<!-- Main Content -->
-<div class="content-wrapper">
-  <!-- Content Header -->
-  <section class="content-header">
-  </section>
   <!-- Main content -->
   <section class="content">
       <div class="row">
@@ -27,10 +21,10 @@ $this->Html->addCrumb(__('View'));
                   <i class="fa fa-edit"></i>
                 </a>
               <div class="pull-right">
-                <a href="mailto:<?= h($retailerDetail->retailer_email) ?>" title="email">
+                <a href="mailto:<?= h($retailerDetail->retailer_email) ?>" title="Email">
                   <i class="fa fa-envelope-o"></i>
                 </a>&nbsp
-                <a href="tel:+<?= h($retailerDetail->contact) ?>" title="contact">
+                <a href="tel:+<?= h($retailerDetail->contact) ?>" title="Contact">
                   <i class="fa fa-phone"></i>
                 </a>
               </div>
@@ -103,10 +97,10 @@ $this->Html->addCrumb(__('View'));
                     <i class="fa fa-product-hunt"></i>
                     <br><p style="font-size: 14px;">Products</p>
                   </td>
-                  <td style="font-size: 18px;" title="No. of Loyalty Pts">
+                  <td style="font-size: 18px;" title="No. of Loyalty Points">
                     <?php echo '<a href="/IS3102_Final/retailer-loyalty-points/retailer-view/'.$retailerDetail->retailerid.'"><i class="fa fa-money"></i></a>' ?>
                     <br><p style="font-size: 14px;">
-                    <?= $this->Html->link('Loyalty Pts', ['controller' => 'retailerLoyaltyPoints' , 'action' => 'retailerView', $retailerDetail->retailerid]);
+                    <?= $this->Html->link('Loyalty Points', ['controller' => 'retailerLoyaltyPoints' , 'action' => 'retailerView', $retailerDetail->retailerid]);
                     ?>
                     </p>
                   </td>
@@ -155,7 +149,7 @@ $this->Html->addCrumb(__('View'));
             </div>
             <div class="box-body"><br>
               <li class="list-group-item" style="border: 0px;">
-                <a href="mailto:<?= h($retailerDetail->retailer_email) ?>" title="email">
+                <a href="mailto:<?= h($retailerDetail->retailer_email) ?>" title="Email">
                   <i class="fa fa-envelope-o"></i>&nbsp&nbsp<?= h($retailerDetail->retailer_email) ?>
                 </a>
               </li>
@@ -172,4 +166,3 @@ $this->Html->addCrumb(__('View'));
         </div>
       </div>
   </section>
-</div>

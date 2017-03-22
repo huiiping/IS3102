@@ -16,11 +16,6 @@ $this->Html->addCrumb(__('Loyalty Points'), ['controller' => 'RetailerLoyaltyPoi
 <?= $this->Element('retailerLeftSideBar'); ?>
 <?php endif; ?>
 
-<!-- Main Content -->
-<div class="content-wrapper">
-  <!-- Content Header -->
-  <section class="content-header">
-  </section>
   <!-- Main content -->
   <section class="content">
       <div class="row">
@@ -112,7 +107,6 @@ $this->Html->addCrumb(__('Loyalty Points'), ['controller' => 'RetailerLoyaltyPoi
         </div>
       </div>
   </section>
-</div>
 
 <!--
             <div class="box-header with-border">
