@@ -16,9 +16,11 @@ CREATE TABLE cust_membership_tiers (
 
 CREATE TABLE customers (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    member_identification VARCHAR(100),
     username VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
+    dob DATE NOT NULL,
     address VARCHAR(255) NOT NULL,
     contact VARCHAR(100) NOT NULL,
     created DATETIME,
@@ -27,11 +29,9 @@ CREATE TABLE customers (
     last_name VARCHAR(255) NOT NULL,
     activation_status VARCHAR(100),
     activation_token VARCHAR(100),
-    recovery_status VARCHAR(100),
-    recovery_token VARCHAR(100),
     mailing_list BOOLEAN,
     expiry_date DATETIME,
-    cust_membership_tier_id INT NOT NULL,
+    cust_membership_tier_id INT,
     FOREIGN KEY (cust_membership_tier_id) REFERENCES cust_membership_tiers(id)
 );
 
@@ -71,8 +71,6 @@ CREATE TABLE retailer_employees (
     last_name VARCHAR(100) NOT NULL,
     activation_status VARCHAR(100),
     activation_token VARCHAR(100),
-    recovery_status VARCHAR(100),
-    recovery_token VARCHAR(100),
     location_id INT,
     FOREIGN KEY (location_id) REFERENCES locations(id)
 );
@@ -90,8 +88,6 @@ CREATE TABLE suppliers (
     country VARCHAR(255),
     activation_status VARCHAR(100),
     activation_token VARCHAR(100),
-    recovery_status VARCHAR(100),
-    recovery_token VARCHAR(100),
     bank_acc VARCHAR(255)
 );
 
@@ -128,6 +124,8 @@ CREATE TABLE promotions (
     last_voucher_num VARCHAR(100),
     discount_rate DOUBLE,
     credit_card_type VARCHAR(100),
+    img_name VARCHAR(255),
+    img_path VARCHAR(255),
     retailer_employee_id INT,
     FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id)
 );
@@ -194,14 +192,17 @@ CREATE TABLE prod_specifications (
 
 CREATE TABLE promotion_emails (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    promotion_id INT,
     title VARCHAR(100),
     body VARCHAR(255),
-    last_sent DATETIME,
-    number_of_sends INT,
-    created DATETIME,
-    modified DATETIME,
-    FOREIGN KEY (promotion_id) REFERENCES promotions(id)
+    created DATETIME
+);
+
+CREATE TABLE promotions_promotion_emails (
+    promotion_id INT NOT NULL,
+    promotion_email_id INT NOT NULL,
+    PRIMARY KEY (promotion_id, promotion_email_id),
+    FOREIGN KEY (promotion_id) REFERENCES promotions(id),
+    FOREIGN KEY (promotion_email_id) REFERENCES promotion_emails(id)
 );
 
 CREATE TABLE retailer_loggings (
@@ -212,18 +213,6 @@ CREATE TABLE retailer_loggings (
     retailer_employee_id INT NOT NULL,
     created DATETIME,
     FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id)
-);
-
-CREATE TABLE inventory (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  product_id INT NOT NULL,
-  SKU VARCHAR(100) NOT NULL,
-  quantity INT NOT NULL,
-  section_id INT NOT NULL,
-  location_id INT NOT NULL,
-  FOREIGN KEY (product_id) REFERENCES products(id),
-  FOREIGN KEY (section_id) REFERENCES sections(id),
-  FOREIGN KEY (location_id) REFERENCES locations(id)
 );
 
 CREATE TABLE cust_membership_tiers_promotions (
@@ -308,11 +297,10 @@ CREATE TABLE items (
     description VARCHAR(255),
     EPC VARCHAR(255) UNIQUE,
     status VARCHAR(100),
-    report_id INT,
     product_id INT,
-    location_id INT,
-    FOREIGN KEY (location_id) REFERENCES locations(id),
-    FOREIGN KEY (product_id) REFERENCES products(id)
+    section_id INT,
+    FOREIGN KEY (product_id) REFERENCES products(id),
+    FOREIGN KEY (section_id) REFERENCES sections(id)
 );
 
 CREATE TABLE delivery_order_items (
@@ -407,13 +395,9 @@ CREATE TABLE feedbacks (
     customer_email VARCHAR(255),
     message VARCHAR(255),
     status VARCHAR(100),
-    product_id INT,
-    item_id INT,
     modified DATETIME,
     created DATETIME,
-    FOREIGN KEY (customer_id) REFERENCES customers(id), 
-    FOREIGN KEY (item_id) REFERENCES items(id), 
-    FOREIGN KEY (product_id) REFERENCES products(id)
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
 );
 
 CREATE TABLE rfqs (
@@ -439,12 +423,33 @@ CREATE TABLE quotations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     rfq_id INT,
     supplier_id INT,
-    fileName VARCHAR(255),
-    filePath VARCHAR(255),
+    file_name VARCHAR(255),
+    file_path VARCHAR(255),
     comments VARCHAR(255),
     status VARCHAR(100),
     modified DATETIME,
     created DATETIME,
     FOREIGN KEY (supplier_id) REFERENCES suppliers(id),
     FOREIGN KEY (rfq_id) REFERENCES rfqs(id)
+);
+
+CREATE TABLE coupons (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    passcode VARCHAR(255),
+    start_date DATETIME,
+    end_date DATETIME,
+    description VARCHAR(255),
+    created DATETIME,
+    retailer_employee_id INT,
+    FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id)
+);
+
+CREATE TABLE app_notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    message TEXT,
+    status BOOLEAN,
+    modified DATETIME,
+    created DATETIME,
+    retailer_employee_id INT,
+    FOREIGN KEY (sender_id) REFERENCES retailer_employees(id)
 );

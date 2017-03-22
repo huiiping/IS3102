@@ -1,6 +1,6 @@
 --------------------------------------------------------
 Check Log
-CAA: 20 March 2118 hrs
+CAA: 22 March 2027 hrs
 
 Order of tables:
 01. cust_membership_tiers
@@ -41,4 +41,6 @@ Order of tables:
 36. rfqs
 37. rfqs_suppliers
 38. quotations
+39. coupons
+40. app_notifications
 --------------------------------------------------------
