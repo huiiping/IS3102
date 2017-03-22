@@ -23,7 +23,7 @@ $this->Html->addCrumb(__('View'));
           <div class="box box-primary">
             <div class="box-header with-border">
             <h3 class="profile-username"><?= 'About '.ucfirst(h($retailerDetail->retailer_name)) ?>&nbsp
-              <a href="/IS3102_Final/retailer-details/edit/<?= $retailerDetail->retailerid ?>" title="edit details">
+              <a href="/IS3102_Final/retailer-details/edit/<?= $retailerDetail->retailerid ?>" title="Edit Details">
                   <i class="fa fa-edit"></i>
                 </a>
               <div class="pull-right">

@@ -126,7 +126,7 @@ class RetailerDetailsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $retailerDetail = $this->RetailerDetails->patchEntity($retailerDetail, $this->request->data);
             if ($this->RetailerDetails->save($retailerDetail)) {
-                $this->Flash->success(__('The retailer detail has been saved.'));
+                $this->Flash->success(__('The retailer details has been saved.'));
 
                 $session = $this->request->session();
                 $retailer = $session->read('retailer');
@@ -148,7 +148,7 @@ class RetailerDetailsController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The retailer detail could not be saved. Please, try again.'));
+            $this->Flash->error(__('The retailer details could not be saved. Please, try again.'));
         }
         $this->set(compact('retailerDetail'));
         $this->set('_serialize', ['retailerDetail']);
