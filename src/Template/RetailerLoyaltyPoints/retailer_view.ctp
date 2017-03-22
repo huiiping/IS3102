@@ -31,7 +31,7 @@ $this->Html->addCrumb(__('Loyalty Points'), ['controller' => 'RetailerLoyaltyPoi
                 <thead>
                    <tr>
                         <th scope="col"><?='Type' ?></th>
-                        <th scope="col"><?= 'Pts' ?></th>
+                        <th scope="col"><?= 'Points' ?></th>
                         <th scope="col"><?= $this->Paginator->sort('modified', ['label' => 'Date']) ?></th>
                     </tr>
                 </thead>
@@ -77,7 +77,7 @@ $this->Html->addCrumb(__('Loyalty Points'), ['controller' => 'RetailerLoyaltyPoi
                     ?>
 
                     <tr bgcolor="black">
-                      <td bgcolor="black"><font color="white">Current Total Pts: </font></td>
+                      <td bgcolor="black"><font color="white">Current Total Points: </font></td>
                       <td bgcolor="black"><font color="white"><?= $total ?></font></td>
                       <td bgcolor="black"></td>
                     </tr>
