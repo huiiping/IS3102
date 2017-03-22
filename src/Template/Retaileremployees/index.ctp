@@ -119,7 +119,7 @@ $this->Html->addCrumb(__('Employees'));
                     </td>
                     <td>
                         <a href="/IS3102_Final/retailer-employees/manager_actions/<?= $retailerEmployee->id ?>">
-                          <i class="fa fa-users" title="Edit Employee Roles"></i>
+                          <i class="fa fa-users" title="Manager Actions"></i>
                         </a>   
                     </td>
                     <!--<td><?= $this->Time->format(h($retailerEmployee->created), 'd MMM YYYY, hh:mm') ?></td>
