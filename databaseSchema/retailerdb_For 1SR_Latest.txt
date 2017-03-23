@@ -172,13 +172,13 @@ CREATE TABLE prod_cats (
 
 CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    prod_name VARCHAR(100),
-    prod_desc TEXT,
+    prod_name VARCHAR(100) UNIQUE NOT NULL,
+    prod_desc TEXT NOT NULL ,
     store_unit_price DOUBLE,
     web_store_unit_price DOUBLE,
-    SKU VARCHAR(100) UNIQUE,
+    SKU VARCHAR(100) UNIQUE NOT NULL,
     barcode VARCHAR(255),
-    prod_cat_id INT,
+    prod_cat_id INT NOT NULL,
     FOREIGN KEY (prod_cat_id) REFERENCES prod_cats(id)
 );
 
