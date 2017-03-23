@@ -30,6 +30,7 @@ CREATE TABLE customers (
     activation_token VARCHAR(100),
     mailing_list BOOLEAN,
     expiry_date DATETIME,
+    preferred_currency VARCHAR(100),
     cust_membership_tier_id INT,
     FOREIGN KEY (cust_membership_tier_id) REFERENCES cust_membership_tiers(id)
 );
@@ -48,7 +49,9 @@ CREATE TABLE retailer_details (
     retailer_desc TEXT,
     retailer_email VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
-    contact VARCHAR(100) NOT NULL
+    contact VARCHAR(100) NOT NULL,
+    logo_name VARCHAR(255),
+    logo_path VARCHAR(255)
 );
 
 CREATE TABLE retailer_employee_roles (
@@ -71,6 +74,8 @@ CREATE TABLE retailer_employees (
     activation_status VARCHAR(100),
     activation_token VARCHAR(100),
     location_id INT,
+    profile_pic_name, VARCHAR(255),
+    profile_pic_path, VARCHAR(255),
     FOREIGN KEY (location_id) REFERENCES locations(id)
 );
 
@@ -144,7 +149,7 @@ CREATE TABLE purchase_orders (
     fob VARCHAR(100),
     comments VARCHAR(255),
     shipping_terms VARCHAR(255),
-    isSent BOOLEAN,
+    is_sent BOOLEAN,
     recurring_supplier VARCHAR(255),
     recurring_retailer VARCHAR(255),
     supplier_id INT NOT NULL,

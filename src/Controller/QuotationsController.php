@@ -177,65 +177,65 @@ class QuotationsController extends AppController
      * @return \Cake\Network\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null) {
-        $quotation = $this->Quotations->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
+    // public function edit($id = null) {
+    //     $quotation = $this->Quotations->get($id, [
+    //         'contain' => []
+    //     ]);
+    //     if ($this->request->is(['patch', 'post', 'put'])) {
 
-            if(!empty($this->request->data['file']['name'])){
+    //         if(!empty($this->request->data['file']['name'])){
 
-                $fileName = $this->request->data['file']['name'];
-                $uploadPath = 'uploads/files/';
-                $uploadFile = $uploadPath.$fileName;
+    //             $fileName = $this->request->data['file']['name'];
+    //             $uploadPath = 'uploads/files/';
+    //             $uploadFile = $uploadPath.$fileName;
 
-                if(move_uploaded_file($this->request->data['file']['tmp_name'],$uploadFile)){
+    //             if(move_uploaded_file($this->request->data['file']['tmp_name'],$uploadFile)){
 
-                    $quotation = $this->Quotations->patchEntity($quotation, $this->request->getData());
-                    $quotation->fileName = $fileName;
-                    $quotation->filePath = $uploadPath;
-                    $quotation->comments = $_POST['comments'];
-                    $quotation->modified = date("Y-m-d H:i:s");
+    //                 $quotation = $this->Quotations->patchEntity($quotation, $this->request->getData());
+    //                 $quotation->fileName = $fileName;
+    //                 $quotation->filePath = $uploadPath;
+    //                 $quotation->comments = $_POST['comments'];
+    //                 $quotation->modified = date("Y-m-d H:i:s");
 
-                    if ($this->Quotations->save($quotation)) {
+    //                 if ($this->Quotations->save($quotation)) {
 
-                        $this->Flash->success(__('Quotation has been updated successfully.'));
+    //                     $this->Flash->success(__('Quotation has been updated successfully.'));
 
-                        return $this->redirect(['action' => 'index']);
+    //                     return $this->redirect(['action' => 'index']);
 
-                    }else{
+    //                 }else{
 
-                        $this->Flash->error(__('Unable to upload file, please try again.'));
+    //                     $this->Flash->error(__('Unable to upload file, please try again.'));
 
-                    }
+    //                 }
 
-                }else{
+    //             }else{
 
-                    $this->Flash->error(__('Unable to update quotation, please try again.'));
+    //                 $this->Flash->error(__('Unable to update quotation, please try again.'));
 
-                }
+    //             }
 
-            }else{
+    //         }else{
 
-                $quotation = $this->Quotations->patchEntity($quotation, $this->request->getData());
+    //             $quotation = $this->Quotations->patchEntity($quotation, $this->request->getData());
 
-                if ($this->Quotations->save($quotation)) {
+    //             if ($this->Quotations->save($quotation)) {
 
-                    $this->Flash->success(__('The quotation has been saved.'));
+    //                 $this->Flash->success(__('The quotation has been saved.'));
 
-                    return $this->redirect(['action' => 'index']);
-                }
+    //                 return $this->redirect(['action' => 'index']);
+    //             }
 
-                $this->Flash->error(__('The quotation could not be saved. Please, try again.'));
-                }
-        }
+    //             $this->Flash->error(__('The quotation could not be saved. Please, try again.'));
+    //             }
+    //     }
 
-        $rfqs = $this->Quotations->Rfqs->find('list', ['limit' => 200]);
-        $suppliers = $this->Quotations->Suppliers->find('list', ['limit' => 200]);
+    //     $rfqs = $this->Quotations->Rfqs->find('list', ['limit' => 200]);
+    //     $suppliers = $this->Quotations->Suppliers->find('list', ['limit' => 200]);
 
-        $this->set(compact('quotation', 'rfqs', 'suppliers'));
-        $this->set('_serialize', ['quotation']);
-    }
+    //     $this->set(compact('quotation', 'rfqs', 'suppliers'));
+    //     $this->set('_serialize', ['quotation']);
+    // }
 
     public function supplierEdit($id = null) {
         $quotation = $this->Quotations->get($id, [

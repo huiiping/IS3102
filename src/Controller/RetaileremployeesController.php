@@ -148,7 +148,9 @@ class RetailerEmployeesController extends AppController
 
         $retailerEmployee = $this->RetailerEmployees->newEntity();
         if ($this->request->is('post')) {
+            
             $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
+
             if ($this->withinLimit()) {
 
                 $retailerEmployee->set('username', $this->Generator->generateString());
@@ -169,8 +171,6 @@ class RetailerEmployeesController extends AppController
                     $retailerEmployee->set('username', $username);
                     $this->RetailerEmployees->save($retailerEmployee);
 
-                    
-
                     $this->Email->activationEmail(
                         $retailerEmployee['email'], 
                         $retailerEmployee['first_name'], 
@@ -182,10 +182,8 @@ class RetailerEmployeesController extends AppController
                         $database
                         );
 
-
                     //$this->__sendActivationEmail($retailerEmployee['id']);
                     $this->Flash->success(__('The retailer employee has been saved.'));
-
 
                     $session = $this->request->session();
                     $retailer = $session->read('retailer');
@@ -196,9 +194,11 @@ class RetailerEmployeesController extends AppController
 
                     return $this->redirect(['action' => 'index']);
                 }
+
             } else {
                 $this->Flash->error(__('You have reached your maximum number of users! Please contact Intrasys to upgrade your account.'));
             }
+
             $this->Flash->error(__('The retailer employee could not be saved. Please, try again.'));
         }
         $locations = $this->RetailerEmployees->Locations->find('list', ['limit' => 200]);
