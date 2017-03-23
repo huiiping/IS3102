@@ -135,20 +135,33 @@ CREATE TABLE purchase_orders (
     total_price DOUBLE,
     approval_status VARCHAR(100),
     delivery_status BOOLEAN,
-    supplier_id INT,
+    requisitioner INT, 
+    tax DOUBLE, 
+    shipping_cost DOUBLE,
+    other_cost DOUBLE, 
+    ship_via VARCHAR(255),
+    subtotal DOUBLE,
+    fob VARCHAR(100),
+    comments VARCHAR(255),
+    shipping_terms VARCHAR(255),
+    isSent BOOLEAN,
+    recurring_supplier VARCHAR(255),
+    recurring_retailer VARCHAR(255),
+    supplier_id INT NOT NULL,
     retailer_employee_id INT,
     location_id INT,
     FOREIGN KEY (location_id) REFERENCES locations(id),    
     FOREIGN KEY (supplier_id) REFERENCES suppliers(id),
-    FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id)
+    FOREIGN KEY (requisitioner) REFERENCES retailer_employees(id)
 );
 
 CREATE TABLE purchase_order_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    itemID INT,
-    quantity INT,
-    unit_price DOUBLE,
-    purchase_order_id INT,
+    itemID INT NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    quantity INT NOT NULL,
+    unit_price DOUBLE NOT NULL,
+    purchase_order_id INT NOT NULL,
     FOREIGN KEY (purchase_order_id) REFERENCES purchase_orders(id)
 );
 
