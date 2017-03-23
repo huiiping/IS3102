@@ -148,7 +148,6 @@ CREATE TABLE purchase_orders (
     recurring_supplier VARCHAR(255),
     recurring_retailer VARCHAR(255),
     supplier_id INT NOT NULL,
-    retailer_employee_id INT,
     location_id INT,
     FOREIGN KEY (location_id) REFERENCES locations(id),    
     FOREIGN KEY (supplier_id) REFERENCES suppliers(id),
