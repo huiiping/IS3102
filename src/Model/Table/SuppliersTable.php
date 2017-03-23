@@ -60,7 +60,7 @@ class SuppliersTable extends Table
 
         'search' => array(
             'type' => 'like',
-            'field' => array('supplier_name','id','username','address','email', 'country','supplier_name')
+            'field' => array('supplier_name','id','address','email', 'country')
         )
     );
     /**
