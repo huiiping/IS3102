@@ -73,6 +73,11 @@ class RfqsController extends AppController
         $this->set('_serialize', ['rfq']);
     }
 
+    public function supplierView($id = null)
+    {
+        //TODO
+    }
+
 
     public function supplierIndex()
     {
