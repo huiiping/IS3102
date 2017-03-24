@@ -18,7 +18,7 @@ $this->Html->addCrumb(__('Add'));
                 <h3 class="box-title"><?= __('Submit New Quotation for RFQ ID: '.$rfqid) ?></h3>
             </div>
             <div class="box-body">
-            <form method="post" accept-charset="utf-8" action="/IS3102_Final/quotations/add" enctype="multipart/form-data">
+            <form method="post" accept-charset="utf-8" action="/IS3102_Final/quotations/supplier-add/<?=$quotation->id?>" enctype="multipart/form-data">
                 <div style="display:none;">
                   <input type="hidden" name="_method" value="POST">
                   <input type="hidden" name="rfq_id" value="<?= $rfqid ?>">

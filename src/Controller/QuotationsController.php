@@ -138,7 +138,7 @@ class QuotationsController extends AppController
 
                         $this->Flash->success(__('Quotation has been uploaded and submitted successfully.'));
 
-                        return $this->redirect(['action' => 'index']);
+                        return $this->redirect(['action' => 'supplierIndex']);
 
                     }else{
 
