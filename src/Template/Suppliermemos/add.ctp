@@ -31,7 +31,7 @@
                 <textarea name="remarks" placeholder = "Enter your remarks.." required="required" id="remarks" rows="4" cols="50"></textarea>
               </div>
               <br >
-              <input type="submit" class="btn btn-default btn-flat" value="Create">
+              <input type="submit" class="btn btn-default btn-flat" value="Create New Supplier Memo">
             </form>
             </div>
           </div>
