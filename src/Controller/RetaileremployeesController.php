@@ -540,7 +540,7 @@ public function login(){
                             $rlpTable->save($rlp);
 
                             $rowCount++;
-                            $this->Flash->error($rowCount); 
+                            //$this->Flash->error($rowCount); 
 
                         }
                     }    

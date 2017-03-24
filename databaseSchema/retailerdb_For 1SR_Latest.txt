@@ -298,6 +298,7 @@ CREATE TABLE delivery_orders (
     retailer_employee_id INT,
     location_id INT,
     transaction_id INT,
+    delivery_date DATETIME,
     modified DATETIME,
     created DATETIME,
     FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id),
