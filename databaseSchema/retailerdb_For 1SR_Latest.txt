@@ -165,7 +165,7 @@ CREATE TABLE purchase_order_items (
     description VARCHAR(255) NOT NULL,
     quantity INT NOT NULL,
     unit_price DOUBLE NOT NULL,
-    purchase_order_id INT NOT NULL,
+    purchase_order_id INT,
     FOREIGN KEY (purchase_order_id) REFERENCES purchase_orders(id)
 );
 
