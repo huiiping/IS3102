@@ -81,25 +81,11 @@
 											<span id="checkPasswordMatch" class="fa fa-check" style="display:none; font-size: 24px"></span>
 										</div>
 									</div>
-									<!-- <div class = "row">
-										<div class="col-md-10 col-xs-10">
-											<div class="input-group">
-												<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-												<select name="retailer" id="retailer" class="form-control" placeholder="Retailer" required="required">
-													<option value="0">---- Select ----</option>
-													<?php foreach ($retailers as $retailer): ?>
-
-														<option><?= $retailer->retailer_name ?></option>
-
-													<?php endforeach;	?>
-												</select>
-											</div>	
-										</div>
-									</div> -->
+									<div  style="color:red;" class="col-md-10 col-xs-10" id=validateMessage></div>
 									<input type='hidden' name='employeeId' value='<?php echo "$employeeId";?>'/>
 									<input type='hidden' name='token' value='<?php echo "$token";?>'/>
 									<input type='hidden' name='dbname' value='<?php echo "$dbname";?>'/>
-									<div class="col-md-10 col-xs-10 alert alert-danger alert-dismissible "id=validateMessage></div>
+									
 										<div class = "row">
 										
 											<button type="submit" class="btn btn-primary pull-right" style="margin:15px">Confirm</button>
@@ -249,11 +235,11 @@
 			function validateForm(){
 				/*var retailer=document.forms["setPass"]["retailer"].value*/
 				if (!validatePass()){
-					document.getElementById('validateMessage').innerHTML = "Password does not meet the requirements";
+					document.getElementById('validateMessage').innerHTML = "*Password does not meet the requirements";
 					return false;
 				}
 				if (!checkPasswordMatch()){
-					document.getElementById('validateMessage').innerHTML = "Passwords do not match";
+					document.getElementById('validateMessage').innerHTML = "*Passwords do not match";
 					return false;
 				}
 				/*if (!isNaN(retailer)){

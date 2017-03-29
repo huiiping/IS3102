@@ -19,6 +19,9 @@ $this->Html->addCrumb(__('RFQ'), ['controller' => 'Rfqs', 'action' => 'index']);
           <h3 class="box-title"><?= __('RFQs') ?></h3>
         </div>
         <div class="box-body">
+        <div class="pull-right">
+            <a class="btn btn-default btn-block" title="Create New FRQ" href="/IS3102_Final/Rfqs/add" >Create New FRQ</a>
+          </div>
         <!--<legend><h4><?= __('Search') ?></h4></legend>-->
           <form method="post" accept-charset="utf-8" action="/IS3102_Final/rfqs">
             <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">

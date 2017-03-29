@@ -74,8 +74,8 @@ CREATE TABLE retailer_employees (
     activation_status VARCHAR(100),
     activation_token VARCHAR(100),
     location_id INT,
-    profile_pic_name, VARCHAR(255),
-    profile_pic_path, VARCHAR(255),
+    profile_pic_name VARCHAR(255),
+    profile_pic_path VARCHAR(255),
     FOREIGN KEY (location_id) REFERENCES locations(id)
 );
 
@@ -473,5 +473,5 @@ CREATE TABLE shopping_carts (
     product_id INT,
     created DATETIME,    
     FOREIGN KEY (customer_id) REFERENCES customers(id), 
-    FOREIGN KEY (product_id) REFERENCES products(id), 
-)
+    FOREIGN KEY (product_id) REFERENCES products(id) 
+);

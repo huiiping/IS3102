@@ -97,7 +97,7 @@
 									<input type='hidden' name='supplierId' value='<?php echo "$supplierId";?>'/>
 									<input type='hidden' name='token' value='<?php echo "$token";?>'/>
 									<input type='hidden' name='dbname' value='<?php echo "$dbname";?>'/>
-									<div class="col-md-10 col-xs-10 alert alert-danger alert-dismissible "id=validateMessage></div>
+									<div style="color:red;" class="col-md-10 col-xs-10" id=validateMessage></div>
 									<div class = "row">
 										
 										<button type="submit" class="btn btn-primary pull-right" style="margin:15px">Confirm</button>
@@ -262,15 +262,15 @@
 		function validateForm(){
 			/*var retailer=document.forms["setPass"]["retailer"].value*/
 			if (!validatePass()){
-				document.getElementById('validateMessage').innerHTML = "Password does not meet the requirements";
+				document.getElementById('validateMessage').innerHTML = "*Password does not meet the requirements";
 				return false;
 			}
 			if (!checkPasswordMatch()){
-				document.getElementById('validateMessage').innerHTML = "Passwords do not match";
+				document.getElementById('validateMessage').innerHTML = "*Passwords do not match";
 				return false;
 			}
 				/*if (!isNaN(retailer)){
-					document.getElementById('validateMessage').innerHTML = "Please Select the retailer you are under";
+					document.getElementById('validateMessage').innerHTML = "*Please Select the retailer you are under";
 					return false;
 				}*/
 				return true;

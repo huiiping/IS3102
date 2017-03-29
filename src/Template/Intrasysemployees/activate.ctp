@@ -22,7 +22,7 @@
 	
 	#login_form, #resetPass_form{
 		padding: 15px;
-	}
+	}	
 	.input-group{
 		padding-bottom: 8px;
 	}
@@ -85,7 +85,7 @@
 									</div>
 									<input type='hidden' name='employeeId' value='<?php echo "$employeeId";?>'/>
 									<input type='hidden' name='token' value='<?php echo "$token";?>'/>
-									<div class="col-md-10 col-xs-10 alert alert-danger alert-dismissible "id=validateMessage></div>
+									<div style="color:red;" class="col-md-10 col-xs-10 "id=validateMessage></div>
 										<div class = "row">
 											<button type="submit" class="btn btn-primary pull-right" style="margin:15px">Confirm</button>
 										</div>
@@ -228,11 +228,11 @@
 					return true;
 				}
 				if (!validatePass()){
-					document.getElementById('validateMessage').innerHTML = "Password does not meet the requirements";
+					document.getElementById('validateMessage').innerHTML = "*Password does not meet the requirements";
 					return false;
 				}
 				if (!checkPasswordMatch()){
-					document.getElementById('validateMessage').innerHTML = "Passwords do not match";
+					document.getElementById('validateMessage').innerHTML = "*Passwords do not match";
 					return false;
 				}
 
