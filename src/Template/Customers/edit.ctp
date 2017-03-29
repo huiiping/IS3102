@@ -96,7 +96,7 @@ $this->Html->addCrumb(__('Edit Customer : '.h($customer->first_name).' '.h($cust
         <div class ="form-group">            
           <div class="input-group" title="Enter Date of Birth">
           <span class="input-group-addon"><i class="glyphicon glyphicon-gift"></i></span>
-            <input class = "form-control" type="date" name="dob" value = "<?=$customer->dob?>" required="required" id="dob" maxlength="255">
+            <input class = "form-control" type="date" name="dob" value = "<?= $customer->dob->i18nFormat('yyyy-mm-dd') ?>" required="required" id="dob" maxlength="255">
           </div> 
         </div>
 

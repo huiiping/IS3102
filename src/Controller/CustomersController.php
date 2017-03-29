@@ -26,7 +26,7 @@ class CustomersController extends AppController
      */
     public function index()
     {
-        //$customers = $this->paginate($this->Customers);
+      //$customers = $this->Customers->find('list', ['limit' => 200]);
       $this->loadComponent('Prg');
       $this->Prg->commonProcess();
       $this->paginate = [
@@ -34,6 +34,7 @@ class CustomersController extends AppController
       ];
 
       $this->set('customers', $this->paginate($this->Customers->find('searchable', $this->Prg->parsedParams())));
+
       $this->set(compact('customers'));
       $this->set('_serialize', ['customers']);
     }

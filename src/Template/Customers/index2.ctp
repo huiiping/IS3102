@@ -2,8 +2,6 @@
 $this->assign('title', __('Customers') . '/' . __('Index'));
 $this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
 $this->Html->addCrumb(__('Customers'));
-
-use Cake\ORM\TableRegistry;
 ?>
 
 <!-- Main content -->
@@ -42,60 +40,7 @@ use Cake\ORM\TableRegistry;
           </form>
 
           <br>
-
-          <?php 
-//$customers = TableRegistry::get('Customers');
-//$query = $customers->find();
-          foreach ($customers as $customer): 
-            ?>
-          <div class="col-xs-4">
-            <div class="box box-primary" style="height: 500px;">
-              <div class="box-body box-profile">
-                <img class="profile-user-img img-responsive img-circle" src="/IS3102_Final/img/user2-160x160.jpg" alt="User profile picture">
-                <h3 class="profile-username text-center"><?= h($customer->first_name).' '.h($customer->last_name) ?></h3>
-                <br>
-                <ul class="list-group list-group-unbordered"><br>
-
-                 <li class="list-group-item">
-                  <b><?= __('Email') ?></b> 
-                  <div class="pull-right">                    
-                    <a href="mailto:<?= h($customer->email) ?>" title="Email">
-                      <?= h($customer->email) ?>
-                    </a>
-                  </div>
-                </li>
-
-                <li class="list-group-item">
-                  <b><?= __('Activation Status') ?></b> 
-                  <div class="pull-right">
-                    <?php if ($customer->activation_status == 'Activated'): ?>
-                      <a class="btn btn-danger btn-block" title="Deactivate Customer" href="/IS3102_Final/customers/deactivateStatus/<?= $customer->id ?>" >Deactivate</a>
-                    <?php else: ?>
-                      <a class="btn btn-success btn-block" title="Activate Customer" href="/IS3102_Final/customers/activateStatus/<?= $customer->id ?>" >Activate</a>
-                    <?php endif; ?>
-                  </div><br><br>
-                </li>
-                <li class="list-group-item">
-                  <b><?= __('Mailing List') ?></b> 
-                  <div class="pull-right"><?= $customer->mailing_list ? __('Yes') : __('No'); ?></div>
-                </li>
-                <li class="list-group-item">
-                  <b><?= __('Expiry Date') ?></b> 
-                  <div class="pull-right"><?= $this->Time->format(h($customer->expiry_date), 'd MMM YYYY, HH:mm') ?></div>
-                </li>
-              </ul>
-              <br>
-            </div>
-          <td>
-            <a href="/IS3102_Final/customers/edit/<?=$customer->id?>">
-              <i class="fa fa-edit" style="font-size: 200%;" title="Edit Customer Details"></i></a>&nbsp
-              <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash ', 'style' => 'font-size: 200%', 'title' => 'Delete Customer')), array('action' => 'delete', $customer->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $customer->id))) ?>
-            </td>
-          </div>
-        </div>
-      <?php endforeach; ?>
-
-         <!--  <table class="table table-bordered table-striped">
+          <table class="table table-bordered table-striped">
             <thead>
               <tr>
 
@@ -132,6 +77,7 @@ use Cake\ORM\TableRegistry;
                     <?= h($customer->expiry_date) ?>
                   </td>
 
+                  <td><?= $customer->has('cust_membership_tier') ? $this->Html->link($customer->cust_membership_tier->tier_name, ['controller' => 'CustMembershipTiers', 'action' => 'view', $customer->cust_membership_tier->id]) : '' ?></td>
  
                     <td>
                       <?php if ($customer->activation_status == 'Activated'): ?>
@@ -157,24 +103,19 @@ use Cake\ORM\TableRegistry;
                     </tr>
                   <?php endforeach; ?>
                 </tbody>
-              </table> -->
-              
-            </div>
-            <div class="paginator">
-              <ul class="pagination">
-                <?= $this->Paginator->first('<< ' . __('first')) ?>
-                <?= $this->Paginator->prev('< ' . __('previous')) ?>
-                <?= $this->Paginator->numbers() ?>
-                <?= $this->Paginator->next(__('next') . ' >') ?>
-                <?= $this->Paginator->last(__('last') . ' >>') ?>
-              </ul>
-              <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+              </table>
+              <div class="paginator">
+                <ul class="pagination">
+                  <?= $this->Paginator->first('<< ' . __('first')) ?>
+                  <?= $this->Paginator->prev('< ' . __('previous')) ?>
+                  <?= $this->Paginator->numbers() ?>
+                  <?= $this->Paginator->next(__('next') . ' >') ?>
+                  <?= $this->Paginator->last(__('last') . ' >>') ?>
+                </ul>
+                <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+              </div>
             </div>
           </div>
         </div>
-      </div> 
-    </div>
-  </div>
-</div>
-</div>
-</section>
+      </div>
+    </section>

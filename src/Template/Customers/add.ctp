@@ -174,7 +174,7 @@ $this->Html->addCrumb(__('Create New Customer'));
                     <option value="Russia Rubles - RUB">Russia Rubles – RUB</option>
                     <option value="Saudi Arabia Riyals - SAR">Saudi Arabia Riyals – SAR</option>
                     <option value="Silver Ounces - XAG">Silver Ounces – XAG</option>
-                    <option selected="selected">"Singapore Dollars - SGD">Singapore Dollars – SGD</option>
+                    <option selected="selected">Singapore Dollars – SGD</option>
                     <option value="Slovakia Koruny - SKK">Slovakia Koruny – SKK</option>
 
                     <option value="Slovenia Tolars - SIT">Slovenia Tolars – SIT</option>
@@ -219,28 +219,7 @@ $this->Html->addCrumb(__('Create New Customer'));
               <br>
             </form>
           </div>
-          <!--<div class="box-body">
-              <?= $this->Form->create($customer) ?>
-              <fieldset>
-                  <?php
-                      echo $this->Form->input('first_name');
-                      echo $this->Form->input('last_name');
-                      echo $this->Form->input('username');
-                      echo $this->Form->input('password');
-                      echo $this->Form->input('email');
-                      echo $this->Form->input('contact');
-                      echo $this->Form->input('address');
-                      echo $this->Form->input(('confirm_password'), array('type'  =>  'password')); 
-                      echo $this->Form->input('activation_status');
-                      echo $this->Form->input('expiry_date', array('div' => false));
-                      echo $this->Form->input('cust_membership_tier_id', ['label' => 'Customer Membership Tier'], ['options' => $custMembershipTiers]);
-                      echo $this->Form->input('mailing_list');
-                  ?>
-              </fieldset>
-              <br>
-              <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
-              <?= $this->Form->end() ?>
-            </div>-->
+         
           </div>
         </div>
       </div>
