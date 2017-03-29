@@ -26,6 +26,17 @@ $this->Html->addCrumb(__('Create New Customer'));
                   <input class = "form-control" type="text" placeholder = "Member Identification*" name="member_identification" required="required" id="member_identification" maxlength="255"> 
                 </div>
               </div>
+              <div class ="form-group">            
+                <div class="input-group" style="z-index: 2;" title="Select Customer Membership Tier*">
+                  <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
+                  <input type="hidden" name="cust_membership_tier_id" value="">
+                  <select name="cust_membership_tier_id" id="cust_membership_tier_id" class='selectpicker form-control' title = "Select Customer Membership Tier*" data-live-search="true" required="required">
+                    <?php foreach ($custMembershipTiers as $custMembershipTier): ?>
+                      <option value="<?= $custMembershipTier->id ?>"><?php echo $custMembershipTier->tier_name ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div> 
+              </div>
               <div class ="form-group">          
                 <div class="input-group" title="Enter First Name*">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -57,7 +68,13 @@ $this->Html->addCrumb(__('Create New Customer'));
                 </div> 
               </div>
               <div class ="form-group">            
-                <div class="input-group" title="Enter Preferred Currency">
+                <div class="input-group" title="Enter Date of Birth*">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-gift"></i></span>
+                  <input class = "form-control" type="date" name="dob" placeholder = "Date of Birth*" required="required" id="dob" maxlength="255">
+                </div> 
+              </div>
+              <div class ="form-group">            
+                <div class="input-group" title="Enter Preferred Currency" style="z-index: 99999;">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
                   <input type="hidden" name="preferred_currency">
                   <select name="preferred_currency" id="preferred_currency" class='selectpicker form-control' title = "Preferred Currency*" data-live-search="true" required="required">
@@ -186,17 +203,7 @@ $this->Html->addCrumb(__('Create New Customer'));
                   </select>
                 </div> 
               </div>
-              <div class ="form-group">            
-                <div class="input-group" style="z-index: 2;" title="Select Customer Membership Tier*">
-                  <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
-                  <input type="hidden" name="cust_membership_tier_id" value="">
-                  <select name="cust_membership_tier_id" id="cust_membership_tier_id" class='selectpicker form-control' title = "Select Customer Membership Tier*" data-live-search="true" required="required">
-                    <?php foreach ($custMembershipTiers as $custMembershipTier): ?>
-                      <option value="<?= $custMembershipTier->id ?>"><?php echo $custMembershipTier->tier_name ?></option>
-                    <?php endforeach; ?>
-                  </select>
-                </div> 
-              </div>
+
               <div class ="form-group">            
                 <div class="input-group" style="z-index: 0;" title="Select Mailing List">
                   <input type="hidden" name="mailing_list" value="">
@@ -206,7 +213,7 @@ $this->Html->addCrumb(__('Create New Customer'));
 
               <br>
               <div class ="row">
-                <a href="/IS3102_Final/customers/index" class="btn btn-md btn-info pull-left" style="border-radius: 8px; margin:5px;">Back to Customer Index</a>
+                <a href="/IS3102_Final/customers/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Customer Index</a>
                 <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save Customer</button>
               </div>
               <br>

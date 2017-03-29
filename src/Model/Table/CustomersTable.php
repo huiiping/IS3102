@@ -32,7 +32,7 @@ class CustomersTable extends Table
     public $filterArgs = array(
         'search' => array(
             'type' => 'like',
-            'field' => array('member_idetification','contact','first_name','last_name','activation_status', 'cust_membership_tier_id')
+            'field' => array('member_identification','contact','first_name','last_name','email','activation_status', 'cust_membership_tier_id')
             )
     );
 
@@ -66,6 +66,8 @@ class CustomersTable extends Table
             'targetForeignKey' => 'promotion_id',
             'joinTable' => 'customers_promotions'
             ]);
+
+        $this->addBehavior('Searchable');
     }
 
     /**

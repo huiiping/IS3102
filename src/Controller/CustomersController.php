@@ -13,12 +13,12 @@ class CustomersController extends AppController
 {
 
 
-    public function beforeFilter(Event $event)
-    {
+  public function beforeFilter(Event $event)
+  {
 
-        $this->loadComponent('Logging');
-        
-    }
+    $this->loadComponent('Logging');
+
+  }
     /**
      * Index method
      *
@@ -27,18 +27,19 @@ class CustomersController extends AppController
     public function index()
     {
         //$customers = $this->paginate($this->Customers);
-        $this->loadComponent('Prg');
-        $this->Prg->commonProcess();
-        $this->paginate = [
-            'contain' => ['CustMembershipTiers']
-        ];
-        $this->set('customers', $this->paginate($this->Customers->find('searchable', $this->Prg->parsedParams())));
-        $this->set(compact('customers'));
-        $this->set('_serialize', ['customers']);
+      $this->loadComponent('Prg');
+      $this->Prg->commonProcess();
+      $this->paginate = [
+      'contain' => ['CustMembershipTiers']
+      ];
+
+      $this->set('customers', $this->paginate($this->Customers->find('searchable', $this->Prg->parsedParams())));
+      $this->set(compact('customers'));
+      $this->set('_serialize', ['customers']);
     }
     public $components = array(
-        'Prg'
-    );
+      'Prg'
+      );
 
     /**
      * View method
@@ -49,19 +50,19 @@ class CustomersController extends AppController
      */
     public function view($id = null)
     {
-        $customer = $this->Customers->get($id, [
-            'contain' => ['CustMembershipTiers']
+      $customer = $this->Customers->get($id, [
+        'contain' => ['CustMembershipTiers']
         ]);
 
-        $session = $this->request->session();
-        $retailer = $session->read('retailer');
+      $session = $this->request->session();
+      $retailer = $session->read('retailer');
 
         //$this->loadComponent('Logging');
-        $this->Logging->rLog($customer['id']);
-        $this->Logging->iLog($retailer, $customer['id']);
+      $this->Logging->rLog($customer['id']);
+      $this->Logging->iLog($retailer, $customer['id']);
 
-        $this->set('customer', $customer);
-        $this->set('_serialize', ['customer']);
+      $this->set('customer', $customer);
+      $this->set('_serialize', ['customer']);
     }
 
     /**
@@ -71,29 +72,54 @@ class CustomersController extends AppController
      */
     public function add()
     {
-        $customer = $this->Customers->newEntity();
-        if ($this->request->is('post')) {
-            $customer = $this->Customers->patchEntity($customer, $this->request->data);
-            if ($this->Customers->save($customer)) {
-                $this->Flash->success(__('The customer has been saved.'));
+      $this->loadComponent('Generator');
+      $customer = $this->Customers->newEntity();
+      if ($this->request->is('post')) {
+        $customer = $this->Customers->patchEntity($customer, $this->request->data);
 
-                $session = $this->request->session();
-                $retailer = $session->read('retailer');
+        $this->password = $this->Generator->generateString();
+        $customer->set('password', $this->password);
+        $customer->set('activation_status', 'Deactivated');
+        $customer->set('activation_token', $this->Generator->generateString());
 
-                $this->loadComponent('Logging');
-                $this->Logging->log($customer['id']);
-                $this->Logging->iLog($retailer, $customer['id']);
+        $this->expiry_date = date('Y-m-d', strtotime('+1 year'));
+        $customer->set('expiry_date', $this->expiry_date);
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The customer could not be saved. Please, try again.'));
+        if ($this->Customers->save($customer)) {
+
+          $customer = $this->Customers->patchEntity($customer, $this->request->data);
+
+          //Need to check if the member identification is an username!
+          // $this->Email->activationEmail(
+          // $intrasysEmployee['email'], 
+          // $intrasysEmployee['first_name'], 
+          // $intrasysEmployee['username'], 
+          // $this->password, 
+          // $intrasysEmployee['id'], 
+          // $intrasysEmployee['activation_token'], 
+          // 'intrasys-employees',
+          // ""
+          // );
+
+          $this->Flash->success(__('The customer has been saved.'));
+
+          $session = $this->request->session();
+          $retailer = $session->read('retailer');
+
+          $this->loadComponent('Logging');
+          $this->Logging->log($customer['id']);
+          $this->Logging->iLog($retailer, $customer['id']);
+
+          return $this->redirect(['action' => 'index']);
         }
+        $this->Flash->error(__('The customer could not be saved. Please, try again.'));
+      }
         $this->set('custMembershipTiers', $this->Customers->CustMembershipTiers->find('all')); //to populate select input 
         //$custMembershipTiers = $this->Customers->CustMembershipTiers->find('list', ['limit' => 200]);
         //$promotions = $this->Customers->Promotions->find('list', ['limit' => 200]);
         $this->set(compact('customer','custMembershipTiers'));
         $this->set('_serialize', ['customer']);
-    }
+      }
 
     /**
      * Edit method
@@ -104,28 +130,28 @@ class CustomersController extends AppController
      */
     public function edit($id = null)
     {
-        $customer = $this->Customers->get($id, [
-            'contain' => []
+      $customer = $this->Customers->get($id, [
+        'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $customer = $this->Customers->patchEntity($customer, $this->request->data);
-            if ($this->Customers->save($customer)) {
-                $this->Flash->success(__('The customer has been saved.'));
+      if ($this->request->is(['patch', 'post', 'put'])) {
+        $customer = $this->Customers->patchEntity($customer, $this->request->data);
+        if ($this->Customers->save($customer)) {
+          $this->Flash->success(__('The customer has been saved.'));
 
-                $session = $this->request->session();
-                $retailer = $session->read('retailer');
+          $session = $this->request->session();
+          $retailer = $session->read('retailer');
 
                 //$this->loadComponent('Logging');
-                $this->Logging->rLog($customer['id']);
-                $this->Logging->iLog($retailer, $customer['id']);
+          $this->Logging->rLog($customer['id']);
+          $this->Logging->iLog($retailer, $customer['id']);
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The customer could not be saved. Please, try again.'));
+          return $this->redirect(['action' => 'index']);
         }
-        $custMembershipTiers = $this->Customers->CustMembershipTiers->find('list', ['limit' => 200]);
-        $this->set(compact('customer', 'custMembershipTiers'));
-        $this->set('_serialize', ['customer']);
+        $this->Flash->error(__('The customer could not be saved. Please, try again.'));
+      }
+      $custMembershipTiers = $this->Customers->CustMembershipTiers->find('list', ['limit' => 200]);
+      $this->set(compact('customer', 'custMembershipTiers'));
+      $this->set('_serialize', ['customer']);
     }
 
     /**
@@ -137,35 +163,35 @@ class CustomersController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $customer = $this->Customers->get($id);
-        if ($this->Customers->delete($customer)) {
-            $this->Flash->success(__('The customer has been deleted.'));
+      $this->request->allowMethod(['post', 'delete']);
+      $customer = $this->Customers->get($id);
+      if ($this->Customers->delete($customer)) {
+        $this->Flash->success(__('The customer has been deleted.'));
 
-            $session = $this->request->session();
-            $retailer = $session->read('retailer'); 
+        $session = $this->request->session();
+        $retailer = $session->read('retailer'); 
 
             //$this->loadComponent('Logging');
-            $this->Logging->rLog($customer['id']);
-            $this->Logging->iLog($retailer, $customer['id']);
-            
-        } else {
-            $this->Flash->error(__('The customer could not be deleted. Please, try again.'));
-        }
+        $this->Logging->rLog($customer['id']);
+        $this->Logging->iLog($retailer, $customer['id']);
 
-        return $this->redirect(['action' => 'index']);
+      } else {
+        $this->Flash->error(__('The customer could not be deleted. Please, try again.'));
+      }
+
+      return $this->redirect(['action' => 'index']);
     }
 
     public function activateStatus($id) {
 
-          $customer = $this->Customers->get($id);
+      $customer = $this->Customers->get($id);
 
-          $customer->activation_status = 'Activated';
-          $this->Customers->save($customer);
+      $customer->activation_status = 'Activated';
+      $this->Customers->save($customer);
 
-          $this->Flash->success(__('The Customer has been activated.'));
+      $this->Flash->success(__('The Customer has been activated.'));
 
-          return $this->redirect(['action' => 'index']);
+      return $this->redirect(['action' => 'index']);
     }
 
     public function deactivateStatus($id) {
@@ -180,4 +206,4 @@ class CustomersController extends AppController
       return $this->redirect(['action' => 'index']);
 
     }
-}
+  }
