@@ -10,6 +10,10 @@ use Cake\Validation\Validator;
  * Customers Model
  *
  * @property \Cake\ORM\Association\BelongsTo $CustMembershipTiers
+ * @property \Cake\ORM\Association\HasMany $DeliveryOrders
+ * @property \Cake\ORM\Association\HasMany $Feedbacks
+ * @property \Cake\ORM\Association\HasMany $MembershipPoints
+ * @property \Cake\ORM\Association\HasMany $Transactions
  * @property \Cake\ORM\Association\BelongsToMany $Promotions
  *
  * @method \App\Model\Entity\Customer get($primaryKey, $options = [])
@@ -26,62 +30,42 @@ class CustomersTable extends Table
 {
 
     public $filterArgs = array(
-        'username' => array(
-            'type' => 'like',
-            'field' => 'username'
-        ),
-        'email' => array(
-            'type' => 'like',
-            'field' => 'email'
-        ),
-        'address' => array(
-            'type' => 'like',
-            'field' => 'address'
-        ),
-        'first_name' => array(
-            'type' => 'like',
-            'field' => 'first_name'
-        ),
-        'last_name' => array(
-            'type' => 'like',
-            'field' => 'last_name'
-        ),
-        'activation_status' => array(
-            'type' => 'like',
-            'field' => 'activation_status'
-        ),
         'search' => array(
             'type' => 'like',
-            'field' => array('id','activation_status','username','email','contact','address','first_name','last_name')
-        )
+            'field' => array('member_idetification','contact','first_name','last_name','activation_status', 'cust_membership_tier_id')
+            )
     );
 
-    /**
-     * Initialize method
-     *
-     * @param array $config The configuration for the Table.
-     * @return void
-     */
     public function initialize(array $config)
     {
         parent::initialize($config);
 
-        $this->table('customers');
-        $this->displayField('id');
-        $this->primaryKey('id');
+        $this->setTable('customers');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
 
         $this->belongsTo('CustMembershipTiers', [
-            'foreignKey' => 'cust_membership_tier_id',
-            'joinType' => 'INNER'
-        ]);
+            'foreignKey' => 'cust_membership_tier_id'
+            ]);
+        $this->hasMany('DeliveryOrders', [
+            'foreignKey' => 'customer_id'
+            ]);
+        $this->hasMany('Feedbacks', [
+            'foreignKey' => 'customer_id'
+            ]);
+        $this->hasMany('MembershipPoints', [
+            'foreignKey' => 'customer_id'
+            ]);
+        $this->hasMany('Transactions', [
+            'foreignKey' => 'customer_id'
+            ]);
         $this->belongsToMany('Promotions', [
             'foreignKey' => 'customer_id',
             'targetForeignKey' => 'promotion_id',
             'joinTable' => 'customers_promotions'
-        ]);
-        $this->addBehavior('Searchable');
+            ]);
     }
 
     /**
@@ -93,70 +77,60 @@ class CustomersTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('id')
-            ->allowEmpty('id', 'create');
+        ->integer('id')
+        ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('username', 'create')
-            ->notEmpty('username')
-            ->add('username', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+        ->requirePresence('member_identification', 'create')
+        ->notEmpty('member_identification');
 
         $validator
-            ->requirePresence('password', 'create')
-            ->notEmpty('password');
+        ->requirePresence('password', 'create')
+        ->notEmpty('password');
 
         $validator
-            ->email('email')
-            ->requirePresence('email', 'create')
-            ->notEmpty('email');
+        ->email('email')
+        ->requirePresence('email', 'create')
+        ->notEmpty('email');
 
         $validator
-            ->requirePresence('address', 'create')
-            ->notEmpty('address');
+        ->date('dob')
+        ->requirePresence('dob', 'create')
+        ->notEmpty('dob');
 
         $validator
-            ->requirePresence('contact', 'create')
-            ->notEmpty('contact');
+        ->requirePresence('address', 'create')
+        ->notEmpty('address');
 
         $validator
-            ->requirePresence('first_name', 'create')
-            ->notEmpty('first_name');
+        ->requirePresence('contact', 'create')
+        ->notEmpty('contact');
 
         $validator
-            ->requirePresence('last_name', 'create')
-            ->notEmpty('last_name');
+        ->requirePresence('first_name', 'create')
+        ->notEmpty('first_name');
 
         $validator
-            ->allowEmpty('activation_status');
+        ->requirePresence('last_name', 'create')
+        ->notEmpty('last_name');
 
         $validator
-            ->allowEmpty('activation_token');
+        ->allowEmpty('activation_status');
 
         $validator
-            ->allowEmpty('recovery_status');
+        ->allowEmpty('activation_token');
 
         $validator
-            ->allowEmpty('recovery_token');
+        ->boolean('mailing_list')
+        ->allowEmpty('mailing_list');
 
         $validator
-            ->boolean('mailing_list')
-            ->allowEmpty('mailing_list');
-        // check whether password and confirm_password are matched
-        $validator 
-            ->add(
-                'confirm_password',
-                'custom',
-                [
-                    'rule' => function ($value, $context) {
-                            if (isset($context['data']['password']) && $value == $context['data']['password']) {
-                                return true;
-                            }
-                            return false;
-                        },
-                    'message' => 'Password and confirm password does not matched.'
-                ]
-            );
-            
+        ->dateTime('expiry_date')
+        ->allowEmpty('expiry_date');
+
+        $validator
+        ->allowEmpty('preferred_currency');
+
         return $validator;
     }
 
@@ -169,7 +143,6 @@ class CustomersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['username']));
         $rules->add($rules->isUnique(['email']));
         $rules->add($rules->existsIn(['cust_membership_tier_id'], 'CustMembershipTiers'));
 

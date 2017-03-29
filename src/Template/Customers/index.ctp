@@ -14,7 +14,7 @@ $this->Html->addCrumb(__('Customers'));
         </div>
         <div class="box-body">
         <div class="pull-right">
-            <a class="btn btn-default btn-block" title="Create New Employee" href="/IS3102_Final/customers/add" >Create New Customer</a>
+            <a class="btn btn-success btn-block" title="Create New Employee" href="/IS3102_Final/customers/add" >Create New Customer</a>
         </div>
         <br>
         <form method="post" accept-charset="utf-8" action="/IS3102_Final/customers">

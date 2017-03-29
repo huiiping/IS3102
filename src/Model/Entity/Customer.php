@@ -7,9 +7,10 @@ use Cake\ORM\Entity;
  * Customer Entity
  *
  * @property int $id
- * @property string $username
+ * @property string $member_identification
  * @property string $password
  * @property string $email
+ * @property \Cake\I18n\Time $dob
  * @property string $address
  * @property string $contact
  * @property \Cake\I18n\Time $created
@@ -18,9 +19,9 @@ use Cake\ORM\Entity;
  * @property string $last_name
  * @property string $activation_status
  * @property string $activation_token
- * @property string $recovery_status
- * @property string $recovery_token
  * @property bool $mailing_list
+ * @property \Cake\I18n\Time $expiry_date
+ * @property string $preferred_currency
  * @property int $cust_membership_tier_id
  *
  * @property \App\Model\Entity\CustMembershipTier $cust_membership_tier
