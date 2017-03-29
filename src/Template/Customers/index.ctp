@@ -44,8 +44,6 @@ use Cake\ORM\TableRegistry;
           <br>
 
           <?php 
-//$customers = TableRegistry::get('Customers');
-//$query = $customers->find();
           foreach ($customers as $customer): 
             ?>
           <div class="col-xs-4">
@@ -53,7 +51,7 @@ use Cake\ORM\TableRegistry;
               <div class="box-body box-profile">
                 <img class="profile-user-img img-responsive img-circle" src="/IS3102_Final/img/user2-160x160.jpg" alt="User profile picture">
                 <h3 class="profile-username text-center"><?= h($customer->first_name).' '.h($customer->last_name) ?></h3>
-                <br>
+                
                 <ul class="list-group list-group-unbordered"><br>
 
                  <li class="list-group-item">
@@ -66,100 +64,48 @@ use Cake\ORM\TableRegistry;
                 </li>
 
                 <li class="list-group-item">
-                  <b><?= __('Activation Status') ?></b> 
-                  <div class="pull-right">
-                    <?php if ($customer->activation_status == 'Activated'): ?>
-                      <a class="btn btn-danger btn-block" title="Deactivate Customer" href="/IS3102_Final/customers/deactivateStatus/<?= $customer->id ?>" >Deactivate</a>
-                    <?php else: ?>
-                      <a class="btn btn-success btn-block" title="Activate Customer" href="/IS3102_Final/customers/activateStatus/<?= $customer->id ?>" >Activate</a>
-                    <?php endif; ?>
-                  </div><br><br>
-                </li>
-                <li class="list-group-item">
-                  <b><?= __('Mailing List') ?></b> 
-                  <div class="pull-right"><?= $customer->mailing_list ? __('Yes') : __('No'); ?></div>
-                </li>
-                <li class="list-group-item">
-                  <b><?= __('Expiry Date') ?></b> 
-                  <div class="pull-right"><?= $this->Time->format(h($customer->expiry_date), 'd MMM YYYY, HH:mm') ?></div>
-                </li>
-              </ul>
-              <br>
-            </div>
-          <td>
-            <a href="/IS3102_Final/customers/edit/<?=$customer->id?>">
-              <i class="fa fa-edit" style="font-size: 200%;" title="Edit Customer Details"></i></a>&nbsp
-              <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash ', 'style' => 'font-size: 200%', 'title' => 'Delete Customer')), array('action' => 'delete', $customer->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $customer->id))) ?>
-            </td>
-          </div>
-        </div>
-      <?php endforeach; ?>
-
-         <!--  <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-
-                <th scope="col"><?= $this->Paginator->sort('first_name', ['label' => 'Customer Name']) ?></th>
-                <th scope="col"><?= $this->Paginator->sort('email') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('contact') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('expiry_date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('cust_membership_tier_id', ['label' => 'Membership Tiers']) ?></th>
-                <th scope="col"><?= $this->Paginator->sort('activation_status') ?></th>
-
-                <th scope="col"><?= $this->Paginator->sort('mailing_list') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($customers as $customer): ?>
-                <tr>
-
-                  <td style="max-width: 150px; overflow: hidden;">
-                    <?= $this->Html->link(__(h($customer->first_name.' '.$customer->last_name)), ['action' => 'view', $customer->id], ['title' => 'View Customer Details']) ?>
-                  </td>
-                  <td style="width: 150px; overflow: hidden;">
-                    <a href="mailto:<?= h($customer->email) ?>" title="Email">
-                      <?= h($customer->email) ?>
-                    </a>
-                  </td>
-                  <td style="width: 150px; overflow: hidden;">
+                  <b><?= __('Contact') ?></b> 
+                  <div class="pull-right">                    
                     <a href="tel:+<?= h($customer->contact) ?>" title="Call Contact">
                       <?= h($customer->contact) ?>
                     </a>
-                  </td>
-
-                  <td style="width: 150px; overflow: hidden;">
-                    <?= h($customer->expiry_date) ?>
-                  </td>
-
- 
-                    <td>
-                      <?php if ($customer->activation_status == 'Activated'): ?>
-                        <a class="btn btn-danger btn-block" title="Deactivate Customer" href="/IS3102_Final/customers/deactivateStatus/<?= $customer->id ?>" >Deactivate</a>
-                      <?php else: ?>
-                        <a class="btn btn-success btn-block" title="Activate Customer" href="/IS3102_Final/customers/activateStatus/<?= $customer->id ?>" >Activate</a>
-                      <?php endif; ?>
-                    </td>
-
-                    <td>
-                      <?php if ($customer->mailing_list == '0'): ?>
-                        No
-                      <?php else: ?>
-                        Yes
-                      <?php endif; ?>                        
-                    </td>
-                    <td>
-                      <a href="/IS3102_Final/customers/edit/<?=$customer->id?>">
-                        <i class="fa fa-edit" title="Edit Customer Details"></i></a>&nbsp
-                        <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Customer')), array('action' => 'delete', $customer->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $customer->id))) ?>
-                      </td>
-                    
-                    </tr>
-                  <?php endforeach; ?>
-                </tbody>
-              </table> -->
-              
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <b><?= __('Customer Membership Tier') ?></b> 
+                  <div class="pull-right">                    
+                    <?= $customer->has('cust_membership_tier') ? $this->Html->link($customer->cust_membership_tier->tier_name, ['controller' => 'CustMembershipTiers', 'action' => 'view', $customer->cust_membership_tier->id]) : '' ?>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <b><?= __('Mailing List') ?></b> 
+                <div class="pull-right"><?= $customer->mailing_list ? __('Yes') : __('No'); ?></div>
+              </li>
+              <li class="list-group-item">
+                <b><?= __('Activation Status') ?></b> 
+                <div class="pull-right">
+                  <?php if ($customer->activation_status == 'Activated'): ?>
+                    <a class="btn btn-danger btn-block" title="Deactivate Customer" href="/IS3102_Final/customers/deactivateStatus/<?= $customer->id ?>" >Deactivate</a>
+                  <?php else: ?>
+                    <a class="btn btn-success btn-block" title="Activate Customer" href="/IS3102_Final/customers/activateStatus/<?= $customer->id ?>" >Activate</a>
+                  <?php endif; ?>
+                </div><br><br>
+              </li>
+            </ul>
+          </div>
+          <td>
+            <div style="text-align: center">
+              <a href="/IS3102_Final/customers/view/<?=$customer->id?>">
+                <i class="fa fa-bars" style="font-size:24px;" title="View Customer Details"></i></a>&nbsp
+                <a href="/IS3102_Final/customers/edit/<?=$customer->id?>">
+                  <i class="fa fa-edit" style="font-size:24px;" title="Edit Customer Details"></i></a>&nbsp
+                  <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash ', 'style' => 'font-size: 24px', 'title' => 'Delete Customer')), array('action' => 'delete', $customer->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $customer->id))) ?>
+                </div>
+              </td>
             </div>
+          </div>
+        <?php endforeach; ?>
+        </div>
             <div class="paginator">
               <ul class="pagination">
                 <?= $this->Paginator->first('<< ' . __('first')) ?>
@@ -170,11 +116,8 @@ use Cake\ORM\TableRegistry;
               </ul>
               <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
             </div>
+            </div>
           </div>
         </div>
-      </div> 
-    </div>
-  </div>
-</div>
-</div>
+      
 </section>

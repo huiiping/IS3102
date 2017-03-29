@@ -206,8 +206,9 @@ $this->Html->addCrumb(__('Create New Customer'));
 
               <div class ="form-group">            
                 <div class="input-group" style="z-index: 0;" title="Select Mailing List">
-                  <input type="hidden" name="mailing_list" value="">
-                  <label for="mailing-list"><input type="checkbox" name="mailing_list" value="" id="mailing-list">&nbsp;Mailing List</label>
+                  
+                  <label for="mailing-list">
+                  <input type="checkbox" name="mailing_list" value="1" id="mailing-list">&nbsp;Mailing List</label>
                 </div> 
               </div>
 
