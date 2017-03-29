@@ -133,8 +133,18 @@ class CustMembershipTiersController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $custMembershipTier = $this->CustMembershipTiers->get($id);
+        $custMembershipTier = $this->CustMembershipTiers->get($id, [
+            'contain' => ['Customers']
+        ] );
+
+        if (!empty($custMembershipTier->customers)) {
+            $this->Flash->error(__('This customer membership tier cannot be deleted. Please check related customers.'));
+            return $this->redirect(['action' => 'index']);
+            }
+
         if ($this->CustMembershipTiers->delete($custMembershipTier)) {
+
+
             $this->Flash->success(__('The customer membership tier has been deleted.'));
 
             $session = $this->request->session();

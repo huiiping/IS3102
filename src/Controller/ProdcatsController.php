@@ -119,7 +119,23 @@ class ProdCatsController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $prodCat = $this->ProdCats->get($id);
+        $prodCat = $this->ProdCats->get($id, ['contain' => ['Products']]);
+        var_dump($prodCat);
+         if (!empty($prodCat->products)) {
+            $this->Flash->error(__('This product category cannot be deleted. Please check related products.'));
+            return $this->redirect(['action' => 'index']);
+            }
+
+        $prodCats = $this->ProdCats->find('all');
+        foreach($prodCats as $prodCat) {
+            echo($prodCat->parentid);
+            echo($id);
+        if ($prodCat->parentid == $id) {
+            $this->Flash->error(__('This product category is a parent category of other category. Hence, this product category cannot be deleted.'));
+            return $this->redirect(['action' => 'index']);
+            }
+        }
+
         if ($this->ProdCats->delete($prodCat)) {
             $this->Flash->success(__('The prod cat has been deleted.'));
         } else {
