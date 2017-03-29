@@ -182,7 +182,6 @@ class RetailerEmployeesController extends AppController
                         $database
                         );
 
-                    //$this->__sendActivationEmail($retailerEmployee['id']);
                     $this->Flash->success(__('The retailer employee has been saved.'));
 
                     $session = $this->request->session();

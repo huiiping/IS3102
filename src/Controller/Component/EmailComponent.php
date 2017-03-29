@@ -97,6 +97,24 @@ class EmailComponent extends Component {
             $dbname);
     }
 
+    public function customerActivation($recipient, $firstName, $pwd, $id, $token, $type, $dbname){
+
+        $email = new Email('default');
+        $email->template('customer_activation');
+        $email->emailFormat('html');        
+        $email->subject('Please confirm your email address');
+        $email->from('tanyongming90@gmail.com');
+        $email->to($recipient);
+        $email->send($firstName.','.
+            $recipient.','.
+            $pwd.','.
+            env('SERVER_NAME').','. 
+            $id.','. 
+            $token.','.
+            $type.','.
+            $dbname);
+    }
+
     public function retailerEmployeeActivationEmail($recipient, $firstName, $username, $pwd, $id, $token, $type, $database){
 
         $email = new Email('default');

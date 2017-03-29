@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\I18n\Time;
 
 /**
  * Customers Controller
@@ -26,6 +27,7 @@ class CustomersController extends AppController
      */
     public function index()
     {
+
       //$customers = $this->Customers->find('list', ['limit' => 200]);
       $this->loadComponent('Prg');
       $this->Prg->commonProcess();
@@ -33,7 +35,7 @@ class CustomersController extends AppController
       'contain' => ['CustMembershipTiers']
       ];
 
-      $this->set('customers', $this->paginate($this->Customers->find('searchable', $this->Prg->parsedParams())));
+      $this->set('customers', $this->paginate($this->Customers->find('searchable',  $this->Prg->parsedParams())));
 
       $this->set(compact('customers'));
       $this->set('_serialize', ['customers']);
@@ -42,13 +44,6 @@ class CustomersController extends AppController
       'Prg'
       );
 
-    /**
-     * View method
-     *
-     * @param string|null $id Customer id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function view($id = null)
     {
       $customer = $this->Customers->get($id, [
@@ -66,11 +61,6 @@ class CustomersController extends AppController
       $this->set('_serialize', ['customer']);
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
-     */
     public function add()
     {
       $this->loadComponent('Generator');
@@ -82,25 +72,31 @@ class CustomersController extends AppController
         $customer->set('password', $this->password);
         $customer->set('activation_status', 'Deactivated');
         $customer->set('activation_token', $this->Generator->generateString());
+        $tierID = $customer->cust_membership_tier_id;
 
-        $this->expiry_date = date('Y-m-d', strtotime('+1 year'));
-        $customer->set('expiry_date', $this->expiry_date);
+        $tier = $this->Customers->CustMembershipTiers->get($tierID, [
+          'contain' => []
+          ]);
+        $days = $tier->validity_period;
+        $this->expiry_date = Time::now();
+
+        $customer->set('expiry_date', $this->expiry_date->modify($days.'days'));
 
         if ($this->Customers->save($customer)) {
-
+          $session = $this->request->session();
+          $database = $session->read('database');
           $customer = $this->Customers->patchEntity($customer, $this->request->data);
 
-          //Need to check if the member identification is an username!
-          // $this->Email->activationEmail(
-          // $intrasysEmployee['email'], 
-          // $intrasysEmployee['first_name'], 
-          // $intrasysEmployee['username'], 
-          // $this->password, 
-          // $intrasysEmployee['id'], 
-          // $intrasysEmployee['activation_token'], 
-          // 'intrasys-employees',
-          // ""
-          // );
+          // $this->Customers->save($customer)
+          // $this->Email->customerActivation(
+          //   $customer['email'], 
+          //   $customer['first_name'], 
+          //   $this->password, 
+          //   $customer['id'], 
+          //   $customer['activation_token'], 
+          //   'customers',
+          //   $database
+          //   );
 
           $this->Flash->success(__('The customer has been saved.'));
 
@@ -122,89 +118,83 @@ class CustomersController extends AppController
         $this->set('_serialize', ['customer']);
       }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Customer id.
-     * @return \Cake\Network\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-      $customer = $this->Customers->get($id, [
-        'contain' => []
-        ]);
-      if ($this->request->is(['patch', 'post', 'put'])) {
-        $customer = $this->Customers->patchEntity($customer, $this->request->data);
-        if ($this->Customers->save($customer)) {
-          $this->Flash->success(__('The customer has been saved.'));
+      public function edit($id = null)
+      {
+        $customer = $this->Customers->get($id, [
+          'contain' => []
+          ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+          $customer = $this->Customers->patchEntity($customer, $this->request->data);
+          $tierID = $customer->cust_membership_tier_id;
 
-          $session = $this->request->session();
-          $retailer = $session->read('retailer');
+          $tier = $this->Customers->CustMembershipTiers->get($tierID, [
+            'contain' => []
+            ]);
+          $days = $tier->validity_period;
+          $this->expiry_date = Time::now();
+          $customer->set('expiry_date', $this->expiry_date->modify($days.'days'));
+          if ($this->Customers->save($customer)) {
+            $this->Flash->success(__('The customer has been saved.'));
+
+            $session = $this->request->session();
+            $retailer = $session->read('retailer');
 
                 //$this->loadComponent('Logging');
+            $this->Logging->rLog($customer['id']);
+            $this->Logging->iLog($retailer, $customer['id']);
+
+            return $this->redirect(['action' => 'index']);
+          }
+          $this->Flash->error(__('The customer could not be saved. Please, try again.'));
+        }
+        $custMembershipTiers = $this->Customers->CustMembershipTiers->find('list', ['limit' => 200]);
+        $this->set(compact('customer', 'custMembershipTiers'));
+        $this->set('_serialize', ['customer']);
+      }
+
+      public function delete($id = null)
+      {
+        $this->request->allowMethod(['post', 'delete']);
+        $customer = $this->Customers->get($id);
+        if ($this->Customers->delete($customer)) {
+          $this->Flash->success(__('The customer has been deleted.'));
+
+          $session = $this->request->session();
+          $retailer = $session->read('retailer'); 
+
+            //$this->loadComponent('Logging');
           $this->Logging->rLog($customer['id']);
           $this->Logging->iLog($retailer, $customer['id']);
 
-          return $this->redirect(['action' => 'index']);
+        } else {
+          $this->Flash->error(__('The customer could not be deleted. Please, try again.'));
         }
-        $this->Flash->error(__('The customer could not be saved. Please, try again.'));
-      }
-      $custMembershipTiers = $this->Customers->CustMembershipTiers->find('list', ['limit' => 200]);
-      $this->set(compact('customer', 'custMembershipTiers'));
-      $this->set('_serialize', ['customer']);
-    }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Customer id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-      $this->request->allowMethod(['post', 'delete']);
-      $customer = $this->Customers->get($id);
-      if ($this->Customers->delete($customer)) {
-        $this->Flash->success(__('The customer has been deleted.'));
-
-        $session = $this->request->session();
-        $retailer = $session->read('retailer'); 
-
-            //$this->loadComponent('Logging');
-        $this->Logging->rLog($customer['id']);
-        $this->Logging->iLog($retailer, $customer['id']);
-
-      } else {
-        $this->Flash->error(__('The customer could not be deleted. Please, try again.'));
+        return $this->redirect(['action' => 'index']);
       }
 
-      return $this->redirect(['action' => 'index']);
+      public function activateStatus($id) {
+
+        $customer = $this->Customers->get($id);
+
+        $customer->activation_status = 'Activated';
+        $this->Customers->save($customer);
+
+        $this->Flash->success(__('The Customer has been activated.'));
+
+        return $this->redirect(['action' => 'index']);
+      }
+
+      public function deactivateStatus($id) {
+
+        $customer = $this->Customers->get($id);
+
+        $customer->activation_status = 'Deactivated';
+        $this->Customers->save($customer);
+
+        $this->Flash->success(__('The Customer has been deactivated.'));
+
+        return $this->redirect(['action' => 'index']);
+
+      }
     }
-
-    public function activateStatus($id) {
-
-      $customer = $this->Customers->get($id);
-
-      $customer->activation_status = 'Activated';
-      $this->Customers->save($customer);
-
-      $this->Flash->success(__('The Customer has been activated.'));
-
-      return $this->redirect(['action' => 'index']);
-    }
-
-    public function deactivateStatus($id) {
-
-      $customer = $this->Customers->get($id);
-
-      $customer->activation_status = 'Deactivated';
-      $this->Customers->save($customer);
-
-      $this->Flash->success(__('The Customer has been deactivated.'));
-
-      return $this->redirect(['action' => 'index']);
-
-    }
-  }
