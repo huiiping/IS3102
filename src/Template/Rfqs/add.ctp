@@ -34,6 +34,12 @@ $this->Html->addCrumb(__('Add'));
                     <textarea name="message" placeholder = "Enter your message.." required="required" id="remarks" rows="4" cols="50"></textarea>
                   </div>
                 </div>
+                <div class ="form-group">          
+                  <div class="input-group">
+                   Closing date: <br > 
+                    <input class = "form-control" type="date" placeholder = "closing date*" name="end_date" required="required" id="end_date"> 
+                  </div>
+                </div>
                 <div class ="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
