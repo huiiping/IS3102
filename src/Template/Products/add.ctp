@@ -73,22 +73,22 @@ $this->Html->addCrumb(__('Create New Product'));
           </div>
 
           <div class ="form-group">          
-          <div class="input-group" title="Store Unit Price">
+          <div class="input-group" title="Store Unit Price ($)">
               <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-              <input class = "form-control" type="number" type="number" step="0.01" min="0" placeholder = "Store Unit Price" name="store_unit_price" id="store_unit_price" maxlength="255"> 
+              <input class = "form-control" type="number" type="number" step="0.01" min="0" placeholder = "Store Unit Price" name="store_unit_price" id="store_unit_price"> 
             </div>
           </div>
 
           <div class ="form-group">          
-            <div class="input-group" title="Web Store Unit Price">
+            <div class="input-group" title="Web Store Unit Price ($)">
               <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-              <input class = "form-control" type="number" type="number" step="0.01" min="0" placeholder = "Web Store Unit Price" name="web_store_unit_price" id="web_store_unit_price" maxlength="255"> 
+              <input class = "form-control" type="number" type="number" step="0.01" min="0" placeholder = "Web Store Unit Price" name="web_store_unit_price" id="web_store_unit_price"> 
             </div>
           </div>  
 
           <div class ="form-group">          
             <div class="input-group" title="Barcode">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+              <span class="input-group-addon"><i class="glyphicon glyphicon-shopping-cart"></i></span>
               <input class = "form-control" type="text" placeholder = "Barcode" name="barcode" id="barcode" maxlength="255"> 
             </div>
           </div>            
@@ -102,8 +102,8 @@ $this->Html->addCrumb(__('Create New Product'));
                 <option value=" ">No Promotion</option>
                 <?php foreach ($promotions as $promotion): 
                 $session = $this->request->session();
-                $promotions = TableRegistry::get('Promotions');
-                $promo = $promotions
+                $promos = TableRegistry::get('Promotions');
+                $promo = $promos
                 ->find()
                 ->where(['id' => $promotion])
                 ->extract('promo_name');

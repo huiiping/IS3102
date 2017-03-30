@@ -49,8 +49,8 @@ $this->Html->addCrumb(__('Products'));
               <tr>
                 <th scope="col"><?= $this->Paginator->sort(('prod_name'), ['label' => 'Product Name'])?></th>
                 <th scope="col"><?= $this->Paginator->sort(('prod_cat_id'),['label' => 'Product Category']) ?></th>
-                <th scope="col"><?= $this->Paginator->sort('store_unit_price') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('web_store_unit_price') ?></th>
+                <th scope="col"><?= $this->Paginator->sort(('store_unit_price'), ['title' => 'Store Unit Price ($)']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort(('web_store_unit_price'), ['title' => 'Web Store Unit Price ($)']) ?></th>
                 <th scope="col"><?= $this->Paginator->sort('SKU') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
               </tr>

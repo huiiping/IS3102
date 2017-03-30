@@ -45,7 +45,7 @@
         'type10' => 'Product Specification', 'typePlural10' => 'ProdSpecifications', 
         'type11' => 'Location', 'typePlural11' => 'Locations', 
         'type12' => 'Section', 'typePlural12' => 'Sections', 
-        'type13' => 'Inventory', 'typePlural13' => 'Inventory', 
+        /*'type13' => 'Inventory', 'typePlural13' => 'Inventory',*/
         'type14' => 'Stock Level', 'typePlural14' => 'StockLevels', 
         'type15' => 'Item', 'typePlural15' => 'Items', 
         'type16' => 'Supplier', 'typePlural16' => 'Suppliers', 
@@ -69,7 +69,7 @@
         
         <?= $this->Element('sideBar2', array('icon' => 'shopping-cart', 'title' => 'Products', 'num' => '3', 'type1' => 'Product Category', 'typePlural' => 'ProdCats', 'type2' => 'Products', 'typePlural2' => 'Products', 'type3' => 'Product Specification', 'typePlural3' => 'ProdSpecifications')); ?>
 
-        <?= $this->Element('sideBar2', array('icon' => 'building', 'title' => 'Warehouse', 'num' => '5', 'type1' => 'Locations', 'typePlural' => 'Locations', 'type2' => 'Sections', 'typePlural2' => 'Sections', 'type3' => 'Inventory', 'typePlural3' => 'Inventory', 'type4' => 'Stock Levels', 'typePlural4' => 'StockLevels', 'type5' => 'Items', 'typePlural5' => 'Items')); ?>
+        <?= $this->Element('sideBar2', array('icon' => 'building', 'title' => 'Warehouse', 'num' => '4', 'type1' => 'Locations', 'typePlural' => 'Locations', 'type2' => 'Sections', 'typePlural2' => 'Sections', 'type3' => 'Stock Levels', 'typePlural3' => 'StockLevels', 'type4' => 'Items', 'typePlural4' => 'Items')); ?>
 
         <?= $this->Element('sideBar2', array('icon' => 'users', 'title' => 'Suppliers', 'num' => '3', 'type1' => 'Suppliers', 'typePlural' => 'Suppliers', 'type2' => 'Purchase Orders', 'typePlural2' => 'PurchaseOrders', 'type3' => 'RFQ', 'typePlural3' => 'Rfqs')); ?>
 

@@ -21,7 +21,7 @@
     <li><a href="/IS3102_Final/<?=$typePlural10?>/add"><?=$type10?></a></li>
     <li><a href="/IS3102_Final/<?=$typePlural11?>/add"><?=$type11?></a></li>
     <li><a href="/IS3102_Final/<?=$typePlural12?>/add"><?=$type12?></a></li>
-    <li><a href="/IS3102_Final/<?=$typePlural13?>/add"><?=$type13?></a></li>
+    <!--<li><a href="/IS3102_Final/<?=$typePlural13?>/add"><?=$type13?></a></li>-->
     <li><a href="/IS3102_Final/<?=$typePlural14?>/add"><?=$type14?></a></li>
     <li><a href="/IS3102_Final/<?=$typePlural15?>/add"><?=$type15?></a></li>
     <li><a href="/IS3102_Final/<?=$typePlural16?>/add"><?=$type16?></a></li>

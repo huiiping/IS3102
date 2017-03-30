@@ -66,7 +66,7 @@ $this->Html->addCrumb(__('Promotions'));
                     <?php foreach ($promotions as $promotion): ?>
                         <tr>
                             <td style="max-width: 150px;"><?= $this->Number->format($promotion->id) ?></td>
-                            <td style="max-width: 150px;"><?= $this->Html->link(__(h($promotion->promo_name)), ['title' => 'View Product Details']) ?></td>
+                            <td style="max-width: 150px;"><?= $this->Html->link(__(h($promotion->promo_name)), ['action' => 'view', $promotion->id], ['title' => 'View Product Details']) ?></td>
                             <td style="max-width: 150px;"><?= h($promotion->promo_desc) ?></td>
                             <td style="max-width: 150px;"><?= $promotion->has('retailer_employee') ? $this->Html->link($promotion->retailer_employee->last_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $promotion->retailer_employee->id]) : '' ?></td>
                             <td style="max-width: 150px;"><?= $this->Time->format(h($promotion->start_date), 'd MMM YYYY, hh:mm') ?></td>
