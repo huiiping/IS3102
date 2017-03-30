@@ -16,6 +16,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\Time $created
  *
  * @property \App\Model\Entity\RetailerEmployee $retailer_employee
+ * @property \App\Model\Entity\Supplier $supplier
  * @property \App\Model\Entity\TransferOrderItem[] $transfer_order_items
  */
 class TransferOrder extends Entity

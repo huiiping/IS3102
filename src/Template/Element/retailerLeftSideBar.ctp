@@ -56,9 +56,8 @@
         'type21' => 'Delivery Order', 'typePlural21' => 'DeliveryOrders', 
         'type22' => 'Delivery Order Item', 'typePlural22' => 'DeliveryOrderItems', 
         'type23' => 'Transfer Order', 'typePlural23' => 'TransferOrders', 
-        'type24' => 'Transfer Order Item', 'typePlural24' => 'TransferOrderItems',
-        'type25' => 'Message', 'typePlural25' => 'Messages',
-        'type26' => 'Report', 'typePlural26' => 'Reports'
+        'type24' => 'Message', 'typePlural24' => 'Messages',
+        'type25' => 'Report', 'typePlural25' => 'Reports'
         )); ?>
 
         <?= $this->Element('sideBar', array('icon' => 'users', 'title' => 'Employees', 'type1' => 'Employees', 'typePlural' => 'RetailerEmployees', 'type2' => 'Employee Roles', 'typePlural2' => 'RetailerEmployeeRoles')); ?>
@@ -73,7 +72,7 @@
 
         <?= $this->Element('sideBar2', array('icon' => 'users', 'title' => 'Suppliers', 'num' => '3', 'type1' => 'Suppliers', 'typePlural' => 'Suppliers', 'type2' => 'Purchase Orders', 'typePlural2' => 'PurchaseOrders', 'type3' => 'RFQ', 'typePlural3' => 'Rfqs')); ?>
 
-        <?= $this->Element('sideBar2', array('icon' => 'file-text-o', 'title' => 'Transactions', 'num' => '6', 'type1' => 'Transactions', 'typePlural' => 'Transactions', 'type2' => 'Transaction Items', 'typePlural2' => 'TransactionItems', 'type3' => 'Delivery Orders', 'typePlural3' => 'DeliveryOrders', 'type4' => 'Delivery Order Items', 'typePlural4' => 'DeliveryOrderItems', 'type5' => 'Transfer Orders', 'typePlural5' => 'TransferOrders', 'type6' => 'Transfer Order Items', 'typePlural6' => 'TransferOrderItems')); ?>
+        <?= $this->Element('sideBar2', array('icon' => 'file-text-o', 'title' => 'Transactions', 'num' => '6', 'type1' => 'Transactions', 'typePlural' => 'Transactions', 'type2' => 'Transaction Items', 'typePlural2' => 'TransactionItems', 'type3' => 'Delivery Orders', 'typePlural3' => 'DeliveryOrders', 'type4' => 'Delivery Order Items', 'typePlural4' => 'DeliveryOrderItems', 'type5' => 'Transfer Orders', 'typePlural5' => 'TransferOrders')); ?>
 
         <li class="treeview">
           <a href="/IS3102_Final/messages/index">

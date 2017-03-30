@@ -19,7 +19,6 @@
 <?php elseif ($num === '6'): ?>
     <li><a href="/IS3102_Final/<?=$typePlural4?>/index"><?=$type4?></a></li>
     <li><a href="/IS3102_Final/<?=$typePlural5?>/index"><?=$type5?></a></li>
-    <li><a href="/IS3102_Final/<?=$typePlural6?>/index"><?=$type6?></a></li>
 <?php endif; ?>
     <li><p class="indent"></p></li>
   </ul>

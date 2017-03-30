@@ -19,7 +19,7 @@ class TransferOrdersController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['RetailerEmployees']
+            'contain' => ['RetailerEmployees', 'Suppliers']
         ];
         $transferOrders = $this->paginate($this->TransferOrders);
 
@@ -37,7 +37,7 @@ class TransferOrdersController extends AppController
     public function view($id = null)
     {
         $transferOrder = $this->TransferOrders->get($id, [
-            'contain' => ['RetailerEmployees', 'TransferOrderItems']
+            'contain' => ['RetailerEmployees', 'Suppliers', 'TransferOrderItems']
         ]);
 
         $this->set('transferOrder', $transferOrder);
@@ -62,7 +62,8 @@ class TransferOrdersController extends AppController
             $this->Flash->error(__('The transfer order could not be saved. Please, try again.'));
         }
         $retailerEmployees = $this->TransferOrders->RetailerEmployees->find('list', ['limit' => 200]);
-        $this->set(compact('transferOrder', 'retailerEmployees'));
+        $suppliers = $this->TransferOrders->Suppliers->find('list', ['limit' => 200]);
+        $this->set(compact('transferOrder', 'retailerEmployees', 'suppliers'));
         $this->set('_serialize', ['transferOrder']);
     }
 
@@ -88,7 +89,8 @@ class TransferOrdersController extends AppController
             $this->Flash->error(__('The transfer order could not be saved. Please, try again.'));
         }
         $retailerEmployees = $this->TransferOrders->RetailerEmployees->find('list', ['limit' => 200]);
-        $this->set(compact('transferOrder', 'retailerEmployees'));
+        $suppliers = $this->TransferOrders->Suppliers->find('list', ['limit' => 200]);
+        $this->set(compact('transferOrder', 'retailerEmployees', 'suppliers'));
         $this->set('_serialize', ['transferOrder']);
     }
 

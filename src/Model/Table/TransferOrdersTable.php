@@ -11,7 +11,7 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $RetailerEmployees
  * @property \Cake\ORM\Association\BelongsTo $Suppliers
- * @property \Cake\ORM\Association\HasMany $TransferOrderItems
+ * @property \Cake\ORM\Association\BelongsToMany $Items
  *
  * @method \App\Model\Entity\TransferOrder get($primaryKey, $options = [])
  * @method \App\Model\Entity\TransferOrder newEntity($data = null, array $options = [])
@@ -48,8 +48,10 @@ class TransferOrdersTable extends Table
         $this->belongsTo('Suppliers', [
             'foreignKey' => 'supplier_id'
         ]);
-        $this->hasMany('TransferOrderItems', [
-            'foreignKey' => 'transfer_order_id'
+        $this->belongsToMany('Items', [
+            'foreignKey' => 'transfer_order_id',
+            'targetForeignKey' => 'item_id',
+            'joinTable' => 'transfer_orders_items'
         ]);
     }
 

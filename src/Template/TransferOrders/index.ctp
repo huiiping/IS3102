@@ -9,8 +9,8 @@
         <li><?= $this->Html->link(__('New Transfer Order'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Retailer Employees'), ['controller' => 'RetailerEmployees', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Retailer Employee'), ['controller' => 'RetailerEmployees', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Transfer Order Items'), ['controller' => 'TransferOrderItems', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Transfer Order Item'), ['controller' => 'TransferOrderItems', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Suppliers'), ['controller' => 'Suppliers', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Supplier'), ['controller' => 'Suppliers', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="transferOrders index large-9 medium-8 columns content">
@@ -38,7 +38,7 @@
                 <td><?= h($transferOrder->status) ?></td>
                 <td><?= h($transferOrder->remarks) ?></td>
                 <td><?= $transferOrder->has('retailer_employee') ? $this->Html->link($transferOrder->retailer_employee->last_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $transferOrder->retailer_employee->id]) : '' ?></td>
-                <td><?= $this->Number->format($transferOrder->supplier_id) ?></td>
+                <td><?= $transferOrder->has('supplier') ? $this->Html->link($transferOrder->supplier->supplier_name, ['controller' => 'Suppliers', 'action' => 'view', $transferOrder->supplier->id]) : '' ?></td>
                 <td><?= h($transferOrder->created) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $transferOrder->id]) ?>

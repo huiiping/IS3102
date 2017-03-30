@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\TransferOrdersTable;
+use App\Model\Table\TransferOrdersItemsTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\TransferOrdersTable Test Case
+ * App\Model\Table\TransferOrdersItemsTable Test Case
  */
-class TransferOrdersTableTest extends TestCase
+class TransferOrdersItemsTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\TransferOrdersTable
+     * @var \App\Model\Table\TransferOrdersItemsTable
      */
-    public $TransferOrders;
+    public $TransferOrdersItems;
 
     /**
      * Fixtures
@@ -24,6 +24,7 @@ class TransferOrdersTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
+        'app.transfer_orders_items',
         'app.transfer_orders',
         'app.retailer_employees',
         'app.locations',
@@ -70,8 +71,8 @@ class TransferOrdersTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('TransferOrders') ? [] : ['className' => 'App\Model\Table\TransferOrdersTable'];
-        $this->TransferOrders = TableRegistry::get('TransferOrders', $config);
+        $config = TableRegistry::exists('TransferOrdersItems') ? [] : ['className' => 'App\Model\Table\TransferOrdersItemsTable'];
+        $this->TransferOrdersItems = TableRegistry::get('TransferOrdersItems', $config);
     }
 
     /**
@@ -81,7 +82,7 @@ class TransferOrdersTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->TransferOrders);
+        unset($this->TransferOrdersItems);
 
         parent::tearDown();
     }
@@ -92,16 +93,6 @@ class TransferOrdersTableTest extends TestCase
      * @return void
      */
     public function testInitialize()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test validationDefault method
-     *
-     * @return void
-     */
-    public function testValidationDefault()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

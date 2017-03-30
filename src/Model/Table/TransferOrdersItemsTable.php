@@ -7,20 +7,20 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * TransferOrderItems Model
+ * TransferOrdersItems Model
  *
  * @property \Cake\ORM\Association\BelongsTo $TransferOrders
  * @property \Cake\ORM\Association\BelongsTo $Items
  *
- * @method \App\Model\Entity\TransferOrderItem get($primaryKey, $options = [])
- * @method \App\Model\Entity\TransferOrderItem newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\TransferOrderItem[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\TransferOrderItem|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\TransferOrderItem patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\TransferOrderItem[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\TransferOrderItem findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\TransferOrdersItem get($primaryKey, $options = [])
+ * @method \App\Model\Entity\TransferOrdersItem newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\TransferOrdersItem[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\TransferOrdersItem|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\TransferOrdersItem patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\TransferOrdersItem[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\TransferOrdersItem findOrCreate($search, callable $callback = null, $options = [])
  */
-class TransferOrderItemsTable extends Table
+class TransferOrdersItemsTable extends Table
 {
 
     /**
@@ -33,9 +33,9 @@ class TransferOrderItemsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('transfer_order_items');
-        $this->setDisplayField('id');
-        $this->setPrimaryKey('id');
+        $this->setTable('transfer_orders_items');
+        $this->setDisplayField('transfer_order_id');
+        $this->setPrimaryKey(['transfer_order_id', 'item_id']);
 
         $this->belongsTo('TransferOrders', [
             'foreignKey' => 'transfer_order_id',

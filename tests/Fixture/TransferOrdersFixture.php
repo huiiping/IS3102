@@ -59,7 +59,7 @@ class TransferOrdersFixture extends TestFixture
             'remarks' => 'Lorem ipsum dolor sit amet',
             'retailer_employee_id' => 1,
             'supplier_id' => 1,
-            'created' => '2017-03-20 21:17:26'
+            'created' => '2017-03-30 18:26:25'
         ],
     ];
 }

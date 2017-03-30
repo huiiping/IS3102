@@ -4,14 +4,15 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * TransferOrderItem Entity
+ * TransferOrdersItem Entity
  *
  * @property int $transfer_order_id
  * @property int $item_id
  *
  * @property \App\Model\Entity\TransferOrder $transfer_order
+ * @property \App\Model\Entity\Item $item
  */
-class TransferOrderItem extends Entity
+class TransferOrdersItem extends Entity
 {
 
     /**
@@ -25,6 +26,7 @@ class TransferOrderItem extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'id' => false
+        'transfer_order_id' => false,
+        'item_id' => false
     ];
 }

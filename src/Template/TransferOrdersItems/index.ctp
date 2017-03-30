@@ -6,13 +6,15 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Transfer Order Item'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New Transfer Orders Item'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Transfer Orders'), ['controller' => 'TransferOrders', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Transfer Order'), ['controller' => 'TransferOrders', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Items'), ['controller' => 'Items', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Item'), ['controller' => 'Items', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="transferOrderItems index large-9 medium-8 columns content">
-    <h3><?= __('Transfer Order Items') ?></h3>
+<div class="transferOrdersItems index large-9 medium-8 columns content">
+    <h3><?= __('Transfer Orders Items') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -22,14 +24,14 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($transferOrderItems as $transferOrderItem): ?>
+            <?php foreach ($transferOrdersItems as $transferOrdersItem): ?>
             <tr>
-                <td><?= $transferOrderItem->has('transfer_order') ? $this->Html->link($transferOrderItem->transfer_order->id, ['controller' => 'TransferOrders', 'action' => 'view', $transferOrderItem->transfer_order->id]) : '' ?></td>
-                <td><?= $this->Number->format($transferOrderItem->item_id) ?></td>
+                <td><?= $transferOrdersItem->has('transfer_order') ? $this->Html->link($transferOrdersItem->transfer_order->id, ['controller' => 'TransferOrders', 'action' => 'view', $transferOrdersItem->transfer_order->id]) : '' ?></td>
+                <td><?= $transferOrdersItem->has('item') ? $this->Html->link($transferOrdersItem->item->name, ['controller' => 'Items', 'action' => 'view', $transferOrdersItem->item->id]) : '' ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $transferOrderItem->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $transferOrderItem->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $transferOrderItem->id], ['confirm' => __('Are you sure you want to delete # {0}?', $transferOrderItem->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $transferOrdersItem->transfer_order_id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $transferOrdersItem->transfer_order_id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $transferOrdersItem->transfer_order_id], ['confirm' => __('Are you sure you want to delete # {0}?', $transferOrdersItem->transfer_order_id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
