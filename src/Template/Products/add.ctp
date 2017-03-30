@@ -26,6 +26,20 @@ $this->Html->addCrumb(__('Create New Product'));
               <input type="hidden" name="_method" value="POST">
             </div>
 
+          <div class ="form-group">          
+            <div class="input-group" title="Product Name*">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-font"></i></span>
+              <input class = "form-control" type="text" placeholder = "Product Name*" name="prod_name" required="required" id=prod_name" maxlength="100"> 
+            </div>
+          </div>
+
+          <div class ="form-group">          
+            <div class="input-group" title="Product Description*">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+              <input class = "form-control" type="text" placeholder = "Product Description*" name="prod_desc" required="required" id="prod_desc"> 
+            </div>
+          </div>
+
             <div class ="form-group">            
               <div class="input-group" title="Select Product Category*" style="z-index: 3;">
                 <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
@@ -52,46 +66,32 @@ $this->Html->addCrumb(__('Create New Product'));
           </div>
 
           <div class ="form-group">          
-            <div class="input-group" title="Product Name*">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-font"></i></span>
-              <input class = "form-control" type="text" placeholder = "Product Name*" name="prod_name" required="required" id=prod_name" maxlength="255"> 
-            </div>
-          </div>
-
-          <div class ="form-group">          
-            <div class="input-group" title="Product Description*">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-              <input class = "form-control" type="text" placeholder = "Product Description*" name="prod_desc" required="required" id="prod_desc" maxlength="255"> 
-            </div>
-          </div>
-
-          <div class ="form-group">          
             <div class="input-group" title="SKU*">
               <span class="input-group-addon"><i class="glyphicon glyphicon-shopping-cart"></i></span>
-              <input class = "form-control" type="text" placeholder = "SKU*" name="SKU" required="required" id="SKU" maxlength="255"> 
+              <input class = "form-control" type="text" placeholder = "SKU*" name="SKU" required="required" id="SKU" maxlength="100"> 
             </div>
           </div>
 
           <div class ="form-group">          
           <div class="input-group" title="Store Unit Price">
               <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-              <input class = "form-control" type="text" placeholder = "Store Unit Price" name="store_unit_price" id="store_unit_price" maxlength="255"> 
-            </div>
-          </div>
-
-          <div class ="form-group">          
-            <div class="input-group" title="Barcode">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-              <input class = "form-control" type="text" placeholder = "Barcode" name="barcode" id="barcode" maxlength="255"> 
+              <input class = "form-control" type="number" type="number" step="0.01" min="0" placeholder = "Store Unit Price" name="store_unit_price" id="store_unit_price" maxlength="255"> 
             </div>
           </div>
 
           <div class ="form-group">          
             <div class="input-group" title="Web Store Unit Price">
               <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-              <input class = "form-control" type="text" placeholder = "Web Store Unit Price" name="web_store_unit_price" id="web_store_unit_price" maxlength="255"> 
+              <input class = "form-control" type="number" type="number" step="0.01" min="0" placeholder = "Web Store Unit Price" name="web_store_unit_price" id="web_store_unit_price" maxlength="255"> 
             </div>
-          </div>              
+          </div>  
+
+          <div class ="form-group">          
+            <div class="input-group" title="Barcode">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+              <input class = "form-control" type="text" placeholder = "Barcode" name="barcode" id="barcode" maxlength="255"> 
+            </div>
+          </div>            
 
           <div class ="form-group">            
             <div class="input-group" title="Add an Existing Promotion" style="z-index: 3;">
@@ -118,8 +118,8 @@ $this->Html->addCrumb(__('Create New Product'));
         </div>
 
         <div class ="row">
-          <a href="/IS3102_Final/products/index" class="btn btn-md btn-default pull-left" style="border-radius: 8px; margin:5px;">Back to Products Index</a>
-          <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Create Product</button>
+          <a href="/IS3102_Final/products/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Products Index</a>
+          <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save Product</button>
         </div>
 
       </form>

@@ -20,26 +20,26 @@ Order of tables:
 15. products
 16. prod_specifications
 17. promotion_emails
-18. promotions_promotion_emails**
+18. promotions_promotion_emails** (Joined)
 19. retailer_loggings
-20. cust_membership_tiers_promotions
-21. retailer_employees_retailer_employee_roles
-22. retailer_employees_messages
-23. promotions_products
-24. products_prod_specifications
+20. cust_membership_tiers_promotions (Joined)
+21. retailer_employees_retailer_employee_roles (Joined)
+22. retailer_employees_messages (Joined)
+23. promotions_products (Joined)
+24. products_prod_specifications (Joined)
 25. transactions
 26. delivery_orders
 27. items
-28. delivery_order_items
+28. delivery_orders_items (Joined)
 29. transfer_orders
-30. transfer_order_items
+30. transfer_orders_items (Joined)
 31. reports
-32. transaction_items
+32. transactions_items (Joined)
 33. membership_points
 34. stock_levels
 35. feedbacks
 36. rfqs
-37. rfqs_suppliers
+37. rfqs_suppliers (Joined)
 38. quotations
 39. coupons
 40. app_notifications

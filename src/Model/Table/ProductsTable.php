@@ -10,6 +10,10 @@ use Cake\Validation\Validator;
  * Products Model
  *
  * @property \Cake\ORM\Association\BelongsTo $ProdCats
+ * @property \Cake\ORM\Association\HasMany $Feedbacks
+ * @property \Cake\ORM\Association\HasMany $Inventory
+ * @property \Cake\ORM\Association\HasMany $Items
+ * @property \Cake\ORM\Association\HasMany $StockLevels
  * @property \Cake\ORM\Association\BelongsToMany $ProdSpecifications
  * @property \Cake\ORM\Association\BelongsToMany $Promotions
  *
@@ -24,41 +28,6 @@ use Cake\Validation\Validator;
 class ProductsTable extends Table
 {
 
-
-    public $filterArgs = array(
-        'id' => array(
-            'type' => 'like',
-            'field' => 'id'
-            ),
-        'prod_name' => array(
-            'type' => 'like',
-            'field' => 'prod_name'
-            ),
-        'prod_desc' => array(
-            'type' => 'like',
-            'field' => 'prod_desc'
-            ),
-        'store_unit_price' => array(
-            'type' => 'like',
-            'field' => 'store_unit_price'
-            ),
-        'web_store_unit_price' => array(
-            'type' => 'like',
-            'field' => 'web_store_unit_price',
-            'method' => 'findByActions'
-            ),
-        'SKU' => array(
-            'type' => 'like',
-            'field' => 'SKU',
-            'method' => 'findByActions'
-            ),
-        'search' => array(
-            'type' => 'like',
-            'field' => array('id','prod_name','prod_desc','SKU','store_unit_price','web_store_unit_price'),
-            'method' => 'findByActions'
-            )
-
-        );
     /**
      * Initialize method
      *
@@ -70,22 +39,35 @@ class ProductsTable extends Table
         parent::initialize($config);
 
         $this->table('products');
-        $this->displayField('id');
+        $this->displayField('prod_name');
         $this->primaryKey('id');
 
         $this->belongsTo('ProdCats', [
-            'foreignKey' => 'prod_cat_id'
-            ]);
+            'foreignKey' => 'prod_cat_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->hasMany('Feedbacks', [
+            'foreignKey' => 'product_id'
+        ]);
+        $this->hasMany('Inventory', [
+            'foreignKey' => 'product_id'
+        ]);
+        $this->hasMany('Items', [
+            'foreignKey' => 'product_id'
+        ]);
+        $this->hasMany('StockLevels', [
+            'foreignKey' => 'product_id'
+        ]);
         $this->belongsToMany('ProdSpecifications', [
             'foreignKey' => 'product_id',
             'targetForeignKey' => 'prod_specification_id',
             'joinTable' => 'products_prod_specifications'
-            ]);
+        ]);
         $this->belongsToMany('Promotions', [
             'foreignKey' => 'product_id',
             'targetForeignKey' => 'promotion_id',
             'joinTable' => 'promotions_products'
-            ]);
+        ]);
     }
 
     /**
@@ -97,33 +79,33 @@ class ProductsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-        ->integer('id')
-        ->allowEmpty('id', 'create');
+            ->integer('id')
+            ->allowEmpty('id', 'create');
 
         $validator
-        ->requirePresence('prod_name', 'create')
-        ->notEmpty('prod_name')
-        ->add('prod_name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->requirePresence('prod_name', 'create')
+            ->notEmpty('prod_name')
+            ->add('prod_name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
-        ->requirePresence('prod_desc', 'create')
-        ->notEmpty('prod_desc');
+            ->requirePresence('prod_desc', 'create')
+            ->notEmpty('prod_desc');
 
         $validator
-        ->numeric('store_unit_price')
-        ->allowEmpty('store_unit_price');
+            ->numeric('store_unit_price')
+            ->allowEmpty('store_unit_price');
 
         $validator
-        ->numeric('web_store_unit_price')
-        ->allowEmpty('web_store_unit_price');
+            ->numeric('web_store_unit_price')
+            ->allowEmpty('web_store_unit_price');
 
         $validator
-        ->requirePresence('SKU', 'create')
-        ->notEmpty('SKU')
-        ->add('SKU', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->requirePresence('SKU', 'create')
+            ->notEmpty('SKU')
+            ->add('SKU', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
-        ->allowEmpty('barcode');
+            ->allowEmpty('barcode');
 
         return $validator;
     }
@@ -137,6 +119,8 @@ class ProductsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        $rules->add($rules->isUnique(['prod_name']));
+        $rules->add($rules->isUnique(['SKU']));
         $rules->add($rules->existsIn(['prod_cat_id'], 'ProdCats'));
 
         return $rules;

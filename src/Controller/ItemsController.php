@@ -53,7 +53,7 @@ class ItemsController extends AppController
     {
         $item = $this->Items->newEntity();
         if ($this->request->is('post')) {
-            $item = $this->Items->patchEntity($item, $this->request->getData());
+            $item = $this->Items->patchEntity($item, $this->request->data);
             if ($this->Items->save($item)) {
                 $this->Flash->success(__('The item has been saved.'));
 
@@ -61,9 +61,10 @@ class ItemsController extends AppController
             }
             $this->Flash->error(__('The item could not be saved. Please, try again.'));
         }
-        $products = $this->Items->Products->find('list', ['limit' => 200]);
-        $locations = $this->Items->Locations->find('list', ['limit' => 200]);
-        $this->set(compact('item', 'products', 'locations'));
+        $products = $this->Items->Products->find('all', ['limit' => 200]);
+        $locations = $this->Items->Locations->find('all', ['limit' => 200]);
+        $sections = $this->Items->Sections->find('all', ['limit' => 200]);
+        $this->set(compact('item', 'products', 'locations', 'sections'));
         $this->set('_serialize', ['item']);
     }
 
@@ -80,7 +81,7 @@ class ItemsController extends AppController
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $item = $this->Items->patchEntity($item, $this->request->getData());
+            $item = $this->Items->patchEntity($item, $this->request->data);
             if ($this->Items->save($item)) {
                 $this->Flash->success(__('The item has been saved.'));
 

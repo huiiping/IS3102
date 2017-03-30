@@ -17,7 +17,7 @@ $this->Html->addCrumb(__('Products'));
         </div>
         <div class="box-body">
           <div class="pull-right">
-            <a class="btn btn-default btn-block" title="Create New Product" href="/IS3102_Final/products/add" >Create New Product</a>
+            <a class="btn btn-success btn-block" title="Create New Product" href="/IS3102_Final/products/add" >Create New Product</a>
           </div>
           <br>
           <!--<h3><?= __('Search') ?></h3>-->

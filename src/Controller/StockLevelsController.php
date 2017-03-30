@@ -53,7 +53,7 @@ class StockLevelsController extends AppController
     {
         $stockLevel = $this->StockLevels->newEntity();
         if ($this->request->is('post')) {
-            $stockLevel = $this->StockLevels->patchEntity($stockLevel, $this->request->getData());
+            $stockLevel = $this->StockLevels->patchEntity($stockLevel, $this->request->data);
             if ($this->StockLevels->save($stockLevel)) {
                 $this->Flash->success(__('The stock level has been saved.'));
 
@@ -61,9 +61,9 @@ class StockLevelsController extends AppController
             }
             $this->Flash->error(__('The stock level could not be saved. Please, try again.'));
         }
-        $locations = $this->StockLevels->Locations->find('list', ['limit' => 200]);
-        $products = $this->StockLevels->Products->find('list', ['limit' => 200]);
-        $retailerEmployees = $this->StockLevels->RetailerEmployees->find('list', ['limit' => 200]);
+        $locations = $this->StockLevels->Locations->find('all', ['limit' => 200]);
+        $products = $this->StockLevels->Products->find('all', ['limit' => 200]);
+        $retailerEmployees = $this->StockLevels->RetailerEmployees->find('all', ['limit' => 200]);
         $this->set(compact('stockLevel', 'locations', 'products', 'retailerEmployees'));
         $this->set('_serialize', ['stockLevel']);
     }
@@ -81,7 +81,7 @@ class StockLevelsController extends AppController
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $stockLevel = $this->StockLevels->patchEntity($stockLevel, $this->request->getData());
+            $stockLevel = $this->StockLevels->patchEntity($stockLevel, $this->request->data);
             if ($this->StockLevels->save($stockLevel)) {
                 $this->Flash->success(__('The stock level has been saved.'));
 

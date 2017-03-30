@@ -9,8 +9,15 @@ use Cake\Validation\Validator;
 /**
  * Locations Model
  *
+ * @property \Cake\ORM\Association\HasMany $DeliveryOrders
+ * @property \Cake\ORM\Association\HasMany $Inventory
+ * @property \Cake\ORM\Association\HasMany $Items
+ * @property \Cake\ORM\Association\HasMany $PurchaseOrders
+ * @property \Cake\ORM\Association\HasMany $Reports
  * @property \Cake\ORM\Association\HasMany $RetailerEmployees
  * @property \Cake\ORM\Association\HasMany $Sections
+ * @property \Cake\ORM\Association\HasMany $StockLevels
+ * @property \Cake\ORM\Association\HasMany $Transactions
  *
  * @method \App\Model\Entity\Location get($primaryKey, $options = [])
  * @method \App\Model\Entity\Location newEntity($data = null, array $options = [])
@@ -22,29 +29,13 @@ use Cake\Validation\Validator;
  */
 class LocationsTable extends Table
 {
-
     public $filterArgs = array(
-        'id' => array(
-            'type' => 'like',
-            'field' => 'id'
-        ),
-        'name' => array(
-            'type' => 'like',
-            'field' => 'name'
-        ),
-        'address' => array(
-            'type' => 'like',
-            'field' => 'address'
-        ),
-        'contact' => array(
-            'type' => 'like',
-            'field' => 'contact'
-        ),
         'search' => array(
             'type' => 'like',
-            'field' => array('id', 'name', 'address', 'contact')
+            'field' => array('name', 'address', 'contact', 'type')
         )
     );
+
     /**
      * Initialize method
      *
@@ -59,10 +50,31 @@ class LocationsTable extends Table
         $this->displayField('name');
         $this->primaryKey('id');
 
+        $this->hasMany('DeliveryOrders', [
+            'foreignKey' => 'location_id'
+        ]);
+        $this->hasMany('Inventory', [
+            'foreignKey' => 'location_id'
+        ]);
+        $this->hasMany('Items', [
+            'foreignKey' => 'location_id'
+        ]);
+        $this->hasMany('PurchaseOrders', [
+            'foreignKey' => 'location_id'
+        ]);
+        $this->hasMany('Reports', [
+            'foreignKey' => 'location_id'
+        ]);
         $this->hasMany('RetailerEmployees', [
             'foreignKey' => 'location_id'
         ]);
         $this->hasMany('Sections', [
+            'foreignKey' => 'location_id'
+        ]);
+        $this->hasMany('StockLevels', [
+            'foreignKey' => 'location_id'
+        ]);
+        $this->hasMany('Transactions', [
             'foreignKey' => 'location_id'
         ]);
         $this->addBehavior('Searchable');

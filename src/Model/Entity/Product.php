@@ -12,6 +12,7 @@ use Cake\ORM\Entity;
  * @property float $store_unit_price
  * @property float $web_store_unit_price
  * @property string $SKU
+ * @property string $barcode
  * @property int $prod_cat_id
  *
  * @property \App\Model\Entity\ProdCat $prod_cat

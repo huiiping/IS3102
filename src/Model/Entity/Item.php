@@ -11,8 +11,8 @@ use Cake\ORM\Entity;
  * @property string $description
  * @property string $EPC
  * @property string $status
- * @property int $report_id
  * @property int $product_id
+ * @property int $section_id
  * @property int $location_id
  *
  * @property \App\Model\Entity\Report[] $reports

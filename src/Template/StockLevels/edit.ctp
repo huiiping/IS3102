@@ -26,11 +26,11 @@
     <fieldset>
         <legend><?= __('Edit Stock Level') ?></legend>
         <?php
-            echo $this->Form->control('location_id', ['options' => $locations, 'empty' => true]);
-            echo $this->Form->control('product_id', ['options' => $products, 'empty' => true]);
-            echo $this->Form->control('threshold');
-            echo $this->Form->control('status');
-            echo $this->Form->control('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
+            echo $this->Form->input('location_id', ['options' => $locations, 'empty' => true]);
+            echo $this->Form->input('product_id', ['options' => $products, 'empty' => true]);
+            echo $this->Form->input('threshold');
+            echo $this->Form->input('status');
+            echo $this->Form->input('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

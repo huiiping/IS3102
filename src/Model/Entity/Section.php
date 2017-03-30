@@ -8,11 +8,14 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $sec_name
+ * @property int $available_space
  * @property int $space_limit
- * @property bool $reserve
+ * @property int $reserve_space
  * @property int $location_id
  *
  * @property \App\Model\Entity\Location $location
+ * @property \App\Model\Entity\Inventory[] $inventory
+ * @property \App\Model\Entity\Item[] $items
  */
 class Section extends Entity
 {

@@ -18,9 +18,7 @@ class LocationsController extends AppController
 
     public function beforeFilter(Event $event)
     {
-
-        $this->loadComponent('Logging');
-        
+        $this->loadComponent('Logging');   
     }
 
     /**
@@ -29,8 +27,6 @@ class LocationsController extends AppController
      * @return \Cake\Network\Response|null
      */
     public function index() {
-
-
         $this->loadComponent('Prg');
         $this->Prg->commonProcess();
         $this->set('locations', $this->paginate($this->Locations->find('searchable', $this->Prg->parsedParams())));
@@ -89,11 +85,13 @@ class LocationsController extends AppController
 
                     return $this->redirect(['action' => 'index']);
                 }
+                else  {
+                    $this->Flash->error(__('The location could not be saved. Please, try again.'));
+                }
             }
             else {
                 $this->Flash->error(__('You have reached your maximum number of '.$type.'s! Please contact Intrasys to upgrade your account.'));
             }
-            $this->Flash->error(__('The location could not be saved. Please, try again.'));
         }
         $this->set(compact('location'));
         $this->set('_serialize', ['location']);
@@ -172,7 +170,9 @@ class LocationsController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The location could not be saved. Please, try again.'));
+            else {
+                $this->Flash->error(__('You have reached your maximum number of '.$type.'s! Please contact Intrasys to upgrade your account.'));
+            }
         }
         $this->set(compact('location'));
         $this->set('_serialize', ['location']);
@@ -202,7 +202,6 @@ class LocationsController extends AppController
         } else {
             $this->Flash->error(__('The location could not be deleted. Please, try again.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
 }

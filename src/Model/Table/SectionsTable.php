@@ -10,6 +10,8 @@ use Cake\Validation\Validator;
  * Sections Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Locations
+ * @property \Cake\ORM\Association\HasMany $Inventory
+ * @property \Cake\ORM\Association\HasMany $Items
  *
  * @method \App\Model\Entity\Section get($primaryKey, $options = [])
  * @method \App\Model\Entity\Section newEntity($data = null, array $options = [])
@@ -22,46 +24,13 @@ use Cake\Validation\Validator;
 class SectionsTable extends Table
 {
     public $filterArgs = array(
-        'id' => array(
-            'type' => 'like',
-            'field' => 'id'
-        ),
-        'sec_name' => array(
-            'type' => 'like',
-            'field' => 'sec_name'
-        ),
-        'available_space' => array(
-            'type' => 'like',
-            'field' => 'available_space'
-        ),
-        'space_limit' => array(
-            'type' => 'like',
-            'field' => 'space_limit'
-        ),
-        'reserve' => array(
-            'type' => 'like',
-            'field' => 'reserve'
-        ),
-        'location_name' => array(
-            'type' => 'like',
-            'field' => 'Locations.name',
-            'method' => 'findByActions'
-
-
-
-        ),
         'search' => array(
             'type' => 'like',
-            'field' => array('Locations.name','Sections.id','sec_name'),
+            'field' => array('sec_name', 'available_space', 'space_limit', 'reserve_space', 'Locations.name'),
             'method' => 'findByActions'
-
-
-
-        ),
-        'type' => array(
-            'type' => 'type'
         )
     );
+
     /**
      * Initialize method
      *
@@ -78,6 +47,12 @@ class SectionsTable extends Table
 
         $this->belongsTo('Locations', [
             'foreignKey' => 'location_id'
+        ]);
+        $this->hasMany('Inventory', [
+            'foreignKey' => 'section_id'
+        ]);
+        $this->hasMany('Items', [
+            'foreignKey' => 'section_id'
         ]);
         $this->addBehavior('Searchable');
     }
@@ -98,12 +73,17 @@ class SectionsTable extends Table
             ->allowEmpty('sec_name');
 
         $validator
+            ->integer('available_space')
+            ->requirePresence('available_space', 'create')
+            ->notEmpty('available_space');
+
+        $validator
             ->integer('space_limit')
             ->allowEmpty('space_limit');
 
         $validator
-            ->boolean('reserve')
-            ->allowEmpty('reserve');
+            ->integer('reserve_space')
+            ->allowEmpty('reserve_space');
 
         return $validator;
     }

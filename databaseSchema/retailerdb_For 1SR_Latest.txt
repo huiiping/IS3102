@@ -174,7 +174,7 @@ CREATE TABLE sections (
     sec_name VARCHAR(100),
     available_space INT NOT NULL,
     space_limit INT,
-    reserve BOOLEAN,
+    reserve_space INT,
     location_id INT,
     FOREIGN KEY (location_id) REFERENCES locations(id)
 );

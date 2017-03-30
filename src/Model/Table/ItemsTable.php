@@ -9,8 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Items Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Reports
  * @property \Cake\ORM\Association\BelongsTo $Products
+ * @property \Cake\ORM\Association\BelongsTo $Sections
  * @property \Cake\ORM\Association\BelongsTo $Locations
  * @property \Cake\ORM\Association\HasMany $DeliveryOrderItems
  * @property \Cake\ORM\Association\HasMany $Feedbacks
@@ -39,15 +39,15 @@ class ItemsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('items');
-        $this->setDisplayField('name');
-        $this->setPrimaryKey('id');
+        $this->table('items');
+        $this->displayField('name');
+        $this->primaryKey('id');
 
-        $this->belongsTo('Reports', [
-            'foreignKey' => 'report_id'
-        ]);
         $this->belongsTo('Products', [
             'foreignKey' => 'product_id'
+        ]);
+        $this->belongsTo('Sections', [
+            'foreignKey' => 'section_id'
         ]);
         $this->belongsTo('Locations', [
             'foreignKey' => 'location_id'
@@ -88,7 +88,8 @@ class ItemsTable extends Table
             ->allowEmpty('description');
 
         $validator
-            ->allowEmpty('EPC');
+            ->allowEmpty('EPC')
+            ->add('EPC', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->allowEmpty('status');
@@ -105,8 +106,9 @@ class ItemsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['report_id'], 'Reports'));
+        $rules->add($rules->isUnique(['EPC']));
         $rules->add($rules->existsIn(['product_id'], 'Products'));
+        $rules->add($rules->existsIn(['section_id'], 'Sections'));
         $rules->add($rules->existsIn(['location_id'], 'Locations'));
 
         return $rules;

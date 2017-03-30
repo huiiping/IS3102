@@ -14,9 +14,7 @@ class SectionsController extends AppController
 
     public function beforeFilter(Event $event)
     {
-
-        $this->loadComponent('Logging');
-        
+        $this->loadComponent('Logging');   
     }
 
     /**
@@ -25,19 +23,12 @@ class SectionsController extends AppController
      * @return \Cake\Network\Response|null
      */
     public function index() {
-
-
         $this->loadComponent('Prg');
         $this->Prg->commonProcess();
         $this->paginate = [
             'contain' => ['Locations']
         ];
-
-
         $this->set('sections', $this->paginate($this->Sections->find('searchable', $this->Prg->parsedParams())));
-
-
-
         $this->set(compact('sections', 'locations'));
         $this->set('_serialize', ['sections']);
     }
@@ -79,16 +70,13 @@ class SectionsController extends AppController
         $section = $this->Sections->newEntity();
         if ($this->request->is('post')) {
 
-
-
-           // $spaceLim = $this->request->getData('space_limit');
-           // $this->update()->set(['available_space'=> $spaceLim])->execute();
-
-
-
+            // $spaceLim = $this->request->getData('space_limit');
+            // $this->update()->set(['available_space'=> $spaceLim])->execute();
 
             $section = $this->Sections->patchEntity($section, $this->request->data);
 
+            $spaceLimit = $section['space_limit'];
+            $section['available_space'] = $spaceLimit;
 
             if ($this->Sections->save($section)) {
                 $this->Flash->success(__('The section has been saved.'));
@@ -104,7 +92,8 @@ class SectionsController extends AppController
             }
             $this->Flash->error(__('The section could not be saved. Please, try again.'));
         }
-        $locations = $this->Sections->Locations->find('list', ['limit' => 200]);
+        $locations = $this->Sections->Locations->find('all', ['limit' => 200]);
+        //$locations = $this->Sections->Locations->find('list', ['limit' => 200]);
         $this->set(compact('section', 'locations'));
         $this->set('_serialize', ['section']);
     }
@@ -123,6 +112,11 @@ class SectionsController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $section = $this->Sections->patchEntity($section, $this->request->data);
+
+            $spaceLimit = $section['space_limit'];
+            $reserveSpace = $section['reserve_space'];
+            $section['available_space'] = $spaceLimit - $reserveSpace;
+
             if ($this->Sections->save($section)) {
                 $this->Flash->success(__('The section has been saved.'));
 
@@ -166,7 +160,6 @@ class SectionsController extends AppController
         } else {
             $this->Flash->error(__('The section could not be deleted. Please, try again.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
 }

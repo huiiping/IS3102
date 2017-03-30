@@ -55,7 +55,7 @@ class StockLevelsFixture extends TestFixture
             'threshold' => 1,
             'status' => 'Lorem ipsum dolor sit amet',
             'retailer_employee_id' => 1,
-            'created' => '2017-03-16 17:31:30'
+            'created' => '2017-03-29 16:25:07'
         ],
     ];
 }

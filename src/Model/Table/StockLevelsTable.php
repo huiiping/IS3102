@@ -36,21 +36,21 @@ class StockLevelsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('stock_levels');
-        $this->setDisplayField('id');
-        $this->setPrimaryKey('id');
+        $this->table('stock_levels');
+        $this->displayField('id');
+        $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
 
         $this->belongsTo('Locations', [
             'foreignKey' => 'location_id'
-            ]);
+        ]);
         $this->belongsTo('Products', [
             'foreignKey' => 'product_id'
-            ]);
+        ]);
         $this->belongsTo('RetailerEmployees', [
             'foreignKey' => 'retailer_employee_id'
-            ]);
+        ]);
     }
 
     /**
@@ -62,17 +62,15 @@ class StockLevelsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-        ->integer('id')
-        ->allowEmpty('id', 'create');
+            ->integer('id')
+            ->allowEmpty('id', 'create');
 
         $validator
-        ->integer('threshold')
-        ->requirePresence('threshold', 'create')
-        ->notEmpty('threshold');
-
+            ->integer('threshold')
+            ->allowEmpty('threshold');
 
         $validator
-        ->allowEmpty('status');
+            ->allowEmpty('status');
 
         return $validator;
     }
