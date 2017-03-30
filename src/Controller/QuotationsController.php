@@ -125,8 +125,8 @@ class QuotationsController extends AppController
                 if(move_uploaded_file($this->request->data['file']['tmp_name'],$uploadFile)){
 
                     $uploadData = $this->Quotations->newEntity();
-                    $uploadData->fileName = $fileName;
-                    $uploadData->filePath = $uploadPath;
+                    $uploadData->file_name = $fileName;
+                    $uploadData->file_path = $uploadPath;
                     $uploadData->rfq_id = $_POST['rfq_id'];
                     $uploadData->supplier_id = $_POST['supplier_id'];
                     $uploadData->comments = $_POST['comments'];
@@ -321,8 +321,8 @@ class QuotationsController extends AppController
     public function download($id = null) { 
 
         $quotation = $this->Quotations->get($id);
-        $filePath = $quotation['filePath'] . DS . $quotation['fileName'];
-        $this->response->file($filePath , array('download'=> true, 'name'=> $quotation['fileName']));
+        $filePath = $quotation['file_path'] . DS . $quotation['file_name'];
+        $this->response->file($filePath , array('download'=> true, 'name'=> $quotation['file_name']));
 
         return $this->response;
     }

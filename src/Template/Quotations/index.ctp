@@ -66,7 +66,7 @@
             <?php foreach ($quotations as $quotation): ?>
               <tr>
                 <td style="max-width: 150px;"><?= $this->Number->format($quotation->id) ?></td>
-                <td style="max-width: 150px;" ><?= $this->Html->link(__(h($quotation->fileName)), ['action' => 'view', $quotation->id], ['title' => $quotation->comments])?></td>
+                <td style="max-width: 150px;" ><?= $this->Html->link(__(h($quotation->file_name)), ['action' => 'view', $quotation->id], ['title' => $quotation->comments])?></td>
                 <td><?= $quotation->has('rfq') ? $this->Html->link($quotation->rfq->title, ['controller' => 'Rfqs', 'action' => 'view', $quotation->rfq->id], ['title' => 'View RFQ Details']) : '' ?></td>
                 <td>
                 <?php 

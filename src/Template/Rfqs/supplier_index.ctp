@@ -45,18 +45,20 @@ $this->Html->addCrumb(__('RFQ'), ['controller' => 'Rfqs', 'action' => 'supplierI
           <table class="table table-bordered table-striped">
             <thead>
             <tr>
-              <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+             <!--  <th scope="col"><?= $this->Paginator->sort('id') ?></th> -->
               <th scope="col"><?= $this->Paginator->sort('title') ?></th>
               <th scope="col"><?= $this->Paginator->sort('created', ['Label' => 'Created On']) ?></th>
+              <th scope="col"><?= $this->Paginator->sort('end_date', ['Label' => 'Deadline']) ?></th>
               <th scope="col"><?= $this->Paginator->sort('end_date', ['Label' => 'Status']) ?></th>
             </tr>
             </thead>
             <tbody>
               <?php foreach ($rfqs as $rfq): ?>
                 <tr>
-                  <td style="max-width: 150px;"><?= $this->Number->format($rfq->id) ?></td>
+                <!--   <td style="max-width: 150px;"><?= $this->Number->format($rfq->id) ?></td> -->
                   <td style="max-width: 150px;"><?= $this->Html->link(__(h($rfq->title)), ['action' => 'view', $rfq->id], ['title' => $rfq->message])?></td>               
                   <td style="max-width: 150px;"><?= h($rfq->created) ?></td>
+                  <td style="max-width: 150px;"><?= h($rfq->end_date) ?></td>
                   <?php
 
                     if($now>=$rfq->end_date) {
