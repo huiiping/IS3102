@@ -148,7 +148,7 @@ class RetailerEmployeesController extends AppController
 
         $retailerEmployee = $this->RetailerEmployees->newEntity();
         if ($this->request->is('post')) {
-            
+
             $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
 
             if ($this->withinLimit()) {
@@ -427,130 +427,42 @@ public function login(){
           if (!$isHuman) {
             $this->Flash->error('Wrong captcha code. Please try again');
             return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
-            }
         }
+    }
         //echo 'HELLO '.$_POST['username'];
-        $retailer = $_POST['retailer'];
-        $database = $_POST['retailer']."db";
-        
-        $session->write('database', $database);
+    $retailer = $_POST['retailer'];
+    $database = $_POST['retailer']."db";
 
-        ConnectionManager::drop('conn1'); 
-        ConnectionManager::config('conn1', [
-            'className' => 'Cake\Database\Connection',
-            'driver' => 'Cake\Database\Driver\Mysql',
-            'persistent' => false,
-            'host' => 'localhost',
-            'username' => 'root',
-            'password' => 'joy',
-            'database' => $database,
-            'encoding' => 'utf8',
-            'timezone' => 'UTC',
-            'cacheMetadata' => true,
+    $session->write('database', $database);
 
-            ]);
-        ConnectionManager::alias('conn1', 'default');
+    ConnectionManager::drop('conn1'); 
+    ConnectionManager::config('conn1', [
+        'className' => 'Cake\Database\Connection',
+        'driver' => 'Cake\Database\Driver\Mysql',
+        'persistent' => false,
+        'host' => 'localhost',
+        'username' => 'root',
+        'password' => 'joy',
+        'database' => $database,
+        'encoding' => 'utf8',
+        'timezone' => 'UTC',
+        'cacheMetadata' => true,
 
-        $retaileremployee = $this->Auth->identify();
-        if($retaileremployee){
-            if($retaileremployee['activation_status'] == 'Deactivated') {
-                $this->Flash->error('Your account has not been activated yet. Please check your email');
+        ]);
+    ConnectionManager::alias('conn1', 'default');
 
-                return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
-            } else if($retaileremployee['activation_status'] == 'Recovery') {
-                $this->Flash->error('An email regarding password recovery has been sent to your email address. Please check your mail');
+    $retaileremployee = $this->Auth->identify();
+    if($retaileremployee){
+        if($retaileremployee['activation_status'] == 'Deactivated') {
+            $this->Flash->error('Your account has not been activated yet. Please check your email');
 
-                return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
-            } else {
+            return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
+        } else if($retaileremployee['activation_status'] == 'Recovery') {
+            $this->Flash->error('An email regarding password recovery has been sent to your email address. Please check your mail');
 
-                $conn = ConnectionManager::get('intrasysdb');
-                $query = $conn
-                ->newQuery()
-                ->select('*')
-                ->from('retailers')
-                ->where(['retailer_name' => $retailer])
-                ->execute()
-                ->fetchAll('assoc');
+            return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
+        } else {
 
-                $now = Date::now();
-                $end = Time::parse($query[0]['contract_end_date']);
-                $start = Time::parse($query[0]['contract_start_date']);
-
-                if($query[0]['account_status'] != 'Activated') {
-                    $this->Flash->error($retailer.'\'s account with Intrasys has been deactivated, banned or terminated.');
-
-                    return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
-                } else if($end <= $now) {
-
-                    $retailerTable = TableRegistry::get('Retailers');
-                    $retailerEntity = $retailerTable->get($query[0]['id']);
-                    $retailerEntity->account_status = 'Deactivated';
-                    $retailerTable->save($retailerEntity);
-
-                    $this->Flash->error($retailer.'\'s contract with Intrasys has expired.');
-
-                    return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
-                } else {
-
-                        // 1. check the difference (in days) between the contract start date and today's date
-                        // 2. mod the number of days by 365 (to get the number of years elapsed) 
-                        // 3. count the number of times loyalty points have already been awarded to them for "annual contract loyalty"
-                        // 4. if the answer from (3) - (2) is ONE, award 100 loyalty points to the retailer
-
-                    $diff_year = 0;
-                    $start->addYear(1);
-
-                    while($start<$now) {
-
-                        $diff_year += 1;
-                        $start->addYear(1);
-
-                    }
-
-                    if($diff_year != 0) {
-
-                        $query2 = $conn
-                        ->newQuery()
-                        ->select('*')
-                        ->from('retailer_loyalty_points')
-                        ->where(['retailer_id' => $query[0]['id']])
-                        ->where(['remarks' => 'Annual Contractual Loyalty Reward'])
-                        ->execute()
-                        ->fetchAll('assoc');
-
-                        $rowCount = 0;
-
-                        foreach($query2 as $row){
-                            $rowCount++;
-                        }
-
-                            // if the amount of loyalty points awarded for the annual contractual loyalty does not tally with the number of years elapsed in the contract, award the retailer with the loyalty points before proceeding
-                        while($diff_year - $rowCount != 0) {
-
-                            $rlpTable = TableRegistry::get('RetailerLoyaltyPoints');
-                            $rlp = $rlpTable->newEntity();
-
-                            $rlp->loyalty_pts = 100;
-                            $rlp->redemption_pts = null;
-                            $rlp->remarks = 'Annual Contractual Loyalty Reward';
-                            $rlp->retailer_id = $query[0]['id'];
-                            $rlp->intrasys_employee_id = null;
-
-                            $rlpTable->save($rlp);
-
-                            $rowCount++;
-                            //$this->Flash->error($rowCount); 
-
-                        }
-                    }    
-                }
-            }
-
-            $this->Auth->setUser($retaileremployee);
-            $session->write('retailer', $retailer); 
-            $session->write('retailer_employee_id',$retaileremployee['id']);
-
-                //get retailer ID
             $conn = ConnectionManager::get('intrasysdb');
             $query = $conn
             ->newQuery()
@@ -559,62 +471,150 @@ public function login(){
             ->where(['retailer_name' => $retailer])
             ->execute()
             ->fetchAll('assoc');
-            $rid = $query[0]['id'];
-            $session->write('retailerid', $rid); 
+
+            $now = Date::now();
+            $end = Time::parse($query[0]['contract_end_date']);
+            $start = Time::parse($query[0]['contract_start_date']);
+
+            if($query[0]['account_status'] != 'Activated') {
+                $this->Flash->error($retailer.'\'s account with Intrasys has been deactivated, banned or terminated.');
+
+                return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
+            } else if($end <= $now) {
+
+                $retailerTable = TableRegistry::get('Retailers');
+                $retailerEntity = $retailerTable->get($query[0]['id']);
+                $retailerEntity->account_status = 'Deactivated';
+                $retailerTable->save($retailerEntity);
+
+                $this->Flash->error($retailer.'\'s contract with Intrasys has expired.');
+
+                return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
+            } else {
+
+                        // 1. check the difference (in days) between the contract start date and today's date
+                        // 2. mod the number of days by 365 (to get the number of years elapsed) 
+                        // 3. count the number of times loyalty points have already been awarded to them for "annual contract loyalty"
+                        // 4. if the answer from (3) - (2) is ONE, award 100 loyalty points to the retailer
+
+                $diff_year = 0;
+                $start->addYear(1);
+
+                while($start<$now) {
+
+                    $diff_year += 1;
+                    $start->addYear(1);
+
+                }
+
+                if($diff_year != 0) {
+
+                    $query2 = $conn
+                    ->newQuery()
+                    ->select('*')
+                    ->from('retailer_loyalty_points')
+                    ->where(['retailer_id' => $query[0]['id']])
+                    ->where(['remarks' => 'Annual Contractual Loyalty Reward'])
+                    ->execute()
+                    ->fetchAll('assoc');
+
+                    $rowCount = 0;
+
+                    foreach($query2 as $row){
+                        $rowCount++;
+                    }
+
+                            // if the amount of loyalty points awarded for the annual contractual loyalty does not tally with the number of years elapsed in the contract, award the retailer with the loyalty points before proceeding
+                    while($diff_year - $rowCount != 0) {
+
+                        $rlpTable = TableRegistry::get('RetailerLoyaltyPoints');
+                        $rlp = $rlpTable->newEntity();
+
+                        $rlp->loyalty_pts = 100;
+                        $rlp->redemption_pts = null;
+                        $rlp->remarks = 'Annual Contractual Loyalty Reward';
+                        $rlp->retailer_id = $query[0]['id'];
+                        $rlp->intrasys_employee_id = null;
+
+                        $rlpTable->save($rlp);
+
+                        $rowCount++;
+                            //$this->Flash->error($rowCount); 
+
+                    }
+                }    
+            }
+        }
+
+        $this->Auth->setUser($retaileremployee);
+        $session->write('retailer', $retailer); 
+        $session->write('retailer_employee_id',$retaileremployee['id']);
+
+                //get retailer ID
+        $conn = ConnectionManager::get('intrasysdb');
+        $query = $conn
+        ->newQuery()
+        ->select('*')
+        ->from('retailers')
+        ->where(['retailer_name' => $retailer])
+        ->execute()
+        ->fetchAll('assoc');
+        $rid = $query[0]['id'];
+        $session->write('retailerid', $rid); 
 
                 //$this->loadComponent('Logging');            
+        $this->Logging->rLog($session->read('retailer_employee_id'));
+        $this->Logging->iLog($retailer, $session->read('retailer_employee_id'));
+
+        return $this->redirect(['controller' => 'Pages', 'action' => 'retailer']);
+                //return $this->redirect($this->Auth->redirectUrl());            
+    } else {
+
+        if($session->check('login_fail')) {
+            $login_fail = $session->read('login_fail') + 1;
+        }   
+        else {
+            $login_fail = 1;
+        }
+        $session->write("login_fail",$login_fail);
+    }
+
+    $this->Flash->error('Incorrect Login');   
+}
+
+$retailersTable = TableRegistry::get('Retailers');
+$query = $retailersTable->find('all')->toArray();
+$this->set('retailers', $query);
+
+}   
+
+public function managerActions($id = null)
+{
+    $session = $this->request->session();
+    $retailer = $session->read('retailer');
+    $retailerEmployee = $this->RetailerEmployees->get($id, [
+        'contain' => ['Messages', 'RetailerEmployeeRoles']
+        ]);
+    if ($this->request->is(['patch', 'post', 'put'])) {
+        $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
+        if ($this->RetailerEmployees->save($retailerEmployee)) {
+            $this->Flash->success(__('The retailer employee has been saved.'));
+
+                    //$this->loadComponent('Logging');            
             $this->Logging->rLog($session->read('retailer_employee_id'));
             $this->Logging->iLog($retailer, $session->read('retailer_employee_id'));
 
-            return $this->redirect(['controller' => 'Pages', 'action' => 'retailer']);
-                //return $this->redirect($this->Auth->redirectUrl());            
-        } else {
-
-            if($session->check('login_fail')) {
-                $login_fail = $session->read('login_fail') + 1;
-            }   
-            else {
-                $login_fail = 1;
-            }
-            $session->write("login_fail",$login_fail);
+            return $this->redirect(['action' => 'index']);
         }
-
-        $this->Flash->error('Incorrect Login');   
+        $this->Flash->error(__('The retailer employee could not be saved. Please, try again.'));
     }
+    $locations = $this->RetailerEmployees->Locations->find('list', ['limit' => 200]);
+    $messages = $this->RetailerEmployees->Messages->find('list', ['limit' => 200]);
+    $retailerEmployeeRoles = $this->RetailerEmployees->RetailerEmployeeRoles->find('list', ['limit' => 200]);
+    $this->set(compact('retailerEmployee', 'locations', 'messages', 'retailerEmployeeRoles'));
+    $this->set('_serialize', ['retailerEmployee']);
 
-    $retailersTable = TableRegistry::get('Retailers');
-    $query = $retailersTable->find('all')->toArray();
-    $this->set('retailers', $query);
-
-    }   
-
-    public function managerActions($id = null)
-    {
-        $session = $this->request->session();
-        $retailer = $session->read('retailer');
-        $retailerEmployee = $this->RetailerEmployees->get($id, [
-            'contain' => ['Messages', 'RetailerEmployeeRoles']
-            ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
-            if ($this->RetailerEmployees->save($retailerEmployee)) {
-                $this->Flash->success(__('The retailer employee has been saved.'));
-
-                    //$this->loadComponent('Logging');            
-                $this->Logging->rLog($session->read('retailer_employee_id'));
-                $this->Logging->iLog($retailer, $session->read('retailer_employee_id'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The retailer employee could not be saved. Please, try again.'));
-        }
-        $locations = $this->RetailerEmployees->Locations->find('list', ['limit' => 200]);
-        $messages = $this->RetailerEmployees->Messages->find('list', ['limit' => 200]);
-        $retailerEmployeeRoles = $this->RetailerEmployees->RetailerEmployeeRoles->find('list', ['limit' => 200]);
-        $this->set(compact('retailerEmployee', 'locations', 'messages', 'retailerEmployeeRoles'));
-        $this->set('_serialize', ['retailerEmployee']);
-
-        $this->loadComponent('Generator');
+    $this->loadComponent('Generator');
         $this->set('roles', $this->RetailerEmployees->RetailerEmployeeRoles->find('all')); //to populate select input for roles
         $this->set(compact('roles'));
     }
@@ -674,9 +674,9 @@ public function login(){
       $this->Flash->success(__('The Retailer Employee has been activated.'));
 
       return $this->redirect(['action' => 'index']);
-    }
+  }
 
-    public function deactivateStatus($id) {
+  public function deactivateStatus($id) {
 
       $retailerEmployee = $this->RetailerEmployees->get($id);
 
@@ -687,7 +687,30 @@ public function login(){
 
       return $this->redirect(['action' => 'index']);
 
+  }
+
+  public function poslogin() 
+  {
+    if($this->request->is('post')) {
+        $retaileremployee = $this->Auth->identify();
+        if($retaileremployee){
+            if($retaileremployee['activation_status'] == 'Deactivated') {
+                echo ("Your account has not been activated yet. Please check your email.");
+            }   
+            else if ($retaileremployee['location_id'] != $_POST['location']) {
+                echo ("You do not have access to this POS machine!");
+            }
+            else {
+                echo ("True");
+                echo ("\n");
+                echo ($retaileremployee['first_name'].' '.$retaileremployee['last_name']);
+            }
+        }
+        else {
+            echo ("Invalid Credentials!");
+        }
     }
+}
 
 // public function recoverActivate($id, $token, $database){
 
@@ -732,6 +755,5 @@ public function login(){
 //     $this->Flash->success(__('Your account has been recovered.'));
 //     return $this->redirect(['action' => 'login']);
 // }
-
 
 }
