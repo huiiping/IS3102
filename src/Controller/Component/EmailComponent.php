@@ -97,7 +97,8 @@ class EmailComponent extends Component {
             $dbname);
     }
 
-    public function customerActivation($recipient, $firstName, $pwd, $id, $token, $type, $dbname){
+    public function customerActivation($recipient, $firstName, $id, $token, $type, $dbname, $retailer){
+
 
         $email = new Email('default');
         $email->template('customer_activation');
@@ -106,13 +107,12 @@ class EmailComponent extends Component {
         $email->from('tanyongming90@gmail.com');
         $email->to($recipient);
         $email->send($firstName.','.
-            $recipient.','.
-            $pwd.','.
             env('SERVER_NAME').','. 
             $id.','. 
             $token.','.
             $type.','.
-            $dbname);
+            $dbname.','.
+            $retailer);
     }
 
     public function retailerEmployeeActivationEmail($recipient, $firstName, $username, $pwd, $id, $token, $type, $database){

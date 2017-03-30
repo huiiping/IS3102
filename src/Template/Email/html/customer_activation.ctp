@@ -15,18 +15,15 @@
 ?>
 <?php
 $content = explode(',', $content);
-
-
-
+    
 
 echo 'Welcome to CLRMS '.$content[0].',' .'<br><br>';
 
 
 echo 'Please click the following link to activate your account: ' . '<br>';
-echo 'http://' . $content[3] . '/IS3102_Final/' . $content[6] . '/activate/' . $content[4] . '/' . $content[5] . '/' . $content[7] . '<br><br>';
+echo 'http://' . $content[1] . '/IS3102_Final/' . $content[4] . '/activate/' . $content[2] . '/' . $content[3] . '/' . $content[5] . '<br><br>';
 echo 'After activating your account, Please log in using your registered email and your new password: ' . '<br>';
-echo 'Email: ' . $content[1] . '<br>';
 echo 'If this was a mistake, just ignore this email and nothing will happen. This is a computer generated email, please do not reply.' . '<br><br>';
-echo 'Regards,' . '<br>' . 'The Retailer Team'
+echo 'Regards,' . '<br>' . 'The ' . $content[6] . 'Team'
 
 ?>

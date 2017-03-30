@@ -4,7 +4,14 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\I18n\Time;
-
+use Cake\I18n\Date;
+use Cake\ORM\Entity;
+use Cake\Error\Debugger;
+use Cake\Datasource\ConnectionManager;
+use Cake\ORM\TableRegistry;
+use Cake\Mailer\Email;
+use Cake\Utility\Hash;
+use Cake\Auth\DefaultPasswordHasher;
 /**
  * Customers Controller
  *
@@ -18,6 +25,7 @@ class CustomersController extends AppController
   {
 
     $this->loadComponent('Logging');
+    $this->loadComponent('Email');
 
   }
     /**
@@ -85,18 +93,22 @@ class CustomersController extends AppController
         if ($this->Customers->save($customer)) {
           $session = $this->request->session();
           $database = $session->read('database');
-          $customer = $this->Customers->patchEntity($customer, $this->request->data);
+          $retailer = $session->read('retailer');
 
-          // $this->Customers->save($customer)
-          // $this->Email->customerActivation(
-          //   $customer['email'], 
-          //   $customer['first_name'], 
-          //   $this->password, 
-          //   $customer['id'], 
-          //   $customer['activation_token'], 
-          //   'customers',
-          //   $database
-          //   );
+          $customer = $this->Customers->patchEntity($customer, $this->request->data);
+          $this->Customers->save($customer);
+
+
+          $this->Email->customerActivation(
+            $customer['email'], 
+            $customer['first_name'],  
+            $customer['id'], 
+            $customer['activation_token'], 
+            'customers',
+            $database,
+            $retailer
+            );
+
 
           $this->Flash->success(__('The customer has been saved.'));
 
@@ -117,6 +129,96 @@ class CustomersController extends AppController
         $this->set(compact('customer','custMembershipTiers'));
         $this->set('_serialize', ['customer']);
       }
+
+      public function activate($id, $token, $database) {
+
+        ConnectionManager::drop('conn1'); 
+        ConnectionManager::config('conn1', [
+          'className' => 'Cake\Database\Connection',
+          'driver' => 'Cake\Database\Driver\Mysql',
+          'persistent' => false,
+          'host' => 'localhost',
+          'username' => 'root',
+          'password' => 'joy',
+          'database' => $database,
+          'encoding' => 'utf8',
+          'timezone' => 'UTC',
+          'cacheMetadata' => true,
+          ]);
+        $conn = ConnectionManager::get('conn1');
+
+        $query = $conn
+        ->newQuery()
+        ->select('*')
+        ->from('customers')
+        ->where(['id' => $id])
+        ->execute()
+        ->fetchAll('assoc');
+
+        if($query[0]['activation_status'] == 'Activated'){
+          $this->Flash->success(__('Your account has already been activated.'));
+          return $this->redirect(['action' => 'login']);
+        }
+        $this->set('employeeId', $id);
+        $this->set('token', $token);
+        $this->set('dbname', $database);
+        $this->set('name', $query[0]['first_name']);
+
+        $retailersTable = TableRegistry::get('Retailers');
+        $query = $retailersTable->find('all')->toArray();
+        $this->set('retailers', $query);
+        
+      }
+      function setPassword(){
+        $id=$_POST['employeeId'];
+        $token=$_POST['token'];
+        $database=$_POST['dbname'];
+        $password =$_POST['password'];
+
+        ConnectionManager::drop('conn1'); 
+        ConnectionManager::config('conn1', [
+            'className' => 'Cake\Database\Connection',
+            'driver' => 'Cake\Database\Driver\Mysql',
+            'persistent' => false,
+            'host' => 'localhost',
+            'username' => 'root',
+            'password' => 'joy',
+            'database' => $database,
+            'encoding' => 'utf8',
+            'timezone' => 'UTC',
+            'cacheMetadata' => true,
+            ]);
+        $conn = ConnectionManager::get('conn1');
+
+        $query = $conn
+        ->newQuery()
+        ->select('*')
+        ->from('customers')
+        ->where(['id' => $id])
+        ->execute()
+        ->fetchAll('assoc');
+        
+        if($query[0]['activation_token'] == $token){
+
+
+            $hasher = new DefaultPasswordHasher();
+            $hashedPass = $hasher->hash($password);
+
+            $conn->update('customers', 
+                ['activation_status' => 'Activated' ,
+                'activation_token' => NULL,
+                'password' => $hashedPass],
+                ['id' => $id]
+                );
+
+
+            $this->Flash->success(__('Your account has been successfully activated, please log in with your new credentials'));
+            return $this->redirect(['action' => 'login']);
+        }
+        $this->Flash->error(__('Stop tempering with the system'));
+        return $this->redirect(['action' => 'login']);
+
+    }
 
       public function edit($id = null)
       {

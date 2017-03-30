@@ -88,15 +88,7 @@ class AppController extends Controller
         //check login
     if($this->request->session()->read('Auth.User')){
         $this->set('loggedIn', true);
-    } else {
-        $this->set('loggedIn', false);
-    }
-
-        //check database
-    if($this->request->session()->read('database') == null){
-        $this->set('intrasys', true);
-
-        $conn = ConnectionManager::get('intrasysdb');
+         $conn = ConnectionManager::get('intrasysdb');
         $announcementNotifs = $conn
         ->newQuery()
         ->select('*')
@@ -108,8 +100,13 @@ class AppController extends Controller
         ->fetchAll('assoc');
        
         $this->set('announcementNotifs', $announcementNotifs);
-     
+    } else {
+        $this->set('loggedIn', false);
+    }
 
+        //check database
+    if($this->request->session()->read('database') == null){
+        $this->set('intrasys', true);
     } else {
         $this->set('intrasys', false);
         $db = $this->request->session()->read('database');
