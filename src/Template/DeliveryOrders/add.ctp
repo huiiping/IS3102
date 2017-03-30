@@ -3,27 +3,27 @@
   * @var \App\View\AppView $this
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Delivery Orders'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Customers'), ['controller' => 'Customers', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Customer'), ['controller' => 'Customers', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Retailer Employees'), ['controller' => 'RetailerEmployees', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Retailer Employee'), ['controller' => 'RetailerEmployees', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Locations'), ['controller' => 'Locations', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Location'), ['controller' => 'Locations', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Transactions'), ['controller' => 'Transactions', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Transaction'), ['controller' => 'Transactions', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Delivery Order Items'), ['controller' => 'DeliveryOrderItems', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Delivery Order Item'), ['controller' => 'DeliveryOrderItems', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="deliveryOrders form large-9 medium-8 columns content">
-    <?= $this->Form->create($deliveryOrder) ?>
-    <fieldset>
-        <legend><?= __('Add Delivery Order') ?></legend>
-        <?php
+<section class="content">
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+      <div class="box box-primary">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Create New Delivery Order</h3>
+        </div>
+    </div>
+    <div class="main" style="padding: 10px 20px;">
+
+      <form method="post" accept-charset="utf-8" action="/IS3102_Final/delivery-orders/add">
+        <div style="display:none;">
+          <input type="hidden" name="_method" value="POST">
+      </div>
+
+    <div class="deliveryOrders form large-9 medium-8 columns content">
+        <?= $this->Form->create($deliveryOrder) ?>
+        <fieldset>
+            <legend><?= __('Add Delivery Order') ?></legend>
+            <?php
             echo $this->Form->control('status');
             echo $this->Form->control('fee');
             echo $this->Form->control('deliverer');
@@ -31,8 +31,8 @@
             echo $this->Form->control('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
             echo $this->Form->control('location_id', ['options' => $locations, 'empty' => true]);
             echo $this->Form->control('transaction_id', ['options' => $transactions, 'empty' => true]);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
-</div>
+            ?>
+        </fieldset>
+        <?= $this->Form->button(__('Submit')) ?>
+        <?= $this->Form->end() ?>
+    </div>
