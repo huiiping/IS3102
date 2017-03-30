@@ -692,6 +692,43 @@ public function managerActions($id = null)
   public function poslogin() 
   {
     if($this->request->is('post')) {
+
+        //Setting default database connection
+        $retailer = $_POST['retailer'];
+        $database = $_POST['retailer']."db";
+        $session = $this->request->session();
+        $session->write('database', $database);
+        $session->write('retailer', $retailer); 
+
+        ConnectionManager::drop('conn1'); 
+        ConnectionManager::config('conn1', [
+            'className' => 'Cake\Database\Connection',
+            'driver' => 'Cake\Database\Driver\Mysql',
+            'persistent' => false,
+            'host' => 'localhost',
+            'username' => 'root',
+            'password' => 'joy',
+            'database' => $database,
+            'encoding' => 'utf8',
+            'timezone' => 'UTC',
+            'cacheMetadata' => true,
+
+            ]);
+        ConnectionManager::alias('conn1', 'default');
+
+        //Setting retailer ID
+        $conn = ConnectionManager::get('intrasysdb');
+        $query = $conn
+        ->newQuery()
+        ->select('*')
+        ->from('retailers')
+        ->where(['retailer_name' => $retailer])
+        ->execute()
+        ->fetchAll('assoc');
+        $rid = $query[0]['id'];
+        $session->write('retailerid', $rid); 
+
+        //Authentication of retailer employee
         $retaileremployee = $this->Auth->identify();
         if($retaileremployee){
             if($retaileremployee['activation_status'] == 'Deactivated') {
@@ -701,15 +738,27 @@ public function managerActions($id = null)
                 echo ("You do not have access to this POS machine!");
             }
             else {
+                $this->Auth->setUser($retaileremployee);
+                $session->write('retailer_employee_id',$retaileremployee['id']);
+
+                //Logging
+                $this->Logging->rLog($session->read('retailer_employee_id'));
+                $this->Logging->iLog($retailer, $session->read('retailer_employee_id'));
+
                 echo ("True");
                 echo ("\n");
                 echo ($retaileremployee['first_name'].' '.$retaileremployee['last_name']);
+                echo ("\n");
             }
         }
         else {
             echo ("Invalid Credentials!");
         }
     }
+
+    $retailersTable = TableRegistry::get('Retailers');
+    $query = $retailersTable->find('all')->toArray();
+    $this->set('retailers', $query);
 }
 
 // public function recoverActivate($id, $token, $database){
