@@ -37,10 +37,8 @@ class TransferOrdersController extends AppController
     public function view($id = null)
     {
         $transferOrder = $this->TransferOrders->get($id, [
-            'contain' => ['RetailerEmployees', 'Suppliers']
+            'contain' => ['RetailerEmployees', 'Suppliers','Items']
             ]);
-
-        var_dump($transferOrder);
 
         $this->set('transferOrder', $transferOrder);
         $this->set('_serialize', ['transferOrder']);
@@ -64,7 +62,8 @@ class TransferOrdersController extends AppController
         $locations = $this->TransferOrders->Locations->find('list', ['limit' => 200]);
         $retailerEmployees = $this->TransferOrders->RetailerEmployees->find('list', ['limit' => 200]);
         $suppliers = $this->TransferOrders->Suppliers->find('list', ['limit' => 200]);
-        $this->set(compact('transferOrder', 'retailerEmployees', 'suppliers','locations'));
+        $this->set('items', $this->TransferOrders->items->find('all'));
+        $this->set(compact('transferOrder', 'retailerEmployees', 'suppliers','locations','items'));
         $this->set('_serialize', ['transferOrder']);
     }
 

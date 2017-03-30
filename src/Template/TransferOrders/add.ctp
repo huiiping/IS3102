@@ -72,7 +72,7 @@ use Cake\ORM\TableRegistry;
 </div>
 
 <div class ="form-group">            
-  <div class="input-group" style="z-index: 5;" title="Select Retailer Employee (Receiver)">
+  <div class="input-group" style="z-index: 10;" title="Select Retailer Employee (Receiver)">
     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
     <input type="hidden" name="retailer_employee_id" value="">
     <select name="retailer_employee_id" class='selectpicker form-control' title ="Select Retailer Employee (Receiver)" data-live-search="true">
@@ -88,12 +88,12 @@ use Cake\ORM\TableRegistry;
         $session->write('firstNames',$firstName);
     }
 
-      $lastNames = $retailerEmployees
-      ->find()
-      ->where(['id' => $retailerEmployeeID])
-      ->extract('last_name');
+    $lastNames = $retailerEmployees
+    ->find()
+    ->where(['id' => $retailerEmployeeID])
+    ->extract('last_name');
 
-      foreach ($lastNames as $lastName){
+    foreach ($lastNames as $lastName){
         $session->write('lastNames',$lastName);
     }
     ?>
@@ -104,25 +104,37 @@ use Cake\ORM\TableRegistry;
 </div>
 
 <div class ="form-group">            
-  <div class="input-group" style="z-index: 2;" title="Select Supplier (Receiver)">
+  <div class="input-group" style="z-index: 8;" title="Select Supplier (Receiver)">
     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
     <input type="hidden" name="supplier_id" value="">
     <select name="supplier_id" class='selectpicker form-control' title ="Select Supplier (Receiver)" data-live-search="true">
       <?php foreach ($suppliers as $supplier): 
       $session = $this->request->session();
-                  $allSuppliers= TableRegistry::get('Suppliers');
-                  $allSupplier = $allSuppliers
-                  ->find()
-                  ->where(['id' => $supplier])
-                  ->extract('supplier_name');
+      $allSuppliers= TableRegistry::get('Suppliers');
+      $allSupplier = $allSuppliers
+      ->find()
+      ->where(['id' => $supplier])
+      ->extract('supplier_name');
 
-                  foreach ($allSupplier as $name){
-                    $session->write('supName',$name);
-                  }
-                  ?>
-<option value="<?= $supplier?>"><?php echo $session->read('supName')?></option>
-    <?php endforeach; ?>
+      foreach ($allSupplier as $name){
+        $session->write('supName',$name);
+    }
+    ?>
+    <option value="<?= $supplier?>"><?php echo $session->read('supName')?></option>
+<?php endforeach; ?>
 </select>
+</div> 
+</div>
+
+<div class ="form-group">            
+<div class="input-group" style="z-index: 5;" title="Select Item(s)*">
+      <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
+      <input type="hidden" name="items[_ids]" value="">
+      <select name="items[_ids][]" class='selectpicker form-control' data-live-search="true" multiple data-selected-text-format="count > 3" title = "Select Item(s)*" required="required" >
+        <?php foreach ($items as $item): ?>
+          <option value="<?= $item->id ?>"><?php echo $item->name ?></option>
+      <?php endforeach; ?>
+  </select>
 </div> 
 </div>
 

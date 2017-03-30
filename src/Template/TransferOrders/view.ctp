@@ -51,5 +51,12 @@
             <th scope="row"><?= __('Created') ?></th>
             <td><?= h($transferOrder->created) ?></td>
         </tr>
+        <?php if (!empty($transferOrder->items)): ?>
+          <?php foreach ($transferOrder->items as $item): ?>
+            <p class="text-muted text-center">
+                <?= $this->Html->link(__(h($item->name)), ['controller' => 'Items', 'action' => 'view', $item->id], ['title' => 'View Item Details']) ?>
+            </p>
+          <?php endforeach; ?>
+          <?php endif; ?>
     </table>
 </div>
