@@ -78,54 +78,69 @@ class AppController extends Controller
      */
 
     public function beforeRender(Event $event) {
-        
+
         if (!array_key_exists('_serialize', $this->viewVars) &&
             in_array($this->response->type(), ['application/json', 'application/xml'])
             ) {
             $this->set('_serialize', true);
-        }
+    }
 
         //check login
-        if($this->request->session()->read('Auth.User')){
-            $this->set('loggedIn', true);
-        } else {
-            $this->set('loggedIn', false);
-        }
+    if($this->request->session()->read('Auth.User')){
+        $this->set('loggedIn', true);
+    } else {
+        $this->set('loggedIn', false);
+    }
 
         //check database
-        if($this->request->session()->read('database') == null){
-            $this->set('intrasys', true);
-        } else {
-            $this->set('intrasys', false);
-            $db = $this->request->session()->read('database');
+    if($this->request->session()->read('database') == null){
+        $this->set('intrasys', true);
+
+        $conn = ConnectionManager::get('intrasysdb');
+        $announcementNotifs = $conn
+        ->newQuery()
+        ->select('*')
+        ->from('announcements')
+        //->where(['type' => 'intrasys'])
+        ->order(['modified' => 'DESC'])
+        ->limit('5')
+        ->execute()
+        ->fetchAll('assoc');
+       
+        $this->set('announcementNotifs', $announcementNotifs);
+     
+
+    } else {
+        $this->set('intrasys', false);
+        $db = $this->request->session()->read('database');
                 $this->set('dbName', $db); //store database name
             }
 
         //check user type --> supplier
-        if($this->request->session()->read('supplier')){
-            $this->set('type', true);
-        } else {
-            $this->set('type', false);
+            if($this->request->session()->read('supplier')){
+                $this->set('type', true);
+            } else {
+                $this->set('type', false);
+            }
         }
-    }
-    
-    public function beforeFilter(Event $event) {
-        
-        parent::beforeFilter($event);
+
+        public function beforeFilter(Event $event) {
+
+            parent::beforeFilter($event);
         //Debugger::dump(['IN Before Filter NOW']);
         //Retrieve & check User's role
-        $user = $this->request->session()->read('Auth.User');
+            $user = $this->request->session()->read('Auth.User');
 
         //Controller Name
-        $controllerName = $this->request->params['controller'];
+            $controllerName = $this->request->params['controller'];
         //Function Name
-        $methodName = $this->request->params['action'];
+            $methodName = $this->request->params['action'];
         //Previous Page 
-        $previousPage = $this->referer();
+            $previousPage = $this->referer();
 
         //Reading the database
-        $session = $this->request->session();
-        $database = $session->read('database');
+            $session = $this->request->session();
+            $database = $session->read('database');
         //debugger::dump($database);
         //Debugger::dump($user);
 
@@ -138,13 +153,13 @@ class AppController extends Controller
 
         if($user != null && $database == null) {
             //echo("INTRASYS EMPLOYEES");
-           $IntrasysEmployeeRoles = TableRegistry::get('IntrasysEmployeesIntrasysEmployeeRoles');
-           $allRoles = $IntrasysEmployeeRoles
-           ->find()
-           ->where(['intrasys_employee_id' => $user['id']])
-           ->extract('intrasys_employee_role_id');
+         $IntrasysEmployeeRoles = TableRegistry::get('IntrasysEmployeesIntrasysEmployeeRoles');
+         $allRoles = $IntrasysEmployeeRoles
+         ->find()
+         ->where(['intrasys_employee_id' => $user['id']])
+         ->extract('intrasys_employee_role_id');
 
-           foreach ($allRoles as $intrasysEmployeeRole) {
+         foreach ($allRoles as $intrasysEmployeeRole) {
                 //echo "IER: ".$intrasysEmployeeRole;
                 //echo "Controller: ".$controllerName;
                 //echo "Method: ".$methodName;
