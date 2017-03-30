@@ -6,32 +6,16 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-/**
- * TransferOrders Model
- *
- * @property \Cake\ORM\Association\BelongsTo $RetailerEmployees
- * @property \Cake\ORM\Association\BelongsTo $Suppliers
- * @property \Cake\ORM\Association\BelongsToMany $Items
- *
- * @method \App\Model\Entity\TransferOrder get($primaryKey, $options = [])
- * @method \App\Model\Entity\TransferOrder newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\TransferOrder[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\TransferOrder|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\TransferOrder patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\TransferOrder[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\TransferOrder findOrCreate($search, callable $callback = null, $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
- */
 class TransferOrdersTable extends Table
 {
 
-    /**
-     * Initialize method
-     *
-     * @param array $config The configuration for the Table.
-     * @return void
-     */
+    public $filterArgs = array(
+        'search' => array(
+            'type' => 'like',
+            'field' => array('locationFrom','locationTo','status','customer_email')
+            )
+    );
+
     public function initialize(array $config)
     {
         parent::initialize($config);
@@ -53,6 +37,7 @@ class TransferOrdersTable extends Table
             'targetForeignKey' => 'item_id',
             'joinTable' => 'transfer_orders_items'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

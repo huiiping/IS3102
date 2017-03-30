@@ -9,11 +9,7 @@ use Cake\Error\Debugger;
 use Cake\ORM\TableRegistry;
 use Cake\Mailer\Email;
 
-/**
- * Feedbacks Controller
- *
- * @property \App\Model\Table\FeedbacksTable $Feedbacks
- */
+
 class FeedbacksController extends AppController
 {
 
@@ -46,13 +42,6 @@ class FeedbacksController extends AppController
         'Prg'
     );
 
-    /**
-     * View method
-     *
-     * @param string|null $id Feedback id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function view($id = null)
     {
         $feedback = $this->Feedbacks->get($id, [

@@ -2,53 +2,47 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
-/**
- * TransferOrders Controller
- *
- * @property \App\Model\Table\TransferOrdersTable $TransferOrders
- */
+
 class TransferOrdersController extends AppController
 {
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->loadcomponent('DbSchema');
+        $this->loadComponent('Logging');
+    }
+
     public function index()
     {
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
         $this->paginate = [
-            'contain' => ['RetailerEmployees', 'Suppliers']
+        'contain' => ['RetailerEmployees', 'Suppliers']
         ];
-        $transferOrders = $this->paginate($this->TransferOrders);
+        $this->set('transferOrders', $this->paginate($this->TransferOrders->find('searchable', $this->Prg->parsedParams())));
+        // $transferOrders = $this->paginate($this->TransferOrders);
 
         $this->set(compact('transferOrders'));
         $this->set('_serialize', ['transferOrders']);
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Transfer Order id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+    public $components = array(
+        'Prg'
+    );
+
     public function view($id = null)
     {
         $transferOrder = $this->TransferOrders->get($id, [
             'contain' => ['RetailerEmployees', 'Suppliers', 'TransferOrderItems']
-        ]);
+            ]);
 
         $this->set('transferOrder', $transferOrder);
         $this->set('_serialize', ['transferOrder']);
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
-     */
     public function add()
     {
         $transferOrder = $this->TransferOrders->newEntity();
@@ -78,7 +72,7 @@ class TransferOrdersController extends AppController
     {
         $transferOrder = $this->TransferOrders->get($id, [
             'contain' => []
-        ]);
+            ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $transferOrder = $this->TransferOrders->patchEntity($transferOrder, $this->request->getData());
             if ($this->TransferOrders->save($transferOrder)) {
