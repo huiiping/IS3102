@@ -1,5 +1,5 @@
 <?php
-
+use Cake\ORM\TableRegistry; 
 ?>
 <!-- Main content -->
 <section class="content">
@@ -53,9 +53,32 @@
         <?php foreach ($transferOrders as $transferOrder): ?>
             <tr>
                 <td style="max-width: 150px;"><?= $this->Number->format($transferOrder->id) ?></td>
-                <td style="max-width: 150px;"><?= $this->Number->format($transferOrder->locationFrom) ?></td>
-                <td style="max-width: 150px;"><?= $this->Number->format($transferOrder->locationTo) ?></td>
-                <td style="max-width: 150px;"><?= $transferOrder->has('retailer_employee') ? $this->Html->link($transferOrder->retailer_employee->last_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $transferOrder->retailer_employee->id]) : '' ?></td>
+                <?php 
+                $session = $this->request->session();
+                $locations = TableRegistry::get('Locations');
+                $location = $locations
+                ->find()
+                ->where(['id' => $transferOrder->locationFrom])
+                ->extract('name');
+
+                foreach ($location as $name){
+                    $session->write('name',$name);
+                }
+                ?>
+                <td><?= $this->Html->link($session->read('name'), ['controller' => 'Locations', 'action' => 'view', $transferOrder->locationFrom],['title' => 'View Location Details']) ?>
+                </td>
+                <?php 
+                $location = $locations
+                ->find()
+                ->where(['id' => $transferOrder->locationTo])
+                ->extract('name');
+
+                foreach ($location as $name){
+                    $session->write('name',$name);
+                }
+                ?>
+                <td><?= $transferOrder->has('location') ? $this->Html->link($session->read('name'), ['controller' => 'Locations', 'action' => 'view', $transferOrder->locationTo],['title' => 'View Location Details']) : '' ?></td>
+                <td style="max-width: 150px;"><?= $transferOrder->has('retailer_employee') ? $this->Html->link(__(h($transferOrder->retailer_employee->first_name.' '.$transferOrder->retailer_employee->last_name)), ['controller' => 'RetailerEmployees', 'action' => 'view', $transferOrder->retailer_employee->id],['title' => 'View Employee Details']) : '' ?></td>
                 <td style="max-width: 150px;"><?= $transferOrder->has('supplier') ? $this->Html->link($transferOrder->supplier->supplier_name, ['controller' => 'Suppliers', 'action' => 'view', $transferOrder->supplier->id]) : '' ?></td>
                 <td style="max-width: 150px;"><?= h($transferOrder->status) ?></td>
                 <td><a href="/IS3102_Final/transfer-orders/edit/<?=$transferOrder->id?>"><i class="fa fa-edit" title="Edit Transfer Order Details"></i></a>&nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Transfer Order')), array('action' => 'delete', $transferOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $transferOrder->id))) ?></td>

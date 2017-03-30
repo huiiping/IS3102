@@ -21,7 +21,7 @@ class TransferOrdersTable extends Table
         parent::initialize($config);
 
         $this->setTable('transfer_orders');
-        $this->setDisplayField('id');
+        $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
@@ -31,6 +31,12 @@ class TransferOrdersTable extends Table
         ]);
         $this->belongsTo('Suppliers', [
             'foreignKey' => 'supplier_id'
+        ]);
+        $this->belongsTo('Locations', [
+            'foreignKey' => 'locationFrom'
+        ]);
+        $this->belongsTo('Locations', [
+            'foreignKey' => 'locationTo'
         ]);
         $this->belongsToMany('Items', [
             'foreignKey' => 'transfer_order_id',
@@ -53,14 +59,6 @@ class TransferOrdersTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->integer('locationFrom')
-            ->allowEmpty('locationFrom');
-
-        $validator
-            ->integer('locationTo')
-            ->allowEmpty('locationTo');
-
-        $validator
             ->allowEmpty('status');
 
         $validator
@@ -80,6 +78,8 @@ class TransferOrdersTable extends Table
     {
         $rules->add($rules->existsIn(['retailer_employee_id'], 'RetailerEmployees'));
         $rules->add($rules->existsIn(['supplier_id'], 'Suppliers'));
+        $rules->add($rules->existsIn(['locationFrom'], 'Locations'));
+        $rules->add($rules->existsIn(['locationTo'], 'Locations'));
 
         return $rules;
     }

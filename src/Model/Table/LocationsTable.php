@@ -6,27 +6,6 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-/**
- * Locations Model
- *
- * @property \Cake\ORM\Association\HasMany $DeliveryOrders
- * @property \Cake\ORM\Association\HasMany $Inventory
- * @property \Cake\ORM\Association\HasMany $Items
- * @property \Cake\ORM\Association\HasMany $PurchaseOrders
- * @property \Cake\ORM\Association\HasMany $Reports
- * @property \Cake\ORM\Association\HasMany $RetailerEmployees
- * @property \Cake\ORM\Association\HasMany $Sections
- * @property \Cake\ORM\Association\HasMany $StockLevels
- * @property \Cake\ORM\Association\HasMany $Transactions
- *
- * @method \App\Model\Entity\Location get($primaryKey, $options = [])
- * @method \App\Model\Entity\Location newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Location[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Location|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Location patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Location[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Location findOrCreate($search, callable $callback = null, $options = [])
- */
 class LocationsTable extends Table
 {
     public $filterArgs = array(
@@ -47,7 +26,7 @@ class LocationsTable extends Table
         parent::initialize($config);
 
         $this->table('locations');
-        $this->displayField('name');
+        $this->displayField('id');
         $this->primaryKey('id');
 
         $this->hasMany('DeliveryOrders', [

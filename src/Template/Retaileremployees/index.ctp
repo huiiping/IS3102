@@ -111,7 +111,7 @@ $this->Html->addCrumb(__('Employees'));
                         <?php endif; ?>
                     </td>             
                     <td>
-                        <?= $retailerEmployee->has('location') ? $this->Html->link($retailerEmployee->location->name, ['controller' => 'Locations', 'action' => 'view', $retailerEmployee->location->id]) : '' ?></td>
+                        <?= $retailerEmployee->has('location') ? $this->Html->link($retailerEmployee->location->name, ['controller' => 'Locations', 'action' => 'view', $retailerEmployee->location->id],['title' => 'View Location Details']) : '' ?></td>
                     <td>
                         <a href="/IS3102_Final/retailer-employees/edit/<?=$retailerEmployee->id?>">
                           <i class="fa fa-edit" title="Edit Employee Details"></i></a>&nbsp

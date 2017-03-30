@@ -6,23 +6,6 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-/**
- * Feedbacks Model
- *
- * @property \Cake\ORM\Association\BelongsTo $Customers
- * @property \Cake\ORM\Association\BelongsTo $Products
- * @property \Cake\ORM\Association\BelongsTo $Items
- *
- * @method \App\Model\Entity\Feedback get($primaryKey, $options = [])
- * @method \App\Model\Entity\Feedback newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Feedback[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Feedback|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Feedback patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Feedback[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Feedback findOrCreate($search, callable $callback = null, $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
- */
 class FeedbacksTable extends Table
 {
 

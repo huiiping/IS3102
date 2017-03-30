@@ -6,20 +6,6 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-/**
- * TransferOrdersItems Model
- *
- * @property \Cake\ORM\Association\BelongsTo $TransferOrders
- * @property \Cake\ORM\Association\BelongsTo $Items
- *
- * @method \App\Model\Entity\TransferOrdersItem get($primaryKey, $options = [])
- * @method \App\Model\Entity\TransferOrdersItem newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\TransferOrdersItem[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\TransferOrdersItem|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\TransferOrdersItem patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\TransferOrdersItem[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\TransferOrdersItem findOrCreate($search, callable $callback = null, $options = [])
- */
 class TransferOrdersItemsTable extends Table
 {
 

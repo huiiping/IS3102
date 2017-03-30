@@ -6,22 +6,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-/**
- * Suppliers Model
- *
- * @property \Cake\ORM\Association\HasMany $PurchaseOrders
- * @property \Cake\ORM\Association\HasMany $SupplierMemos
- *
- * @method \App\Model\Entity\Supplier get($primaryKey, $options = [])
- * @method \App\Model\Entity\Supplier newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Supplier[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Supplier|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Supplier patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Supplier[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Supplier findOrCreate($search, callable $callback = null, $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
- */
+
 class SuppliersTable extends Table
 {
     public $filterArgs = array(
@@ -63,18 +48,13 @@ class SuppliersTable extends Table
             'field' => array('supplier_name','id','address','email', 'country')
         )
     );
-    /**
-     * Initialize method
-     *
-     * @param array $config The configuration for the Table.
-     * @return void
-     */
+
     public function initialize(array $config)
     {
         parent::initialize($config);
 
         $this->table('suppliers');
-        $this->displayField('supplier_name');
+        $this->displayField('id');
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');

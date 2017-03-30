@@ -100,8 +100,8 @@
             <input class = "hidden" type="text" name="status" required="required" id="status" value="Pending"> 
 
         <div class ="row">
-           <a href="/IS3102_Final/feedbacks/index" class="btn btn-md btn-default pull-left" style="border-radius: 8px; margin:5px;">Back to Feedback Index</a>
-          <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Create New Feedback</button>
+           <a href="/IS3102_Final/feedbacks/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Feedback Index</a>
+          <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save Feedback</button>
         </div>
 
         <!-- <fieldset>

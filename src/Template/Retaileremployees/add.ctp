@@ -3,6 +3,8 @@ $this->assign('title', __('Retailer Employee') . '/' . __('Add'));
 $this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
 $this->Html->addCrumb(__('Employee'), ['controller' => 'RetailerEmployees', 'action' => 'index']);
 $this->Html->addCrumb(__('Create New Employee'));
+
+use Cake\ORM\TableRegistry; 
 ?>
 
 <!-- Main content -->
@@ -33,46 +35,68 @@ $this->Html->addCrumb(__('Create New Employee'));
                 <input class = "form-control" type="text" placeholder = "Last Name*" name="last_name" required="required" id="last_name" maxlength="255"> 
               </div>
             </div>
-            <div class ="form-group">
-              <div class="input-group" title="Enter Email*">
-                <span class="input-group-addon">@</span>
-                <input class = "form-control" type="email" placeholder = "Email*" name="email" required="required" id="email" maxlength="255"> 
-              </div>
-            </div>
-            <div class ="form-group">
-              <div class="input-group" title="Enter Contact Number*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                <input class = "form-control" type="text" placeholder = "Contact Number*" name="contact" required="required" id="contact" maxlength="100"> 
-              </div>
-            </div>
             <div class ="form-group">            
-              <div class="input-group" title="Enter Address*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                <input class = "form-control" type="text" name="address" placeholder = "Address*" required="required" id="address" maxlength="255">
-              </div> 
+            <div class="input-group" style="z-index: 5;" title="Select Location*">
+                <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
+                <input type="hidden" name="location_id" value="">
+                <select name="location_id" class='selectpicker form-control' title ="Select Location*" data-live-search="true" required="required">
+                  <?php foreach ($locations as $location): 
+                  $session = $this->request->session();
+                  $allLocations = TableRegistry::get('Locations');
+                  $allLocation = $allLocations
+                  ->find()
+                  ->where(['id' => $location])
+                  ->extract('name');
+
+                  foreach ($allLocation as $name){
+                    $session->write('name',$name);
+                  }
+                  ?>
+                  <option value="<?= $location?>"><?php echo $session->read('name')?></option> 
+                <?php endforeach; ?>
+              </select>
+            </div> 
+          </div>
+          <div class ="form-group">
+            <div class="input-group" title="Enter Email*">
+              <span class="input-group-addon">@</span>
+              <input class = "form-control" type="email" placeholder = "Email*" name="email" required="required" id="email" maxlength="255"> 
             </div>
-            <div class ="form-group">            
-              <div class="input-group" style="z-index: 999999999;" title="Select Employee Role(s)*">
-                <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
-                <input type="hidden" name="retailer_employee_roles[_ids]" value="">
-                <select name="retailer_employee_roles[_ids][]" class='selectpicker form-control' data-live-search="true" multiple data-selected-text-format="count > 3" title = "Select Employee Role(s)*" required="required" >
-                  <?php foreach ($retailerEmployeeRoles as $retailerEmployeeRole): ?>
-                    <option value="<?= $retailerEmployeeRole->id ?>"><?php echo $retailerEmployeeRole->role_name ?></option>
-                  <?php endforeach; ?>
-                </select>
-              </div> 
+          </div>
+          <div class ="form-group">
+            <div class="input-group" title="Enter Contact Number*">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+              <input class = "form-control" type="text" placeholder = "Contact Number*" name="contact" required="required" id="contact" maxlength="100"> 
             </div>
-            <br>
-            <div class ="row">
-              <a href="/IS3102_Final/retailer-employees/index" class="btn btn-md btn-default pull-left" style="border-radius: 8px; margin:5px;">Back to Employee Index</a>
-              <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Create Employee</button>
-            </div>
-            <br>
-          </form>
-        </div>
+          </div>
+          <div class ="form-group">            
+            <div class="input-group" title="Enter Address*">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+              <input class = "form-control" type="text" name="address" placeholder = "Address*" required="required" id="address" maxlength="255">
+            </div> 
+          </div>
+          <div class ="form-group">            
+            <div class="input-group" style="z-index: 999999999;" title="Select Employee Role(s)*">
+              <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
+              <input type="hidden" name="retailer_employee_roles[_ids]" value="">
+              <select name="retailer_employee_roles[_ids][]" class='selectpicker form-control' data-live-search="true" multiple data-selected-text-format="count > 3" title = "Select Employee Role(s)*" required="required" >
+                <?php foreach ($retailerEmployeeRoles as $retailerEmployeeRole): ?>
+                  <option value="<?= $retailerEmployeeRole->id ?>"><?php echo $retailerEmployeeRole->role_name ?></option>
+                <?php endforeach; ?>
+              </select>
+            </div> 
+          </div>
+          <br>
+          <div class ="row">
+            <a href="/IS3102_Final/retailer-employees/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Employee Index</a>
+            <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save Employee</button>
+          </div>
+          <br>
+        </form>
       </div>
     </div>
   </div>
+</div>
 </section>
 <!--<section class="content">
     <div class="row">
@@ -109,4 +133,4 @@ $this->Html->addCrumb(__('Create New Employee'));
         </div>
       </div>
     </div>
-</section>-->
+  </section>-->

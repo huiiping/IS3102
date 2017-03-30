@@ -6,26 +6,6 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-/**
- * RetailerEmployees Model
- *
- * @property \Cake\ORM\Association\BelongsTo $Locations
- * @property \Cake\ORM\Association\HasMany $Promotions
- * @property \Cake\ORM\Association\HasMany $PurchaseOrders
- * @property \Cake\ORM\Association\HasMany $SupplierMemos
- * @property \Cake\ORM\Association\BelongsToMany $Messages
- * @property \Cake\ORM\Association\BelongsToMany $RetailerEmployeeRoles
- *
- * @method \App\Model\Entity\RetailerEmployee get($primaryKey, $options = [])
- * @method \App\Model\Entity\RetailerEmployee newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\RetailerEmployee[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\RetailerEmployee|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\RetailerEmployee patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\RetailerEmployee[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\RetailerEmployee findOrCreate($search, callable $callback = null, $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
- */
 class RetailerEmployeesTable extends Table
 {
     public $filterArgs = array(
@@ -75,18 +55,13 @@ class RetailerEmployeesTable extends Table
             'method' => 'findByActions'
         )
     );
-    /**
-     * Initialize method
-     *
-     * @param array $config The configuration for the Table.
-     * @return void
-     */
+
     public function initialize(array $config)
     {
         parent::initialize($config);
 
         $this->table('retailer_employees');
-        $this->displayField('last_name');
+        $this->displayField('id');
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
