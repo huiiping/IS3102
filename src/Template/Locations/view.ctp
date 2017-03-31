@@ -37,8 +37,8 @@
             </table>
             <br>
             <div class="related">
-                <h4><?= __('Employees Under '.$location->name) ?></h4>
                 <?php if (!empty($location->retailer_employees)): ?>
+                <h4><?= __('Employees Under '.$location->name) ?></h4>
                 <table class="table table-bordered table-striped">
                   <thead>
                     <tr>

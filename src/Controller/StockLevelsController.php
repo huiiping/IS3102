@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 
 /**
  * StockLevels Controller
@@ -10,6 +12,10 @@ use App\Controller\AppController;
  */
 class StockLevelsController extends AppController
 {
+    public function beforeFilter(Event $event)
+    {
+        $this->loadComponent('Logging');   
+    }
 
     /**
      * Index method
@@ -18,14 +24,18 @@ class StockLevelsController extends AppController
      */
     public function index()
     {
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
         $this->paginate = [
             'contain' => ['Locations', 'Products', 'RetailerEmployees']
         ];
-        $stockLevels = $this->paginate($this->StockLevels);
-
+        $this->set('stockLevels', $this->paginate($this->StockLevels->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('stockLevels'));
         $this->set('_serialize', ['stockLevels']);
     }
+    public $components = array(
+        'Prg'
+    );
 
     /**
      * View method
@@ -39,6 +49,13 @@ class StockLevelsController extends AppController
         $stockLevel = $this->StockLevels->get($id, [
             'contain' => ['Locations', 'Products', 'RetailerEmployees']
         ]);
+
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+
+        //$this->loadComponent('Logging');
+        $this->Logging->rLog($stockLevel['id']);
+        $this->Logging->iLog($retailer, $stockLevel['id']);
 
         $this->set('stockLevel', $stockLevel);
         $this->set('_serialize', ['stockLevel']);
@@ -54,8 +71,18 @@ class StockLevelsController extends AppController
         $stockLevel = $this->StockLevels->newEntity();
         if ($this->request->is('post')) {
             $stockLevel = $this->StockLevels->patchEntity($stockLevel, $this->request->data);
+
+            $stockLevel['status'] = "Not Triggered";
+
             if ($this->StockLevels->save($stockLevel)) {
                 $this->Flash->success(__('The stock level has been saved.'));
+
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($stockLevel['id']);
+                $this->Logging->iLog($retailer, $stockLevel['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -66,6 +93,12 @@ class StockLevelsController extends AppController
         $retailerEmployees = $this->StockLevels->RetailerEmployees->find('all', ['limit' => 200]);
         $this->set(compact('stockLevel', 'locations', 'products', 'retailerEmployees'));
         $this->set('_serialize', ['stockLevel']);
+
+        $prods = TableRegistry::get('Products');
+        $this->set(compact('prods'));
+
+        //$locs = $this->Locations->find('all',array('conditions'=>array('Locations.id IN ( SELECT DISTINCT id FROM StockLevels)', '' )));
+        // ));
     }
 
     /**
@@ -85,6 +118,13 @@ class StockLevelsController extends AppController
             if ($this->StockLevels->save($stockLevel)) {
                 $this->Flash->success(__('The stock level has been saved.'));
 
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($stockLevel['id']);
+                $this->Logging->iLog($retailer, $stockLevel['id']);
+
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The stock level could not be saved. Please, try again.'));
@@ -94,6 +134,12 @@ class StockLevelsController extends AppController
         $retailerEmployees = $this->StockLevels->RetailerEmployees->find('list', ['limit' => 200]);
         $this->set(compact('stockLevel', 'locations', 'products', 'retailerEmployees'));
         $this->set('_serialize', ['stockLevel']);
+
+        //retrieve data from locations, products, retailer employees tables
+        $locs = $this->StockLevels->Locations->find('all');
+        $prods = $this->StockLevels->Products->find('all');
+        $employees = $this->StockLevels->RetailerEmployees->find('all');
+        $this->set(compact('locs', 'prods', 'employees'));
     }
 
     /**
@@ -109,6 +155,14 @@ class StockLevelsController extends AppController
         $stockLevel = $this->StockLevels->get($id);
         if ($this->StockLevels->delete($stockLevel)) {
             $this->Flash->success(__('The stock level has been deleted.'));
+
+            $session = $this->request->session();
+            $retailer = $session->read('retailer');
+
+            //$this->loadComponent('Logging');
+            $this->Logging->rLog($stockLevel['id']);
+            $this->Logging->iLog($retailer, $stockLevel['id']);
+            
         } else {
             $this->Flash->error(__('The stock level could not be deleted. Please, try again.'));
         }

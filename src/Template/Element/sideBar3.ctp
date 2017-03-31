@@ -12,7 +12,7 @@
     <li><a href="/IS3102_Final/<?=$typePlural3?>/add"><?=$type3?></a></li>
     <li><a href="/IS3102_Final/<?=$typePlural4?>/add"><?=$type4?></a></li>
 
-<?php if ($num === '26'): ?>
+<?php if ($num === '25'): ?>
     <li><a href="/IS3102_Final/<?=$typePlural5?>/add"><?=$type5?></a></li>
     <li><a href="/IS3102_Final/<?=$typePlural6?>/add"><?=$type6?></a></li>
     <li><a href="/IS3102_Final/<?=$typePlural7?>/add"><?=$type7?></a></li>
@@ -34,7 +34,6 @@
     <li><a href="/IS3102_Final/<?=$typePlural23?>/add"><?=$type23?></a></li>
     <li><a href="/IS3102_Final/<?=$typePlural24?>/add"><?=$type24?></a></li>
     <li><a href="/IS3102_Final/<?=$typePlural25?>/add"><?=$type25?></a></li>
-    <li><a href="/IS3102_Final/<?=$typePlural26?>/add"><?=$type26?></a></li>
 <?php endif; ?>
     <li><p class="indent"></p></li>
   </ul>

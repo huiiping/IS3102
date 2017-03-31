@@ -25,6 +25,13 @@ use Cake\Validation\Validator;
  */
 class StockLevelsTable extends Table
 {
+    public $filterArgs = array(
+        'search' => array(
+            'type' => 'like',
+            'field' => array('threshold', 'Products.prod_name', 'Locations.name', 'status', 'RetailerEmployees.first_name', 'RetailerEmployees.last_name'),
+            'method' => 'findByActions'
+        )
+    );
 
     /**
      * Initialize method
@@ -51,6 +58,7 @@ class StockLevelsTable extends Table
         $this->belongsTo('RetailerEmployees', [
             'foreignKey' => 'retailer_employee_id'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

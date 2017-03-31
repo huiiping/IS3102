@@ -15,18 +15,6 @@
               <input type="hidden" name="_method" value="POST">
             </div>
             <div class ="form-group">
-              <div class="input-group" title="Enter Threshold*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                <input class = "form-control" type="number" placeholder = "Threshold*" name="threshold" required="required" id="threshold" min="0"> 
-              </div>
-            </div>
-            <div class ="form-group">
-              <div class="input-group" title="Enter Status">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                <input class = "form-control" type="text" placeholder = "Status" name="status" required="required" id="status" maxlength="100"> 
-              </div>
-            </div>
-            <div class ="form-group">
               <div class="input-group" style="z-index: 5;" title="Select Product*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
                 <input type="hidden" name="product_id" id="product_id" value=""> 
@@ -38,20 +26,37 @@
               </div>
             </div>
             <div class ="form-group">
-              <div class="input-group" style="z-index: 4;" title="Select Location">
+              <div class="input-group" style="z-index: 4;" title="Select Location*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
                 <input type="hidden" name="location_id" id="location_id" value=""> 
-                <select name="location_id" class="selectpicker form-control" data-live-search="true" required="required" title="Select Location">
-                    <?php foreach ($locations as $location): ?>
+                <select name="location_id" class="selectpicker form-control" data-live-search="true" required="required" title="Select Location*">
+                    <?php foreach ($locations as $location): ?>\
                       <option value="<?=$location->id?>"><?php echo $location->name?></option> 
+                    <?php endforeach; ?>
+                </select>
+              </div>
+            </div>
+            <div class ="form-group">
+              <div class="input-group" title="Enter Threshold*">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                <input class = "form-control" type="number" placeholder = "Threshold*" name="threshold" required="required" id="threshold" min="0"> 
+              </div>
+            </div>
+            <div class ="form-group">
+              <div class="input-group" style="z-index: 3;" title="Select Employee*">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
+                <input type="hidden" name="retailer_employee_id" id="retailer_employee_id" value=""> 
+                <select name="location_id" class="selectpicker form-control" data-live-search="true" required="required" title="Select Employee*">
+                    <?php foreach ($retailerEmployees as $retailerEmployee): ?>
+                      <option value="<?=$retailerEmployee->id?>"><?php echo $retailerEmployee->first_name.' '.$retailerEmployee->last_name?></option> 
                     <?php endforeach; ?>
                 </select>
               </div>
             </div>
             <input type="hidden" name="retailer_employee_id" id="retailer_employee_id" value="<?=$_SESSION['Auth']['User']['id']?>"> 
             <div class ="row">
-              <a href="/IS3102_Final/locations/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Location Index</a>
-              <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save Location</button>
+              <a href="/IS3102_Final/StockLevels/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Stock Level Index</a>
+              <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save Stock Level</button>
             </div>
             <br>
           </form>

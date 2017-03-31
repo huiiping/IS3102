@@ -28,7 +28,7 @@
             </div>
             <div class ="form-group">
               <div class="input-group" title="Enter EPC*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                <span class="input-group-addon"><i class="glyphicon glyphicon-shopping-cart"></i></span>
                 <input class = "form-control" type="text" placeholder = "EPC*" name="EPC" required="required" id="EPC" maxlength="255"> 
               </div>
             </div>
@@ -49,7 +49,7 @@
                 </select>
               </div>
             </div>
-            <div class ="form-group">
+            <!--<div class ="form-group">
               <div class="input-group" style="z-index: 4;" title="Select Location">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
                 <input type="hidden" name="location_id" id="location_id" value=""> 
@@ -70,11 +70,11 @@
                     <?php endforeach; ?>
                 </select>
               </div>
-            </div>
+            </div>-->
             <br>
             <div class ="row">
-              <a href="/IS3102_Final/locations/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Location Index</a>
-              <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save Location</button>
+              <a href="/IS3102_Final/items/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Item Index</a>
+              <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save Item</button>
             </div>
             <br>
           </form>

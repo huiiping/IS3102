@@ -28,6 +28,13 @@ use Cake\Validation\Validator;
  */
 class ItemsTable extends Table
 {
+    public $filterArgs = array(
+        'search' => array(
+            'type' => 'like',
+            'field' => array('name', 'description', 'Products.prod_name', 'Locations.name', 'Sections.sec_name', 'EPC', 'status'),
+            'method' => 'findByActions'
+        )
+    );
 
     /**
      * Initialize method
@@ -67,6 +74,7 @@ class ItemsTable extends Table
         $this->hasMany('TransferOrderItems', [
             'foreignKey' => 'item_id'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

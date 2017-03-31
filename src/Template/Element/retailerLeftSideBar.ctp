@@ -38,7 +38,7 @@
         </li>
         
       <?php else : ?>
-        <?= $this->Element('sideBar3', array('icon' => 'tags', 'title' => 'Create New', 'num' => '26', 
+        <?= $this->Element('sideBar3', array('icon' => 'tags', 'title' => 'Create New', 'num' => '25', 
           'type1' => 'Employee', 'typePlural' => 'RetailerEmployees', 
           'type2' => 'Customer', 'typePlural2' => 'Customers', 
           'type3' => 'Membership Tier', 'typePlural3' => 'CustMembershipTiers', 

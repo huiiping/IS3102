@@ -37,12 +37,11 @@
                     <thead>
                         <tr>
                             <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                            <th scope="col"><?= $this->Paginator->sort('location_id') ?></th>
-                            <th scope="col"><?= $this->Paginator->sort('product_id') ?></th>
                             <th scope="col"><?= $this->Paginator->sort('threshold') ?></th>
+                            <th scope="col"><?= $this->Paginator->sort('product_id') ?></th>
+                            <th scope="col"><?= $this->Paginator->sort('location_id') ?></th>
                             <th scope="col"><?= $this->Paginator->sort('status') ?></th>
                             <th scope="col"><?= $this->Paginator->sort('retailer_employee_id') ?></th>
-                            <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                             <th scope="col" class="actions"><?= __('Actions') ?></th>
                         </tr>
                     </thead>
@@ -50,16 +49,17 @@
                         <?php foreach ($stockLevels as $stockLevel): ?>
                         <tr>
                             <td><?= $this->Number->format($stockLevel->id) ?></td>
-                            <td><?= $stockLevel->has('location') ? $this->Html->link($stockLevel->location->name, ['controller' => 'Locations', 'action' => 'view', $stockLevel->location->id]) : '' ?></td>
-                            <td><?= $stockLevel->has('product') ? $this->Html->link($stockLevel->product->id, ['controller' => 'Products', 'action' => 'view', $stockLevel->product->id]) : '' ?></td>
-                            <td><?= $this->Number->format($stockLevel->threshold) ?></td>
+                            <td>
+                                <?= $this->Html->link(__($this->Number->format($stockLevel->threshold)), ['action' => 'view', $stockLevel->id], ['title' => 'View Stock Level Details']) ?>
+                            </td>
+                            <td><?= $stockLevel->has('product') ? $this->Html->link($stockLevel->product->prod_name, ['controller' => 'Products', 'action' => 'view', $stockLevel->product->id], ['title' => 'View Product Details']) : '' ?></td>
+                            <td><?= $stockLevel->has('location') ? $this->Html->link($stockLevel->location->name, ['controller' => 'Locations', 'action' => 'view', $stockLevel->location->id], ['title' => 'View Location Details']) : '' ?></td>
                             <td><?= h($stockLevel->status) ?></td>
-                            <td><?= $stockLevel->has('retailer_employee') ? $this->Html->link($stockLevel->retailer_employee->last_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $stockLevel->retailer_employee->id]) : '' ?></td>
-                            <td><?= h($stockLevel->created) ?></td>
+                            <td><?= $stockLevel->has('retailer_employee') ? $this->Html->link(($stockLevel->retailer_employee->first_name.' '.$stockLevel->retailer_employee->last_name), ['controller' => 'RetailerEmployees', 'action' => 'view', $stockLevel->retailer_employee->id]) : '' ?></td>
                             <td class="actions">
-                                <?= $this->Html->link(__('View'), ['action' => 'view', $stockLevel->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $stockLevel->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $stockLevel->id], ['confirm' => __('Are you sure you want to delete # {0}?', $stockLevel->id)]) ?>
+                                <a href="/IS3102_Final/stockLevels/edit/<?=$stockLevel->id?>">
+                                <i class="fa fa-edit" title="Edit Stock Level Details"></i></a>&nbsp
+                                <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Stock Level')), array('action' => 'delete', $stockLevel->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $stockLevel->id))) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
