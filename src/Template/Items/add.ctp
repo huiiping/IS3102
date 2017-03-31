@@ -33,9 +33,9 @@
               </div>
             </div>
             <div class ="form-group">
-              <div class="input-group" title="Enter Status*">
+              <div class="input-group" title="Enter Status">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                <input class = "form-control" type="text" placeholder = "Status*" name="status" required="required" id="status" maxlength="100"> 
+                <input class = "form-control" type="text" placeholder = "Status" name="status" id="status" maxlength="100"> 
               </div>
             </div>
             <div class ="form-group">
