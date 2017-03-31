@@ -5,26 +5,29 @@ use App\Controller\AppController;
 use Cake\Core\Configure;
 use Cake\Datasource\ConnectionManager;
 use Cake\Utility\Hash;
+use Cake\Event\Event;
 
-/**
- * Products Controller
- *
- * @property \App\Model\Table\ProductsTable $Products
- */
+
 class ProductsController extends AppController
 {
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
-    public function index()
+    public function beforeFilter(Event $event)
     {
+        parent::beforeFilter($event);
+        $this->loadcomponent('DbSchema');
+        $this->loadComponent('Logging');
+    }
+
+    public function index()
+    {   
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
         $this->paginate = [
         'contain' => ['ProdCats']
         ];
-        $products = $this->paginate($this->Products);
+
+        $this->set('products', $this->paginate($this->Products->find('searchable', $this->Prg->parsedParams())));
+        //$products = $this->paginate($this->Products);
         $promotions = $this->Products->Promotions->find('list', ['limit' => 200]);
         $this->set(compact('products'));
         $this->set('_serialize', ['products']);
@@ -32,13 +35,10 @@ class ProductsController extends AppController
         $this->set('_serialize', ['promotions']);
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Product id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+    public $components = array(
+        'Prg'
+        );
+    
     public function view($id = null)
     {
         $product = $this->Products->get($id, [

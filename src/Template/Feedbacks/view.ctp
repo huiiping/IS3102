@@ -14,7 +14,7 @@ $this->Html->addCrumb(__('View Feedback'));
       </div>
       <div class="box-body">
           <div class="pull-right">
-            <a class="btn btn-default btn-block" title="Edit Retailer Account Type" href="/IS3102_Final/feedbacks/edit/<?=$feedback->id?>" >Edit Feedback</a>
+            <a class="btn btn-success btn-block" title="Edit Retailer Account Type" href="/IS3102_Final/feedbacks/edit/<?=$feedback->id?>" >Edit Feedback</a>
         </div><br><br><br>
 
         <table class="table table-bordered table-striped">
@@ -71,4 +71,4 @@ $this->Html->addCrumb(__('View Feedback'));
 </div>
 </div>
 </section>
-</div>
+

@@ -4,13 +4,6 @@
   */
 ?>
 
-<?= $this->Element('retailerLeftSideBar'); ?>
-
-<!-- Main Content -->
-<div class="content-wrapper">
-  <!-- Content Header -->
-  <section class="content-header">
-  </section>
   <!-- Main content -->
   <section class="content">
       <div class="row">
@@ -157,14 +150,7 @@
                     <div class="related">
                       <?php if (!empty($supplier->supplier_memos)): ?>
                         <table class="table table-bordered table-striped">
-                            <tr>
-                                <th scope="col"><?= __('Memo Id') ?></th>
-                                <!--<th scope="col"><?= __('Remarks') ?></th>-->
-                                <th scope="col"><?= __('Created') ?></th>
-                                <!--<th scope="col"><?= __('Supplier Id') ?></th>
-                                <th scope="col"><?= __('Retailer Employee Id') ?></th>
-                                <th scope="col" class="actions"><?= __('Actions') ?></th>-->
-                            </tr>
+  
                             <?php foreach ($supplier->supplier_memos as $supplierMemos): ?>
                             <tr>
                                 <td>
@@ -172,13 +158,7 @@
                                 </td>
                                 <!--<td><?= h($supplierMemos->remarks) ?></td>-->
                                 <td><?= $this->Time->format(h($supplierMemos->created), 'd MMM YYYY, hh:mm') ?></td>
-                                <!--<td><?= h($supplierMemos->supplier_id) ?></td>
-                                <td><?= h($supplierMemos->retailer_employee_id) ?></td>
-                                <td class="actions">
-                                    <?= $this->Html->link(__('View'), ['controller' => 'SupplierMemos', 'action' => 'view', $supplierMemos->id]) ?>
-                                    <?= $this->Html->link(__('Edit'), ['controller' => 'SupplierMemos', 'action' => 'edit', $supplierMemos->id]) ?>
-                                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'SupplierMemos', 'action' => 'delete', $supplierMemos->id], ['confirm' => __('Are you sure you want to delete # {0}?', $supplierMemos->id)]) ?>
-                                </td>-->
+                               
                             </tr>
                             <?php endforeach; ?>
                         </table>

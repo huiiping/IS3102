@@ -80,11 +80,67 @@ use Cake\ORM\TableRegistry;
                 <td><?= $transferOrder->has('location') ? $this->Html->link($session->read('name'), ['controller' => 'Locations', 'action' => 'view', $transferOrder->locationTo],['title' => 'View Location Details']) : '' ?></td>
                 <td style="max-width: 150px;"><?= $transferOrder->has('retailer_employee') ? $this->Html->link(__(h($transferOrder->retailer_employee->first_name.' '.$transferOrder->retailer_employee->last_name)), ['controller' => 'RetailerEmployees', 'action' => 'view', $transferOrder->retailer_employee->id],['title' => 'View Employee Details']) : '' ?></td>
                 <td style="max-width: 150px;"><?= $transferOrder->has('supplier') ? $this->Html->link($transferOrder->supplier->supplier_name, ['controller' => 'Suppliers', 'action' => 'view', $transferOrder->supplier->id]) : '' ?></td>
-                <td style="max-width: 150px;"><?= h($transferOrder->status) ?></td>
-                <td><a href="/IS3102_Final/transfer-orders/edit/<?=$transferOrder->id?>"><i class="fa fa-edit" title="Edit Transfer Order Details"></i></a>&nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Transfer Order')), array('action' => 'delete', $transferOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $transferOrder->id))) ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
+                <td>
+                <?php 
+                if($transferOrder->status == 'Pending'){
+                  ?>
+                  <div class="btn-group">
+                    <button type="button" style="width: 100px;" class="btn btn-warning btn-flat"><?= h($transferOrder->status) ?></button>
+                    <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
+                      <span class="caret"></span>
+                      <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+
+                  <ul class="dropdown-menu" role="menu">
+                      <li><a title="Accept Transfer Order" href="/IS3102_Final/transferOrders/acceptedStatus/<?= $transferOrder->id ?>">Accepted</a></li>
+                      <li><a title="Reject Transfer Order" href="/IS3102_Final/transferOrders/rejectedStatus/<?= $transferOrder->id ?>">Rejected</a></li>
+                  </ul>
+              </div>
+              <?php
+
+          } else if($transferOrder->status == 'Accepted') {
+
+              ?>
+
+              <div class="btn-group">
+                <button type="button" style="width: 100px;" class="btn btn-success btn-flat"><?= h($transferOrder->status) ?></button>
+                <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                  <li><a title="Pending Transfer Order" href="/IS3102_Final/transferOrders/pendingStatus/<?= $transferOrder->id ?>">Pending</a></li>
+                  <li><a title="Reject Transfer Order" href="/IS3102_Final/transferOrders/rejectedStatus/<?= $transferOrder->id ?>">Rejected</a></li>
+              </ul>
+          </div>
+          <?php
+
+      } else {
+
+          ?>
+
+          <div class="btn-group">
+            <button type="button" style="width: 100px;" class="btn btn-danger btn-flat"><?= h($transferOrder->status) ?></button>
+            <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+              <li><a title="Pending Transfer Order" href="/IS3102_Final/transferOrders/pendingStatus/<?= $transferOrder->id ?>">Pending</a></li>
+              <li><a title="Closed Transfer Order" href="/IS3102_Final/transferOrders/acceptedStatus/<?= $transferOrder->id ?>">Accepted</a></li>
+          </ul>
+      </div>
+      <?php 
+  }
+  ?>
+  </td>
+
+  <td><a href="/IS3102_Final/transfer-orders/view/<?=$transferOrder->id?>">
+                <i class="fa fa-bars" title="View Transfer Order Details"></i></a>&nbsp
+                <a href="/IS3102_Final/transfer-orders/edit/<?=$transferOrder->id?>"><i class="fa fa-edit" title="Edit Transfer Order Details"></i></a>&nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Transfer Order')), array('action' => 'delete', $transferOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $transferOrder->id))) ?></td>
+</tr>
+<?php endforeach; ?>
+</tbody>
 </table>
 <div class="paginator">
     <ul class="pagination">

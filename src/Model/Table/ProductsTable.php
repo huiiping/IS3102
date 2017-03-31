@@ -6,34 +6,15 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-/**
- * Products Model
- *
- * @property \Cake\ORM\Association\BelongsTo $ProdCats
- * @property \Cake\ORM\Association\HasMany $Feedbacks
- * @property \Cake\ORM\Association\HasMany $Inventory
- * @property \Cake\ORM\Association\HasMany $Items
- * @property \Cake\ORM\Association\HasMany $StockLevels
- * @property \Cake\ORM\Association\BelongsToMany $ProdSpecifications
- * @property \Cake\ORM\Association\BelongsToMany $Promotions
- *
- * @method \App\Model\Entity\Product get($primaryKey, $options = [])
- * @method \App\Model\Entity\Product newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Product[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Product|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Product patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Product[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Product findOrCreate($search, callable $callback = null, $options = [])
- */
 class ProductsTable extends Table
 {
+    public $filterArgs = array(
+        'search' => array(
+            'type' => 'like',
+            'field' => array('prod_name','store_unit_price','web_store_unit_price','SKU')
+            )
+    );
 
-    /**
-     * Initialize method
-     *
-     * @param array $config The configuration for the Table.
-     * @return void
-     */
     public function initialize(array $config)
     {
         parent::initialize($config);
@@ -68,14 +49,9 @@ class ProductsTable extends Table
             'targetForeignKey' => 'promotion_id',
             'joinTable' => 'promotions_products'
         ]);
+        $this->addBehavior('Searchable');
     }
 
-    /**
-     * Default validation rules.
-     *
-     * @param \Cake\Validation\Validator $validator Validator instance.
-     * @return \Cake\Validation\Validator
-     */
     public function validationDefault(Validator $validator)
     {
         $validator

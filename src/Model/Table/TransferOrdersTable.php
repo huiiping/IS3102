@@ -12,7 +12,7 @@ class TransferOrdersTable extends Table
     public $filterArgs = array(
         'search' => array(
             'type' => 'like',
-            'field' => array('locationFrom','locationTo','status','customer_email')
+            'field' => array('locationFrom','locationTo','status','supplier_id')
             )
     );
 
@@ -21,7 +21,7 @@ class TransferOrdersTable extends Table
         parent::initialize($config);
 
         $this->setTable('transfer_orders');
-        $this->setDisplayField('name');
+        $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');

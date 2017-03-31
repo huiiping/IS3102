@@ -87,13 +87,6 @@ class TransferOrdersController extends AppController
         $this->set('_serialize', ['transferOrder']);
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Transfer Order id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
@@ -106,4 +99,57 @@ class TransferOrdersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function pendingStatus($id) {
+
+      $transferOrder = $this->TransferOrders->get($id);
+
+      $transferOrder->status = 'Pending';
+      $this->TransferOrders->save($transferOrder);
+
+      $session = $this->request->session();
+      $retailer = $session->read('retailer');
+      $this->Logging->rLog($transferOrder['id']);
+      $this->Logging->iLog($retailer, $transferOrder['id']);
+
+      $this->Flash->success(__('The Transfer Order has a pending status.'));
+
+      return $this->redirect(['action' => 'index']);
+  }
+
+  public function rejectedStatus($id) {
+
+      $transferOrder = $this->TransferOrders->get($id);
+
+      $transferOrder->status = 'Rejected';
+      $this->TransferOrders->save($transferOrder);
+
+      $session = $this->request->session();
+      $retailer = $session->read('retailer');
+      $this->Logging->rLog($transferOrder['id']);
+      $this->Logging->iLog($retailer, $transferOrder['id']);
+
+      $this->Flash->success(__('The Transfer Order has a rejected status.'));
+
+      return $this->redirect(['action' => 'index']);
+
+  }
+
+  public function acceptedStatus($id) {
+
+      $transferOrder = $this->TransferOrders->get($id);
+
+      $transferOrder->status = 'Accepted';
+      $this->TransferOrders->save($transferOrder);
+
+      $session = $this->request->session();
+      $retailer = $session->read('retailer');
+      $this->Logging->rLog($transferOrder['id']);
+      $this->Logging->iLog($retailer, $transferOrder['id']);
+
+      $this->Flash->success(__('The Transfer Order has an accepted status.'));
+
+      return $this->redirect(['action' => 'index']);
+
+  }
 }
