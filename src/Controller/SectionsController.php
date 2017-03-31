@@ -77,6 +77,7 @@ class SectionsController extends AppController
 
             $spaceLimit = $section['space_limit'];
             $section['available_space'] = $spaceLimit;
+            $section['reserve_space'] = 0;
 
             if ($this->Sections->save($section)) {
                 $this->Flash->success(__('The section has been saved.'));
