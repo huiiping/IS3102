@@ -137,7 +137,7 @@ use Cake\ORM\TableRegistry;
 
   <td><a href="/IS3102_Final/transfer-orders/view/<?=$transferOrder->id?>">
                 <i class="fa fa-bars" title="View Transfer Order Details"></i></a>&nbsp
-                <a href="/IS3102_Final/transfer-orders/edit/<?=$transferOrder->id?>"><i class="fa fa-edit" title="Edit Transfer Order Details"></i></a>&nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Transfer Order')), array('action' => 'delete', $transferOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $transferOrder->id))) ?></td>
+                <!-- <a href="/IS3102_Final/transfer-orders/edit/<?=$transferOrder->id?>"><i class="fa fa-edit" title="Edit Transfer Order Details"></i></a>&nbsp --><?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Transfer Order')), array('action' => 'delete', $transferOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $transferOrder->id))) ?></td>
 </tr>
 <?php endforeach; ?>
 </tbody>

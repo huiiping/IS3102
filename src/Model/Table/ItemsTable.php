@@ -6,26 +6,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-/**
- * Items Model
- *
- * @property \Cake\ORM\Association\BelongsTo $Products
- * @property \Cake\ORM\Association\BelongsTo $Sections
- * @property \Cake\ORM\Association\BelongsTo $Locations
- * @property \Cake\ORM\Association\HasMany $DeliveryOrderItems
- * @property \Cake\ORM\Association\HasMany $Feedbacks
- * @property \Cake\ORM\Association\HasMany $Reports
- * @property \Cake\ORM\Association\HasMany $TransactionItems
- * @property \Cake\ORM\Association\HasMany $TransferOrderItems
- *
- * @method \App\Model\Entity\Item get($primaryKey, $options = [])
- * @method \App\Model\Entity\Item newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Item[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Item|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Item patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Item[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Item findOrCreate($search, callable $callback = null, $options = [])
- */
+
 class ItemsTable extends Table
 {
     public $filterArgs = array(
@@ -33,8 +14,8 @@ class ItemsTable extends Table
             'type' => 'like',
             'field' => array('name', 'description', 'Products.prod_name', 'Locations.name', 'Sections.sec_name', 'EPC', 'status'),
             'method' => 'findByActions'
-        )
-    );
+            )
+        );
 
     /**
      * Initialize method
@@ -52,28 +33,35 @@ class ItemsTable extends Table
 
         $this->belongsTo('Products', [
             'foreignKey' => 'product_id'
-        ]);
+            ]);
         $this->belongsTo('Sections', [
             'foreignKey' => 'section_id'
-        ]);
+            ]);
         $this->belongsTo('Locations', [
             'foreignKey' => 'location_id'
-        ]);
-        $this->hasMany('DeliveryOrderItems', [
-            'foreignKey' => 'item_id'
-        ]);
+            ]);
+
         $this->hasMany('Feedbacks', [
             'foreignKey' => 'item_id'
-        ]);
+            ]);
         $this->hasMany('Reports', [
             'foreignKey' => 'item_id'
-        ]);
+            ]);
         $this->hasMany('TransactionItems', [
             'foreignKey' => 'item_id'
-        ]);
-        $this->hasMany('TransferOrderItems', [
-            'foreignKey' => 'item_id'
-        ]);
+            ]);
+
+        $this->belongsToMany('DeliveryOrders', [
+            'foreignKey' => 'item_id',
+            'targetForeignKey' => 'delivery_order_id',
+            'joinTable' => 'delivery_orders_items'
+            ]);
+
+        $this->belongsToMany('IntrasysEmployeeRoles', [
+            'foreignKey' => 'item_id',
+            'targetForeignKey' => 'transfer_order_id',
+            'joinTable' => 'transfer_orders_items'
+            ]);
         $this->addBehavior('Searchable');
     }
 
@@ -86,21 +74,21 @@ class ItemsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('id')
-            ->allowEmpty('id', 'create');
+        ->integer('id')
+        ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('name');
+        ->allowEmpty('name');
 
         $validator
-            ->allowEmpty('description');
+        ->allowEmpty('description');
 
         $validator
-            ->allowEmpty('EPC')
-            ->add('EPC', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+        ->allowEmpty('EPC')
+        ->add('EPC', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
-            ->allowEmpty('status');
+        ->allowEmpty('status');
 
         return $validator;
     }
