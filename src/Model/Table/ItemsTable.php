@@ -57,7 +57,7 @@ class ItemsTable extends Table
             'joinTable' => 'delivery_orders_items'
             ]);
 
-        $this->belongsToMany('IntrasysEmployeeRoles', [
+        $this->belongsToMany('Items', [
             'foreignKey' => 'item_id',
             'targetForeignKey' => 'transfer_order_id',
             'joinTable' => 'transfer_orders_items'

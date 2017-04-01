@@ -6,26 +6,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-/**
- * DeliveryOrders Model
- *
- * @property \Cake\ORM\Association\BelongsTo $Customers
- * @property \Cake\ORM\Association\BelongsTo $RetailerEmployees
- * @property \Cake\ORM\Association\BelongsTo $Locations
- * @property \Cake\ORM\Association\BelongsTo $Transactions
- * @property \Cake\ORM\Association\HasMany $DeliveryOrderItems
- * @property \Cake\ORM\Association\HasMany $Reports
- *
- * @method \App\Model\Entity\DeliveryOrder get($primaryKey, $options = [])
- * @method \App\Model\Entity\DeliveryOrder newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\DeliveryOrder[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\DeliveryOrder|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\DeliveryOrder patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\DeliveryOrder[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\DeliveryOrder findOrCreate($search, callable $callback = null, $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
- */
+
 class DeliveryOrdersTable extends Table
 {
 
@@ -57,12 +38,16 @@ class DeliveryOrdersTable extends Table
         $this->belongsTo('Transactions', [
             'foreignKey' => 'transaction_id'
         ]);
-        $this->hasMany('DeliveryOrderItems', [
-            'foreignKey' => 'delivery_order_id'
-        ]);
+        
         $this->hasMany('Reports', [
             'foreignKey' => 'delivery_order_id'
         ]);
+
+        $this->belongsToMany('DeliveryOrders', [
+            'foreignKey' => 'item_id',
+            'targetForeignKey' => 'delivery_order_id',
+            'joinTable' => 'delivery_orders_items'
+            ]);
     }
 
     /**
