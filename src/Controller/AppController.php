@@ -88,18 +88,39 @@ class AppController extends Controller
         //check login
     if($this->request->session()->read('Auth.User')){
         $this->set('loggedIn', true);
-         $conn = ConnectionManager::get('intrasysdb');
-        $announcementNotifs = $conn
+        $conn = ConnectionManager::get('intrasysdb');
+        $user = $this->request->session()->read('Auth.User');
+
+
+        $announcementRecipients = $conn
         ->newQuery()
         ->select('*')
-        ->from('announcements')
-        //->where(['type' => 'intrasys'])
-        ->order(['modified' => 'DESC'])
-        ->limit('5')
+        ->from('announcement_recipients')
+        ->where([
+            'intrasys_employee_id' =>  $user['id'], 
+            'is_read' => false ,
+            ]) 
+/*        ->limit('5')*/
         ->execute()
         ->fetchAll('assoc');
-       
-        $this->set('announcementNotifs', $announcementNotifs);
+        
+        $aTable = TableRegistry::get('Announcements');
+        
+        $arr = array();
+        foreach($announcementRecipients as $announcementRecipient){
+            /*echo $announcementRecipient['announcement_id'];
+            $hello = $aTable->findById($announcementRecipient['announcement_id']);
+            $hi = $hello->toArray();
+            echo $hi[0]['id'];*/
+            array_unshift($arr, $aTable->findById($announcementRecipient['announcement_id'])->toArray());
+
+        }
+
+        $this->set('announcementNotifs', $arr);
+
+
+
+        /* $this->set('announcementNotifs', $announcementNotifs);*/
     } else {
         $this->set('loggedIn', false);
     }
