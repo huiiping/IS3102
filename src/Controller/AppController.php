@@ -30,20 +30,15 @@ use Cake\ORM\TableRegistry;
  */
 class AppController extends Controller
 {
-    /**
-     * Initialization hook method.
-     *
-     * Use this method to add common initialization code like loading components.
-     *
-     * e.g. `$this->loadComponent('Security');`
-     *
-     * @return void
-     */
+
+    public $components = array('RequestHandler');
+    
     public function initialize() {
         parent::initialize();
 
         $this->loadComponent('RequestHandler');
-        $this->loadComponent('Flash');      
+        $this->loadComponent('Flash');    
+
 
         $session = $this->request->session();
         $database = $session->read('database');
