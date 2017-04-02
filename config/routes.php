@@ -44,6 +44,7 @@ use Cake\Routing\Route\DashedRoute;
 
 Router::defaultRouteClass(DashedRoute::class);
 Router::extensions(['csv']);
+Router::extensions(['pdf']);
 
 Router::scope('/', function (RouteBuilder $routes) {
     /**

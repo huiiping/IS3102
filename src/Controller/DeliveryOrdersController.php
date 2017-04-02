@@ -2,56 +2,64 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
+use Cake\Core\Configure;
+use CakePdf\Pdf\CakePdf;
 
-/**
- * DeliveryOrders Controller
- *
- * @property \App\Model\Table\DeliveryOrdersTable $DeliveryOrders
- */
+
+
 class DeliveryOrdersController extends AppController
 {
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->loadcomponent('DbSchema');
+        $this->loadComponent('Logging');
+    }
+
     public function index()
     {
+
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+
         $this->paginate = [
-            'contain' => ['Customers', 'RetailerEmployees', 'Locations', 'Transactions']
+        'contain' => ['Customers', 'RetailerEmployees', 'Locations', 'Transactions']
         ];
-        $deliveryOrders = $this->paginate($this->DeliveryOrders);
+       // $deliveryOrders = $this->paginate($this->DeliveryOrders);
+
+        $this->set('deliveryOrders', $this->paginate($this->DeliveryOrders->find('searchable',  $this->Prg->parsedParams())));
 
         $this->set(compact('deliveryOrders'));
         $this->set('_serialize', ['deliveryOrders']);
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Delivery Order id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+    public $components = array(
+      'Prg'
+      );
+
     public function view($id = null)
-    {
+    {   
+
+        // $this->pdfConfig = array(
+        //     'engine' => 'CakePdf.DomPdf',
+        //     'download' => true,
+        //     'filename' => 'apples.pdf');
+
         $deliveryOrder = $this->DeliveryOrders->get($id, [
-            'contain' => ['Customers', 'RetailerEmployees', 'Locations', 'Transactions', 'DeliveryOrderItems']
-        ]);
+            'contain' => ['Customers', 'RetailerEmployees', 'Locations', 'Transactions']
+            ]);
+
 
         $this->set('deliveryOrder', $deliveryOrder);
         $this->set('_serialize', ['deliveryOrder']);
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
-     */
     public function add()
     {
         $deliveryOrder = $this->DeliveryOrders->newEntity();
+
         if ($this->request->is('post')) {
             $deliveryOrder = $this->DeliveryOrders->patchEntity($deliveryOrder, $this->request->getData());
             if ($this->DeliveryOrders->save($deliveryOrder)) {
@@ -80,7 +88,7 @@ class DeliveryOrdersController extends AppController
     {
         $deliveryOrder = $this->DeliveryOrders->get($id, [
             'contain' => []
-        ]);
+            ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $deliveryOrder = $this->DeliveryOrders->patchEntity($deliveryOrder, $this->request->getData());
             if ($this->DeliveryOrders->save($deliveryOrder)) {
@@ -117,4 +125,39 @@ class DeliveryOrdersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function pendingStatus($id) {
+
+      $deliveryOrder = $this->DeliveryOrders->get($id);
+
+      $deliveryOrder->status = 'Pending';
+      $this->DeliveryOrders->save($deliveryOrder);
+
+      $session = $this->request->session();
+      $retailer = $session->read('retailer');
+      $this->Logging->rLog($deliveryOrder['id']);
+      $this->Logging->iLog($retailer, $deliveryOrder['id']);
+
+      $this->Flash->success(__('The delivery order has a pending status.'));
+
+      return $this->redirect(['action' => 'index']);
+  }
+
+  public function deliveredStatus($id) {
+
+   $deliveryOrder = $this->DeliveryOrders->get($id);
+
+   $deliveryOrder->status = 'Delivered';
+   $this->DeliveryOrders->save($deliveryOrder);
+
+   $session = $this->request->session();
+   $retailer = $session->read('retailer');
+   $this->Logging->rLog($deliveryOrder['id']);
+   $this->Logging->iLog($retailer, $deliveryOrder['id']);
+
+   $this->Flash->success(__('The delivery order has a delivered status.'));
+
+   return $this->redirect(['action' => 'index']);
+
+}
 }

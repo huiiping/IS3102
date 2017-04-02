@@ -1,9 +1,44 @@
-        <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h3 class="modal-title" id="myModalLabel">View Delivery Order</h3>
-          </div>
-          <div class="modal-body">
+<section class="content">
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+      <div class="box box-primary">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <style>
+                table, th, td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                },  
+                th {
+                    text-align: left;
+                    font-size: 20px;
+                }
+            </style>
+            <header>
+                <h1 style="font-size:300%;text-align:center"><u>Delivery Order</u></h1></header>
+            </div>
+        </div>
+        <div class="main" style="padding: 10px 20px;">
+            <table style="width:100%">
+                <tr>
+                    <th scope="row"><?= __('Delivery ID') ?></th>
+                    <td><?= $this->Number->format($deliveryOrder->id) ?></td>
+                </tr>
+                <tr>
+                    <th scope="row"><?= __('Company Name') ?></th>
+                    <td><?= h($deliveryOrder->deliverer) ?></td>
+                </tr>
+                <tr>
+                    <th scope="row"><?= __('Deliverer') ?></th>
+                    <td><?= h($deliveryOrder->retailer_employee->first_name.' '.$deliveryOrder->retailer_employee->last_name) ?></td>
+                </tr>
+
+                <tr>
+                    <th scope="row"><?= __('Company Address')?></th>
+                    <td><?= h($deliveryOrder->customer->first_name.' '.$deliveryOrder->customer->last_name) ?></td>
+                </tr>
+            </table>
+
             <label><h4 style="color:blue;">Shipped From:</h4></label>
             <table class="table table-bordered">
                 <tr>
@@ -56,9 +91,9 @@
             <table class="table table-bordered table-striped">
             <!-- add transaction items here -->
             </table>
-            </div>
-            <div class="modal-footer">
-                <a href="/IS3102_Final/delivery-orders/view/<?=$deliveryOrder->id?>.pdf" class="btn btn-md btn-success pull-left" style="border-radius: 8px; margin:5px;">Download Delivery Order</a>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" pull-right>Close</button>
-            </div>
+         
         </div>
+    </div>
+</div>
+</div>
+</section>  
