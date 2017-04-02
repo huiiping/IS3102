@@ -1,6 +1,6 @@
 --------------------------------------------------------
 Check Log
-CAA: 14 March 0007 hrs
+CAA: 2 April 1920 hrs
 
 Order of tables:
 01. retailer_acc_types
@@ -11,6 +11,7 @@ Order of tables:
 06. intrasys_employee_roles
 07. announcements
 08. intrasys_employees_intrasys_employee_roles
+09. announcement_recipients
 --------------------------------------------------------
 
 CREATE TABLE retailer_acc_types (
@@ -114,3 +115,12 @@ CREATE TABLE intrasys_employees_intrasys_employee_roles (
     FOREIGN KEY (intrasys_employee_id) REFERENCES intrasys_employees(id),
     FOREIGN KEY (intrasys_employee_role_id) REFERENCES intrasys_employee_roles(id)
 );
+
+CREATE TABLE announcement_recipients (
+    announcement_id INT,
+    intrasys_employee_id INT,
+    is_read BOOLEAN,
+    PRIMARY KEY (announcement_id, intrasys_employee_id),
+    FOREIGN KEY (announcement_id) REFERENCES announcements(id),
+    FOREIGN KEY (intrasys_employee_id) REFERENCES intrasys_employees(id)
+)

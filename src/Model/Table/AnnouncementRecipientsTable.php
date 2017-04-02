@@ -22,7 +22,10 @@ use Cake\Validation\Validator;
  */
 class AnnouncementRecipientsTable extends Table
 {
-
+    public static function defaultConnectionName() {
+        return 'intrasysdb';
+    }
+    
     /**
      * Initialize method
      *
