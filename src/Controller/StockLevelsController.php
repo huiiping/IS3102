@@ -2,8 +2,9 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
+use Cake\Error\Debugger;
+use Cake\Event\Event;
 
 /**
  * StockLevels Controller
@@ -69,36 +70,72 @@ class StockLevelsController extends AppController
     public function add()
     {
         $stockLevel = $this->StockLevels->newEntity();
-        if ($this->request->is('post')) {
-            $stockLevel = $this->StockLevels->patchEntity($stockLevel, $this->request->data);
+        
+        if ($this->request->is('post')) { 
 
-            $stockLevel['status'] = "Not Triggered";
+            //get product id selected           
+            if (isset($_POST['generate_button'])) {
+                $stockLevel = $this->StockLevels->patchEntity($stockLevel, $this->request->data);
 
-            if ($this->StockLevels->save($stockLevel)) {
-                $this->Flash->success(__('The stock level has been saved.'));
+                $pid = $stockLevel['product_id'];
+                
+                //get location id(s) of stock levels entity of the selected product and load location(s) from locations entity that is(are) not found in stock levels entity of the selected product 
+                $allSLs = TableRegistry::get('StockLevels');
+                $sLs = $allSLs
+                    ->find()
+                    ->where(['product_id' => $pid]);
 
-                $session = $this->request->session();
-                $retailer = $session->read('retailer');
+                $allLocs = TableRegistry::get('Locations');
+                $locs = $allLocs
+                    ->find();
 
-                //$this->loadComponent('Logging');
-                $this->Logging->rLog($stockLevel['id']);
-                $this->Logging->iLog($retailer, $stockLevel['id']);
+                $locations = array(); //to be passed over to stock levels add.ctp
+                $count = 1;
 
-                return $this->redirect(['action' => 'index']);
+                foreach ($locs as $loc) {
+                    $count = 0;
+                    foreach ($sLs as $sL) {
+                        //break loop and do not record location if ids matched
+                        if ($loc->id == $sL->location_id) {
+                             $count = 1;
+                             break;
+                        }
+                    }
+                    //record location(s) that has(have) matched ids
+                    if ($count == 0) {
+                        $locations[] = $loc;
+                    }
+                }
             }
-            $this->Flash->error(__('The stock level could not be saved. Please, try again.'));
+            else {
+                //create new stock level for product
+                if (isset($_POST['save_button'])) {
+                    $stockLevel = $this->StockLevels->patchEntity($stockLevel, $this->request->data);
+
+                    $stockLevel['status'] = "Not Triggered";
+
+                    if ($this->StockLevels->save($stockLevel)) {
+                        $this->Flash->success(__('The stock level has been saved.'));
+
+                        $session = $this->request->session();
+                        $retailer = $session->read('retailer');
+
+                        //$this->loadComponent('Logging');
+                        $this->Logging->rLog($stockLevel['id']);
+                        $this->Logging->iLog($retailer, $stockLevel['id']);
+
+                        return $this->redirect(['action' => 'index']);
+                    } 
+                } else {
+                    $this->Flash->error(__('The stock level could not be saved. Please, try again.'));
+                }
+            }
         }
-        $locations = $this->StockLevels->Locations->find('all', ['limit' => 200]);
         $products = $this->StockLevels->Products->find('all', ['limit' => 200]);
+        // $locations = $this->StockLevels->Locations->find('all', ['limit' => 200]);
         $retailerEmployees = $this->StockLevels->RetailerEmployees->find('all', ['limit' => 200]);
-        $this->set(compact('stockLevel', 'locations', 'products', 'retailerEmployees'));
+        $this->set(compact('stockLevel', 'products', 'locations', 'retailerEmployees'));
         $this->set('_serialize', ['stockLevel']);
-
-        $prods = TableRegistry::get('Products');
-        $this->set(compact('prods'));
-
-        //$locs = $this->Locations->find('all',array('conditions'=>array('Locations.id IN ( SELECT DISTINCT id FROM StockLevels)', '' )));
-        // ));
     }
 
     /**

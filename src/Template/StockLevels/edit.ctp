@@ -15,10 +15,10 @@
               <input type="hidden" name="_method" value="PUT">
             </div>
             <div class ="form-group">
-              <div class="input-group" style="z-index: 5;" title="Select Product*">
+              <div class="input-group" style="z-index: 5;" title="Product*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
                 <input type="hidden" name="product_id" id="product_id" value=""> 
-                <select name="product_id" class="selectpicker form-control" data-live-search="true" required="required" title="Select Product*">
+                <select name="product_id" class="selectpicker form-control" data-live-search="true" required="required" title="Select Product*" disabled>
                   <?php foreach ($prods as $prod): ?>
                     <?php if ($prod->id == $stockLevel->product_id) :?>
                       <option selected="selected" value="<?=$prod->id?>"><?php echo $prod->prod_name?></option>
@@ -29,7 +29,7 @@
                 </select>
               </div>
             </div>
-            <div class ="form-group">
+            <!-- <div class ="form-group">
               <div class="input-group" style="z-index: 4;" title="Select Location*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
                 <input type="hidden" name="location_id" id="location_id" value=""> 
@@ -43,7 +43,7 @@
                   <?php endforeach; ?>
                 </select>
               </div>
-            </div>
+            </div> -->
             <div class ="form-group">
               <div class="input-group" title="Enter Threshold*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>

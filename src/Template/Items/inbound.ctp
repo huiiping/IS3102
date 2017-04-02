@@ -1,6 +1,5 @@
 <?php
   use Cake\ORM\TableRegistry;
-  use Cake\Datasource\ConnectionManager;
 ?>
 
 <!-- Main content -->
@@ -41,7 +40,7 @@
                     $allItems = TableRegistry::get('Items');
                     $items = $allItems
                     ->find()
-                    ->where(['section_id IS NULL', 'location_id' => $lid]);
+                    ->where(['section_id IS NULL', 'location_id' => $lid, 'status != "Sold"', 'status != "Defect"']);
                   ?>
                   <?php foreach ($items as $item): ?>
                     <?php if (in_array($item->id, $_POST['item']['_ids'])): ?>
@@ -62,26 +61,14 @@
             </div>
 
             <div class ="row" align="center">
-              <button class="btn btn-md btn-success" type="submit" onclick="populate" name="submit_button" style="border-radius: 8px; margin:5px; ">Generate Sections</button>
-            </div>
-
-            <script type="text/javascript">
-              function populate() {
-                <?php
-                  $allSections = TableRegistry::get('Sections');
-                  $sections = $allSections
-                  ->find()
-                  ->where(['available_space > $space', 'location_id' => $lid]);
-                ?>
-              };
-            </script>
-            <br>
-
+              <button class="btn btn-md btn-success" type="submit" name="generate_button" style="border-radius: 8px; margin:5px; ">Generate Sections</button>
+            </div><br>
+            
             <div class ="form-group">
-              <div class="input-group" style="z-index: 3;" title="Select Avaliable Section(s)*">
+              <div class="input-group" style="z-index: 3;" title="Select Avaliable Section*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
                 <input type="hidden" name="section_id" value=""> 
-                <select name="section_id" class="selectpicker form-control" data-live-search="true" data-selected-text-format="count > 3" title="Select Avaliable Section(s)*" id="section_id">
+                <select name="section_id" class="selectpicker form-control" data-live-search="true" title="Select Avaliable Section*" id="section_id">
                   <?php
                     $allSections = TableRegistry::get('Sections');
                     $sections = $allSections
@@ -89,7 +76,7 @@
                     ->where(['available_space >' => $space, 'location_id' => $lid]);
                   ?>
                   <?php foreach ($sections as $section): ?>
-                    <option value="<?=$section->id?>"><?php echo $section->sec_name.' (Avaliable Space: '.$section->available_space.') (Reserved Space: '.$section->reserve_space.')'?></option> 
+                    <option value="<?=$section->id?>"><?php echo $section->sec_name.' (Max.: '.$section->space_limit.') (Avaliable: '.$section->available_space.') (Reserved: '.$section->reserve_space.')' ?></option> 
                   <?php endforeach; ?>
                 </select>
               </div>

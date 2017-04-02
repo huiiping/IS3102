@@ -33,7 +33,11 @@
               </table>
             </form>
           <div class="pull-right">
-            <a class="btn btn-success btn-block" title="Manage Inbound Goods" href="/IS3102_Final/items/inbound" >Manage Inbound Goods</a>
+            <a class="btn btn-info btn-block" title="Manage Inbound Goods" href="/IS3102_Final/items/inbound" >Manage Inbound Goods</a>
+          </div>
+          <br><br>
+          <div class="pull-right">
+            <a class="btn btn-info btn-block" title="Manage Inbound Goods" href="/IS3102_Final/items/outbound" >Manage Outbound Goods</a>
           </div>
             <br><br><br>
             <table class="table table-bordered table-striped">
