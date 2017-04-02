@@ -123,4 +123,4 @@ CREATE TABLE announcement_recipients (
     PRIMARY KEY (announcement_id, intrasys_employee_id),
     FOREIGN KEY (announcement_id) REFERENCES announcements(id),
     FOREIGN KEY (intrasys_employee_id) REFERENCES intrasys_employees(id)
-)
+);

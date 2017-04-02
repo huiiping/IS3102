@@ -12,7 +12,7 @@ class TransferOrdersTable extends Table
     public $filterArgs = array(
         'search' => array(
             'type' => 'like',
-            'field' => array('locationFrom','locationTo','status','supplier_id')
+            'field' => array('locationFrom','locationTo','status','Suppliers.supplier_name')
             )
     );
 

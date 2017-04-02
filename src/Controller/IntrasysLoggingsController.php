@@ -34,7 +34,7 @@ class IntrasysLoggingsController extends AppController
         $this->Prg->commonProcess();
 
         $this->paginate = [
-            'contain' => ['Retailers']
+        'contain' => ['Retailers']
         ];
        // $intrasysLoggings = $this->paginate($this->IntrasysLoggings);
         $this->set('intrasysLoggings', $this->paginate($this->IntrasysLoggings->find('searchable', $this->Prg->parsedParams())));
@@ -44,7 +44,7 @@ class IntrasysLoggingsController extends AppController
 
     public $components = array(
         'Prg'
-    );
+        );
 
     /**
      * View method
@@ -58,7 +58,7 @@ class IntrasysLoggingsController extends AppController
 
         $intrasysLogging = $this->IntrasysLoggings->get($id, [
             'contain' => ['Retailers']
-        ]);
+            ]);
 
         $session = $this->request->session();
         $retailer = $session->read('retailer');
@@ -71,7 +71,7 @@ class IntrasysLoggingsController extends AppController
     }
 
     public function export() {
-        
+
         $this->response->download('intrasyslog_'.date("d-m-y:h:s").'.csv');
         $data = $this->IntrasysLoggings->find('all')->toArray();
         $_serialize = 'data';
@@ -156,7 +156,7 @@ class IntrasysLoggingsController extends AppController
     //         //$this->loadComponent('Logging');
     //         //$this->Logging->rLog($intrasysLogging['id']);
     //         $this->Logging->iLog($retailer, $intrasysLogging['id']);
-            
+
     //     } else {
     //         $this->Flash->error(__('The intrasys logging could not be deleted. Please, try again.'));
     //     }
@@ -166,25 +166,40 @@ class IntrasysLoggingsController extends AppController
 
 
 
-    // public function test() {
+    public function test() {
 
-    //     $inputFileName = 'C:\xampp\htdocs\IS3102_Final\src\purchase-order.xlsx';
+        $inputFileName = 'C:\xampp\htdocs\IS3102_Final\src\purchase-order.xlsx';
 
-    //     /** Load $inputFileName to a PHPExcel Object  **/
-    //     // $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
-    //     // $objPHPExcel->getSheet(0);
+        /** Load $inputFileName to a PHPExcel Object  **/
+        // $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+        // $objPHPExcel->getSheet(0);
+        $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+        $objPHPExcel->getSheet(0);
+        
+        //$objPHPExcel->setActiveSheetIndex(0);
 
-    //     $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
-    //     $objPHPExcel->getSheet(0);
+        // $inputFileName = 'C:\xampp\htdocs\IS3102_Final\src\purchase-order.xlsx';
 
-    //     // $objWriter = new PHPExcel_Writer_HTML($objPHPExcel);
-    //     // $objWriter->setUseBOM(true);
+        // $inputFile = 'purchase-order.xlsx';
 
-    //     // $objWriter->save($objPHPExcel);
-    //     //$this->set('objPHPExcel', $objWriter);
+        // $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+        // $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+        // $objPHPExcel = $objReader->load($inputFileName);
+
+        // $objPHPExcel->setActiveSheetIndex(0);
+
+        $objPHPExcel->getActiveSheet()
+        ->setCellValue('A9', 'EDITED Last Name');
+        ob_end_clean();
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="sample.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $objWriter->save('php://output');
 
 
-    // }
+    }
 
     // public function xls($id, $output_type = 'D', $file = 'my_spreadsheet.xlsx') {
     //     //$user = $this->Users->get($id);

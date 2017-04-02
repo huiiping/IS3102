@@ -25,6 +25,7 @@ class DeliveryOrdersFixture extends TestFixture
         'retailer_employee_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'location_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'transaction_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'delivery_date' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         '_indexes' => [
@@ -62,8 +63,9 @@ class DeliveryOrdersFixture extends TestFixture
             'retailer_employee_id' => 1,
             'location_id' => 1,
             'transaction_id' => 1,
-            'modified' => '2017-03-16 17:28:27',
-            'created' => '2017-03-16 17:28:27'
+            'delivery_date' => '2017-04-02 12:56:33',
+            'modified' => '2017-04-02 12:56:33',
+            'created' => '2017-04-02 12:56:33'
         ],
     ];
 }

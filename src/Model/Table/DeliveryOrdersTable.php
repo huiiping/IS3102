@@ -10,12 +10,14 @@ use Cake\Validation\Validator;
 class DeliveryOrdersTable extends Table
 {
 
-    /**
-     * Initialize method
-     *
-     * @param array $config The configuration for the Table.
-     * @return void
-     */
+    public $filterArgs = array(
+        'search' => array(
+            'type' => 'like',
+            'field' => array('deliverer', 'RetailerEmployees.first_name', 'RetailerEmployees.last_name','Customers.first_name','Customers.last_name', 'Locations.name', 'Transactions.id', 'status'),
+            'method' => 'findByActions'
+            )
+        );
+
     public function initialize(array $config)
     {
         parent::initialize($config);
@@ -38,16 +40,13 @@ class DeliveryOrdersTable extends Table
         $this->belongsTo('Transactions', [
             'foreignKey' => 'transaction_id'
         ]);
-        
-        $this->hasMany('Reports', [
-            'foreignKey' => 'delivery_order_id'
+        $this->belongsToMany('Items', [
+            'foreignKey' => 'delivery_order_id',
+            'targetForeignKey' => 'item_id',
+            'joinTable' => 'delivery_orders_items'
         ]);
 
-        $this->belongsToMany('DeliveryOrders', [
-            'foreignKey' => 'item_id',
-            'targetForeignKey' => 'delivery_order_id',
-            'joinTable' => 'delivery_orders_items'
-            ]);
+        $this->addBehavior('Searchable');
     }
 
     /**
@@ -71,6 +70,10 @@ class DeliveryOrdersTable extends Table
 
         $validator
             ->allowEmpty('deliverer');
+
+        $validator
+            ->date('delivery_date')
+            ->allowEmpty('delivery_date');
 
         return $validator;
     }

@@ -14,6 +14,7 @@ use Cake\ORM\Entity;
  * @property int $retailer_employee_id
  * @property int $location_id
  * @property int $transaction_id
+ * @property \Cake\I18n\Time $delivery_date
  * @property \Cake\I18n\Time $modified
  * @property \Cake\I18n\Time $created
  *
@@ -21,7 +22,8 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\RetailerEmployee $retailer_employee
  * @property \App\Model\Entity\Location $location
  * @property \App\Model\Entity\Transaction $transaction
- * @property \App\Model\Entity\DeliveryOrderItem[] $delivery_order_items
+ * @property \App\Model\Entity\Report[] $reports
+ * @property \App\Model\Entity\DeliveryOrder[] $delivery_orders
  */
 class DeliveryOrder extends Entity
 {
