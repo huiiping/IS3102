@@ -287,166 +287,166 @@ crossorigin="anonymous"></script> -->
                 <li class="dropdown notifications-menu" title="Notifications">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-bell-o"></i>
-                    <span class="label label-warning">10</span>
+                    <span class="label label-warning"><?= sizeof($announcementNotifs);?></span>
                   </a>
                   <ul class="dropdown-menu">
-                    <li class="header">You have 10 notifications</li>
-                    <!-- start inner menu: contains the actual data -->
-                    <li>
-                      <ul class="menu">
-                        <?php foreach($announcementNotifs as $announcementNotif):?>
-                          <li><!-- start notification -->
-                            <a href="/IS3102_Final/announcements/view/<?= $announcementNotif['id']?>">
-                              <i class="fa fa-bell text-yellow"></i> <?= $announcementNotif['title']?>
-                            </a>
-                          </li><!-- end notification -->
-                        <?php endforeach ?>
-                      </ul>
-                    </li>
-                    <!-- end inner menu -->
-                    <li class="footer">
-                      <a href="/IS3102_Final/announcements">View all</a>
-                    </li>
-                  </ul>
-                </li>
-                <!-- End Notifications -->
-
-
-                <!-- Setting -->
-                <?php if( (!$intrasys) && (!$type) ) : ?>
-                  <li class="dropdown notifications-menu" title="Settings">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <i class="fa fa-gears"></i>
-                    </a>
-                    <ul class="dropdown-menu">
+                  <li class="header">You have <?= sizeof($announcementNotifs);?> notification(s)</li>
+                      <!-- start inner menu: contains the actual data -->
                       <li>
                         <ul class="menu">
-                          <li><!-- start task item -->
-                            <a <?php if($this->request->session()->read('page') === 'RetailerDetails') : ?> class="changeactive" <?php endif; ?> href="/IS3102_Final/retailer-details/index">
-                              <i class="fa fa-gear"></i><span>Company Profile</span>
-                            </a>
-                          </li><!-- end task item -->
+                          <?php foreach($announcementNotifs as $announcementNotif):?>
+                            <li><!-- start notification -->
+                              <a href="/IS3102_Final/announcements/view/<?= $announcementNotif[0]['id']?>">
+                                <i class="fa fa-bell text-yellow"></i> <?= $announcementNotif[0]['title']?>
+                              </a>
+                            </li><!-- end notification -->
+                          <?php endforeach ?>
                         </ul>
+                      </li>
+                      <!-- end inner menu -->
+                      <li class="footer">
+                        <a href="/IS3102_Final/announcements">View all</a>
                       </li>
                     </ul>
                   </li>
-                <?php endif; ?>
+                  <!-- End Notifications -->
 
-                <!-- Start User Account: style can be found in dropdown.less -->
-                <li class="dropdown user user-menu"  title="Profile / Logout">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="/IS3102_Final/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                    <span class="hidden-xs">
-                      <?php if($type) : ?>
-                        <?= $_SESSION['Auth']['User']['supplier_name'] ?>
-                      <?php else : ?>
-                        <?= $_SESSION['Auth']['User']['first_name'] ?>
-                      <?php endif; ?>
-                    </span>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <!-- User image -->
-                    <li class="user-header">
-                      <img src="/IS3102_Final/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                      <p>
+
+                  <!-- Setting -->
+                  <?php if( (!$intrasys) && (!$type) ) : ?>
+                    <li class="dropdown notifications-menu" title="Settings">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-gears"></i>
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <ul class="menu">
+                            <li><!-- start task item -->
+                              <a <?php if($this->request->session()->read('page') === 'RetailerDetails') : ?> class="changeactive" <?php endif; ?> href="/IS3102_Final/retailer-details/index">
+                                <i class="fa fa-gear"></i><span>Company Profile</span>
+                              </a>
+                            </li><!-- end task item -->
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  <?php endif; ?>
+
+                  <!-- Start User Account: style can be found in dropdown.less -->
+                  <li class="dropdown user user-menu"  title="Profile / Logout">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <img src="/IS3102_Final/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                      <span class="hidden-xs">
                         <?php if($type) : ?>
                           <?= $_SESSION['Auth']['User']['supplier_name'] ?>
-                          <small>Joined since <?= $this->Time->format($_SESSION['Auth']['User']['created'], 'd MMM YYYY') ?></small>
                         <?php else : ?>
-                          <?= $_SESSION['Auth']['User']['first_name'] ?> <?= $_SESSION['Auth']['User']['last_name'] ?> 
-                          <small>Joined since <?= $this->Time->format($_SESSION['Auth']['User']['created'], 'd MMM YYYY') ?></small>
+                          <?= $_SESSION['Auth']['User']['first_name'] ?>
                         <?php endif; ?>
-                      </p>
-                    </li>
-                    <li class="user-footer">
-                      <div class="pull-left">
-                        <?php if($intrasys) : ?>
-                          <a class="btn btn-default btn-flat" href="/IS3102_Final/intrasys-employees/view/<?= $_SESSION['Auth']['User']['id'] ?>" >Profile</a>
-                          <!--<?= $this->Html->link(__('Profile'), ['controller' => 'IntrasysEmployees', 'action' => 'view', $_SESSION['Auth']['User']['id']]); ?>-->
-                        <?php else : ?>
+                      </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <!-- User image -->
+                      <li class="user-header">
+                        <img src="/IS3102_Final/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <p>
                           <?php if($type) : ?>
-                            <a class="btn btn-default btn-flat" href="/IS3102_Final/suppliers/view/<?= $_SESSION['Auth']['User']['id'] ?>" >Profile</a>
-                            <!--<?= $this->Html->link(__('Profile'), ['controller' => 'Suppliers', 'action' => 'view', $_SESSION['Auth']['User']['id']]); ?>-->
+                            <?= $_SESSION['Auth']['User']['supplier_name'] ?>
+                            <small>Joined since <?= $this->Time->format($_SESSION['Auth']['User']['created'], 'd MMM YYYY') ?></small>
                           <?php else : ?>
-                            <a class="btn btn-default btn-flat" href="/IS3102_Final/retailer-employees/view/<?= $_SESSION['Auth']['User']['id'] ?>" >Profile</a>
-                            <!--<?= $this->Html->link(__('Profile'), ['controller' => 'RetailerEmployees', 'action' => 'view', $_SESSION['Auth']['User']['id']]); ?>-->
+                            <?= $_SESSION['Auth']['User']['first_name'] ?> <?= $_SESSION['Auth']['User']['last_name'] ?> 
+                            <small>Joined since <?= $this->Time->format($_SESSION['Auth']['User']['created'], 'd MMM YYYY') ?></small>
                           <?php endif; ?>
-                        <?php endif; ?>
-                      </div>
-                      <div class="pull-right">
-                        <?php if($intrasys) : ?>
-                          <a class="btn btn-default btn-flat" href="/IS3102_Final/intrasys-employees/logout" >Logout</a>
-                          <!--<?= $this->Html->link(__('Logout'), ['controller' => 'IntrasysEmployees', 'action' => 'logout']); ?>-->
-                        <?php else : ?>
-                          <?php if($type) : ?>
-                            <a class="btn btn-default btn-flat" href="/IS3102_Final/suppliers/logout" >Logout</a>
-                            <!--<?= $this->Html->link(__('Logout'), ['controller' => 'Suppliers', 'action' => 'logout']); ?>-->
+                        </p>
+                      </li>
+                      <li class="user-footer">
+                        <div class="pull-left">
+                          <?php if($intrasys) : ?>
+                            <a class="btn btn-default btn-flat" href="/IS3102_Final/intrasys-employees/view/<?= $_SESSION['Auth']['User']['id'] ?>" >Profile</a>
+                            <!--<?= $this->Html->link(__('Profile'), ['controller' => 'IntrasysEmployees', 'action' => 'view', $_SESSION['Auth']['User']['id']]); ?>-->
                           <?php else : ?>
-                            <a class="btn btn-default btn-flat" href="/IS3102_Final/retailer-employees/logout" >Logout</a>
-                            <!--<?= $this->Html->link(__('Logout'), ['controller' => 'RetailerEmployees', 'action' => 'logout']); ?>-->
+                            <?php if($type) : ?>
+                              <a class="btn btn-default btn-flat" href="/IS3102_Final/suppliers/view/<?= $_SESSION['Auth']['User']['id'] ?>" >Profile</a>
+                              <!--<?= $this->Html->link(__('Profile'), ['controller' => 'Suppliers', 'action' => 'view', $_SESSION['Auth']['User']['id']]); ?>-->
+                            <?php else : ?>
+                              <a class="btn btn-default btn-flat" href="/IS3102_Final/retailer-employees/view/<?= $_SESSION['Auth']['User']['id'] ?>" >Profile</a>
+                              <!--<?= $this->Html->link(__('Profile'), ['controller' => 'RetailerEmployees', 'action' => 'view', $_SESSION['Auth']['User']['id']]); ?>-->
+                            <?php endif; ?>
                           <?php endif; ?>
-                        <?php endif; ?>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                <!-- End User Account -->
-              </ul>
-            </div>
-          </nav>
-        </header>
+                        </div>
+                        <div class="pull-right">
+                          <?php if($intrasys) : ?>
+                            <a class="btn btn-default btn-flat" href="/IS3102_Final/intrasys-employees/logout" >Logout</a>
+                            <!--<?= $this->Html->link(__('Logout'), ['controller' => 'IntrasysEmployees', 'action' => 'logout']); ?>-->
+                          <?php else : ?>
+                            <?php if($type) : ?>
+                              <a class="btn btn-default btn-flat" href="/IS3102_Final/suppliers/logout" >Logout</a>
+                              <!--<?= $this->Html->link(__('Logout'), ['controller' => 'Suppliers', 'action' => 'logout']); ?>-->
+                            <?php else : ?>
+                              <a class="btn btn-default btn-flat" href="/IS3102_Final/retailer-employees/logout" >Logout</a>
+                              <!--<?= $this->Html->link(__('Logout'), ['controller' => 'RetailerEmployees', 'action' => 'logout']); ?>-->
+                            <?php endif; ?>
+                          <?php endif; ?>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                  <!-- End User Account -->
+                </ul>
+              </div>
+            </nav>
+          </header>
 
-      <?php else : ?>
+        <?php else : ?>
 
-        <!-- Top Bar -->
-        <body class="hold-transition skin-blue layout-top-nav">
-          <div class="wrapper">
-            <header class="main-header">
-              <nav class="navbar navbar-static-top">
-                <a href="/IS3102_Final/" class="logo">
-                  <span class="logo-lg"><b>Intrasys</b></span>
-                </a>
-                <div class="navbar-custom-menu">
+          <!-- Top Bar -->
+          <body class="hold-transition skin-blue layout-top-nav">
+            <div class="wrapper">
+              <header class="main-header">
+                <nav class="navbar navbar-static-top">
+                  <a href="/IS3102_Final/" class="logo">
+                    <span class="logo-lg"><b>Intrasys</b></span>
+                  </a>
+                  <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                      <li class="dropdown messages-menu">
+                        <?= $this->Html->link(__('Login For Retailer'), ['controller' => 'RetailerEmployees', 'action' => 'login'], array( 'class' => 'navbartopright')); ?>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                      <li class="dropdown messages-menu">
+                       <?= $this->Html->link(__('Login For Intrasys'), ['controller' => 'IntrasysEmployees', 'action' => 'login'],  array( 'class' => 'navbartopright')); ?>
+                     </li>
+                   </ul>
+                 </div>
+                 <div class="navbar-custom-menu">
                   <ul class="nav navbar-nav">
                     <li class="dropdown messages-menu">
-                      <?= $this->Html->link(__('Login For Retailer'), ['controller' => 'RetailerEmployees', 'action' => 'login'], array( 'class' => 'navbartopright')); ?>
+                      <?= $this->Html->link(__('Login For Supplier'), ['controller' => 'Suppliers', 'action' => 'login'], array( 'class' => 'navbartopright')); ?>
                     </li>
                   </ul>
                 </div>
-                <div class="navbar-custom-menu">
-                  <ul class="nav navbar-nav">
-                    <li class="dropdown messages-menu">
-                     <?= $this->Html->link(__('Login For Intrasys'), ['controller' => 'IntrasysEmployees', 'action' => 'login'],  array( 'class' => 'navbartopright')); ?>
-                   </li>
-                 </ul>
-               </div>
-               <div class="navbar-custom-menu">
-                <ul class="nav navbar-nav">
-                  <li class="dropdown messages-menu">
-                    <?= $this->Html->link(__('Login For Supplier'), ['controller' => 'Suppliers', 'action' => 'login'], array( 'class' => 'navbartopright')); ?>
-                  </li>
-                </ul>
-              </div>
-            </nav>  
-          </header>
+              </nav>  
+            </header>
 
-        <?php endif; ?>
-
-        <!-- Left Sidebar -->
-        <?php if($loggedIn) : ?>
-          <?php if($intrasys) : ?>
-            <?= $this->Element('intrasysLeftSideBar'); ?>        
-          <?php else : ?>
-            <?= $this->Element('retailerLeftSideBar'); ?>
           <?php endif; ?>
-        <?php endif; ?>
 
-        <!-- Main Content -->
-        <div class="content-wrapper">
-          <!-- Breadcrumb -->
+          <!-- Left Sidebar -->
           <?php if($loggedIn) : ?>
-            <?=$this->Html->getCrumbList(['class' => 'breadcrumb navbar-breadcrumb',
-              'firstClass' => false,
+            <?php if($intrasys) : ?>
+              <?= $this->Element('intrasysLeftSideBar'); ?>        
+            <?php else : ?>
+              <?= $this->Element('retailerLeftSideBar'); ?>
+            <?php endif; ?>
+          <?php endif; ?>
+
+          <!-- Main Content -->
+          <div class="content-wrapper">
+            <!-- Breadcrumb -->
+            <?php if($loggedIn) : ?>
+              <?=$this->Html->getCrumbList(['class' => 'breadcrumb navbar-breadcrumb',
+                'firstClass' => false,
               'lastClass' => 'active']/*,
               ['text' => __('Home'),
                   'url' => ['controller' => 'Pages',

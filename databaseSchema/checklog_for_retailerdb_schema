@@ -41,6 +41,7 @@ Order of tables:
 36. rfqs
 37. rfqs_suppliers (Joined)
 38. quotations
-39. coupons
-40. app_notifications
+39. shopping_carts
+40. coupons
+41. app_notifications
 --------------------------------------------------------

@@ -48,7 +48,7 @@ class AnnouncementsController extends AppController
     
     public $components = array(
         'Prg'
-    );
+        );
 
     /**
      * View method
@@ -58,10 +58,21 @@ class AnnouncementsController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
-    {
+    {   
+        $user = $this->request->session()->read('Auth.User');
+        $aTable = TableRegistry::get('AnnouncementRecipients');
+        $query = $aTable->query();
+        $query->update()
+        ->set(['is_read' => true])
+        ->where([
+            'intrasys_employee_id' => $user['id'],
+            'announcement_id' => $id
+            ])
+        ->execute();
+
         $announcement = $this->Announcements->get($id, [
             'contain' => []
-        ]);
+            ]);
 
         //$this->loadComponent('Logging');
         //$this->Logging->log($announcement['id']);
@@ -78,11 +89,27 @@ class AnnouncementsController extends AppController
      */
     public function add()
     {
-        
+
         $announcement = $this->Announcements->newEntity();
         if ($this->request->is('post')) {
             $announcement = $this->Announcements->patchEntity($announcement, $this->request->data);
             if ($this->Announcements->save($announcement)) {
+
+
+                $intrasysEmployeeTable = TableRegistry::get('Intrasysemployees');
+                $query = $intrasysEmployeeTable->find('all')->toArray();
+                $aRTable = TableRegistry::get('AnnouncementRecipients');
+                
+
+                foreach ($query as $intrasysEmployee){
+
+                    $announcementRecipient = $aRTable->newEntity();
+                    $announcementRecipient->announcement_id = $announcement['id'];
+                    $announcementRecipient->intrasys_employee_id = $intrasysEmployee['id'];
+                    $announcementRecipient->is_read = FALSE;
+                    $aRTable->save($announcementRecipient); 
+                }
+
                 $this->Flash->success(__('The announcement has been saved.'));
                 
                 //$this->loadComponent('Logging');
@@ -108,7 +135,7 @@ class AnnouncementsController extends AppController
     {
         $announcement = $this->Announcements->get($id, [
             'contain' => []
-        ]);
+            ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $announcement = $this->Announcements->patchEntity($announcement, $this->request->data);
             if ($this->Announcements->save($announcement)) {

@@ -4,8 +4,6 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Error\Debugger;
-use Cake\Datasource\ConnectionManager;
-use Cake\Utility\Hash;
 use Cake\Event\Event;
 
 /**
@@ -164,90 +162,95 @@ class ItemsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function checkStock($pid = null, $lid = null)
+    public function checkStock($id = null, $lid = null)
     {
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $session = $this->request->session();
-            $retailer = $session->read('retailer');
-            $database = $retailer->retailer_name."db";
+        $items = TableRegistry::get('Items');
+        $item = $items->get($id);
 
-            //connect to retailer's db
-            ConnectionManager::drop('conn1'); 
-            ConnectionManager::config('conn1', [
-                'className' => 'Cake\Database\Connection',
-                'driver' => 'Cake\Database\Driver\Mysql',
-                'persistent' => false,
-                'host' => 'localhost',
-                'username' => 'root',
-                'password' => 'joy',
-                'database' => $database,
-                'encoding' => 'utf8',
-                'timezone' => 'UTC',
-                'cacheMetadata' => true,
-            ]);
-            $conn = ConnectionManager::get('conn1');
-            //count no. of items of a particular product at a particular location
-            $countItems = $conn
-            ->newQuery()
-            ->select('COUNT(*)')
-            ->from('Items')
-            ->where(['product_id' => $pid, 'location_id' => '$lid'])
-            ->execute()
-            ->fetchAll('assoc');
-            //check stock level threshold of a particular product at a particular location
-            $compareStock = $conn
-            ->newQuery()
-            ->select('threshold')
-            ->from('StockLevels')
-            ->where(['product_id' => $pid, 'location_id' => '$lid'])
-            ->execute()
-            ->fetchAll('assoc');
+        $pid = $item->product_id;
 
-            $query = $items->find();
-            $query->select(['Articles.id', $query->func()->count('Comments.id')])
-                ->matching('Comments')
-                ->group(['Articles.id']);
-            $total = $query->count();
+        //retrieve threshold of a product at a particular location
+        $allStockLevels = TableRegistry::get('StockLevels');
+        $stockLevels = $allStockLevels
+            ->find()
+            ->where(['product_id' => $pid, 'location_id' => $lid]);
 
-            return $this->redirect(['action' => 'index']);
+        foreach ($stockLevels as $sl) {
+            $stockLevel = $allStockLevels->get($sl->id);
         }
+        $threshold = $stockLevel->threshold;
+
+        //retrieve no.of items of a particular product at a particular location
+        $allItems = TableRegistry::get('Items');
+        $itemCounts = $allItems
+            ->find()
+            ->where(['product_id' => $pid, 'location_id' => $lid]);
+        
+        $count = 0;
+        foreach ($itemCounts as $itemCount) {
+            $count = $count + 1;
+        }
+
+        //if stock level falls below threshold
+        if ($threshold > $count) {
+            //change status of stock level
+            $stockLevel->status = 'Triggered';
+
+            $allStockLevels->save($stockLevel);
+
+            //alert (message) employee that is incharge of managing stock level
+            $eid = $stockLevel->retailer_employee_id;
+
+            //create new message
+            $msgTable = TableRegistry::get('Messages');
+            $message = $msgTable->newEntity();
+
+            //get location and product details
+            $products = TableRegistry::get('Products');
+            $product = $products->get($pid);
+            $prod = $product->prod_name;
+            $locations = TableRegistry::get('Locations');
+            $location = $locations->get($lid);
+            $loc = $location->name;
+
+            $message->title = 'Low Stock Level Alert';
+            $message->message = 'Product '.$prod.' at '.$loc.' is running low in stock.';
+            
+            // The $message entity contains the id now
+            if ($msgTable->save($message)) {
+                $mid = $message->id;
+            }
+
+            //save message to employee (joined entities)
+            $emTable = TableRegistry::get('RetailerEmployeesMessages');
+            $em = $emTable->newEntity();
+
+            $em->retailer_employee_id = $eid;
+            $em->message_id = $mid;
+
+            $emTable->save($em);
+        } 
     } 
 
     public function inbound()
     {
         $inbound = $this->Items->newEntity();
-        // $id = 1;
-        // $item = $this->Items->get($id, [
-        //     'contain' => []
-        // ]);
-        // if ($this->request->is(['patch', 'post', 'put'])) {
-        //     $item = $this->Items->patchEntity($item, $this->request->data);
-        //     if ($this->Items->save($item)) {
-        //         $this->Flash->success(__('The item has been saved.'));
 
-        //         $retailer = $session->read('retailer');
-
-        //         //$this->loadComponent('Logging');
-        //         $this->Logging->rLog($item['id']);
-        //         $this->Logging->iLog($retailer, $item['id']);
-
-        //         return $this->redirect(['action' => 'index']);
-        //     }
-        //     $this->Flash->error(__('The item could not be saved. Please, try again.'));
-        // }
         if ($this->request->is(['patch', 'post', 'put'])) {
-            if (isset($_POST['submit_button'])) {
+            //generate section(s) that has(have) available space
+            if (isset($_POST['generate_button'])) {
                 $inbound = $this->Items->patchEntity($inbound, $this->request->data);
 
                 $space = $inbound['space'];
-            } else {
+            } 
+            else {
+                //update item's section_id and section's available space
                 if (isset($_POST['save_button'])) {
                     $inbound = $this->Items->patchEntity($inbound, $this->request->data);
 
                     $space = $inbound['space'];
                     $selectedItems = $inbound['item']['_ids'];
                     $sid = $inbound['section_id'];
-                    debugger::Dump($selectedItems);
 
                     foreach ($selectedItems as $selectedItem) {
                         if($selectedItem != '') {
@@ -284,8 +287,7 @@ class ItemsController extends AppController
                     $this->Flash->success(__('The item(s) has(have) been saved.'));
                     return $this->redirect(['action' => 'index']); 
                 }
-                else 
-                {
+                else {
                     $this->Flash->error(__('The item(s) could not be saved. Please, try again.'));
                 }
             }
@@ -295,6 +297,122 @@ class ItemsController extends AppController
         $lid = $_SESSION['Auth']['User']['location_id'];
 
         $this->set(compact('item', 'lid', 'space'));
+        $this->set('_serialize', ['item']);
+    } 
+
+    public function outbound()
+    {
+        $outbound = $this->Items->newEntity();
+        
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            //generate items in the particular section
+            if (isset($_POST['generate_button'])) {
+                $outbound = $this->Items->patchEntity($outbound, $this->request->data);
+
+                $sid = $outbound['section_id'];
+            } 
+            else {
+                //manage outbound goods
+                if (isset($_POST['save_button'])) {
+                    $outbound = $this->Items->patchEntity($outbound, $this->request->data);
+
+                    $selectedItems = $outbound['item']['_ids'];
+                    $space = $outbound['space'];
+                    $type = $outbound['type'];
+                    $sid = $outbound['section_id'];
+
+                    //prompt error if 'units of space to free' is more than space_limit minus available_space
+                    $sections = TableRegistry::get('Sections');
+                    $section = $sections->get($sid);
+
+                    $newspace = $section->space_limit - $section->available_space;
+
+                    if ($newspace < $space) {
+                        $this->Flash->error(__('The value entered for "Estimated Space to Free in Units" field cannot be more than the current space that is used up in the section.'));
+                    } else {
+                        //update section's available space
+                        $newspace = $section->available_space + $space;
+
+                        $section->available_space = $newspace;
+                        $sections->save($section);
+
+                        $session = $this->request->session();
+                        $retailer = $session->read('retailer');
+
+                        //$this->loadComponent('Logging');
+                        $this->Logging->rLog($section['id']);
+                        $this->Logging->iLog($retailer, $section['id']);
+
+                        //if item(s) is(are) being transferred to another location
+                        if ($type == 1) {
+                            $locationId = $outbound['location_id'];
+
+                            foreach ($selectedItems as $selectedItem) {
+                                if($selectedItem != '') {
+                                    $items = TableRegistry::get('Items');
+                                    $item = $items->get($selectedItem);
+
+                                    $sid = $item->section_id;
+                                    $item->section_id = null;
+                                    $item->location_id = $locationId;
+                                    $items->save($item);
+
+                                    $session = $this->request->session();
+                                    $retailer = $session->read('retailer');
+
+                                    //$this->loadComponent('Logging');
+                                    $this->Logging->rLog($item['id']);
+                                    $this->Logging->iLog($retailer, $item['id']);
+                                }
+                            }
+                        }
+                        //if item(s) is(are) sold
+                        else {
+                            foreach ($selectedItems as $selectedItem) {
+                                if($selectedItem != '') {
+                                    $items = TableRegistry::get('Items');
+                                    $item = $items->get($selectedItem);
+
+                                    $sid = $item->section_id;
+                                    $item->section_id = null;
+                                    $item->location_id = null;
+                                    $item->status = 'Sold';
+                                    $items->save($item);
+
+                                    $session = $this->request->session();
+                                    $retailer = $session->read('retailer');
+
+                                    //$this->loadComponent('Logging');
+                                    $this->Logging->rLog($item['id']);
+                                    $this->Logging->iLog($retailer, $item['id']);
+                                }
+                            }
+                        }
+                        //check stock level
+                        foreach ($selectedItems as $selectedItem) {
+                            if($selectedItem != '') {
+                                $session = $this->request->session();
+                                //get location id of warehouse employee
+                                $lid = $_SESSION['Auth']['User']['location_id'];
+
+                                $this->checkStock($selectedItem , $lid);
+                            }
+                        }
+                        $this->Flash->success(__('The item(s) has(have) been saved.'));
+
+                        return $this->redirect(['action' => 'index']); 
+                    }
+                }
+                else {
+                    $this->Flash->error(__('The item(s) could not be saved. Please, try again.'));
+                }
+            }
+        }
+        $session = $this->request->session();
+        //get location id of warehouse employee
+        $lid = $_SESSION['Auth']['User']['location_id'];
+
+        $this->set(compact('item', 'lid', 'sid'));
         $this->set('_serialize', ['item']);
     } 
 }
