@@ -4,7 +4,12 @@
   */
 ?>
 
-<!-- Main content -->
+<?php
+$this->assign('title', __('Delivery Order') . '/' . __('Index'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Delivery Orders'));
+?>
+
 <section class="content">
   <div class="row">
     <div class="col-xs-12">

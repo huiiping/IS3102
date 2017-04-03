@@ -62,7 +62,7 @@ class RetailerEmployeesTable extends Table
         
         $this->table('retailer_employees');
 
-        $this->displayField('first_name');
+        $this->displayField('id');
         
         $this->primaryKey('id');
 
