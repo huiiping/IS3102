@@ -73,7 +73,7 @@ class RetailerEmployeesTable extends Table
             'foreignKey' => 'retailer_employee_id'
         ]);
         $this->hasMany('PurchaseOrders', [
-            'foreignKey' => 'retailer_employee_id'
+            'foreignKey' => 'requisitioner'
         ]);
         $this->hasMany('SupplierMemos', [
             'foreignKey' => 'retailer_employee_id'
