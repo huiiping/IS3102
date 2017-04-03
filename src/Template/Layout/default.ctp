@@ -296,8 +296,8 @@ crossorigin="anonymous"></script> -->
                         <ul class="menu">
                           <?php foreach($announcementNotifs as $announcementNotif):?>
                             <li><!-- start notification -->
-                              <a href="/IS3102_Final/announcements/view/<?= $announcementNotif[0]['id']?>">
-                                <i class="fa fa-bell text-yellow"></i> <?= $announcementNotif[0]['title']?>
+                              <a href="/IS3102_Final/announcements/view/<?= $announcementNotif['id']?>">
+                                <i class="fa fa-bell text-yellow"></i> <?= $announcementNotif['title']?>
                               </a>
                             </li><!-- end notification -->
                           <?php endforeach ?>

@@ -90,32 +90,31 @@ class AppController extends Controller
         $announcementRecipients = $conn
         ->newQuery()
         ->select('*')
-        ->from('announcement_recipients')
+        ->from('announcements')
+        /*->from('announcement_recipients')
         ->where([
             'intrasys_employee_id' =>  $user['id'], 
             'is_read' => false ,
-            ]) 
+            ]) */
 /*        ->limit('5')*/
         ->execute()
         ->fetchAll('assoc');
         
-        $aTable = TableRegistry::get('Announcements');
+       /* $aTable = TableRegistry::get('Announcements');
         
         $arr = array();
         foreach($announcementRecipients as $announcementRecipient){
-            /*echo $announcementRecipient['announcement_id'];
+            echo $announcementRecipient['announcement_id'];
             $hello = $aTable->findById($announcementRecipient['announcement_id']);
             $hi = $hello->toArray();
-            echo $hi[0]['id'];*/
+            echo $hi[0]['id'];
             array_unshift($arr, $aTable->findById($announcementRecipient['announcement_id'])->toArray());
 
-        }
+        }*/
+/*
+        $this->set('announcementNotifs', $arr);*/
 
-        $this->set('announcementNotifs', $arr);
-
-
-
-        /* $this->set('announcementNotifs', $announcementNotifs);*/
+         $this->set('announcementNotifs', $announcementRecipients);
     } else {
         $this->set('loggedIn', false);
     }

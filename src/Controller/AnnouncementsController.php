@@ -60,7 +60,7 @@ class AnnouncementsController extends AppController
     public function view($id = null)
     {   
         $user = $this->request->session()->read('Auth.User');
-        $aTable = TableRegistry::get('AnnouncementRecipients');
+       /* $aTable = TableRegistry::get('AnnouncementRecipients');
         $query = $aTable->query();
         $query->update()
         ->set(['is_read' => true])
@@ -68,7 +68,7 @@ class AnnouncementsController extends AppController
             'intrasys_employee_id' => $user['id'],
             'announcement_id' => $id
             ])
-        ->execute();
+        ->execute();*/
 
         $announcement = $this->Announcements->get($id, [
             'contain' => []
@@ -96,7 +96,7 @@ class AnnouncementsController extends AppController
             if ($this->Announcements->save($announcement)) {
 
 
-                $intrasysEmployeeTable = TableRegistry::get('Intrasysemployees');
+                /*$intrasysEmployeeTable = TableRegistry::get('Intrasysemployees');
                 $query = $intrasysEmployeeTable->find('all')->toArray();
                 $aRTable = TableRegistry::get('AnnouncementRecipients');
                 
@@ -106,23 +106,66 @@ class AnnouncementsController extends AppController
                     $announcementRecipient = $aRTable->newEntity();
                     $announcementRecipient->announcement_id = $announcement['id'];
                     $announcementRecipient->intrasys_employee_id = $intrasysEmployee['id'];
+                    $announcementRecipient->retailer_id = 0;
+                    $announcementRecipient->retailer_employee_id= 0;
                     $announcementRecipient->is_read = FALSE;
-                    $aRTable->save($announcementRecipient); 
+                    $aRTable->save($announcementRecipient);  
                 }
+                $retailerTable = TableRegistry::get('Retailers');
+                $query2 = $retailerTable->find('all')->toArray();
 
-                $this->Flash->success(__('The announcement has been saved.'));
-                
+                foreach ($query2 as $retailer){
+                    $test = $retailer['retailer_name'];
+
+                    $database = $retailer['retailer_name'] . "db";
+                    ConnectionManager::drop('conn1'); 
+
+                    ConnectionManager::config('conn1', [
+                        'className' => 'Cake\Database\Connection',
+                        'driver' => 'Cake\Database\Driver\Mysql',
+                        'persistent' => false,
+                        'host' => 'localhost',
+                        'username' => 'root',
+                        'password' => 'joy',
+                        'database' => $database,
+                        'encoding' => 'utf8',
+                        'timezone' => 'UTC',
+                        'cacheMetadata' => true,
+                        ]);      
+                    ConnectionManager::alias('conn1', 'default');
+                    
+                    $retailerEmployeeTable = TableRegistry::get('RetailerEmployees');
+                    $query3 = $retailerEmployeeTable->find('all')->toArray();
+
+                    foreach ($query3 as $retailerEmployee){
+
+                       $test1 = $retailerEmployee['id'];
+                       $announcementRecipient = $aRTable->newEntity();
+                       $announcementRecipient->announcement_id = $announcement['id'];
+                       $announcementRecipient->intrasys_employee_id = 0;
+                       $announcementRecipient->retailer_id = $retailer['id'];
+                       $announcementRecipient->retailer_employee_id= $retailerEmployee['id'];
+                       $announcementRecipient->is_read = FALSE;
+
+                       $aRTable->save($announcementRecipient); 
+
+
+                   }
+                   TableRegistry::clear();*/
+               
+               $this->Flash->success(__('The announcement has been saved.'));
+
                 //$this->loadComponent('Logging');
                 //$this->Logging->log($announcement['id']);
-                $this->Logging->iLog(null, $announcement['id']);
+               $this->Logging->iLog(null, $announcement['id']);
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The announcement could not be saved. Please, try again.'));
-        }
-        $this->set(compact('announcement'));
-        $this->set('_serialize', ['announcement']);
-    }
+               return $this->redirect(['action' => 'index']);
+           }
+           $this->Flash->error(__('The announcement could not be saved. Please, try again.'));
+       }
+       $this->set(compact('announcement'));
+       $this->set('_serialize', ['announcement']);
+   }
 
     /**
      * Edit method
