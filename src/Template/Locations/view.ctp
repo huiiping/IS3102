@@ -1,3 +1,8 @@
+<?php
+  use Cake\ORM\TableRegistry;
+  use Cake\Error\Debugger
+?>
+
 <!-- Main content -->
 <section class="content" style="min-height: 550px">
     <div class="row">
@@ -54,7 +59,7 @@
                     <?php foreach ($location->retailer_employees as $retailerEmployees): ?>
                     <tr>
                         <td><?= h($retailerEmployees->id) ?></td>
-                        <td><?= $this->Html->link(__($retailerEmployees->first_name.' '.$retailerEmployees->last_name), ['controller' => 'RetailerEmployees', 'action' => 'view', $retailerEmployees->id]) ?></td>
+                        <td><?= $this->Html->link(__($retailerEmployees->first_name.' '.$retailerEmployees->last_name), ['controller' => 'RetailerEmployees', 'action' => 'view', $retailerEmployees->id], ['title' => 'View Employee Details']) ?></td>
                         <td>
                             <a href="mailto:<?= h($retailerEmployees->email) ?>" title="Email">
                           <?= h($retailerEmployees->email) ?>
@@ -77,33 +82,84 @@
             </div>
             <br>
             <div class="related">
-                <h4><?= __('Sections Found Under '.$location->name) ?></h4>
+              <h4><?= __('Sections Found Under '.$location->name) ?></h4>
+              <div class="pull-right">
+                <a class="btn btn-success btn-block" title="Create New Section" href="/IS3102_Final/sections/add/">Create New Section</a>
+              </div>
+              <br><br><br>
                 <?php if (!empty($location->sections)): ?>
-                <table class="table table-bordered table-striped">
+                <?php foreach ($location->sections as $sections): ?>
+                    <h5><?= $this->Html->link(__($sections->sec_name), ['controller' => 'Sections', 'action' => 'view', $sections->id], ['title' => 'View Section Details']) ?></h5>
+                    <?php
+                        $allItems = TableRegistry::get('Items');
+                        $items = $allItems
+                        ->find()
+                        ->where(['location_id' => $location->id, 'section_id' => $sections->id])
+                        ->toArray();
+                    ?>
+                    <?php if (!empty($items)): ?>
+                        <table class="table table-bordered table-striped">
+                          <thead>
+                            <tr>
+                                <th scope="col"><?= __('EPC') ?></th>
+                                <th scope="col"><?= __('Item Name') ?></th>
+                                <th scope="col"><?= __('Product Name') ?></th>
+                                <th scope="col"><?= __('Status') ?></th>
+                            </tr>
+                          </thead>
+                          <?php foreach ($items as $item): ?>
+                            <tr>
+                                <td><?= h($item->EPC) ?></td>
+                                <td>
+                                    <?= $this->Html->link(__($item->name), ['action' => 'view', $item->id], ['title' => 'View Item Details']) ?>
+                                </td>
+                                <td>
+                                    <?php
+                                        $allProds = TableRegistry::get('Products');
+                                        $prods = $allProds
+                                        ->find()
+                                        ->where(['id' => $item->product_id]);
+                                    ?>
+                                    <?php foreach ($prods as $prod): ?>
+                                        <?= $this->Html->link($prod->prod_name, ['controller' => 'Products', 'action' => 'view', $prod->id], ['title' => 'View Product Details']) ?>
+                                    <?php endforeach; ?>
+                                </td>
+                                <td><?= h($item->status) ?></td>
+                            </tr>
+                          <?php endforeach; ?>
+                        </table>
+                    <?php else: ?>
+                        No records found!
+                    <?php endif; ?>
+                    <br><br>
+                <?php endforeach; ?>
+                <!--<table class="table table-bordered table-striped">
                   <thead>
                     <tr>
                         <th scope="col"><?= __('Id') ?></th>
                         <th scope="col"><?= __('Sec Name') ?></th>
                         <th scope="col"><?= __('Available Space') ?></th>
                         <th scope="col"><?= __('Space Limit') ?></th>
-                        <th scope="col"><?= __('Reserve') ?></th>
+                        <th scope="col"><?= __('Reserve') ?></th>-->
                         <!--<th scope="col" class="actions"><?= __('Actions') ?></th>-->
-                    </tr>
+                    <!--</tr>
                   </thead>
                     <?php foreach ($location->sections as $sections): ?>
                     <tr>
                         <td><?= h($sections->id) ?></td>
-                        <td><?= $this->Html->link(__($sections->sec_name), ['controller' => 'Sections', 'action' => 'view', $sections->id]) ?></td>
+                        <td><?= $this->Html->link(__($sections->sec_name), ['controller' => 'Sections', 'action' => 'view', $sections->id], ['title' => 'View Section Details']) ?></td>
                         <td><?= h($sections->available_space) ?></td>
                         <td><?= h($sections->space_limit) ?></td>
-                        <td><?= h($sections->reserve) ?></td>
+                        <td><?= h($sections->reserve) ?></td>-->
                         <!--<td class="actions">
                             <?= $this->Html->link(__('Edit'), ['controller' => 'Sections', 'action' => 'edit', $sections->id]) ?>
                             <?= $this->Form->postLink(__('Delete'), ['controller' => 'Sections', 'action' => 'delete', $sections->id], ['confirm' => __('Are you sure you want to delete # {0}?', $sections->id)]) ?>
                         </td>-->
-                    </tr>
+                    <!--</tr>
                     <?php endforeach; ?>
-                </table>
+                </table>-->
+                <?php else: ?>
+                    No section records found!<br><br>
                 <?php endif; ?>
             </div>
         </div>
