@@ -65,19 +65,20 @@ use Cake\ORM\TableRegistry;
               <input type="hidden" name="customer_id" value="">
               <select name="customer_id" class='selectpicker form-control' title ="Select Receiver - Customer receiving the goods." data-live-search="true">
                 <option label=" ">NIL</option> 
-                <?php foreach ($customers as $customer): 
+                <?php foreach ($customers as $customer):
+
                 $session = $this->request->session();
                 $allCustomers = TableRegistry::get('Customers');
-                $llCustomer = $allCustomers
+                $allCustomer = $allCustomers
                 ->find()
                 ->where(['id' => $customer])
                 ->extract('member_identification');
 
                 foreach ($allCustomer as $name){
-                  $session->write('Name', $name);
+                  $session->write('memID', $name);
                 }
                 ?>
-                <option value="<?= $customer?>"><?php echo $session->read('Name')?></option>
+                <option value="<?= $customer?>"><?php echo $session->read('memID')?></option>
               <?php endforeach; ?>
             </select>
           </div> 
