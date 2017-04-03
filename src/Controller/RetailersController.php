@@ -241,16 +241,37 @@ class RetailersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function activateStatus($id) {
+    public function changeStatus($id) {
 
         $retailer = $this->Retailers->get($id);
 
-        $retailer->account_status = 'Activated';
-        $this->Retailers->save($retailer);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $retailer = $this->Retailers->patchEntity($retailer, $this->request->data);
 
-        $this->Flash->success(__('The retailer has been activated.'));
+            $retailer->account_status = $retailer['account_status'];
 
-        return $this->redirect(['action' => 'view/'.$id]);
+            if ($retailer['account_status'] == 'Activated') {
+                $retailer->contract_start_date = $retailer['contract_start_date'];
+                $retailer->contract_end_date = $retailer['contract_end_date'];
+            }
+
+            if ($this->Retailers->save($retailer)) {
+                $this->Flash->success(__("The retailer's account status has been saved."));
+
+                //$session = $this->request->session();
+                //$retailer = $session->read('retailer');
+
+                //$this->loadComponent('Logging');
+                //$this->Logging->log($retailer['id']);
+                $this->Logging->iLog(null, $retailer['id']);
+
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error(__('The retailer could not be saved. Please, try again.'));
+            }
+        }
+        $this->set(compact('retailer'));
+        $this->set('_serialize', ['retailer']);
     }
 
     public function deactivateStatus($id) {
@@ -265,5 +286,4 @@ class RetailersController extends AppController
         return $this->redirect(['action' => 'view/'.$id]);
 
     }
-
 }

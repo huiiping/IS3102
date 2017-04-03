@@ -48,7 +48,7 @@ class ItemsController extends AppController
     public function view($id = null)
     {
         $item = $this->Items->get($id, [
-            'contain' => ['Products', 'Locations', 'Reports', 'Feedbacks', 'TransactionItems']
+            'contain' => ['Products', 'Locations', 'Sections']
         ]);
 
         $session = $this->request->session();
@@ -248,44 +248,49 @@ class ItemsController extends AppController
                 if (isset($_POST['save_button'])) {
                     $inbound = $this->Items->patchEntity($inbound, $this->request->data);
 
-                    $space = $inbound['space'];
-                    $selectedItems = $inbound['item']['_ids'];
-                    $sid = $inbound['section_id'];
+                    if ($inbound['section_id'] == null) {
+                        $this->Flash->error(__('Please select a section'));
+                    } else {
 
-                    foreach ($selectedItems as $selectedItem) {
-                        if($selectedItem != '') {
-                            $items = TableRegistry::get('Items');
-                            $item = $items->get($selectedItem);
+                        $space = $inbound['space'];
+                        $selectedItems = $inbound['item']['_ids'];
+                        $sid = $inbound['section_id'];
 
-                            $item->section_id = $sid;
-                            $items->save($item);
+                        foreach ($selectedItems as $selectedItem) {
+                            if($selectedItem != '') {
+                                $items = TableRegistry::get('Items');
+                                $item = $items->get($selectedItem);
 
-                            $session = $this->request->session();
-                            $retailer = $session->read('retailer');
+                                $item->section_id = $sid;
+                                $items->save($item);
 
-                            //$this->loadComponent('Logging');
-                            $this->Logging->rLog($item['id']);
-                            $this->Logging->iLog($retailer, $item['id']);
+                                $session = $this->request->session();
+                                $retailer = $session->read('retailer');
+
+                                //$this->loadComponent('Logging');
+                                $this->Logging->rLog($item['id']);
+                                $this->Logging->iLog($retailer, $item['id']);
+                            }
                         }
+                        $sections = TableRegistry::get('Sections');
+                        $section = $sections->get($sid);
+
+                        $newspace = $section->available_space;
+                        $newspace = $newspace - $space;
+
+                        $section->available_space = $newspace;
+                        $sections->save($section);
+
+                        $session = $this->request->session();
+                        $retailer = $session->read('retailer');
+
+                        //$this->loadComponent('Logging');
+                        $this->Logging->rLog($section['id']);
+                        $this->Logging->iLog($retailer, $section['id']);
+
+                        $this->Flash->success(__('The item(s) has(have) been saved.'));
+                        return $this->redirect(['action' => 'index']); 
                     }
-                    $sections = TableRegistry::get('Sections');
-                    $section = $sections->get($sid);
-
-                    $newspace = $section->available_space;
-                    $newspace = $newspace - $space;
-
-                    $section->available_space = $newspace;
-                    $sections->save($section);
-
-                    $session = $this->request->session();
-                    $retailer = $session->read('retailer');
-
-                    //$this->loadComponent('Logging');
-                    $this->Logging->rLog($section['id']);
-                    $this->Logging->iLog($retailer, $section['id']);
-
-                    $this->Flash->success(__('The item(s) has(have) been saved.'));
-                    return $this->redirect(['action' => 'index']); 
                 }
                 else {
                     $this->Flash->error(__('The item(s) could not be saved. Please, try again.'));

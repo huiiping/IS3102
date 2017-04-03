@@ -41,27 +41,22 @@ class ItemsTable extends Table
             'foreignKey' => 'location_id'
             ]);
 
-        $this->hasMany('Feedbacks', [
-            'foreignKey' => 'item_id'
+        $this->belongsToMany('Transactions', [
+            'foreignKey' => 'item_id',
+            'targetForeignKey' => 'transaction_id',
+            'joinTable' => 'transactions_items'
             ]);
-        $this->hasMany('Reports', [
-            'foreignKey' => 'item_id'
-            ]);
-        $this->hasMany('TransactionItems', [
-            'foreignKey' => 'item_id'
-            ]);
-
         $this->belongsToMany('DeliveryOrders', [
             'foreignKey' => 'item_id',
             'targetForeignKey' => 'delivery_order_id',
             'joinTable' => 'delivery_orders_items'
             ]);
-
-        $this->belongsToMany('Items', [
+        $this->belongsToMany('TransferOrders', [
             'foreignKey' => 'item_id',
             'targetForeignKey' => 'transfer_order_id',
             'joinTable' => 'transfer_orders_items'
             ]);
+
         $this->addBehavior('Searchable');
     }
 

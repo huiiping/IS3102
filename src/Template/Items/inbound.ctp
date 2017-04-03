@@ -73,8 +73,12 @@
                     $allSections = TableRegistry::get('Sections');
                     $sections = $allSections
                     ->find()
-                    ->where(['available_space >' => $space, 'location_id' => $lid]);
+                    ->where(['available_space >' => $space, 'location_id' => $lid])
+                    ->toArray();;
                   ?>
+                    <?php if (empty($sections)): ?>
+                      <option disabled>No section available, please re-enter units of space needed</option>
+                    <?php endif; ?>
                   <?php foreach ($sections as $section): ?>
                     <option value="<?=$section->id?>"><?php echo $section->sec_name.' (Max.: '.$section->space_limit.') (Avaliable: '.$section->available_space.') (Reserved: '.$section->reserve_space.')' ?></option> 
                   <?php endforeach; ?>

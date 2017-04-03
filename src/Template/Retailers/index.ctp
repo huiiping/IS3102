@@ -14,7 +14,7 @@ $this->Html->addCrumb(__('Retailers'));
           </div>
           <div class="box-body">
           <div class="pull-right">
-            <a class="btn btn-default btn-block" title="Create New Retailer" href="/IS3102_Final/retailers/add" >Create New Retailer</a>
+            <a class="btn btn-success btn-block" title="Create New Retailer" href="/IS3102_Final/retailers/add" >Create New Retailer</a>
           </div>
           <form method="post" accept-charset="utf-8" action="/IS3102_Final/retailers">
               <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
@@ -84,7 +84,17 @@ $this->Html->addCrumb(__('Retailers'));
                         echo $this->Html->link($total, ['controller' => 'retailerLoyaltyPoints' , 'action' => 'view', $retailer->id], ['title' => 'View Loyalty Points Details']);
                       ?>
                       </td>
-                      <td><?= h($retailer->account_status) ?></td>
+                      <td>
+                        <?php if ($retailer->account_status == 'Activated'): ?>
+                          <a class="btn btn-success btn-block" title="Edit Account Status" href="/IS3102_Final/retailers/changeStatus/<?=$retailer->id?>" ><?= $retailer->account_status?></a>
+                        <?php else: ?>
+                          <?php if ($retailer->account_status == 'Deactivated'): ?>
+                              <a class="btn btn-warning btn-block" title="Edit Account Status" href="/IS3102_Final/retailers/changeStatus/<?=$retailer->id?>" ><?= $retailer->account_status?></a>
+                          <?php else: ?>
+                            <a class="btn btn-danger btn-block" title="Edit Account Status" href="/IS3102_Final/retailers/changeStatus/<?=$retailer->id?>" ><?= $retailer->account_status?></a>
+                          <?php endif; ?>
+                        <?php endif; ?>
+                      </td>
                       <td>
                         <a href="/IS3102_Final/retailers/edit/<?=$retailer->id?>">
                           <i class="fa fa-edit" title="Edit Retailer Details"></i></a>&nbsp

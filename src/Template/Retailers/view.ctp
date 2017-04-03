@@ -36,15 +36,17 @@ $this->Html->addCrumb(__('View Retailer : '.ucfirst($retailer->retailer_name)));
                   <?= $retailer->has('retailer_acc_type') ? $this->Html->link($retailer->retailer_acc_type->name, ['controller' => 'RetailerAccTypes', 'action' => 'view', $retailer->retailer_acc_type->id], ['tile' => 'View Account Type Details']) : '' ?>
                 </div>
               </li>
+              <li class="list-group-item">
+                <b><?= __('Account Status') ?></b> 
+                <div class="pull-right">
+                    <?= h($retailer->account_status) ?>
+                </div>
+              </li>
             </ul>
             <br>
-            <?php if ($retailer->account_status == 'Activated'): ?>
-              <a class="btn btn-default btn-block" title="Deactivate Retailer" href="/IS3102_Final/retailers/deactivateStatus/<?=$retailer->id?>" >Deactivate</a><br>
-            <?php else: ?>
-              <a class="btn btn-default btn-block" title="Activate Retailer" href="/IS3102_Final/retailers/activateStatus/<?=$retailer->id?>" >Activate</a><br>
-            <?php endif; ?>
-            <a class="btn btn-default btn-block" title="Edit Retailer" href="/IS3102_Final/retailers/edit/<?=$retailer->id?>" >Edit Retailer</a><br>
-            <a class="btn btn-default btn-block" title="Manage Loyatly Points" href="/IS3102_Final/retailer-loyalty-points/view/<?=$retailer->id?>" >Manage Loyalty Points</a><br>
+              <a class="btn btn-success btn-block" title="Edit Account Status" href="/IS3102_Final/retailers/changeStatus/<?=$retailer->id?>" >Edit Account Status</a><br>
+            <a class="btn btn-success btn-block" title="Edit Retailer Details" href="/IS3102_Final/retailers/edit/<?=$retailer->id?>" >Edit Retailer</a><br>
+            <a class="btn btn-info btn-block" title="Manage Loyatly Points" href="/IS3102_Final/retailer-loyalty-points/view/<?=$retailer->id?>" >Manage Loyalty Points</a><br>
           </div>
         </div>
         <div class="box box-primary">
@@ -75,7 +77,7 @@ $this->Html->addCrumb(__('View Retailer : '.ucfirst($retailer->retailer_name)));
         </div>
       </div>
       <div class="col-md-8">  
-        <div class="box box-primary" style="height: 690px;">
+        <div class="box box-primary" style="height: 730px;">
             <div class="box-body box-profile">
               <div class="box-header with-border">
                 <h3 class="box-title"><?= __('Retailer Profile') ?></h3>

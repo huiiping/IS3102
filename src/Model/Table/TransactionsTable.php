@@ -46,19 +46,24 @@ class TransactionsTable extends Table
 
         $this->belongsTo('Customers', [
             'foreignKey' => 'customer_id'
-        ]);
+            ]);
         $this->belongsTo('RetailerEmployees', [
             'foreignKey' => 'retailer_employee_id'
-        ]);
+            ]);
         $this->belongsTo('Locations', [
             'foreignKey' => 'location_id'
-        ]);
+            ]);
         $this->hasMany('DeliveryOrders', [
             'foreignKey' => 'transaction_id'
-        ]);
+            ]);
         $this->hasMany('TransactionItems', [
             'foreignKey' => 'transaction_id'
-        ]);
+            ]);
+        $this->belongsToMany('Items', [
+            'foreignKey' => 'transaction_id',
+            'targetForeignKey' => 'item_id',
+            'joinTable' => 'transactions_items'
+            ]);
     }
 
     /**
@@ -70,34 +75,34 @@ class TransactionsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('id')
-            ->allowEmpty('id', 'create');
+        ->integer('id')
+        ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('status');
+        ->allowEmpty('status');
 
         $validator
-            ->allowEmpty('remarks');
+        ->allowEmpty('remarks');
 
         $validator
-            ->integer('receipt_number')
-            ->allowEmpty('receipt_number');
+        ->integer('receipt_number')
+        ->allowEmpty('receipt_number');
 
         $validator
-            ->numeric('gross_amount')
-            ->allowEmpty('gross_amount');
+        ->numeric('gross_amount')
+        ->allowEmpty('gross_amount');
 
         $validator
-            ->numeric('nett_amount')
-            ->allowEmpty('nett_amount');
+        ->numeric('nett_amount')
+        ->allowEmpty('nett_amount');
 
         $validator
-            ->numeric('member_discount')
-            ->allowEmpty('member_discount');
+        ->numeric('member_discount')
+        ->allowEmpty('member_discount');
 
         $validator
-            ->numeric('other_discount')
-            ->allowEmpty('other_discount');
+        ->numeric('other_discount')
+        ->allowEmpty('other_discount');
 
         return $validator;
     }

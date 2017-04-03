@@ -108,12 +108,12 @@ class RetailersTable extends Table
             ->notEmpty('contact');
 
         $validator
-            ->dateTime('contract_start_date')
+            ->date('contract_start_date')
             ->requirePresence('contract_start_date', 'create')
             ->notEmpty('contract_start_date');
 
         $validator
-            ->dateTime('contract_end_date')
+            ->date('contract_end_date')
             ->requirePresence('contract_end_date', 'create')
             ->notEmpty('contract_end_date');
 

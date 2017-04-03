@@ -47,7 +47,7 @@ class PurchaseOrdersTable extends Table
             'foreignKey' => 'supplier_id'
         ]);
         $this->belongsTo('RetailerEmployees', [
-            'foreignKey' => 'retailer_employee_id'
+            'foreignKey' => 'requisitioner'
         ]);
         $this->belongsTo('Locations', [
             'foreignKey' => 'location_id'
@@ -96,7 +96,7 @@ class PurchaseOrdersTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['supplier_id'], 'Suppliers'));
-        $rules->add($rules->existsIn(['retailer_employee_id'], 'RetailerEmployees'));
+        $rules->add($rules->existsIn(['requisitioner'], 'RetailerEmployees'));
         $rules->add($rules->existsIn(['location_id'], 'Locations'));
 
         return $rules;
