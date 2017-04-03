@@ -58,7 +58,7 @@
               <?php foreach ($deliveryOrders as $deliveryOrder): ?>
                 <tr>
                   <td style="max-width: 150px;"><?= h($deliveryOrder->deliverer) ?></td>
-                  <td style="max-width: 150px;"><?= $deliveryOrder->has('retailer_employee') ? $this->Html->link($deliveryOrder->retailer_employee->last_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $deliveryOrder->retailer_employee->id]) : '' ?></td>
+                  <td style="max-width: 150px;"><?= $deliveryOrder->has('retailer_employee') ? $this->Html->link($deliveryOrder->retailer_employee->first_name.' '.$deliveryOrder->retailer_employee->last_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $deliveryOrder->retailer_employee->id]) : '' ?></td>
                   <td style="max-width: 150px;"><?= $deliveryOrder->has('location') ? $this->Html->link($deliveryOrder->location->name, ['controller' => 'Locations', 'action' => 'view', $deliveryOrder->location->id]) : '' ?></td>
                   <td style="max-width: 150px;"><?= $deliveryOrder->has('customer') ? $this->Html->link($deliveryOrder->customer->id, ['controller' => 'Customers', 'action' => 'view', $deliveryOrder->customer->id]) : '' ?></td>
                   <td style="max-width: 150px;"><?= $deliveryOrder->has('transaction') ? $this->Html->link($deliveryOrder->transaction->id, ['controller' => 'Transactions', 'action' => 'view', $deliveryOrder->transaction->id]) : '' ?></td>

@@ -130,7 +130,7 @@ use Cake\ORM\TableRegistry;
 
         <div class ="row">
          <a href="/IS3102_Final/delivery-orders/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Delivery Order Index</a>
-         <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save changes</button>
+         <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Add Delivery Order Items</button>
        </div>
      </form>
    </div>

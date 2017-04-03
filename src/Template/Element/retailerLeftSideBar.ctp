@@ -60,10 +60,9 @@
           'type19' => 'Transaction', 'typePlural19' => 'Transactions', 
           'type20' => 'Transaction Item', 'typePlural20' => 'TransactionItems', 
           'type21' => 'Delivery Order', 'typePlural21' => 'DeliveryOrders', 
-          'type22' => 'Delivery Order Item', 'typePlural22' => 'DeliveryOrderItems', 
-          'type23' => 'Transfer Order', 'typePlural23' => 'TransferOrders', 
-          'type24' => 'Message', 'typePlural24' => 'Messages',
-          'type25' => 'Report', 'typePlural25' => 'Reports'
+          'type22' => 'Transfer Order', 'typePlural23' => 'TransferOrders', 
+          'type23' => 'Message', 'typePlural24' => 'Messages',
+          'type24' => 'Report', 'typePlural25' => 'Reports'
           )); ?>
 
         <?= $this->Element('sideBar', array('icon' => 'users', 'title' => 'Employees', 
@@ -100,8 +99,7 @@
          'type1' => 'Transactions', 'typePlural' => 'Transactions', 
          'type2' => 'Transaction Items', 'typePlural2' => 'TransactionItems', 
          'type3' => 'Delivery Orders', 'typePlural3' => 'DeliveryOrders', 
-         'type4' => 'Delivery Order Items', 'typePlural4' => 'DeliveryOrderItems', 
-         'type5' => 'Transfer Orders', 'typePlural5' => 'TransferOrders')); ?>
+         'type4' => 'Transfer Orders', 'typePlural5' => 'TransferOrders')); ?>
 
          <li class="treeview">
           <a href="/IS3102_Final/messages/index">

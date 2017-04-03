@@ -30,10 +30,9 @@
     <li><a href="/IS3102_Final/<?=$typePlural19?>/add"><?=$type19?></a></li>
     <li><a href="/IS3102_Final/<?=$typePlural20?>/add"><?=$type20?></a></li>
     <li><a href="/IS3102_Final/<?=$typePlural21?>/add"><?=$type21?></a></li>
-    <li><a href="/IS3102_Final/<?=$typePlural22?>/add"><?=$type22?></a></li>
+    <!-- <li><a href="/IS3102_Final/<?=$typePlural22?>/add"><?=$type22?></a></li> -->
     <li><a href="/IS3102_Final/<?=$typePlural23?>/add"><?=$type23?></a></li>
     <li><a href="/IS3102_Final/<?=$typePlural24?>/add"><?=$type24?></a></li>
-    <li><a href="/IS3102_Final/<?=$typePlural25?>/add"><?=$type25?></a></li>
 <?php endif; ?>
     <li><p class="indent"></p></li>
   </ul>

@@ -48,7 +48,7 @@ class DeliveryOrdersController extends AppController
         //     'filename' => 'apples.pdf');
 
         $deliveryOrder = $this->DeliveryOrders->get($id, [
-            'contain' => ['Customers', 'RetailerEmployees', 'Locations', 'Transactions']
+            'contain' => ['Customers', 'RetailerEmployees', 'Locations', 'Transactions', 'Items']
             ]);
 
 
@@ -64,6 +64,29 @@ class DeliveryOrdersController extends AppController
             $deliveryOrder = $this->DeliveryOrders->patchEntity($deliveryOrder, $this->request->getData());
             if ($this->DeliveryOrders->save($deliveryOrder)) {
                 $this->Flash->success(__('The delivery order has been saved.'));
+                $session = $this->request->session();
+                $session->write('deliveryOrder',$deliveryOrder);
+                return $this->redirect(['action' => 'add2']);
+            }
+            $this->Flash->error(__('The delivery order could not be saved. Please, try again.'));
+        }
+        $customers = $this->DeliveryOrders->Customers->find('list', ['limit' => 200]);
+        $retailerEmployees = $this->DeliveryOrders->RetailerEmployees->find('list', ['limit' => 200]);
+        $locations = $this->DeliveryOrders->Locations->find('list', ['limit' => 200]);
+        $transactions = $this->DeliveryOrders->Transactions->find('list', ['limit' => 200]);
+        $this->set(compact('deliveryOrder', 'customers', 'retailerEmployees', 'locations', 'transactions'));
+        $this->set('_serialize', ['deliveryOrder']);
+    }
+
+    public function add2()
+    {
+      $session = $this->request->session();
+        $deliveryOrder = $session->read('deliveryOrder');
+
+        if ($this->request->is('post')) {
+            $deliveryOrder = $this->DeliveryOrders->patchEntity($deliveryOrder, $this->request->getData());
+            if ($this->DeliveryOrders->save($deliveryOrder)) {
+                $this->Flash->success(__('The delivery order items has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -73,6 +96,7 @@ class DeliveryOrdersController extends AppController
         $retailerEmployees = $this->DeliveryOrders->RetailerEmployees->find('list', ['limit' => 200]);
         $locations = $this->DeliveryOrders->Locations->find('list', ['limit' => 200]);
         $transactions = $this->DeliveryOrders->Transactions->find('list', ['limit' => 200]);
+        $this->set('deliveryOrder', $deliveryOrder);
         $this->set(compact('deliveryOrder', 'customers', 'retailerEmployees', 'locations', 'transactions'));
         $this->set('_serialize', ['deliveryOrder']);
     }
