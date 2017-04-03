@@ -37,7 +37,7 @@ class TransactionsController extends AppController
     public function view($id = null)
     {
         $transaction = $this->Transactions->get($id, [
-            'contain' => ['Customers', 'RetailerEmployees', 'Locations', 'DeliveryOrders']
+            'contain' => ['Customers', 'RetailerEmployees', 'Locations', 'DeliveryOrders', 'items']
         ]);
 
         $this->set('transaction', $transaction);
@@ -61,10 +61,11 @@ class TransactionsController extends AppController
             }
             $this->Flash->error(__('The transaction could not be saved. Please, try again.'));
         }
+        $items = $this->Transactions->Items->find('list', ['limit' => 200]);
         $customers = $this->Transactions->Customers->find('list', ['limit' => 200]);
         $retailerEmployees = $this->Transactions->RetailerEmployees->find('list', ['limit' => 200]);
         $locations = $this->Transactions->Locations->find('list', ['limit' => 200]);
-        $this->set(compact('transaction', 'customers', 'retailerEmployees', 'locations'));
+        $this->set(compact('transaction', 'customers', 'retailerEmployees', 'locations', 'items'));
         $this->set('_serialize', ['transaction']);
     }
 

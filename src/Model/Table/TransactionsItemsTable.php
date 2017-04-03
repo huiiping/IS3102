@@ -7,20 +7,20 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * TransactionItems Model
+ * TransactionsItems Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Transactions
  * @property \Cake\ORM\Association\BelongsTo $Items
  *
- * @method \App\Model\Entity\TransactionItem get($primaryKey, $options = [])
- * @method \App\Model\Entity\TransactionItem newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\TransactionItem[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\TransactionItem|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\TransactionItem patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\TransactionItem[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\TransactionItem findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\TransactionsItem get($primaryKey, $options = [])
+ * @method \App\Model\Entity\TransactionsItem newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\TransactionsItem[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\TransactionsItem|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\TransactionsItem patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\TransactionsItem[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\TransactionsItem findOrCreate($search, callable $callback = null, $options = [])
  */
-class TransactionItemsTable extends Table
+class TransactionsItemsTable extends Table
 {
 
     /**
@@ -33,7 +33,7 @@ class TransactionItemsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('transaction_items');
+        $this->setTable('transactions_items');
         $this->setDisplayField('transaction_id');
         $this->setPrimaryKey(['transaction_id', 'item_id']);
 
