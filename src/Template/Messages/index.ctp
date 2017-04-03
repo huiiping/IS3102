@@ -51,7 +51,7 @@
   </div>
   <div class="inbox-body">
     <div class="mail-option">
-      
+
       <?php if(!empty($msg)) : ?>
         <!-- Search Function -->
         <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
@@ -97,7 +97,7 @@
 
     <!-- Reply Function -->
     <div class="box-body">
-      <form action="http://localhost/IS3102_Final/messages/add" method="post">
+      <form action="http://localhost:8080/IS3102_Final/messages/add" method="post">
         <fieldset>
           <?php
           echo $this->Form->input('message', ['type' => 'text']);
@@ -107,8 +107,16 @@
             echo $this->Form->input('attachmentID', ['value' => $attachmentID]);
           }
           echo $this->Form->hidden('sender_id', ['value'=>$session->read('retailer_employee_id')]);
-          echo $this->Form->input('retailer_employees._ids', ['options' => $receiver]);
+          
+          if(sizeof($receiver->toArray()) > 1)   {
+            echo $this->Form->input('retailer_employees._ids', ['options' => $receiver]);
+          }
+          else{
+          $receiverId = $receiver->first();
+          echo $this->Form->hidden('retailer_employees._ids[]', ['value'=>$receiverId]);
+          }
           ?>
+          
         </fieldset>
         <br>
         <!-- Attachment from desktop -->
