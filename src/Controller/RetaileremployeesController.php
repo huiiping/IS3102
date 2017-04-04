@@ -58,8 +58,9 @@ class RetailerEmployeesController extends AppController
         $this->loadComponent('Prg');
         $this->Prg->commonProcess();
         $this->paginate = [
-        'contain' => ['Locations']
+        'contain' => ['Locations','RetailerEmployeeRoles']
         ];
+ 
         $this->set('retailerEmployees', $this->paginate($this->RetailerEmployees->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('retailerEmployees'));
         $this->set('_serialize', ['retailerEmployees']);
@@ -357,7 +358,7 @@ class RetailerEmployeesController extends AppController
     public function edit($id = null)
     {
         $retailerEmployee = $this->RetailerEmployees->get($id, [
-            'contain' => ['Messages', 'RetailerEmployeeRoles']
+            'contain' => ['Locations', 'Messages', 'RetailerEmployeeRoles', 'Promotions', 'PurchaseOrders', 'SupplierMemos', 'RetailerLoggings']
             ]);
 
         //Getting the session user - ID
@@ -365,11 +366,11 @@ class RetailerEmployeesController extends AppController
 
         //Only the employee themselves can edit their account
         if($retailerEmployee['id'] != $sessionId) {
-           $this->redirect($this->referer());
-           $this->Flash->error(__('You are not authorzied to edit other employees.'));
-       }
+         $this->redirect($this->referer());
+         $this->Flash->error(__('You are not authorzied to edit other employees.'));
+     }
 
-       if ($this->request->is(['patch', 'post', 'put'])) {
+     if ($this->request->is(['patch', 'post', 'put'])) {
         $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
         if ($this->RetailerEmployees->save($retailerEmployee)) {
             $this->Flash->success(__('The retailer employee has been saved.'));

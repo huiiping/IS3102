@@ -39,10 +39,16 @@ $this->Html->addCrumb(__('Delivery Orders'));
                 <th width="30"></th>
                 <th scope="col" class ="form-group">
                   <div class ="submit">
-                    <input class="btn btn-primary btn-block" class = "form-control" type="submit" class="btn btn-default bth-block" value="Search"><br>
-                   <button class="btn btn-default btn-block"><a class="reset_button" onclick="reset();" placeholder="Reset"><i class="fa fa-fw fa-undo"></i>Reset</button>
+                    <input class="btn btn-primary btn-block" class = "form-control" type="submit" class="btn btn-default bth-block" value="Search">
+                   
                   </div>
-                </th>
+                  </th>
+                  <th width="10"></th>
+                  <th scope="col" class ="form-group">
+                  <div class ="submit">
+                  <button class="btn btn-default btn-block"><a class="reset_button" onclick="reset();" placeholder="Reset"><i class="fa fa-fw fa-undo"></i>Reset</a></button>
+                  </div>
+                  </th>
               </tr>
             </table>
           </form>

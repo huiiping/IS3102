@@ -28,9 +28,9 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
               <b><?= __('Activation Status') ?></b> 
               <div class="pull-right">
                 <?php if ($retailerEmployee->activation_status == 'Activated'): ?>
-                  <a class="btn btn-default btn-block" title="Deactivate Employee" href="/IS3102_Final/retailer-employees/deactivateStatus/<?= $retailerEmployee->id ?>">Deactivate</a>
+                  <a class="btn btn-danger btn-block" title="Deactivate Employee" href="/IS3102_Final/retailer-employees/deactivateStatus/<?= $retailerEmployee->id ?>">Deactivate</a>
                 <?php else: ?>
-                  <a class="btn btn-default btn-block" title="Activate Employee" href="/IS3102_Final/retailer-employees/activateStatus/<?= $retailerEmployee->id ?>">Activate</a>
+                  <a class="btn btn-success btn-block" title="Activate Employee" href="/IS3102_Final/retailer-employees/activateStatus/<?= $retailerEmployee->id ?>">Activate</a>
                 <?php endif; ?>   
               </div><br><br>
             </li>
@@ -41,7 +41,7 @@ $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEm
               </div>
             </li>
           </ul>
-            <a class="btn btn-default btn-block" title="Edit Employee Details" href="/IS3102_Final/retailer-employees/edit/<?= $retailerEmployee->id ?>" >Edit Employee Details</a>
+            <a class="btn btn-primary btn-block" title="Edit Employee Details" href="/IS3102_Final/retailer-employees/edit/<?= $retailerEmployee->id ?>" >Edit Employee Details</a>
         </div>
       </div>
     </div>

@@ -1,4 +1,7 @@
 <?php
+use Cake\ORM\TableRegistry; 
+?>
+<?php
 $this->assign('title', __('Retailer Employee') . '/' . __('Edit'));
 $this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
 $this->Html->addCrumb(__('Employee'), ['controller' => 'RetailerEmployees', 'action' => 'index']);
@@ -10,8 +13,8 @@ $this->Html->addCrumb(__('Edit : '.$retailerEmployee->first_name.' '.$retailerEm
 </section>
 <!-- Main content -->
 <section class="content">
-    <div class="row">
-      <div class="col-md-offset-3 col-md-6">
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
       <div class="box box-primary">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -36,32 +39,61 @@ $this->Html->addCrumb(__('Edit : '.$retailerEmployee->first_name.' '.$retailerEm
                 <input class = "form-control" type="text" value = "<?=$retailerEmployee->last_name?>" name="last_name" required="required" id="last_name" maxlength="255"> 
               </div>
             </div>
-            <div class ="form-group">
-              <div class="input-group" title="Enter Email*">
-                <span class="input-group-addon">@</span>
-                <input class = "form-control" type="email" value = "<?=$retailerEmployee->email?>" name="email" required="required" id="email" maxlength="255"> 
-              </div>
-            </div>
-            <div class ="form-group">
-              <div class="input-group" title="Enter Contact Number*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                <input class = "form-control" type="text" value = "<?=$retailerEmployee->contact?>" name="contact" required="required" id="contact" maxlength="100"> 
-              </div>
-            </div>
+
             <div class ="form-group">            
-              <div class="input-group" title="Enter Address*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                <input class = "form-control" type="text" name="address" value = "<?=$retailerEmployee->address?>" required="required" id="address" maxlength="255">
-              </div> 
-            </div>
-            <br>
-            <div class ="row">
-              <a href="/IS3102_Final/retailer-employees/index" class="btn btn-md btn-default pull-left" style="border-radius: 8px; margin:5px;">Back to Employee Index</a>
-              <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Edit Employee</button>
-            </div>
-            <br>
-          </form>
+              <div class="input-group" style="z-index: 5;" title="Select Location*">
+                <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
+                <input type="hidden" name="location_id" value="">
+                <select name="location_id" class='selectpicker form-control' title ="Select Location*" data-live-search="true" required="required">
+                  <?php foreach ($locations as $location): 
+                  $session = $this->request->session();
+                  $allLocations = TableRegistry::get('Locations');
+                  $allLocation = $allLocations
+                  ->find()
+                  ->where(['id' => $location])
+                  ->extract('name');
+
+                  foreach ($allLocation as $name){
+                    $session->write('name',$name);
+                  }
+                  ?>
+                  <?php if ($location == $retailerEmployee->location_id): ?>
+                    <option value="<?=$location?>" selected="selected"><?php echo $session->read('name')?></option>
+                  <?php else: ?>
+                    <option value="<?=$location?>"><?php echo $session->read('name')?></option>
+                  <?php endif; ?>
+                <?php endforeach; ?>
+ 
+            </select>
+          </div> 
         </div>
+
+        <div class ="form-group">
+          <div class="input-group" title="Enter Email*">
+            <span class="input-group-addon">@</span>
+            <input class = "form-control" type="email" value = "<?=$retailerEmployee->email?>" name="email" required="required" id="email" maxlength="255"> 
+          </div>
+        </div>
+        <div class ="form-group">
+          <div class="input-group" title="Enter Contact Number*">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+            <input class = "form-control" type="text" value = "<?=$retailerEmployee->contact?>" name="contact" required="required" id="contact" maxlength="100"> 
+          </div>
+        </div>
+        <div class ="form-group">            
+          <div class="input-group" title="Enter Address*">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+            <input class = "form-control" type="text" name="address" value = "<?=$retailerEmployee->address?>" required="required" id="address" maxlength="255">
+          </div> 
+        </div>
+        <br>
+        <div class ="row">
+          <a href="/IS3102_Final/retailer-employees/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Employee Index</a>
+          <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Edit Employee</button>
+        </div>
+        <br>
+      </form>
+    </div>
           <!--<div class="box-body">
 
               <?= $this->Form->create($retailerEmployee) ?>
@@ -89,8 +121,8 @@ $this->Html->addCrumb(__('Edit : '.$retailerEmployee->first_name.' '.$retailerEm
               <br>
               <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
               <?= $this->Form->end() ?>
-          </div>-->
+            </div>-->
+          </div>
         </div>
       </div>
-    </div>
-</section>
+    </section>

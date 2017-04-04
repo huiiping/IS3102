@@ -34,7 +34,13 @@ use Cake\ORM\TableRegistry;
                 <th width="30"></th>
                 <th scope="col" class ="form-group">
                   <div class ="submit">
-                    <input class = "form-control" type="submit" class="btn btn-default bth-flat" value="Search">
+                  <input class="btn btn-primary btn-block" class = "form-control" type="submit" class="btn btn-default bth-flat" value="Search">
+                  </div>
+                </th>
+                <th width="10"></th>
+                <th scope="col" class ="form-group">
+                  <div class ="submit">
+                    <button class="btn btn-default btn-block"><a class="reset_button" onclick="reset();" placeholder="Reset"><i class="fa fa-fw fa-undo"></i>Reset</a></button>
                   </div>
                 </th>
               </tr>
@@ -75,49 +81,49 @@ use Cake\ORM\TableRegistry;
                   <b><?= __('Customer Membership Tier') ?></b> 
                   <div class="pull-right">                    
                     <?= $customer->has('cust_membership_tier') ? $this->Html->link($customer->cust_membership_tier->tier_name, ['controller' => 'CustMembershipTiers', 'action' => 'view', $customer->cust_membership_tier->id]) : '' ?>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <b><?= __('Mailing List') ?></b> 
-                <div class="pull-right"><?= $customer->mailing_list ? __('Yes') : __('No'); ?></div>
-              </li>
-              <li class="list-group-item">
-                <b><?= __('Activation Status') ?></b> 
-                <div class="pull-right">
-                  <?php if ($customer->activation_status == 'Activated'): ?>
-                    <a class="btn btn-danger btn-block" title="Deactivate Customer" href="/IS3102_Final/customers/deactivateStatus/<?= $customer->id ?>" >Deactivate</a>
-                  <?php else: ?>
-                    <a class="btn btn-success btn-block" title="Activate Customer" href="/IS3102_Final/customers/activateStatus/<?= $customer->id ?>" >Activate</a>
-                  <?php endif; ?>
-                </div><br><br>
-              </li>
-            </ul>
-          </div>
-          <td>
-            <div style="text-align: center">
-              <a href="/IS3102_Final/customers/view/<?=$customer->id?>">
-                <i class="fa fa-bars" style="font-size:24px;" title="View Customer Details"></i></a>&nbsp
-                <a href="/IS3102_Final/customers/edit/<?=$customer->id?>">
-                  <i class="fa fa-edit" style="font-size:24px;" title="Edit Customer Details"></i></a>&nbsp
-                  <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash ', 'style' => 'font-size: 24px', 'title' => 'Delete Customer')), array('action' => 'delete', $customer->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $customer->id))) ?>
-                </div>
-              </td>
-            </div>
-          </div>
-        <?php endforeach; ?>
-        </div>
-            <div class="paginator">
-              <ul class="pagination">
-                <?= $this->Paginator->first('<< ' . __('first')) ?>
-                <?= $this->Paginator->prev('< ' . __('previous')) ?>
-                <?= $this->Paginator->numbers() ?>
-                <?= $this->Paginator->next(__('next') . ' >') ?>
-                <?= $this->Paginator->last(__('last') . ' >>') ?>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <b><?= __('Mailing List') ?></b> 
+                  <div class="pull-right"><?= $customer->mailing_list ? __('Yes') : __('No'); ?></div>
+                </li>
+                <li class="list-group-item">
+                  <b><?= __('Activation Status') ?></b> 
+                  <div class="pull-right">
+                    <?php if ($customer->activation_status == 'Deactivated'): ?>
+                      <a class="btn btn-danger btn-block" title="Deactivate Customer" href="/IS3102_Final/customers/deactivateStatus/<?= $customer->id ?>" >Deactivated</a>
+                    <?php else: ?>
+                      <a class="btn btn-success btn-block" title="Activate Customer" href="/IS3102_Final/customers/activateStatus/<?= $customer->id ?>" >Activated</a>
+                    <?php endif; ?>
+                  </div><br><br>
+                </li>
               </ul>
-              <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
             </div>
+            <td>
+              <div style="text-align: center">
+                <a href="/IS3102_Final/customers/view/<?=$customer->id?>">
+                  <i class="fa fa-bars" style="font-size:24px;" title="View Customer Details"></i></a>&nbsp
+                  <a href="/IS3102_Final/customers/edit/<?=$customer->id?>">
+                    <i class="fa fa-edit" style="font-size:24px;" title="Edit Customer Details"></i></a>&nbsp
+                    <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash ', 'style' => 'font-size: 24px', 'title' => 'Delete Customer')), array('action' => 'delete', $customer->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $customer->id))) ?>
+                  </div>
+                </td>
+              </div>
             </div>
-          </div>
+          <?php endforeach; ?>
         </div>
-      
+        <div class="paginator">
+          <ul class="pagination">
+            <?= $this->Paginator->first('<< ' . __('first')) ?>
+            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->numbers() ?>
+            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->last(__('last') . ' >>') ?>
+          </ul>
+          <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </section>

@@ -6,33 +6,13 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-/**
- * Customers Model
- *
- * @property \Cake\ORM\Association\BelongsTo $CustMembershipTiers
- * @property \Cake\ORM\Association\HasMany $DeliveryOrders
- * @property \Cake\ORM\Association\HasMany $Feedbacks
- * @property \Cake\ORM\Association\HasMany $MembershipPoints
- * @property \Cake\ORM\Association\HasMany $Transactions
- * @property \Cake\ORM\Association\BelongsToMany $Promotions
- *
- * @method \App\Model\Entity\Customer get($primaryKey, $options = [])
- * @method \App\Model\Entity\Customer newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Customer[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Customer|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Customer patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Customer[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Customer findOrCreate($search, callable $callback = null, $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
- */
 class CustomersTable extends Table
 {
 
     public $filterArgs = array(
         'search' => array(
             'type' => 'like',
-            'field' => array('member_identification','contact','first_name','last_name','email','activation_status', 'cust_membership_tier_id')
+            'field' => array('member_identification','contact','first_name','last_name','email','activation_status', 'CustMembershipTiers.tier_name')
             )
     );
 
