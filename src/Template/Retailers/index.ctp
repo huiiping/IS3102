@@ -86,12 +86,12 @@ $this->Html->addCrumb(__('Retailers'));
                       </td>
                       <td>
                         <?php if ($retailer->account_status == 'Activated'): ?>
-                          <a class="btn btn-success btn-block" title="Edit Account Status" href="/IS3102_Final/retailers/changeStatus/<?=$retailer->id?>" ><?= $retailer->account_status?></a>
+                          <a class="btn btn-success btn-block" title="Edit Account Status" href="/IS3102_Final/retailers/changeStatus/<?=$retailer->id?>" ><?= $retailer->account_status?>&nbsp&nbsp<i class="fa fa-fw fa-edit"></i></a>
                         <?php else: ?>
                           <?php if ($retailer->account_status == 'Deactivated'): ?>
-                              <a class="btn btn-warning btn-block" title="Edit Account Status" href="/IS3102_Final/retailers/changeStatus/<?=$retailer->id?>" ><?= $retailer->account_status?></a>
+                              <a class="btn btn-warning btn-block" title="Edit Account Status" href="/IS3102_Final/retailers/changeStatus/<?=$retailer->id?>" ><?= $retailer->account_status?>&nbsp&nbsp<i class="fa fa-fw fa-edit"></i></a>
                           <?php else: ?>
-                            <a class="btn btn-danger btn-block" title="Edit Account Status" href="/IS3102_Final/retailers/changeStatus/<?=$retailer->id?>" ><?= $retailer->account_status?></a>
+                            <a class="btn btn-danger btn-block" title="Edit Account Status" href="/IS3102_Final/retailers/changeStatus/<?=$retailer->id?>" ><?= $retailer->account_status?>&nbsp&nbsp<i class="fa fa-fw fa-edit"></i></a>
                           <?php endif; ?>
                         <?php endif; ?>
                       </td>

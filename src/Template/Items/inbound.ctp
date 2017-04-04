@@ -44,9 +44,9 @@
                   ?>
                   <?php foreach ($items as $item): ?>
                     <?php if (in_array($item->id, $_POST['item']['_ids'])): ?>
-                      <option selected value="<?=$item->id?>"><?php echo $item->name?></option> 
+                      <option selected value="<?=$item->id?>"><?php echo '(EPC '.$item->EPC.') '.$item->name?></option> 
                     <?php else: ?>
-                      <option value="<?=$item->id?>"><?php echo $item->name?></option> 
+                      <option value="<?=$item->id?>"><?php echo '(EPC '.$item->EPC.') '.$item->name?></option> 
                     <?php endif; ?>
                   <?php endforeach; ?>
                 </select>

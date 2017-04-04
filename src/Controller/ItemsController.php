@@ -215,6 +215,7 @@ class ItemsController extends AppController
 
             $message->title = 'Low Stock Level Alert';
             $message->message = 'Product '.$prod.' at '.$loc.' is running low in stock.';
+            $message->status = 0;
             
             // The $message entity contains the id now
             if ($msgTable->save($message)) {
@@ -314,7 +315,24 @@ class ItemsController extends AppController
             if (isset($_POST['generate_button'])) {
                 $outbound = $this->Items->patchEntity($outbound, $this->request->data);
 
-                $sid = $outbound['section_id'];
+                $selectedItems = $outbound['item']['_ids'];
+
+                $allItems = TableRegistry::get('Items');
+                $allSections = TableRegistry::get('Sections');
+
+                $sections = array();
+
+                //retrieving section(s) of item(s) selected
+                foreach ($selectedItems as $selectedItem) {
+                    if ($selectedItem != '') {
+                        $item = $allItems->get($selectedItem);
+                        $sid = $item->section_id;
+
+                        if (!in_array($allSections->get($sid), $sections)) {
+                            $sections[] = $allSections->get($sid);
+                        }
+                    }
+                }
             } 
             else {
                 //manage outbound goods
@@ -322,31 +340,56 @@ class ItemsController extends AppController
                     $outbound = $this->Items->patchEntity($outbound, $this->request->data);
 
                     $selectedItems = $outbound['item']['_ids'];
-                    $space = $outbound['space'];
+
+                    $allItems = TableRegistry::get('Items');
+                    $allSections = TableRegistry::get('Sections');
+
+                    $sections = array();
+
+                    //retrieving section(s) of item(s) selected
+                    foreach ($selectedItems as $selectedItem) {
+                        if ($selectedItem != '') {
+                            $item = $allItems->get($selectedItem);
+                            $sid = $item->section_id;
+
+                            if (!in_array($allSections->get($sid), $sections)) {
+                                $sections[] = $allSections->get($sid);
+                            }
+                        }
+                    }
+                    $error = true;
+
+                    //check if required field(s) is(are) filled
+                    foreach ($sections as $section) {
+                        if ($outbound[$section->id] == null) {
+                            $error = true;
+                            $this->Flash->error(__('Please fill in section field(s)'));
+                            break;
+                        } else {
+                            $error = false;
+
+                            $space = $outbound[$section->id];
+                            $newspace = $section->space_limit - $section->available_space - $section->reserve_space;
+
+                            //prompt error if 'units of space to free' is more than space_limit minus available_space
+                            if ($newspace < $space) {
+                                $error = true;
+                                $this->Flash->error(__('The value entered for "Estimated Space to Free in Units" field cannot be more than the current space that is used up in the section.'));
+                                break;
+                            }
+                        }
+                    }
                     $type = $outbound['type'];
-                    $sid = $outbound['section_id'];
 
-                    //prompt error if 'units of space to free' is more than space_limit minus available_space
-                    $sections = TableRegistry::get('Sections');
-                    $section = $sections->get($sid);
+                    //if item(s) is(are) being transferred to another location
+                    if ($type == 1) {
+                        if ($outbound['location_id'] == null || $outbound['transfer_order'] == null || ($outbound['location_id'] == null && $outbound['transfer_order'] == null)) {
+                            $error = true;
+                            $this->Flash->error(__('Please fill in location and/or transfer order fields'));
+                        }
+                    }
 
-                    $newspace = $section->space_limit - $section->available_space;
-
-                    if ($newspace < $space) {
-                        $this->Flash->error(__('The value entered for "Estimated Space to Free in Units" field cannot be more than the current space that is used up in the section.'));
-                    } else {
-                        //update section's available space
-                        $newspace = $section->available_space + $space;
-
-                        $section->available_space = $newspace;
-                        $sections->save($section);
-
-                        $session = $this->request->session();
-                        $retailer = $session->read('retailer');
-
-                        //$this->loadComponent('Logging');
-                        $this->Logging->rLog($section['id']);
-                        $this->Logging->iLog($retailer, $section['id']);
+                    if (!$error) {
 
                         //if item(s) is(are) being transferred to another location
                         if ($type == 1) {
@@ -360,6 +403,8 @@ class ItemsController extends AppController
                                     $sid = $item->section_id;
                                     $item->section_id = null;
                                     $item->location_id = $locationId;
+                                    $tOid = $outbound['transfer_order'];
+                                    $item->status = 'Transferred (Refer to Transfer Order : Id '.$tOid.')';
                                     $items->save($item);
 
                                     $session = $this->request->session();
@@ -370,9 +415,19 @@ class ItemsController extends AppController
                                     $this->Logging->iLog($retailer, $item['id']);
                                 }
                             }
+                            //check stock level
+                            foreach ($selectedItems as $selectedItem) {
+                                if($selectedItem != '') {
+                                    $session = $this->request->session();
+                                    //get location id of warehouse employee
+                                    $lid = $_SESSION['Auth']['User']['location_id'];
+
+                                    $this->checkStock($selectedItem , $lid);
+                                }
+                            }
                         }
                         //if item(s) is(are) sold
-                        else {
+                        else {                                    
                             foreach ($selectedItems as $selectedItem) {
                                 if($selectedItem != '') {
                                     $items = TableRegistry::get('Items');
@@ -392,21 +447,36 @@ class ItemsController extends AppController
                                     $this->Logging->iLog($retailer, $item['id']);
                                 }
                             }
-                        }
-                        //check stock level
-                        foreach ($selectedItems as $selectedItem) {
-                            if($selectedItem != '') {
-                                $session = $this->request->session();
-                                //get location id of warehouse employee
-                                $lid = $_SESSION['Auth']['User']['location_id'];
+                            //check stock level
+                            foreach ($selectedItems as $selectedItem) {
+                                if($selectedItem != '') {
+                                    $session = $this->request->session();
+                                    //get location id of warehouse employee
+                                    $lid = $_SESSION['Auth']['User']['location_id'];
 
-                                $this->checkStock($selectedItem , $lid);
+                                    $this->checkStock($selectedItem , $lid);
+                                }
                             }
                         }
+                        //update section's available space
+                        foreach ($sections as $section) {
+                            $newspace = $section->available_space + $space;
+
+                            $section->available_space = $newspace;
+                            $allSections->save($section);
+
+                            $session = $this->request->session();
+                            $retailer = $session->read('retailer');
+
+                            //$this->loadComponent('Logging');
+                            $this->Logging->rLog($section['id']);
+                            $this->Logging->iLog($retailer, $section['id']);
+                        }                   
+                        //if successful
                         $this->Flash->success(__('The item(s) has(have) been saved.'));
 
-                        return $this->redirect(['action' => 'index']); 
-                    }
+                        return $this->redirect(['action' => 'index']);
+                    } 
                 }
                 else {
                     $this->Flash->error(__('The item(s) could not be saved. Please, try again.'));
@@ -417,7 +487,7 @@ class ItemsController extends AppController
         //get location id of warehouse employee
         $lid = $_SESSION['Auth']['User']['location_id'];
 
-        $this->set(compact('item', 'lid', 'sid'));
+        $this->set(compact('item', 'lid', 'sections'));
         $this->set('_serialize', ['item']);
     } 
 }

@@ -67,7 +67,7 @@ class RetailerAccTypesController extends AppController
         if ($this->request->is('post')) {
             $retailerAccType = $this->RetailerAccTypes->patchEntity($retailerAccType, $this->request->data);
             if ($this->RetailerAccTypes->save($retailerAccType)) {
-                $this->Flash->success(__('The retailer acc type has been saved.'));
+                $this->Flash->success(__('The retailer account type has been saved.'));
 
                 //$session = $this->request->session();
                 //$retailer = $session->read('retailer');
@@ -78,7 +78,7 @@ class RetailerAccTypesController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The retailer acc type could not be saved. Please, try again.'));
+            $this->Flash->error(__('The retailer account type could not be saved. Please, try again.'));
         }
         $this->set(compact('retailerAccType'));
         $this->set('_serialize', ['retailerAccType']);
@@ -99,7 +99,7 @@ class RetailerAccTypesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $retailerAccType = $this->RetailerAccTypes->patchEntity($retailerAccType, $this->request->data);
             if ($this->RetailerAccTypes->save($retailerAccType)) {
-                $this->Flash->success(__('The retailer acc type has been saved.'));
+                $this->Flash->success(__('The retailer account type has been saved.'));
 
                 //$session = $this->request->session();
                 //$retailer = $session->read('retailer');
@@ -110,7 +110,7 @@ class RetailerAccTypesController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The retailer acc type could not be saved. Please, try again.'));
+            $this->Flash->error(__('The retailer account type could not be saved. Please, try again.'));
         }
         $this->set(compact('retailerAccType'));
         $this->set('_serialize', ['retailerAccType']);
@@ -126,9 +126,18 @@ class RetailerAccTypesController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $retailerAccType = $this->RetailerAccTypes->get($id);
+        $retailerAccType = $this->RetailerAccTypes->get($id, [
+            'contain' => ['Retailers']
+        ]);
+        
+        if (!empty($retailerAccType->retailers)) {
+            $this->Flash->error(__('This retailer account type cannot be deleted. Please check related retailers.'));
+
+            return $this->redirect(['action' => 'index']);
+        }
+
         if ($this->RetailerAccTypes->delete($retailerAccType)) {
-            $this->Flash->success(__('The retailer acc type has been deleted.'));
+            $this->Flash->success(__('The retailer account type has been deleted.'));
 
             //$session = $this->request->session();
             //$retailer = $session->read('retailer');
@@ -138,9 +147,8 @@ class RetailerAccTypesController extends AppController
             $this->Logging->iLog(null, $retailerAccType['id']);
         
         } else {
-            $this->Flash->error(__('The retailer acc type could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The retailer account type could not be deleted. Please, try again.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
 }

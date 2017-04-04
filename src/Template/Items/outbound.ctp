@@ -20,21 +20,21 @@
             </div>
 
             <div class ="form-group">
-              <div class="input-group" style="z-index: 5;" title="Select Section*">
+              <div class="input-group" style="z-index: 6" title="Select Item(s)*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
-                <input type="hidden" name="section_id" value=""> 
-                <select name="section_id" class="selectpicker form-control" data-live-search="true" required="required" title="Select Section*" id="section_id">
+                <input type="hidden" name="item[_ids][]" value=""> 
+                <select name="item[_ids][]" class="selectpicker form-control" data-live-search="true" data-selected-text-format="count > 2" title="Select Item(s)*" id="item[_ids][]" multiple required="">
                   <?php
-                    $allSections = TableRegistry::get('Sections');
-                    $sections = $allSections
+                    $allItems = TableRegistry::get('Items');
+                    $items = $allItems
                     ->find()
-                    ->where(['location_id' => $lid]);
+                    ->where(['location_id' => $lid, 'section_id IS NOT NULL']);
                   ?>
-                  <?php foreach ($sections as $section): ?>
-                    <?php if ($section->id == $_POST['section_id']): ?>
-                      <option selected value="<?=$section->id?>"><?php echo $section->sec_name.' (Max.: '.$section->space_limit.') (Avaliable: '.$section->available_space.') (Reserved: '.$section->reserve_space.')' ?></option> 
+                  <?php foreach ($items as $item): ?>
+                    <?php if (in_array($item->id, $_POST['item']['_ids'])): ?>
+                      <option selected value="<?=$item->id?>"><?php echo '(EPC '.$item->EPC.') '.$item->name.' (@ Section Id '.$item->section_id.')' ?></option> 
                     <?php else: ?>
-                      <option value="<?=$section->id?>"><?php echo $section->sec_name.' (Max.: '.$section->space_limit.') (Avaliable: '.$section->available_space.') (Reserved: '.$section->reserve_space.')' ?></option>  
+                      <option value="<?=$item->id?>"><?php echo '(EPC '.$item->EPC.') '.$item->name.' (@ Section Id '.$item->section_id.')' ?></option> 
                     <?php endif; ?>
                   <?php endforeach; ?>
                 </select>
@@ -42,44 +42,27 @@
             </div>
 
             <div class ="row" align="center">
-              <button class="btn btn-md btn-success" type="submit" name="generate_button" style="border-radius: 8px; margin:5px; ">Generate Items</button>
+              <button class="btn btn-md btn-success" type="submit" name="generate_button" style="border-radius: 8px; margin:5px; ">Generate Section(s)</button>
             </div><br>
 
-            <div class ="form-group">
-              <div class="input-group" style="z-index: 4" title="Select Item(s)*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
-                <input type="hidden" name="item[_ids][]" value=""> 
-                <select name="item[_ids][]" class="selectpicker form-control" data-live-search="true" data-selected-text-format="count > 3" title="Select Item(s)*" id="item[_ids][]" multiple>
-                  <?php
-                    $allItems = TableRegistry::get('Items');
-                    $items = $allItems
-                    ->find()
-                    ->where(['section_id' => $sid, 'location_id' => $lid]);
-                  ?>
-                  <?php foreach ($items as $item): ?>
-                    <?php if (in_array($item->id, $_POST['item']['_ids'])): ?>
-                      <option selected value="<?=$item->id?>"><?php echo $item->name?></option> 
-                    <?php else: ?>
-                      <option value="<?=$item->id?>"><?php echo $item->name?></option> 
-                    <?php endif; ?>
-                  <?php endforeach; ?>
-                </select>
+            <?php if (isset($_POST['generate_button']) || isset($_POST['save_button'])): ?>
+              <?php $allItems = TableRegistry::get('Items'); ?>
+              <?php foreach ($sections as $section): ?>
+                <label><?php echo $section->sec_name.' (Id: '.$section->id.') (Max.: '.$section->space_limit.' | Avaliable: '.$section->available_space.' | Reserved: '.$section->reserve_space.')' ?></label><br>
+                <div class ="form-group">
+                  <div class="input-group" title="Enter Estimated Space to Free in Units*">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-inbox"></i></span>
+                    <input class = "form-control" type="number" placeholder = "Estimated Space to Free in Units*" name="<?=$section->id?>" id="space" min="0" value="<?php echo isset($_POST[$section->id]) ? $_POST[$section->id] : '' ?>"> 
+                  </div>
+                </div>
+              <?php endforeach; ?>
+              <div class ="form-group">            
+                <div class="input-group" style="z-index: 0;" title="Select Type of Outbound">
+                  <label for="type">
+                  <input type="checkbox" name="type" id="type" value="1">&nbsp;Transfer All Items to Another Location</label>
+                </div> 
               </div>
-            </div>
-
-            <div class ="form-group">
-              <div class="input-group" title="Enter Estimated Space to Free in Units*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-inbox"></i></span>
-                <input class = "form-control" type="number" placeholder = "Estimated Space to Free in Units*" name="space" id="space" value="<?php echo isset($_POST['space']) ? $_POST['space'] : '' ?>" min="0"> 
-              </div>
-            </div>
-
-            <div class ="form-group">            
-              <div class="input-group" style="z-index: 0;" title="Select Type of Outbound">
-                <label for="type">
-                <input type="checkbox" name="type" id="type" value="1">&nbsp;Transfer to Another Location</label>
-              </div> 
-            </div>
+            <?php endif; ?>
 
             <script type="text/javascript">
               $('#type').change(function() {
@@ -100,8 +83,32 @@
                     ?>
                     <?php foreach ($locations as $location): ?>
                       <?php if (!($location->id == $lid)): ?>
-                        <option value="<?=$location->id?>"><?php echo $location->name ?></option> 
+                        <?php if ($location->id == $_POST['location_id']): ?>
+                          <option value="<?=$location->id?>" selected><?php echo $location->name ?></option>
+                        <?php else: ?>
+                          <option value="<?=$location->id?>"><?php echo $location->name ?></option>
+                        <?php endif; ?>
                       <?php endif; ?>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class ="form-group">
+                <div class="input-group" style="z-index: 2;" title="Select Transfer Order*">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
+                  <input type="hidden" name="transfer_order" value=""> 
+                  <select name="transfer_order" class="selectpicker form-control" data-live-search="true" title="Select Transfer Order*" id="transfer_order">
+                    <?php
+                      $allTransOrders = TableRegistry::get('TransferOrders');
+                      $transOrders = $allTransOrders
+                      ->find();
+                    ?>
+                    <?php foreach ($transOrders as $transOrder): ?>
+                      <?php if ($transOrder->id == $_POST['transfer_order']): ?>
+                      <option value="<?=$transOrder->id?>" selected><?php echo $transOrder->id ?></option>
+                    <?php else: ?>
+                      <option value="<?=$transOrder->id?>"><?php echo $transOrder->id ?></option>
+                    <?php endif; ?>
                     <?php endforeach; ?>
                   </select>
                 </div>

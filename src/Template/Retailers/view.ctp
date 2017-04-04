@@ -44,8 +44,8 @@ $this->Html->addCrumb(__('View Retailer : '.ucfirst($retailer->retailer_name)));
               </li>
             </ul>
             <br>
-              <a class="btn btn-success btn-block" title="Edit Account Status" href="/IS3102_Final/retailers/changeStatus/<?=$retailer->id?>" >Edit Account Status</a><br>
-            <a class="btn btn-success btn-block" title="Edit Retailer Details" href="/IS3102_Final/retailers/edit/<?=$retailer->id?>" >Edit Retailer</a><br>
+            <a class="btn btn-success btn-block" title="Edit Retailer Details" href="/IS3102_Final/retailers/edit/<?=$retailer->id?>" >Edit Retailer&nbsp&nbsp<i class="fa fa-fw fa-edit"></i></a><br>
+            <a class="btn btn-success btn-block" title="Edit Account Status" href="/IS3102_Final/retailers/changeStatus/<?=$retailer->id?>" >Edit Account Status&nbsp&nbsp<i class="fa fa-fw fa-edit"></i></a><br>
             <a class="btn btn-info btn-block" title="Manage Loyatly Points" href="/IS3102_Final/retailer-loyalty-points/view/<?=$retailer->id?>" >Manage Loyalty Points</a><br>
           </div>
         </div>
