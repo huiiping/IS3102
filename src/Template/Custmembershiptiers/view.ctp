@@ -15,7 +15,7 @@ $this->Html->addCrumb(__('View Customer Membership Tier'));
         </div>
         <div class="box-body">
           <div class="pull-right">
-            <a class="btn btn-default btn-block" title="Edit Customer Membership Tier" href="/IS3102_Final/cust-membership-tiers/edit/<?=$custMembershipTier->id?>" >Edit Customer Membership Tier</a>
+            <a class="btn btn-success btn-block" title="Edit Customer Membership Tier" href="/IS3102_Final/cust-membership-tiers/edit/<?=$custMembershipTier->id?>" >Edit Customer Membership Tier</a>
           </div><br><br><br>
 
             <table class="table table-bordered table-striped">

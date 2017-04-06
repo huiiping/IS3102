@@ -23,12 +23,12 @@ $this->Html->addCrumb(__('Edit Feedback'));
             </div>
 
             <div class ="form-group">            
-              <div class="input-group" style="z-index: 2;" title="Select Customer Id">
+              <div class="input-group" style="z-index: 50;" title="Select Customer Id">
                 <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
                 <input type="hidden" name="customer_id" value="<?=$feedback->customer_id ?>">
 
-                <select name="customer_id" class='selectpicker form-control' title ="Select Customer Id" data-live-search="true" >
-                  <option label=" " ></option> 
+                <select name="customer_id" class='selectpicker form-control' title ="Select Customer Id" data-live-search="true">
+                  <option label=" ">NIL</option> 
                   <?php foreach ($customers as $customer): ?>
                     <?php if ($customer == $feedback->customer_id) :?>
                       <option selected="selected"><?=$feedback->customer_id ?></option>

@@ -1,8 +1,11 @@
 <?php
-  $this->assign('title', __('Feedbacks') . '/' . __('Add'));
-  $this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
-  $this->Html->addCrumb(__('Feedbacks'), ['controller' => 'feedbacks', 'action' => 'index']);
-  $this->Html->addCrumb(__('Create New Feedback'));
+use Cake\ORM\TableRegistry; 
+?>
+<?php
+$this->assign('title', __('Feedbacks') . '/' . __('Add'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Feedbacks'), ['controller' => 'feedbacks', 'action' => 'index']);
+$this->Html->addCrumb(__('Create New Feedback'));
 ?>
 
 <!-- Main content -->
@@ -23,86 +26,107 @@
             </div>
 
             <div class ="form-group">            
-              <div class="input-group" style="z-index: 2;" title="Select Customer Id">
+              <div class="input-group" style="z-index: 50;" title="Select Customer Id">
                 <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
                 <input type="hidden" name="customer_id" value="">
-                <select name="customer_id" class='selectpicker form-control' title ="Select Customer Id" data-live-search="true">
-                  <option label=" ">No Customer ID</option> 
-                  <?php foreach ($customers as $customer): ?>
-                    <option><?php echo $customer ?></option> 
-                  <?php endforeach; ?>
-                </select>
-              </div> 
+                <select name="customer_id" class='selectpicker form-control' title ="Select Customer" data-live-search="true">
+                  <option label=" ">NIL</option> 
+                  <?php foreach ($customers as $customer): 
+                  $session = $this->request->session();
+                  $allCustomers = TableRegistry::get('Customers');
+                  $allCustomer = $allCustomers
+                  ->find()
+                  ->where(['id' => $customer])
+                  ->extract('first_name');
+
+                  foreach ($allCustomer as $firstName){
+                    $session->write('firstNames',$firstName);
+                  }
+
+                  $lastNames = $allCustomers
+                  ->find()
+                  ->where(['id' => $customer])
+                  ->extract('last_name');
+
+                  foreach ($lastNames as $lastName){
+                    $session->write('lastNames',$lastName);
+                  } 
+                  ?>
+                  <option value="<?= $customer?>"><?php echo $customer.' - '.$session->read('firstNames').' '.$session->read('lastNames')
+                  ?></option> 
+                <?php endforeach; ?>
+              </select>
+            </div> 
+          </div>
+
+          <div class ="form-group">          
+            <div class="input-group" title="Enter Customer First Name*">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+              <input class = "form-control" type="text" placeholder = "Customer First Name*" name="customer_first_name" required="required" id="customer_first_name" maxlength="255"> 
             </div>
+          </div>
 
-            <div class ="form-group">          
-              <div class="input-group" title="Enter Customer First Name*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input class = "form-control" type="text" placeholder = "Customer First Name*" name="customer_first_name" required="required" id="customer_first_name" maxlength="255"> 
-              </div>
+          <div class ="form-group">          
+            <div class="input-group" title="Enter Customer Last Name*">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+              <input class = "form-control" type="text" placeholder = "Customer Last Name*" name="customer_last_name" required="required" id="customer_last_name" maxlength="255"> 
             </div>
+          </div>
 
-            <div class ="form-group">          
-              <div class="input-group" title="Enter Customer Last Name*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input class = "form-control" type="text" placeholder = "Customer Last Name*" name="customer_last_name" required="required" id="customer_last_name" maxlength="255"> 
-              </div>
+          <div class ="form-group">
+            <div class="input-group" title="Enter Customer Email*">
+              <span class="input-group-addon">@</span>
+              <input class = "form-control" type="customer_email" placeholder = "Customer Email*" name="customer_email" required="required" id="email" maxlength="255"> 
             </div>
+          </div>
 
-            <div class ="form-group">
-              <div class="input-group" title="Enter Customer Email*">
-                <span class="input-group-addon">@</span>
-                <input class = "form-control" type="customer_email" placeholder = "Customer Email*" name="customer_email" required="required" id="email" maxlength="255"> 
-              </div>
+          <div class ="form-group">
+            <div class="input-group" title="Enter Contact Number*">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+              <input class = "form-control" type="text" placeholder = "Contact Number*" name="customer_contact" required="required" id="customer_contact" maxlength="100"> 
             </div>
+          </div>
 
-            <div class ="form-group">
-              <div class="input-group" title="Enter Contact Number*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                <input class = "form-control" type="text" placeholder = "Contact Number*" name="customer_contact" required="required" id="customer_contact" maxlength="100"> 
-              </div>
-            </div>
-
-            <div class ="form-group">            
-              <div class="input-group" style="z-index: 3;" title="Select Product">
-                <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
-                <input type="hidden" name="product_id" value="">
-
-                <select name="product_id" class='selectpicker form-control' title ="Select Product" data-live-search="true">
-                <option label=" " >No Product</option> 
-                  <?php foreach ($products as $product): ?>
-                   <option><?php echo $product ?></option> 
-                 <?php endforeach; ?>
-               </select>
-             </div> 
-           </div>
-
-           <div class ="form-group">            
-            <div class="input-group" style="z-index: 2;" title="Select Item">
+          <div class ="form-group">            
+            <div class="input-group" style="z-index: 3;" title="Select Product">
               <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
-              <input type="hidden" name="item_id" value="">
-              <select name="item_id" class='selectpicker form-control' title ="Select Item" data-live-search="true">
-              <option label=" " >No Item</option> 
-                <?php foreach ($items as $item): ?>
-                 <option><?php echo $item ?></option>
+              <input type="hidden" name="product_id" value="">
+
+              <select name="product_id" class='selectpicker form-control' title ="Select Product" data-live-search="true">
+                <option label=" " >No Product</option> 
+                <?php foreach ($products as $product): ?>
+                 <option><?php echo $product ?></option> 
                <?php endforeach; ?>
              </select>
            </div> 
          </div>
 
-            <div class ="form-group">
-              <div class="input-group" title="Enter Message*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                <textarea rows="5" class = "form-control" type="textarea" name="message" required="required" placeholder = "Message*" id="message"></textarea>
-              </div>
-            </div>
+         <div class ="form-group">            
+          <div class="input-group" style="z-index: 2;" title="Select Item">
+            <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
+            <input type="hidden" name="item_id" value="">
+            <select name="item_id" class='selectpicker form-control' title ="Select Item" data-live-search="true">
+              <option label=" " >No Item</option> 
+              <?php foreach ($items as $item): ?>
+               <option><?php echo $item ?></option>
+             <?php endforeach; ?>
+           </select>
+         </div> 
+       </div>
 
-            <input class = "hidden" type="text" name="status" required="required" id="status" value="Pending"> 
-
-        <div class ="row">
-           <a href="/IS3102_Final/feedbacks/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Feedback Index</a>
-          <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save Feedback</button>
+       <div class ="form-group">
+        <div class="input-group" title="Enter Message*">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+          <textarea rows="5" class = "form-control" type="textarea" name="message" required="required" placeholder = "Message*" id="message"></textarea>
         </div>
+      </div>
+
+      <input class = "hidden" type="text" name="status" required="required" id="status" value="Pending"> 
+
+      <div class ="row">
+       <a href="/IS3102_Final/feedbacks/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Feedback Index</a>
+       <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save Feedback</button>
+     </div>
 
         <!-- <fieldset>
           <?php

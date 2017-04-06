@@ -70,15 +70,15 @@ $this->Html->addCrumb(__('Create New Customer Membership Tier'));
               </div>
             </div>
             <div class ="form-group">
-              <div class="input-group" title="Enter Description>
+              <div class="input-group" title="Enter Description">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
                 <textarea rows="5" class = "form-control" type="textarea" name="description" placeholder = "Description" id="description"></textarea>
               </div>
             </div>
 
         <div class ="row">
-          <a href="/IS3102_Final/cust-membership-tiers/index" class="btn btn-md btn-default pull-left" style="border-radius: 8px; margin:5px;">Back to Membership Tiers Index</a>
-          <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Create Membership Tier</button>
+          <a href="/IS3102_Final/cust-membership-tiers/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Membership Tiers Index</a>
+          <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save Membership Tier</button>
         </div>
               <!--<?= $this->Form->create($custMembershipTier) ?>
               <fieldset>

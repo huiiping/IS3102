@@ -77,8 +77,8 @@ $this->Html->addCrumb(__('Edit Customer Membership Tier'));
             </div>
 
         <div class ="row">
-          <a href="/IS3102_Final/cust-membership-tiers/index" class="btn btn-md btn-default pull-left" style="border-radius: 8px; margin:5px;">Back to Membership Tiers Index</a>
-          <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Edit Membership Tier</button>
+          <a href="/IS3102_Final/cust-membership-tiers/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Membership Tiers Index</a>
+          <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Edit Membership Tier</button>
         </div>
       </div>
     </div>
