@@ -219,7 +219,7 @@ crossorigin="anonymous"></script> -->
                         <ul class="menu">
                              <?php $i=0; foreach($messageNotifs as $messageNotif):?>
                           <li><!-- start message -->
-                            <a href="/IS3102_Final/messages/<?=$messageNotif[0]['id'] ?>">
+                            <a href="/IS3102_Final/messages/index/<?=$senderId[$i]?>">
                               <div class="pull-left">
                                 <img src="/IS3102_Final/img/user3-128x128.jpg" class="img-circle" alt="User Image">
                               </div>

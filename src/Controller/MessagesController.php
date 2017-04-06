@@ -82,7 +82,7 @@ class MessagesController extends AppController
                         ->select('message_id')
                         ->toArray();
                 $msgsSent = Hash::extract($msgsSent, '{n}.message_id');
-            }   
+            }
         }
 
         //message_id's of messages recieved by the user
@@ -157,11 +157,11 @@ class MessagesController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
-    {
+    {   
        $message = $this->Messages->get($id, [
             'contain' => ['RetailerEmployees']
         ]);
-
+       
         $session = $this->request->session();
         $retailer = $session->read('retailer');
 
