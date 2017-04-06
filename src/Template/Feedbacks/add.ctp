@@ -95,7 +95,7 @@ $this->Html->addCrumb(__('Create New Feedback'));
               <select name="product_id" class='selectpicker form-control' title ="Select Product" data-live-search="true">
                 <option label=" " >No Product</option> 
                 <?php foreach ($products as $product): ?>
-                 <option><?php echo $product ?></option> 
+                 <option value="<?=$product->id?>"><?php echo $product->prod_name ?></option> 
                <?php endforeach; ?>
              </select>
            </div> 
@@ -108,7 +108,7 @@ $this->Html->addCrumb(__('Create New Feedback'));
             <select name="item_id" class='selectpicker form-control' title ="Select Item" data-live-search="true">
               <option label=" " >No Item</option> 
               <?php foreach ($items as $item): ?>
-               <option><?php echo $item ?></option>
+               <option value="<?=$item->id?>"><?php echo $item->name ?></option>
              <?php endforeach; ?>
            </select>
          </div> 

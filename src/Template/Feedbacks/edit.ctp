@@ -74,12 +74,11 @@ $this->Html->addCrumb(__('Edit Feedback'));
                 <input type="hidden" name="product_id" value = "<?=$feedback->product_id ?>">
 
                 <select name="product_id" class='selectpicker form-control' title ="Select Product" data-live-search="true">
-                <option label=" " ></option> 
+                <option label=" " >NIL</option> 
                   <?php foreach ($products as $product): ?>
                     <?php if ($product == $feedback->product_id) :?>
-                      <option selected="selected"><?=$feedback->product_id ?></option>
-                    <?php else: ?>                       
-                   <option><?php echo $product ?></option> 
+                      <option selected="selected" value="<?=$product->id?>"><?php echo $product->prod_name?></option>
+                    <?php else: ?><option value="<?=$product->id?>"><?php echo $product->prod_name?></option>
                    <?php endif; ?>
                  <?php endforeach; ?>
                </select>
@@ -91,12 +90,12 @@ $this->Html->addCrumb(__('Edit Feedback'));
               <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
               <input type="hidden" name="item_id" value = "<?=$feedback->item_id?>">
               <select name="item_id" class='selectpicker form-control' title ="Select Item" data-live-search="true">
-              <option label=" " ></option> 
+              <option label=" " >NIL</option> 
                 <?php foreach ($items as $item): ?>
                   <?php if ($item == $feedback->item_id) :?>
-                      <option selected="selected"><?=$feedback->item_id ?></option>
+                      <option selected="selected" value="<?=$item->id?>"><?php echo $item->name?></option>
                     <?php else: ?>
-                 <option><?php echo $item ?></option>
+                 <option value="<?=$item->id?>"><?php echo $item->name?></option>
                  <?php endif; ?>
                <?php endforeach; ?>
              </select>
@@ -111,8 +110,8 @@ $this->Html->addCrumb(__('Edit Feedback'));
             </div>
 
          <div class ="row">
-           <a href="/IS3102_Final/feedbacks/index" class="btn btn-md btn-default pull-left" style="border-radius: 8px; margin:5px;">Back to Feedback Index</a>
-         <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Edit Feedback</button>
+           <a href="/IS3102_Final/feedbacks/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Feedback Index</a>
+         <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save Feedback</button>
         </div>
       </div>
     </div>

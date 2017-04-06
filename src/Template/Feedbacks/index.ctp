@@ -14,7 +14,7 @@ $this->Html->addCrumb(__('Feedbacks'));
         </div>
         <div class="box-body">
           <div class="pull-right">
-            <a class="btn btn-default btn-block" title="Create New Feedback" href="/IS3102_Final/feedbacks/add" >Create New Feedback</a>
+            <a class="btn btn-success btn-block" title="Create New Feedback" href="/IS3102_Final/feedbacks/add" >Create New Feedback</a>
           </div>
           <br>
           <!--<legend><h4><?= __('Search') ?></h4></legend>-->
@@ -33,7 +33,13 @@ $this->Html->addCrumb(__('Feedbacks'));
                 <th width="30"></th>
                 <th scope="col" class ="form-group">
                   <div class ="submit">
-                    <input class = "form-control" type="submit" class="btn btn-default bth-flat" value="Search">
+                  <input class="btn btn-primary btn-block" class = "form-control" type="submit" class="btn btn-default bth-flat" value="Search">
+                  </div>
+                </th>
+                <th width="10"></th>
+                <th scope="col" class ="form-group">
+                  <div class ="submit">
+                    <button class="btn btn-default btn-block"><a class="reset_button" onclick="reset();" placeholder="Reset"><i class="fa fa-fw fa-undo"></i>Reset</a></button>
                   </div>
                 </th>
               </tr>
@@ -65,58 +71,58 @@ $this->Html->addCrumb(__('Feedbacks'));
                     <td style="max-width: 150px;"><?= $feedback->has('product') ? $this->Html->link($feedback->product->prod_name, ['controller' => 'Products', 'action' => 'view', $feedback->product->id], ['title' => 'View Product Details']) : '' ?></td>
                     <td style="max-width: 150px;"><?= $feedback->has('item') ? $this->Html->link($feedback->item->name, ['controller' => 'Items', 'action' => 'view', $feedback->item->id], ['title' => 'View Item Details']) : '' ?></td>
                     <td>
-                    <?php 
-                    if($feedback->status == 'Pending'){
-                      ?>
-                      <div class="btn-group">
-                        <button type="button" style="width: 100px;" class="btn btn-warning btn-flat"><?= h($feedback->status) ?></button>
-                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
-                          <span class="caret"></span>
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a title="Replied Feedback" href="/IS3102_Final/feedbacks/repliedStatus/<?= $feedback->id ?>">Replied</a></li>
-                          <li><a title="Closed Feedback" href="/IS3102_Final/feedbacks/closedStatus/<?= $feedback->id ?>">Closed</a></li>
-                        </ul>
-                      </div>
-                      <?php
-
-                    } else if($feedback->status == 'Closed') {
-
-                      ?>
-
-                      <div class="btn-group">
-                        <button type="button" style="width: 100px;" class="btn btn-danger btn-flat"><?= h($feedback->status) ?></button>
-                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
-                          <span class="caret"></span>
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a title="Pending Feedback" href="/IS3102_Final/feedbacks/pendingStatus/<?= $feedback->id ?>">Pending</a></li>
-                          <li><a title="Replied Feedback" href="/IS3102_Final/feedbacks/repliedStatus/<?= $feedback->id ?>">Replied</a></li>
-                        </ul>
-                      </div>
-                      <?php
-
-                    } else {
-
-                      ?>
-
-                      <div class="btn-group">
-                        <button type="button" style="width: 100px;" class="btn btn-success btn-flat"><?= h($feedback->status) ?></button>
-                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
-                          <span class="caret"></span>
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a title="Pending Feedback" href="/IS3102_Final/feedbacks/pendingStatus/<?= $feedback->id ?>">Pending</a></li>
-                          <li><a title="Closed Feedback" href="/IS3102_Final/feedbacks/closedStatus/<?= $feedback->id ?>">Closed</a></li>
-                        </ul>
-                      </div>
                       <?php 
-                    }
-                    ?>
+                      if($feedback->status == 'Pending'){
+                        ?>
+                        <div class="btn-group">
+                          <button type="button" style="width: 100px;" class="btn btn-warning btn-flat"><?= h($feedback->status) ?></button>
+                          <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a title="Replied Feedback" href="/IS3102_Final/feedbacks/repliedStatus/<?= $feedback->id ?>">Replied</a></li>
+                            <li><a title="Closed Feedback" href="/IS3102_Final/feedbacks/closedStatus/<?= $feedback->id ?>">Closed</a></li>
+                          </ul>
+                        </div>
+                        <?php
+
+                      } else if($feedback->status == 'Closed') {
+
+                        ?>
+
+                        <div class="btn-group">
+                          <button type="button" style="width: 100px;" class="btn btn-danger btn-flat"><?= h($feedback->status) ?></button>
+                          <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a title="Pending Feedback" href="/IS3102_Final/feedbacks/pendingStatus/<?= $feedback->id ?>">Pending</a></li>
+                            <li><a title="Replied Feedback" href="/IS3102_Final/feedbacks/repliedStatus/<?= $feedback->id ?>">Replied</a></li>
+                          </ul>
+                        </div>
+                        <?php
+
+                      } else {
+
+                        ?>
+
+                        <div class="btn-group">
+                          <button type="button" style="width: 100px;" class="btn btn-success btn-flat"><?= h($feedback->status) ?></button>
+                          <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a title="Pending Feedback" href="/IS3102_Final/feedbacks/pendingStatus/<?= $feedback->id ?>">Pending</a></li>
+                            <li><a title="Closed Feedback" href="/IS3102_Final/feedbacks/closedStatus/<?= $feedback->id ?>">Closed</a></li>
+                          </ul>
+                        </div>
+                        <?php 
+                      }
+                      ?>
                     </td>
 
                     <!-- php elseif ($feedback->status == 'Replied'): ?><a class="btn btn-default btn-block" title="Change to Closed" href="/IS3102_Final/feedbacks/repliedStatus/= $feedback->id ?>" >Replied</a>php else: ?><a class="btn btn-default btn-block" title="Change to Pending" href="/IS3102_Final/feedbacks/closedStatus/= $feedback->id ?>" >Closed</a>php endif; ?></td>-->

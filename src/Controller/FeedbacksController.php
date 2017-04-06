@@ -78,8 +78,8 @@ class FeedbacksController extends AppController
         }
 
         $customers = $this->Feedbacks->Customers->find('list', ['limit' => 200]);
-        $products = $this->Feedbacks->Products->find('list', ['limit' => 200]);
-        $items = $this->Feedbacks->Items->find('list', ['limit' => 200]);
+        $products = $this->Feedbacks->Products->find('all', ['limit' => 200]);
+        $items = $this->Feedbacks->Items->find('all', ['limit' => 200]);
 
         $session = $this->request->session();
         $retailer = $session->read('retailer');
@@ -115,8 +115,8 @@ class FeedbacksController extends AppController
         }
 
         $customers = $this->Feedbacks->Customers->find('list', ['limit' => 200]);
-        $products = $this->Feedbacks->Products->find('list', ['limit' => 200]);
-        $items = $this->Feedbacks->Items->find('list', ['limit' => 200]);
+        $products = $this->Feedbacks->Products->find('all', ['limit' => 200]);
+        $items = $this->Feedbacks->Items->find('all', ['limit' => 200]);
 
         $session = $this->request->session();
         $retailer = $session->read('retailer');
