@@ -274,7 +274,7 @@ CREATE TABLE transactions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     status VARCHAR(100),
     remarks VARCHAR(255),
-    receipt_number INT,
+    receipt_number VARCHAR(255),
     customer_id INT,
     retailer_employee_id INT,
     location_id INT,
