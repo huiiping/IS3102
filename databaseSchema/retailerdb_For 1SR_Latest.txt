@@ -249,6 +249,7 @@ CREATE TABLE retailer_employees_retailer_employee_roles (
 CREATE TABLE retailer_employees_messages (
     retailer_employee_id INT NOT NULL,
     message_id INT NOT NULL,
+    is_read TINYINT(1) DEFAULT '0',
     PRIMARY KEY (retailer_employee_id, message_id),
     FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id),
     FOREIGN KEY (message_id) REFERENCES messages(id)
