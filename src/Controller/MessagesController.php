@@ -64,7 +64,7 @@ class MessagesController extends AppController
 
             $receiver = $this->Messages->RetailerEmployees->find('list', ['limit' => 200])->where(['id' => $id]);
             $chatName = $this->paginate($retailerEmployees->find()->where(['id' => $id], ['id' => 'integer[]']));
-        }
+        }   
         
         //message_id's of messages sent by the user
         $sentIDs = $this->Messages->find()->where(['sender_id' => $sender])->select('id');
@@ -170,6 +170,21 @@ class MessagesController extends AppController
 
         $this->set('message', $message);
         $this->set('_serialize', ['message']);
+    }
+
+    public function clear(){
+
+        $user = $this->request->session()->read('Auth.User');
+          $messageTable = TableRegistry::get('RetailerEmployeesMessages');
+        $query = $messageTable->query();
+        $query->update()
+        ->set(['is_read' => 1])
+        ->where([
+            'retailer_employee_id' => $user['id'],
+            ])
+        ->execute();
+         return $this->redirect(['action' => 'index']);
+        
     }
 
     /**

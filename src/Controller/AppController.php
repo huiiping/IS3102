@@ -141,13 +141,26 @@ if($this->request->session()->read('database') == null){
 
                 $conn = ConnectionManager::get('default');
                 
-                $messageRecipients = $conn
+
+                $NewNotifs = $conn
                 ->newQuery()
                 ->select('*')
                 ->from('retailer_employees_messages')
                 ->where([
                     'retailer_employee_id' =>  $user['id'],
                     'is_read' => 0
+                    ]) 
+                ->execute()
+                ->fetchAll('assoc');
+
+                $arr2 = $NewNotifs;
+
+                $messageRecipients = $conn
+                ->newQuery()
+                ->select('*')
+                ->from('retailer_employees_messages')
+                ->where([
+                    'retailer_employee_id' =>  $user['id'],
                     ]) 
                 ->execute()
                 ->fetchAll('assoc');
@@ -176,6 +189,7 @@ if($this->request->session()->read('database') == null){
                    array_unshift($senderName, $query->first()['first_name']." ". $query->first()['last_name']);
                    array_unshift($senderId, $query->first()['id']);
                }
+               $this->set('newNotifs', $arr2);
                $this->set('messageNotifs', $arr);
                $this->set('senderName', $senderName);
                $this->set('senderId', $senderId);
