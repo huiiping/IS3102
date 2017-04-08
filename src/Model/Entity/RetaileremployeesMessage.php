@@ -8,6 +8,7 @@ use Cake\ORM\Entity;
  *
  * @property int $retailer_employee_id
  * @property int $message_id
+ * @property bool $is_read
  *
  * @property \App\Model\Entity\RetailerEmployee $retailer_employee
  * @property \App\Model\Entity\Message $message

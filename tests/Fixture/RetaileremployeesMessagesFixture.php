@@ -19,6 +19,7 @@ class RetailerEmployeesMessagesFixture extends TestFixture
     public $fields = [
         'retailer_employee_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'message_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'is_read' => ['type' => 'boolean', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         '_indexes' => [
             'message_id' => ['type' => 'index', 'columns' => ['message_id'], 'length' => []],
         ],
@@ -42,7 +43,8 @@ class RetailerEmployeesMessagesFixture extends TestFixture
     public $records = [
         [
             'retailer_employee_id' => 1,
-            'message_id' => 1
+            'message_id' => 1,
+            'is_read' => 1
         ],
     ];
 }

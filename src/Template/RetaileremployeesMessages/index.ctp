@@ -3,12 +3,6 @@
   * @var \App\View\AppView $this
   */
 ?>
-<?php
-$this->assign('title', __('Retailer') );
-$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
-$this->Html->addCrumb(__('Messages'), ['controller' => 'RetailerEmployeesMessages', 'action' => 'index']);
-
-?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
@@ -26,6 +20,7 @@ $this->Html->addCrumb(__('Messages'), ['controller' => 'RetailerEmployeesMessage
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('retailer_employee_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('message_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('is_read') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -34,6 +29,7 @@ $this->Html->addCrumb(__('Messages'), ['controller' => 'RetailerEmployeesMessage
             <tr>
                 <td><?= $retailerEmployeesMessage->has('retailer_employee') ? $this->Html->link($retailerEmployeesMessage->retailer_employee->id, ['controller' => 'RetailerEmployees', 'action' => 'view', $retailerEmployeesMessage->retailer_employee->id]) : '' ?></td>
                 <td><?= $retailerEmployeesMessage->has('message') ? $this->Html->link($retailerEmployeesMessage->message->title, ['controller' => 'Messages', 'action' => 'view', $retailerEmployeesMessage->message->id]) : '' ?></td>
+                <td><?= h($retailerEmployeesMessage->is_read) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $retailerEmployeesMessage->retailer_employee_id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $retailerEmployeesMessage->retailer_employee_id]) ?>

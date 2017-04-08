@@ -147,7 +147,7 @@ if($this->request->session()->read('database') == null){
                 ->from('retailer_employees_messages')
                 ->where([
                     'retailer_employee_id' =>  $user['id'],
-                    /*'is_read' => 0*/
+                    'is_read' => 0
                     ]) 
                 ->execute()
                 ->fetchAll('assoc');

@@ -97,7 +97,7 @@
 
     <!-- Reply Function -->
     <div class="box-body">
-      <form action="http://localhost:8080/IS3102_Final/messages/add" method="post">
+      <form action="/IS3102_Final/messages/add" method="post">
         <fieldset>
           <?php
           echo $this->Form->input('message', ['type' => 'text']);
