@@ -1,3 +1,9 @@
+<?php
+$this->assign('title', __('Stock Levels') . '/' . __('Index'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Stock Levels'));
+?>
+
 <!-- Main content -->
 <section class="content" style="min-height: 550px">
     <div class="row">
@@ -36,7 +42,7 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+                            <!-- <th scope="col"><?= $this->Paginator->sort('id') ?></th> -->
                             <th scope="col"><?= $this->Paginator->sort('threshold') ?></th>
                             <th scope="col"><?= $this->Paginator->sort('product_id') ?></th>
                             <th scope="col"><?= $this->Paginator->sort('location_id') ?></th>
@@ -48,13 +54,29 @@
                     <tbody>
                         <?php foreach ($stockLevels as $stockLevel): ?>
                         <tr>
-                            <td><?= $this->Number->format($stockLevel->id) ?></td>
+                            <!-- <td><?= $this->Number->format($stockLevel->id) ?></td> -->
                             <td>
                                 <?= $this->Html->link(__($this->Number->format($stockLevel->threshold)), ['action' => 'view', $stockLevel->id], ['title' => 'View Stock Level Details']) ?>
                             </td>
                             <td><?= $stockLevel->has('product') ? $this->Html->link($stockLevel->product->prod_name, ['controller' => 'Products', 'action' => 'view', $stockLevel->product->id], ['title' => 'View Product Details']) : '' ?></td>
                             <td><?= $stockLevel->has('location') ? $this->Html->link($stockLevel->location->name, ['controller' => 'Locations', 'action' => 'view', $stockLevel->location->id], ['title' => 'View Location Details']) : '' ?></td>
-                            <td><?= h($stockLevel->status) ?></td>
+                            <td>
+                              <?php if($stockLevel->status == 'Triggered') { ?>
+                                <div class="btn-group">
+                                  <button type="button" style="width: 100px;" class="btn btn-warning btn-flat"><?= h($stockLevel->status) ?></button>
+                                  <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                  </button>
+
+                                  <ul class="dropdown-menu" role="menu">
+                                    <li><a title="Not Triggered" href="/IS3102_Final/StockLevels/changeStatus/<?= $stockLevel->id ?>">Not Triggered</a></li>
+                                  </ul>
+                                </div>
+                              <?php } else{ ?>
+                                <?= h($stockLevel->status) ?>
+                              <?php } ?>
+                            </td>
                             <td><?= $stockLevel->has('retailer_employee') ? $this->Html->link(($stockLevel->retailer_employee->first_name.' '.$stockLevel->retailer_employee->last_name), ['controller' => 'RetailerEmployees', 'action' => 'view', $stockLevel->retailer_employee->id]) : '' ?></td>
                             <td class="actions">
                                 <a href="/IS3102_Final/stockLevels/edit/<?=$stockLevel->id?>">

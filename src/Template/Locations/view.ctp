@@ -3,6 +3,13 @@
   use Cake\Error\Debugger
 ?>
 
+<?php
+$this->assign('title', __('Location') . '/' . __('View'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Locations'), ['controller' => 'Locations', 'action' => 'index']);
+$this->Html->addCrumb(__('View Location'));
+?>
+
 <!-- Main content -->
 <section class="content" style="min-height: 550px">
     <div class="row">
@@ -89,7 +96,24 @@
               <br><br><br>
                 <?php if (!empty($location->sections)): ?>
                 <?php foreach ($location->sections as $sections): ?>
-                    <h5><?= $this->Html->link(__($sections->sec_name), ['controller' => 'Sections', 'action' => 'view', $sections->id], ['title' => 'View Section Details']) ?></h5>
+                    <h5>Item(s) at <?= $this->Html->link(__($sections->sec_name), ['controller' => 'Sections', 'action' => 'view', $sections->id], ['title' => 'View Section Details']) ?></h5>
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td>
+                                Maximum Space Limit : <?= $sections->space_limit ?>
+                            </td>
+                            <td>
+                                Available Space : <?= $sections->available_space?>
+                            </td>
+                            <td>
+                                Used Space : <?= $sections->space_limit - $sections->available_space ?>
+                            </td>
+                            <td>
+                                Reserved Space : <?= $sections->reserve_space ?>
+                            </td>
+                        </tr>
+                    <table >
+                    </table>
                     <?php
                         $allItems = TableRegistry::get('Items');
                         $items = $allItems
@@ -150,7 +174,7 @@
                         <td><?= $this->Html->link(__($sections->sec_name), ['controller' => 'Sections', 'action' => 'view', $sections->id], ['title' => 'View Section Details']) ?></td>
                         <td><?= h($sections->available_space) ?></td>
                         <td><?= h($sections->space_limit) ?></td>
-                        <td><?= h($sections->reserve) ?></td>-->
+                        <td><?= h($sections->reserve_space) ?></td>-->
                         <!--<td class="actions">
                             <?= $this->Html->link(__('Edit'), ['controller' => 'Sections', 'action' => 'edit', $sections->id]) ?>
                             <?= $this->Form->postLink(__('Delete'), ['controller' => 'Sections', 'action' => 'delete', $sections->id], ['confirm' => __('Are you sure you want to delete # {0}?', $sections->id)]) ?>

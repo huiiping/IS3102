@@ -1,3 +1,10 @@
+<?php
+$this->assign('title', __('Section') . '/' . __('View'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Sections'), ['controller' => 'Sections', 'action' => 'index']);
+$this->Html->addCrumb(__('View Section'));
+?>
+
 <section class="content" style="min-height: 550px">
     <div class="row">
       <div class="col-xs-12">
@@ -32,10 +39,14 @@
                     <td><?= $this->Number->format($section->available_space) ?></td>
                 </tr>
                 <tr>
+                    <th scope="row"><?= __('Used Space') ?></th>
+                    <td><?= $this->Number->format($section->space_limit - $section->available_space) ?></td>
+                </tr>
+                <tr>
                     <th scope="row"><?= __('Reserve Space') ?></th>
                     <td><?= $this->Number->format($section->reserve) ?></td>
                 </tr>
-            </table>
+            </table><br>
         </div>
       </div>
     </div>

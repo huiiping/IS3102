@@ -8,10 +8,8 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $retailer_employee_id
- * @property int $location_id
- * @property int $supplier_id
- * @property int $delivery_order_id
- * @property int $item_id
+ * @property string $entity
+ * @property int $entityID
  * @property string $title
  * @property string $message
  * @property string $status
@@ -19,10 +17,6 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\Time $created
  *
  * @property \App\Model\Entity\RetailerEmployee $retailer_employee
- * @property \App\Model\Entity\Location $location
- * @property \App\Model\Entity\Supplier $supplier
- * @property \App\Model\Entity\DeliveryOrder $delivery_order
- * @property \App\Model\Entity\Item[] $items
  */
 class Report extends Entity
 {

@@ -1,3 +1,10 @@
+<?php
+$this->assign('title', __('Item') . '/' . __('View'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Items'), ['controller' => 'Items', 'action' => 'index']);
+$this->Html->addCrumb(__('View Item'));
+?>
+
 <!-- Main content -->
 <section class="content" style="min-height: 550px">
     <div class="row">

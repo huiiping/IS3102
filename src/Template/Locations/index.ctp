@@ -1,3 +1,9 @@
+<?php
+$this->assign('title', __('Locations') . '/' . __('Index'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Locations'));
+?>
+
 <!-- Main content -->
 <section class="content" style="min-height: 550px">
     <div class="row">
@@ -36,7 +42,7 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+                        <!-- <th scope="col"><?= $this->Paginator->sort('id') ?></th> -->
                         <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('address') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('contact') ?></th>
@@ -47,7 +53,7 @@
                 <tbody>
                     <?php foreach ($locations as $location): ?>
                     <tr>
-                        <td><?= $this->Number->format($location->id) ?></td>
+                        <!-- <td><?= $this->Number->format($location->id) ?></td> -->
                         <td><?= $this->Html->link(__(h($location->name)), ['action' => 'view', $location->id], ['title' => 'View Location Details']) ?>
                         </td>
                         <!--<td><?= h($location->name) ?></td>-->

@@ -2,6 +2,13 @@
   use Cake\ORM\TableRegistry;
 ?>
 
+<?php
+$this->assign('title', __('Items') . '/' . __('Inbound'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Items'), ['controller' => 'Items', 'action' => 'index']);
+$this->Html->addCrumb(__('Manage Inbound Goods'));
+?>
+
 <!-- Main content -->
 <section class="content">
   <div class="row" style="min-height: 600px">
@@ -18,18 +25,6 @@
             <div style="display:none;">
               <input type="hidden" name="_method" value="POST">
             </div>
-
-            <!-- <div class ="form-group">
-              <div class="input-group" style="z-index: 5;" title="Select Product(s)*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
-                <input type="hidden" name="product[_ids][]" value=""> 
-                <select name="product[_ids][]" class="selectpicker form-control" data-live-search="true" data-selected-text-format="count > 3" required="required" title="Select Product(s)*" id="product" multiple>
-                    <?php foreach ($products as $product): ?>
-                      <option value="<?=$product->id?>"><?php echo $product->prod_name?></option> 
-                    <?php endforeach; ?>
-                </select>
-              </div>
-            </div> -->
 
             <div class ="form-group">
               <div class="input-group" style="z-index: 4" title="Select Item(s)*">
