@@ -64,16 +64,10 @@ class RetailerEmployeesController extends AppController
         ];
 
         $retailerEmployees = $this->request->getParam('controller');
-        $here = $request->here();
-        echo ($retailerEmployees);
-        echo ("bye");
-        echo ($here);
 
         $this->set('retailerEmployees', $this->paginate($this->RetailerEmployees->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('retailerEmployees'));
         $this->set('_serialize', ['retailerEmployees']);
-
-
     }
 
     public function htcindex() {
