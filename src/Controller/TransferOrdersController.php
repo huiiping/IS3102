@@ -152,4 +152,75 @@ class TransferOrdersController extends AppController
       return $this->redirect(['action' => 'index']);
 
   }
+
+  public function listtransferorders(){
+
+    $type = $_POST['type'];
+    $location = $_POST['location'];
+
+    if($type == "Inbound"){
+
+      $tos = $this->TransferOrders->find()->where(['locationTo' => $location])->where(['status' => 'In Transit'])->toArray();
+
+      foreach ($tos as $row) {
+          echo ($row['id']);
+          echo "\n";
+      }
+
+      die;
+
+    } else {
+
+      $tos = $this->TransferOrders->find()->where(['locationFrom' => $location])->where(['status' => 'In Transit'])->toArray();
+
+      foreach ($tos as $row) {
+          echo ($row['id']);
+          echo "\n";
+      }
+
+      die;
+    }
+
+  }
+
+  public function listtoitems(){
+
+    $this->loadModel("TransferOrderItems");
+    $this->loadModel("Items");
+    $this->loadModel("Products");
+    $id = $_POST['id'];
+
+    $array = $this->TransferOrderItems->find()->where(['transfer_order_id' => $id])->toArray();
+
+    foreach($array as $row){
+
+      $item_id = $row['item_id'];
+      $item = $this->Items->get($item_id);
+      echo ($item['id']);
+      echo "\n";
+      echo ($item['name']);
+      echo "\n";
+      echo ($item['description']);
+      echo "\n";
+      echo ($item['EPC']);
+      echo "\n";
+
+      if($item['product_id'] != null){
+        $product = $this->Products->get($item['product_id']);
+        echo ($product['barcode']);
+        echo "\n";
+      } else {
+        echo ("null");
+        echo "\n";
+      }
+
+      echo ($item['status']);
+      echo "\n";
+    }
+
+    die;
+  }
+
+
+
 }

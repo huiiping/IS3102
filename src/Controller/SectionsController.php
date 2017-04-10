@@ -163,4 +163,31 @@ class SectionsController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
+    public function loadsections(){
+
+        $location = $_POST['location'];
+        $sections = $this->Sections->find()->where(['location_id' => $location])->toArray();
+
+        foreach($sections as $row){
+            echo ($row['id']);
+            echo "\n";
+            echo ($row['sec_name']);
+            echo "\n";
+            echo ($row['space_limit']);
+            echo "\n";
+            echo ($row['available_space']);
+            echo "\n";
+            if($row['reserve'] == 0){
+                echo ("N");
+            } else {
+                echo ("Y");
+            }
+            echo "\n";
+        }
+
+        die();
+
+
+    }
 }

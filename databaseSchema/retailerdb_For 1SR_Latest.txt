@@ -161,7 +161,7 @@ CREATE TABLE purchase_orders (
 
 CREATE TABLE purchase_order_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    itemID INT NOT NULL,
+    itemID VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
     quantity INT NOT NULL,
     unit_price DOUBLE NOT NULL,

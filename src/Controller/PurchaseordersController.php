@@ -113,4 +113,43 @@ class PurchaseOrdersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function listpurchaseorders() 
+    {
+    
+        $pos = $this->PurchaseOrders->find()->where(['delivery_status' => 0])->toArray();
+
+        foreach ($pos as $row) {
+            echo ($row['id']);
+            echo "\n";
+        }
+
+        die;
+        
+    }
+
+    public function listpoitems(){
+
+        $this->loadModel("PurchaseOrderItems");
+        $id = $_POST['id'];
+
+        $array = $this->PurchaseOrderItems->find()->where(['purchase_order_id' => $id])->toArray();
+
+        foreach($array as $row){
+            echo ($row['id']);
+            echo "\n";
+            echo ($row['itemID']);
+            echo "\n";
+            echo ($row['description']);
+            echo "\n";
+            echo ($row['quantity']);
+            echo "\n";
+            echo ($row['unit_price']);
+            echo "\n";
+        }
+
+        die;
+    }
+
+
 }

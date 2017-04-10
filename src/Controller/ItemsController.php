@@ -490,4 +490,64 @@ class ItemsController extends AppController
         $this->set(compact('item', 'lid', 'sections'));
         $this->set('_serialize', ['item']);
     } 
+
+    public function checkpaymentstatus() 
+    {
+    
+        $rfid = $_POST['rfid'];
+        $items = $this->Items->find()->where(['EPC' => $rfid]);
+        $first = $items->first();
+
+        $item = $this->Items->get($first['id']);
+
+        echo ($item['status']);
+        echo ("\n");
+        die();
+        
+    }
+
+    public function inboundrfidtag(){
+
+        $id = $_POST['id'];
+        echo ("ID = ".$id."\n");
+        $item_code = $_POST['item_code'];
+        echo ("ITEM CODE = ".$item_code."\n");
+        $desc = $_POST['desc'];
+        echo ("DESC = ".$desc."\n");
+        $qty = $_POST['qty'];
+        echo ("QTY = ".$qty."\n");
+        $price = $_POST['price'];
+        echo ("PRICE = ".$price."\n");
+        $rfid_list = $_POST['rfid_list'];
+        echo ("RFID LIST = ".$rfid_list."\n");
+        $location = $_POST['location'];
+        echo ("LOCATION ID = ".$location."\n");
+        $section = $_POST['section'];
+        echo ("SECTION ID = ".$section."\n");
+        $count = 0;
+        $rfid_list = substr($rfid_list, 1, strlen($rfid_list)-2);
+        $rfid_arr = explode(", ", $rfid_list);
+
+        while($count < $qty){
+            echo ("rfid array[".$count."] = ".$rfid_arr[$count]."\n");
+            $item = $this->Items->newEntity();
+            $item->name = $item_code;
+            $item->description = $desc;
+            $item->section_id = $section;
+            $item->location_id = $location;
+            $item->EPC = $rfid_arr[$count];
+
+            if($this->Items->save($item)){
+                echo ("SUCCESS"."\n");
+            } else {
+                echo ("FAILED"."\n");
+            }
+
+            $count++;
+        }
+
+        
+        die();
+
+    }
 }
