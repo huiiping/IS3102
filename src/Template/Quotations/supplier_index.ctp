@@ -86,8 +86,10 @@
                 ?>
                     
                 <td style="max-width: 150px;"><?= h($quotation->created) ?></td>
-                <td><a href="/IS3102_Final/quotations/download/<?=$quotation->id?>"><i class="fa fa-cloud-download" title="Download Quotation"></i></a>&nbsp
-                <a href="/IS3102_Final/quotations/edit/<?=$quotation->id?>"><i class="fa fa-edit" title="Edit Quotation"></i></a>&nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Quotation')), array('action' => 'delete', $quotation->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $quotation->id))) ?></td>
+                <td><a href="/IS3102_Final/quotations/download/<?=$quotation->id?>"><i class="fa fa-cloud-download" title="Download Quotation"></i></a>
+                <!-- &nbsp
+                <a href="/IS3102_Final/quotations/edit/<?=$quotation->id?>"><i class="fa fa-edit" title="Edit Quotation"></i></a> -->
+                &nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Quotation')), array('action' => 'delete', $quotation->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $quotation->id))) ?></td>
               </tr>
             <?php endforeach; ?>
             </tbody>

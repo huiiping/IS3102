@@ -92,10 +92,11 @@
           'type3' => 'Stock Levels', 'typePlural3' => 'StockLevels', 
           'type4' => 'Items', 'typePlural4' => 'Items')); ?>
 
-        <?= $this->Element('sideBar', array('icon' => 'users', 'title' => 'Suppliers', 'num' => '3',
+        <?= $this->Element('sideBar', array('icon' => 'users', 'title' => 'Suppliers', 'num' => '4',
          'type1' => 'Suppliers', 'typePlural' => 'Suppliers', 
-         'type2' => 'Purchase Orders', 'typePlural2' => 'PurchaseOrders', 
-         'type3' => 'RFQ', 'typePlural3' => 'Rfqs')); ?>
+         'type2' => 'RFQ', 'typePlural2' => 'Rfqs',
+         'type3' => 'Quotations', 'typePlural3' => 'Quotations',
+         'type4' => 'Purchase Orders', 'typePlural4' => 'PurchaseOrders')); ?>
 
         <?= $this->Element('sideBar', array('icon' => 'file-text-o', 'title' => 'Transactions', 'num' => '3',
          'type1' => 'Transactions', 'typePlural' => 'Transactions', 
