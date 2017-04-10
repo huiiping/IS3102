@@ -6,7 +6,11 @@
 <?php
   $this->assign('title', __('Quotation') . '/' . __('Index'));
 ?>
-
+<style>
+#statuscol{
+  width: 250px;
+}
+</style>
 <!-- Main content -->
 <section class="content">
   <div class="row">
@@ -57,7 +61,7 @@
               <th scope="col"><?= $this->Paginator->sort('id') ?></th>
               <th scope="col"><?= $this->Paginator->sort('fileName', ['Label' => 'File']) ?></th>
               <th scope="col"><?= $this->Paginator->sort('rfq_id', ['Label' => 'RFQ']) ?></th>
-              <th scope="col"><?= $this->Paginator->sort('status') ?></th>
+              <th id = "statuscol" scope="col"><?= $this->Paginator->sort('status') ?></th>
               <th scope="col"><?= $this->Paginator->sort('created') ?></th>
               <th scope="col" class="actions"><?= __('Actions') ?></th>
           </tr>
@@ -117,7 +121,7 @@
                         <li><a title="Reject Quotation" href="/IS3102_Final/quotations/rejectQuotation/<?= $quotation->id ?>">Reject</a></li>
                       </ul>
                     </div>
-
+                    <a href="/IS3102_Final/PurchaseOrders/add/<?= $quotation->id ?>" type="button" class="btn btn-default btn-flat">Submit PO</a>
                 <?php 
 
                 }
@@ -125,8 +129,10 @@
                 ?>
                 </td>
                 <td style="max-width: 150px;"><?= h($quotation->created) ?></td>
-                <td><a href="/IS3102_Final/quotations/download/<?=$quotation->id?>"><i class="fa fa-cloud-download" title="Download Quotation"></i></a>&nbsp
-                <a href="/IS3102_Final/quotations/edit/<?=$quotation->id?>"><i class="fa fa-edit" title="Edit Quotation"></i></a>&nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Quotation')), array('action' => 'delete', $quotation->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $quotation->id))) ?></td>
+                <td><a href="/IS3102_Final/quotations/download/<?=$quotation->id?>"><i class="fa fa-cloud-download" title="Download Quotation"></i></a>
+                <!-- &nbsp
+                <a href="/IS3102_Final/quotations/edit/<?=$quotation->id?>"><i class="fa fa-edit" title="Edit Quotation"></i></a> -->
+                &nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Quotation')), array('action' => 'delete', $quotation->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $quotation->id))) ?></td>
               </tr>
             <?php endforeach; ?>
             </tbody>

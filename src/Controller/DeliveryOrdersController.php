@@ -169,19 +169,72 @@ class DeliveryOrdersController extends AppController
 
   public function deliveredStatus($id) {
 
-   $deliveryOrder = $this->DeliveryOrders->get($id);
+    $deliveryOrder = $this->DeliveryOrders->get($id);
 
-   $deliveryOrder->status = 'Delivered';
-   $this->DeliveryOrders->save($deliveryOrder);
+    $deliveryOrder->status = 'Delivered';
+    $this->DeliveryOrders->save($deliveryOrder);
 
-   $session = $this->request->session();
-   $retailer = $session->read('retailer');
-   $this->Logging->rLog($deliveryOrder['id']);
-   $this->Logging->iLog($retailer, $deliveryOrder['id']);
+    $session = $this->request->session();
+    $retailer = $session->read('retailer');
+    $this->Logging->rLog($deliveryOrder['id']);
+    $this->Logging->iLog($retailer, $deliveryOrder['id']);
 
-   $this->Flash->success(__('The delivery order has a delivered status.'));
+    $this->Flash->success(__('The delivery order has a delivered status.'));
 
-   return $this->redirect(['action' => 'index']);
+    return $this->redirect(['action' => 'index']);
 
-}
+  }
+
+  public function listdeliveryorders() 
+  {
+  
+      $dos = $this->DeliveryOrders->find()->where(['status' => 'Approved'])->toArray();
+
+      foreach ($dos as $row) {
+          echo ($row['id']);
+          echo "\n";
+      }
+
+      die;
+      
+  }
+
+  public function listdoitems()
+  {
+
+    $this->loadModel("DeliveryOrdersItems");
+    $this->loadModel("Items");
+    $this->loadModel("Products");
+    $id = $_POST['id'];
+
+    $array = $this->DeliveryOrdersItems->find()->where(['delivery_order_id' => $id])->toArray();
+
+    foreach($array as $row){
+
+      $item_id = $row['item_id'];
+      $item = $this->Items->get($item_id);
+      echo ($item['id']);
+      echo "\n";
+      echo ($item['name']);
+      echo "\n";
+      echo ($item['description']);
+      echo "\n";
+      echo ($item['EPC']);
+      echo "\n";
+
+      if($item['product_id'] != null){
+        $product = $this->Products->get($item['product_id']);
+        echo ($product['barcode']);
+        echo "\n";
+      } else {
+        echo ("null");
+        echo "\n";
+      }
+
+      echo ($item['status']);
+      echo "\n";
+    }
+
+    die;
+  }
 }

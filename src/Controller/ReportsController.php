@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * Reports Controller
@@ -10,6 +11,10 @@ use App\Controller\AppController;
  */
 class ReportsController extends AppController
 {
+    public function beforeFilter(Event $event)
+    {
+        $this->loadComponent('Logging');   
+    }
 
     /**
      * Index method
@@ -18,14 +23,18 @@ class ReportsController extends AppController
      */
     public function index()
     {
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
         $this->paginate = [
-            'contain' => ['RetailerEmployees', 'Locations', 'Suppliers', 'DeliveryOrders']
+            'contain' => ['RetailerEmployees']
         ];
-        $reports = $this->paginate($this->Reports);
-
+        $this->set('reports', $this->paginate($this->Reports->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('reports'));
         $this->set('_serialize', ['reports']);
     }
+    public $components = array(
+        'Prg'
+    );
 
     /**
      * View method
@@ -37,7 +46,7 @@ class ReportsController extends AppController
     public function view($id = null)
     {
         $report = $this->Reports->get($id, [
-            'contain' => ['RetailerEmployees', 'Locations', 'Suppliers', 'DeliveryOrders', 'Items']
+            'contain' => ['RetailerEmployees']
         ]);
 
         $this->set('report', $report);
@@ -53,19 +62,28 @@ class ReportsController extends AppController
     {
         $report = $this->Reports->newEntity();
         if ($this->request->is('post')) {
-            $report = $this->Reports->patchEntity($report, $this->request->getData());
+            $report = $this->Reports->patchEntity($report, $this->request->data);
+
+            $session = $this->request->session();
+            //get employee id
+            $report['retailer_employee_id'] = $_SESSION['Auth']['User']['id'];
+            $report['status'] = 'Pending';
+
             if ($this->Reports->save($report)) {
-                $this->Flash->success(__('The report has been saved.'));
+                $this->Flash->success(__('The incident report has been saved.'));
+
+                $retailer = $session->read('retailer');
+
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($report['id']);
+                $this->Logging->iLog($retailer, $report['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The report could not be saved. Please, try again.'));
+            $this->Flash->error(__('The incident report could not be saved. Please, try again.'));
         }
         $retailerEmployees = $this->Reports->RetailerEmployees->find('list', ['limit' => 200]);
-        $locations = $this->Reports->Locations->find('list', ['limit' => 200]);
-        $suppliers = $this->Reports->Suppliers->find('list', ['limit' => 200]);
-        $deliveryOrders = $this->Reports->DeliveryOrders->find('list', ['limit' => 200]);
-        $this->set(compact('report', 'retailerEmployees', 'locations', 'suppliers', 'deliveryOrders'));
+        $this->set(compact('report', 'retailerEmployees'));
         $this->set('_serialize', ['report']);
     }
 
@@ -82,19 +100,23 @@ class ReportsController extends AppController
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $report = $this->Reports->patchEntity($report, $this->request->getData());
+            $report = $this->Reports->patchEntity($report, $this->request->data);
             if ($this->Reports->save($report)) {
-                $this->Flash->success(__('The report has been saved.'));
+                $this->Flash->success(__('The incident report has been saved.'));
+
+                $session = $this->request->session();
+                $retailer = $session->read('retailer');
+
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($report['id']);
+                $this->Logging->iLog($retailer, $report['id']);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The report could not be saved. Please, try again.'));
+            $this->Flash->error(__('The incident report could not be saved. Please, try again.'));
         }
         $retailerEmployees = $this->Reports->RetailerEmployees->find('list', ['limit' => 200]);
-        $locations = $this->Reports->Locations->find('list', ['limit' => 200]);
-        $suppliers = $this->Reports->Suppliers->find('list', ['limit' => 200]);
-        $deliveryOrders = $this->Reports->DeliveryOrders->find('list', ['limit' => 200]);
-        $this->set(compact('report', 'retailerEmployees', 'locations', 'suppliers', 'deliveryOrders'));
+        $this->set(compact('report', 'retailerEmployees'));
         $this->set('_serialize', ['report']);
     }
 
@@ -110,11 +132,81 @@ class ReportsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $report = $this->Reports->get($id);
         if ($this->Reports->delete($report)) {
-            $this->Flash->success(__('The report has been deleted.'));
+            $this->Flash->success(__('The incident report has been deleted.'));
+
+            $session = $this->request->session();
+            $retailer = $session->read('retailer');
+
+            //$this->loadComponent('Logging');
+            $this->Logging->rLog($report['id']);
+            $this->Logging->iLog($retailer, $report['id']);
+
         } else {
-            $this->Flash->error(__('The report could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The incident report could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function pendingStatus($id) {
+
+        $report = $this->Reports->get($id);
+
+        $report->status = 'Pending';
+        $this->Reports->save($report);
+
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+        $this->Logging->rLog($report['id']);
+        $this->Logging->iLog($retailer, $report['id']);
+
+        $this->Flash->success(__('The incident report has a pending status.'));
+
+        return $this->redirect(['action' => 'index']);
+    }
+
+    public function resolvedStatus($id) {
+
+        $report = $this->Reports->get($id);
+
+        $report->status = 'Resolved';
+        $this->Reports->save($report);
+
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+        $this->Logging->rLog($report['id']);
+        $this->Logging->iLog($retailer, $report['id']);
+
+        $this->Flash->success(__('The incident report has a resolved status.'));
+
+        return $this->redirect(['action' => 'index']);
+    }
+
+    public function other() {
+        $report = $this->Reports->newEntity();
+        if ($this->request->is('post')) {
+            $report = $this->Reports->patchEntity($report, $this->request->data);
+
+            $session = $this->request->session();
+            //get employee id
+            $report['retailer_employee_id'] = $_SESSION['Auth']['User']['id'];
+            $report['status'] = 'Pending';
+
+            if ($this->Reports->save($report)) {
+                $this->Flash->success(__('The incident report has been saved.'));
+
+                $retailer = $session->read('retailer');
+
+                //$this->loadComponent('Logging');
+                $this->Logging->rLog($report['id']);
+                $this->Logging->iLog($retailer, $report['id']);
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The incident report could not be saved. Please, try again.'));
+        }
+        $retailerEmployees = $this->Reports->RetailerEmployees->find('list', ['limit' => 200]);
+        $this->set(compact('report', 'retailerEmployees'));
+        $this->set('_serialize', ['report']);
     }
 }

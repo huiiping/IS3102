@@ -1,3 +1,10 @@
+<?php
+$this->assign('title', __('Location') . '/' . __('Edit'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Locations'), ['controller' => 'Locations', 'action' => 'index']);
+$this->Html->addCrumb(__('Edit Location'));
+?>
+
 <!-- Main content -->
 <section class="content" style="min-height: 550px">
   <div class="row">

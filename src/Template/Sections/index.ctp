@@ -1,3 +1,9 @@
+<?php
+$this->assign('title', __('Sections') . '/' . __('Index'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Sections'));
+?>
+
 <!-- Main content -->
 <section class="content" style="min-height: 550px">
     <div class="row">
@@ -36,7 +42,7 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+                        <!-- <th scope="col"><?= $this->Paginator->sort('id') ?></th> -->
                         <th scope="col"><?= $this->Paginator->sort(('sec_name'), ['title' => 'Section Name']) ?></th>
                         <th scope="col"><?= $this->Paginator->sort(('space_limit'), ['title' => 'Max. Space Limit (Units)']) ?></th>
                         <th scope="col"><?= $this->Paginator->sort(('available_space'), ['title' => 'Available Space (Units)']) ?></th>
@@ -48,7 +54,7 @@
                 <tbody>
                     <?php foreach ($sections as $section): ?>
                     <tr>
-                        <td><?= $this->Number->format($section->id) ?></td>
+                        <!-- <td><?= $this->Number->format($section->id) ?></td> -->
                         <td><?= $this->Html->link(__($section->sec_name), ['action' => 'view', $section->id], ['title' => 'View Section Details']) ?></td>
                         <td><?= $this->Number->format($section->space_limit) ?></td>
                         <td><?= $this->Number->format($section->available_space) ?></td>

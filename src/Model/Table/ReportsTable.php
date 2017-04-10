@@ -10,11 +10,6 @@ use Cake\Validation\Validator;
  * Reports Model
  *
  * @property \Cake\ORM\Association\BelongsTo $RetailerEmployees
- * @property \Cake\ORM\Association\BelongsTo $Locations
- * @property \Cake\ORM\Association\BelongsTo $Suppliers
- * @property \Cake\ORM\Association\BelongsTo $DeliveryOrders
- * @property \Cake\ORM\Association\BelongsTo $Items
- * @property \Cake\ORM\Association\HasMany $Items
  *
  * @method \App\Model\Entity\Report get($primaryKey, $options = [])
  * @method \App\Model\Entity\Report newEntity($data = null, array $options = [])
@@ -28,6 +23,13 @@ use Cake\Validation\Validator;
  */
 class ReportsTable extends Table
 {
+    public $filterArgs = array(
+        'search' => array(
+            'type' => 'like',
+            'field' => array('title', 'status', 'message', 'entity', 'entityID', 'RetailerEmployees.first_name', 'RetailerEmployees.last_name'),
+            'method' => 'findByActions'
+        )
+    );
 
     /**
      * Initialize method
@@ -39,30 +41,16 @@ class ReportsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('reports');
-        $this->setDisplayField('title');
-        $this->setPrimaryKey('id');
+        $this->table('reports');
+        $this->displayField('title');
+        $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
 
         $this->belongsTo('RetailerEmployees', [
             'foreignKey' => 'retailer_employee_id'
         ]);
-        $this->belongsTo('Locations', [
-            'foreignKey' => 'location_id'
-        ]);
-        $this->belongsTo('Suppliers', [
-            'foreignKey' => 'supplier_id'
-        ]);
-        $this->belongsTo('DeliveryOrders', [
-            'foreignKey' => 'delivery_order_id'
-        ]);
-        $this->belongsTo('Items', [
-            'foreignKey' => 'item_id'
-        ]);
-        $this->hasMany('Items', [
-            'foreignKey' => 'report_id'
-        ]);
+        $this->addBehavior('Searchable');
     }
 
     /**
@@ -76,6 +64,13 @@ class ReportsTable extends Table
         $validator
             ->integer('id')
             ->allowEmpty('id', 'create');
+
+        $validator
+            ->allowEmpty('entity');
+
+        $validator
+            ->integer('entityID')
+            ->allowEmpty('entityID');
 
         $validator
             ->allowEmpty('title');
@@ -99,10 +94,6 @@ class ReportsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['retailer_employee_id'], 'RetailerEmployees'));
-        $rules->add($rules->existsIn(['location_id'], 'Locations'));
-        $rules->add($rules->existsIn(['supplier_id'], 'Suppliers'));
-        $rules->add($rules->existsIn(['delivery_order_id'], 'DeliveryOrders'));
-        $rules->add($rules->existsIn(['item_id'], 'Items'));
 
         return $rules;
     }

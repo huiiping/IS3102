@@ -161,7 +161,7 @@ CREATE TABLE purchase_orders (
 
 CREATE TABLE purchase_order_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    itemID INT NOT NULL,
+    itemID VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
     quantity INT NOT NULL,
     unit_price DOUBLE NOT NULL,
@@ -249,6 +249,7 @@ CREATE TABLE retailer_employees_retailer_employee_roles (
 CREATE TABLE retailer_employees_messages (
     retailer_employee_id INT NOT NULL,
     message_id INT NOT NULL,
+    is_read TINYINT(1) DEFAULT '0',
     PRIMARY KEY (retailer_employee_id, message_id),
     FOREIGN KEY (retailer_employee_id) REFERENCES retailer_employees(id),
     FOREIGN KEY (message_id) REFERENCES messages(id)
@@ -274,7 +275,7 @@ CREATE TABLE transactions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     status VARCHAR(100),
     remarks VARCHAR(255),
-    receipt_number INT,
+    receipt_number VARCHAR(255),
     customer_id INT,
     retailer_employee_id INT,
     location_id INT,

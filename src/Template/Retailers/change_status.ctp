@@ -34,14 +34,14 @@
             <div class ="form-group">
               <div class="input-group" title="Enter New Contract Start Date*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                <input class = "form-control" type="date" placeholder = "Contract Start Date" name="contract_start_date" id="contract_start_date" required> 
+                <input class = "form-control" type="date" placeholder = "Contract Start Date*" name="contract_start_date" id="contract_start_date" required> 
               </div>
             </div>
 
             <div class ="form-group">
               <div class="input-group" title="Enter New Contract End Date*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                <input class = "form-control" type="date" placeholder = "Contract End Date" name="contract_end_date" id="contract_end_date" required> 
+                <input class = "form-control" type="date" placeholder = "Contract End Date*" name="contract_end_date" id="contract_end_date" required> 
               </div>
             </div>
             <?php endif; ?>

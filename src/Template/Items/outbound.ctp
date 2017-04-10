@@ -2,6 +2,13 @@
   use Cake\ORM\TableRegistry;
 ?>
 
+<?php
+$this->assign('title', __('Items') . '/' . __('Outbound'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Items'), ['controller' => 'Items', 'action' => 'index']);
+$this->Html->addCrumb(__('Manage Outbound Goods'));
+?>
+
 <!-- Main content -->
 <section class="content">
   <div class="row" style="min-height: 600px">

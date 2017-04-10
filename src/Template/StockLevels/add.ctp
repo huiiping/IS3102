@@ -2,6 +2,13 @@
   use Cake\ORM\TableRegistry;
 ?>
 
+<?php
+$this->assign('title', __('Stock Level') . '/' . __('Add'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Stock Levels'), ['controller' => 'StockLevels', 'action' => 'index']);
+$this->Html->addCrumb(__('Create New Stock Level'));
+?>
+
 <!-- Main content -->
 <section class="content" style="min-height: 550px">
   <div class="row">

@@ -299,4 +299,43 @@ class CustomersController extends AppController
         return $this->redirect(['action' => 'index']);
 
       }
+
+      public function getmember(){
+        $id = $_POST['id'];
+        $membershipPoints = 0;
+        $this->loadModel('CustMembershipTiers');
+        $this->loadModel('MembershipPoints');
+
+        $query = $this->Customers->find()->where(['member_identification' => $id]);
+        $first = $query->first();
+
+        $customer = $this->Customers->get($first['id']);
+
+        $tier = $this->CustMembershipTiers->get($customer['cust_membership_tier_id']);
+
+        echo ($tier['tier_name']);
+        echo "\n";
+
+        $points = $this->MembershipPoints->find()->where(['customer_id' => $customer['id']])->toArray();
+        foreach ($points as $point) {
+            if ($point['type'] == "Add") {
+                $membershipPoints += $point['pts'];
+            }
+            else {
+                $membershipPoints -= $point['pts'];
+            }
+        }
+
+        echo ($membershipPoints);
+        echo "\n";
+
+        echo ($tier['discount_rate']);
+        echo "\n";
+
+        echo ($tier['birthday_rate']);
+        echo "\n";
+
+        die();
+
+      }
     }

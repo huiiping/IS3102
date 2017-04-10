@@ -33,9 +33,9 @@ class RetailerEmployeesMessagesTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('retailer_employees_messages');
-        $this->displayField('retailer_employee_id');
-        $this->primaryKey(['retailer_employee_id', 'message_id']);
+        $this->setTable('retailer_employees_messages');
+        $this->setDisplayField('retailer_employee_id');
+        $this->setPrimaryKey(['retailer_employee_id', 'message_id']);
 
         $this->belongsTo('RetailerEmployees', [
             'foreignKey' => 'retailer_employee_id',
@@ -45,6 +45,21 @@ class RetailerEmployeesMessagesTable extends Table
             'foreignKey' => 'message_id',
             'joinType' => 'INNER'
         ]);
+    }
+
+    /**
+     * Default validation rules.
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationDefault(Validator $validator)
+    {
+        $validator
+            ->boolean('is_read')
+            ->allowEmpty('is_read');
+
+        return $validator;
     }
 
     /**

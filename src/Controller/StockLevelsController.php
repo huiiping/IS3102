@@ -206,4 +206,21 @@ class StockLevelsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function changeStatus($id) {
+
+        $stockLevel = $this->StockLevels->get($id);
+
+        $stockLevel->status = 'Not Triggered';
+        $this->StockLevels->save($stockLevel);
+
+        $session = $this->request->session();
+        $retailer = $session->read('retailer');
+        $this->Logging->rLog($stockLevel['id']);
+        $this->Logging->iLog($retailer, $stockLevel['id']);
+
+        $this->Flash->success(__('The stock level status is updated.'));
+
+        return $this->redirect(['action' => 'index']);
+    }
 }

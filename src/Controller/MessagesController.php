@@ -64,7 +64,7 @@ class MessagesController extends AppController
 
             $receiver = $this->Messages->RetailerEmployees->find('list', ['limit' => 200])->where(['id' => $id]);
             $chatName = $this->paginate($retailerEmployees->find()->where(['id' => $id], ['id' => 'integer[]']));
-        }
+        }   
         
         //message_id's of messages sent by the user
         $sentIDs = $this->Messages->find()->where(['sender_id' => $sender])->select('id');
@@ -82,7 +82,7 @@ class MessagesController extends AppController
                         ->select('message_id')
                         ->toArray();
                 $msgsSent = Hash::extract($msgsSent, '{n}.message_id');
-            }   
+            }
         }
 
         //message_id's of messages recieved by the user
@@ -95,12 +95,12 @@ class MessagesController extends AppController
 
             //Messages recieved by user
             if (isset($id) && $id != 0) {
-                $msgsReceived = $retailerEmployeesMessages->find()
-                        ->where(['message_id' => $receiveIDs], ['message_id' => 'integer[]'])
-                        ->andWhere(['retailer_employee_id' => $sender])
-                        ->select('message_id')
+                $msgsReceived = $this->Messages->find()
+                        ->where(['id' => $receiveIDs], ['id' => 'integer[]'])
+                        ->andWhere(['sender_id' => $id])
+                        ->select('id')
                         ->toArray();
-                $msgsReceived = Hash::extract($msgsReceived, '{n}.message_id');
+                $msgsReceived = Hash::extract($msgsReceived, '{n}.id');
             }
         } 
         
@@ -157,11 +157,11 @@ class MessagesController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
-    {
+    {   
        $message = $this->Messages->get($id, [
             'contain' => ['RetailerEmployees']
         ]);
-
+       
         $session = $this->request->session();
         $retailer = $session->read('retailer');
 
@@ -170,6 +170,21 @@ class MessagesController extends AppController
 
         $this->set('message', $message);
         $this->set('_serialize', ['message']);
+    }
+
+    public function clear(){
+
+        $user = $this->request->session()->read('Auth.User');
+          $messageTable = TableRegistry::get('RetailerEmployeesMessages');
+        $query = $messageTable->query();
+        $query->update()
+        ->set(['is_read' => 1])
+        ->where([
+            'retailer_employee_id' => $user['id'],
+            ])
+        ->execute();
+         return $this->redirect(['action' => 'index']);
+        
     }
 
     /**
