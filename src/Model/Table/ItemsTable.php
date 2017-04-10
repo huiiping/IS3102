@@ -79,8 +79,8 @@ class ItemsTable extends Table
         ->allowEmpty('description');
 
         $validator
-        ->allowEmpty('EPC')
-        ->add('EPC', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+        ->allowEmpty('EPC');
+        // ->add('EPC', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
         ->allowEmpty('status');
