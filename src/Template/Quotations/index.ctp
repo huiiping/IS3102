@@ -121,7 +121,7 @@
                         <li><a title="Reject Quotation" href="/IS3102_Final/quotations/rejectQuotation/<?= $quotation->id ?>">Reject</a></li>
                       </ul>
                     </div>
-                    <a href="/IS3102_Final/PurchaseOrders/add/<?= $quotation->id ?>" type="button" class="btn btn-default btn-flat">Submit PO</a>
+                    <a href="/IS3102_Final/PurchaseOrders/add/<?= $quotation->id ?>/<?= $quotation->supplier_id ?>" type="button" class="btn btn-default btn-flat">Submit PO</a>
                 <?php 
 
                 }

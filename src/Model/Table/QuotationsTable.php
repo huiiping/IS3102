@@ -28,7 +28,7 @@ class QuotationsTable extends Table
     public $filterArgs = array(
         'search' => array(
             'type' => 'like',
-            'field' => array('status','comments','fileName','Rfqs.title')
+            'field' => array('id','status','comments','file_name','Rfqs.title')
             )
     );
 

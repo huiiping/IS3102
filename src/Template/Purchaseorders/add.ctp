@@ -10,37 +10,52 @@ $this->Html->addCrumb(__('Purchase Orders'), ['controller' => 'Purchaseorders', 
 ?>
 <?= $this->Element('retailerLeftSideBar'); ?>
 
-<!-- Main Content -->
-<div class="content-wrapper">
-  <!-- Content Header -->
-  <section class="content-header">
-  </section>
-  <!-- Main content -->
-  <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title"><?= __('Create New Purchase Order') ?></h3>
-            </div>
-            <div class="box-body">
-            <?= $this->Form->create($purchaseOrder) ?>
-            <fieldset>
-                <?php
-                    echo $this->Form->input('total_price');
-                    echo $this->Form->input('delivery_status');
-                    echo $this->Form->input('comments');
-                    echo $this->Form->input('supplier_id', ['options' => $suppliers, 'empty' => true]);
-                    echo $this->Form->input('location_id', ['options' => $locations, 'empty' => true]);
-                    echo $this->Form->input('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
-                ?>
-            </fieldset>
-            <br>
-                <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
-                <?= $this->Form->end() ?>
-            </div>
+
+<section class="content">
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+      <div class="box box-primary">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Create New Purchase Order for quotation ID: <?=$quotationID?></h3>
           </div>
         </div>
+        <div class="main" style="padding: 10px 20px;">
+          <form method="post" accept-charset="utf-8" action="/IS3102_Final/PurchaseOrders/add/<?=$quotationID?>/<?=$supplierID?>" enctype="multipart/form-data">
+            <div style="display:none;">
+              <input type="hidden" name="_method" value="POST">
+            </div>
+            <div class ="form-group">          
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-cloud-download"></i></span>
+                    <input class = "form-control" type="file" name="file" id="file" required="required"> 
+                  </div>
+                </div>
+
+      
+
+      <div class ="form-group">        
+        <div class="input-group" style="z-index: 10;" title="Select Location - Supplying the goods.">
+          <span class="input-group-addon"><i class="fa fa-fw fa-location-arrow"></i></span>
+          <input type="hidden" name="location_id" required="required" value="">
+          <select name="location_id" class='selectpicker form-control' title ="Select Location - delivery destination." data-live-search="true">
+            <option label=" ">NIL</option> 
+            <?php foreach ($locations as $location): ?>
+              <option value="<?= $location['id'] ?>"><?= $location['name'] ?></option> 
+            <?php endforeach; ?>
+          </select>
+        </div> 
       </div>
-  </section>
+
+
+      <div class ="row">
+       <a href="/IS3102_Final/PurchaseOrders/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Purchase Order Index</a>
+       <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Add Purchase Order</button>
+     </div>
+   </form>
+ </div>
 </div>
+</div>
+</section>
+
+
