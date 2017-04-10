@@ -5,6 +5,8 @@ $this->Html->addCrumb(__('Employee'), ['controller' => 'RetailerEmployees', 'act
 $this->Html->addCrumb(__('View : '.$retailerEmployee->first_name.' '.$retailerEmployee->last_name));
 ?>
 
+
+
 <!-- Main content -->
 <section class="content">
   <div class="row">

@@ -28,7 +28,7 @@ class ItemsController extends AppController
         $this->loadComponent('Prg');
         $this->Prg->commonProcess();
         $this->paginate = [
-            'contain' => ['Products', 'Locations', 'Sections']
+        'contain' => ['Products', 'Locations', 'Sections']
         ];
         $this->set('items', $this->paginate($this->Items->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('items'));
@@ -36,7 +36,56 @@ class ItemsController extends AppController
     }
     public $components = array(
         'Prg'
-    );
+        );
+
+    public function htcindex() {
+        $this->viewBuilder()->setLayout("ajax");
+        $response = $this->request->data();
+
+        foreach($response as $key => $value) {
+            if($key == 'locationId') {
+                // var_dump("in check locationID");
+
+                $query = $this->Items->find('all' , [
+                    'conditions' => ['Items.location_id =' => $value],
+                    ]);
+
+                //$items = $query->toArray();
+                
+                if ($query == null) {
+                    $this->set('query', 'noItems');    
+                } else {
+                    $this->set('query', $query);
+                }
+            }
+            else {
+                $this->set('query', 'error');
+                return;
+            }
+            $this->set('_serialize', ['query']);
+        }
+    }
+
+    public function htcUpdateStatus(){
+        $this->viewBuilder()->setLayout("ajax");
+        $response = $this->request->data();
+
+        $newStatus = '';
+        foreach($response as $key => $value) {
+            if($key == 'status') {
+                $newStatus = $value;
+                //var_dump($newStatus);
+            } else {
+                $item = $this->Items->get($value);
+                $item['status'] = $newStatus;
+                //var_dump($item['status']);
+                $this->Items->save($item);
+                $this->set('status', 'success');
+           }
+        }
+        //$this->set('status', 'failed');
+        $this->set('_serialize', ['status']);
+    }
 
     /**
      * View method
@@ -49,7 +98,7 @@ class ItemsController extends AppController
     {
         $item = $this->Items->get($id, [
             'contain' => ['Products', 'Locations', 'Sections']
-        ]);
+            ]);
 
         $session = $this->request->session();
         $retailer = $session->read('retailer');
@@ -108,7 +157,7 @@ class ItemsController extends AppController
     {
         $item = $this->Items->get($id, [
             'contain' => []
-        ]);
+            ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $item = $this->Items->patchEntity($item, $this->request->data);
             if ($this->Items->save($item)) {
@@ -172,8 +221,8 @@ class ItemsController extends AppController
         //retrieve threshold of a product at a particular location
         $allStockLevels = TableRegistry::get('StockLevels');
         $stockLevels = $allStockLevels
-            ->find()
-            ->where(['product_id' => $pid, 'location_id' => $lid]);
+        ->find()
+        ->where(['product_id' => $pid, 'location_id' => $lid]);
 
         foreach ($stockLevels as $sl) {
             $stockLevel = $allStockLevels->get($sl->id);
@@ -183,8 +232,8 @@ class ItemsController extends AppController
         //retrieve no.of items of a particular product at a particular location
         $allItems = TableRegistry::get('Items');
         $itemCounts = $allItems
-            ->find()
-            ->where(['product_id' => $pid, 'location_id' => $lid]);
+        ->find()
+        ->where(['product_id' => $pid, 'location_id' => $lid]);
         
         $count = 0;
         foreach ($itemCounts as $itemCount) {
