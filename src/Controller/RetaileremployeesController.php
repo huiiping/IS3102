@@ -63,8 +63,6 @@ class RetailerEmployeesController extends AppController
         'contain' => ['Locations','RetailerEmployeeRoles']
         ];
 
-        $retailerEmployees = $this->request->getParam('controller');
-
         $this->set('retailerEmployees', $this->paginate($this->RetailerEmployees->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('retailerEmployees'));
         $this->set('_serialize', ['retailerEmployees']);
