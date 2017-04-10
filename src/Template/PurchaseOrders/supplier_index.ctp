@@ -61,7 +61,9 @@
               </tr>
             </thead>
             <tbody>
+
               <?php foreach ($purchaseorders as $purchaseorder): ?>
+               
                 <tr>
                   <td style="max-width: 150px;"><?= $this->Number->format($purchaseorder->id) ?></td>
                   <td style="max-width: 150px;" ><?= $this->Html->link(__(h($purchaseorder->file_name)), ['action' => 'supplierView', $purchaseorder->id], ['title' => $purchaseorder->comments])?></td>

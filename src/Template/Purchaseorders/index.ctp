@@ -72,9 +72,9 @@ $this->Html->addCrumb(__('Purchase Orders'), ['controller' => 'Purchaseorders', 
                 }
 
                 ?>
-                    <td>
-                    <?= h($purchaseOrder->delivery_status) ?></td>
-                   <!--  <td><?= $purchaseOrder->has('supplier') ? $this->Html->link($purchaseOrder->supplier->supplier_name, ['controller' => 'Suppliers', 'action' => 'view', $purchaseOrder->supplier->id]) : '' ?></td> -->
+                    <td><?php if($purchaseOrder->delivery_status){echo "Pending";}else{echo "";} ?>
+            <!-- 
+                    <?= h($purchaseOrder->delivery_status) ?> --></td>
                     <td><?= $purchaseOrder->has('quotation') ? $this->Html->link($purchaseOrder->quotation->id, ['controller' => 'Quotations', 'action' => 'view', $purchaseOrder->quotation->id]) : '' ?></td>
                     <td><?= $purchaseOrder->has('location') ? $this->Html->link($purchaseOrder->location->name, ['controller' => 'Locations', 'action' => 'view', $purchaseOrder->location->id]) : '' ?></td>
                     <td><a href="/IS3102_Final/PurchaseOrders/download/<?=$purchaseOrder->id?>"><i class="fa fa-cloud-download" title="Download Purchase Order"></i></a>

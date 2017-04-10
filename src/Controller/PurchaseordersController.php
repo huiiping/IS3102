@@ -2,6 +2,11 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Datasource\ConnectionManager;
+use Cake\I18n\Time;
+use Cake\Mailer\Email;
+use Cake\Event\Event;
+
 
 /**
  * PurchaseOrders Controller
@@ -18,15 +23,22 @@ class PurchaseOrdersController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Suppliers', 'RetailerEmployees']
-        ];
-        $purchaseOrders = $this->paginate($this->PurchaseOrders);
 
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+
+        $this->paginate = [
+        'contain' => ['Suppliers', 'Quotations', 'Locations']
+        ];
+        
+
+        $this->set('purchaseOrders', $this->paginate($this->PurchaseOrders->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('purchaseOrders'));
         $this->set('_serialize', ['purchaseOrders']);
     }
-
+    public $components = array(
+        'Prg'
+        );
     /**
      * View method
      *
@@ -49,21 +61,62 @@ class PurchaseOrdersController extends AppController
      *
      * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($quotationID=null, $supplierID=null)
     {
         $purchaseOrder = $this->PurchaseOrders->newEntity();
         if ($this->request->is('post')) {
-            $purchaseOrder = $this->PurchaseOrders->patchEntity($purchaseOrder, $this->request->getData());
-            if ($this->PurchaseOrders->save($purchaseOrder)) {
-                $this->Flash->success(__('The purchase order has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+            $fileName = $this->request->data['file']['name'];
+            $uploadPath = 'uploads/files/';
+            $uploadFile = $uploadPath.$fileName;
+
+            if(move_uploaded_file($this->request->data['file']['tmp_name'],$uploadFile)){
+
+                $uploadData = $this->PurchaseOrders->newEntity();
+                $uploadData->created = date("Y-m-d H:i:s");
+                $user = $this->request->session()->read('Auth.User');
+                $uploadData->retailer_employee_id = $user['id'];
+                $uploadData->file_name = $fileName;
+                $uploadData->file_path = $uploadPath;
+                $uploadData->approval_status = 'Pending';
+                $uploadData->delivery_status = NULL;
+                $uploadData->supplier_id = $supplierID;
+                $uploadData->quotation_id = $quotationID;
+                $uploadData->location_id = $_POST['location_id'];
+
+                
+                if ($this->PurchaseOrders->save($uploadData)) {
+
+                    $this->Flash->success(__('Purchase Order has been uploaded and submitted successfully.'));
+
+                    return $this->redirect(['action' => 'index']);
+
+                }else{
+
+                    $this->Flash->error(__('Unable to upload file, please try again.'));
+                    echo date("Y-m-d H:i:s");
+                    echo $user['id'];
+                    echo $fileName;
+                    echo $uploadPath;
+                    echo $supplierID;
+                    echo $quotationID;
+                    echo $_POST['location_id'];
+                }
+
+            }else{
+
+                $this->Flash->error(__('Unable to upload Purchase Order, please try again.'));
+
             }
-            $this->Flash->error(__('The purchase order could not be saved. Please, try again.'));
+
+
+
         }
+        $retailer_employee_ids = $this->PurchaseOrders->RetailerEmployees->find('list', ['limit' => 200]);
         $suppliers = $this->PurchaseOrders->Suppliers->find('list', ['limit' => 200]);
-        $retailerEmployees = $this->PurchaseOrders->RetailerEmployees->find('list', ['limit' => 200]);
-        $this->set(compact('purchaseOrder', 'suppliers', 'retailerEmployees'));
+        $quotations = $this->PurchaseOrders->Quotations->find('list', ['limit' => 200]);
+        $locations = $this->PurchaseOrders->Locations->find('all')->toArray();
+        $this->set(compact('purchaseOrder', 'suppliers', 'quotations', 'locations', 'retailer_employee_ids', 'quotationID', 'supplierID'));
         $this->set('_serialize', ['purchaseOrder']);
     }
 
@@ -89,10 +142,12 @@ class PurchaseOrdersController extends AppController
             $this->Flash->error(__('The purchase order could not be saved. Please, try again.'));
         }
         $suppliers = $this->PurchaseOrders->Suppliers->find('list', ['limit' => 200]);
-        $retailerEmployees = $this->PurchaseOrders->RetailerEmployees->find('list', ['limit' => 200]);
+        $quotations = $this->PurchaseOrders->Quotations->find('list', ['limit' => 200]);
+        $locations = $this->PurchaseOrders->Locations->find('list', ['limit' => 200]);
         $this->set(compact('purchaseOrder', 'suppliers', 'retailerEmployees'));
         $this->set('_serialize', ['purchaseOrder']);
     }
+
 
     /**
      * Delete method
@@ -113,6 +168,70 @@ class PurchaseOrdersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function download($id = null) { 
+
+        $purchaseOrder = $this->PurchaseOrders->get($id);
+        $filePath = $purchaseOrder['file_path'] . DS . $purchaseOrder['file_name'];
+        $this->response->file($filePath , array('download'=> true, 'name'=> $purchaseOrder['file_name']));
+
+        return $this->response;
+    }
+    public function supplierIndex($id = null) {
+
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+
+        $this->paginate = [
+        'contain' => ['Suppliers', 'Quotations', 'Locations']
+        ];
+
+        $session = $this->request->session();
+        $supplier = $session->read('supplier');
+        $supplier_id = $supplier['id'];
+
+        if($id != null) {
+            $this->set('purchaseorders', $this->paginate($this->PurchaseOrders->find('searchable', $this->Prg->parsedParams())->where(['PurchaseOrders.quotation_id' => $id])->order(['PurchaseOrders.created' => 'DESC'])));
+        } else { 
+            $this->set('purchaseorders', $this->paginate($this->PurchaseOrders->find('searchable', $this->Prg->parsedParams())->where(['PurchaseOrders.supplier_id' => $supplier_id])->order(['PurchaseOrders.created' => 'DESC'])));
+        }
+
+        $this->set('id', $id);
+        $this->set(compact('purchaseorders', 'id'));
+        $this->set('_serialize', ['purchaseorders']);
+    }
+
+    public function approveOrder($id) {
+
+        $purchaseOrder = $this->PurchaseOrders->get($id);
+        $purchaseOrder->approval_status = 'Approved';
+        $purchaseOrder->delivery_status = false;
+        $this->PurchaseOrders->save($purchaseOrder);
+        $this->Flash->success(__('The Purchase Order has been approved.'));
+
+        return $this->redirect(['action' => 'supplierIndex']);
+    }
+
+    public function rejectOrder($id) {
+
+        $purchaseOrder = $this->PurchaseOrders->get($id);
+        $purchaseOrder->approval_status = 'Rejected';
+        $purchaseOrder->delivery_status = NULL;
+        $this->PurchaseOrders->save($purchaseOrder);
+        $this->Flash->success(__('The Purchase Order has been rejected.'));
+
+        return $this->redirect(['action' => 'supplierIndex']);
+    }
+    public function pendingOrder($id) {
+
+       $purchaseOrder = $this->PurchaseOrders->get($id);
+       $purchaseOrder->approval_status = 'Pending';
+       $purchaseOrder->delivery_status = NULL;
+       $this->PurchaseOrders->save($purchaseOrder);
+       $this->Flash->success(__('The Purchase Order\'s status has been revert to pending.'));
+
+       return $this->redirect(['action' => 'supplierIndex']);
+   }
 
     public function listpurchaseorders() 
     {

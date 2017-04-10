@@ -49,8 +49,7 @@ class QuotationsTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->belongsTo('Rfqs', [
-            'foreignKey' => 'rf
-            q_id'
+            'foreignKey' => 'rfq_id'
         ]);
         $this->belongsTo('Suppliers', [
             'foreignKey' => 'supplier_id'
