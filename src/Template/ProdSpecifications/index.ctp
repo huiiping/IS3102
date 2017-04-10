@@ -1,16 +1,10 @@
 <?php
-/**
-  * @var \App\View\AppView $this
-  */
+$this->assign('title', __('prodSpecifications') . '/' . __('Index'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Product Specification'));
 ?>
 
-<?= $this->Element('retailerLeftSideBar'); ?>
 
-<!-- Main Content -->
-<div class="content-wrapper">
-  <!-- Content Header -->
-  <section class="content-header">
-  </section>
   <!-- Main content -->
   <section class="content">
       <div class="row">

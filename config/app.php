@@ -231,7 +231,7 @@ return [
             //'port' => 'non_standard_port_number',
             'username' => 'root',
             'password' => 'joy',
-            'database' => 'test1db',
+            'database' => 'retailerdb',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'flags' => [],

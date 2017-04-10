@@ -55,11 +55,11 @@ class ProdSpecificationsController extends AppController
             if ($this->ProdSpecifications->save($prodSpecification)) {
                 $this->Flash->success(__('The prod specification has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'products','action' => 'index']);
             }
             $this->Flash->error(__('The prod specification could not be saved. Please, try again.'));
         }
-        $products = $this->ProdSpecifications->Products->find('list', ['limit' => 200]);
+        $products = $this->ProdSpecifications->Products->find('all', ['limit' => 200]);
         $this->set(compact('prodSpecification', 'products'));
         $this->set('_serialize', ['prodSpecification']);
     }
