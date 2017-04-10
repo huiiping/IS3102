@@ -491,8 +491,7 @@ class ItemsController extends AppController
         $this->set('_serialize', ['item']);
     } 
 
-    public function checkpaymentstatus() 
-    {
+    public function checkpaymentstatus() {
     
         $rfid = $_POST['rfid'];
         $items = $this->Items->find()->where(['EPC' => $rfid]);
@@ -506,48 +505,186 @@ class ItemsController extends AppController
         
     }
 
-    public function inboundrfidtag(){
+    public function outboundrfidtag() {
+
+        $this->loadModel("DeliveryOrdersItems");
+        $this->loadModel("DeliveryOrders");
+        $this->loadModel("TransferOrdersItems");
+        $this->loadModel("TransferOrders");
 
         $id = $_POST['id'];
-        echo ("ID = ".$id."\n");
-        $item_code = $_POST['item_code'];
-        echo ("ITEM CODE = ".$item_code."\n");
-        $desc = $_POST['desc'];
-        echo ("DESC = ".$desc."\n");
-        $qty = $_POST['qty'];
-        echo ("QTY = ".$qty."\n");
-        $price = $_POST['price'];
-        echo ("PRICE = ".$price."\n");
-        $rfid_list = $_POST['rfid_list'];
-        echo ("RFID LIST = ".$rfid_list."\n");
-        $location = $_POST['location'];
-        echo ("LOCATION ID = ".$location."\n");
-        $section = $_POST['section'];
-        echo ("SECTION ID = ".$section."\n");
-        $count = 0;
-        $rfid_list = substr($rfid_list, 1, strlen($rfid_list)-2);
-        $rfid_arr = explode(", ", $rfid_list);
+        $type = $_POST['type'];
+        $item_id = $_POST['item_id'];
 
-        while($count < $qty){
-            echo ("rfid array[".$count."] = ".$rfid_arr[$count]."\n");
-            $item = $this->Items->newEntity();
-            $item->name = $item_code;
-            $item->description = $desc;
-            $item->section_id = $section;
+        $item = $this->Items->get($item_id);
+        $item->status = "In Transit";
+        $item->location_id = null;
+        $item->section_id = null;
+
+        if($this->Items->save($item)){
+
+            if($type == 'to') {
+
+                $array = $this->TransferOrdersItems->find()->where(['transfer_order_id' => $id])->toArray();
+
+                $completed = true;
+                foreach ($array as $row) {
+
+                    $item = $this->Items->get($row['item_id']);
+
+                    if($item['status'] != 'In Transit'){
+                        $completed = false;
+                        break;
+                    }
+                }
+
+                if($completed){
+                    $transferOrder = $this->TransferOrders->get($id);
+                    $transferOrder->status = "In Transit";
+                    $this->TransferOrders->save($transferOrder);
+                }
+
+            } else {
+
+                $array = $this->DeliveryOrdersItems->find()->where(['delivery_order_id' => $id])->toArray();
+
+                $completed = true;
+                foreach ($array as $row) {
+
+                    $item = $this->Items->get($row['item_id']);
+
+                    if($item['status'] != 'In Transit'){
+                        $completed = false;
+                        break;
+                    }
+                }
+
+                if($completed){
+                    $deliveryOrder = $this->DeliveryOrders->get($id);
+                    $deliveryOrder->status = "In Transit";
+                    $this->DeliveryOrders->save($deliveryOrder);
+                }
+
+            }
+
+            echo ("SUCCESS"."\n");
+            
+        } else {
+            echo ("FAILED"."\n");
+        }
+
+    }
+
+    public function inboundrfidtag() {
+
+        $this->loadModel("PurchaseOrderItems");
+        $this->loadModel("PurchaseOrders");
+        $this->loadModel("TransferOrdersItems");
+        $this->loadModel("TransferOrders");
+        $type = $_POST['type'];
+        //echo ("Type =".$type);
+
+        if($type == "po") {
+
+            $po_id = $_POST['po_id'];
+            $id = $_POST['id'];
+            echo ("ID = ".$id."\n");
+            $item_code = $_POST['item_code'];
+            echo ("ITEM CODE = ".$item_code."\n");
+            $desc = $_POST['desc'];
+            echo ("DESC = ".$desc."\n");
+            $qty = $_POST['qty'];
+            echo ("QTY = ".$qty."\n");
+            $price = $_POST['price'];
+            echo ("PRICE = ".$price."\n");
+            $rfid_list = $_POST['rfid_list'];
+            echo ("RFID LIST = ".$rfid_list."\n");
+            $location = $_POST['location'];
+            echo ("LOCATION ID = ".$location."\n");
+            $section = $_POST['section'];
+            echo ("SECTION ID = ".$section."\n");
+            $count = 0;
+            $rfid_list = substr($rfid_list, 1, strlen($rfid_list)-2);
+            $rfid_arr = explode(", ", $rfid_list);
+
+            $query = $this->PurchaseOrderItems->get($id);
+            $query->quantity = 0;
+            $this->PurchaseOrderItems->save($query);
+
+            $array = $this->PurchaseOrderItems->find()->where(['purchase_order_id' => $po_id])->toArray();
+
+            $completed = true;
+            foreach ($array as $row) {
+                if($row['quantity'] != 0){
+                    $completed = false;
+                    break;
+                }
+            }
+
+            if($completed){
+                $purchaseOrder = $this->PurchaseOrders->get($po_id);
+                $purchaseOrder->delivery_status = 1;
+                $this->PurchaseOrders->save($purchaseOrder);
+            }
+
+
+            while($count < $qty){
+                echo ("rfid array[".$count."] = ".$rfid_arr[$count]."\n");
+                $item = $this->Items->newEntity();
+                $item->name = $item_code;
+                $item->description = $desc;
+                $item->section_id = $section;
+                $item->location_id = $location;
+                $item->EPC = $rfid_arr[$count];
+                $item->status = "In Location";
+
+                if($this->Items->save($item)){
+                    echo ("SUCCESS"."\n");
+                } else {
+                    echo ("FAILED"."\n");
+                }
+
+                $count++;
+            }
+        } else {
+
+            $id = $_POST['id'];
+            $location = $_POST['location'];
+            $section = $_POST['section'];
+            $to_id = $_POST['to_id'];
+
+            $item = $this->Items->get($id);
             $item->location_id = $location;
-            $item->EPC = $rfid_arr[$count];
+            $item->section_id = $section;
+            $item->status = "In Location";
 
             if($this->Items->save($item)){
+
+                $array = $this->TransferOrdersItems->find()->where(['transfer_order_id' => $to_id])->toArray();
+
+                $completed = true;
+                foreach ($array as $row) {
+
+                    $item = $this->Items->get($row['item_id']);
+
+                    if($item['status'] != 'In Location'){
+                        $completed = false;
+                        break;
+                    }
+                }
+
+                if($completed){
+                    $transferOrder = $this->TransferOrders->get($to_id);
+                    $transferOrder->status = "Completed";
+                    $this->TransferOrders->save($transferOrder);
+                }
+
                 echo ("SUCCESS"."\n");
             } else {
                 echo ("FAILED"."\n");
             }
-
-            $count++;
         }
 
-        
         die();
-
     }
 }

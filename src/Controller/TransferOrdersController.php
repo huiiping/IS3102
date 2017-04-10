@@ -185,37 +185,41 @@ class TransferOrdersController extends AppController
 
   public function listtoitems(){
 
-    $this->loadModel("TransferOrderItems");
+    $this->loadModel("TransferOrdersItems");
     $this->loadModel("Items");
     $this->loadModel("Products");
     $id = $_POST['id'];
+    $status = $_POST['status'];
 
-    $array = $this->TransferOrderItems->find()->where(['transfer_order_id' => $id])->toArray();
+    $array = $this->TransferOrdersItems->find()->where(['transfer_order_id' => $id])->toArray();
 
     foreach($array as $row){
 
+      
       $item_id = $row['item_id'];
       $item = $this->Items->get($item_id);
-      echo ($item['id']);
-      echo "\n";
-      echo ($item['name']);
-      echo "\n";
-      echo ($item['description']);
-      echo "\n";
-      echo ($item['EPC']);
-      echo "\n";
-
-      if($item['product_id'] != null){
-        $product = $this->Products->get($item['product_id']);
-        echo ($product['barcode']);
+      if($item['status'] != $status){
+        echo ($item['id']);
         echo "\n";
-      } else {
-        echo ("null");
+        echo ($item['name']);
+        echo "\n";
+        echo ($item['description']);
+        echo "\n";
+        echo ($item['EPC']);
+        echo "\n";
+
+        if($item['product_id'] != null){
+          $product = $this->Products->get($item['product_id']);
+          echo ($product['barcode']);
+          echo "\n";
+        } else {
+          echo ("null");
+          echo "\n";
+        }
+
+        echo ($item['status']);
         echo "\n";
       }
-
-      echo ($item['status']);
-      echo "\n";
     }
 
     die;

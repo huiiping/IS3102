@@ -133,7 +133,7 @@ class PurchaseOrdersController extends AppController
         $this->loadModel("PurchaseOrderItems");
         $id = $_POST['id'];
 
-        $array = $this->PurchaseOrderItems->find()->where(['purchase_order_id' => $id])->toArray();
+        $array = $this->PurchaseOrderItems->find()->where(['purchase_order_id' => $id])->where(['quantity >' => 0])->toArray();
 
         foreach($array as $row){
             echo ($row['id']);
