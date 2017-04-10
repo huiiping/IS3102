@@ -18,7 +18,7 @@ class LocationsController extends AppController
 
     public function beforeFilter(Event $event)
     {
-        $this->loadComponent('Logging');   
+        $this->loadComponent('Logging');
     }
 
     /**
@@ -35,8 +35,17 @@ class LocationsController extends AppController
     }
     public $components = array(
         'Prg'
-    );
+        );
 
+    public function htclocations() {
+        $this->viewBuilder()->setLayout("ajax");
+        //$locations = $this->paginate($this->Locations);
+        $locations = $this->Locations->find('all');
+        //$this->set('locations', $this->paginate($this->Locations));
+       // $this->set(compact('locations'));
+        $this->set('locations', $locations);
+        $this->set('_serialize', ['locations']);
+    }
     /**
      * View method
      *
@@ -48,7 +57,7 @@ class LocationsController extends AppController
     {
         $location = $this->Locations->get($id, [
             'contain' => ['RetailerEmployees', 'Sections']
-        ]);
+            ]);
 
         $session = $this->request->session();
         $retailer = $session->read('retailer');
@@ -109,30 +118,30 @@ class LocationsController extends AppController
         //obtaining the retailer's limit on the number of locations of a certain type
         $conn = ConnectionManager::get('intrasysdb');
         $acctTypeID = $conn
-            ->newQuery()
-            ->select('retailer_acc_type_id')
-            ->from('retailers')
-            ->where(['retailer_name' => $retailer])
-            ->execute()
-            ->fetchAll('assoc');
+        ->newQuery()
+        ->select('retailer_acc_type_id')
+        ->from('retailers')
+        ->where(['retailer_name' => $retailer])
+        ->execute()
+        ->fetchAll('assoc');
         
         $defaultNum = $conn
-            ->newQuery()
-            ->select('num_of_'.$type.'s')
-            ->from('retailer_acc_types')
-            ->where(['id' => $acctTypeID[0]], ['id' => 'integer[]'])
-            ->execute()
-            ->fetchAll('assoc');
+        ->newQuery()
+        ->select('num_of_'.$type.'s')
+        ->from('retailer_acc_types')
+        ->where(['id' => $acctTypeID[0]], ['id' => 'integer[]'])
+        ->execute()
+        ->fetchAll('assoc');
         $defaultNum = Hash::extract($defaultNum, '{n}.num_of_'.$type.'s');
 
         //The bonus number of units given to individual retailers
         $bonus = $conn
-            ->newQuery()
-            ->select('num_of_'.$type.'s')
-            ->from('retailers')
-            ->where(['retailer_name' => $retailer])
-            ->execute()
-            ->fetchAll('assoc');
+        ->newQuery()
+        ->select('num_of_'.$type.'s')
+        ->from('retailers')
+        ->where(['retailer_name' => $retailer])
+        ->execute()
+        ->fetchAll('assoc');
         $bonus = Hash::extract($bonus, '{n}.num_of_'.$type.'s');
 
         //Total units allocated to each retaiiler
@@ -155,7 +164,7 @@ class LocationsController extends AppController
     {
         $location = $this->Locations->get($id, [
             'contain' => []
-        ]);
+            ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $location = $this->Locations->patchEntity($location, $this->request->data);
             if ($this->Locations->save($location)) {

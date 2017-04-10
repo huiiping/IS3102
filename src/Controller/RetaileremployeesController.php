@@ -11,6 +11,7 @@ use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use Cake\Mailer\Email;
 use Cake\Auth\DefaultPasswordHasher;
+use Cake\Network\Http\Client;
 
 /**
  * RetailerEmployees Controller
@@ -26,6 +27,7 @@ class RetailerEmployeesController extends AppController
     {
 
         parent::beforeFilter($event);
+        $this->loadComponent('RequestHandler');
         $this->loadComponent('CakeCaptcha.Captcha', [
           'captchaConfig' => 'ExampleCaptcha'
           ]);
@@ -50,7 +52,7 @@ class RetailerEmployeesController extends AppController
         // Allow users to register and logout.
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
-        $this->Auth->allow(['add', 'logout', 'activate', 'recoverPassword', 'recoverActivate', 'setPassword']);
+        $this->Auth->allow(['htcindex', 'add', 'logout', 'activate', 'recoverPassword', 'recoverActivate', 'setPassword']);
     }
 
     public function index() {
@@ -60,11 +62,72 @@ class RetailerEmployeesController extends AppController
         $this->paginate = [
         'contain' => ['Locations','RetailerEmployeeRoles']
         ];
- 
+
         $this->set('retailerEmployees', $this->paginate($this->RetailerEmployees->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('retailerEmployees'));
         $this->set('_serialize', ['retailerEmployees']);
     }
+
+    public function htcindex() {
+        $this->viewBuilder()->setLayout("ajax");
+
+        
+        $response = $this->request->data();
+
+      //var_dump($response);
+
+        //Check if there's any missing value
+        foreach($response as $key => $value) {
+            if ($value == "") {
+                $this->set("test", "failed");
+                return;
+            } 
+        };
+
+        foreach($response as $key => $value) {
+            if($key == 'username') {
+                //var_dump("in check username");
+                $this->request->data['username'] = $value;
+            } else if ($key == 'password') {
+                //var_dump("in check password");
+                $this->request->data['password'] = $value;
+            } else {
+                $retailer = $value;
+                $database = $value."db";
+                //var_dump($database);
+
+                $session = $this->request->session();
+                $session->write('database', $database);
+
+                ConnectionManager::drop('conn1'); 
+                ConnectionManager::config('conn1', [
+                    'className' => 'Cake\Database\Connection',
+                    'driver' => 'Cake\Database\Driver\Mysql',
+                    'persistent' => false,
+                    'host' => 'localhost',
+                    'username' => 'root',
+                    'password' => 'joy',
+                    'database' => $database,
+                    'encoding' => 'utf8',
+                    'timezone' => 'UTC',
+                    'cacheMetadata' => true,
+
+                    ]);
+                ConnectionManager::alias('conn1', 'default');
+
+                $user = $this->Auth->identify();
+                if ($user){
+                $this->Auth->setUser($user);
+                // var_dump("Auth Success");
+            } else {
+                $this->set("test", "failed");
+                return;
+            };
+            };
+        };
+        $this->set("test", "pass");
+    }
+
     public $components = array(
         'Prg'
         );
@@ -76,7 +139,7 @@ class RetailerEmployeesController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
-    {
+    {   
         $retailerEmployee = $this->RetailerEmployees->get($id, [
             'contain' => ['Locations', 'Messages', 'RetailerEmployeeRoles', 'Promotions', 'PurchaseOrders', 'SupplierMemos', 'RetailerLoggings']
             ]);
@@ -366,11 +429,11 @@ class RetailerEmployeesController extends AppController
 
         //Only the employee themselves can edit their account
         if($retailerEmployee['id'] != $sessionId) {
-         $this->redirect($this->referer());
-         $this->Flash->error(__('You are not authorzied to edit other employees.'));
-     }
+           $this->redirect($this->referer());
+           $this->Flash->error(__('You are not authorzied to edit other employees.'));
+       }
 
-     if ($this->request->is(['patch', 'post', 'put'])) {
+       if ($this->request->is(['patch', 'post', 'put'])) {
         $retailerEmployee = $this->RetailerEmployees->patchEntity($retailerEmployee, $this->request->data);
         if ($this->RetailerEmployees->save($retailerEmployee)) {
             $this->Flash->success(__('The retailer employee has been saved.'));
