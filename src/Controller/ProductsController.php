@@ -180,4 +180,26 @@ class ProductsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function getproduct(){
+        $code = $_POST['code'];
+        //echo ($code."\n");
+
+        $products = $this->Products->find()->where(['barcode' => $code])->toArray();
+        foreach ($products as $product) {
+            
+            echo ($product['prod_name']);
+            echo "\n";
+
+            echo ($product['barcode']);
+            echo "\n";
+
+            echo ($product['store_unit_price']);
+            echo "\n";
+        }
+
+        die();
+
+    }
+
 }

@@ -95,12 +95,12 @@ class MessagesController extends AppController
 
             //Messages recieved by user
             if (isset($id) && $id != 0) {
-                $msgsReceived = $retailerEmployeesMessages->find()
-                        ->where(['message_id' => $receiveIDs], ['message_id' => 'integer[]'])
-                        ->andWhere(['retailer_employee_id' => $sender])
-                        ->select('message_id')
+                $msgsReceived = $this->Messages->find()
+                        ->where(['id' => $receiveIDs], ['id' => 'integer[]'])
+                        ->andWhere(['sender_id' => $id])
+                        ->select('id')
                         ->toArray();
-                $msgsReceived = Hash::extract($msgsReceived, '{n}.message_id');
+                $msgsReceived = Hash::extract($msgsReceived, '{n}.id');
             }
         } 
         
