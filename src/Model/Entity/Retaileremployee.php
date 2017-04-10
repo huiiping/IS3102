@@ -56,6 +56,8 @@ class RetailerEmployee extends Entity
         'password'
     ];
 
+    protected $_virtual = ['username'];
+
     protected function _setPassword($password){
         return (new DefaultPasswordHasher)->hash($password);
     }

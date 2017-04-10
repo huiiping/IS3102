@@ -1,0 +1,1 @@
+<?= json_encode($query, JSON_PRETTY_PRINT) ?>

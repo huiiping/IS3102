@@ -15,7 +15,7 @@ $this->Html->addCrumb(__('Announcements'));
           </div>
           <div class="box-body">
             <div class="pull-right">
-              <a class="btn btn-default btn-block" title="Create New Announcement" href="/IS3102_Final/announcements/add" >Create New Announcement</a>
+              <a class="btn btn-success btn-block" title="Create New Announcement" href="/IS3102_Final/announcements/add" >Create New Announcement</a>
             </div>
             <form method="post" accept-charset="utf-8" action="/IS3102_Final/announcements">
               <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
@@ -32,7 +32,7 @@ $this->Html->addCrumb(__('Announcements'));
                   <th width="30"></th>
                   <th scope="col" class ="form-group">
                     <div class ="submit">
-                      <input class = "form-control" type="submit" class="btn btn-default bth-flat" value="Search">
+                      <input class = "form-control" type="submit" class="btn btn-success bth-flat" value="Search">
                     </div>
                   </th>
                 </tr>

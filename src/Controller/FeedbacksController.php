@@ -30,7 +30,7 @@ class FeedbacksController extends AppController
         $this->loadComponent('Prg');
         $this->Prg->commonProcess();
         $this->paginate = [
-        'contain' => ['Customers', 'Products', 'Items']
+        'contain' => ['Customers']
         ];
         $this->set('feedbacks', $this->paginate($this->Feedbacks->find('searchable', $this->Prg->parsedParams())));
 
@@ -45,7 +45,7 @@ class FeedbacksController extends AppController
     public function view($id = null)
     {
         $feedback = $this->Feedbacks->get($id, [
-            'contain' => ['Customers', 'Products', 'Items']
+            'contain' => ['Customers']
             ]);
 
         $session = $this->request->session();

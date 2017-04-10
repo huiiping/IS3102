@@ -37,7 +37,7 @@ class TransactionsController extends AppController
     public function view($id = null)
     {
         $transaction = $this->Transactions->get($id, [
-            'contain' => ['Customers', 'RetailerEmployees', 'Locations', 'DeliveryOrders', 'items']
+            'contain' => ['Customers', 'RetailerEmployees', 'Locations']
         ]);
 
         $this->set('transaction', $transaction);
