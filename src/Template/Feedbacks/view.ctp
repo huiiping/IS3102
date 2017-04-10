@@ -1,9 +1,10 @@
 <?php
 $this->assign('title', __('Feedbacks') .'/'. __('View'));
 $this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
-$this->Html->addCrumb(__('Feedbacks'), ['controller' => 'Feedbacks', 'action' => 'index']);
+$this->Html->addCrumb(__('Feedback'), ['controller' => 'Feedbacks', 'action' => 'index']);
 $this->Html->addCrumb(__('View Feedback'));
 ?>
+
 <!-- Main content -->
 <section class="content">
   <div class="row">
@@ -13,10 +14,10 @@ $this->Html->addCrumb(__('View Feedback'));
           <h3 class="box-title">Feedback <?= h($feedback->id) ?></h3>
       </div>
       <div class="box-body">
-          <div class="pull-right">
+        <!-- <div class="pull-right">
             <a class="btn btn-success btn-block" title="Edit Retailer Account Type" href="/IS3102_Final/feedbacks/edit/<?=$feedback->id?>" >Edit Feedback</a>
-        </div><br><br><br>
-
+        </div><br><br> -->
+        <br>
         <table class="table table-bordered table-striped">
             <tr>
                 <th scope="row"><?= __('Id') ?></th>
@@ -24,7 +25,7 @@ $this->Html->addCrumb(__('View Feedback'));
             </tr>
             <tr>
                 <th scope="row"><?= __('Customer') ?></th>
-                <td><?= $feedback->has('customer') ? $this->Html->link($feedback->customer->first_name.' '.$feedback->customer->last_name, ['controller' => 'Customers', 'action' => 'view', $feedback->customer->id]) : '' ?></td>
+                <td><?= $feedback->has('customer') ? $this->Html->link($feedback->customer_id, ['controller' => 'Customers', 'action' => 'view', $feedback->customer->id], ['title' => 'View Customer Details']) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row"><?= __('Customer First Name') ?></th>
@@ -36,11 +37,12 @@ $this->Html->addCrumb(__('View Feedback'));
             </tr>
             <tr>
                 <th scope="row"><?= __('Customer Email') ?></th>
-                <td><?= h($feedback->customer_email) ?></td>
+                <td><a href="mailto:<?= h($feedback->customer_email) ?>" title="email"><?= h($feedback->customer_email) ?></a></td>
             </tr>
             <tr>
                 <th scope="row"><?= __('Customer Contact') ?></th>
-                <td><?= $this->Number->format($feedback->customer_contact) ?></td>
+                <td><a href="tel:+<?= h($feedback->customer_contact) ?>" title="Call Contact">
+                    <?= h($feedback->customer_contact) ?></a></td>
             </tr>
             <tr>
                 <th scope="row"><?= __('Message') ?></th>
@@ -49,14 +51,6 @@ $this->Html->addCrumb(__('View Feedback'));
             <tr>
                 <th scope="row"><?= __('Status') ?></th>
                 <td><?= h($feedback->status) ?></td>
-            </tr>
-            <tr>
-                <th scope="row"><?= __('Product') ?></th>
-                <td><?= $feedback->has('product') ? $this->Html->link($feedback->product->prod_name, ['controller' => 'Products', 'action' => 'view', $feedback->product->id]) : '' ?></td>
-            </tr>
-            <tr>
-                <th scope="row"><?= __('Item') ?></th>
-                <td><?= $feedback->has('item') ? $this->Html->link($feedback->item->name, ['controller' => 'Items', 'action' => 'view', $feedback->item->id]) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row"><?= __('Modified') ?></th>

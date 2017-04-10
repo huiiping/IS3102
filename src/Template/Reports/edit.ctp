@@ -33,7 +33,7 @@ $this->Html->addCrumb(__('Edit Incident Report'));
                 <input class = "form-control" type="text" name="message" placeholder = "Report Message*" required="required" id="message" value="<?=$report->message?>" maxlength="255">
               </div> 
             </div>
-            <div class ="form-group">
+            <!-- <div class ="form-group">
               <div class="input-group" title="Enter Entity*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>
                 <input class = "form-control" type="text" placeholder = "Entity*" name="entity" required="required" id="entity" value="<?=$report->entity?>" maxlength="100"> 
@@ -43,12 +43,6 @@ $this->Html->addCrumb(__('Edit Incident Report'));
               <div class="input-group" title="Enter Entity ID*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>
                 <input class = "form-control" type="number" placeholder = "Entity ID*" name="entityID" required="required" id="entityID" value="<?=$report->entityID?>" min="1"> 
-              </div>
-            </div>
-            <!-- <div class ="form-group">
-              <div class="input-group" title="Enter Status*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                <input class = "form-control" type="text" placeholder = "Status*" name="status" required="required" id="status" value="<?=$report->status?>" maxlength="100"> 
               </div>
             </div> -->
             <br>

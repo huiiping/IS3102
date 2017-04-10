@@ -268,23 +268,12 @@ crossorigin="anonymous"></script> -->
               <!-- End Notifications -->
 
 
-              <!-- Setting -->
+              <!-- Setting : Company Profile -->
               <?php if( (!$intrasys) && (!$type) ) : ?>
-                <li class="dropdown notifications-menu" title="Settings">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-gears"></i>
+                <li class="dropdown notifications-menu" title="Company Profile">
+                  <a <?php if($this->request->session()->read('page') === 'RetailerDetails') : ?> class="changeactive" <?php endif; ?> href="/IS3102_Final/retailer-details/index">
+                  <i class="fa fa-gear"></i>
                   </a>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <ul class="menu">
-                        <li><!-- start task item -->
-                          <a <?php if($this->request->session()->read('page') === 'RetailerDetails') : ?> class="changeactive" <?php endif; ?> href="/IS3102_Final/retailer-details/index">
-                            <i class="fa fa-gear"></i><span>Company Profile</span>
-                          </a>
-                        </li><!-- end task item -->
-                      </ul>
-                    </li>
-                  </ul>
                 </li>
               <?php endif; ?>
 
@@ -471,3 +460,15 @@ crossorigin="anonymous"></script> -->
                 });
                });
              </script>
+             <!-- Bootstrap WYSIHTML5 -->
+<script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+<script src="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<script>
+$(function () {
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('message2');
+    //bootstrap WYSIHTML5 - text editor
+    $(".textarea").wysihtml5();
+  });
+</script>

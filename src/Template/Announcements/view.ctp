@@ -15,7 +15,7 @@ $this->Html->addCrumb(__('View Announcement'));
           </div>
           <div class="box-body">
             <div class="pull-right">
-              <a class="btn btn-default btn-block" title="Edit Announcement" href="/IS3102_Final/announcements/edit/<?=$announcement->id?>" >Edit Announcement</a>
+              <a class="btn btn-success btn-block" title="Edit Announcement" href="/IS3102_Final/announcements/edit/<?=$announcement->id?>" >Edit Announcement</a>
             </div><br><br><br>
 
               <table class="table table-bordered table-striped">

@@ -16,6 +16,10 @@ $this->Html->addCrumb(__('Retailers'));
           <div class="pull-right">
             <a class="btn btn-success btn-block" title="Create New Retailer" href="/IS3102_Final/retailers/add" >Create New Retailer</a>
           </div>
+          <br><br>
+          <div class="pull-right">
+            <a class="btn btn-success btn-block" title="Award Mass Loyalty Points" href="/IS3102_Final/RetailerLoyaltyPoints/add" >Mass Send Loyalty Points</a>
+          </div>
           <form method="post" accept-charset="utf-8" action="/IS3102_Final/retailers">
               <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
                 <tr>

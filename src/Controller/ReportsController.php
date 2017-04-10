@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 
 /**
  * Reports Controller
@@ -62,28 +63,39 @@ class ReportsController extends AppController
     {
         $report = $this->Reports->newEntity();
         if ($this->request->is('post')) {
-            $report = $this->Reports->patchEntity($report, $this->request->data);
 
-            $session = $this->request->session();
-            //get employee id
-            $report['retailer_employee_id'] = $_SESSION['Auth']['User']['id'];
-            $report['status'] = 'Pending';
+            if (isset($_POST['generate_button'])) {
+                $report = $this->Reports->patchEntity($report, $this->request->data);
 
-            if ($this->Reports->save($report)) {
-                $this->Flash->success(__('The incident report has been saved.'));
+                $entity = $report['entity2'];
+            } 
+            else {
+                
+                if (isset($_POST['save_button'])) {
+                    $report = $this->Reports->patchEntity($report, $this->request->data);
+            
+                    $session = $this->request->session();
+                    //get employee id
+                    $report['retailer_employee_id'] = $_SESSION['Auth']['User']['id'];
+                    $report['status'] = 'Pending';
 
-                $retailer = $session->read('retailer');
+                    if ($this->Reports->save($report)) {
+                        $this->Flash->success(__('The incident report has been saved.'));
 
-                //$this->loadComponent('Logging');
-                $this->Logging->rLog($report['id']);
-                $this->Logging->iLog($retailer, $report['id']);
+                        $retailer = $session->read('retailer');
 
-                return $this->redirect(['action' => 'index']);
+                        //$this->loadComponent('Logging');
+                        $this->Logging->rLog($report['id']);
+                        $this->Logging->iLog($retailer, $report['id']);
+
+                        return $this->redirect(['action' => 'index']);
+                    }
+                } else {
+                    $this->Flash->error(__('The incident report could not be saved. Please, try again.'));
+                }
             }
-            $this->Flash->error(__('The incident report could not be saved. Please, try again.'));
         }
-        $retailerEmployees = $this->Reports->RetailerEmployees->find('list', ['limit' => 200]);
-        $this->set(compact('report', 'retailerEmployees'));
+        $this->set(compact('report', 'entity'));
         $this->set('_serialize', ['report']);
     }
 

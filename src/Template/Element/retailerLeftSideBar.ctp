@@ -115,7 +115,7 @@
         </li>
         <li class="treeview">
           <a href="/IS3102_Final/reports/other">
-            <i class="fa fa-book"></i><span>&nbsp;Other Reports</span>
+            <i class="fa fa-book"></i><span>&nbsp;Analytic Reports</span>
           </a>
         </li>
         <li class="treeview">
