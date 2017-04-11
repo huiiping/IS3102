@@ -32,10 +32,18 @@ class AnalyticsController extends AppController
      * @return \Cake\Network\Response|null
      */
     public function index()
-    {
+    {   
         $retailerEmployeesTable = TableRegistry::get('RetailerEmployees');
-        $query =  $retailerEmployeesTable->find('all')->toArray();
-        $this->set('retailers', $query);
+        $suppliersTable = TableRegistry::get('Suppliers');
+        $customersTable = TableRegistry::get('Customers');
+        $employees =  sizeof($retailerEmployeesTable->find()->toArray());
+        $suppliers =  sizeof($suppliersTable->find()->toArray());
+        $customers =  sizeof($customersTable->find()->toArray());
+        $date = date("Y-m-d H:i:s");
+
+        $this->set(compact('employees','customers','suppliers','date'));
+
+        
     }
 
     

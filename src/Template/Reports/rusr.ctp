@@ -13,13 +13,15 @@ a {
 
 
 
-
-<div class="row">
-<div class = "col-md-10">
-<div id="userstats" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+<div style="height:30px;">
 </div>
 
-
+<div id="userstats" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto; border-radius:10px">
+    
+</div>
+<div  style="min-width: 310px;  max-width: 600px; margin: 0 auto; border-radius:10px">
+<a href="/IS3102_Final/reports/other" class="btn btn-md btn-block btn-primary pull-right" style="border-radius: 8px; margin:5px;">Generate Other Reports</a>
+</div>
 
 
 <script>
