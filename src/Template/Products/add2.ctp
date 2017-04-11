@@ -23,37 +23,47 @@ $this->Html->addCrumb(__('Create New Product Specification'));
               <input type="hidden" name="_method" value="POST">
             </div>
 
-            <!-- <input class = "hidden" type="text" name="products[_ids]" required="required" id="products[_ids]" value="<?= $product->id ?>"> -->
-
-            
-            <!-- Not working -->
-            <input type="hidden" name="product_id" id="product_id" value="<?= $product->id ?>">
-
-
-            <div class ="form-group">          
-              <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input class = "form-control" type="text" placeholder = "Product Specification Title*" name="title" required="required" id="title" maxlength="255"> 
-              </div>
-            </div>
-
-            <div class ="form-group">
-              <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                <input class = "form-control" type="text" placeholder = "Description*" name="description" required="required" id="description" maxlength="255"> 
-              </div>
-            </div>
-
-            <br>
-
-            <div class ="row">
-              <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save Product Specification</button>
-            </div>
-            <br>
-          </form>
+            <div class ="form-group">         
+              <div class="input-group" style="z-index: 35;" title="Select Product">
+                <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
+                <input type="hidden" name="products[_ids]" value="">
+                <select name="products[_ids][]" class='selectpicker form-control' title ="Select Product" multiple data-selected-text-format="count > 3" data-live-search="true">
+                <?php foreach($products as $prod) : ?>
+                   <?php  if($product->id == $prod->id) :?>
+                   <option selected="selected" value="<?=$prod->id?>"><?= $prod->prod_name?></option>
+                 <?php else: ?>
+                  <option value= "<?= $product->id?>"><?= $prod->prod_name?></option> 
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </select>
+          </div>
         </div>
-      </div>
+
+
+        <div class ="form-group">          
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input class = "form-control" type="text" placeholder = "Product Specification Title*" name="title" required="required" id="title" maxlength="255"> 
+          </div>
+        </div>
+
+        <div class ="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+            <input class = "form-control" type="text" placeholder = "Description*" name="description" required="required" id="description" maxlength="255"> 
+          </div>
+        </div>
+
+        <br>
+
+        <div class ="row">
+          <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save Product Specification</button>
+        </div>
+        <br>
+      </form>
     </div>
   </div>
+</div>
+</div>
 </section>
 </div>

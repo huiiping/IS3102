@@ -78,7 +78,7 @@ $this->Html->addCrumb(__('Delivery Orders'));
                   if($deliveryOrder->status == 'Pending'){
                     ?>
                     <div class="btn-group">
-                      <button type="button" style="width: 100px;" class="btn btn-warning btn-flat"><?= h($deliveryOrder->status) ?></button>
+                      <button type="button" style="width: 100px;" class="btn btn-danger btn-flat"><?= h($deliveryOrder->status) ?></button>
                       <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                         <span class="sr-only">Toggle Dropdown</span>
@@ -86,11 +86,12 @@ $this->Html->addCrumb(__('Delivery Orders'));
 
                       <ul class="dropdown-menu" role="menu">
                         <li><a title="Delivered" href="/IS3102_Final/delivery-orders/deliveredStatus/<?= $deliveryOrder->id ?>">Delivered</a></li>
+                        <li><a title="Approved" href="/IS3102_Final/delivery-orders/approvedStatus/<?= $deliveryOrder->id ?>">Approved</a></li>
                       </ul>
                     </div>
                     <?php
 
-                  } else{
+                  } else if ($deliveryOrder->status == 'Delivered'){
                     ?>
 
                     <div class="btn-group">
@@ -101,10 +102,23 @@ $this->Html->addCrumb(__('Delivery Orders'));
                       </button>
                       <ul class="dropdown-menu" role="menu">
                         <li><a title="Pending Feedback" href="/IS3102_Final/delivery-orders/pendingStatus/<?= $deliveryOrder->id ?>">Pending</a></li>
+                        <li><a title="Approved Feedback" href="/IS3102_Final/delivery-orders/approvedStatus/<?= $deliveryOrder->id ?>">Approved</a></li>
                       </ul>
                     </div>
                     <?php
-                  }
+                  } else { ?>
+                    <div class="btn-group">
+                      <button type="button" style="width: 100px;" class="btn btn-warning btn-flat"><?= h($deliveryOrder->status) ?></button>
+                      <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a title="Pending Feedback" href="/IS3102_Final/delivery-orders/pendingStatus/<?= $deliveryOrder->id ?>">Pending</a></li>
+                        <li><a title="Approved Feedback" href="/IS3102_Final/delivery-orders/deliveredStatus/<?= $deliveryOrder->id ?>">Delivered</a></li>
+                      </ul>
+                    </div>
+                  <?php }
                   ?>
                   </td>
                   <td style="max-width: 150px;"><span style="cursor:pointer"><a href=#> <i class="fa fa-bars" data-toggle="modal" data-target="#myModal" href="/IS3102_Final/delivery-orders/view/<?=$deliveryOrder->id?>" title="View Delivery Order Details"></i></span>&nbsp&nbsp

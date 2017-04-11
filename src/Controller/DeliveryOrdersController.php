@@ -185,6 +185,24 @@ class DeliveryOrdersController extends AppController
 
   }
 
+    public function approvedStatus($id) {
+
+    $deliveryOrder = $this->DeliveryOrders->get($id);
+
+    $deliveryOrder->status = 'Approved';
+    $this->DeliveryOrders->save($deliveryOrder);
+
+    $session = $this->request->session();
+    $retailer = $session->read('retailer');
+    $this->Logging->rLog($deliveryOrder['id']);
+    $this->Logging->iLog($retailer, $deliveryOrder['id']);
+
+    $this->Flash->success(__('The delivery order has an approved status.'));
+
+    return $this->redirect(['action' => 'index']);
+
+  }
+
   public function listdeliveryorders() 
   {
   

@@ -72,51 +72,70 @@ class ItemsController extends AppController
         $response = $this->request->data();
 
         $count = '';
-        // foreach($response as $key => $value) {
-        //     if($key == 'tag') {
+        foreach($response as $key => $value) {
+            if($key == 'tag') {
 
                 $query = $this->Items->find('all' , [
-                    'conditions' => ['Items.EPC =' => '123']])-> count();
+                    'conditions' => ['Items.EPC =' => $value]])-> count();
 
                 //var_dump($query);
-                $this->set('status', 'success');
+                $this->set('status', $query);
         //     } else {
         //         $this->set('status', 'failed');
         //     }
-        //     $this->set('_serialize', ['status']);
+                $this->set('_serialize', ['status']);
         // }
+            }
+        }
     }
 
-        public function htcUpdateStatus(){
-            $this->viewBuilder()->setLayout("ajax");
-            $response = $this->request->data();
-            $now = Time::now();
-            
-            $newStatus = '';
-        
-            foreach($response as $key => $value) {
-                if($key == 'status') {
-                    $newStatus = $value;
-                //var_dump($newStatus);
-                } else {
-                    $item = $this->Items->get($value);
-                    $item['status'] = $newStatus." ".$now;
-                //var_dump($item['status']);
-                    $this->Items->save($item);
-                    $this->set('status', 'success');
-                }
-            }
-        //$this->set('status', 'failed');
-            $this->set('_serialize', ['status']);
-        }
+    public function htcUpdateStatus(){
+        $this->viewBuilder()->setLayout("ajax");
+        $response = $this->request->data();
+        $now = Time::now();
 
-    /**
-     * View method
-     *
-     * @param string|null $id Item id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+        $newStatus = '';
+        
+        foreach($response as $key => $value) {
+            if($key == 'status') {
+                $newStatus = $value;
+                //var_dump($newStatus);
+            } else {
+                $item = $this->Items->get($value);
+                $item['status'] = $newStatus." ".$now;
+                //var_dump($item['status']);
+                $this->Items->save($item);
+                $this->set('status', 'success');
+            }
+        }
+        //$this->set('status', 'failed');
+        $this->set('_serialize', ['status']);
+    }
+
+    public function htcAllUpdateStatus(){
+        $this->viewBuilder()->setLayout("ajax");
+        $response = $this->request->data();
+        $now = Time::now();
+
+        //  var_dump($response);
+        $newStatus = '';
+        
+        foreach($response as $key => $value) {
+            if($key == 'status') {
+                $newStatus = $value;
+                //var_dump($newStatus);
+            } else {
+                $item = $this->Items->get($value);
+                $item['status'] = $newStatus." ".$now;
+                //var_dump($item['status']);
+                $this->Items->save($item);
+                $this->set('status', 'success');
+            }
+        }
+        //$this->set('status', 'failed');
+        $this->set('_serialize', ['status']);
+    }
+
     public function view($id = null)
     {
         $item = $this->Items->get($id, [
@@ -129,7 +148,7 @@ class ItemsController extends AppController
         //$this->loadComponent('Logging');
         $this->Logging->rLog($item['id']);
         $this->Logging->iLog($retailer, $item['id']);
-        
+
         $this->set('item', $item);
         $this->set('_serialize', ['item']);
     }

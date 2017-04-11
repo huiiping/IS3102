@@ -104,7 +104,8 @@ class ProductsController extends AppController
     $prodCats = $this->Products->ProdCats->find('list', ['limit' => 200]);
     $prodSpecifications = $this->Products->ProdSpecifications->find('list', ['limit' => 200]);
     $promotions = $this->Products->Promotions->find('list', ['limit' => 200]);
-    $this->set(compact('product', 'prodCats', 'prodSpecifications', 'promotions'));
+    $products = $this->Products->find('all', ['limit' => 200]);
+    $this->set(compact('products','product', 'prodCats', 'prodSpecifications', 'promotions'));
     $this->set('_serialize', ['product']);
 }
 
