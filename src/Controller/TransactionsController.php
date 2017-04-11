@@ -19,7 +19,7 @@ class TransactionsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Customers', 'RetailerEmployees', 'Locations']
+        'contain' => ['Customers', 'RetailerEmployees', 'Locations']
         ];
         $transactions = $this->paginate($this->Transactions);
 
@@ -38,7 +38,7 @@ class TransactionsController extends AppController
     {
         $transaction = $this->Transactions->get($id, [
             'contain' => ['Customers', 'RetailerEmployees', 'Locations']
-        ]);
+            ]);
 
         $this->set('transaction', $transaction);
         $this->set('_serialize', ['transaction']);
@@ -80,7 +80,7 @@ class TransactionsController extends AppController
     {
         $transaction = $this->Transactions->get($id, [
             'contain' => []
-        ]);
+            ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $transaction = $this->Transactions->patchEntity($transaction, $this->request->getData());
             if ($this->Transactions->save($transaction)) {
@@ -115,5 +115,81 @@ class TransactionsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function addStoreTransaction() {
+
+        $this->loadModel('Customers');
+        $this->loadModel('TransactionsItems');
+        $this->loadModel('Items');
+        $this->loadModel('Products');
+
+        //Variables
+        $receiptNum = $_POST['receipt_number'];
+        $cardID = $_POST['cardID'];
+        $location = $_POST['location'];
+        $grossAmt = $_POST['grossAmt'];
+        $grossAmt = explode("$", $grossAmt);
+        $netAmt = $_POST['netAmt'];
+        $netAmt = explode("$", $netAmt);
+        $memberDiscount = $_POST['memberDiscount'];
+        $otherDiscount = $_POST['otherDiscount'];
+        $items = $_POST['items'];
+        $items = explode("," , $items);
+        $employeeID = $_POST['employeeID'];
+
+        //Customer
+        $query = $this->Customers->find()->where(['member_identification' => $cardID]);
+        $first = $query->first();
+        $customer = $this->Customers->get($first['id']);
+
+        //Creating new transaction
+        $transaction = $this->Transactions->newEntity();
+        $transaction->set([
+            'receipt_number' => $receiptNum,
+            'customer_id' => $customer['id'],
+            'retailer_employee_id' => $employeeID,
+            'location_id' => $location,
+            'gross_amount' => $grossAmt[1],
+            'nett_amount' => $netAmt[1],
+            'member_discount' => $memberDiscount/100,
+            'other_discount' => $otherDiscount/100
+            ]);
+        $this->Transactions->save($transaction);
+
+        //Creating transaction items
+        
+
+        //Finding the transaction id
+        $query = $this->Transactions->find()->where(['receipt_number' => $receiptNum]);
+        $first = $query->first();
+        $transaction = $this->Transactions->get($first['id']);
+
+        //Finding the item
+        $productID = $this->Products->find()->where(['barcode' => $items], ['barcode' => 'string[]'])->select('id');
+        $query = $this->Items->find()->where(['product_id' => $productID], ['product_id' => 'integer[]'])
+                ->where(['location_id' => $location])
+                ->toArray();
+
+        //$first = $productID->first();
+        //$product = $this->Products->get($first['id']);
+
+        // $query = $this->Items->find()->where(['product_id' => $product['id']]);
+        // $first = $query->first();
+        // $item = $this->Items->get($first['id']);
+
+        //Creating the transaction item record
+        foreach ($query as $q) {
+            $transactionsItem = $this->TransactionsItems->newEntity();
+            $transactionsItem->set([
+                'transaction_id' => $transaction['id'],
+                'item_id' => $q['id']
+                ]);
+            //$this->TransactionsItems->save($transactionsItem);
+        }
+
+        echo ("Success");
+        echo ("\n");
+        die();
     }
 }

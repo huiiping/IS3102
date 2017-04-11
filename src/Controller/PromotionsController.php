@@ -253,6 +253,32 @@ class PromotionsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    public function redeemvoucher() {
+        $voucherNum = $_POST['voucherNum'];
+        $now = Time::now();
+
+        $voucher = $this->Promotions->find()
+            ->where(['start_date' < $now])
+            ->Where(['end_date' > $now])
+            ->Where(['first_voucher_num' < $voucherNum])
+            ->Where(['last_voucher_num' > $voucherNum])
+            ->toArray();
+
+        if (sizeof($voucher) == 1) {
+            
+            echo "Valid";
+            echo "\n";
+
+            foreach ($voucher as $vouch) {
+                echo ($vouch['discount_rate']);
+                echo "\n";
+            }
+
+        }
+
+        die();
+    }
+
 
     // currently not in use
     // KIV for future memory_get_usage()
