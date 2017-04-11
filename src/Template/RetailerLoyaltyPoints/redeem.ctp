@@ -22,15 +22,23 @@ $this->Html->addCrumb(__('Redeem Loyalty Points'));
             <div style="display:none;">
               <input type="hidden" name="_method" value="POST">
             </div>
+            <input type="hidden" name="redemption_pts" id="redemption_pts" value="300">
             <div class ="form-group">
-              <div class="input-group" title="Enter Points to Redeem*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-inbox"></i></span>
-                <input class = "form-control" type="number" placeholder = "Loyalty Points to Redeem (e.g. 300 or 600)*" name="redemption_pts" required="required" id="redemption_pts" min="0"> 
+              <div class="input-group" title="Select Award to Redeem*">
+                <span class="input-group-addon"><i class="fa fa-trophy"></i></span>
+                <input type="hidden" name="award" id="award" value=""> 
+                  <select  name="award" id="award" class="selectpicker form-control" title="Select Award to Redeem*" required>
+                    <option value="user"><?php echo 'Free User' ?></option>
+                    <option value="warehouse"><?php echo 'Free Warehouse' ?></option>
+                    <option value="store"><?php echo 'Free Store' ?></option>
+                    <option value="product"><?php echo 'Free Product' ?></option>
+                  </select>
               </div>
             </div>
             <br>
             <div class ="row">
-              <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Redeem Points</button>
+              <a href="/IS3102_Final/retailer-loyalty-points/retailer-view/<?=$retailer[0]['id']?>" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Loyalty Points Page</a>
+              <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Redeem</button>
             </div>
             <br>
           </form>

@@ -13,9 +13,10 @@
           <h3 class="box-title">Transfer Orders <?= h($transferOrder->id) ?></h3>
       </div>
       <div class="box-body">
-          <div class="pull-right">
+          <!-- <div class="pull-right">
             <a class="btn btn-success btn-block" title="Edit Transfer Order" href="/IS3102_Final/transfer-orders/edit/<?=$transferOrder->id?>" >Edit Transfer Order</a>
-        </div><br><br><br>
+        </div><br><br> -->
+        <br>
 
         <table class="table table-bordered table-striped">
             <tr>

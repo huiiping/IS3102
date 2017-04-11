@@ -26,11 +26,17 @@ $this->Html->addCrumb(__('Transactions'));
                     </div>
                   </th>
                   <th width="30"></th>
-                  <th scope="col" class ="form-group">
-                    <div class ="submit">
-                      <input class = "form-control" type="submit" class="btn btn-default bth-flat" value="Search">
-                    </div>
-                  </th>
+                      <th scope="col" class ="form-group">
+                      <div class ="submit">
+                      <input class="btn btn-primary btn-block" class = "form-control" type="submit" class="btn btn-default bth-flat" value="Search">
+                      </div>
+                    </th>
+                    <th width="10"></th>
+                    <th scope="col" class ="form-group">
+                      <div class ="submit">
+                        <button class="btn btn-default btn-block"><a class="reset_button" onclick="reset();" placeholder="Reset"><i class="fa fa-fw fa-undo"></i>Reset</a></button>
+                      </div>
+                    </th>
                 </tr>
               </table>
             </form>
@@ -39,11 +45,11 @@ $this->Html->addCrumb(__('Transactions'));
                 <thead>
                     <tr>
                         <th scope="col"><?= $this->Paginator->sort('receipt_number') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('status') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('remarks') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('customer_id') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('location_id') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('retailer_employee_id') ?></th>
+                        <th scope="col"><?= $this->Paginator->sort('status') ?></th>
                         <th scope="col" class="actions"><?= __('Actions') ?></th>
                     </tr>
                 </thead>
@@ -51,11 +57,11 @@ $this->Html->addCrumb(__('Transactions'));
                     <?php foreach ($transactions as $transaction): ?>
                     <tr>
                         <td><?= $this->Number->format($transaction->receipt_number) ?></td>
-                        <td><?= h($transaction->status) ?></td>
                         <td><?= h($transaction->remarks) ?></td>
                         <td><?= $transaction->has('customer') ? $this->Html->link($transaction->customer->first_name.' '.$transaction->customer->last_name, ['controller' => 'Customers', 'action' => 'view', $transaction->customer->id], ['title' => 'View Customer Details']) : '' ?></td>
                         <td><?= $transaction->has('location') ? $this->Html->link($transaction->location->name, ['controller' => 'Locations', 'action' => 'view', $transaction->location->id], ['title' => 'View Location Details']) : '' ?></td>
                         <td><?= $transaction->has('retailer_employee') ? $this->Html->link($transaction->retailer_employee->first_name.' '.$transaction->retailer_employee->last_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $transaction->retailer_employee->id], ['title' => 'View Employee Details']) : '' ?></td>
+                        <td><?= h($transaction->status) ?></td>
                         <td class="actions">
                             <a href="/IS3102_Final/transactions/view/<?=$transaction->id?>">
                             <i class="fa fa-bars" title="View Transaction Details"></i></a>&nbsp

@@ -22,11 +22,6 @@
 }
 </style>
 
-<?php
-$this->assign('title', __('Supplier') . '/' . __('Add'));
-$this->Html->addCrumb(__('Supplier'), ['controller' => 'Pages', 'action' => 'supplier']);
-?>
-
 <!-- Main content -->
 <section class="content" style="background-image: url(/IS3102_Final/img/supplierLogin3.jpg); background-size: cover; height: 1000px;">
   <div class="row">
