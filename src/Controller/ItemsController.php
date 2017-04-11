@@ -622,6 +622,8 @@ class ItemsController extends AppController
             echo ("FAILED"."\n");
         }
 
+        die();
+
     }
 
     public function inboundrfidtag() {
@@ -630,28 +632,35 @@ class ItemsController extends AppController
         $this->loadModel("PurchaseOrders");
         $this->loadModel("TransferOrdersItems");
         $this->loadModel("TransferOrders");
+        $this->loadModel("Sections");
+
         $type = $_POST['type'];
+        echo ("$type: ".$type.'\n');
+        $id = $_POST['id'];
+        echo ("$type: ".$id.'\n');
+        $location = $_POST['location'];
+        echo ("$location: ".$location.'\n');
+        $section_id = $_POST['section'];
+        echo ("$section_id: ".$section_id.'\n');
+        $space = $_POST['space'];
+        echo ("$space: ".$space.'\n');
         //echo ("Type =".$type);
+
+        $section = $this->Sections->get($section_id);
+        $section->available_space = $section->available_space - $space;
+        $this->Sections->save($section);
 
         if($type == "po") {
 
             $po_id = $_POST['po_id'];
-            $id = $_POST['id'];
-            echo ("ID = ".$id."\n");
+            echo ("$po_id: ".$po_id.'\n');
             $item_code = $_POST['item_code'];
-            echo ("ITEM CODE = ".$item_code."\n");
+            echo ("$item_code: ".$item_code.'\n');
             $desc = $_POST['desc'];
-            echo ("DESC = ".$desc."\n");
+            echo ("$desc: ".$desc.'\n');
             $qty = $_POST['qty'];
-            echo ("QTY = ".$qty."\n");
             $price = $_POST['price'];
-            echo ("PRICE = ".$price."\n");
             $rfid_list = $_POST['rfid_list'];
-            echo ("RFID LIST = ".$rfid_list."\n");
-            $location = $_POST['location'];
-            echo ("LOCATION ID = ".$location."\n");
-            $section = $_POST['section'];
-            echo ("SECTION ID = ".$section."\n");
             $count = 0;
             $rfid_list = substr($rfid_list, 1, strlen($rfid_list)-2);
             $rfid_arr = explode(", ", $rfid_list);
@@ -682,7 +691,7 @@ class ItemsController extends AppController
                 $item = $this->Items->newEntity();
                 $item->name = $item_code;
                 $item->description = $desc;
-                $item->section_id = $section;
+                $item->section_id = $section_id;
                 $item->location_id = $location;
                 $item->EPC = $rfid_arr[$count];
                 $item->status = "In Location";
@@ -695,13 +704,10 @@ class ItemsController extends AppController
 
                 $count++;
             }
+
         } else {
-
-            $id = $_POST['id'];
-            $location = $_POST['location'];
-            $section = $_POST['section'];
+            
             $to_id = $_POST['to_id'];
-
             $item = $this->Items->get($id);
             $item->location_id = $location;
             $item->section_id = $section;

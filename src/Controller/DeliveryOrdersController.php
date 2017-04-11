@@ -213,26 +213,29 @@ class DeliveryOrdersController extends AppController
 
       $item_id = $row['item_id'];
       $item = $this->Items->get($item_id);
-      echo ($item['id']);
-      echo "\n";
-      echo ($item['name']);
-      echo "\n";
-      echo ($item['description']);
-      echo "\n";
-      echo ($item['EPC']);
-      echo "\n";
 
-      if($item['product_id'] != null){
-        $product = $this->Products->get($item['product_id']);
-        echo ($product['barcode']);
+      if($item['status'] != "In Transit"){
+        echo ($item['id']);
         echo "\n";
-      } else {
-        echo ("null");
+        echo ($item['name']);
+        echo "\n";
+        echo ($item['description']);
+        echo "\n";
+        echo ($item['EPC']);
+        echo "\n";
+
+        if($item['product_id'] != null){
+          $product = $this->Products->get($item['product_id']);
+          echo ($product['barcode']);
+          echo "\n";
+        } else {
+          echo ("null");
+          echo "\n";
+        }
+
+        echo ($item['status']);
         echo "\n";
       }
-
-      echo ($item['status']);
-      echo "\n";
     }
 
     die;
