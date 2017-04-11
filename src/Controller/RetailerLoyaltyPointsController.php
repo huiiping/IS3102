@@ -168,11 +168,25 @@ class RetailerLoyaltyPointsController extends AppController
 
             $reward = $retailerLoyaltyPoint['award'];
 
-            
+            $allRetailers = TableRegistry::get('Retailers');
+            $retailers = $allRetailers->get($id);
 
-            if ($retailerLoyaltyPoint['redemption_pts'] == 0) {
-                $retailerLoyaltyPoint->redemption_pts =  $retailerLoyaltyPoint['loyalty_pts'];
-                
+            $allRetailerPts = TableRegistry::get('RetailerLoyaltyPoints');
+            $retailerPts = $allRetailerPts
+                ->find()
+                ->where(['retailer_id' => $id]);
+
+            //calculate retailer's loyalty points
+            $pts = 0;
+            foreach ($retailerPts as $retailerPt) {
+                $pts = $pts + $retailerPt->loyalty_pts;
+            }
+
+            if ($pts >= 600) {
+                $retailerLoyaltyPoint->redemption_pts =  600;
+                $retailerLoyaltyPoint->remarks = 'Redeem '.$reward;
+                $retailerLoyaltyPoint->retailer_id = $id;
+
                 if ($this->RetailerLoyaltyPoints->save($retailerLoyaltyPoint)) {
                     $this->Flash->success(__('The loyalty points has been redeemed.'));
 
@@ -183,11 +197,29 @@ class RetailerLoyaltyPointsController extends AppController
                     $this->Logging->rLog($retailerLoyaltyPoint['id']);
                     $this->Logging->iLog($retailer, $retailerLoyaltyPoint['id']);
 
-                    return $this->redirect(['action' => 'view', $retailerLoyaltyPoint->retailer_id]);
+                    switch ($reward) {
+                      case 'user':
+                        $retailers->num_of_users = $retailers->num_of_users + 10;
+                        break; 
+                      case 'warehouse':
+                        $retailers->num_of_warehouses = $retailers->num_of_warehouses + 1;
+                        break;
+                      case 'store':
+                        $retailers->num_of_stores = $retailers->num_of_stores + 1;
+                        break;
+                      case 'product': 
+                        $retailers->num_of_products = $retailers->num_of_products + 50;
+                        break;
+                    }
+                    $allRetailers->save($retailers);
+
+                    $this->Logging->rLog($retailers['id']);
+                    $this->Logging->iLog($retailer, $retailers['id']);
+                    return $this->redirect(['action' => 'retailer-view', $id]);
                 }
             } else {
-                $this->Flash->error(__('Cannot redeem loyalty points that had been redeemed.'));
-                return $this->redirect(['action' => 'individual', $retailerLoyaltyPoint->retailer_id]);
+                $this->Flash->error(__('There is not enough loyalty points to redeem.'));
+                return $this->redirect(['action' => 'retailer-view', $id]);
             }
             $this->Flash->error(__('The loyalty point could not be redeemed. Please, try again.'));
         }

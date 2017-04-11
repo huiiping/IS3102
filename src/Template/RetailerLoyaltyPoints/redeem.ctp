@@ -18,7 +18,7 @@ $this->Html->addCrumb(__('Redeem Loyalty Points'));
         </div>
         <div class="main" style="padding: 10px 20px;">
 
-          <form method="post" accept-charset="utf-8" action="/IS3102_Final/RetailerLoyaltyPoints/redeem">
+          <form method="post" accept-charset="utf-8" action="/IS3102_Final/RetailerLoyaltyPoints/redeem/<?=$retailer[0]['id']?>">
             <div style="display:none;">
               <input type="hidden" name="_method" value="POST">
             </div>
