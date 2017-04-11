@@ -123,6 +123,8 @@ class TransactionsController extends AppController
         $this->loadModel('TransactionsItems');
         $this->loadModel('Items');
         $this->loadModel('Products');
+        $this->loadModel('DeliveryOrders');
+        $this->loadModel('DeliveryOrdersItems');
 
         //Variables
         $receiptNum = $_POST['receipt_number'];
@@ -137,33 +139,35 @@ class TransactionsController extends AppController
         $items = $_POST['items'];
         $items = explode("," , $items);
         $employeeID = $_POST['employeeID'];
+        $address = $_POST['address'];
+        $deliveryCost = $_POST['deliveryCost'];
+        $transactionID = null;
+        $customer = null;
+        $deliveryOrderID = null;
+        echo ($memberDiscount);
+        echo ("\n");
 
         //Customer
-        $query = $this->Customers->find()->where(['member_identification' => $cardID]);
-        $first = $query->first();
-        $customer = $this->Customers->get($first['id']);
+        if(!empty($cardID)) {
+            $query = $this->Customers->find()->where(['member_identification' => $cardID]);
+            $first = $query->first();
+            $customer = $this->Customers->get($first['id']);
+        }
 
         //Creating new transaction
         $transaction = $this->Transactions->newEntity();
-        $transaction->set([
-            'receipt_number' => $receiptNum,
-            'customer_id' => $customer['id'],
-            'retailer_employee_id' => $employeeID,
-            'location_id' => $location,
-            'gross_amount' => $grossAmt[1],
-            'nett_amount' => $netAmt[1],
-            'member_discount' => $memberDiscount/100,
-            'other_discount' => $otherDiscount/100
-            ]);
-        $this->Transactions->save($transaction);
-
-        //Creating transaction items
-        
-
-        //Finding the transaction id
-        $query = $this->Transactions->find()->where(['receipt_number' => $receiptNum]);
-        $first = $query->first();
-        $transaction = $this->Transactions->get($first['id']);
+        $transaction->receipt_number = $receiptNum;
+        $transaction->customer_id = $customer['id'];
+        $transaction->retailer_employee_id = $employeeID;
+        $transaction->location_id = $location;
+        $transaction->gross_amount = $grossAmt[1];
+        $transaction->nett_amount = $netAmt[1];
+        $transaction->member_discount = $memberDiscount/100;
+        $transaction->other_discount = $otherDiscount/100;
+            
+        if ($this->Transactions->save($transaction)) {
+            $transactionID = $transaction->id;
+        }
 
         //Finding the item
         $productID = $this->Products->find()->where(['barcode' => $items], ['barcode' => 'string[]'])->select('id');
@@ -171,21 +175,35 @@ class TransactionsController extends AppController
                 ->where(['location_id' => $location])
                 ->toArray();
 
-        //$first = $productID->first();
-        //$product = $this->Products->get($first['id']);
-
-        // $query = $this->Items->find()->where(['product_id' => $product['id']]);
-        // $first = $query->first();
-        // $item = $this->Items->get($first['id']);
-
         //Creating the transaction item record
         foreach ($query as $q) {
             $transactionsItem = $this->TransactionsItems->newEntity();
-            $transactionsItem->set([
-                'transaction_id' => $transaction['id'],
-                'item_id' => $q['id']
-                ]);
-            //$this->TransactionsItems->save($transactionsItem);
+            $transactionsItem->transaction_id = $transactionID;
+            $transactionsItem->item_id = $q['id'];
+            $this->TransactionsItems->save($transactionsItem);
+        }
+
+        if (isset($address)) {
+
+            //Creating delivery order
+            $deliveryOrder = $this->DeliveryOrders->newEntity();
+            $deliveryOrder->fee = $deliveryCost;
+            $deliveryOrder->customer_id = $customer['id'];
+            $deliveryOrder->retailer_employee_id = $employeeID;
+            $deliveryOrder->location_id = $location;
+            $deliveryOrder->transaction_id = $transactionID;
+                
+            if ($this->DeliveryOrders->save($deliveryOrder)) {
+                $deliveryOrderID = $deliveryOder->id;
+            }
+
+            //Creating delivery order items 
+            foreach ($query as $q) {
+                $deliveryOrderItems = $this->DeliveryOrdersItems->newEntity();
+                $deliveryOrderItems->delivery_order_id = $deliveryOrderID;
+                $deliveryOrderItems->item_id = $q['id'];
+                $this->DeliveryOrdersItems->save($deliveryOrderItems);
+            }
         }
 
         echo ("Success");
