@@ -314,6 +314,9 @@ class QuotationsController extends AppController
         } else {
             $this->Flash->error(__('The quotation could not be deleted. Please, try again.'));
         }
+        if($this->request->session()->read('supplier')){
+            return $this->redirect(['action' => 'supplierIndex']);
+        }
 
         return $this->redirect(['action' => 'index']);
     }

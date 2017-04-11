@@ -8,16 +8,18 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property \Cake\I18n\Time $created
- * @property float $total_price
+ * @property int $retailer_employee_id
+ * @property string $file_name
+ * @property string $file_path
  * @property string $approval_status
  * @property bool $delivery_status
- * @property string $comments
  * @property int $supplier_id
- * @property int $retailer_employee_id
+ * @property int $quotation_id
  * @property int $location_id
  *
  * @property \App\Model\Entity\Supplier $supplier
- * @property \App\Model\Entity\RetailerEmployee $retailer_employee
+ * @property \App\Model\Entity\Quotation $quotation
+ * @property \App\Model\Entity\Location $location
  * @property \App\Model\Entity\PurchaseOrderItem[] $purchase_order_items
  */
 class PurchaseOrder extends Entity

@@ -36,7 +36,13 @@ $this->Html->addCrumb(__('Products'));
                 <th width="30"></th>
                 <th scope="col" class ="form-group">
                   <div class ="submit">
-                    <input class = "form-control" type="submit" class="btn btn-default bth-flat" value="Search">
+                    <input class="btn btn-primary btn-block" class = "form-control" type="submit" class="btn btn-default bth-flat" value="Search">
+                  </div>
+                </th>
+                <th width="10"></th>
+                <th scope="col" class ="form-group">
+                  <div class ="submit">
+                    <button class="btn btn-default btn-block"><a class="reset_button" onclick="reset();" placeholder="Reset"><i class="fa fa-fw fa-undo"></i>Reset</a></button>
                   </div>
                 </th>
               </tr>

@@ -28,7 +28,7 @@ class QuotationsTable extends Table
     public $filterArgs = array(
         'search' => array(
             'type' => 'like',
-            'field' => array('status','comments','fileName','Rfqs.title')
+            'field' => array('id','status','comments','file_name','Rfqs.title')
             )
     );
 
@@ -49,8 +49,7 @@ class QuotationsTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->belongsTo('Rfqs', [
-            'foreignKey' => 'rf
-            q_id'
+            'foreignKey' => 'rfq_id'
         ]);
         $this->belongsTo('Suppliers', [
             'foreignKey' => 'supplier_id'

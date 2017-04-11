@@ -9,8 +9,9 @@ use Cake\Validation\Validator;
 /**
  * PurchaseOrders Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Suppliers
  * @property \Cake\ORM\Association\BelongsTo $RetailerEmployees
+ * @property \Cake\ORM\Association\BelongsTo $Suppliers
+ * @property \Cake\ORM\Association\BelongsTo $Quotations
  * @property \Cake\ORM\Association\BelongsTo $Locations
  * @property \Cake\ORM\Association\HasMany $PurchaseOrderItems
  *
@@ -26,7 +27,13 @@ use Cake\Validation\Validator;
  */
 class PurchaseOrdersTable extends Table
 {
-
+    public $filterArgs = array(
+        
+        'search' => array(
+            'type' => 'like',
+            'field' => array('file_name','supplier_id','quotation_id', 'approval_status')
+        )
+    );
     /**
      * Initialize method
      *
@@ -43,11 +50,15 @@ class PurchaseOrdersTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Suppliers', [
-            'foreignKey' => 'supplier_id'
-        ]);
         $this->belongsTo('RetailerEmployees', [
-            'foreignKey' => 'requisitioner'
+            'foreignKey' => 'retailer_employee_id'
+        ]);
+        $this->belongsTo('Suppliers', [
+            'foreignKey' => 'supplier_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('Quotations', [
+            'foreignKey' => 'quotation_id',
         ]);
         $this->belongsTo('Locations', [
             'foreignKey' => 'location_id'
@@ -55,6 +66,7 @@ class PurchaseOrdersTable extends Table
         $this->hasMany('PurchaseOrderItems', [
             'foreignKey' => 'purchase_order_id'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**
@@ -70,8 +82,10 @@ class PurchaseOrdersTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->numeric('total_price')
-            ->allowEmpty('total_price');
+            ->allowEmpty('file_name');
+
+        $validator
+            ->allowEmpty('file_path');
 
         $validator
             ->allowEmpty('approval_status');
@@ -79,9 +93,6 @@ class PurchaseOrdersTable extends Table
         $validator
             ->boolean('delivery_status')
             ->allowEmpty('delivery_status');
-
-        $validator
-            ->allowEmpty('comments');
 
         return $validator;
     }
@@ -95,8 +106,9 @@ class PurchaseOrdersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        $rules->add($rules->existsIn(['retailer_employee_id'], 'RetailerEmployees'));
         $rules->add($rules->existsIn(['supplier_id'], 'Suppliers'));
-        $rules->add($rules->existsIn(['requisitioner'], 'RetailerEmployees'));
+        $rules->add($rules->existsIn(['quotation_id'], 'Quotations'));
         $rules->add($rules->existsIn(['location_id'], 'Locations'));
 
         return $rules;

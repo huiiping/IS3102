@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Error\Debugger;
 use Cake\Event\Event;
+use Cake\I18n\Time;
 
 /**
  * Items Controller
@@ -66,26 +67,48 @@ class ItemsController extends AppController
         }
     }
 
-    public function htcUpdateStatus(){
+    public function htcCountBarCode() {
         $this->viewBuilder()->setLayout("ajax");
         $response = $this->request->data();
 
-        $newStatus = '';
-        foreach($response as $key => $value) {
-            if($key == 'status') {
-                $newStatus = $value;
-                //var_dump($newStatus);
-            } else {
-                $item = $this->Items->get($value);
-                $item['status'] = $newStatus;
-                //var_dump($item['status']);
-                $this->Items->save($item);
+        $count = '';
+        // foreach($response as $key => $value) {
+        //     if($key == 'tag') {
+
+                $query = $this->Items->find('all' , [
+                    'conditions' => ['Items.EPC =' => '123']])-> count();
+
+                //var_dump($query);
                 $this->set('status', 'success');
-           }
-        }
-        //$this->set('status', 'failed');
-        $this->set('_serialize', ['status']);
+        //     } else {
+        //         $this->set('status', 'failed');
+        //     }
+        //     $this->set('_serialize', ['status']);
+        // }
     }
+
+        public function htcUpdateStatus(){
+            $this->viewBuilder()->setLayout("ajax");
+            $response = $this->request->data();
+            $now = Time::now();
+            
+            $newStatus = '';
+        
+            foreach($response as $key => $value) {
+                if($key == 'status') {
+                    $newStatus = $value;
+                //var_dump($newStatus);
+                } else {
+                    $item = $this->Items->get($value);
+                    $item['status'] = $newStatus." ".$now;
+                //var_dump($item['status']);
+                    $this->Items->save($item);
+                    $this->set('status', 'success');
+                }
+            }
+        //$this->set('status', 'failed');
+            $this->set('_serialize', ['status']);
+        }
 
     /**
      * View method
@@ -541,7 +564,7 @@ class ItemsController extends AppController
     } 
 
     public function checkpaymentstatus() {
-    
+
         $rfid = $_POST['rfid'];
         $items = $this->Items->find()->where(['EPC' => $rfid]);
         $first = $items->first();

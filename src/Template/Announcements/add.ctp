@@ -5,18 +5,7 @@ $this->Html->addCrumb(__('Announcements'), ['controller' => 'Announcements', 'ac
 $this->Html->addCrumb(__('Create New Announcement'));
 ?>
 
-<!-- Bootstrap WYSIHTML5 -->
-<script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
-<script src="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-<script>
-$(function () {
-    // Replace the <textarea id="editor1"> with a CKEditor
-    // instance, using default configuration.
-    CKEDITOR.replace('message');
-    //bootstrap WYSIHTML5 - text editor
-    $(".textarea").wysihtml5();
-  });
-</script>
+
 
 <!-- Main content -->
 <section class="content">
@@ -43,7 +32,7 @@ $(function () {
             <div class ="form-group">
               <div class="input-group" title="Enter Message*">
                 <div class="box-body pad">
-                  <textarea id="message" name="message" rows="10" cols="80" required="required" maxlength="255">Enter Message Here*</textarea>
+                  <textarea id="message2" name="message" rows="10" cols="80" required="required" maxlength="255">Enter Message Here*</textarea>
                 </div>
               </div>
             </div>
@@ -55,8 +44,8 @@ $(function () {
             </div>
             <br>
             <div class ="row">
-              <a href="/IS3102_Final/announcements/index" class="btn btn-md btn-default pull-left" style="border-radius: 8px; margin:5px;">Back to Announcement Index</a>
-              <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Create Announcement</button>
+              <a href="/IS3102_Final/announcements/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Announcement Index</a>
+              <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save Announcement</button>
             </div>
             <br>
           </form>

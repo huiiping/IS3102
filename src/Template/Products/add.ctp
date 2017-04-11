@@ -119,7 +119,7 @@ $this->Html->addCrumb(__('Create New Product'));
 
         <div class ="row">
           <a href="/IS3102_Final/products/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Products Index</a>
-          <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save Product</button>
+          <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Add Product Specification</button>
         </div>
 
       </form>

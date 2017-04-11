@@ -813,6 +813,8 @@ public function managerActions($id = null)
                 echo ("\n");
                 echo ($retaileremployee['first_name'].' '.$retaileremployee['last_name']);
                 echo ("\n");
+                echo ($retaileremployee['id']);
+                echo ("\n");
             }
         }
         else {

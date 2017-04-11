@@ -40,6 +40,11 @@
             <i class = "fa fa-sticky-note-o"></i><span>View Quotations</span>
           </a>
         </li>
+        <li class="treeview">
+          <a href="/IS3102_Final/PurchaseOrders/supplier-index">
+            <i class = "fa fa-sticky-note-o"></i><span>View Purchase Orders</span>
+          </a>
+        </li>
         
       <?php else : ?>
         <?= $this->Element('sideBar2', array('icon' => 'tags', 'title' => 'Create New', 'num' => '22', 
@@ -115,7 +120,7 @@
         </li>
         <li class="treeview">
           <a href="/IS3102_Final/reports/other">
-            <i class="fa fa-book"></i><span>&nbsp;Other Reports</span>
+            <i class="fa fa-book"></i><span>&nbsp;Analytic Reports</span>
           </a>
         </li>
         <li class="treeview">

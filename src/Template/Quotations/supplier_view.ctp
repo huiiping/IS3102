@@ -24,7 +24,7 @@ $this->Html->addCrumb(__('View Quotation'));
                   </tr>
                   <tr>
                       <th scope="row"><?= __('For RFQ') ?></th>
-                      <td><?= h($quotation->rfq->title) ?> (ID: <?= $this->Number->format($quotation->rfq->id) ?>)</td>
+                      <td><?= $this->Html->link(__(h($quotation->rfq->title)), ['controller' => 'rfqs', 'action' => 'View', $quotation->rfq->id])?> (ID: <?= $this->Number->format($quotation->rfq->id) ?>)</td>
                   </tr>
                   <tr>
                       <th scope="row"><?= __('Submitted By') ?></th>
