@@ -351,7 +351,7 @@ crossorigin="anonymous"></script> -->
               <a href="/IS3102_Final/" class="logo">
                 <span class="logo-lg"><b>Intrasys</b></span>
               </a>
-              <div class="navbar-custom-menu">
+              <!-- <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                   <li class="dropdown messages-menu">
                     <?= $this->Html->link(__('Login For Retailer'), ['controller' => 'RetailerEmployees', 'action' => 'login'], array( 'class' => 'navbartopright')); ?>
@@ -371,7 +371,7 @@ crossorigin="anonymous"></script> -->
                   <?= $this->Html->link(__('Login For Supplier'), ['controller' => 'Suppliers', 'action' => 'login'], array( 'class' => 'navbartopright')); ?>
                 </li>
               </ul>
-            </div>
+            </div> -->
           </nav>  
         </header>
 

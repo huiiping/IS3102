@@ -351,6 +351,26 @@ class SuppliersController extends AppController
         if($this->request->is('post')){
 
             $session = $this->request->session();
+
+            //check db match
+            $allRetailers = TableRegistry::get('Retailers');
+            $retailers = $allRetailers
+                ->find();
+
+            $check = false; 
+
+            foreach ($retailers as $retailerInd) {
+                if ($retailerInd->retailer_name == $_POST['retailer']) {
+                    $check = false;
+                    break;
+                } else {
+                    $check = true;
+                }
+            }
+            if ($check) {
+                $this->Flash->error('Incorrect login, please try again.');
+                return $this->redirect(['controller' => 'Suppliers', 'action' => 'login']);
+            }
             $retailer = $_POST['retailer'];
             $database = $_POST['retailer']."db";
 

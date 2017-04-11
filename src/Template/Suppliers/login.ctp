@@ -58,18 +58,10 @@
 										<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 										<input class = "form-control" type="password" name="password" placeholder = "Password" required="required" id="password">
 									</div>
-
 									<div class="input-group">
 										<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-										<select name="retailer" id="retailer" class="form-control" placeholder="Retailer" required="required">
-											<option value="0">---- Select ----</option>
-											<?php foreach ($retailers as $retailer): ?>
-
-												<option><?= $retailer->retailer_name ?></option>
-
-											<?php endforeach;	?>
-										</select>
-									</div>	
+										<input class = "form-control" type="text" placeholder = "Retailer's Name" name="retailer" required="required" id="retailer">	
+									</div>
 									<div id=validateMessage></div>			
 									<br>
 									<!-- CAPTCHA CSS -->	

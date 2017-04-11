@@ -490,10 +490,30 @@ public function login(){
 
           if (!$isHuman) {
             $this->Flash->error('Wrong captcha code. Please try again');
+            
+          } 
+        }
+        //check retailer's db match
+        $allRetailers = TableRegistry::get('Retailers');
+        $retailers = $allRetailers
+            ->find();
+
+        $check = false; 
+
+        foreach ($retailers as $retailerInd) {
+            if ($retailerInd->retailer_name == $_POST['retailer']) {
+                $check = false;
+                break;
+            } else {
+                $check = true;
+            }
+        }
+        if ($check) {
+            $this->Flash->error('Incorrect login, please try again.');
             return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'login']);
         }
-    }
-        //echo 'HELLO '.$_POST['username'];
+
+    //echo 'HELLO '.$_POST['username'];
     $retailer = $_POST['retailer'];
     $database = $_POST['retailer']."db";
 
