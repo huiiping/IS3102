@@ -167,19 +167,19 @@ class TransferOrdersController extends AppController
           echo "\n";
       }
 
-      die;
 
     } else {
 
-      $tos = $this->TransferOrders->find()->where(['locationFrom' => $location])->where(['status' => 'In Transit'])->toArray();
+      $tos = $this->TransferOrders->find()->where(['locationFrom' => $location])->where(['status !=' => 'In Transit'])->toArray();
 
       foreach ($tos as $row) {
           echo ($row['id']);
           echo "\n";
       }
 
-      die;
     }
+
+    die;
 
   }
 

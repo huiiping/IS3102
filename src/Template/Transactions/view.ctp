@@ -51,8 +51,8 @@ $this->Html->addCrumb(__('View Transaction'));
             </table>
         </div>
         <div class="box-body">
-            <h4><?= __('Related Delivery Orders') ?></h4>
             <?php if (!empty($transaction->delivery_orders)): ?>
+            <h4><?= __('Related Delivery Orders') ?></h4>
             <table cellpadding="0" cellspacing="0">
                 <tr>
                     <th scope="col"><?= __('Id') ?></th>

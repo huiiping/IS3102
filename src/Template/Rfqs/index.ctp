@@ -77,7 +77,7 @@ $this->Html->addCrumb(__('RFQ'), ['controller' => 'Rfqs', 'action' => 'index']);
                 <td bgcolor="<?= $color ?>" style="max-width: 150px;"><?= h($rfq->end_date) ?></td>
                 <td bgcolor="<?= $color ?>" style="max-width: 150px;"><?= $rfq->has('retailer_employee') ? $this->Html->link($rfq->retailer_employee->first_name, ['controller' => 'RetailerEmployees', 'action' => 'view', $rfq->retailer_employee->id]) : '' ?></td>
                 <td bgcolor="<?= $color ?>" style="max-width: 150px;"><?= h($rfq->modified) ?></td>
-                <td bgcolor="<?= $color ?>"><a href="/IS3102_Final/quotations/index/<?=$rfq->id?>"><i class="fa fa-sticky-note-o" title="View Quotations"></i></a>&nbsp<a href="/IS3102_Final/rfqs/edit/<?=$rfq->id?>"><i class="fa fa-edit" title="Edit RFQ"></i></a>&nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete RFQ')), array('action' => 'delete', $rfq->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $rfq->id))) ?></td>
+                <td bgcolor="<?= $color ?>"><a href="/IS3102_Final/quotations/index/<?=$rfq->id?>"><i class="fa fa-sticky-note-o" title="View Quotations"></i></a><!-- &nbsp<a href="/IS3102_Final/rfqs/edit/<?=$rfq->id?>"><i class="fa fa-edit" title="Edit RFQ"></i></a> -->&nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete RFQ')), array('action' => 'delete', $rfq->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $rfq->id))) ?></td>
               </tr>
 
 

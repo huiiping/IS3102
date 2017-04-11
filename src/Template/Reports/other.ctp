@@ -11,7 +11,7 @@ $this->Html->addCrumb(__('Create New Report'));
       <div class="box box-primary">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Create New Report</h3>
+            <h3 class="panel-title">Generate Report</h3>
           </div>
         </div>
         <div class="main" style="padding: 10px 20px;">
@@ -20,37 +20,13 @@ $this->Html->addCrumb(__('Create New Report'));
             <div style="display:none;">
               <input type="hidden" name="_method" value="POST">
             </div>
-            <div class ="form-group">          
-              <div class="input-group" title="Enter Report Title*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-font"></i></span>
-                <input class = "form-control" type="text" placeholder = "Report Title*" name="title" required="required" id="title" maxlength="100"> 
-              </div>
-            </div>
-            <div class ="form-group">            
-              <div class="input-group" title="Enter Report Description*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                <input class = "form-control" type="text" name="message" placeholder = "Report Description*" required="required" id="message" maxlength="255">
-              </div> 
-            </div>
-            <div class ="form-group">
-              <div class="input-group" title="Enter Period Start Date*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                <input class = "form-control" type="date" placeholder = "Period Start Date*" name="start_date" id="start_date" required> 
-              </div>
-            </div>
-
-            <div class ="form-group">
-              <div class="input-group" title="Enter Period End Date*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                <input class = "form-control" type="date" placeholder = "Period End Date*" name="end_date" id="end_date" required> 
-              </div>
-            </div>
+            
             <div class ="form-group">
               <div class="input-group" style="z-index: 5;" title="Select Report Type*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
                 <input type="hidden" name="report" id="report" value=""> 
                 <select name="report" class="selectpicker form-control" data-live-search="true" required="required" title="Select Report Type*">
-                  <option value="Retailer Statistics Report">Retailer Statistics Report</option> 
+                  <option value="Retailer User Statistics Report">Retailer User Statistics Report</option> 
                   <option value="Retailer System Usage Report">Retailer System Usage Report</option> 
                   <option value="Transaction Statistics Report">Transaction Statistics Report</option> 
                   <option value="Product Type Statistics Report">Product Type Statistics Report</option> 

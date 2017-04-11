@@ -6,7 +6,7 @@ use Cake\Datasource\ConnectionManager;
 use Cake\I18n\Time;
 use Cake\Mailer\Email;
 use Cake\Event\Event;
-
+use Cake\ORM\TableRegistry;
 
 /**
  * PurchaseOrders Controller
@@ -189,11 +189,26 @@ class PurchaseOrdersController extends AppController
         $session = $this->request->session();
         $supplier = $session->read('supplier');
         $supplier_id = $supplier['id'];
+        
 
         if($id != null) {
             $this->set('purchaseorders', $this->paginate($this->PurchaseOrders->find('searchable', $this->Prg->parsedParams())->where(['PurchaseOrders.quotation_id' => $id])->order(['PurchaseOrders.created' => 'DESC'])));
         } else { 
-            $this->set('purchaseorders', $this->paginate($this->PurchaseOrders->find('searchable', $this->Prg->parsedParams())->where(['PurchaseOrders.supplier_id' => $supplier_id])->order(['PurchaseOrders.created' => 'DESC'])));
+            /*$conn = ConnectionManager::get('default');
+            $purchaseorders = $conn
+                ->newQuery()
+                ->select('*')
+                ->from('purchase_orders')
+                ->where([
+                    'supplier_id' =>  $supplier['id'],
+                    ]) 
+                ->execute()
+                ->fetchAll('assoc');
+                $this->set('purchaseorders',  $this->paginate($purchaseorders));
+
+             $this->set('purchaseorders', $this->paginate($this->PurchaseOrders->find('searchable', $this->Prg->parsedParams())));*/
+
+            $this->set('purchaseorders', $this->paginate($this->PurchaseOrders->find('searchable', $this->Prg->parsedParams())->where(['PurchaseOrders.supplier_id' => $supplier_id])));
         }
 
         $this->set('id', $id);

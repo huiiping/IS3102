@@ -64,39 +64,39 @@
 
               <?php foreach ($purchaseorders as $purchaseorder): ?>
                
-                <tr>
-                  <td style="max-width: 150px;"><?= $this->Number->format($purchaseorder->id) ?></td>
-                  <td style="max-width: 150px;" ><?= $this->Html->link(__(h($purchaseorder->file_name)), ['action' => 'supplierView', $purchaseorder->id], ['title' => $purchaseorder->comments])?></td>
-                  <td style="max-width: 150px;"><?= $this->Html->link($purchaseorder->quotation_id, ['controller' => 'Quotations', 'action' => 'supplierView', $purchaseorder->quotation_id], ['title' => 'View Quotation Details']) ?></td>
+                  <td style="max-width: 150px;"><?= $this->Number->format($purchaseorder['id']) ?></td>
+                  <td style="max-width: 150px;" ><a href="/IS3102_Final/PurchaseOrders/download/<?= $purchaseorder['id'] ?>"><?=$purchaseorder['file_name']?></a></td>
+
+                  <td style="max-width: 150px;"><a href="/IS3102_Final/Quotations/supplierView/<?= $purchaseorder['quotation_id'] ?>"><?=$purchaseorder['quotation_id']?></a></td>
                   <td>
-                    <?php if($purchaseorder->approval_status == 'Pending'){
+                    <?php if($purchaseorder['approval_status'] == 'Pending'){
                       ?>
 
                       <div class="btn-group">
-                        <button type="button" style="width: 100px;" class="btn btn-warning btn-flat"><?= h($purchaseorder->approval_status) ?></button>
+                        <button type="button" style="width: 100px;" class="btn btn-warning btn-flat"><?= $purchaseorder['approval_status'] ?></button>
                         <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
                           <span class="caret"></span>
                           <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                          <li><a title="Reject Purchase Order" href="/IS3102_Final/PurchaseOrders/rejectOrder/<?= $purchaseorder->id ?>">Reject</a></li>
-                          <li><a title="Approve Purchase Order" href="/IS3102_Final/PurchaseOrders/approveOrder/<?= $purchaseorder->id ?>">Approve</a></li>
+                          <li><a title="Reject Purchase Order" href="/IS3102_Final/PurchaseOrders/rejectOrder/<?= $purchaseorder['id'] ?>">Reject</a></li>
+                          <li><a title="Approve Purchase Order" href="/IS3102_Final/PurchaseOrders/approveOrder/<?= $purchaseorder['id'] ?>">Approve</a></li>
                         </ul>
                       </div>
 
                       <?php
-                    } else if($purchaseorder->approval_status == 'Rejected') {
+                    } else if($purchaseorder['approval_status'] == 'Rejected') {
                      ?>
 
                      <div class="btn-group">
-                      <button type="button" style="width: 100px;" class="btn btn-danger btn-flat"><?= h($purchaseorder->approval_status) ?></button>
+                      <button type="button" style="width: 100px;" class="btn btn-danger btn-flat"><?= $purchaseorder['approval_status'] ?></button>
                       <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                         <span class="sr-only">Toggle Dropdown</span>
                       </button>
                       <ul class="dropdown-menu" role="menu">
-                        <li><a title="Pending Purchase Order" href="/IS3102_Final/PurchaseOrders/pendingOrder/<?= $purchaseorder->id ?>">Pending</a></li>
-                        <li><a title="Approve Purchase Order" href="/IS3102_Final/PurchaseOrders/approveOrder/<?= $purchaseorder->id ?>">Approve</a></li>
+                        <li><a title="Pending Purchase Order" href="/IS3102_Final/PurchaseOrders/pendingOrder/<?= $purchaseorder['id'] ?>">Pending</a></li>
+                        <li><a title="Approve Purchase Order" href="/IS3102_Final/PurchaseOrders/approveOrder/<?= $purchaseorder['id'] ?>">Approve</a></li>
                       </ul>
                     </div>
                     <?php
@@ -105,14 +105,14 @@
                     ?>
 
                     <div class="btn-group">
-                      <button type="button" style="width: 100px;" class="btn btn-success btn-flat"><?= h($purchaseorder->approval_status) ?></button>
+                      <button type="button" style="width: 100px;" class="btn btn-success btn-flat"><?= $purchaseorder['approval_status'] ?></button>
                       <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                         <span class="sr-only">Toggle Dropdown</span>
                       </button>
                       <ul class="dropdown-menu" role="menu">
-                      <li><a title="Pending Purchase Order" href="/IS3102_Final/PurchaseOrders/pendingOrder/<?= $purchaseorder->id ?>">Pending</a></li>
-                        <li><a title="Reject Purchase Order" href="/IS3102_Final/PurchaseOrders/rejectOrder/<?= $purchaseorder->id ?>">Reject</a></li>
+                      <li><a title="Pending Purchase Order" href="/IS3102_Final/PurchaseOrders/pendingOrder/<?= $purchaseorder['id'] ?>>">Pending</a></li>
+                        <li><a title="Reject Purchase Order" href="/IS3102_Final/PurchaseOrders/rejectOrder/<?= $purchaseorder['id'] ?>">Reject</a></li>
                       </ul>
                     </div>
                     
@@ -123,11 +123,9 @@
                   ?>
                 </td>
 
-                <td style="max-width: 150px;"><?= h($purchaseorder->created) ?></td>
-                <td><a href="/IS3102_Final/PurchaseOrders/download/<?=$purchaseorder->id?>"><i class="fa fa-cloud-download" title="Download Purchase Order"></i></a>
-                <!-- &nbsp
-                <a href="/IS3102_Final/quotations/edit/<?=$quotation->id?>"><i class="fa fa-edit" title="Edit Quotation"></i></a> -->
-                &nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Quotation')), array('action' => 'delete', $purchaseorder->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $purchaseorder->id))) ?></td>
+                <td style="max-width: 150px;"><?= $purchaseorder['created'] ?></td>
+                <td><a href="/IS3102_Final/PurchaseOrders/download/<?=$purchaseorder['id']?>"><i class="fa fa-cloud-download" title="Download Purchase Order"></i></a>
+                <!-- &nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Quotation')), array('action' => 'delete', $purchaseorder['id']), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $purchaseorder['id']))) ?> --></td>
               </tr>
             <?php endforeach; ?>
           </tbody>
@@ -141,7 +139,7 @@
             <?= $this->Paginator->last(__('last') . ' >>') ?>
           </ul>
           <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
-        </div>
+        </div> 
       </div>
     </div>
   </div>

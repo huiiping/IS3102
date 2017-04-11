@@ -27,7 +27,7 @@ class ReportsController extends AppController
         $this->loadComponent('Prg');
         $this->Prg->commonProcess();
         $this->paginate = [
-            'contain' => ['RetailerEmployees']
+        'contain' => ['RetailerEmployees']
         ];
         $this->set('reports', $this->paginate($this->Reports->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('reports'));
@@ -35,7 +35,7 @@ class ReportsController extends AppController
     }
     public $components = array(
         'Prg'
-    );
+        );
 
     /**
      * View method
@@ -48,7 +48,7 @@ class ReportsController extends AppController
     {
         $report = $this->Reports->get($id, [
             'contain' => ['RetailerEmployees']
-        ]);
+            ]);
 
         $this->set('report', $report);
         $this->set('_serialize', ['report']);
@@ -70,10 +70,10 @@ class ReportsController extends AppController
                 $entity = $report['entity2'];
             } 
             else {
-                
+
                 if (isset($_POST['save_button'])) {
                     $report = $this->Reports->patchEntity($report, $this->request->data);
-            
+
                     $session = $this->request->session();
                     //get employee id
                     $report['retailer_employee_id'] = $_SESSION['Auth']['User']['id'];
@@ -110,7 +110,7 @@ class ReportsController extends AppController
     {
         $report = $this->Reports->get($id, [
             'contain' => []
-        ]);
+            ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $report = $this->Reports->patchEntity($report, $this->request->data);
             if ($this->Reports->save($report)) {
@@ -195,30 +195,30 @@ class ReportsController extends AppController
     }
 
     public function other() {
-        $report = $this->Reports->newEntity();
+
         if ($this->request->is('post')) {
-            $report = $this->Reports->patchEntity($report, $this->request->data);
 
-            $session = $this->request->session();
-            //get employee id
-            $report['retailer_employee_id'] = $_SESSION['Auth']['User']['id'];
-            $report['status'] = 'Pending';
+            $reportType = $_POST['report'];
 
-            if ($this->Reports->save($report)) {
-                $this->Flash->success(__('The incident report has been saved.'));
-
-                $retailer = $session->read('retailer');
-
-                //$this->loadComponent('Logging');
-                $this->Logging->rLog($report['id']);
-                $this->Logging->iLog($retailer, $report['id']);
-
-                return $this->redirect(['action' => 'index']);
+            if($reportType = 'Retailer User Statistics Report') {
+                return $this->redirect(['action' => 'rusr']);
+            }else{
+                 $this->Flash->error(__('The  report could not be generated. Please, try again.'));
             }
-            $this->Flash->error(__('The incident report could not be saved. Please, try again.'));
         }
-        $retailerEmployees = $this->Reports->RetailerEmployees->find('list', ['limit' => 200]);
-        $this->set(compact('report', 'retailerEmployees'));
-        $this->set('_serialize', ['report']);
     }
-}
+    
+    public function rusr(){
+
+         $retailerEmployeesTable = TableRegistry::get('RetailerEmployees');
+        $suppliersTable = TableRegistry::get('Suppliers');
+        $customersTable = TableRegistry::get('Customers');
+        $employees =  sizeof($retailerEmployeesTable->find()->toArray());
+        $suppliers =  sizeof($suppliersTable->find()->toArray());
+        $customers =  sizeof($customersTable->find()->toArray());
+        $date = date("Y-m-d H:i:s");
+
+        $this->set(compact('employees','customers','suppliers','date'));
+    }
+    }
+

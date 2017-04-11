@@ -64,6 +64,7 @@
             </thead>
             <tbody>
             <?php foreach ($quotations as $quotation): ?>
+              
               <tr>
                 <td style="max-width: 150px;"><?= $this->Number->format($quotation->id) ?></td>
                 <td style="max-width: 150px;" ><?= $this->Html->link(__(h($quotation->file_name)), ['action' => 'supplierView', $quotation->id], ['title' => $quotation->comments])?></td>

@@ -134,6 +134,7 @@ class RetailerLoyaltyPointsController extends AppController
     public function addSpecific($id)
     {
         $retailerLoyaltyPoint = $this->RetailerLoyaltyPoints->newEntity();
+        
         if ($this->request->is('post')) {
             $retailerLoyaltyPoint = $this->RetailerLoyaltyPoints->patchEntity($retailerLoyaltyPoint, $this->request->data);
 
@@ -159,6 +160,45 @@ class RetailerLoyaltyPointsController extends AppController
     }
 
     public function redeem($id = null)
+    {
+        $retailerLoyaltyPoint = $this->RetailerLoyaltyPoints->newEntity();
+
+        if ($this->request->is(['post'])) {
+            $retailerLoyaltyPoint = $this->RetailerLoyaltyPoints->patchEntity($retailerLoyaltyPoint, $this->request->data);
+
+            $reward = $retailerLoyaltyPoint['award'];
+
+            
+
+            if ($retailerLoyaltyPoint['redemption_pts'] == 0) {
+                $retailerLoyaltyPoint->redemption_pts =  $retailerLoyaltyPoint['loyalty_pts'];
+                
+                if ($this->RetailerLoyaltyPoints->save($retailerLoyaltyPoint)) {
+                    $this->Flash->success(__('The loyalty points has been redeemed.'));
+
+                    $session = $this->request->session();
+                    $retailer = $session->read('retailer');
+
+                    //$this->loadComponent('Logging');
+                    $this->Logging->rLog($retailerLoyaltyPoint['id']);
+                    $this->Logging->iLog($retailer, $retailerLoyaltyPoint['id']);
+
+                    return $this->redirect(['action' => 'view', $retailerLoyaltyPoint->retailer_id]);
+                }
+            } else {
+                $this->Flash->error(__('Cannot redeem loyalty points that had been redeemed.'));
+                return $this->redirect(['action' => 'individual', $retailerLoyaltyPoint->retailer_id]);
+            }
+            $this->Flash->error(__('The loyalty point could not be redeemed. Please, try again.'));
+        }
+        $query2 = $this->RetailerLoyaltyPoints->Retailers->find('all')->where(['id' => $id])->toArray();
+
+        $this->set('retailer', $query2);
+        $this->set(compact('retailerLoyaltyPoint', 'retailers'));
+        $this->set('_serialize', ['retailerLoyaltyPoint']);
+    }
+
+    public function redeem_old_codes($id = null)
     {
         $retailerLoyaltyPoint = $this->RetailerLoyaltyPoints->get($id, [
             'contain' => []

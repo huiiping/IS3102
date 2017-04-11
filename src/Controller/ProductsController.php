@@ -210,18 +210,28 @@ private function withinLimit()
 
     public function getproduct(){
         $code = $_POST['code'];
-        //echo ($code."\n");
+        $qty = $_POST['qty'];
+        $this->loadModel('Promotions');
+        $this->loadModel('PromotionsProducts');
 
         $products = $this->Products->find()->where(['barcode' => $code])->toArray();
         foreach ($products as $product) {
-
+            
             echo ($product['prod_name']);
             echo "\n";
 
             echo ($product['barcode']);
             echo "\n";
 
-            echo ($product['store_unit_price']);
+            $unitPrice = $product['store_unit_price'];
+            $promotionIDs = $this->PromotionsProducts->find()->where(['product_id' => $product['id']])->select('promotion_id');
+            $promotions = $this->Promotions->find()->where(['id' => $promotionIDs], ['id' => 'integer[]'])->toArray();    
+
+            foreach ($promotions as $promotion) {
+                $unitPrice = $unitPrice * $promotion['discount_rate'];
+            }
+
+            echo ($unitPrice);
             echo "\n";
         }
 

@@ -26,7 +26,7 @@
       
       <?php if($type) : ?>
         <li class="treeview">
-          <a <?php if($this->request->session()->read('page') === 'Suppliers') : ?> class="changeactive" <?php endif; ?> href="/IS3102_Final/suppliers/index">
+          <a <?php if($this->request->session()->read('page') === 'Suppliers') : ?> class="changeactive" <?php endif; ?> href="/IS3102_Final/suppliers/view/<?=$_SESSION['Auth']['User']['id']?>">
             <i class="fa fa-table"></i><span>Supplier Details</span>
           </a>
         </li>
@@ -47,7 +47,7 @@
         </li>
         
       <?php else : ?>
-        <?= $this->Element('sideBar2', array('icon' => 'tags', 'title' => 'Create New', 'num' => '22', 
+        <?php /*$this->Element('sideBar2', array('icon' => 'tags', 'title' => 'Create New', 'num' => '22', 
           'type1' => 'Employee', 'typePlural' => 'RetailerEmployees', 
           'type2' => 'Customer', 'typePlural2' => 'Customers', 
           'type3' => 'Membership Tier', 'typePlural3' => 'CustMembershipTiers', 
@@ -70,17 +70,16 @@
           'type20' => 'Transfer Order', 'typePlural20' => 'TransferOrders', 
           'type21' => 'Message', 'typePlural21' => 'Messages',
           'type22' => 'Report', 'typePlural22' => 'Reports'
-        )); ?>
+        ));*/ ?>
 
         <?= $this->Element('sideBar', array('icon' => 'users', 'title' => 'Employees', 'num' => '2', 
           'type1' => 'Employees', 'typePlural' => 'RetailerEmployees', 
           'type2' => 'Employee Roles', 'typePlural2' => 'RetailerEmployeeRoles')); ?>
 
-        <?= $this->Element('sideBar', array('icon' => 'users', 'title' => 'Customers', 'num' => '4', 
+        <?= $this->Element('sideBar', array('icon' => 'users', 'title' => 'Customers', 'num' => '3', 
           'type1' => 'Customers', 'typePlural' => 'Customers', 
           'type2' => 'Membership Tiers', 'typePlural2' => 'CustMembershipTiers',
-          'type3' => 'Membership Points', 'typePlural3' => 'MembershipPoints', 
-          'type4' => 'Feedbacks', 'typePlural4' => 'Feedbacks')); ?>
+          'type3' => 'Feedbacks', 'typePlural3' => 'Feedbacks')); ?>
 
         <?= $this->Element('sideBar', array('icon' => 'shopping-cart', 'title' => 'Promotions', 'num' => '2', 
           'type1' => 'Promotions', 'typePlural' => 'Promotions', 

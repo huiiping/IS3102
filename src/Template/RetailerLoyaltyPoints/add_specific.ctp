@@ -42,7 +42,7 @@ $this->Html->addCrumb(__('Award / Deduct Loyalty Points')); ?>
             </div>
             <br>
             <div class ="row">
-              <a href="/IS3102_Final/RetailerLoyaltyPoints/view/<?=$retailer[0]['id']?>" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Loyalty Points Index</a>
+              <a href="/IS3102_Final/RetailerLoyaltyPoints/view/<?=$retailer[0]['id']?>" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Loyalty Points Page</a>
               <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save Points</button>
             </div>
             <br>
