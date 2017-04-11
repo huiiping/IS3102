@@ -40,15 +40,15 @@ $this->Html->addCrumb(__('Delivery Orders'));
                 <th scope="col" class ="form-group">
                   <div class ="submit">
                     <input class="btn btn-primary btn-block" class = "form-control" type="submit" class="btn btn-default bth-block" value="Search">
-                   
+
                   </div>
-                  </th>
-                  <th width="10"></th>
-                  <th scope="col" class ="form-group">
+                </th>
+                <th width="10"></th>
+                <th scope="col" class ="form-group">
                   <div class ="submit">
-                  <button class="btn btn-default btn-block"><a class="reset_button" onclick="reset();" placeholder="Reset"><i class="fa fa-fw fa-undo"></i>Reset</a></button>
+                    <button class="btn btn-default btn-block"><a class="reset_button" onclick="reset();" placeholder="Reset"><i class="fa fa-fw fa-undo"></i>Reset</a></button>
                   </div>
-                  </th>
+                </th>
               </tr>
             </table>
           </form>
@@ -66,6 +66,8 @@ $this->Html->addCrumb(__('Delivery Orders'));
               </tr>
             </thead>
             <tbody>
+
+
               <?php foreach ($deliveryOrders as $deliveryOrder): ?>
                 <tr>
                   <td style="max-width: 150px;"><?= h($deliveryOrder->deliverer) ?></td>
@@ -74,81 +76,73 @@ $this->Html->addCrumb(__('Delivery Orders'));
                   <td style="max-width: 150px;"><?= $deliveryOrder->has('customer') ? $this->Html->link($deliveryOrder->customer->id, ['controller' => 'Customers', 'action' => 'view', $deliveryOrder->customer->id]) : '' ?></td>
                   <td style="max-width: 150px;"><?= $deliveryOrder->has('transaction') ? $this->Html->link($deliveryOrder->transaction->id, ['controller' => 'Transactions', 'action' => 'view', $deliveryOrder->transaction->id]) : '' ?></td>
                   <td>
-                  <?php 
-                  if($deliveryOrder->status == 'Pending'){
-                    ?>
-                    <div class="btn-group">
-                      <button type="button" style="width: 100px;" class="btn btn-danger btn-flat"><?= h($deliveryOrder->status) ?></button>
-                      <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                      </button>
+                    <?php 
+                    if($deliveryOrder->status == 'Pending'){
+                      ?>
+                      <div class="btn-group">
+                        <button type="button" style="width: 100px;" class="btn btn-danger btn-flat"><?= h($deliveryOrder->status) ?></button>
+                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
+                          <span class="caret"></span>
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a title="Delivered" href="/IS3102_Final/delivery-orders/deliveredStatus/<?= $deliveryOrder->id ?>">Delivered</a></li>
+                          <li><a title="Approved" href="/IS3102_Final/delivery-orders/approvedStatus/<?= $deliveryOrder->id ?>">Approved</a></li>
+                        </ul>
+                      </div>
+                      <?php
 
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a title="Delivered" href="/IS3102_Final/delivery-orders/deliveredStatus/<?= $deliveryOrder->id ?>">Delivered</a></li>
-                        <li><a title="Approved" href="/IS3102_Final/delivery-orders/approvedStatus/<?= $deliveryOrder->id ?>">Approved</a></li>
-                      </ul>
-                    </div>
-                    <?php
+                    } else if ($deliveryOrder->status == 'Delivered'){
+                      ?>
 
-                  } else if ($deliveryOrder->status == 'Delivered'){
-                    ?>
+                      <div class="btn-group">
+                        <button type="button" style="width: 100px;" class="btn btn-success btn-flat"><?= h($deliveryOrder->status) ?></button>
+                      </div>
 
-                    <div class="btn-group">
-                      <button type="button" style="width: 100px;" class="btn btn-success btn-flat"><?= h($deliveryOrder->status) ?></button>
-                      <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                      </button>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a title="Pending Feedback" href="/IS3102_Final/delivery-orders/pendingStatus/<?= $deliveryOrder->id ?>">Pending</a></li>
-                        <li><a title="Approved Feedback" href="/IS3102_Final/delivery-orders/approvedStatus/<?= $deliveryOrder->id ?>">Approved</a></li>
-                      </ul>
-                    </div>
-                    <?php
-                  } else { ?>
-                    <div class="btn-group">
-                      <button type="button" style="width: 100px;" class="btn btn-warning btn-flat"><?= h($deliveryOrder->status) ?></button>
-                      <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                      </button>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a title="Pending Feedback" href="/IS3102_Final/delivery-orders/pendingStatus/<?= $deliveryOrder->id ?>">Pending</a></li>
-                        <li><a title="Approved Feedback" href="/IS3102_Final/delivery-orders/deliveredStatus/<?= $deliveryOrder->id ?>">Delivered</a></li>
-                      </ul>
-                    </div>
-                  <?php }
-                  ?>
-                  </td>
-                  <td style="max-width: 150px;"><span style="cursor:pointer"><a href=#> <i class="fa fa-bars" data-toggle="modal" data-target="#myModal" href="/IS3102_Final/delivery-orders/view/<?=$deliveryOrder->id?>" title="View Delivery Order Details"></i></span>&nbsp&nbsp
+                      <?php
+                    } else { ?>
+                      <div class="btn-group">
+                        <button type="button" style="width: 100px;" class="btn btn-warning btn-flat"><?= h($deliveryOrder->status) ?></button>
+                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
+                          <span class="caret"></span>
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a title="Pending Feedback" href="/IS3102_Final/delivery-orders/pendingStatus/<?= $deliveryOrder->id ?>">Pending</a></li>
+                          <li><a title="Approved Feedback" href="/IS3102_Final/delivery-orders/deliveredStatus/<?= $deliveryOrder->id ?>">Delivered</a></li>
+                        </ul>
+                      </div>
+                      <?php }
+                      ?>
+                    </td>
+                    <td style="max-width: 150px;"><span style="cursor:pointer"><a href=#> <i class="fa fa-bars" data-toggle="modal" data-target="#myModal" href="/IS3102_Final/delivery-orders/view/<?=$deliveryOrder->id?>" title="View Delivery Order Details"></i></span>&nbsp&nbsp
 
-                    <a href="/IS3102_Final/delivery-orders/edit/<?=$deliveryOrder->id?>"><i class="fa fa-edit" title="Edit Delivery Order Details"></i></a>&nbsp&nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Delivery Order')), array('action' => 'delete', $deliveryOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $deliveryOrder->id))) ?></td>
-                  </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table>
-            <div class="paginator">
-              <ul class="pagination">
-                <?= $this->Paginator->first('<< ' . __('first')) ?>
-                <?= $this->Paginator->prev('< ' . __('previous')) ?>
-                <?= $this->Paginator->numbers() ?>
-                <?= $this->Paginator->next(__('next') . ' >') ?>
-                <?= $this->Paginator->last(__('last') . ' >>') ?>
-              </ul>
-              <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+                      <a href="/IS3102_Final/delivery-orders/edit/<?=$deliveryOrder->id?>"><i class="fa fa-edit" title="Edit Delivery Order Details"></i></a>&nbsp&nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Delivery Order')), array('action' => 'delete', $deliveryOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $deliveryOrder->id))) ?></td>
+                    </tr>
+                  <?php endforeach; ?>
+                </tbody>
+              </table>
+              <div class="paginator">
+                <ul class="pagination">
+                  <?= $this->Paginator->first('<< ' . __('first')) ?>
+                  <?= $this->Paginator->prev('< ' . __('previous')) ?>
+                  <?= $this->Paginator->numbers() ?>
+                  <?= $this->Paginator->next(__('next') . ' >') ?>
+                  <?= $this->Paginator->last(__('last') . ' >>') ?>
+                </ul>
+                <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
 
+        </div>
       </div>
     </div>
-  </div>
