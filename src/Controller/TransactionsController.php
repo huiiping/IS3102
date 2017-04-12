@@ -210,4 +210,30 @@ class TransactionsController extends AppController
         echo ("\n");
         die();
     }
+
+    public function approvedStatus($id) {
+
+        $transaction = $this->Transactions->get($id);
+
+        $transaction->status = 'Approved';
+        $this->Transactions->save($transaction);
+
+        $this->Flash->success(__('The transaction has an approved status.'));
+
+        return $this->redirect(['action' => 'index']);
+
+    }
+
+    public function editLocation($tid, $lid) {
+
+        $transaction = $this->Transactions->get($tid);
+
+        $transaction->location_id = $lid;
+        $this->Transactions->save($transaction);
+
+        $this->Flash->success(__('The new location has been saved.'));
+
+        return $this->redirect(['action' => 'index']);
+
+    }
 }

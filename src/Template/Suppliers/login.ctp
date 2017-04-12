@@ -58,6 +58,17 @@
 										<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 										<input class = "form-control" type="password" name="password" placeholder = "Password" required="required" id="password">
 									</div>
+									<!-- <div class="input-group">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+										<select name="retailer" id="retailer" class="form-control" placeholder="Retailer" required="required">
+											<option value="0">---- Select ----</option>
+											<?php foreach ($retailers as $retailer): ?>
+
+												<option><?= $retailer->retailer_name ?></option>
+
+											<?php endforeach;	?>
+										</select>
+									</div> -->
 									<div class="input-group">
 										<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
 										<input class = "form-control" type="text" placeholder = "Retailer's Name" name="retailer" required="required" id="retailer">	
@@ -99,7 +110,7 @@
 										<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
 										<input class = "form-control" placeholder = "Email" type="text" name="email" id="email" required="required">
 									</div>
-									<div class="input-group">
+									<!-- <div class="input-group">
 										<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
 										<select name="retailer" id="retailer" class="form-control" placeholder="Retailer" required="required">
 											<option value="0">---- Select ----</option>
@@ -109,7 +120,11 @@
 
 											<?php endforeach;	?>
 										</select>
-									</div>		
+									</div> -->
+									<div class="input-group">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+										<input class = "form-control" type="text" placeholder = "Retailer's Name" name="retailer" required="required" id="retailer">	
+									</div>
 									<hr>
 									<div class="submit" style="padding-bottom:5px"><input type="submit" class="btn btn-md btn-primary btn-block" style="border-radius: 10px" value="Recover my Account">
 									</div>	

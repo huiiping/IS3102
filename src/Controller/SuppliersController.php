@@ -444,6 +444,25 @@ class SuppliersController extends AppController
     }
 
     public function recoverPassword(){
+        //check db match
+        $allRetailers = TableRegistry::get('Retailers');
+        $retailers = $allRetailers
+            ->find();
+
+        $check = false; 
+
+        foreach ($retailers as $retailerInd) {
+            if ($retailerInd->retailer_name == $_POST['retailer']) {
+                $check = false;
+                break;
+            } else {
+                $check = true;
+            }
+        }
+        if ($check) {
+            $this->Flash->error('Incorrect inputs, please try again.');
+            return $this->redirect(['controller' => 'Suppliers', 'action' => 'login']);
+        }
 
         $this->loadComponent('Generator');
 
@@ -518,7 +537,7 @@ class SuppliersController extends AppController
         $this->Auth->logout();
         $session = $this->request->session();
         $session->destroy();
-        return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
+        return $this->redirect(['controller' => 'Suppliers', 'action' => 'login', 'main']);
     }
 
     public function activateStatus($id) {

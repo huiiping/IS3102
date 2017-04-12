@@ -26,6 +26,9 @@ class MembershipPointsController extends AppController
         $this->set(compact('membershipPoints'));
         $this->set('_serialize', ['membershipPoints']);
     }
+    public $components = array(
+        'Prg'
+    );
 
     /**
      * View method
@@ -36,12 +39,25 @@ class MembershipPointsController extends AppController
      */
     public function view($id = null)
     {
-        $membershipPoint = $this->MembershipPoints->get($id, [
-            'contain' => ['Customers', 'RetailerEmployees']
-        ]);
+        // $membershipPoint = $this->MembershipPoints->get($id, [
+        //     'contain' => ['Customers', 'RetailerEmployees']
+        // ]);
 
-        $this->set('membershipPoint', $membershipPoint);
-        $this->set('_serialize', ['membershipPoint']);
+        // $this->set('membershipPoint', $membershipPoint);
+        // $this->set('_serialize', ['membershipPoint']);
+
+        $this->paginate = [
+            'contain' => ['Customers', 'RetailerEmployees']
+        ];
+
+        $query = $this->paginate($this->MembershipPoints->find('searchable', $this->Prg->parsedParams())->where(['customer_id' => $id])->order(['MembershipPoints.created' => 'DESC']));
+
+        $query2 = $this->MembershipPoints->Customers->find('all')->where(['id' => $id])->toArray();
+
+        $this->set('membershipPoints', $query);
+        $this->set('customer', $query2);
+        $this->set(compact('membershipPoints', 'customer'));
+        $this->set('_serialize', ['membershipPoints']);
     }
 
     /**

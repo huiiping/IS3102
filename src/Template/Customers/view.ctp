@@ -57,7 +57,9 @@ $this->Html->addCrumb(__('View Customer : '.h($customer->first_name).' '.h($cust
       </div>
       <td>
         <div style="text-align: center">
-          <a href="/IS3102_Final/customers/edit/<?=$customer->id?>">
+            <a href="/IS3102_Final/MembershipPoints/view/<?=$customer->id?>">
+            <i class="fa fa-trophy" style="font-size:24px;" title="View Customer's Membership Points"></i></a>&nbsp
+            <a href="/IS3102_Final/customers/edit/<?=$customer->id?>">
             <i class="fa fa-edit" style="font-size:24px;" title="Edit Customer Details"></i></a>&nbsp
             <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash ', 'style' => 'font-size: 24px', 'title' => 'Delete Customer')), array('action' => 'delete', $customer->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $customer->id))) ?>
           </div>

@@ -24,6 +24,39 @@ use Cake\Validation\Validator;
  */
 class MembershipPointsTable extends Table
 {
+    public $filterArgs = array(
+        'id' => array(
+            'type' => 'like',
+            'field' => 'id'
+        ),
+        'pts' => array(
+            'type' => 'like',
+            'field' => 'pts'
+        ),
+        'type' => array(
+            'type' => 'like',
+            'field' => 'type'
+        ),
+        'remarks' => array(
+            'type' => 'like',
+            'field' => 'remarks'
+        ),
+        'created' => array(
+            'type' => 'like',
+            'field' => 'created'
+        ),
+        'first_name' => array(
+            'type' => 'like',
+            'field' => 'Customers.first_name',
+            'method' => 'findByActions'
+        ),
+        'last_name' => array(
+            'type' => 'like',
+            'field' => 'Customers.last_name',
+            'method' => 'findByActions'
+        )
+
+    );
 
     /**
      * Initialize method
@@ -47,6 +80,7 @@ class MembershipPointsTable extends Table
         $this->belongsTo('RetailerEmployees', [
             'foreignKey' => 'retailer_employee_id'
         ]);
+        $this->addBehavior('Searchable');
     }
 
     /**

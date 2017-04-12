@@ -13,9 +13,9 @@ $this->Html->addCrumb(__('Items'));
             <h3 class="box-title"><?= __('Items') ?></h3>
           </div>
           <div class="box-body">
-          <div class="pull-right">
+          <!-- <div class="pull-right">
             <a class="btn btn-success btn-block" title="Create New Item" href="/IS3102_Final/items/add" >Create New Item</a>
-          </div>
+          </div> -->
             <!--<legend><h4><?= __('Search') ?></h4></legend>-->
             <form method="post" accept-charset="utf-8" action="/IS3102_Final/items">
               <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
@@ -38,14 +38,15 @@ $this->Html->addCrumb(__('Items'));
                 </tr>
               </table>
             </form>
-          <div class="pull-right">
+          <!-- <div class="pull-right">
             <a class="btn btn-info btn-block" title="Manage Inbound Goods" href="/IS3102_Final/items/inbound" >Manage Inbound Goods</a>
           </div>
           <br><br>
           <div class="pull-right">
             <a class="btn btn-info btn-block" title="Manage Inbound Goods" href="/IS3102_Final/items/outbound" >Manage Outbound Goods</a>
           </div>
-            <br><br><br>
+            <br><br> -->
+            <br>
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
