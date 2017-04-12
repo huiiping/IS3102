@@ -254,17 +254,17 @@ class PromotionsController extends AppController
     }
 
     public function redeemvoucher() {
-        $voucherNum = $_POST['voucherNum'];
+        $voucherNum = (int) $_POST['voucherNum'];
         $now = Time::now();
-
+        
         $voucher = $this->Promotions->find()
-            ->where(['start_date' < $now])
-            ->Where(['end_date' > $now])
-            ->Where(['first_voucher_num' < $voucherNum])
-            ->Where(['last_voucher_num' > $voucherNum])
+            ->where(['first_voucher_num <=' => $voucherNum], ['first_voucher_num' => 'integer'])
+            ->andWhere(['last_voucher_num >=' => $voucherNum], ['last_voucher_num' => 'integer'])
+            ->andWhere(['start_date <' => $now])
+            ->andWhere(['end_date >' => $now])
             ->toArray();
 
-        if (sizeof($voucher) == 1) {
+        if (!empty($voucher)) {
             
             echo "Valid";
             echo "\n";
@@ -273,7 +273,10 @@ class PromotionsController extends AppController
                 echo ($vouch['discount_rate']);
                 echo "\n";
             }
-
+        }
+        else {
+            echo ("Invalid");
+            echo ("\n");
         }
 
         die();

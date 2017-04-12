@@ -117,7 +117,7 @@ class TransactionsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function addStoreTransaction() {
+   public function addStoreTransaction() {
 
         $this->loadModel('Customers');
         $this->loadModel('TransactionsItems');
@@ -144,14 +144,19 @@ class TransactionsController extends AppController
         $transactionID = null;
         $customer = null;
         $deliveryOrderID = null;
-        echo ($memberDiscount);
-        echo ("\n");
 
         //Customer
         if(!empty($cardID)) {
             $query = $this->Customers->find()->where(['member_identification' => $cardID]);
             $first = $query->first();
-            $customer = $this->Customers->get($first['id']);
+            if (!empty($first)) {
+                $customer = $this->Customers->get($first['id']);
+            }
+            else {
+                echo ("Customer does not exist!");
+                echo ("\n");
+                die();
+            }
         }
 
         //Creating new transaction
@@ -183,7 +188,7 @@ class TransactionsController extends AppController
             $this->TransactionsItems->save($transactionsItem);
         }
 
-        if (isset($address)) {
+        if (!empty($address)) {
 
             //Creating delivery order
             $deliveryOrder = $this->DeliveryOrders->newEntity();
@@ -194,7 +199,7 @@ class TransactionsController extends AppController
             $deliveryOrder->transaction_id = $transactionID;
                 
             if ($this->DeliveryOrders->save($deliveryOrder)) {
-                $deliveryOrderID = $deliveryOder->id;
+                $deliveryOrderID = $deliveryOrder->id;
             }
 
             //Creating delivery order items 

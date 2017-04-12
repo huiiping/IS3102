@@ -309,31 +309,38 @@ class CustomersController extends AppController
         $query = $this->Customers->find()->where(['member_identification' => $id]);
         $first = $query->first();
 
-        $customer = $this->Customers->get($first['id']);
+        if (!empty($first)) {
 
-        $tier = $this->CustMembershipTiers->get($customer['cust_membership_tier_id']);
+          $customer = $this->Customers->get($first['id']);
 
-        echo ($tier['tier_name']);
-        echo "\n";
+          $tier = $this->CustMembershipTiers->get($customer['cust_membership_tier_id']);
 
-        $points = $this->MembershipPoints->find()->where(['customer_id' => $customer['id']])->toArray();
-        foreach ($points as $point) {
+          echo ($tier['tier_name']);
+          echo "\n";
+
+          $points = $this->MembershipPoints->find()->where(['customer_id' => $customer['id']])->toArray();
+          foreach ($points as $point) {
             if ($point['type'] == "Add") {
-                $membershipPoints += $point['pts'];
+              $membershipPoints += $point['pts'];
             }
             else {
-                $membershipPoints -= $point['pts'];
+              $membershipPoints -= $point['pts'];
             }
+          }
+
+          echo ($membershipPoints);
+          echo "\n";
+
+          echo ($tier['discount_rate']);
+          echo "\n";
+
+          echo ($tier['birthday_rate']);
+          echo "\n";
         }
-
-        echo ($membershipPoints);
-        echo "\n";
-
-        echo ($tier['discount_rate']);
-        echo "\n";
-
-        echo ($tier['birthday_rate']);
-        echo "\n";
+        else {
+          echo ("Customer does not exist!");
+          echo ("\n");
+        }
 
         die();
 

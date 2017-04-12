@@ -215,24 +215,32 @@ private function withinLimit()
         $this->loadModel('PromotionsProducts');
 
         $products = $this->Products->find()->where(['barcode' => $code])->toArray();
-        foreach ($products as $product) {
-            
-            echo ($product['prod_name']);
-            echo "\n";
 
-            echo ($product['barcode']);
-            echo "\n";
+        if (!empty($products)) {
 
-            $unitPrice = $product['store_unit_price'];
-            $promotionIDs = $this->PromotionsProducts->find()->where(['product_id' => $product['id']])->select('promotion_id');
-            $promotions = $this->Promotions->find()->where(['id' => $promotionIDs], ['id' => 'integer[]'])->toArray();    
+            foreach ($products as $product) {
 
-            foreach ($promotions as $promotion) {
-                $unitPrice = $unitPrice * $promotion['discount_rate'];
+                echo ($product['prod_name']);
+                echo "\n";
+
+                echo ($product['barcode']);
+                echo "\n";
+
+                $unitPrice = $product['store_unit_price'];
+                $promotionIDs = $this->PromotionsProducts->find()->where(['product_id' => $product['id']])->select('promotion_id');
+                $promotions = $this->Promotions->find()->where(['id' => $promotionIDs], ['id' => 'integer[]'])->toArray();    
+
+                foreach ($promotions as $promotion) {
+                    $unitPrice = $unitPrice * $promotion['discount_rate'];
+                }
+
+                echo ($unitPrice);
+                echo "\n";
             }
-
-            echo ($unitPrice);
-            echo "\n";
+        }
+        else {
+            echo ("Product does not exist!");
+            echo ("\n");
         }
 
         die();
