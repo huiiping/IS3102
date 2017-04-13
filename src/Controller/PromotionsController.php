@@ -135,7 +135,7 @@ class PromotionsController extends AppController
             $this->Flash->error(__('The promotion could not be saved. Please, try again.'));
         }
         $retailerEmployees = $this->Promotions->RetailerEmployees->find('list', ['limit' => 200]);
-        $custMembershipTiers = $this->Promotions->custMembershipTiers->find('list', ['limit' => 200]);
+        $custMembershipTiers = $this->Promotions->custMembershipTiers->find('all', ['limit' => 200]);
         $products = $this->Promotions->Products->find('list', ['limit' => 200]);
         $this->set(compact('promotion', 'retailerEmployees', 'custMembershipTiers', 'products'));
         $this->set('_serialize', ['promotion']);
