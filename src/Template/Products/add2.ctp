@@ -57,7 +57,8 @@ $this->Html->addCrumb(__('Create New Product Specification'));
         <br>
 
         <div class ="row">
-          <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save Product Specification</button>
+          <a href="/IS3102_Final/products/index" class="btn btn-md btn-primary pull-left" type="submit" style="border-radius: 8px; margin:5px;">Back to Products Index</a>
+          <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save & Add more Product Specification</button>
         </div>
         <br>
       </form>

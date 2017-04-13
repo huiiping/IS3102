@@ -15,9 +15,13 @@ $this->Html->addCrumb(__('View Product'));
           <h3 class="box-title"><?= h($product->prod_name) ?></h3>
         </div>
         <div class="box-body">
-            <div class="pull-right">
+        <div class="pull-right">
+                <a class="btn btn-success btn-block" title="Add Product Specification" href="/IS3102_Final/products/add2">Add Product Specification</a>
+          
                 <a class="btn btn-success btn-block" title="Edit Product Details" href="/IS3102_Final/products/edit/<?=$product->id?>">Edit Product</a>
+                <br>
             </div>
+
             <br><br><br>
             <table class="table table-bordered table-striped">
                 <tr>

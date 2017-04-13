@@ -18,13 +18,13 @@ $this->Html->addCrumb(__('Product Category'));
         </div>
         <div class="box-body">
           <div class="pull-right">
-            <a class="btn btn-default btn-block" title="Create New Product Category" href="/IS3102_Final/prod-cats/add" >Create New Product Category</a>
+            <a class="btn btn-success btn-block" title="Create New Product Category" href="/IS3102_Final/prod-cats/add" >Create New Product Category</a>
           </div>
           <br>
 
           <br>
           <!--<legend><h4><?= __('Search') ?></h4></legend>-->
-          <form method="post" accept-charset="utf-8" action="/IS3102_Final/prod-cats">
+          <form method="post" accept-charset="utf-8" action="/IS3102_Final/delivery-orders">
             <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
               <tr>
                 <th width="10"></th>
@@ -32,14 +32,21 @@ $this->Html->addCrumb(__('Product Category'));
                   <div class ="form-group">
                     <div class="input-group">
                       <label for="search"></label>&nbsp&nbsp&nbsp
-                      <input class = "form-control" type="text" name="search" id="search" placeholder="Search">
+                      <input class = "form-control" type="text" class="btn btn-default btn-block" name="search" id="search" placeholder="Search">
                     </div>
                   </div>
                 </th>
                 <th width="30"></th>
                 <th scope="col" class ="form-group">
                   <div class ="submit">
-                    <input class = "form-control" type="submit" class="btn btn-default bth-flat" value="Search">
+                    <input class="btn btn-primary btn-block" class = "form-control" type="submit" class="btn btn-default bth-block" value="Search">
+
+                  </div>
+                </th>
+                <th width="10"></th>
+                <th scope="col" class ="form-group">
+                  <div class ="submit">
+                    <button class="btn btn-default btn-block"><a class="reset_button" onclick="reset();" placeholder="Reset"><i class="fa fa-fw fa-undo"></i>Reset</a></button>
                   </div>
                 </th>
               </tr>

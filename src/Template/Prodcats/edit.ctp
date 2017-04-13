@@ -52,8 +52,8 @@ $this->Html->addCrumb(__('Edit Product Category'));
               </div>
             </div>
             <div class ="row">
-              <a href="/IS3102_Final/prod-cats/index" class="btn btn-md btn-default pull-left" style="border-radius: 8px; margin:5px;">Back to Product Category Index</a>
-              <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Edit Product Category</button>
+              <a href="/IS3102_Final/prod-cats/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Product Category Index</a>
+              <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Edit Product Category</button>
            </div>
          </div>
        </div>
