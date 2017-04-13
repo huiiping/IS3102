@@ -466,44 +466,83 @@ crossorigin="anonymous"></script> -->
    console.log(tag);
    var action = "<?=$this->request->params['action']?>";
    console.log(action);
-   if(tag == "RetailerEmployees"){
-    document.getElementById( 'emptag' ).style.backgroundColor = '#3c8dbc';
+   if("<?=$intrasys?>"){
+    console.log("intrasyshere")
+      if(tag == "IntrasysEmployees" || tag == "IntrasysEmployeeRoles"){
+        document.getElementById( 'emptag' ).style.backgroundColor = '#3c8dbc';
+      }
+      else if(tag == "Retailers" || tag == "RetailerAccTypes"){
+        document.getElementById( 'rettag' ).style.backgroundColor = '#3c8dbc';
+      }
+      else if(tag == "Announcements"){
+        document.getElementById('logtag').style.backgroundColor = '#3c8dbc';
+      }
+      else if(tag == "IntrasysLoggings"){
+        document.getElementById('logtag').style.backgroundColor = '#3c8dbc';
+      }
+      else{
+        console.log("nothing");
+      }
+   }
+
+
+   else if( (!"<?=$intrasys?>") && (!"<?=$type?>") ){
+    console.log("retailerhere");
+       if(tag == "RetailerEmployees"){
+        document.getElementById( 'emptag' ).style.backgroundColor = '#3c8dbc';
+      }
+      else if(tag == "Customers" || tag == "CustMembershipTiers" || tag == "Feedbacks" ){
+        document.getElementById( 'custtag' ).style.backgroundColor = '#3c8dbc';
+      }
+      else if(tag == "Promotions"){
+        document.getElementById( 'promtag' ).style.backgroundColor = '#3c8dbc';
+      }
+      else if(tag == "ProdCats" || tag == "Products" || tag == "ProdSpecifications"){
+        document.getElementById( 'prodtag' ).style.backgroundColor = '#3c8dbc';
+      }
+      else if(tag == "Locations" || tag == "Sections" || tag == "StockLevels" || tag == "Items"){
+        document.getElementById( 'waretag' ).style.backgroundColor = '#3c8dbc';
+      }
+      else if(tag == "Locations" || tag == "Sections" || tag == "StockLevels" || tag == "Items"){
+        document.getElementById( 'waretag' ).style.backgroundColor = '#3c8dbc';
+      }
+      else if(tag == "Suppliers" || tag == "Rfqs" || tag == "Quotations" || tag == "PurchaseOrders"){
+        document.getElementById( 'supptag' ).style.backgroundColor = '#3c8dbc';
+      }
+      else if(tag == "Transactions" || tag == "DeliveryOrders" || tag == "TransferOrders"){
+        document.getElementById( 'transtag' ).style.backgroundColor = '#3c8dbc';
+      }
+      else if(tag == "Messages"){
+        document.getElementById( 'messtag' ).style.backgroundColor = '#3c8dbc';
+        
+      }
+      else if(tag == "Reports" && (action == "add" || action == "index" || action == "edit" || action == "view")){
+        document.getElementById( 'inctag' ).style.backgroundColor = '#3c8dbc';
+      } 
+      else if(tag == "RetailerLoggings" ){
+        document.getElementById( 'logtag' ).style.backgroundColor = '#3c8dbc';
+      }
+      else if(tag == "Reports"){
+        document.getElementById( 'analtag' ).style.backgroundColor = '#3c8dbc';
+      }else{
+        console.log("nothing");
+      } 
+  }else{
+    console.log("supphere")
+    if(tag == "Suppliers"){
+        document.getElementById( 'supptag' ).style.backgroundColor = '#3c8dbc';
+      }
+      else if(tag == "Rfqs" ){
+        document.getElementById( 'rfqtag' ).style.backgroundColor = '#3c8dbc';
+      }else if(tag == "Quotations" ){
+        document.getElementById( 'quotag' ).style.backgroundColor = '#3c8dbc';
+      }else if(tag == "PurchaseOrders" ){
+        document.getElementById( 'potag' ).style.backgroundColor = '#3c8dbc';
+      }
   }
-  else if(tag == "Customers" || tag == "CustMembershipTiers" || tag == "Feedbacks" ){
-    document.getElementById( 'custtag' ).style.backgroundColor = '#3c8dbc';
-  }
-  else if(tag == "Promotions"){
-    document.getElementById( 'promtag' ).style.backgroundColor = '#3c8dbc';
-  }
-  else if(tag == "ProdCats" || tag == "Products" || tag == "ProdSpecifications"){
-    document.getElementById( 'prodtag' ).style.backgroundColor = '#3c8dbc';
-  }
-  else if(tag == "Locations" || tag == "Sections" || tag == "StockLevels" || tag == "Items"){
-    document.getElementById( 'waretag' ).style.backgroundColor = '#3c8dbc';
-  }
-  else if(tag == "Locations" || tag == "Sections" || tag == "StockLevels" || tag == "Items"){
-    document.getElementById( 'waretag' ).style.backgroundColor = '#3c8dbc';
-  }
-  else if(tag == "Suppliers" || tag == "Rfqs" || tag == "Quotations" || tag == "PurchaseOrders"){
-    document.getElementById( 'supptag' ).style.backgroundColor = '#3c8dbc';
-  }
-  else if(tag == "Transactions" || tag == "DeliveryOrders" || tag == "TransferOrders"){
-    document.getElementById( 'transtag' ).style.backgroundColor = '#3c8dbc';
-  }
-  else if(tag == "Messages" ){
-    document.getElementById( 'messtag' ).style.backgroundColor = '#3c8dbc';
-  }
-  else if(tag == "Reports" && (action == "add" || action == "index" || action == "edit" || action == "view")){
-    document.getElementById( 'inctag' ).style.backgroundColor = '#3c8dbc';
-  } 
-  else if(tag == "Loggings" ){
-    document.getElementById( 'logtag' ).style.backgroundColor = '#3c8dbc';
-  }
-  else {
-    document.getElementById( 'analtag' ).style.backgroundColor = '#3c8dbc';
-  }
+
 </script>
-<script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+<!-- <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 <script src="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <script>
 $(function () {
@@ -514,3 +553,4 @@ $(function () {
     $(".textarea").wysihtml5();
   });
 </script>
+ -->

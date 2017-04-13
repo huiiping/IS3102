@@ -24,16 +24,16 @@
       'type3' => 'Retailer Account Type', 'typePlural3' => 'RetailerAccTypes', 
       'type4' => 'Announcement', 'typePlural4' => 'Announcements'));*/ ?>
 
-      <?= $this->Element('sideBar', array('icon' => 'users', 'num' => '2', 'title' => 'Employees', 'type1' => 'Employees', 'typePlural' => 'IntrasysEmployees', 'type2' => 'Employee Roles', 'typePlural2' => 'IntrasysEmployeeRoles')); ?>
-      <?= $this->Element('sideBar', array('icon' => 'users', 'num' => '2', 'title' => 'Retailers', 'type1' => 'Retailers', 'typePlural' => 'Retailers', 'type2' => 'Retailer Account Types', 'typePlural2' => 'RetailerAccTypes')); ?>
+      <?= $this->Element('sideBar', array('icon' => 'users', 'num' => '2', 'tag' => 'emptag','title' => 'Employees', 'type1' => 'Employees', 'typePlural' => 'IntrasysEmployees', 'type2' => 'Employee Roles', 'typePlural2' => 'IntrasysEmployeeRoles')); ?>
+      <?= $this->Element('sideBar', array('icon' => 'users', 'num' => '2', 'tag' => 'rettag', 'title' => 'Retailers', 'type1' => 'Retailers', 'typePlural' => 'Retailers', 'type2' => 'Retailer Account Types', 'typePlural2' => 'RetailerAccTypes')); ?>
 
       <li class="treeview">
-        <a href="/IS3102_Final/announcements/index">
+        <a id="annotag" href="/IS3102_Final/announcements/index">
           <i class="fa fa-calendar-o"></i><span>&nbsp;Announcements</span>
         </a>
       </li>
       <li class="treeview">
-        <a href="/IS3102_Final/intrasys-loggings/index">
+        <a id="logtag" href="/IS3102_Final/intrasys-loggings/index">
           <i class="fa fa-table"></i><span>&nbsp;Loggings</span>
         </a>
       </li>

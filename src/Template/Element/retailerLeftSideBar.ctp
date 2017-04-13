@@ -26,22 +26,22 @@
       
       <?php if($type) : ?>
         <li class="treeview">
-          <a <?php if($this->request->session()->read('page') === 'Suppliers') : ?> class="changeactive" <?php endif; ?> href="/IS3102_Final/suppliers/view/<?=$_SESSION['Auth']['User']['id']?>">
+          <a id="supptag" <?php if($this->request->session()->read('page') === 'Suppliers') : ?> class="changeactive" <?php endif; ?> href="/IS3102_Final/suppliers/view/<?=$_SESSION['Auth']['User']['id']?>">
             <i class="fa fa-table"></i><span>Supplier Details</span>
           </a>
         </li>
         <li class="treeview">
-          <a href="/IS3102_Final/rfqs/supplierIndex">
+          <a id="rfqtag" href="/IS3102_Final/rfqs/supplierIndex">
             <i class = "fa fa-sticky-note-o"></i><span>View RFQs</span>
           </a>
         </li>
         <li class="treeview">
-          <a href="/IS3102_Final/quotations/supplier-index">
+          <a id="quotag" href="/IS3102_Final/quotations/supplier-index">
             <i class = "fa fa-sticky-note-o"></i><span>View Quotations</span>
           </a>
         </li>
         <li class="treeview">
-          <a href="/IS3102_Final/PurchaseOrders/supplier-index">
+          <a id="potag" href="/IS3102_Final/PurchaseOrders/supplier-index">
             <i class = "fa fa-sticky-note-o"></i><span>View Purchase Orders</span>
           </a>
         </li>
