@@ -70,65 +70,67 @@
           'type20' => 'Transfer Order', 'typePlural20' => 'TransferOrders', 
           'type21' => 'Message', 'typePlural21' => 'Messages',
           'type22' => 'Report', 'typePlural22' => 'Reports'
-        ));*/ ?>
+          ));*/ ?>
 
-        <?= $this->Element('sideBar', array('icon' => 'users', 'title' => 'Employees', 'num' => '2', 
-          'type1' => 'Employees', 'typePlural' => 'RetailerEmployees', 
-          'type2' => 'Employee Roles', 'typePlural2' => 'RetailerEmployeeRoles')); ?>
+          <?= $this->Element('sideBar', array('icon' => 'users', 'title' => 'Employees', 'num' => '2', 'tag' => 'emptag',
+            'type1' => 'Employees', 'typePlural' => 'RetailerEmployees', 
+            'type2' => 'Employee Roles', 'typePlural2' => 'RetailerEmployeeRoles')); ?>
 
-        <?= $this->Element('sideBar', array('icon' => 'users', 'title' => 'Customers', 'num' => '3', 
-          'type1' => 'Customers', 'typePlural' => 'Customers', 
-          'type2' => 'Membership Tiers', 'typePlural2' => 'CustMembershipTiers',
-          'type3' => 'Feedbacks', 'typePlural3' => 'Feedbacks')); ?>
+          <?= $this->Element('sideBar', array('icon' => 'users', 'title' => 'Customers', 'num' => '3', 'tag' => 'custtag',
+            'type1' => 'Customers', 'typePlural' => 'Customers', 
+            'type2' => 'Membership Tiers', 'typePlural2' => 'CustMembershipTiers',
+            'type3' => 'Feedbacks', 'typePlural3' => 'Feedbacks')); ?>
 
-        <?= $this->Element('sideBar', array('icon' => 'shopping-cart', 'title' => 'Promotions', 'num' => '2', 
-          'type1' => 'Promotions', 'typePlural' => 'Promotions', 
-          'type2' => 'Promotion Emails', 'typePlural2' => 'PromotionEmails')); ?>
+          <?= $this->Element('sideBar', array('icon' => 'shopping-cart', 'title' => 'Promotions', 'num' => '2', 'tag' => 'promtag',
+            'type1' => 'Promotions', 'typePlural' => 'Promotions', 
+            'type2' => 'Promotion Emails', 'typePlural2' => 'PromotionEmails')); ?>
 
-        <?= $this->Element('sideBar', array('icon' => 'shopping-cart', 'title' => 'Products', 'num' => '3', 
-          'type1' => 'Product Category', 'typePlural' => 'ProdCats', 
-          'type2' => 'Products', 'typePlural2' => 'Products', 
-          'type3' => 'Product Specification', 'typePlural3' => 'ProdSpecifications')); ?>
+          <?= $this->Element('sideBar', array('icon' => 'shopping-cart', 'title' => 'Products', 'num' => '3', 'tag' => 'prodtag',
+            'type1' => 'Product Category', 'typePlural' => 'ProdCats', 
+            'type2' => 'Products', 'typePlural2' => 'Products', 
+            'type3' => 'Product Specification', 'typePlural3' => 'ProdSpecifications')); ?>
 
-        <?= $this->Element('sideBar', array('icon' => 'building', 'title' => 'Warehouse', 'num' => '4', 
-          'type1' => 'Locations', 'typePlural' => 'Locations',
-          'type2' => 'Sections', 'typePlural2' => 'Sections', 
-          'type3' => 'Stock Levels', 'typePlural3' => 'StockLevels', 
-          'type4' => 'Items', 'typePlural4' => 'Items')); ?>
+          <?= $this->Element('sideBar', array('icon' => 'building', 'title' => 'Warehouse', 'num' => '4', 'tag' => 'waretag',
+            'type1' => 'Locations', 'typePlural' => 'Locations',
+            'type2' => 'Sections', 'typePlural2' => 'Sections', 
+            'type3' => 'Stock Levels', 'typePlural3' => 'StockLevels', 
+            'type4' => 'Items', 'typePlural4' => 'Items')); ?>
 
-        <?= $this->Element('sideBar', array('icon' => 'users', 'title' => 'Suppliers', 'num' => '4',
-         'type1' => 'Suppliers', 'typePlural' => 'Suppliers', 
-         'type2' => 'RFQ', 'typePlural2' => 'Rfqs',
-         'type3' => 'Quotations', 'typePlural3' => 'Quotations',
-         'type4' => 'Purchase Orders', 'typePlural4' => 'PurchaseOrders')); ?>
+          <?= $this->Element('sideBar', array('icon' => 'users', 'title' => 'Suppliers', 'num' => '4', 'tag' => 'supptag',
+           'type1' => 'Suppliers', 'typePlural' => 'Suppliers', 
+           'type2' => 'RFQ', 'typePlural2' => 'Rfqs',
+           'type3' => 'Quotations', 'typePlural3' => 'Quotations',
+           'type4' => 'Purchase Orders', 'typePlural4' => 'PurchaseOrders')); ?>
 
-        <?= $this->Element('sideBar', array('icon' => 'file-text-o', 'title' => 'Transactions', 'num' => '3',
-         'type1' => 'Transactions', 'typePlural' => 'Transactions', 
-         'type2' => 'Delivery Orders', 'typePlural2' => 'DeliveryOrders', 
-         'type3' => 'Transfer Orders', 'typePlural3' => 'TransferOrders')); ?>
+          <?= $this->Element('sideBar', array('icon' => 'file-text-o', 'title' => 'Transactions', 'num' => '3', 'tag' => 'transtag',
+           'type1' => 'Transactions', 'typePlural' => 'Transactions', 
+           'type2' => 'Delivery Orders', 'typePlural2' => 'DeliveryOrders', 
+           'type3' => 'Transfer Orders', 'typePlural3' => 'TransferOrders')); ?>
 
-        <li class="treeview">
-          <a href="/IS3102_Final/messages/index">
-            <i class="fa fa-envelope"></i><span>&nbsp;Messages</span>
-          </a>
-        </li>
-        <li class="treeview">
-          <a href="/IS3102_Final/reports/index">
-            <i class="fa fa-book"></i><span>&nbsp;Incident Reports</span>
-          </a>
-        </li>
-        <li class="treeview">
-          <a href="/IS3102_Final/reports/other">
-            <i class="fa fa-book"></i><span>&nbsp;Analytic Reports</span>
-          </a>
-        </li>
-        <li class="treeview">
-          <a href="/IS3102_Final/retailer-loggings/index">
-            <i class="fa fa-table"></i><span>&nbsp;Loggings</span>
-          </a>
-        </li>
-      <?php endif; ?>
+           <li class="treeview">
+            <a id="messtag" href="/IS3102_Final/messages/index">
+              <i class="fa fa-envelope"></i><span>&nbsp;Messages</span>
+            </a>
+          </li>
+          <li class="treeview">
+            <a id="inctag" href="/IS3102_Final/reports/index">
+              <i class="fa fa-book"></i><span>&nbsp;Incident Reports</span>
+            </a>
+          </li>
+          <li class="treeview">
+            <a id="analtag" href="/IS3102_Final/reports/other">
+              <i class="fa fa-book"></i><span>&nbsp;Analytic Reports</span>
+            </a>
+          </li>
+          <li class="treeview">
+            <a id="logtag" href="/IS3102_Final/retailer-loggings/index">
+              <i class="fa fa-table"></i><span>&nbsp;Loggings</span>
+            </a>
+          </li>
+        <?php endif; ?>
 
-    </ul>
-  </section>
-</aside>
+      </ul>
+    </section>
+  </aside>
+  
+  

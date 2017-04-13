@@ -461,6 +461,48 @@ crossorigin="anonymous"></script> -->
                });
              </script>
              <!-- Bootstrap WYSIHTML5 -->
+<script>
+   var tag = "<?= $this->name ?>"
+   console.log(tag);
+   var action = "<?=$this->request->params['action']?>";
+   console.log(action);
+   if(tag == "RetailerEmployees"){
+    document.getElementById( 'emptag' ).style.backgroundColor = '#3c8dbc';
+  }
+  else if(tag == "Customers" || tag == "CustMembershipTiers" || tag == "Feedbacks" ){
+    document.getElementById( 'custtag' ).style.backgroundColor = '#3c8dbc';
+  }
+  else if(tag == "Promotions"){
+    document.getElementById( 'promtag' ).style.backgroundColor = '#3c8dbc';
+  }
+  else if(tag == "ProdCats" || tag == "Products" || tag == "ProdSpecifications"){
+    document.getElementById( 'prodtag' ).style.backgroundColor = '#3c8dbc';
+  }
+  else if(tag == "Locations" || tag == "Sections" || tag == "StockLevels" || tag == "Items"){
+    document.getElementById( 'waretag' ).style.backgroundColor = '#3c8dbc';
+  }
+  else if(tag == "Locations" || tag == "Sections" || tag == "StockLevels" || tag == "Items"){
+    document.getElementById( 'waretag' ).style.backgroundColor = '#3c8dbc';
+  }
+  else if(tag == "Suppliers" || tag == "Rfqs" || tag == "Quotations" || tag == "PurchaseOrders"){
+    document.getElementById( 'supptag' ).style.backgroundColor = '#3c8dbc';
+  }
+  else if(tag == "Transactions" || tag == "DeliveryOrders" || tag == "TransferOrders"){
+    document.getElementById( 'transtag' ).style.backgroundColor = '#3c8dbc';
+  }
+  else if(tag == "Messages" ){
+    document.getElementById( 'messtag' ).style.backgroundColor = '#3c8dbc';
+  }
+  else if(tag == "Reports" && (action == "add" || action == "index" || action == "edit" || action == "view")){
+    document.getElementById( 'inctag' ).style.backgroundColor = '#3c8dbc';
+  } 
+  else if(tag == "Loggings" ){
+    document.getElementById( 'logtag' ).style.backgroundColor = '#3c8dbc';
+  }
+  else {
+    document.getElementById( 'analtag' ).style.backgroundColor = '#3c8dbc';
+  }
+</script>
 <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 <script src="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <script>

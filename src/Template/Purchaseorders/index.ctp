@@ -72,7 +72,7 @@ $this->Html->addCrumb(__('Purchase Orders'), ['controller' => 'Purchaseorders', 
                 }
 
                 ?>
-                    <td><?php if($purchaseOrder->delivery_status){echo "Pending";}else{echo "";} ?>
+                    <td><?php if($purchaseOrder->delivery_status || $purchaseOrder->approval_status == 'Approved'){echo "Pending";}else{echo "";} ?>
             <!-- 
                     <?= h($purchaseOrder->delivery_status) ?> --></td>
                     <td><?= $purchaseOrder->has('quotation') ? $this->Html->link($purchaseOrder->quotation->id, ['controller' => 'Quotations', 'action' => 'view', $purchaseOrder->quotation->id]) : '' ?></td>
