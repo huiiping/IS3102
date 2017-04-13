@@ -11,10 +11,10 @@ Highcharts.chart('container', {
         type: 'line'
     },
     title: {
-        text: 'Number of Users Joined per month, <br> <?=date('M-Y', strtotime("- 11 months"))?> <?=date("M-Y")?>'
+        text: 'Cumulative Number of transactions <br> <?=date('M-Y', strtotime("- 11 months"))?> <?=date("M-Y")?>'
     },
     subtitle: {
-        /*text: 'Source: WorldClimate.com'*/
+       /* text: 'Source: WorldClimate.com'*/
     },
     xAxis: {
         categories: [
@@ -36,14 +36,8 @@ Highcharts.chart('container', {
         }
     },
     series: [{
-        name: 'Employees',
-        data:  [<?php echo join($emparray, ',') ?>]
-    }, {
-        name: 'Customers',
-        data: [<?php echo join($custarray, ',') ?>]
-    }, {
-        name: 'Suppliers',
-        data: [<?php echo join($supparray, ',') ?>]
+        name: 'Transactions',
+        data:  [<?php echo join($transarray, ',') ?>]
     }]
 });
 </script>

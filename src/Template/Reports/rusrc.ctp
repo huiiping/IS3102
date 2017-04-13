@@ -11,10 +11,10 @@ Highcharts.chart('container', {
         type: 'line'
     },
     title: {
-        text: 'Number of Users Joined per month, <br> <?=date('M-Y', strtotime("- 11 months"))?> <?=date("M-Y")?>'
+        text: 'Cumulative Number of Users Joined <br> <?=date('M-Y', strtotime("- 11 months"))?> <?=date("M-Y")?>'
     },
     subtitle: {
-        text: 'Source: WorldClimate.com'
+       /* text: 'Source: WorldClimate.com'*/
     },
     xAxis: {
         categories: [

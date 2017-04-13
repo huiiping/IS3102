@@ -207,24 +207,30 @@ class ReportsController extends AppController
             }
             elseif($reportType == "3") {
                 return $this->redirect(['action' => 'rusrc']);
+            }
+            elseif($reportType == "4") {
+                return $this->redirect(['action' => 'tsmr']);
+            }
+            elseif($reportType == "5") {
+                return $this->redirect(['action' => 'tscr']);
             }else{
-             $this->Flash->error(__('The  report could not be generated. Please, try again.'));
-             var_dump($reportType);
-         }
-     }
- }
+               $this->Flash->error(__('The  report could not be generated. Please, try again.'));
+               var_dump($reportType);
+           }
+       }
+   }
 
- public function rusr(){
+   public function rusr(){
 
-     $retailerEmployeesTable = TableRegistry::get('RetailerEmployees');
-     $suppliersTable = TableRegistry::get('Suppliers');
-     $customersTable = TableRegistry::get('Customers');
-     $employees =  sizeof($retailerEmployeesTable->find()->toArray());
-     $suppliers =  sizeof($suppliersTable->find()->toArray());
-     $customers =  sizeof($customersTable->find()->toArray());
-     $date = date("Y-m-d H:i:s");
+       $retailerEmployeesTable = TableRegistry::get('RetailerEmployees');
+       $suppliersTable = TableRegistry::get('Suppliers');
+       $customersTable = TableRegistry::get('Customers');
+       $employees =  sizeof($retailerEmployeesTable->find()->toArray());
+       $suppliers =  sizeof($suppliersTable->find()->toArray());
+       $customers =  sizeof($customersTable->find()->toArray());
+       $date = date("Y-m-d H:i:s");
 
-     $this->set(compact('employees','customers','suppliers','date'));
+       $this->set(compact('employees','customers','suppliers','date'));
 
 
 
@@ -306,9 +312,59 @@ public function rusrc(){
 
         $interval++;
     }
-    var_dump($emparray);
-    var_dump($timeInterval);
-     $this->set(compact('emparray','supparray','custarray','timeInterval'));
+    
+    
+    $this->set(compact('emparray','supparray','custarray','timeInterval'));
+}
+public function tsmr(){
+
+    $transactionsTable = TableRegistry::get('Transactions');
+    $date = date("Y-m-d H:i:s");
+    $date2 = date("Y-m-00");
+
+    $transarray[] = sizeof($transactionsTable->find('all', array('conditions' => array('created <=' => $date, 'created >=' => $date2)))->toArray());
+    $timeInterval[] = date('M');
+    
+
+
+    $interval = 0;
+    while($interval<11){
+
+        $date3 = date("Y-m-00", strtotime("-". $interval ."months"));
+        $date4 = date("Y-m-00", strtotime("-". $interval-1 ."months"));
+        array_unshift($transarray, sizeof($transactionsTable->find('all', array('conditions' => array('created <=' => $date3, 'created >=' => $date4)))->toArray()));
+
+        $timeInterval[] = date('M', strtotime("-". $interval-1 ."months"));
+
+        $interval++;
+    }
+    
+
+    $this->set(compact('transarray','timeInterval'));
+}
+public function tscr(){
+    $transactionsTable = TableRegistry::get('Transactions');
+    $date = date("Y-m-d H:i:s");
+    $date2 = date("Y-m-00");
+
+    $transarray[] = sizeof($transactionsTable->find('all', array('conditions' => array('created <=' => $date)))->toArray());
+    $timeInterval[] = date('M');
+
+    
+    $interval = 0;
+    while($interval<11){
+
+        $date3 = date("Y-m-00", strtotime("-". $interval ."months"));
+        $date4 = date("Y-m-00", strtotime("-". $interval-1 ."months"));
+        array_unshift($transarray, sizeof($transactionsTable->find('all', array('conditions' => array('created <=' => $date3)))->toArray()));
+        $timeInterval[] = date('M', strtotime("-". $interval-1 ."months"));
+
+        $interval++;
+    }
+    
+    
+   $this->set(compact('transarray','timeInterval'));
+
 }
 }
 
