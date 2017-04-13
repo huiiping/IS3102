@@ -113,7 +113,8 @@ class RetailersController extends AppController
                 
             }
         }
-        $retailerAccTypes = $this->Retailers->RetailerAccTypes->find('list', ['limit' => 200]);
+      
+        $retailerAccTypes = $this->Retailers->RetailerAccTypes->find('all');
         $this->set(compact('retailer', 'retailerAccTypes'));
         $this->set('_serialize', ['retailer']);
     }

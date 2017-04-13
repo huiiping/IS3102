@@ -141,7 +141,7 @@ class RetailerEmployeesController extends AppController
     public function view($id = null)
     {   
         $retailerEmployee = $this->RetailerEmployees->get($id, [
-            'contain' => ['Locations', 'Messages', 'RetailerEmployeeRoles', 'Promotions', 'PurchaseOrders', 'SupplierMemos', 'RetailerLoggings']
+            'contain' => ['Locations', 'Messages', 'RetailerEmployeeRoles', 'Promotions'/*, 'PurchaseOrders'*/, 'SupplierMemos', 'RetailerLoggings']
             ]);
         
         $session = $this->request->session();
@@ -421,7 +421,7 @@ class RetailerEmployeesController extends AppController
     public function edit($id = null)
     {
         $retailerEmployee = $this->RetailerEmployees->get($id, [
-            'contain' => ['Locations', 'Messages', 'RetailerEmployeeRoles', 'Promotions', 'PurchaseOrders', 'SupplierMemos', 'RetailerLoggings']
+            'contain' => ['Locations', 'Messages', 'RetailerEmployeeRoles', 'Promotions', /*'PurchaseOrders',*/ 'SupplierMemos', 'RetailerLoggings']
             ]);
 
         //Getting the session user - ID
