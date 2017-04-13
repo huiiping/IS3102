@@ -46,7 +46,7 @@ class MessagesController extends AppController
         $retailerEmployees = TableRegistry::get('RetailerEmployees');
         $session = $this->request->session();
         $sender = $session->read('retailer_employee_id');
-        $receiver = $this->Messages->RetailerEmployees->find('list', ['limit' => 200])->where(['id !=' => $sender]);
+        $receiver = $this->Messages->RetailerEmployees->find('list', array('fields' => ('id')), ['limit' => 200])->where(['id !=' => $sender]);
         $employees = [];
         $msg = [];
         $chatName = [];

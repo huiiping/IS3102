@@ -200,25 +200,115 @@ class ReportsController extends AppController
 
             $reportType = $_POST['report'];
 
-            if($reportType = 'Retailer User Statistics Report') {
-                return $this->redirect(['action' => 'rusr']);
-            }else{
-                 $this->Flash->error(__('The  report could not be generated. Please, try again.'));
+            if($reportType == "1") {
+                return $this->redirect(['action' => 'rusr'] );
+            }elseif($reportType == "2") {
+                return $this->redirect(['action' => 'rusrnc']);
             }
-        }
+            elseif($reportType == "3") {
+                return $this->redirect(['action' => 'rusrc']);
+            }else{
+             $this->Flash->error(__('The  report could not be generated. Please, try again.'));
+             var_dump($reportType);
+         }
+     }
+ }
+
+ public function rusr(){
+
+     $retailerEmployeesTable = TableRegistry::get('RetailerEmployees');
+     $suppliersTable = TableRegistry::get('Suppliers');
+     $customersTable = TableRegistry::get('Customers');
+     $employees =  sizeof($retailerEmployeesTable->find()->toArray());
+     $suppliers =  sizeof($suppliersTable->find()->toArray());
+     $customers =  sizeof($customersTable->find()->toArray());
+     $date = date("Y-m-d H:i:s");
+
+     $this->set(compact('employees','customers','suppliers','date'));
+
+
+
+
+     /*$date2 = date("Y-m-00");
+     $date3 = date("Y-m-00", strtotime("-". $interval ."months"));
+     $interval++;
+     $date4 = date("Y-m-00", strtotime("-" .$interval. " months"));
+
+     var_dump($date2);
+     var_dump($date3);
+     var_dump($date4);
+
+     $employees2 =  sizeof($retailerEmployeesTable->find('all', array('conditions' => array('created <=' => $date, 'created >=' => $date2)))->toArray());
+     $employees3 =  sizeof($retailerEmployeesTable->find('all', array('conditions' => array('created <=' => $date2, 'created >=' => $date3)))->toArray());
+     $employees4 =  sizeof($retailerEmployeesTable->find('all', array('conditions' => array('created <=' => $date3, 'created >=' => $date4)))->toArray());
+     var_dump($employees2);
+     var_dump($employees3);
+     var_dump($employees4);*/
+
+ }
+ public function rusrnc(){
+    $retailerEmployeesTable = TableRegistry::get('RetailerEmployees');
+    $suppliersTable = TableRegistry::get('Suppliers');
+    $customersTable = TableRegistry::get('Customers');
+    $date = date("Y-m-d H:i:s");
+    $date2 = date("Y-m-00");
+
+    $emparray[] = sizeof($retailerEmployeesTable->find('all', array('conditions' => array('created <=' => $date, 'created >=' => $date2)))->toArray());
+    $supparray[] = sizeof($suppliersTable->find('all', array('conditions' => array('created <=' => $date, 'created >=' => $date2)))->toArray());
+    $custarray[] = sizeof($customersTable->find('all', array('conditions' => array('created <=' => $date, 'created >=' => $date2)))->toArray());
+    $timeInterval[] = date('M');
+    
+
+
+    $interval = 0;
+    while($interval<11){
+
+        $date3 = date("Y-m-00", strtotime("-". $interval ."months"));
+        $date4 = date("Y-m-00", strtotime("-". $interval-1 ."months"));
+        array_unshift($emparray, sizeof($retailerEmployeesTable->find('all', array('conditions' => array('created <=' => $date3, 'created >=' => $date4)))->toArray()));
+        array_unshift($supparray, sizeof($suppliersTable->find('all', array('conditions' => array('created <=' => $date3, 'created >=' => $date4)))->toArray()));
+        array_unshift($custarray,  sizeof($customersTable->find('all', array('conditions' => array('created <=' => $date3, 'created >=' => $date4)))->toArray()));
+        $timeInterval[] = date('M', strtotime("-". $interval-1 ."months"));
+
+
+
+        $interval++;
     }
     
-    public function rusr(){
 
-         $retailerEmployeesTable = TableRegistry::get('RetailerEmployees');
-        $suppliersTable = TableRegistry::get('Suppliers');
-        $customersTable = TableRegistry::get('Customers');
-        $employees =  sizeof($retailerEmployeesTable->find()->toArray());
-        $suppliers =  sizeof($suppliersTable->find()->toArray());
-        $customers =  sizeof($customersTable->find()->toArray());
-        $date = date("Y-m-d H:i:s");
+    $this->set(compact('emparray','supparray','custarray','timeInterval'));
+}
+public function rusrc(){
+    $retailerEmployeesTable = TableRegistry::get('RetailerEmployees');
+    $suppliersTable = TableRegistry::get('Suppliers');
+    $customersTable = TableRegistry::get('Customers');
+    $date = date("Y-m-d H:i:s");
+    $date2 = date("Y-m-00");
 
-        $this->set(compact('employees','customers','suppliers','date'));
+    $emparray[] = sizeof($retailerEmployeesTable->find('all', array('conditions' => array('created <=' => $date)))->toArray());
+    $supparray[] = sizeof($suppliersTable->find('all', array('conditions' => array('created <=' => $date)))->toArray());
+    $custarray[] = sizeof($customersTable->find('all', array('conditions' => array('created <=' => $date)))->toArray());
+    $timeInterval[] = date('M');
+
+    
+    $interval = 0;
+    while($interval<11){
+
+
+        $date3 = date("Y-m-00", strtotime("-". $interval ."months"));
+        $date4 = date("Y-m-00", strtotime("-". $interval-1 ."months"));
+        array_unshift($emparray, sizeof($retailerEmployeesTable->find('all', array('conditions' => array('created <=' => $date3)))->toArray()));
+        array_unshift($supparray, sizeof($suppliersTable->find('all', array('conditions' => array('created <=' => $date3)))->toArray()));
+        array_unshift($custarray,  sizeof($customersTable->find('all', array('conditions' => array('created <=' => $date3)))->toArray()));
+        $timeInterval[] = date('M', strtotime("-". $interval-1 ."months"));
+
+
+
+        $interval++;
     }
-    }
+    var_dump($emparray);
+    var_dump($timeInterval);
+     $this->set(compact('emparray','supparray','custarray','timeInterval'));
+}
+}
 

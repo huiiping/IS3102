@@ -26,7 +26,9 @@ $this->Html->addCrumb(__('Create New Report'));
                 <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
                 <input type="hidden" name="report" id="report" value=""> 
                 <select name="report" class="selectpicker form-control" data-live-search="true" required="required" title="Select Report Type*">
-                  <option value="Retailer User Statistics Report">Retailer User Statistics Report</option> 
+                  <option value= 1>Retailer User Statistics Report</option> 
+                  <option value= 2>Retailer User Monthly Statistics Report</option> 
+                  <option value= 3>Retailer User Cumulative Statistics Report</option> 
                   <option value="Retailer System Usage Report">Retailer System Usage Report</option> 
                   <option value="Transaction Statistics Report">Transaction Statistics Report</option> 
                   <option value="Product Type Statistics Report">Product Type Statistics Report</option> 

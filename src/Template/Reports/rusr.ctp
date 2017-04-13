@@ -22,7 +22,8 @@ a {
 <div  style="min-width: 310px;  max-width: 600px; margin: 0 auto; border-radius:10px">
 <a href="/IS3102_Final/reports/other" class="btn btn-md btn-block btn-primary pull-right" style="border-radius: 8px; margin:5px;">Generate Other Reports</a>
 </div>
-
+<div>
+</div>
 
 <script>
 $(document).ready(function () {
@@ -36,7 +37,7 @@ $(document).ready(function () {
             type: 'pie'
         },
         title: {
-            text: 'Number of Employees/Customers/Suppliers as of <br><?= $date?>'
+            text: '<?= $employees + $suppliers + $customers?> Users as of <br><?= $date?>'
         },
         tooltip: {
             pointFormat: '<b>{point.name}</b>: {point.y:f} users'
@@ -55,14 +56,14 @@ $(document).ready(function () {
             name: 'Users',
             colorByPoint: true,
             data: [{
-                name: 'Employees',
+                name: '<?= $employees?> Employees',
                 y: <?= $employees?>
             }, {
-                name: 'Suppliers',
+                name: '<?= $suppliers?> Suppliers',
                 y: <?= $suppliers?>
                 
             }, {
-                name: 'Customers',
+                name: '<?= $customers?> Customers',
                 y: <?= $customers?>
             }]
         }]
