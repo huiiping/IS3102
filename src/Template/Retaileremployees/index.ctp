@@ -60,13 +60,13 @@ use Cake\Filesystem\File;
 
                 <h3 class="profile-username text-center"><?= $this->Html->link(__(h($retailerEmployee->first_name.' '.$retailerEmployee->last_name)), ['action' => 'view', $retailerEmployee->id], ['title' => 'View Employee Details']) ?></h3>
 
-                <?php if (!empty($retailerEmployee->retailer_employee_roles)): ?>
+               <!--  <?php if (!empty($retailerEmployee->retailer_employee_roles)): ?>
                   <?php foreach ($retailerEmployee->retailer_employee_roles as $retailerEmployeeRoles): ?>
                     <p class="text-muted text-center">
                       <?= $this->Html->link(__(h($retailerEmployeeRoles->role_name)), ['controller' => 'RetailerEmployeeRoles', 'action' => 'view', $retailerEmployeeRoles->id], ['title' => 'View Employee Role Details']) ?>
                     </p>
                   <?php endforeach; ?>
-                <?php endif; ?> 
+                <?php endif; ?>  -->
 
                 <ul class="list-group list-group-unbordered"><br>
 
@@ -149,4 +149,3 @@ use Cake\Filesystem\File;
   </div>
 
 </section>
-

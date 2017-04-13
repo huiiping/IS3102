@@ -1,5 +1,5 @@
 <li class="treeview"><!-- start -->
-  <a <?php if($this->request->session()->read('page') === $title) : ?> class="changeactive" <?php endif; ?> href="">
+  <a id="<?=$tag?>"<?php if($this->request->session()->read('page') === $title) : ?> class="changeactive" <?php endif; ?> href="">
     <i class="fa fa-<?=$icon?>"></i>
     <span><?= $title ?></span>
     <span class="pull-right-container">

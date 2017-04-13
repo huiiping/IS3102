@@ -220,7 +220,7 @@ class PurchaseOrdersController extends AppController
 
         $purchaseOrder = $this->PurchaseOrders->get($id);
         $purchaseOrder->approval_status = 'Approved';
-        $purchaseOrder->delivery_status = false;
+        $purchaseOrder->delivery_status = 0;
         $this->PurchaseOrders->save($purchaseOrder);
         $this->Flash->success(__('The Purchase Order has been approved.'));
 
