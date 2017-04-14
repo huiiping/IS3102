@@ -31,8 +31,18 @@ class ItemsController extends AppController
         $this->paginate = [
         'contain' => ['Products', 'Locations', 'Sections']
         ];
+
         $this->set('items', $this->paginate($this->Items->find('searchable', $this->Prg->parsedParams())));
-        $this->set(compact('items'));
+
+        $query = $this->Items->find()->contain([
+            'Products' => function ($q) {
+                return $q
+                    ->select(['Products.barcode']);
+            }
+        ])->where(['Items.product_id' => '5'])->where(['Items.status' => 'In Location']);
+        //var_dump($query);
+        $this->set('query', $query);
+        $this->set(compact('items', 'query'));
         $this->set('_serialize', ['items']);
     }
     public $components = array(
@@ -47,9 +57,16 @@ class ItemsController extends AppController
             if($key == 'locationId') {
                 // var_dump("in check locationID");
 
-                $query = $this->Items->find('all' , [
-                    'conditions' => ['Items.location_id =' => $value],
-                    ]);
+                $query = $this->Items->find()->contain([
+                    'Products' => function ($q) {
+                        return $q
+                        ->select(['Products.barcode']);
+                    }
+                    ])->where(['Items.location_id =' => $value]);
+
+                // $query = $this->Items->find('all' , [
+                //     'conditions' => ['Items.location_id =' => $value],
+                //     ]);
 
                 //$items = $query->toArray();
                 
@@ -110,6 +127,20 @@ class ItemsController extends AppController
         }
         //$this->set('status', 'failed');
         $this->set('_serialize', ['status']);
+    }
+
+    public function htcBarcode(){
+        $query = $this->Items->find()->contain([
+            'Products' => function ($q) {
+                return $q
+                ->select(['Products.barcode']);
+            }
+            ])->where(['Items.product_id' => '1'])->where(['Items.status' => 'In Location']);
+
+        
+        $this->set('status', $query);
+        $this->set('_serialize', ['status']);
+
     }
 
     public function htcAllUpdateStatus(){
@@ -686,10 +717,17 @@ class ItemsController extends AppController
         echo ("$section_id: ".$section_id.'\n');
         $space = $_POST['space'];
         echo ("$space: ".$space.'\n');
+        $product = $_POST['product'];
+        echo ("$product: ".$product.'\n');
+        $use_reserve = $_POST['reserve'];
+        echo ("$use_reserve: ".$use_reserve.'\n');
         //echo ("Type =".$type);
 
         $section = $this->Sections->get($section_id);
         $section->available_space = $section->available_space - $space;
+        if($use_reserve){
+            $section->reserve_space = $secion->reserve_space - $space;
+        }
         $this->Sections->save($section);
 
         if($type == "po") {
@@ -737,6 +775,7 @@ class ItemsController extends AppController
                 $item->location_id = $location;
                 $item->EPC = $rfid_arr[$count];
                 $item->status = "In Location";
+                $item->product_id = $product;
 
                 if($this->Items->save($item)){
                     echo ("SUCCESS"."\n");
@@ -748,7 +787,7 @@ class ItemsController extends AppController
             }
 
         } else {
-            
+
             $to_id = $_POST['to_id'];
             $item = $this->Items->get($id);
             $item->location_id = $location;

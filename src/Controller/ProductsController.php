@@ -90,13 +90,15 @@ class ProductsController extends AppController
       $session = $this->request->session();
       $product = $session->read('product');
 
+      var_dump($product);
+
       if ($this->request->is('post')) {
         $product = $this->Products->patchEntity($product, $this->request->getData());
 
         if ($this->Products->save($product)) {
             $this->Flash->success(__('The product specifications has been saved.'));
 
-            return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'add2']);
         }
         $this->Flash->error(__('The product specifications could not be saved. Please, try again.'));
     }
@@ -246,5 +248,30 @@ private function withinLimit()
         die();
 
     }
+
+    public function loadproducts(){
+
+        $products = $this->Products->find()->toArray();
+
+        foreach($products as $row){
+
+            if($row['id'] >3 ){ 
+                echo ($row['id']);
+                echo "\n";
+                echo ($row['prod_name']);
+                echo "\n";
+                echo ($row['SKU']);
+                echo "\n";
+                echo ($row['barcode']);
+                echo "\n";
+            }
+            
+        }
+
+        die();
+
+    }
+
+
 
 }

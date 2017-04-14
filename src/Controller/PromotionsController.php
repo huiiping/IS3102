@@ -48,13 +48,7 @@ class PromotionsController extends AppController
         'Prg'
     );
 
-    /**
-     * View method
-     *
-     * @param string|null $id Promotion id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+
     public function view($id = null)
     {
         $promotion = $this->Promotions->get($id, [
@@ -135,19 +129,12 @@ class PromotionsController extends AppController
             $this->Flash->error(__('The promotion could not be saved. Please, try again.'));
         }
         $retailerEmployees = $this->Promotions->RetailerEmployees->find('list', ['limit' => 200]);
-        $custMembershipTiers = $this->Promotions->custMembershipTiers->find('list', ['limit' => 200]);
-        $products = $this->Promotions->Products->find('list', ['limit' => 200]);
+        $custMembershipTiers = $this->Promotions->custMembershipTiers->find('all', ['limit' => 200]);
+        $products = $this->Promotions->Products->find('all');
         $this->set(compact('promotion', 'retailerEmployees', 'custMembershipTiers', 'products'));
         $this->set('_serialize', ['promotion']);
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Promotion id.
-     * @return \Cake\Network\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
     public function edit($id = null)
     {
         $promotion = $this->Promotions->get($id, [
@@ -213,7 +200,8 @@ class PromotionsController extends AppController
         }
         $retailerEmployees = $this->Promotions->RetailerEmployees->find('list', ['limit' => 200]);
         $custMembershipTiers = $this->Promotions->custMembershipTiers->find('list', ['limit' => 200]);
-        $products = $this->Promotions->Products->find('list', ['limit' => 200]);
+        $products = $this->Promotions->Products->find('list');
+        $this->set('prods', $this->Promotions->Products->find('all')); //to populate select input for roles
         $this->set(compact('promotion', 'retailerEmployees', 'custMembershipTiers', 'products'));
         $this->set('_serialize', ['promotion']);
     }

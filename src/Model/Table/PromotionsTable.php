@@ -6,21 +6,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-/**
- * Promotions Model
- *
- * @property \Cake\ORM\Association\BelongsTo $RetailerEmployees
- * @property \Cake\ORM\Association\BelongsToMany $Customers
- * @property \Cake\ORM\Association\BelongsToMany $ProdTypes
- *
- * @method \App\Model\Entity\Promotion get($primaryKey, $options = [])
- * @method \App\Model\Entity\Promotion newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Promotion[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Promotion|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Promotion patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Promotion[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Promotion findOrCreate($search, callable $callback = null, $options = [])
- */
+
 class PromotionsTable extends Table
 {
     public $filterArgs = array(
@@ -68,7 +54,7 @@ class PromotionsTable extends Table
         ),
         'search' => array(
             'type' => 'like',
-            'field' => array('id','promo_desc','first_voucher_num','last_voucher_num', 'credit_card_type','discount_rate','RetailerEmployees.first_name'),
+            'field' => array('id','promo_name','promo_desc','first_voucher_num','last_voucher_num', 'credit_card_type','discount_rate','RetailerEmployees.first_name','RetailerEmployees.last_name'),
             'method' => 'findByActions'
         )
 
@@ -116,11 +102,11 @@ class PromotionsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->dateTime('start_date')
+            ->date('start_date')
             ->allowEmpty('start_date');
 
         $validator
-            ->dateTime('end_date')
+            ->date('end_date')
             ->allowEmpty('end_date');
 
         $validator

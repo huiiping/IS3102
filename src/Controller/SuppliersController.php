@@ -537,7 +537,7 @@ class SuppliersController extends AppController
         $this->Auth->logout();
         $session = $this->request->session();
         $session->destroy();
-        return $this->redirect(['controller' => 'Suppliers', 'action' => 'login', 'main']);
+        return $this->redirect(array('controller' => 'pages', 'action' => 'display', 'main'));
     }
 
     public function activateStatus($id) {

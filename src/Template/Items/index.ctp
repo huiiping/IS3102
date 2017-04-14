@@ -54,6 +54,7 @@ $this->Html->addCrumb(__('Items'));
                         <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('description') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('EPC') ?></th>
+                        <th scope="col"><?= $this->Paginator->sort('Barcode') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('status') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('product_id') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('location_id') ?></th>
@@ -70,6 +71,7 @@ $this->Html->addCrumb(__('Items'));
                         </td>
                         <td><?= h($item->description) ?></td>
                         <td><?= h($item->EPC) ?></td>
+                        <td><?= h($item->product->barcode) ?></td>
                         <td><?= h($item->status) ?></td>
                         <td><?= $item->has('product') ? $this->Html->link($item->product->prod_name, ['controller' => 'Products', 'action' => 'view', $item->product->id], ['title' => 'View Product Details']) : '' ?></td>
                         <td><?= $item->has('location') ? $this->Html->link($item->location->name, ['controller' => 'Locations', 'action' => 'view', $item->location->id], ['title' => 'View Location Details']) : '' ?></td>

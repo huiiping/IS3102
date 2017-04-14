@@ -30,7 +30,7 @@ $this->Html->addCrumb(__('Edit Announcement'));
             <div class ="form-group">
               <div class="input-group" title="Enter Message*">
                 <div class="box-body pad">
-                  <textarea id="message" name="message" rows="10" cols="80" required="required" maxlength="255"><?=$announcement->message?></textarea>
+                  <textarea id="message2" name="message" rows="10" cols="80" required="required" maxlength="255"><?=$announcement->message?></textarea>
                 </div>
               </div>
             </div>
@@ -52,3 +52,18 @@ $this->Html->addCrumb(__('Edit Announcement'));
     </div>
   </div>
 </section>
+
+<!-- AdminLTE App -->
+<?= $this->Html->script('app.min.js') ?>
+
+<script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+<script src="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<script>
+$(function () {
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('message2');
+    //bootstrap WYSIHTML5 - text editor
+    $(".textarea").wysihtml5();
+  });
+</script>

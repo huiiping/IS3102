@@ -19,7 +19,7 @@ $this->Html->addCrumb(__('View Product Category'));
           </div>
           <div class="box-body">
             <div class="pull-right">
-              <a class="btn btn-default btn-flat" href="/IS3102_Final/prod-cats/edit/<?= $prodCat->id ?>" >Edit Product Category</a>
+              <a class="btn btn-success btn-flat" href="/IS3102_Final/prod-cats/edit/<?= $prodCat->id ?>" >Edit Product Category</a>
             </div><br><br><br>
 
             <table class="table table-bordered table-striped">

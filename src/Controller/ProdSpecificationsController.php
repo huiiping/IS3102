@@ -53,9 +53,9 @@ class ProdSpecificationsController extends AppController
             $prodSpecification = $this->ProdSpecifications->patchEntity($prodSpecification, $this->request->data);
 
             if ($this->ProdSpecifications->save($prodSpecification)) {
-                $this->Flash->success(__('The prod specification has been saved.'));
+                $this->Flash->success(__('The product specification has been saved.'));
 
-                return $this->redirect(['controller' => 'products','action' => 'index']);
+                return $this->redirect(['controller' => 'products','action' => 'add2']);
             }
             $this->Flash->error(__('The prod specification could not be saved. Please, try again.'));
         }

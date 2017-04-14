@@ -363,7 +363,7 @@ class AppController extends Controller
 
             } else if($this->request->session()->read('supplier')){
                 if($controllerName == 'Suppliers'){
-                        if($methodName == 'index' || $methodName == 'view'|| $methodName == 'edit') {
+                        if($methodName == 'index' || $methodName == 'view'|| $methodName == 'edit' || $methodName == "logout") {
                             return;
                         }
                 }if($controllerName == 'Rfqs'){
