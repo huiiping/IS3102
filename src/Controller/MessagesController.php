@@ -59,12 +59,28 @@ class MessagesController extends AppController
             $this->set('_serialize', ['attachmentID']);
         }
 
+        //Finding messages sent by the system
+        if ($id == -1) {
+            $receiveIDs = $retailerEmployeesMessages->find()->where(['retailer_employee_id' => $sender])->select('message_id');
+            if (isset($receiveIDs)) {
+
+                //Messages recieved by user from the system
+                $msgsReceived = $this->Messages->find()
+                ->where(['id' => $receiveIDs], ['id' => 'integer[]'])
+                ->andWhere(['sender_id is NULL'])
+                ->select('id')
+                ->toArray();
+                $msgsReceived = Hash::extract($msgsReceived, '{n}.id');
+            }
+        }
+
+
         //Receiver is the person the user is chatting with
-        if (isset($id) && $id != 0) {
+        if (isset($id) && $id != 0 && $id != -1) {
 
             $receiver = $this->Messages->RetailerEmployees->find('list', ['limit' => 200])->where(['id' => $id]);
             $chatName = $this->paginate($retailerEmployees->find()->where(['id' => $id], ['id' => 'integer[]']));
-        }   
+        }  
         
         //message_id's of messages sent by the user
         $sentIDs = $this->Messages->find()->where(['sender_id' => $sender])->select('id');
@@ -75,7 +91,7 @@ class MessagesController extends AppController
             $msgReceiver = Hash::extract($msgReceiver, '{n}.retailer_employee_id');
 
             //Messages sent by user to
-            if (isset($id) && $id != 0) { 
+            if (isset($id) && $id != 0 && $id != -1) { 
                 $msgsSent = $retailerEmployeesMessages->find()
                         ->where(['message_id' => $sentIDs], ['message_id' => 'integer[]'])
                         ->andWhere(['retailer_employee_id' => $id])
@@ -94,7 +110,7 @@ class MessagesController extends AppController
             $msgSender = Hash::extract($msgSender, '{n}.sender_id');
 
             //Messages recieved by user
-            if (isset($id) && $id != 0) {
+            if (isset($id) && $id != 0 && $id != -1) {
                 $msgsReceived = $this->Messages->find()
                         ->where(['id' => $receiveIDs], ['id' => 'integer[]'])
                         ->andWhere(['sender_id' => $id])

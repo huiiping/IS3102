@@ -90,15 +90,13 @@ class ProductsController extends AppController
       $session = $this->request->session();
       $product = $session->read('product');
 
-      var_dump($product);
-
       if ($this->request->is('post')) {
         $product = $this->Products->patchEntity($product, $this->request->getData());
 
         if ($this->Products->save($product)) {
             $this->Flash->success(__('The product specifications has been saved.'));
 
-            return $this->redirect(['action' => 'add2']);
+            return $this->redirect(['action' => 'index']);
         }
         $this->Flash->error(__('The product specifications could not be saved. Please, try again.'));
     }
@@ -215,6 +213,7 @@ private function withinLimit()
         $qty = $_POST['qty'];
         $this->loadModel('Promotions');
         $this->loadModel('PromotionsProducts');
+        //$now = Time::now();
 
         $products = $this->Products->find()->where(['barcode' => $code])->toArray();
 
@@ -230,7 +229,11 @@ private function withinLimit()
 
                 $unitPrice = $product['store_unit_price'];
                 $promotionIDs = $this->PromotionsProducts->find()->where(['product_id' => $product['id']])->select('promotion_id');
-                $promotions = $this->Promotions->find()->where(['id' => $promotionIDs], ['id' => 'integer[]'])->toArray();    
+                $promotions = $this->Promotions->find()
+                    ->where(['id' => $promotionIDs], ['id' => 'integer[]'])
+                    // ->andWhere(['start_date <' => $now])
+                    // ->andWhere(['end_date >' => $now])
+                    ->toArray();    
 
                 foreach ($promotions as $promotion) {
                     $unitPrice = $unitPrice * $promotion['discount_rate'];

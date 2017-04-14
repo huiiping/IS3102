@@ -186,6 +186,14 @@ class TransactionsController extends AppController
             $transactionsItem->transaction_id = $transactionID;
             $transactionsItem->item_id = $q['id'];
             $this->TransactionsItems->save($transactionsItem);
+
+            //Setting item status to sold
+            $item = $this->Items->get($q['id']);
+            $item['status'] = "Sold";
+            $this->Items->save($item);
+
+            //Checking and trigerring low stock alert
+            $this->redirect(['controller' => 'Items' ,'action' => 'checkStock', $item['id'], $location]);
         }
 
         if (!empty($address)) {
@@ -195,6 +203,7 @@ class TransactionsController extends AppController
             $deliveryOrder->fee = $deliveryCost;
             $deliveryOrder->customer_id = $customer['id'];
             $deliveryOrder->retailer_employee_id = $employeeID;
+            $deliveryOrder->status = "Pending";
             $deliveryOrder->location_id = $location;
             $deliveryOrder->transaction_id = $transactionID;
                 
