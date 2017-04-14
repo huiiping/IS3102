@@ -111,6 +111,13 @@ class ReportsController extends AppController
         $report = $this->Reports->get($id, [
             'contain' => []
             ]);
+
+
+        if ($report['status'] == 'Resolved') {
+            $this->Flash->error(__('This incident report is already resolved.'));
+            return $this->redirect(['action' => 'index']);
+        }
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $report = $this->Reports->patchEntity($report, $this->request->data);
             if ($this->Reports->save($report)) {

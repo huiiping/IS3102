@@ -18,14 +18,24 @@ class TransactionsController extends AppController
      */
     public function index()
     {
+
+        $this->loadComponent('Prg');
+        $this->Prg->commonProcess();
+
         $this->paginate = [
         'contain' => ['Customers', 'RetailerEmployees', 'Locations']
         ];
-        $transactions = $this->paginate($this->Transactions);
+        // $transactions = $this->paginate($this->Transactions);
+
+        $this->set('transactions', $this->paginate($this->Transactions->find('searchable',  $this->Prg->parsedParams())));
 
         $this->set(compact('transactions'));
         $this->set('_serialize', ['transactions']);
     }
+
+    public $components = array(
+  'Prg'
+  );
 
     /**
      * View method
