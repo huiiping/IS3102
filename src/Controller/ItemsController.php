@@ -699,38 +699,41 @@ class ItemsController extends AppController
         $this->loadModel("TransferOrdersItems");
         $this->loadModel("TransferOrders");
         $this->loadModel("Sections");
+        $this->loadModel("Suppliers");
+        $this->loadModel("RetailerDetails");
+        $this->loadComponent('Email');
 
         $type = $_POST['type'];
-        echo ("$type: ".$type.'\n');
+        //echo ("$type: ".$type.'\n');
         $id = $_POST['id'];
-        echo ("$type: ".$id.'\n');
+        //echo ("$type: ".$id.'\n');
         $location = $_POST['location'];
-        echo ("$location: ".$location.'\n');
+        //echo ("$location: ".$location.'\n');
         $section_id = $_POST['section'];
-        echo ("$section_id: ".$section_id.'\n');
+        //echo ("$section_id: ".$section_id.'\n');
         $space = $_POST['space'];
-        echo ("$space: ".$space.'\n');
+        //echo ("$space: ".$space.'\n');
         $product = $_POST['product'];
-        echo ("$product: ".$product.'\n');
+        //echo ("$product: ".$product.'\n');
         $use_reserve = $_POST['reserve'];
         echo ("$use_reserve: ".$use_reserve.'\n');
         //echo ("Type =".$type);
 
         $section = $this->Sections->get($section_id);
         $section->available_space = $section->available_space - $space;
-        if($use_reserve){
-            $section->reserve_space = $secion->reserve_space - $space;
+        if($use_reserve == 'true'){
+            $section->reserve_space = $section->reserve_space - $space;
         }
         $this->Sections->save($section);
 
         if($type == "po") {
 
             $po_id = $_POST['po_id'];
-            echo ("$po_id: ".$po_id.'\n');
+            //echo ("$po_id: ".$po_id.'\n');
             $item_code = $_POST['item_code'];
-            echo ("$item_code: ".$item_code.'\n');
+            //echo ("$item_code: ".$item_code.'\n');
             $desc = $_POST['desc'];
-            echo ("$desc: ".$desc.'\n');
+            //echo ("$desc: ".$desc.'\n');
             $qty = $_POST['qty'];
             $price = $_POST['price'];
             $rfid_list = $_POST['rfid_list'];
@@ -744,18 +747,31 @@ class ItemsController extends AppController
 
             $array = $this->PurchaseOrderItems->find()->where(['purchase_order_id' => $po_id])->toArray();
 
+            $message = "";
+
             $completed = true;
             foreach ($array as $row) {
                 if($row['quantity'] != 0){
                     $completed = false;
                     break;
                 }
+                $message = $message.$row['itemID'].', '.$row['description'].', ';
             }
+            echo '$message: '.$message. '\n';
 
             if($completed){
                 $purchaseOrder = $this->PurchaseOrders->get($po_id);
                 $purchaseOrder->delivery_status = 1;
+                $supplier_id = $purchaseOrder->supplier_id;
+
+                $retailer = $this->RetailerDetails->get(1);
+
                 $this->PurchaseOrders->save($purchaseOrder);
+                $supplier = $this->Suppliers->get($supplier_id);
+                $message_final = $supplier->supplier_name.', '.$po_id.', '.$message.$retailer->retailer_name;
+                echo '$message_final: '.$message_final. '\n';
+                $this->Email->goodsReceiptEmail($supplier->email, $message_final);
+
             }
 
 

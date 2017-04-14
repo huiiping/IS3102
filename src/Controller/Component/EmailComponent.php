@@ -156,5 +156,14 @@ class EmailComponent extends Component {
         
     }
 
+    public function goodsReceiptEmail($recipient, $message){
 
+        $email = new Email('default');
+        $email->template('goods_receipt');
+        $email->emailFormat('html');        
+        $email->subject('Goods Receipt');
+        $email->from('tanyongming90@gmail.com');
+        $email->to($recipient);
+        $email->send($message);
+    }
 }
