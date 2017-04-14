@@ -288,6 +288,8 @@ class ItemsController extends AppController
     {
         $items = TableRegistry::get('Items');
         $item = $items->get($id);
+        $this->loadModel('RetailerEmployees');
+        $this->loadComponent('Email');
 
         $pid = $item->product_id;
 
@@ -338,11 +340,16 @@ class ItemsController extends AppController
             $message->title = 'Low Stock Level Alert';
             $message->message = 'Product '.$prod.' at '.$loc.' is running low in stock.';
             $message->status = 0;
-            
+
             // The $message entity contains the id now
             if ($msgTable->save($message)) {
                 $mid = $message->id;
             }
+
+            $employee = $this->RetailerEmployees->get($stockLevel->retailer_employee_id);
+            //send email here
+
+            $this->Email->stockLevelAlertEmail($employee->email, $prod, $loc);
 
             //save message to employee (joined entities)
             $emTable = TableRegistry::get('RetailerEmployeesMessages');

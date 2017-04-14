@@ -223,4 +223,18 @@ class StockLevelsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function reset($prod, $loc) {
+
+        $stockLevel = $this->StockLevels->find()->where(['product_id' => $prod])->where(['location_id' => $loc]);
+
+        $stock = $stockLevel->first();
+
+        $stock->status = 'Not Triggered';
+        $this->StockLevels->save($stock);
+
+        $this->Flash->success(__('The stock level status is updated.'));
+
+        return $this->redirect(['controller' => 'RetailerEmployees', 'action' => 'index']);
+    }
 }
