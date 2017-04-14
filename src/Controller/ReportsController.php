@@ -196,10 +196,12 @@ class ReportsController extends AppController
 
     public function other() {
 
+        $timePeriods = ['Last 12 months', 'Last 12 weeks', '2017 Q1', '2016 Q4', '2016 Q3', '2016 Q2', '2016 Q1'];
+
         if ($this->request->is('post')) {
 
             $reportType = $_POST['report'];
-
+            var_dump($reportType);
             if($reportType == "1") {
                 return $this->redirect(['action' => 'rusr'] );
             }elseif($reportType == "2") {
@@ -218,6 +220,7 @@ class ReportsController extends AppController
                var_dump($reportType);
            }
        }
+       $this->set(compact('timePeriods'));
    }
 
    public function rusr(){

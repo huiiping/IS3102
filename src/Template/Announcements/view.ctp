@@ -14,9 +14,12 @@ $this->Html->addCrumb(__('View Announcement'));
             <h3 class="box-title"><?= h($announcement->title) ?></h3>
           </div>
           <div class="box-body">
+          <?php  if($intrasys) :?>
             <div class="pull-right">
               <a class="btn btn-success btn-block" title="Edit Announcement" href="/IS3102_Final/announcements/edit/<?=$announcement->id?>" >Edit Announcement</a>
-            </div><br><br><br>
+            </div>
+            <?php endif?>
+            <br><br><br>
 
               <table class="table table-bordered table-striped">
                   <tr>

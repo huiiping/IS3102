@@ -24,6 +24,9 @@ class PurchaseOrdersFixture extends TestFixture
         'file_path' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'approval_status' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'delivery_status' => ['type' => 'boolean', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
+        'is_sent' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'recurring_supplier' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'recurring_retailer' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'supplier_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'quotation_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'location_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
@@ -55,12 +58,15 @@ class PurchaseOrdersFixture extends TestFixture
     public $records = [
         [
             'id' => 1,
-            'created' => '2017-04-10 18:22:21',
+            'created' => '2017-04-14 16:40:13',
             'retailer_employee_id' => 1,
             'file_name' => 'Lorem ipsum dolor sit amet',
             'file_path' => 'Lorem ipsum dolor sit amet',
             'approval_status' => 'Lorem ipsum dolor sit amet',
             'delivery_status' => 1,
+            'is_sent' => 1,
+            'recurring_supplier' => 'Lorem ipsum dolor sit amet',
+            'recurring_retailer' => 'Lorem ipsum dolor sit amet',
             'supplier_id' => 1,
             'quotation_id' => 1,
             'location_id' => 1

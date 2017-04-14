@@ -32,8 +32,9 @@ class PurchaseOrdersTable extends Table
         'search' => array(
             'type' => 'like',
             'field' => array('file_name','supplier_id','quotation_id', 'approval_status')
-        )
-    );
+            )
+        );
+
     /**
      * Initialize method
      *
@@ -52,21 +53,23 @@ class PurchaseOrdersTable extends Table
 
         $this->belongsTo('RetailerEmployees', [
             'foreignKey' => 'retailer_employee_id'
-        ]);
+            ]);
         $this->belongsTo('Suppliers', [
             'foreignKey' => 'supplier_id',
             'joinType' => 'INNER'
-        ]);
+            ]);
         $this->belongsTo('Quotations', [
             'foreignKey' => 'quotation_id',
-        ]);
+            /* 'joinType' => 'INNER'*/
+            ]);
         $this->belongsTo('Locations', [
             'foreignKey' => 'location_id'
-        ]);
+            ]);
         $this->hasMany('PurchaseOrderItems', [
             'foreignKey' => 'purchase_order_id'
-        ]);
+            ]);
         $this->addBehavior('Searchable');
+
     }
 
     /**
@@ -78,21 +81,31 @@ class PurchaseOrdersTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('id')
-            ->allowEmpty('id', 'create');
+        ->integer('id')
+        ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('file_name');
+        ->allowEmpty('file_name');
 
         $validator
-            ->allowEmpty('file_path');
+        ->allowEmpty('file_path');
 
         $validator
-            ->allowEmpty('approval_status');
+        ->allowEmpty('approval_status');
 
         $validator
-            ->boolean('delivery_status')
-            ->allowEmpty('delivery_status');
+        ->boolean('delivery_status')
+        ->allowEmpty('delivery_status');
+
+        $validator
+        ->integer('is_sent')
+        ->allowEmpty('is_sent');
+
+        $validator
+        ->allowEmpty('recurring_supplier');
+
+        $validator
+        ->allowEmpty('recurring_retailer');
 
         return $validator;
     }

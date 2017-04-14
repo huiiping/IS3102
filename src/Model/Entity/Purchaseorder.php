@@ -13,12 +13,14 @@ use Cake\ORM\Entity;
  * @property string $file_path
  * @property string $approval_status
  * @property bool $delivery_status
+ * @property int $is_sent
+ * @property string $recurring_supplier
+ * @property string $recurring_retailer
  * @property int $supplier_id
  * @property int $quotation_id
  * @property int $location_id
  *
  * @property \App\Model\Entity\Supplier $supplier
- * @property \App\Model\Entity\Quotation $quotation
  * @property \App\Model\Entity\Location $location
  * @property \App\Model\Entity\PurchaseOrderItem[] $purchase_order_items
  */

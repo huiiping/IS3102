@@ -22,15 +22,15 @@ $this->Html->addCrumb(__('Create New Report'));
             </div>
             
             <div class ="form-group">
-              <div class="input-group" style="z-index: 5;" title="Select Report Type*">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
+              <div class="input-group" style="z-index: 6;" title="Select Report Type*">
+                <span class="input-group-addon"><i class="fa fa-book"></i></span>
                 <input type="hidden" name="report" id="report" value=""> 
-                <select name="report" class="selectpicker form-control" data-live-search="true" required="required" title="Select Report Type*">
+                <select id="selectReport" name="report" class="selectpicker form-control" data-live-search="true" required="required" title="Select Report Type*" onchange="func1()">
                   <option value= 1>Retailer User Statistics Report</option> 
                   <option value= 2>Retailer User Monthly Statistics Report</option> 
                   <option value= 3>Retailer User Cumulative Statistics Report</option>
-                   <option value= 4>Transaction Statistics Monthly Report</option>
-                   <option value= 5>Transaction Statistics Cumulative Report</option>  
+                  <option value= 4>Transaction Statistics Monthly Report</option>
+                  <option value= 5>Transaction Statistics Cumulative Report</option>  
                   <option value="Retailer System Usage Report">Retailer System Usage Report</option> 
                   
                   <option value="Product Type Statistics Report">Product Type Statistics Report</option> 
@@ -40,6 +40,20 @@ $this->Html->addCrumb(__('Create New Report'));
                 </select>
               </div>
             </div>
+
+            <div id="divTime" class ="form-group">
+              <div class="input-group" style="z-index: 5;">
+                <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>
+                <input type="hidden" name="time" id="time" value=""> 
+                <select name="time" class="selectpicker form-control" data-live-search="true" required="required" title="Select Time*">
+
+                  <?php $i=1; foreach($timePeriods as $timePeriod):?>
+                  <option value= <?= $i ?>><?= $timePeriod?></option> 
+                  <?php $i++; endforeach ;?>
+                </select>
+              </div>
+            </div>
+
             <br>
             <div class ="row">
               <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Generate Report</button>
@@ -51,3 +65,14 @@ $this->Html->addCrumb(__('Create New Report'));
     </div>
   </div>
 </section>
+
+<script>
+  func1(){
+    if(document.getElementById('selectReport').value == 1) {
+     document.getElementById('divTime').style.display = "none";
+   }else{
+    document.getElementById('divTime').style.display = "block";
+   }
+ }
+
+</script>
