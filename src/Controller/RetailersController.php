@@ -214,7 +214,7 @@ class RetailersController extends AppController
             }
             $this->Flash->error(__('The retailer could not be saved. Please, try again.'));
         }
-        $retailerAccTypes = $this->Retailers->RetailerAccTypes->find('list', ['limit' => 200]);
+        $retailerAccTypes = $this->Retailers->RetailerAccTypes->find('all', ['limit' => 200]);
         $this->set(compact('retailer', 'retailerAccTypes'));
         $this->set('_serialize', ['retailer']);
     }

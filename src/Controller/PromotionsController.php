@@ -136,7 +136,7 @@ class PromotionsController extends AppController
         }
         $retailerEmployees = $this->Promotions->RetailerEmployees->find('list', ['limit' => 200]);
         $custMembershipTiers = $this->Promotions->custMembershipTiers->find('all', ['limit' => 200]);
-        $products = $this->Promotions->Products->find('list', ['limit' => 200]);
+        $products = $this->Promotions->Products->find('all');
         $this->set(compact('promotion', 'retailerEmployees', 'custMembershipTiers', 'products'));
         $this->set('_serialize', ['promotion']);
     }
@@ -213,7 +213,7 @@ class PromotionsController extends AppController
         }
         $retailerEmployees = $this->Promotions->RetailerEmployees->find('list', ['limit' => 200]);
         $custMembershipTiers = $this->Promotions->custMembershipTiers->find('list', ['limit' => 200]);
-        $products = $this->Promotions->Products->find('list', ['limit' => 200]);
+        $products = $this->Promotions->Products->find('all');
         $this->set(compact('promotion', 'retailerEmployees', 'custMembershipTiers', 'products'));
         $this->set('_serialize', ['promotion']);
     }
