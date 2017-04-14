@@ -13,12 +13,6 @@ $this->Html->addCrumb(__('Items'));
             <h3 class="box-title"><?= __('Items') ?></h3>
           </div>
           <div class="box-body">
-          <?php
-            foreach ($query as $rows) {
-              echo $rows."<br />";
-            }
-
-          ?>
           <!-- <div class="pull-right">
             <a class="btn btn-success btn-block" title="Create New Item" href="/IS3102_Final/items/add" >Create New Item</a>
           </div> -->
@@ -77,7 +71,7 @@ $this->Html->addCrumb(__('Items'));
                         </td>
                         <td><?= h($item->description) ?></td>
                         <td><?= h($item->EPC) ?></td>
-                        <td><?= h($item->Products['barcode']) ?></td>
+                        <td><?= h($item->product->barcode) ?></td>
                         <td><?= h($item->status) ?></td>
                         <td><?= $item->has('product') ? $this->Html->link($item->product->prod_name, ['controller' => 'Products', 'action' => 'view', $item->product->id], ['title' => 'View Product Details']) : '' ?></td>
                         <td><?= $item->has('location') ? $this->Html->link($item->location->name, ['controller' => 'Locations', 'action' => 'view', $item->location->id], ['title' => 'View Location Details']) : '' ?></td>
