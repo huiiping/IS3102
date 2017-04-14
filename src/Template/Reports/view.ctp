@@ -33,11 +33,11 @@ $this->Html->addCrumb(__('View Incident Report'));
                 </tr>
                 <tr>
                     <th scope="row"><?= __('Entity') ?></th>
-                    <td><?= h($report->entity) ?></td>
+                    <td><?= $this->Html->link(__($report->entity), ['controller' => $report->entity, 'action' => 'view', $report->entityID], ['title' => 'View Entity Details']) ?></td>
                 </tr>
                 <tr>
                     <th scope="row"><?= __('EntityID') ?></th>
-                    <td><?= $this->Number->format($report->entityID) ?></td>
+                    <td><?= $this->Html->link(__($report->entityID), ['controller' => $report->entity, 'action' => 'view', $report->entityID], ['title' => 'View Entity Details']) ?></td>
                 </tr>
                 <tr>
                     <th scope="row"><?= __('Status') ?></th>

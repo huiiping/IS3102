@@ -91,7 +91,7 @@ $this->Html->addCrumb(__('Company Details'));
                   <i class="fa fa-product-hunt"></i>
                   <br><p style="font-size: 14px;">Products</p>
                 </td>
-                <td style="font-size: 18px;" title="No. of Loyalty Points">
+                <td style="font-size: 18px;" title="View No. of Loyalty Points">
                   <?php echo '<a href="/IS3102_Final/retailer-loyalty-points/retailer-view/'.$retailerDetail->retailerid.'"><i class="fa fa-money"></i></a>' ?>
                   <br><p style="font-size: 14px;">
                   <?= $this->Html->link('Loyalty Points', ['controller' => 'retailerLoyaltyPoints' , 'action' => 'retailerView', $retailerDetail->retailerid]);
@@ -112,7 +112,7 @@ $this->Html->addCrumb(__('Company Details'));
                 <td style="font-size: 18px;" title="No. of Product Types">
                   <?= ($getRetailer->retailer_acc_type->num_of_products) + ($getRetailer->num_of_products) ?>
                 </td>
-                <td style="font-size: 18px;" title="No. of Loyalty Points">
+                <td style="font-size: 18px;" title="View No. of Loyalty Points">
 
                 <?php
                   $total = 0;

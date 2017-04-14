@@ -29,7 +29,7 @@ $this->Html->addCrumb(__('Mass Send Loyalty Points')); ?>
             <div class ="form-group">
               <div class="input-group" title="Enter Points to Deduct">
                 <span class="input-group-addon"><i class="fa fa-trophy"></i></span>
-                <input class = "form-control" type="number" placeholder = "Loyalty Points to Redeem" name="redemption_pts" id="redemption_pts" min="0"> 
+                <input class = "form-control" type="number" placeholder = "Loyalty Points to Deduct" name="redemption_pts" id="redemption_pts" min="0"> 
               </div>
             </div>
             <div class ="form-group">

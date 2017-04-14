@@ -14,7 +14,7 @@ $this->Html->addCrumb(__('Retailer Account Types'));
           </div>
           <div class="box-body">
           <div class="pull-right">
-            <a class="btn btn-default btn-block" title="Create New Account Type" href="/IS3102_Final/retailer-acc-types/add" >Create New Account Type</a>
+            <a class="btn btn-success btn-block" title="Create New Account Type" href="/IS3102_Final/retailer-acc-types/add" >Create New Account Type</a>
           </div>
           <br><br><br>
             <table class="table table-bordered table-striped">

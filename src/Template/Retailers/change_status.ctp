@@ -1,3 +1,10 @@
+<?php
+$this->assign('title', __('Retailer') . '/' . __('Add'));
+$this->Html->addCrumb(__('Intrasys'), ['controller' => 'Pages', 'action' => 'intrasys']);
+$this->Html->addCrumb(__('Retailers'), ['controller' => 'Retailers', 'action' => 'index']);
+$this->Html->addCrumb(__("Change Retailer's Account Status"));
+?>
+
 <!-- Main content -->
 <section class="content" style="min-height: 550px">
   <div class="row">
@@ -48,6 +55,7 @@
 
             <br>
             <div class ="row">
+              <a href="/IS3102_Final/retailers/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Retailers Index</a>
               <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Save Retailer</button>
             </div>
             <br>

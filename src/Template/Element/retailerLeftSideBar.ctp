@@ -85,12 +85,13 @@
             'type1' => 'Promotions', 'typePlural' => 'Promotions', 
             'type2' => 'Promotion Emails', 'typePlural2' => 'PromotionEmails')); ?>
 
-          <?= $this->Element('sideBar', array('icon' => 'shopping-cart', 'title' => 'Products', 'num' => '3', 'tag' => 'prodtag',
+          <?= $this->Element('sideBar', array('icon' => 'shopping-cart', 'title' => 'Products', 'num' => '2', 'tag' => 'prodtag',
             'type1' => 'Product Category', 'typePlural' => 'ProdCats', 
             'type2' => 'Products', 'typePlural2' => 'Products', 
-            'type3' => 'Product Specification', 'typePlural3' => 'ProdSpecifications')); ?>
+            // 'type3' => 'Product Specification', 'typePlural3' => 'ProdSpecifications'
+            )); ?>
 
-          <?= $this->Element('sideBar', array('icon' => 'building', 'title' => 'Warehouse', 'num' => '4', 'tag' => 'waretag',
+          <?= $this->Element('sideBar', array('icon' => 'building', 'title' => 'Inventory', 'num' => '4', 'tag' => 'waretag',
             'type1' => 'Locations', 'typePlural' => 'Locations',
             'type2' => 'Sections', 'typePlural2' => 'Sections', 
             'type3' => 'Stock Levels', 'typePlural3' => 'StockLevels', 

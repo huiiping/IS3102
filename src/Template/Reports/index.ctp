@@ -66,8 +66,10 @@ $this->Html->addCrumb(__('Incident Reports'));
                         <td>
                             <?= $this->Html->link(__($report->title), ['action' => 'view', $report->id], ['title' => 'View Incident Report Details']) ?></td>
                         <td><?= h($report->message) ?></td>
-                        <td><?= h($report->entity) ?></td>
-                        <td><?= $this->Number->format($report->entityID) ?></td>
+                        <td>
+                          <?= $this->Html->link(__($report->entity), ['controller' => $report->entity, 'action' => 'view', $report->entityID], ['title' => 'View Entity Details']) ?>
+                        </td>
+                        <td><?= $this->Html->link(__($report->entityID), ['controller' => $report->entity, 'action' => 'view', $report->entityID], ['title' => 'View Entity Details']) ?></td>
                         <td>
                             <?php if($report->status == 'Pending') { ?>
                                 <div class="btn-group">

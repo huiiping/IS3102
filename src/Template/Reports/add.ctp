@@ -51,42 +51,42 @@ $this->Html->addCrumb(__('Create New Incident Report'));
                     switch ($_POST['entity2']) {
                       case 'Items': ?>
                         <option selected value="Items">Items</option>
-                        <option value="PurchaseOrders">Purchase Orders</option>
+                        <!-- <option value="PurchaseOrders">Purchase Orders</option> -->
                         <option value="TransferOrders">Transfer Orders</option>
                         <option value="DeliveryOrders">Delivery Orders</option>
                         <option value="Transactions">Transactions</option>
                   <?php break; 
                       case 'PurchaseOrders': ?>
                         <option value="Items">Items</option>
-                        <option selected value="PurchaseOrders">Purchase Orders</option>
+                        <!-- <option selected value="PurchaseOrders">Purchase Orders</option> -->
                         <option value="TransferOrders">Transfer Orders</option>
                         <option value="DeliveryOrders">Delivery Orders</option>
                         <option value="Transactions">Transactions</option>
                   <?php break;
                       case 'TransferOrders': ?>
                         <option value="Items">Items</option>
-                        <option value="PurchaseOrders">Purchase Orders</option>
+                        <!-- <option value="PurchaseOrders">Purchase Orders</option> -->
                         <option selected value="TransferOrders">Transfer Orders</option>
                         <option value="DeliveryOrders">Delivery Orders</option>
                         <option value="Transactions">Transactions</option>
                   <?php break;
                       case 'DeliveryOrders': ?>
                         <option value="Items">Items</option>
-                        <option value="PurchaseOrders">Purchase Orders</option>
+                        <!-- <option value="PurchaseOrders">Purchase Orders</option> -->
                         <option value="TransferOrders">Transfer Orders</option>
                         <option selected value="DeliveryOrders">Delivery Orders</option>
                         <option value="Transactions">Transactions</option>
                   <?php break;
                       case 'Transactions': ?>
                         <option value="Items">Items</option>
-                        <option value="PurchaseOrders">Purchase Orders</option>
+                        <!-- <option value="PurchaseOrders">Purchase Orders</option> -->
                         <option value="TransferOrders">Transfer Orders</option>
                         <option value="DeliveryOrders">Delivery Orders</option>
                         <option selected value="Transactions">Transactions</option>
                   <?php break;
                       default: ?>
                         <option value="Items">Items</option>
-                        <option value="PurchaseOrders">Purchase Orders</option>
+                        <!-- <option value="PurchaseOrders">Purchase Orders</option> -->
                         <option value="TransferOrders">Transfer Orders</option>
                         <option value="DeliveryOrders">Delivery Orders</option>
                         <option value="Transactions">Transactions</option>
