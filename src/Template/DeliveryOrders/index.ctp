@@ -86,7 +86,7 @@ $this->Html->addCrumb(__('Delivery Orders'));
                           <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                          <li><a title="Delivered" href="/IS3102_Final/delivery-orders/deliveredStatus/<?= $deliveryOrder->id ?>">Delivered</a></li>
+                          <li><?= $this->Form->postLink(__('Delivered'), array('action' => 'deliveredStatus', $deliveryOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to change status of # {0}?', $deliveryOrder->id))) ?></li>
                           <li><a title="Approved" href="/IS3102_Final/delivery-orders/approvedStatus/<?= $deliveryOrder->id ?>">Approved</a></li>
                         </ul>
                       </div>
@@ -109,15 +109,17 @@ $this->Html->addCrumb(__('Delivery Orders'));
                         </button>
                         <ul class="dropdown-menu" role="menu">
                           <li><a title="Pending Feedback" href="/IS3102_Final/delivery-orders/pendingStatus/<?= $deliveryOrder->id ?>">Pending</a></li>
-                          <li><a title="Approved Feedback" href="/IS3102_Final/delivery-orders/deliveredStatus/<?= $deliveryOrder->id ?>">Delivered</a></li>
+                          <li><?= $this->Form->postLink(__('Delivered'), array('action' => 'deliveredStatus', $deliveryOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to change status of # {0}?', $deliveryOrder->id))) ?></li>
                         </ul>
                       </div>
                       <?php }
                       ?>
                     </td>
                     <td style="max-width: 150px;"><span style="cursor:pointer"><a href=#> <i class="fa fa-bars" data-toggle="modal" data-target="#myModal" href="/IS3102_Final/delivery-orders/view/<?=$deliveryOrder->id?>" title="View Delivery Order Details"></i></span>&nbsp&nbsp
-
-                      <a href="/IS3102_Final/delivery-orders/edit/<?=$deliveryOrder->id?>"><i class="fa fa-edit" title="Edit Delivery Order Details"></i></a>&nbsp&nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Delivery Order')), array('action' => 'delete', $deliveryOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $deliveryOrder->id))) ?></td>
+                      <?php if($deliveryOrder->status == 'Pending'): ?>
+                      <a href="/IS3102_Final/delivery-orders/edit/<?=$deliveryOrder->id?>"><i class="fa fa-edit" title="Edit Delivery Order Details"></i></a>&nbsp&nbsp
+                      <?php endif; ?>
+                      <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Delivery Order')), array('action' => 'delete', $deliveryOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $deliveryOrder->id))) ?></td>
                     </tr>
                   <?php endforeach; ?>
                 </tbody>

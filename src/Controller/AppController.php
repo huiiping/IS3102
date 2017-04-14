@@ -525,6 +525,12 @@ class AppController extends Controller
                         }
                     }
                 }
+                if($retailerEmployeeRole == '14'){
+                    if($controllerName == 'PurchaseOrders'  ){
+                            return;
+                        }
+                    }
+                
             //Purchase Orders Manager
                 if($retailerEmployeeRole == '16'){
                     if($controllerName == 'PurchaseOrders'){

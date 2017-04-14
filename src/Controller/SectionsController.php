@@ -180,6 +180,8 @@ class SectionsController extends AppController
                 echo "\n";
                 echo ($row['available_space']);
                 echo "\n";
+                echo ($row['reserve_space']);
+                echo "\n";
             }
         }
 

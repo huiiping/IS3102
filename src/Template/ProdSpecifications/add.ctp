@@ -5,10 +5,11 @@ use Cake\Error\Debugger;
 
 $this->assign('title', __('prodSpecifications') . '/' . __('Add'));
 $this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
-$this->Html->addCrumb(__('Product Specification'), ['controller' => 'prodSpecifications', 'action' => 'index']);
+$this->Html->addCrumb(__('ProdCats'), ['controller' => 'ProdCats', 'action' => 'index']);
+$this->Html->addCrumb(__('Products'), ['controller' => 'Products', 'action' => 'index']);
 $this->Html->addCrumb(__('Create New Product Specification'));
-
 ?>
+
 <!-- Main content -->
 <section class="content">
   <div class="row">
@@ -65,8 +66,6 @@ $this->Html->addCrumb(__('Create New Product Specification'));
     </div>
   </div>
 </section>
-</div>
-
 
 <!-- <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
 <?= $this->Form->end() ?>

@@ -54,8 +54,8 @@ $this->Html->addCrumb(__('Create New Retailer Account Type'));
                         </div>
                         <br>
                         <div class ="row">
-                            <a href="/IS3102_Final/retailer-acc-types/index" class="btn btn-md btn-default pull-left" style="border-radius: 8px; margin:5px;">Back to Account Types Index</a>
-                            <button class="btn btn-md btn-default pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Create Account Type</button>
+                            <a href="/IS3102_Final/retailer-acc-types/index" class="btn btn-md btn-primary pull-left" style="border-radius: 8px; margin:5px;">Back to Account Types Index</a>
+                            <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Add Account Type</button>
                         </div>
                         <br>
                     </form>

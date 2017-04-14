@@ -156,5 +156,25 @@ class EmailComponent extends Component {
         
     }
 
+    public function goodsReceiptEmail($recipient, $message){
 
+        $email = new Email('default');
+        $email->template('goods_receipt');
+        $email->emailFormat('html');        
+        $email->subject('Goods Receipt');
+        $email->from('tanyongming90@gmail.com');
+        $email->to($recipient);
+        $email->send($message);
+    }
+
+    public function stockLevelAlertEmail($recipient, $prod, $loc){
+
+        $email = new Email('default');
+        $email->template('stock_level_alert');
+        $email->emailFormat('html');        
+        $email->subject('Stock Level Alert');
+        $email->from('tanyongming90@gmail.com');
+        $email->to($recipient);
+        $email->send($prod.', '.$loc);
+    }
 }

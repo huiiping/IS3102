@@ -60,7 +60,6 @@ class PurchaseOrdersTableTest extends TestCase
         'app.retailer_employees_retailer_employee_roles',
         'app.rfqs',
         'app.rfqs_suppliers',
-        'app.quotations',
         'app.purchase_order_items'
     ];
 

@@ -1,6 +1,6 @@
 <?php
-$this->assign('title', __('Retailers') . '/' . __('Index'));
-$this->Html->addCrumb(__('Intrasys'), ['controller' => 'Pages', 'action' => 'intrasys']);
+$this->assign('title', __('Transactions') . '/' . __('View'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
 $this->Html->addCrumb(__('Transactions'), ['controller' => 'Transactions', 'action' => 'index']);
 $this->Html->addCrumb(__('View Transaction'));
 ?>

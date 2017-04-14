@@ -36,7 +36,7 @@ $this->Html->addCrumb(__('Edit Promotion'));
             <div class ="form-group">
               <div class="input-group" title="Promotion Description*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                <textarea rows="5" class = "form-control" type="textarea" name="promo_desc" value = "<?=$promotion->promo_desc ?>" required="required" placeholder = "Promotion Description*" id="promo_desc"></textarea>
+                <textarea rows="5" class = "form-control" type="textarea" name="promo_desc" required="required" placeholder = "Promotion Description*" id="promo_desc"><?=$promotion->promo_desc ?></textarea>
               </div>
             </div>
 
@@ -85,13 +85,23 @@ $this->Html->addCrumb(__('Edit Promotion'));
             </div>
 
             <div class ="form-group">        
-              <div class="input-group" style="z-index: 10;" title="Applicable to Customer Tier(s)">
+              <div class="input-group" style="z-index: 20;" title="Applicable to Customer Tier(s)">
                 <span class="input-group-addon"><i class="fa fa-fw fa-users"></i></span>
                 <input type="hidden" name="cust_membership_tiers[_ids]" value="">
-                <select name="cust_membership_tiers[_ids][]" class='selectpicker form-control' title ="Applicable to Customer Tier(s)" data-live-search="true">
-                  <option label=" ">NIL</option> 
-                  <?php foreach ($custMembershipTiers as $custMembershipTier): ?>
-                    <option><?php echo $custMembershipTier->tier_name ?></option> 
+                <select name="cust_membership_tiers[_ids][]" class='selectpicker form-control' multiple data-selected-text-format="count > 3" data-live-search="true">
+                  <?php foreach ($custMemberTiers as $custMemberTier): ?> 
+
+                    <?php if (!empty($promotion->cust_membership_tiers)): ?> 
+                      <?php foreach ($promotion->cust_membership_tiers as $custMembershipTier): ?> 
+                        <?php if ($custMemberTier->id == $custMembershipTier->id): ?>
+                          <option selected="selected" value="<?= $custMemberTier->id ?>"><?php echo $custMemberTier->tier_name ?></option> 
+                          <?php break; ?> 
+                        <?php endif; ?>
+                      <?php endforeach; ?> 
+                      <?php if (!($custMemberTier->id == $custMembershipTier->id)): ?> 
+                        <option value="<?= $custMemberTier->id ?>"><?php echo $custMemberTier->tier_name ?></option>
+                      <?php endif; ?>
+                    <?php endif; ?>
                   <?php endforeach; ?>
                 </select>
               </div> 
@@ -101,39 +111,26 @@ $this->Html->addCrumb(__('Edit Promotion'));
               <div class="input-group" style="z-index: 10;" title="Applicable to Product Type(s)">
                 <span class="input-group-addon"><i class="fa fa-fw fa-users"></i></span>
                 <input type="hidden" name="products[_ids]" value="">
-                <select name="products[_ids][]" class='selectpicker form-control' title ="Applicable to Product Type(s)" data-live-search="true">
-                <?php foreach ($products as $product): ?> 
+                <select name="products[_ids][]" class='selectpicker form-control' data-live-search="true" multiple data-selected-text-format="count > 3" title = "">
+                  <?php foreach ($prods as $prod): ?> 
 
                     <?php if (!empty($promotion->products)): ?> 
                       <?php foreach ($promotion->products as $products): ?> 
-                        <?php if ($products->prod_name == $product->prod_name): ?> 
-                          <option selected="selected" value="<?= $product->id ?>"><?php echo $product->prod_name ?></option> <!-- select and print option -->
-                          <?php break; ?> <!-- and break the loop -->
+                        <?php if ($prod->id == $products->id): ?>
+                          <option selected="selected" value="<?= $prod->id ?>"><?php echo $prod->prod_name ?></option> 
+                          <?php break; ?> 
                         <?php endif; ?>
                       <?php endforeach; ?> 
-                      <?php if (!($products->prod_name == $product->prod_name)): ?> <!-- if it is not the employee's role -->
-                        <option value="<?= $product->id ?>"><?php echo $product->prod_name ?></option> <!-- print option -->
+                      <?php if (!($products->id == $prod->id)): ?> 
+
+                        <option value="<?= $prod->id ?>"><?php echo $prod->prod_name ?></option>
                       <?php endif; ?>
                     <?php endif; ?>
                   <?php endforeach; ?>
                 </select>
               </div> 
             </div>
-            <br>
 
-            <?php
-
-            echo $this->Form->input('first_voucher_num', array('label' => 'Voucher Starting Number'));
-            echo $this->Form->input('last_voucher_num', array('label' => 'Voucher Ending Number'));
-            echo $this->Form->input('discount_rate', array('label' => 'Discount Rate (%) '));
-            echo $this->Form->input('credit_card_type', array('label' => 'Applicable Credit Card(s)'));
-            $session = $this->request->session();
-            echo $this->Form->hidden('retailer_employee_id', ['value'=>$session->read('retailer_employee_id')]);
-                        //echo $this->Form->input('retailer_employee_id', ['options' => $retailerEmployees, 'empty' => true]);
-                        //echo $this->Form->input('customer_tier', array('label' => 'Applicable to Customer Tier(s)')); 
-            echo $this->Form->input('cust_membership_tiers._ids', array('options' => $custMembershipTiers, 'label' => 'Applicable to Customer Tier(s)'));
-            echo $this->Form->input('prod_types._ids', array('options' => $prodTypes, 'label' => 'Applicable to Product Type(s)'));
-            ?>
 
             <div class="box-body">
               <p id="emailField1" style="visibility:hidden">Title</p>
@@ -142,42 +139,43 @@ $this->Html->addCrumb(__('Edit Promotion'));
               <input type="hidden" name="body" id="body"><br >
 
             </div>
-            <script>
-              function myFunction() {
-
-                if(document.getElementById("title").type == "text"){
-                  document.getElementById("title").type = "hidden";
-                } else {
-                  document.getElementById("title").type = "text";
-                }
-
-                if(document.getElementById("body").type == "text"){
-                  document.getElementById("body").type = "hidden";
-                } else {
-                  document.getElementById("body").type = "text";
-                }
-
-                if(document.getElementById("emailField1").style.visibility == "hidden"){
-                  document.getElementById("emailField1").style.visibility = "";
-                } else {
-                  document.getElementById("emailField1").style.visibility = "hidden";
-                }
-
-                if(document.getElementById("emailField2").style.visibility == "hidden"){
-                  document.getElementById("emailField2").style.visibility = "";
-                } else {
-                  document.getElementById("emailField2").style.visibility = "hidden";
-                }                    
-              }
-            </script>
-          </fieldset>
-          <br>
-          <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
-          <button type="button" onclick="myFunction()" class="btn btn-default btn-flat">Generate Email</button>
-          <?= $this->Form->end() ?>
+            <div class ="row">
+              <button class="btn btn-md btn-primary pull-left" onclick="myFunction()" style="border-radius: 8px; margin:5px; ">Generate Email</button>
+              <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Submit</button>
+            </div>
+            <br>
+          </form>
         </div>
       </div>
     </div>
   </div>
 </section>
-</div>
+
+<script>
+  function myFunction() {
+
+    if(document.getElementById("title").type == "text"){
+      document.getElementById("title").type = "hidden";
+    } else {
+      document.getElementById("title").type = "text";
+    }
+
+    if(document.getElementById("body").type == "text"){
+      document.getElementById("body").type = "hidden";
+    } else {
+      document.getElementById("body").type = "text";
+    }
+
+    if(document.getElementById("emailField1").style.visibility == "hidden"){
+      document.getElementById("emailField1").style.visibility = "";
+    } else {
+      document.getElementById("emailField1").style.visibility = "hidden";
+    }
+
+    if(document.getElementById("emailField2").style.visibility == "hidden"){
+      document.getElementById("emailField2").style.visibility = "";
+    } else {
+      document.getElementById("emailField2").style.visibility = "hidden";
+    }                    
+  }
+</script>

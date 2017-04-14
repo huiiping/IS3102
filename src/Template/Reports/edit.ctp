@@ -30,7 +30,7 @@ $this->Html->addCrumb(__('Edit Incident Report'));
             <div class ="form-group">            
               <div class="input-group" title="Enter Report Message*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                <input class = "form-control" type="text" name="message" placeholder = "Report Message*" required="required" id="message" value="<?=$report->message?>" maxlength="255">
+                <textarea rows="5" class = "form-control" type="textarea" required="required" id="message"><?= $report->message?></textarea>
               </div> 
             </div>
             <!-- <div class ="form-group">

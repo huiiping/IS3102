@@ -31,8 +31,18 @@ class ItemsController extends AppController
         $this->paginate = [
         'contain' => ['Products', 'Locations', 'Sections']
         ];
+
         $this->set('items', $this->paginate($this->Items->find('searchable', $this->Prg->parsedParams())));
-        $this->set(compact('items'));
+
+        $query = $this->Items->find()->contain([
+            'Products' => function ($q) {
+                return $q
+                    ->select(['Products.barcode']);
+            }
+        ])->where(['Items.product_id' => '5'])->where(['Items.status' => 'In Location']);
+        //var_dump($query);
+        $this->set('query', $query);
+        $this->set(compact('items', 'query'));
         $this->set('_serialize', ['items']);
     }
     public $components = array(
@@ -47,9 +57,16 @@ class ItemsController extends AppController
             if($key == 'locationId') {
                 // var_dump("in check locationID");
 
-                $query = $this->Items->find('all' , [
-                    'conditions' => ['Items.location_id =' => $value],
-                    ]);
+                $query = $this->Items->find()->contain([
+                    'Products' => function ($q) {
+                        return $q
+                        ->select(['Products.barcode']);
+                    }
+                    ])->where(['Items.location_id =' => $value]);
+
+                // $query = $this->Items->find('all' , [
+                //     'conditions' => ['Items.location_id =' => $value],
+                //     ]);
 
                 //$items = $query->toArray();
                 
@@ -271,6 +288,8 @@ class ItemsController extends AppController
     {
         $items = TableRegistry::get('Items');
         $item = $items->get($id);
+        $this->loadModel('RetailerEmployees');
+        $this->loadComponent('Email');
 
         $pid = $item->product_id;
 
@@ -321,11 +340,16 @@ class ItemsController extends AppController
             $message->title = 'Low Stock Level Alert';
             $message->message = 'Product '.$prod.' at '.$loc.' is running low in stock.';
             $message->status = 0;
-            
+
             // The $message entity contains the id now
             if ($msgTable->save($message)) {
                 $mid = $message->id;
             }
+
+            $employee = $this->RetailerEmployees->get($stockLevel->retailer_employee_id);
+            //send email here
+
+            $this->Email->stockLevelAlertEmail($employee->email, $prod, $loc);
 
             //save message to employee (joined entities)
             $emTable = TableRegistry::get('RetailerEmployeesMessages');
@@ -689,31 +713,41 @@ class ItemsController extends AppController
         $this->loadModel("TransferOrdersItems");
         $this->loadModel("TransferOrders");
         $this->loadModel("Sections");
+        $this->loadModel("Suppliers");
+        $this->loadModel("RetailerDetails");
+        $this->loadComponent('Email');
 
         $type = $_POST['type'];
-        echo ("$type: ".$type.'\n');
+        //echo ("$type: ".$type.'\n');
         $id = $_POST['id'];
-        echo ("$type: ".$id.'\n');
+        //echo ("$type: ".$id.'\n');
         $location = $_POST['location'];
-        echo ("$location: ".$location.'\n');
+        //echo ("$location: ".$location.'\n');
         $section_id = $_POST['section'];
-        echo ("$section_id: ".$section_id.'\n');
+        //echo ("$section_id: ".$section_id.'\n');
         $space = $_POST['space'];
-        echo ("$space: ".$space.'\n');
+        //echo ("$space: ".$space.'\n');
+        $product = $_POST['product'];
+        //echo ("$product: ".$product.'\n');
+        $use_reserve = $_POST['reserve'];
+        echo ("$use_reserve: ".$use_reserve.'\n');
         //echo ("Type =".$type);
 
         $section = $this->Sections->get($section_id);
         $section->available_space = $section->available_space - $space;
+        if($use_reserve == 'true'){
+            $section->reserve_space = $section->reserve_space - $space;
+        }
         $this->Sections->save($section);
 
         if($type == "po") {
 
             $po_id = $_POST['po_id'];
-            echo ("$po_id: ".$po_id.'\n');
+            //echo ("$po_id: ".$po_id.'\n');
             $item_code = $_POST['item_code'];
-            echo ("$item_code: ".$item_code.'\n');
+            //echo ("$item_code: ".$item_code.'\n');
             $desc = $_POST['desc'];
-            echo ("$desc: ".$desc.'\n');
+            //echo ("$desc: ".$desc.'\n');
             $qty = $_POST['qty'];
             $price = $_POST['price'];
             $rfid_list = $_POST['rfid_list'];
@@ -727,18 +761,31 @@ class ItemsController extends AppController
 
             $array = $this->PurchaseOrderItems->find()->where(['purchase_order_id' => $po_id])->toArray();
 
+            $message = "";
+
             $completed = true;
             foreach ($array as $row) {
                 if($row['quantity'] != 0){
                     $completed = false;
                     break;
                 }
+                $message = $message.$row['itemID'].', '.$row['description'].', ';
             }
+            echo '$message: '.$message. '\n';
 
             if($completed){
                 $purchaseOrder = $this->PurchaseOrders->get($po_id);
                 $purchaseOrder->delivery_status = 1;
+                $supplier_id = $purchaseOrder->supplier_id;
+
+                $retailer = $this->RetailerDetails->get(1);
+
                 $this->PurchaseOrders->save($purchaseOrder);
+                $supplier = $this->Suppliers->get($supplier_id);
+                $message_final = $supplier->supplier_name.', '.$po_id.', '.$message.$retailer->retailer_name;
+                echo '$message_final: '.$message_final. '\n';
+                $this->Email->goodsReceiptEmail($supplier->email, $message_final);
+
             }
 
 
@@ -751,6 +798,7 @@ class ItemsController extends AppController
                 $item->location_id = $location;
                 $item->EPC = $rfid_arr[$count];
                 $item->status = "In Location";
+                $item->product_id = $product;
 
                 if($this->Items->save($item)){
                     echo ("SUCCESS"."\n");
@@ -762,7 +810,7 @@ class ItemsController extends AppController
             }
 
         } else {
-            
+
             $to_id = $_POST['to_id'];
             $item = $this->Items->get($id);
             $item->location_id = $location;

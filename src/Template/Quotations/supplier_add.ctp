@@ -12,7 +12,7 @@ $this->Html->addCrumb(__('Add'));
   <!-- Main content -->
   <section class="content">
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-md-8 col-md-offset-2">
           <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title"><?= __('Submit New Quotation for RFQ ID: '.$rfqid) ?></h3>
@@ -33,12 +33,12 @@ $this->Html->addCrumb(__('Add'));
                 </div>
                 <div class ="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-commenting-o"></i></span>
-                    <textarea name="comments" placeholder = "Enter your comments.." required="required" id="comments" rows="4" cols="80"></textarea>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <textarea class="form-control" name="comments" placeholder = "Enter your comments*" id="comments" rows="4" ></textarea>
                   </div>
                 </div>
                 <br >
-                <input type="submit" class="btn btn-default btn-flat" value="Submit Quotation">
+                <input type="submit" class="btn btn-default btn-flat pull-right" value="Submit Quotation">
               </form>
             </div>
           </div>

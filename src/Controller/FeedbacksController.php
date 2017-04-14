@@ -141,10 +141,14 @@ class FeedbacksController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $feedback = $this->Feedbacks->get($id);
 
-        if ($this->Feedbacks->delete($feedback)) {
-            $this->Flash->success(__('The feedback has been deleted.'));
+        if ($feedback->status == "Closed") {
+          if ($this->Feedbacks->delete($feedback)) {
+              $this->Flash->success(__('The feedback has been deleted.'));
+          } else {
+              $this->Flash->error(__('The feedback could not be deleted. Please, try again.'));
+          }
         } else {
-            $this->Flash->error(__('The feedback could not be deleted. Please, try again.'));
+          $this->Flash->error(__('Delete of feedback is not allowed.'));
         }
 
         $session = $this->request->session();

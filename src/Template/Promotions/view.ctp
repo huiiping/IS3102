@@ -71,6 +71,7 @@ $this->Html->addCrumb(__('View Promotion'));
   <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
       <li class="active"><a href="#custMembershipTier" data-toggle="tab">Customer Membership Tier</a></li>
+      <li><a href="#product" data-toggle="tab">Products</a></li>
       <li><a href="#promotionalEmail" data-toggle="tab">Latest Promotional Email</a></li>
   </ul>
 
@@ -114,6 +115,26 @@ $this->Html->addCrumb(__('View Promotion'));
         <?php else: ?>
             <br>
             There is no related promotional email.
+            <br><br>
+        <?php endif; ?>
+    </div>
+
+    <div class="tab-pane" id="product">
+    <?php if (!empty($promotion->products)): ?><br>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tbody>
+                <?php foreach ($promotion->products as $product): ?>
+                    <tr>
+                        <td>
+                            <?= $this->Html->link(__(h($product->prod_name)), ['controller' => 'Products', 'action' => 'view', $product->id]) ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        <?php else: ?>
+            <br>
+            There is no related products.
             <br><br>
         <?php endif; ?>
     </div>

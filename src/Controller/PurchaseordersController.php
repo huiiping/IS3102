@@ -31,6 +31,8 @@ class PurchaseOrdersController extends AppController
         'contain' => ['Suppliers', 'Quotations', 'Locations']
         ];
         
+        
+
 
         $this->set('purchaseOrders', $this->paginate($this->PurchaseOrders->find('searchable', $this->Prg->parsedParams())));
         $this->set(compact('purchaseOrders'));
@@ -50,7 +52,7 @@ class PurchaseOrdersController extends AppController
     {
         $purchaseOrder = $this->PurchaseOrders->get($id, [
             'contain' => ['Suppliers', 'RetailerEmployees', 'PurchaseOrderItems']
-        ]);
+            ]);
 
         $this->set('purchaseOrder', $purchaseOrder);
         $this->set('_serialize', ['purchaseOrder']);
@@ -78,7 +80,7 @@ class PurchaseOrdersController extends AppController
                 $uploadData->retailer_employee_id = $user['id'];
                 $uploadData->file_name = $fileName;
                 $uploadData->file_path = $uploadPath;
-                $uploadData->approval_status = 'Pending';
+                $uploadData->approval_status = 'Waiting for approval';
                 $uploadData->delivery_status = NULL;
                 $uploadData->supplier_id = $supplierID;
                 $uploadData->quotation_id = $quotationID;
@@ -87,7 +89,7 @@ class PurchaseOrdersController extends AppController
                 
                 if ($this->PurchaseOrders->save($uploadData)) {
 
-                    $this->Flash->success(__('Purchase Order has been uploaded and submitted successfully.'));
+                    $this->Flash->success(__('Purchase Order has been uploaded successfully.'));
 
                     return $this->redirect(['action' => 'index']);
 
@@ -131,7 +133,7 @@ class PurchaseOrdersController extends AppController
     {
         $purchaseOrder = $this->PurchaseOrders->get($id, [
             'contain' => []
-        ]);
+            ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $purchaseOrder = $this->PurchaseOrders->patchEntity($purchaseOrder, $this->request->getData());
             if ($this->PurchaseOrders->save($purchaseOrder)) {
@@ -192,7 +194,10 @@ class PurchaseOrdersController extends AppController
         
 
         if($id != null) {
-            $this->set('purchaseorders', $this->paginate($this->PurchaseOrders->find('searchable', $this->Prg->parsedParams())->where(['PurchaseOrders.quotation_id' => $id])->order(['PurchaseOrders.created' => 'DESC'])));
+            $this->set('purchaseorders', $this->paginate($this->PurchaseOrders->find('searchable', $this->Prg->parsedParams())
+                ->where(['PurchaseOrders.quotation_id' => $id])
+                ->where(['PurchaseOrders.approval_status' => 'Waiting for approval'])
+                ->order(['PurchaseOrders.created' => 'DESC'])));
         } else { 
             /*$conn = ConnectionManager::get('default');
             $purchaseorders = $conn
@@ -206,51 +211,110 @@ class PurchaseOrdersController extends AppController
                 ->fetchAll('assoc');
                 $this->set('purchaseorders',  $this->paginate($purchaseorders));
 
-             $this->set('purchaseorders', $this->paginate($this->PurchaseOrders->find('searchable', $this->Prg->parsedParams())));*/
+                $this->set('purchaseorders', $this->paginate($this->PurchaseOrders->find('searchable', $this->Prg->parsedParams())));*/
 
-            $this->set('purchaseorders', $this->paginate($this->PurchaseOrders->find('searchable', $this->Prg->parsedParams())->where(['PurchaseOrders.supplier_id' => $supplier_id])));
+                $this->set('purchaseorders', $this->paginate($this->PurchaseOrders->find('searchable', $this->Prg->parsedParams())
+                    ->where(['PurchaseOrders.supplier_id' => $supplier_id])
+                    ->where(['PurchaseOrders.approval_status !=' => 'Waiting for approval'])
+                    ->where(['PurchaseOrders.approval_status !=' => 'Rejected by Admin'])
+                    ));
+            }
+
+            $this->set('id', $id);
+            $this->set(compact('purchaseorders', 'id'));
+            $this->set('_serialize', ['purchaseorders']);
         }
 
-        $this->set('id', $id);
-        $this->set(compact('purchaseorders', 'id'));
-        $this->set('_serialize', ['purchaseorders']);
-    }
+        public function approveOrder($id) {
 
-    public function approveOrder($id) {
+            $purchaseOrder = $this->PurchaseOrders->get($id);
+            $purchaseOrder->approval_status = 'Approved';
+            $purchaseOrder->delivery_status = 0;
+            $purchaseOrder->is_sent = 1;
+            $this->PurchaseOrders->save($purchaseOrder);
+            $this->Flash->success(__('The Purchase Order has been approved.'));
 
+            return $this->redirect(['action' => 'supplierIndex']);
+        }
+
+        public function rejectOrder($id) {
+
+            $purchaseOrder = $this->PurchaseOrders->get($id);
+            $purchaseOrder->approval_status = 'Rejected';
+            $purchaseOrder->delivery_status = NULL;
+            $this->PurchaseOrders->save($purchaseOrder);
+            $this->Flash->success(__('The Purchase Order has been rejected.'));
+
+            return $this->redirect(['action' => 'supplierIndex']);
+        }
+        public function pendingOrder($id) {
+
+         $purchaseOrder = $this->PurchaseOrders->get($id);
+         $purchaseOrder->approval_status = 'Pending';
+         $purchaseOrder->delivery_status = NULL;
+         $this->PurchaseOrders->save($purchaseOrder);
+         $this->Flash->success(__('The Purchase Order\'s status has been revert to pending.'));
+
+         return $this->redirect(['action' => 'supplierIndex']);
+     }
+
+     public function adminApprove($id) 
+     { 
         $purchaseOrder = $this->PurchaseOrders->get($id);
-        $purchaseOrder->approval_status = 'Approved';
-        $purchaseOrder->delivery_status = 0;
-        $this->PurchaseOrders->save($purchaseOrder);
-        $this->Flash->success(__('The Purchase Order has been approved.'));
-
-        return $this->redirect(['action' => 'supplierIndex']);
-    }
-
-    public function rejectOrder($id) {
-
-        $purchaseOrder = $this->PurchaseOrders->get($id);
-        $purchaseOrder->approval_status = 'Rejected';
+        $purchaseOrder->approval_status = 'Pending';
         $purchaseOrder->delivery_status = NULL;
         $this->PurchaseOrders->save($purchaseOrder);
-        $this->Flash->success(__('The Purchase Order has been rejected.'));
-
-        return $this->redirect(['action' => 'supplierIndex']);
+        $this->Flash->success(__('The Purchase Order has been approved and sent to the supplier.'));
+        return $this->redirect(['action' => 'Index']);
     }
-    public function pendingOrder($id) {
+    public function adminReject($id) 
+    {
+        $purchaseOrder = $this->PurchaseOrders->get($id);
+        $purchaseOrder->approval_status = 'Rejected by Admin';
+        $purchaseOrder->delivery_status = NULL;
+        $this->PurchaseOrders->save($purchaseOrder);
+        $this->Flash->success(__('The Purchase Order was rejected.'));
+        return $this->redirect(['action' => 'Index']);
+    }
+    public function recurringPO($id){
 
-       $purchaseOrder = $this->PurchaseOrders->get($id);
-       $purchaseOrder->approval_status = 'Pending';
-       $purchaseOrder->delivery_status = NULL;
-       $this->PurchaseOrders->save($purchaseOrder);
-       $this->Flash->success(__('The Purchase Order\'s status has been revert to pending.'));
 
-       return $this->redirect(['action' => 'supplierIndex']);
-   }
+        $new = $this->PurchaseOrders->newEntity();
+        $old = $this->PurchaseOrders->get($id);
 
+        /* $rew->created = date("Y-m-d H:i:s");*/
+
+        $session = $this->request->session();
+        $user = $session->read('Auth.User');
+
+        /*$new->retailer_employee_id = $user['id'];
+        $rew->file_name = $old['file_name'];
+        $rew->file_path = $old->file_path;
+        $rew->approval_status = 'Pending';
+        $new->delivery_status = NULL;
+        $rew->supplier_id = $old->supplier_id;
+        $rew->quotation_id = $old->quotation_id;
+        $rew->location_id = $old->location_id;*/
+        $new->set('created' , date("Y-m-d H:i:s"));
+        $new->set('retailer_employee_id' , $user['id']);
+        $new->set('file_name' , $old['file_name']);
+        $new->set('file_path' , $old->file_path);
+        $new->set('approval_status' , 'Pending');
+        $new->set('delivery_status' , NULL);
+        $new->set('supplier_id' , $old->supplier_id);
+        $new->set('quotation_id' , $old->quotation_id);
+        $new->set('location_id' , $old->location_id);     
+
+        if($this->PurchaseOrders->save($new)){
+            $this->Flash->success(__('The recurring Purchase Order has been sent to the supplier.'));
+            return $this->redirect(['action' => 'Index']);
+        }
+        $this->Flash->error(__('The recurring Purchase Order could not be sent'));
+        return $this->redirect(['action' => 'Index']);
+    }
     public function listpurchaseorders() 
     {
-    
+
         $pos = $this->PurchaseOrders->find()->where(['delivery_status' => 0])->toArray();
 
         foreach ($pos as $row) {
@@ -259,7 +323,7 @@ class PurchaseOrdersController extends AppController
         }
 
         die;
-        
+
     }
 
     public function listpoitems(){

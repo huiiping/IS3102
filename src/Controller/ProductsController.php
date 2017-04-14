@@ -252,4 +252,29 @@ private function withinLimit()
 
     }
 
+    public function loadproducts(){
+
+        $products = $this->Products->find()->toArray();
+
+        foreach($products as $row){
+
+            if($row['id'] >3 ){ 
+                echo ($row['id']);
+                echo "\n";
+                echo ($row['prod_name']);
+                echo "\n";
+                echo ($row['SKU']);
+                echo "\n";
+                echo ($row['barcode']);
+                echo "\n";
+            }
+            
+        }
+
+        die();
+
+    }
+
+
+
 }

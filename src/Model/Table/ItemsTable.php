@@ -12,7 +12,7 @@ class ItemsTable extends Table
     public $filterArgs = array(
         'search' => array(
             'type' => 'like',
-            'field' => array('name', 'description', 'Products.prod_name', 'Locations.name', 'Sections.sec_name', 'EPC', 'status'),
+            'field' => array('name', 'description', 'Products.prod_name', 'Products.barcode', 'Locations.name', 'Sections.sec_name', 'EPC', 'status'),
             'method' => 'findByActions'
             )
         );

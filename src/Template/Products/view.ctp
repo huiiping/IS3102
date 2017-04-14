@@ -68,7 +68,7 @@ $this->Html->addCrumb(__('View Product'));
                         <?php foreach ($product->prod_specifications as $prodSpecifications): ?>
                             <tr>
                                 <td>
-                                    <?= $this->Html->link(__($prodSpecifications->title), ['controller' => 'ProdSpecifications', 'action' => 'view', $prodSpecifications->title], ['title' => 'View Product Specification Details']) ?>
+                                    <?= $this->Html->link(__($prodSpecifications->title), ['controller' => 'ProdSpecifications', 'action' => 'view', $prodSpecifications->id, $product->id], ['title' => 'View Product Specification Details']) ?>
                                 </td>
                                 <td><?= h($prodSpecifications->description) ?></td>
                                 <!--<td class="actions">

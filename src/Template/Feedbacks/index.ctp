@@ -78,7 +78,7 @@ $this->Html->addCrumb(__('Feedback'));
                       if($feedback->status == 'Pending'){
                         ?>
                         <div class="btn-group">
-                          <button type="button" style="width: 100px;" class="btn btn-warning btn-flat"><?= h($feedback->status) ?></button>
+                          <button type="button" style="width: 100px;" class="btn btn-danger btn-flat"><?= h($feedback->status) ?></button>
                           <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
                             <span class="caret"></span>
                             <span class="sr-only">Toggle Dropdown</span>
@@ -96,15 +96,7 @@ $this->Html->addCrumb(__('Feedback'));
                         ?>
 
                         <div class="btn-group">
-                          <button type="button" style="width: 100px;" class="btn btn-danger btn-flat"><?= h($feedback->status) ?></button>
-                          <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button>
-                          <ul class="dropdown-menu" role="menu">
-                            <li><a title="Pending Feedback" href="/IS3102_Final/feedbacks/pendingStatus/<?= $feedback->id ?>">Pending</a></li>
-                            <li><a title="Replied Feedback" href="/IS3102_Final/feedbacks/repliedStatus/<?= $feedback->id ?>">Replied</a></li>
-                          </ul>
+                          <button type="button" style="width: 100px;" class="btn btn-success btn-flat"><?= h($feedback->status) ?></button>
                         </div>
                         <?php
 
@@ -113,13 +105,12 @@ $this->Html->addCrumb(__('Feedback'));
                         ?>
 
                         <div class="btn-group">
-                          <button type="button" style="width: 100px;" class="btn btn-success btn-flat"><?= h($feedback->status) ?></button>
+                          <button type="button" style="width: 100px;" class="btn btn-warning btn-flat"><?= h($feedback->status) ?></button>
                           <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
                             <span class="caret"></span>
                             <span class="sr-only">Toggle Dropdown</span>
                           </button>
-                          <ul class="dropdown-menu" role="menu">
-                            <li><a title="Pending Feedback" href="/IS3102_Final/feedbacks/pendingStatus/<?= $feedback->id ?>">Pending</a></li>
+                          <ul class="dropdown-menu" role="menu"></li>
                             <li><a title="Closed Feedback" href="/IS3102_Final/feedbacks/closedStatus/<?= $feedback->id ?>">Closed</a></li>
                           </ul>
                         </div>
