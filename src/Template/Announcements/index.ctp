@@ -14,9 +14,13 @@ $this->Html->addCrumb(__('Announcements'));
             <h3 class="box-title"><?= __('System Announcements') ?></h3>
           </div>
           <div class="box-body">
+        
+          <?php  if($intrasys) :?>
             <div class="pull-right">
               <a class="btn btn-success btn-block" title="Create New Announcement" href="/IS3102_Final/announcements/add" >Create New Announcement</a>
             </div>
+          <?php endif?>
+            
             <form method="post" accept-charset="utf-8" action="/IS3102_Final/announcements">
               <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
                 <tr>
@@ -48,7 +52,9 @@ $this->Html->addCrumb(__('Announcements'));
                       <th scope="col"><?= $this->Paginator->sort('remarks') ?></th>
                       <!--<th scope="col"><?= $this->Paginator->sort('created') ?></th>
                       <th scope="col"><?= $this->Paginator->sort('modified') ?></th>-->
+                      <?php  if($intrasys) :?>
                       <th scope="col" class="actions"><?= __('Actions') ?></th>
+                      <?php endif?>
                   </tr>
               </thead>
               <tbody>
@@ -65,11 +71,13 @@ $this->Html->addCrumb(__('Announcements'));
                           <?= $this->Html->link(__('Edit | '), ['action' => 'edit', $announcement->id]) ?>
                           <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $announcement->id], ['confirm' => __('Are you sure you want to delete # {0}?', $announcement->id)]) ?>
                       </td>-->
+                      <?php  if($intrasys) :?>
                       <td>
                         <a href="/IS3102_Final/announcements/edit/<?=$announcement->id?>">
                           <i class="fa fa-edit" title="Edit Announcement Details"></i></a>&nbsp
                         <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Announcement')), array('action' => 'delete', $announcement->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $announcement->id))) ?>
                       </td>
+                      <?php endif?>
                   </tr>
                   <?php endforeach; ?>
               </tbody>

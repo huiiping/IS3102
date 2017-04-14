@@ -57,9 +57,16 @@ class ItemsController extends AppController
             if($key == 'locationId') {
                 // var_dump("in check locationID");
 
-                $query = $this->Items->find('all' , [
-                    'conditions' => ['Items.location_id =' => $value],
-                    ]);
+                $query = $this->Items->find()->contain([
+                    'Products' => function ($q) {
+                        return $q
+                        ->select(['Products.barcode']);
+                    }
+                    ])->where(['Items.location_id =' => $value]);
+
+                // $query = $this->Items->find('all' , [
+                //     'conditions' => ['Items.location_id =' => $value],
+                //     ]);
 
                 //$items = $query->toArray();
                 
@@ -796,7 +803,7 @@ class ItemsController extends AppController
             }
 
         } else {
-            
+
             $to_id = $_POST['to_id'];
             $item = $this->Items->get($id);
             $item->location_id = $location;

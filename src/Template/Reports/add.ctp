@@ -31,12 +31,14 @@ $this->Html->addCrumb(__('Create New Incident Report'));
                 <input class = "form-control" type="text" placeholder = "Report Title*" name="title" required="required" id="title" value="<?php echo isset($_POST['title']) ? $_POST['title'] : '' ?>" maxlength="100"> 
               </div>
             </div>
-            <div class ="form-group">            
+
+            <div class ="form-group">          
               <div class="input-group" title="Enter Report Message*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                <input class = "form-control" type="text" name="message" placeholder = "Report Message*" id="message" value="<?php echo isset($_POST['message']) ? $_POST['message'] : '' ?>" maxlength="255" required>
+                <textarea rows="5" class = "form-control" type="textarea" name="message" required="required" placeholder = "Report Message*" id="message"></textarea>
               </div> 
             </div>
+
             <div class ="form-group">
               <div class="input-group" style="z-index: 4;" title="Select Entity Name*">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>

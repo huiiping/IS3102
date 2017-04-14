@@ -97,22 +97,33 @@ $this->Html->addCrumb(__('Edit Promotion'));
               </div> 
             </div>
 
+<!-- <?php foreach ($products as $product): 
+
+var_dump($product->prod_name)?>
+<?php endforeach; ?>
+
+<?php foreach ($promotion->products as $products):  
+
+var_dump($products->prod_name)?>
+<?php endforeach; ?>  -->
+
             <div class ="form-group">        
               <div class="input-group" style="z-index: 10;" title="Applicable to Product Type(s)">
                 <span class="input-group-addon"><i class="fa fa-fw fa-users"></i></span>
                 <input type="hidden" name="products[_ids]" value="">
-                <select name="products[_ids][]" class='selectpicker form-control' title ="Applicable to Product Type(s)" data-live-search="true">
-                <?php foreach ($products as $product): ?> 
+                <select name="products[_ids][]" class='selectpicker form-control' data-live-search="true" multiple data-selected-text-format="count > 3" title = "">
+                <?php foreach ($prods as $prod): ?> 
 
                     <?php if (!empty($promotion->products)): ?> 
                       <?php foreach ($promotion->products as $products): ?> 
-                        <?php if ($products->prod_name == $product->prod_name): ?> 
-                          <option selected="selected" value="<?= $product->id ?>"><?php echo $product->prod_name ?></option> <!-- select and print option -->
-                          <?php break; ?> <!-- and break the loop -->
+                        <?php if ($prod->id == $products->id): ?>
+                          <option selected="selected" value="<?= $prod->id ?>"><?php echo $prod->prod_name ?></option> 
+                          <?php break; ?> 
                         <?php endif; ?>
                       <?php endforeach; ?> 
-                      <?php if (!($products->prod_name == $product->prod_name)): ?> <!-- if it is not the employee's role -->
-                        <option value="<?= $product->id ?>"><?php echo $product->prod_name ?></option> <!-- print option -->
+                      <?php if (!($products->id == $prod->id)): ?> 
+
+                        <option value="<?= $prod->id ?>"><?php echo $prod->prod_name ?></option>
                       <?php endif; ?>
                     <?php endif; ?>
                   <?php endforeach; ?>
