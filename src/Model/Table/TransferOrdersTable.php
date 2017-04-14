@@ -12,8 +12,10 @@ class TransferOrdersTable extends Table
     public $filterArgs = array(
         'search' => array(
             'type' => 'like',
-            'field' => array('locationFrom','locationTo','status','Suppliers.supplier_name')
-            )
+            'field' => array('Locations.name','status','Suppliers.supplier_name'),
+            'method' => 'findByActions'
+        )
+
     );
 
     public function initialize(array $config)

@@ -136,7 +136,7 @@ class TransferOrdersController extends AppController
   }
 
   public function acceptedStatus($id) {
-
+      
       $transferOrder = $this->TransferOrders->get($id);
 
       $transferOrder->status = 'Accepted';
