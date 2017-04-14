@@ -31,8 +31,9 @@ $this->Html->addCrumb(__('View Quotation'));
                       <td><?= h($quotation->supplier->supplier_name) ?></td>
                   </tr>
                   <tr>
+                  
                       <th scope="row"><?= __('File Name') ?></th>
-                      <td><?= h($quotation->fileName) ?></td>
+                      <td><?= $this->Html->link(__(h($quotation->file_name)), ['action' => 'download', $quotation->id], ['title' => $quotation->comments])?></td>
                   </tr>
                   <tr>
                       <th scope="row"><?= __('Comments') ?></th>

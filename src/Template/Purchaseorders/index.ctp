@@ -63,9 +63,9 @@ $this->Html->addCrumb(__('Purchase Orders'), ['controller' => 'Purchaseorders', 
                   <?php $session = $this->request->session();
                   $user = $this->request->session()->read('Auth.User');
                   if($user['id'] ==1) :?>
-                  <td>
-                    <div class="btn-group ">
-                      <button type="button" style="width: 180px;" class="btn btn-block btn-warning btn-flat"><?= "Pending approval" ?></button>
+                  <td style="width: 200px;">
+                    <div class="btn-group" style>
+                      <button type="button" style="width: 150px;" class="btn btn-block btn-warning btn-flat"><?= "Pending approval" ?></button>
                       <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                         <span class="sr-only">Toggle Dropdown</span>
@@ -102,10 +102,21 @@ $this->Html->addCrumb(__('Purchase Orders'), ['controller' => 'Purchaseorders', 
             <td><a href="/IS3102_Final/PurchaseOrders/download/<?=$purchaseOrder->id?>"><i class="fa fa-cloud-download" title="Download Purchase Order"></i></a>
 
               &nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Purchase Order')), array('action' => 'delete', $purchaseOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $purchaseOrder->id))) ?>
-              <?php if($purchaseOrder->approval_status == 'Approved') :?>
+
+              <?php if($purchaseOrder->recurring_supplier == 'Recurring' && 
+              $purchaseOrder->recurring_retailer == 'Recurring') :?>
               &nbsp
                   <a href="/IS3102_Final/PurchaseOrders/recurringPO/<?=$purchaseOrder->id?>"><i class="fa fa-exchange" title="Resend PO"></i></a>
               <?php endif;?>
+              <?php if($purchaseOrder->recurring_retailer == 'Recurring') :?>
+              &nbsp
+              <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-unlink', 'title' => 'Deactivate Recurring Purchase')), array('action' => 'deactivateRecurring', $purchaseOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to deactivate purchase order # {0}?', $purchaseOrder->id))) ?>
+              <?php endif;?>
+
+              <?php if($purchaseOrder->recurring_retailer == 'Deactivated') :?>
+                &nbsp
+              <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-link', 'title' => 'Activate Recurring Purchase')), array('action' => 'activateRecurring', $purchaseOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to Activate purchase order # {0}?', $purchaseOrder->id))) ?>
+              <?php endif; ?>
               </td>
 
                     </tr>

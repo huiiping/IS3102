@@ -231,6 +231,8 @@ class PurchaseOrdersController extends AppController
             $purchaseOrder->approval_status = 'Approved';
             $purchaseOrder->delivery_status = 0;
             $purchaseOrder->is_sent = 1;
+            $purchaseOrder->recurring_supplier = 'Activated';
+            $purchaseOrder->recurring_retailer = 'Activated';
             $this->PurchaseOrders->save($purchaseOrder);
             $this->Flash->success(__('The Purchase Order has been approved.'));
 
@@ -310,6 +312,37 @@ class PurchaseOrdersController extends AppController
             return $this->redirect(['action' => 'Index']);
         }
         $this->Flash->error(__('The recurring Purchase Order could not be sent'));
+        return $this->redirect(['action' => 'Index']);
+    }
+
+    public function deactivateRecurring($id=null){
+        $purchaseOrder = $this->PurchaseOrders->get($id);
+        $purchaseOrder->set('recurring_retailer', 'Deactivated');
+        $this->PurchaseOrders->save($purchaseOrder);
+        $this->Flash->success(__('The recurring Purchase Order feature was Deactivated.'));
+        return $this->redirect(['action' => 'Index']);
+    }
+    public function deactivateRecurringSupplier($id){
+        $purchaseOrder = $this->PurchaseOrders->get($id);
+        $purchaseOrder->set('recurring_supplier', 'Deactivated');
+        $this->PurchaseOrders->save($purchaseOrder);
+        $this->Flash->success(__('The recurring Purchase Order feature was Deactivated.'));
+        return $this->redirect(['action' => 'Index']);
+    }
+    
+    public function activateRecurring($id=null){
+        $purchaseOrder = $this->PurchaseOrders->get($id);
+        $purchaseOrder->set('recurring_retailer', 'Recurring');
+        $this->PurchaseOrders->save($purchaseOrder);
+        $this->Flash->success(__('The recurring Purchase Order feature was Activated.'));
+        return $this->redirect(['action' => 'Index']);
+    }
+
+    public function activateRecurringSupplier($id){
+        $purchaseOrder = $this->PurchaseOrders->get($id);
+        $purchaseOrder->set('recurring_supplier', 'Recurring');
+        $this->PurchaseOrders->save($purchaseOrder);
+        $this->Flash->success(__('The recurring Purchase Order feature was Activated.'));
         return $this->redirect(['action' => 'Index']);
     }
     public function listpurchaseorders() 

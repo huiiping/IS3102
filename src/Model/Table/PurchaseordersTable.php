@@ -31,7 +31,7 @@ class PurchaseOrdersTable extends Table
         
         'search' => array(
             'type' => 'like',
-            'field' => array('file_name','supplier_id','quotation_id', 'approval_status')
+            'field' => array('file_name','supplier_id','quotation_id', 'approval_status', 'recurring_retailer')
             )
         );
 

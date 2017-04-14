@@ -71,9 +71,9 @@
 
                 <?php if($purchaseorder['approval_status'] == 'Pending'){
                   ?>
-                  <td style="max-width: 150px;">
+                  <td style="width: 200px;">
                     <div class="btn-group">
-                      <button type="button" style="width: 200px;" class="btn btn-warning btn-flat"><?= $purchaseorder['approval_status'] ?></button>
+                      <button type="button" style="width: 150px;" class="btn btn-warning btn-flat"><?= $purchaseorder['approval_status'] ?></button>
                       <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                         <span class="sr-only">Toggle Dropdown</span>
@@ -87,11 +87,11 @@
                   <?php
                 } 
                 else if($purchaseorder['approval_status'] == 'Rejected') {
-                   ?>
+                 ?>
 
                  <td style="background-color:#db8f85; text-align: center;">
-                 <b>Rejected</b>
-                </td>
+                   <b>Rejected</b>
+                 </td>
                      <!-- <div class="btn-group">
                       <button type="button" style="width: 100px;" class="btn btn-danger btn-flat"><?= $purchaseorder['approval_status'] ?></button>
                       <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
@@ -108,7 +108,7 @@
                   } else {
                     ?>
                     <td style="background-color:#85db8a; text-align: center;">
-                    <b>Approved</b>
+                      <b>Approved</b>
                     </td>
                     <!-- <div class="btn-group">
                       <button type="button" style="width: 100px;" class="btn btn-success btn-flat"><?= $purchaseorder['approval_status'] ?></button>
@@ -131,6 +131,19 @@
 
                 <td style="max-width: 150px;"><?= $purchaseorder['created'] ?></td>
                 <td><a href="/IS3102_Final/PurchaseOrders/download/<?=$purchaseorder['id']?>"><i class="fa fa-cloud-download" title="Download Purchase Order"></i></a>
+                  <?php if($purchaseorder->recurring_supplier == 'Deactivated') :?>
+                    &nbsp
+                    <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-link', 'title' => 'Activate Recurring Purchase')), array('action' => 'activateRecurringSupplier', $purchaseorder->id), array('escape' => false, 'confirm' => __('Are you sure you want to Activate purchase order # {0}?', $purchaseorder->id))) ?>
+
+                  <?php endif; ?>
+
+                  <?php if($purchaseorder->recurring_supplier == 'Recurring') :?>
+                    &nbsp
+                    <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-unlink', 'title' => 'Deactivate Recurring Purchase')), array('action' => 'deactivateRecurringSupplier', $purchaseorder->id), array('escape' => false, 'confirm' => __('Are you sure you want to deactivate purchase order # {0}?', $purchaseorder->id))) ?>
+                  <?php endif;?>
+
+
+
                   <!-- &nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Quotation')), array('action' => 'delete', $purchaseorder['id']), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $purchaseorder['id']))) ?> --></td>
                 </tr>
               <?php endforeach; ?>

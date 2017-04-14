@@ -377,7 +377,8 @@ class AppController extends Controller
                         }
                     }
                 if($controllerName == 'PurchaseOrders'){
-                        if($methodName == 'supplierIndex' || $methodName == 'supplierView' || $methodName == 'approveOrder' || $methodName == 'pendingOrder' || $methodName == 'download' || $methodName == 'rejectOrder') {
+                    return;
+                        if($methodName == 'supplierIndex' || $methodName == 'supplierView' || $methodName == 'approveOrder' || $methodName == 'pendingOrder' || $methodName == 'download' || $methodName == 'rejectOrder' || $methodName == 'activateRecurringSupplier'|| $methodName == 'deactivateRecurringSupplier') {
                             return;
                         }
                     }  
