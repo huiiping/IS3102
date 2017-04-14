@@ -115,7 +115,7 @@
           }
           echo $this->Form->hidden('sender_id', ['value'=>$session->read('retailer_employee_id')]);
           
-          if(sizeof($receiver->toArray()) == 1)   {
+          if(sizeof($receiver->toArray()) > 1 OR !empty($msg))   {
             echo $this->Form->input('retailer_employees._ids', ['options' => $receiver]);
           }
           else{

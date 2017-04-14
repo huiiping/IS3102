@@ -8,6 +8,7 @@
 $this->assign('title', __('Delivery Order') . '/' . __('Index'));
 $this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
 $this->Html->addCrumb(__('Delivery Orders'));
+$controller = $this->request->params['controller'];
 ?>
 
 <section class="content">
@@ -119,7 +120,10 @@ $this->Html->addCrumb(__('Delivery Orders'));
                       <?php if($deliveryOrder->status == 'Pending'): ?>
                       <a href="/IS3102_Final/delivery-orders/edit/<?=$deliveryOrder->id?>"><i class="fa fa-edit" title="Edit Delivery Order Details"></i></a>&nbsp&nbsp
                       <?php endif; ?>
-                      <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Delivery Order')), array('action' => 'delete', $deliveryOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $deliveryOrder->id))) ?></td>
+                      <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Delivery Order')), array('action' => 'delete', $deliveryOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $deliveryOrder->id))) ?>
+                      &nbsp
+                      <a href="/IS3102_Final/Messages/index/0/<?=$controller?>/<?=$deliveryOrder->id?>"><i class="fa fa-envelope" title="Message"></i></a>
+                      </td>
                     </tr>
                   <?php endforeach; ?>
                 </tbody>
