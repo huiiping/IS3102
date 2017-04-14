@@ -28,12 +28,14 @@ use Cake\Validation\Validator;
 class TransactionsTable extends Table
 {
 
-    /**
-     * Initialize method
-     *
-     * @param array $config The configuration for the Table.
-     * @return void
-     */
+    public $filterArgs = array(
+            'search' => array(
+                'type' => 'like',
+                'field' => array('receipt_number','remarks', 'RetailerEmployees.first_name', 'RetailerEmployees.last_name','Customers.first_name','Customers.last_name', 'Locations.name', 'status'),
+                'method' => 'findByActions'
+                )
+            );
+
     public function initialize(array $config)
     {
         parent::initialize($config);
@@ -64,6 +66,8 @@ class TransactionsTable extends Table
             'targetForeignKey' => 'item_id',
             'joinTable' => 'transactions_items'
             ]);
+
+        $this->addBehavior('Searchable');
     }
 
     /**

@@ -19,24 +19,31 @@ $this->Html->addCrumb(__('Incident Reports'));
             <!--<legend><h4><?= __('Search') ?></h4></legend>-->
             <form method="post" accept-charset="utf-8" action="/IS3102_Final/reports">
               <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
-                <tr>
-                  <th width="10"></th>
-                  <th scope="col">
-                    <div class ="form-group">
-                      <div class="input-group">
-                        <label for="search"></label>&nbsp&nbsp&nbsp
-                        <input class = "form-control" type="text" name="search" id="search" placeholder="Search">
-                      </div>
+              <tr>
+                <th width="10"></th>
+                <th scope="col">
+                  <div class ="form-group">
+                    <div class="input-group">
+                      <label for="search"></label>&nbsp&nbsp&nbsp
+                      <input class = "form-control" type="text" class="btn btn-default btn-block" name="search" id="search" placeholder="Search">
                     </div>
-                  </th>
-                  <th width="30"></th>
-                  <th scope="col" class ="form-group">
-                    <div class ="submit">
-                      <input class = "form-control" type="submit" class="btn btn-default bth-flat" value="Search">
-                    </div>
-                  </th>
-                </tr>
-              </table>
+                  </div>
+                </th>
+                <th width="30"></th>
+                <th scope="col" class ="form-group">
+                  <div class ="submit">
+                    <input class="btn btn-primary btn-block" class = "form-control" type="submit" class="btn btn-default bth-block" value="Search">
+
+                  </div>
+                </th>
+                <th width="10"></th>
+                <th scope="col" class ="form-group">
+                  <div class ="submit">
+                    <button class="btn btn-default btn-block"><a class="reset_button" onclick="reset();" placeholder="Reset"><i class="fa fa-fw fa-undo"></i>Reset</a></button>
+                  </div>
+                </th>
+              </tr>
+            </table>
             </form>
             <br>
             <table class="table table-bordered table-striped">
@@ -77,14 +84,14 @@ $this->Html->addCrumb(__('Incident Reports'));
                             <?php } else{ ?>
                                 <div class="btn-group">
                                   <button type="button" style="width: 100px;" class="btn btn-success btn-flat"><?= h($report->status) ?></button>
-                                  <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
+                                  <!-- <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
                                     <span class="caret"></span>
                                     <span class="sr-only">Toggle Dropdown</span>
                                   </button>
 
                                   <ul class="dropdown-menu" role="menu">
                                     <li><a title="Pending" href="/IS3102_Final/reports/pendingStatus/<?= $report->id ?>">Pending</a></li>
-                                  </ul>
+                                  </ul> -->
                                 </div>
                             <?php } ?>
                         </td>

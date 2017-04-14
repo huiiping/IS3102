@@ -17,7 +17,9 @@ $this->Html->addCrumb(__('Transactions'));
             <h3 class="box-title"><?= __('Transactions') ?></h3>
           </div>
           <div class="box-body">
-          <form method="post" accept-charset="utf-8" action="/IS3102_Final/retailers">
+          <br>
+          
+          <form method="post" accept-charset="utf-8" action="/IS3102_Final/transactions">
               <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
                 <tr>
                   <th width="10"></th>
