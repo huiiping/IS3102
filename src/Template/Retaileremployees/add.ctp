@@ -79,7 +79,7 @@ use Cake\ORM\TableRegistry;
             <div class="input-group" style="z-index: 999999999;" title="Select Employee Role(s)*">
               <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
               <input type="hidden" name="retailer_employee_roles[_ids]" value="">
-              <select name="retailer_employee_roles[_ids][]" class='selectpicker form-control' data-live-search="true" multiple data-selected-text-format="count > 3" title = "Select Employee Role(s)*" required="required" >
+              <select name="retailer_employee_roles[_ids][]" class='selectpicker form-control' data-live-search="true" multiple data-selected-text-format="count > 2" title = "Select Employee Role(s)*" required="required" >
                 <?php foreach ($retailerEmployeeRoles as $retailerEmployeeRole): ?>
                   <option value="<?= $retailerEmployeeRole->id ?>"><?php echo $retailerEmployeeRole->role_name ?></option>
                 <?php endforeach; ?>

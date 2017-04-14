@@ -25,7 +25,7 @@ $this->Html->addCrumb(__('Manager Actions : '.$retailerEmployee->first_name.' '.
               <div class="input-group" style="z-index: 999999999;" title="Select Employee Role(s)">
                 <span class="input-group-addon"><i class="fa fa-fw fa-tags"></i></span>
                 <input type="hidden" name="retailer_employee_roles[_ids]" value="">
-                <select name="retailer_employee_roles[_ids][]" class='selectpicker form-control' data-live-search="true" multiple data-selected-text-format="count > 3" title = "" >
+                <select name="retailer_employee_roles[_ids][]" class='selectpicker form-control' data-live-search="true" multiple data-selected-text-format="count > 2" title = "" >
                   <?php foreach ($roles as $role): ?> <!-- run every row of retailer employee roles table -->
                     <?php if (!empty($retailerEmployee->retailer_employee_roles)): ?> <!-- check if employee has role -->
                       <?php foreach ($retailerEmployee->retailer_employee_roles as $retailerEmployeeRoles): ?> <!-- if employee has role, run every role of employee -->
@@ -50,6 +50,7 @@ $this->Html->addCrumb(__('Manager Actions : '.$retailerEmployee->first_name.' '.
             <br>
           </form>
         </div>
+        
 
           <!--<div class="box-body">
               <?= $this->Form->create($retailerEmployee) ?>
@@ -76,6 +77,9 @@ $this->Html->addCrumb(__('Manager Actions : '.$retailerEmployee->first_name.' '.
               <?= $this->Form->button(__('Submit'), ['class'=>'btn btn-default btn-flat']); ?>
               <?= $this->Form->end() ?>
           </div>-->
+        </div>
+        <div style='padding-top: 20px'>
+        <a href="/IS3102_Final/retailer-employees/recoverPassword/<?= $retailerEmployee['id']?>" class="btn btn-md btn-block btn-warning pull-left" style="border-radius: 8px; margin:5px;">Reset Employee password</a>
         </div>
       </div>
     </div>

@@ -82,6 +82,9 @@ $this->Html->addCrumb(__('Manager Actions : '.$intrasysEmployee->first_name.' '.
           </form>
         </div>
       </div>
+      <div style='padding-top: 10px'>
+        <a href="/IS3102_Final/intrasys-employees/recoverPassword/<?= $intrasysEmployee['id']?>" class="btn btn-md btn-block btn-warning pull-left" style="border-radius: 8px; margin:5px;">Reset Employee password</a>
+        </div>
     </div>
   </div>
 </section>

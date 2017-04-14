@@ -118,15 +118,15 @@ $this->Html->addCrumb(__('Create New Promotion'));
               </div> 
             </div>              
 
-            <div class="box-body">
+            <!-- <div class="box-body">
               <p id="emailField1" style="visibility:hidden">Title</p>
               <input type="hidden" name="title" id="title"><br >
               <p id="emailField2" style="visibility:hidden">Body</p>
               <input type="hidden" name="body" id="body"><br >
             </div>
-
+ -->
             <div class ="row">
-              <button class="btn btn-md btn-primary pull-left" onclick="myFunction()" style="border-radius: 8px; margin:5px; ">Generate Email</button>
+              <button class="btn btn-md btn-primary pull-left" onclick="myFunction()" style="border-radius: 8px; margin:5px; ">Back to promotion index</button>
               <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Submit</button>
             </div>
             <br>
