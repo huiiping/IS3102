@@ -39,7 +39,7 @@ class QuotationsController extends AppController
         $this->Prg->commonProcess();
 
         $this->paginate = [
-            'contain' => ['Rfqs', 'Suppliers']
+        'contain' => ['Rfqs', 'Suppliers']
         ];
 
         if($id != null) {
@@ -59,7 +59,7 @@ class QuotationsController extends AppController
         $this->Prg->commonProcess();
 
         $this->paginate = [
-            'contain' => ['Rfqs', 'Suppliers']
+        'contain' => ['Rfqs', 'Suppliers']
         ];
 
         $session = $this->request->session();
@@ -79,7 +79,7 @@ class QuotationsController extends AppController
 
     public $components = array(
         'Prg'
-    );
+        );
 
     /**
      * View method
@@ -91,7 +91,7 @@ class QuotationsController extends AppController
     public function view($id = null) {
         $quotation = $this->Quotations->get($id, [
             'contain' => ['Rfqs', 'Suppliers']
-        ]);
+            ]);
 
         $this->set('quotation', $quotation);
         $this->set('_serialize', ['quotation']);
@@ -100,7 +100,7 @@ class QuotationsController extends AppController
     public function supplierView($id = null) {
         $quotation = $this->Quotations->get($id, [
             'contain' => ['Rfqs', 'Suppliers']
-        ]);
+            ]);
 
         $this->set('quotation', $quotation);
         $this->set('_serialize', ['quotation']);
@@ -240,7 +240,7 @@ class QuotationsController extends AppController
     public function supplierEdit($id = null) {
         $quotation = $this->Quotations->get($id, [
             'contain' => []
-        ]);
+            ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
 
             if(!empty($this->request->data['file']['name'])){
@@ -287,7 +287,7 @@ class QuotationsController extends AppController
                 }
 
                 $this->Flash->error(__('The quotation could not be saved. Please, try again.'));
-                }
+            }
         }
 
         $rfqs = $this->Quotations->Rfqs->find('list', ['limit' => 200]);
@@ -309,17 +309,35 @@ class QuotationsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $quotation = $this->Quotations->get($id);
-        if ($this->Quotations->delete($quotation)) {
-            $this->Flash->success(__('The quotation has been deleted.'));
-        } else {
-            $this->Flash->error(__('The quotation could not be deleted. Please, try again.'));
-        }
+
+        $this->loadModel('PurchaseOrders');
+        $count = $this->PurchaseOrders->find()->where(['quotation_id' => $id])->count();
+        
+        if ($count == 0) {
+            if ($this->Quotations->delete($quotation)) {
+                $this->Flash->success(__('The quotation has been deleted.'));
+                if($this->request->session()->read('supplier')){
+                    return $this->redirect(['action' => 'supplierIndex']);
+
+                }
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error(__('The quotation could not be deleted. Please, try again.'));
+            }
+        }   
+        $this->Flash->error(__('The quotation could not be deleted, it is associated with other RFQs. Please, try again.'));
+
         if($this->request->session()->read('supplier')){
             return $this->redirect(['action' => 'supplierIndex']);
+
         }
 
         return $this->redirect(['action' => 'index']);
     }
+
+
+
+    
 
     public function download($id = null) { 
 

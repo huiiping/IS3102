@@ -32,7 +32,7 @@ class RfqsController extends AppController
         $this->loadComponent('Prg');
         $this->Prg->commonProcess();
         $this->paginate = [
-            'contain' => ['RetailerEmployees']
+        'contain' => ['RetailerEmployees']
         ];
         $this->set('rfqs', $this->paginate($this->Rfqs->find('searchable', $this->Prg->parsedParams())->order(['end_date' => 'DESC'])));
 
@@ -45,7 +45,7 @@ class RfqsController extends AppController
 
     public $components = array(
         'Prg'
-    );
+        );
 
     /**
      * View method
@@ -58,7 +58,7 @@ class RfqsController extends AppController
     {
         $rfq = $this->Rfqs->get($id, [
             'contain' => ['RetailerEmployees', 'Suppliers']
-        ]);
+            ]);
 
         $session = $this->request->session();
         $retailer = $session->read('retailer');
@@ -92,8 +92,8 @@ class RfqsController extends AppController
         $this->set('now', $now);
 
         $query = $this->paginate($this->Rfqs->find('searchable', $this->Prg->parsedParams())->matching('Suppliers', function ($q) use ($supplier_id) {
-                return $q->where(['Suppliers.id' => $supplier_id]); 
-            })->order(['Rfqs.created' => 'DESC']));
+            return $q->where(['Suppliers.id' => $supplier_id]); 
+        })->order(['Rfqs.created' => 'DESC']));
 
         $this->set('rfqs', $query);
         $this->set(compact('rfq', 'now'));
@@ -161,7 +161,7 @@ class RfqsController extends AppController
     {
         $rfq = $this->Rfqs->get($id, [
             'contain' => []
-        ]);
+            ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $rfq = $this->Rfqs->patchEntity($rfq, $this->request->getData());
             if ($this->Rfqs->save($rfq)) {
@@ -193,17 +193,34 @@ class RfqsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $rfq = $this->Rfqs->get($id);
-        if ($this->Rfqs->delete($rfq)) {
-            $this->Flash->success(__('The rfq has been deleted.'));
-        } else {
-            $this->Flash->error(__('The rfq could not be deleted. Please, try again.'));
-        }
 
-        $session = $this->request->session();
-        $retailer = $session->read('retailer');
-        $this->Logging->rLog($rfq['id']);
-        $this->Logging->iLog($retailer, $rfq['id']);
+        $this->loadModel('Quotations');
+        $count = $this->Quotations->find()->where(['rfq_id' => $id])->count();
+
+        if ($count == 0) {
+            if ($this->Rfqs->delete($rfq)) {
+                $this->Flash->success(__('The RFQ has been deleted.'));
+                if($this->request->session()->read('supplier')){
+                    return $this->redirect(['action' => 'supplierIndex']);
+
+                }
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error(__('The RFQ could not be deleted. Please, try again.'));
+            }
+        }
+        $this->Flash->error(__('The RFQ could not be deleted, it is associated with other Quotations. Please, try again.'));
+
+        if($this->request->session()->read('supplier')){
+            return $this->redirect(['action' => 'supplierIndex']);
+
+        }
 
         return $this->redirect(['action' => 'index']);
     }
+
+
+
+
+    
 }
