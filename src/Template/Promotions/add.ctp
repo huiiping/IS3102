@@ -109,10 +109,10 @@ $this->Html->addCrumb(__('Create New Promotion'));
               <div class="input-group" style="z-index: 10;" title="Applicable to Product Type(s)">
                 <span class="input-group-addon"><i class="fa fa-fw fa-users"></i></span>
                 <input type="hidden" name="products[_ids]" value="">
-                <select name="products[_ids][]" class='selectpicker form-control' title ="Applicable to Product Type(s)" data-live-search="true">
+                <select name="products[_ids][]" class='selectpicker form-control' title ="Applicable to Product Type(s)" multiple data-selected-text-format="count > 3" data-live-search="true">
                   <option label=" ">NIL</option> 
                   <?php foreach ($products as $product): ?>
-                    <option><?php echo $product ?></option> 
+                    <option value="<?= $product->id ?>"><?php echo $product->prod_name?></option>
                   <?php endforeach; ?>
                 </select>
               </div> 
@@ -125,16 +125,16 @@ $this->Html->addCrumb(__('Create New Promotion'));
               <input type="hidden" name="body" id="body"><br >
             </div>
 
-          <div class ="row">
-            <button class="btn btn-md btn-primary pull-left" onclick="myFunction()" style="border-radius: 8px; margin:5px; ">Generate Email</button>
-            <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Submit</button>
-          </div>
-          <br>
-        </form>
+            <div class ="row">
+              <button class="btn btn-md btn-primary pull-left" onclick="myFunction()" style="border-radius: 8px; margin:5px; ">Generate Email</button>
+              <button class="btn btn-md btn-success pull-right" type="submit" style="border-radius: 8px; margin:5px; ">Submit</button>
+            </div>
+            <br>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </section>
 
 

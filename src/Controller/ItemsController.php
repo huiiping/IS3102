@@ -112,6 +112,20 @@ class ItemsController extends AppController
         $this->set('_serialize', ['status']);
     }
 
+    public function htcBarcode(){
+        $query = $this->Items->find()->contain([
+            'Products' => function ($q) {
+                return $q
+                ->select(['Products.barcode']);
+            }
+            ])->where(['Items.product_id' => '1'])->where(['Items.status' => 'In Location']);
+
+        
+        $this->set('status', $query);
+        $this->set('_serialize', ['status']);
+
+    }
+
     public function htcAllUpdateStatus(){
         $this->viewBuilder()->setLayout("ajax");
         $response = $this->request->data();
