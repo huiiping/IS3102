@@ -78,7 +78,7 @@ $this->Html->addCrumb(__('Incident Reports'));
                                   </button>
 
                                   <ul class="dropdown-menu" role="menu">
-                                    <li><a title="Resolved" href="/IS3102_Final/reports/resolvedStatus/<?= $report->id ?>">Resolved</a></li>
+                                  <li><?= $this->Form->postLink(__('Resolved'), array('action' => 'resolvedStatus', $report->id), array('escape' => false, 'confirm' => __('Are you sure you want to change status of # {0}?', $report->id))) ?></li>
                                   </ul>
                                 </div>
                             <?php } else{ ?>

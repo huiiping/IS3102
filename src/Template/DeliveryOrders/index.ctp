@@ -86,7 +86,7 @@ $this->Html->addCrumb(__('Delivery Orders'));
                           <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                          <li><a title="Delivered" href="/IS3102_Final/delivery-orders/deliveredStatus/<?= $deliveryOrder->id ?>">Delivered</a></li>
+                          <li><?= $this->Form->postLink(__('Delivered'), array('action' => 'deliveredStatus', $deliveryOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to change status of # {0}?', $deliveryOrder->id))) ?></li>
                           <li><a title="Approved" href="/IS3102_Final/delivery-orders/approvedStatus/<?= $deliveryOrder->id ?>">Approved</a></li>
                         </ul>
                       </div>
@@ -109,7 +109,7 @@ $this->Html->addCrumb(__('Delivery Orders'));
                         </button>
                         <ul class="dropdown-menu" role="menu">
                           <li><a title="Pending Feedback" href="/IS3102_Final/delivery-orders/pendingStatus/<?= $deliveryOrder->id ?>">Pending</a></li>
-                          <li><a title="Approved Feedback" href="/IS3102_Final/delivery-orders/deliveredStatus/<?= $deliveryOrder->id ?>">Delivered</a></li>
+                          <li><?= $this->Form->postLink(__('Delivered'), array('action' => 'deliveredStatus', $deliveryOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to change status of # {0}?', $deliveryOrder->id))) ?></li>
                         </ul>
                       </div>
                       <?php }

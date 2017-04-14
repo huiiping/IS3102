@@ -3,8 +3,8 @@
 ?>
 
 <?php
-$this->assign('title', __('Retailers') . '/' . __('Index'));
-$this->Html->addCrumb(__('Intrasys'), ['controller' => 'Pages', 'action' => 'intrasys']);
+$this->assign('title', __('Transactions') . '/' . __('Index'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
 $this->Html->addCrumb(__('Transactions'));
 ?>
 
@@ -99,7 +99,7 @@ $this->Html->addCrumb(__('Transactions'));
                                 <span class="sr-only">Toggle Dropdown</span>
                               </button>
                               <ul class="dropdown-menu" role="menu">
-                                <li><a title="Approved" href="/IS3102_Final/transactions/approvedStatus/<?= $transaction->id ?>">Approved</a></li>
+                              <li><?= $this->Form->postLink(__('Approved'), array('action' => 'approvedStatus', $transaction->id), array('escape' => false, 'confirm' => __('Are you sure you want to change status of # {0}?', $transaction->id))) ?></li>
                               </ul>
                             </div>
                           <?php } else if ($transaction->status == 'Approved'){ ?>

@@ -1,6 +1,13 @@
 <?php
 use Cake\ORM\TableRegistry; 
 ?>
+
+<?php
+$this->assign('title', __('Transfer Order') . '/' . __('Index'));
+$this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
+$this->Html->addCrumb(__('Transfer Orders'));
+?>
+
 <!-- Main content -->
 <section class="content">
   <div class="row">
@@ -101,7 +108,7 @@ use Cake\ORM\TableRegistry;
                         <ul class="dropdown-menu" role="menu">
                           <li><?= $this->Form->postLink(__(' Approved'), array('action' => 'acceptedStatus', $transferOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to change status of # {0}?', $transferOrder->id))) ?></li>
 
-                          
+
                           <li><a title="Reject Transfer Order" href="/IS3102_Final/transferOrders/rejectedStatus/<?= $transferOrder->id ?>">Rejected</a></li>
                         </ul>
                       </div>
@@ -128,7 +135,7 @@ use Cake\ORM\TableRegistry;
                         </button>
                         <ul class="dropdown-menu" role="menu">
                           <li><a title="Pending Transfer Order" href="/IS3102_Final/transferOrders/pendingStatus/<?= $transferOrder->id ?>">Pending</a></li>
-                          <li><?= $this->Form->postLink(__(' Approved'), array('action' => 'acceptedStatus', $transferOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to change status of # {0}?', $transferOrder->id))) ?></li>
+                          <li><?= $this->Form->postLink(__('Approved'), array('action' => 'acceptedStatus', $transferOrder->id), array('escape' => false, 'confirm' => __('Are you sure you want to change status of # {0}?', $transferOrder->id))) ?></li>
                         </ul>
                       </div>
                       <?php 
