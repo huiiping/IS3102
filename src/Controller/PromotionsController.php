@@ -201,6 +201,7 @@ class PromotionsController extends AppController
         $retailerEmployees = $this->Promotions->RetailerEmployees->find('list', ['limit' => 200]);
         $custMembershipTiers = $this->Promotions->custMembershipTiers->find('list', ['limit' => 200]);
         $products = $this->Promotions->Products->find('list');
+        $this->set('custMemberTiers', $this->Promotions->custMembershipTiers->find('all'));
         $this->set('prods', $this->Promotions->Products->find('all')); //to populate select input for roles
         $this->set(compact('promotion', 'retailerEmployees', 'custMembershipTiers', 'products'));
         $this->set('_serialize', ['promotion']);
