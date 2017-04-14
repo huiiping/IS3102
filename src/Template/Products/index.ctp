@@ -2,6 +2,12 @@
 use Cake\ORM\TableRegistry;
 ?>
 
+<?= $this->Html->script('jquery-1.4.2.min.js') ?>
+<?= $this->Html->script('jsLabel2PDF.js') ?>
+<?= $this->Html->script('base64.js') ?>
+<?= $this->Html->script('sprintf.js') ?>
+<?= $this->Html->script('JsBarcode.all.min.js') ?>
+
 <?php
 $this->assign('title', __('Products') . '/' . __('Index'));
 $this->Html->addCrumb(__('Retailer'), ['controller' => 'Pages', 'action' => 'retailer']);
@@ -88,7 +94,7 @@ $this->Html->addCrumb(__('Products'));
                   <td style="max-width: 150px;"><?= $this->Number->format($product->web_store_unit_price) ?></td>
                   <td style="max-width: 150px;"><?= h($product->SKU) ?></td>
 
-                  <td><a href="/IS3102_Final/products/edit/<?=$product->id?>"><i class="fa fa-edit" title="Edit Product Details"></i></a>&nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Product')), array('action' => 'delete', $product->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $product->id))) ?></td>
+                  <td><a href="/IS3102_Final/products/edit/<?=$product->id?>"><i class="fa fa-edit" title="Edit Product Details"></i></a>&nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Product')), array('action' => 'delete', $product->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $product->id))) ?>&nbsp<a href="/IS3102_Final/products/" target="_blank"><i class="fa fa-print" title="Print Price Label" onclick="printLabel('<?=$product->prod_name?>', '<?=$product->web_store_unit_price?>', '<?=$product->barcode?>')"></i></a></td>
                 </tr>
               <?php endforeach; ?>
             </tbody>
@@ -108,3 +114,29 @@ $this->Html->addCrumb(__('Products'));
     </div>
   </div>
 </section>
+
+<script>
+
+  function printLabel(name, price, barcode) {
+    price = "$SGD" + price;
+    img = toBarcode(barcode);
+
+    jQuery.CreateTemplate("inches",8.268,11.693,0.3815,0.5965,2.5,1.5,7,3,0.0,0.0);
+    jQuery.CreateLabel();
+    jQuery.AddText(1.1,0.8, name ,12);
+    jQuery.AddText(1.1,0.6, barcode ,10);
+    jQuery.AddText(0.9,0.4, price ,10);
+    jQuery.DrawPDF();
+  }
+
+  function toBarcode(text){
+    var canvas = document.createElement("canvas");
+    JsBarcode(canvas, text, {format: "CODE39"});
+    popup = window.open(canvas.toDataURL("image/png"));
+    popup.print();
+    return canvas.toDataURL("image/png");
+  }
+
+
+</script>
+

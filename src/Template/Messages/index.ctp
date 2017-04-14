@@ -30,7 +30,12 @@
                 <?= $this->Html->link(__(h($employee->first_name).' '.h($employee->last_name)), ['action' => 'index', $employee->id]) ?>
               </td>
             </tr>
-          <?php endforeach; ?>
+            <?php endforeach; ?>
+            <tr>
+              <td>
+                <?= $this->Html->link('System', ['action' => 'index', -1]) ?>
+              </td>
+            </tr>
         </tbody>
       </table>
     <?php endif; ?>
@@ -45,6 +50,8 @@
       <?php foreach ($chatName as $employee): ?>
         <h4><?= (h($employee->first_name).' '.h($employee->last_name)) ?></h4>
       <?php endforeach; ?>
+    <?php elseif(!empty($msg)) : ?>
+        <h4>System</h4>
     <?php else : ?>
       <h4>New Chat</h4>
     <?php endif; ?>
@@ -108,7 +115,7 @@
           }
           echo $this->Form->hidden('sender_id', ['value'=>$session->read('retailer_employee_id')]);
           
-          if(sizeof($receiver->toArray()) > 1)   {
+          if(sizeof($receiver->toArray()) > 1 OR !empty($msg))   {
             echo $this->Form->input('retailer_employees._ids', ['options' => $receiver]);
           }
           else{
