@@ -4,12 +4,12 @@
   */
 ?>
 <?php
-  $this->assign('title', __('Quotation') . '/' . __('Index'));
+$this->assign('title', __('Quotation') . '/' . __('Index'));
 ?>
 <style>
-#statuscol{
-  width: 250px;
-}
+  #statuscol{
+    width: 250px;
+  }
 </style>
 <!-- Main content -->
 <section class="content">
@@ -18,21 +18,21 @@
       <div class="box box-primary">
         <div class="box-header with-border">
           <?php 
-            if($id == null) {
-          ?>
+          if($id == null) {
+            ?>
             <h3 class="box-title"><?= __('Quotations') ?></h3>
-          <?php
-            } else {
+            <?php
+          } else {
 
-          ?>
+            ?>
             <h3 class="box-title"><?= __('Quotations for RFQ ID: '.$id) ?></h3>
             &nbsp <a href="/IS3102_Final/quotations/index"> View All Quotations </a>
-          <?php
-            }
+            <?php
+          }
           ?>
         </div>
         <div class="box-body">
-        <!--<legend><h4><?= __('Search') ?></h4></legend>-->
+          <!--<legend><h4><?= __('Search') ?></h4></legend>-->
           <form method="post" accept-charset="utf-8" action="/IS3102_Final/quotations">
             <table cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
               <tr>
@@ -48,7 +48,7 @@
                 <th width="30"></th>
                 <th scope="col" class ="form-group">
                   <div class ="submit">
-                  <input class = "form-control" type="submit" class="btn btn-default bth-flat" value="Search">
+                    <input class = "form-control" type="submit" class="btn btn-default bth-flat" value="Search">
                   </div>
                 </th>
               </tr>
@@ -57,43 +57,47 @@
           <br>
           <table class="table table-bordered table-striped">
             <thead>
-            <tr>
-              <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-              <th scope="col"><?= $this->Paginator->sort('fileName', ['Label' => 'File']) ?></th>
-              <th scope="col"><?= $this->Paginator->sort('rfq_id', ['Label' => 'RFQ']) ?></th>
-              <th id = "statuscol" scope="col"><?= $this->Paginator->sort('status') ?></th>
-              <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-              <th scope="col" class="actions"><?= __('Actions') ?></th>
-          </tr>
+              <tr>
+                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('fileName', ['Label' => 'File']) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('rfq_id', ['Label' => 'RFQ']) ?></th>
+                <th id = "statuscol" scope="col"><?= $this->Paginator->sort('status') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('created') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+              </tr>
             </thead>
             <tbody>
-            <?php foreach ($quotations as $quotation): ?>
-              <tr>
-                <td style="max-width: 150px;"><?= $this->Number->format($quotation->id) ?></td>
-                <td style="max-width: 150px;" ><?= $this->Html->link(__(h($quotation->file_name)), ['action' => 'view', $quotation->id], ['title' => $quotation->comments])?></td>
-                <td><?= $quotation->has('rfq') ? $this->Html->link($quotation->rfq->title, ['controller' => 'Rfqs', 'action' => 'view', $quotation->rfq->id], ['title' => 'View RFQ Details']) : '' ?></td>
-                <td>
-                <?php 
-                  if($quotation->status == 'Pending'){
-                ?>
-                    <div class="btn-group">
-                      <button type="button" style="width: 100px;" class="btn btn-warning btn-flat"><?= h($quotation->status) ?></button>
-                      <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                      </button>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a title="Reject Quotation" href="/IS3102_Final/quotations/rejectQuotation/<?= $quotation->id ?>">Reject</a></li>
-                        <li><a title="Approve Quotation" href="/IS3102_Final/quotations/approveQuotation/<?= $quotation->id ?>">Approve</a></li>
-                      </ul>
-                    </div>
-                <?php
+              <?php foreach ($quotations as $quotation): ?>
+                <tr>
+                  <td style="max-width: 150px;"><?= $this->Number->format($quotation->id) ?></td>
+                  <td style="max-width: 150px;" ><?= $this->Html->link(__(h($quotation->file_name)), ['action' => 'view', $quotation->id], ['title' => $quotation->comments])?></td>
+                  <td><?= $quotation->has('rfq') ? $this->Html->link($quotation->rfq->title, ['controller' => 'Rfqs', 'action' => 'view', $quotation->rfq->id], ['title' => 'View RFQ Details']) : '' ?></td>
+                  
+                    <?php 
+                    if($quotation->status == 'Pending'){
+                      ?>
+                      <td>
+                      <div class="btn-group ">
+                        <button type="button" style="width: 200px;" class="btn btn-block btn-warning btn-flat"><?= h($quotation->status) ?></button>
+                        <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
+                          <span class="caret"></span>
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a title="Reject Quotation" href="/IS3102_Final/quotations/rejectQuotation/<?= $quotation->id ?>">Reject</a></li>
+                          <li><a title="Approve Quotation" href="/IS3102_Final/quotations/approveQuotation/<?= $quotation->id ?>">Approve</a></li>
+                        </ul>
+                      </div>
+                      </td>
+                      <?php
 
-                } else if($quotation->status == 'Rejected') {
+                    } else if($quotation->status == 'Rejected') {
 
-                ?>
-
-                    <div class="btn-group">
+                      ?>
+                      <td style="background-color:#db8f85 ; text-align: center;">
+                      <b>Rejected</b>
+                      </td>
+                    <!-- <div class="btn-group">
                       <button type="button" style="width: 100px;" class="btn btn-danger btn-flat"><?= h($quotation->status) ?></button>
                       <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
@@ -103,14 +107,14 @@
                         <li><a title="Pending Quotation" href="/IS3102_Final/quotations/pendingQuotation/<?= $quotation->id ?>">Pending</a></li>
                         <li><a title="Approve Quotation" href="/IS3102_Final/quotations/approveQuotation/<?= $quotation->id ?>">Approve</a></li>
                       </ul>
-                    </div>
-                <?php
+                    </div> -->
+                    <?php
 
-                } else {
+                  } else {
 
-                ?>
+                    ?>
 
-                    <div class="btn-group">
+                    <!-- <div class="btn-group">
                       <button type="button" style="width: 100px;" class="btn btn-success btn-flat"><?= h($quotation->status) ?></button>
                       <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
@@ -120,14 +124,24 @@
                         <li><a title="Pending Quotation" href="/IS3102_Final/quotations/pendingQuotation/<?= $quotation->id ?>">Pending</a></li>
                         <li><a title="Reject Quotation" href="/IS3102_Final/quotations/rejectQuotation/<?= $quotation->id ?>">Reject</a></li>
                       </ul>
+                    </div> -->
+                    <td>
+                    <div style="display: flex;
+  flex-wrap: wrap;">
+                    <div class="col-md-6 col-xs-6 "style="background-color:#85db8a ; padding-top:5px; text-align: center; ">
+                      <b>Approved</b>
+                      </div>
+                    <div class="col-md-6 col-xs-6">
+                      <a href="/IS3102_Final/PurchaseOrders/add/<?= $quotation->id ?>/<?= $quotation->supplier_id ?>" type="button" class="btn btn-default btn-flat">Submit PO</a>
                     </div>
-                    <a href="/IS3102_Final/PurchaseOrders/add/<?= $quotation->id ?>/<?= $quotation->supplier_id ?>" type="button" class="btn btn-default btn-flat">Submit PO</a>
-                <?php 
+                    </div>
+                    </td>
+                    <?php 
 
-                }
+                  }
 
-                ?>
-                </td>
+                  ?>
+               
                 <td style="max-width: 150px;"><?= h($quotation->created) ?></td>
                 <td><a href="/IS3102_Final/quotations/download/<?=$quotation->id?>"><i class="fa fa-cloud-download" title="Download Quotation"></i></a>
                 <!-- &nbsp
@@ -135,20 +149,20 @@
                 <!-- &nbsp<?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Quotation')), array('action' => 'delete', $quotation->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $quotation->id))) ?> --></td>
               </tr>
             <?php endforeach; ?>
-            </tbody>
-          </table>
-          <div class="paginator">
-            <ul class="pagination">
-                <?= $this->Paginator->first('<< ' . __('first')) ?>
-                <?= $this->Paginator->prev('< ' . __('previous')) ?>
-                <?= $this->Paginator->numbers() ?>
-                <?= $this->Paginator->next(__('next') . ' >') ?>
-                <?= $this->Paginator->last(__('last') . ' >>') ?>
-            </ul>
-            <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
-          </div>
+          </tbody>
+        </table>
+        <div class="paginator">
+          <ul class="pagination">
+            <?= $this->Paginator->first('<< ' . __('first')) ?>
+            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->numbers() ?>
+            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->last(__('last') . ' >>') ?>
+          </ul>
+          <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
         </div>
       </div>
     </div>
   </div>
+</div>
 </section>
