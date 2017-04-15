@@ -73,7 +73,7 @@ $this->Html->addCrumb(__('View Product'));
                                 <td><?= h($prodSpecifications->description) ?></td>
                                 <td class="actions">
                                     <!--<?= $this->Html->link(__('Edit'), ['controller' => 'ProdSpecifications', 'action' => 'edit', $prodSpecifications->title]) ?>-->
-                                    <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Product Specification')), array('action' => 'delete', $prodSpecifications->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $prodSpecifications->id))) ?>
+                                    <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Product Specification')), array('controller' => 'prodSpecifications', 'action' => 'delete', $prodSpecifications->id, $product->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $prodSpecifications->id))) ?>
                                     <!-- <?= $this->Form->postLink(__('Delete'), ['controller' => 'ProdSpecifications', 'action' => 'delete', $prodSpecifications->id], ['confirm' => __('Are you sure you want to delete # {0}?', $prodSpecifications->id)]) ?> -->
                                 </td>
                             </tr>

@@ -109,7 +109,7 @@ class ProdSpecificationsController extends AppController
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete($id = null, $pid)
     {
         $this->request->allowMethod(['post', 'delete']);
         $prodSpecification = $this->ProdSpecifications->get($id);
@@ -119,6 +119,6 @@ class ProdSpecificationsController extends AppController
             $this->Flash->error(__('The prod specification could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['controller' => 'Products', 'action' => 'view', $pid]);
     }
 }
