@@ -63,7 +63,7 @@ $this->Html->addCrumb(__('Create New Stock Level'));
             </div>
 
             <div class ="row" align="center">
-              <button class="btn btn-md btn-success" type="submit" name="generate_button" style="border-radius: 8px; margin:5px; ">Generate Locations</button>
+              <button class="btn btn-md btn-success" type="submit" name="generate_button" title="Generate location(s) that has the product without a stocklevel set" style="border-radius: 8px; margin:5px; ">Generate Locations</button>
             </div><br>
 
             <div class ="form-group">

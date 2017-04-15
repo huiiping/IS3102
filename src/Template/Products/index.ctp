@@ -2,11 +2,13 @@
 use Cake\ORM\TableRegistry;
 ?>
 
-<?= $this->Html->script('jquery-1.4.2.min.js') ?>
+<!-- AdminLTE App -->
+<?= $this->Html->script('app.min.js') ?>
+<!-- <?= $this->Html->script('jquery-1.4.2.min.js') ?>
 <?= $this->Html->script('jsLabel2PDF.js') ?>
 <?= $this->Html->script('base64.js') ?>
 <?= $this->Html->script('sprintf.js') ?>
-<?= $this->Html->script('JsBarcode.all.min.js') ?>
+<?= $this->Html->script('JsBarcode.all.min.js') ?> -->
 
 <?php
 $this->assign('title', __('Products') . '/' . __('Index'));
@@ -115,7 +117,7 @@ $this->Html->addCrumb(__('Products'));
   </div>
 </section>
 
-<script>
+<!-- <script>
 
   function printLabel(name, price, barcode) {
     price = "$SGD" + price;
@@ -138,5 +140,5 @@ $this->Html->addCrumb(__('Products'));
   }
 
 
-</script>
+</script> -->
 
