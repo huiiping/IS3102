@@ -62,7 +62,7 @@ $this->Html->addCrumb(__('View Product'));
                         <tr>
                             <th scope="col"><?= __('Title') ?></th>
                             <th scope="col"><?= __('Description') ?></th>
-                            <!--<th scope="col" class="actions"><?= __('Actions') ?></th>-->
+                            <th scope="col" class="actions"><?= __('Actions') ?></th>
                         </tr>
                       </thead>
                         <?php foreach ($product->prod_specifications as $prodSpecifications): ?>
@@ -71,10 +71,11 @@ $this->Html->addCrumb(__('View Product'));
                                     <?= $this->Html->link(__($prodSpecifications->title), ['controller' => 'ProdSpecifications', 'action' => 'view', $prodSpecifications->id, $product->id], ['title' => 'View Product Specification Details']) ?>
                                 </td>
                                 <td><?= h($prodSpecifications->description) ?></td>
-                                <!--<td class="actions">
-                                    <?= $this->Html->link(__('Edit'), ['controller' => 'ProdSpecifications', 'action' => 'edit', $prodSpecifications->title]) ?>
-                                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'ProdSpecifications', 'action' => 'delete', $prodSpecifications->title], ['confirm' => __('Are you sure you want to delete # {0}?', $prodSpecifications->title)]) ?>
-                                </td>-->
+                                <td class="actions">
+                                    <!--<?= $this->Html->link(__('Edit'), ['controller' => 'ProdSpecifications', 'action' => 'edit', $prodSpecifications->title]) ?>-->
+                                    <?= $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash', 'title' => 'Delete Product Specification')), array('action' => 'delete', $prodSpecifications->id), array('escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $prodSpecifications->id))) ?>
+                                    <!-- <?= $this->Form->postLink(__('Delete'), ['controller' => 'ProdSpecifications', 'action' => 'delete', $prodSpecifications->id], ['confirm' => __('Are you sure you want to delete # {0}?', $prodSpecifications->id)]) ?> -->
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </table>
