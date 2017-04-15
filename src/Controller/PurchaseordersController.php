@@ -231,8 +231,8 @@ class PurchaseOrdersController extends AppController
             $purchaseOrder->approval_status = 'Approved';
             $purchaseOrder->delivery_status = 0;
             $purchaseOrder->is_sent = 1;
-            $purchaseOrder->recurring_supplier = 'Activated';
-            $purchaseOrder->recurring_retailer = 'Activated';
+            $purchaseOrder->recurring_supplier = 'Recurring';
+            $purchaseOrder->recurring_retailer = 'Recurring';
             $this->PurchaseOrders->save($purchaseOrder);
             $this->Flash->success(__('The Purchase Order has been approved.'));
 
@@ -303,6 +303,7 @@ class PurchaseOrdersController extends AppController
         $new->set('file_path' , $old->file_path);
         $new->set('approval_status' , 'Pending');
         $new->set('delivery_status' , NULL);
+        
         $new->set('supplier_id' , $old->supplier_id);
         $new->set('quotation_id' , $old->quotation_id);
         $new->set('location_id' , $old->location_id);     
@@ -327,7 +328,7 @@ class PurchaseOrdersController extends AppController
         $purchaseOrder->set('recurring_supplier', 'Deactivated');
         $this->PurchaseOrders->save($purchaseOrder);
         $this->Flash->success(__('The recurring Purchase Order feature was Deactivated.'));
-        return $this->redirect(['action' => 'Index']);
+        return $this->redirect(['action' => 'supplierIndex']);
     }
     
     public function activateRecurring($id=null){
@@ -343,7 +344,7 @@ class PurchaseOrdersController extends AppController
         $purchaseOrder->set('recurring_supplier', 'Recurring');
         $this->PurchaseOrders->save($purchaseOrder);
         $this->Flash->success(__('The recurring Purchase Order feature was Activated.'));
-        return $this->redirect(['action' => 'Index']);
+        return $this->redirect(['action' => 'supplierIndex']);
     }
     public function listpurchaseorders() 
     {
